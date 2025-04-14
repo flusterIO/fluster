@@ -1,0 +1,72 @@
+# Miscellaneous
+*.class
+*.log
+*.pyc
+*.swp
+.DS_Store
+.atom/
+.build/
+.buildlog/
+.history
+.svn/
+.swiftpm/
+migrate_working_dir/
+packages/godum/example
+
+# IntelliJ related
+*.iml
+*.ipr
+*.iws
+.idea/
+
+# The .vscode folder contains launch configuration and tasks you configure in
+# VS Code which you may wish to be included in version control, so this line
+# is commented out by default.
+#.vscode/
+
+# Flutter/Dart/Pub related
+**/doc/api/
+**/ios/Flutter/.last_build_id
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.pub-cache/
+.pub/
+/build/
+
+# Symbolication related
+app.*.symbols
+
+# Obfuscation related
+app.*.map.json
+
+# Android Studio will place build artifacts here
+/android/app/debug
+/android/app/profile
+/android/app/release
+
+
+
+
+/packages/dum_native/*.class
+/packages/dum_native/*.log
+/packages/dum_native/*.pyc
+/packages/dum_native/*.swp
+/packages/dum_native/.DS_Store
+/packages/dum_native/.atom/
+/packages/dum_native/.build/
+/packages/dum_native/.buildlog/
+/packages/dum_native/.history
+/packages/dum_native/.svn/
+/packages/dum_native/.swiftpm/
+/packages/dum_native/migrate_working_dir/
+/packages/dum_native/*.iml
+/packages/dum_native/*.ipr
+/packages/dum_native/*.iws
+/packages/dum_native/.idea/
+/packages/dum_native/pubspec.lock
+/packages/dum_native/**/doc/api/
+/packages/dum_native/.dart_tool/
+/packages/dum_native/.flutter-plugins
+/packages/dum_native/.flutter-plugins-dependencies
+/packages/dum_native/build/

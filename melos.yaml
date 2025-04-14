@@ -1,0 +1,14 @@
+name: fluster
+publish_to: none
+environment:
+  sdk: ^3.7.0
+packages:
+  - packages/fluster_native_interface
+  - apps/fluster
+scripts:
+  test_all:
+    name: testAll
+    run: flutter test ./apps/fluster --coverage --no-pub && flutter pub run test_cov_console --file=apps/fluster/coverage/lcov.info
+  build_rust:
+    name: buildRust
+    run: flutter_rust_bridge_codegen generate ./packages/fluster_native_interface

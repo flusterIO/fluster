@@ -1,0 +1,15 @@
+name: fluster
+publish_to: none
+environment:
+  sdk: ^3.7.0
+# workspace:
+#   - apps/fluster
+#   - packages/fluster_native_interface
+#   - packages/fluster_db
+dev_dependencies:
+  melos: ^6.0.0
+flutter:
+  # The following line ensures that the Material Icons font is
+  # included with your application, so that you can use the icons in
+  # the material Icons class.
+  uses-material-design: true

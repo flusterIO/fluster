@@ -1,0 +1,23 @@
+[workspace]
+resolver = "2"
+members = [
+    # "apps/fluster/rust",
+    # "packages/fluster_native_interface/rust",
+    # "packages/test_utils",
+]
+
+
+[workspace.package]
+version = "0.0.1"
+authors = ["Andrew Iglinski"]
+description = "Free, open sources academic note taking."
+documentation = "ulld.vercel.app"
+edition = "2021"
+
+
+[profile.release]
+lto = true
+strip = true
+opt-level = 3
+panic = 'abort'
+codegen-units = 1
