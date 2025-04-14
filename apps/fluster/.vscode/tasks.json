@@ -1,0 +1,29 @@
+{
+    "tasks": [
+        {
+            "label": "Run Builders",
+            "type": "shell",
+            "command": "dart run build_runner build --delete-conflicting-outputs"
+        },
+        {
+            "label": "Format Everything",
+            "type": "shell",
+            "command": "dart format ./lib/src/**/*.dart"
+        },
+        {
+            "label": "Generate Icons",
+            "type": "shell",
+            "command": "flutter pub run flutter_launcher_icons:main"
+        },
+        {
+            "label": "Lint",
+            "type": "shell",
+            "command": "dart run custom_lint"
+        },
+        {
+            "label": "Generate FFI classes",
+            "type": "shell",
+            "command": "dart run ffigen --config ./ffigen.yaml"
+        }
+    ]
+}
