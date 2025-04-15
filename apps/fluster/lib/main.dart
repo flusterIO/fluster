@@ -5,6 +5,7 @@
 import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:fluster/app.dart';
 import 'package:fluster/widgets/wrappers/keyboard_shortcuts.dart';
+import 'package:fluster_native_interface/fluster_native_interface.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -47,7 +48,9 @@ void main() async {
     // appWindow.minSize = initialSize;
     // appWindow.size = initialSize;
     // appWindow.alignment = Alignment.center;
+    appWindow.title = "Fluster";
+    appWindow.maximize();
     appWindow.show();
   });
-  // await RustLib.init();
+  await RustLib.init();
 }

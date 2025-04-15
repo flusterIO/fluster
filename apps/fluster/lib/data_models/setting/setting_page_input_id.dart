@@ -1,0 +1,4 @@
+enum SettingPageInputId {
+   darkmode,
+   rootRelativeFilePath
+}

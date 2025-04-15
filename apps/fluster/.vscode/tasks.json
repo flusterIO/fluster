@@ -19,11 +19,6 @@
             "label": "Lint",
             "type": "shell",
             "command": "dart run custom_lint"
-        },
-        {
-            "label": "Generate FFI classes",
-            "type": "shell",
-            "command": "dart run ffigen --config ./ffigen.yaml"
         }
     ]
 }

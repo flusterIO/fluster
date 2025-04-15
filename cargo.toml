@@ -1,9 +1,8 @@
 [workspace]
 resolver = "2"
 members = [
-    # "apps/fluster/rust",
-    # "packages/fluster_native_interface/rust",
     # "packages/test_utils",
+    "packages/fluster_native_interface/rust",
 ]
 
 

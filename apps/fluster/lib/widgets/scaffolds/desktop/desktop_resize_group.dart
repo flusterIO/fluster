@@ -21,7 +21,7 @@ class DesktopResizeGroup extends ConsumerWidget {
       children.add(
         ResizableChild(
           divider: ResizableDivider(color: theme?.border, thickness: 2),
-          size: ResizableSize.pixels(180),
+          size: ResizableSize.shrink(min: 160),
           child: DesktopPanelLeftSwitch(),
           // minSize: 120,
         ),

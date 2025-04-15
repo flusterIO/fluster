@@ -48,7 +48,7 @@ class ResponsiveNavigationRail extends ConsumerWidget {
               color:
                   active
                       ? theme.foreground
-                      : Theme.of(context).unselectedWidgetColor,
+                      : theme.foreground.withOpacity(0.85),
             ),
           ),
         ),

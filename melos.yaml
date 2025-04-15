@@ -8,7 +8,13 @@ packages:
 scripts:
   test_all:
     name: testAll
-    run: flutter test ./apps/fluster --coverage --no-pub && flutter pub run test_cov_console --file=apps/fluster/coverage/lcov.info
+    run: flutter test $FLUSTER_NATIVE_ROOT/apps/fluster --coverage --no-pub && flutter pub run test_cov_console --file=$FLUSTER_NATIVE_ROOT/apps/fluster/coverage/lcov.info
+  test_rust:
+    name: Test Rust
+    run: cargo llvm-cov --html
+  # run_builders:
+  #   name: Run Builders
+  #   run:
   build_rust:
     name: buildRust
     run: flutter_rust_bridge_codegen generate ./packages/fluster_native_interface

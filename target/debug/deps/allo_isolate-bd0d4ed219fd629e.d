@@ -1,0 +1,11 @@
+/Users/bigsexy/Desktop/fluster/target/debug/deps/liballo_isolate-bd0d4ed219fd629e.rmeta: /Users/bigsexy/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/allo-isolate-0.1.27/src/lib.rs /Users/bigsexy/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/allo-isolate-0.1.27/src/dart_array.rs /Users/bigsexy/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/allo-isolate-0.1.27/src/into_dart.rs /Users/bigsexy/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/allo-isolate-0.1.27/src/into_dart_extra.rs /Users/bigsexy/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/allo-isolate-0.1.27/src/ffi.rs
+
+/Users/bigsexy/Desktop/fluster/target/debug/deps/liballo_isolate-bd0d4ed219fd629e.rlib: /Users/bigsexy/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/allo-isolate-0.1.27/src/lib.rs /Users/bigsexy/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/allo-isolate-0.1.27/src/dart_array.rs /Users/bigsexy/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/allo-isolate-0.1.27/src/into_dart.rs /Users/bigsexy/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/allo-isolate-0.1.27/src/into_dart_extra.rs /Users/bigsexy/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/allo-isolate-0.1.27/src/ffi.rs
+
+/Users/bigsexy/Desktop/fluster/target/debug/deps/allo_isolate-bd0d4ed219fd629e.d: /Users/bigsexy/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/allo-isolate-0.1.27/src/lib.rs /Users/bigsexy/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/allo-isolate-0.1.27/src/dart_array.rs /Users/bigsexy/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/allo-isolate-0.1.27/src/into_dart.rs /Users/bigsexy/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/allo-isolate-0.1.27/src/into_dart_extra.rs /Users/bigsexy/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/allo-isolate-0.1.27/src/ffi.rs
+
+/Users/bigsexy/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/allo-isolate-0.1.27/src/lib.rs:
+/Users/bigsexy/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/allo-isolate-0.1.27/src/dart_array.rs:
+/Users/bigsexy/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/allo-isolate-0.1.27/src/into_dart.rs:
+/Users/bigsexy/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/allo-isolate-0.1.27/src/into_dart_extra.rs:
+/Users/bigsexy/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/allo-isolate-0.1.27/src/ffi.rs:

@@ -17,7 +17,7 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$SettingsPageState {
-  SettingCategory get activeCategoryId => throw _privateConstructorUsedError;
+  SettingPageId get activeCategoryId => throw _privateConstructorUsedError;
 
   /// Create a copy of SettingsPageState
   /// with the given fields replaced by the non-null parameter values.
@@ -33,7 +33,7 @@ abstract class $SettingsPageStateCopyWith<$Res> {
     $Res Function(SettingsPageState) then,
   ) = _$SettingsPageStateCopyWithImpl<$Res, SettingsPageState>;
   @useResult
-  $Res call({SettingCategory activeCategoryId});
+  $Res call({SettingPageId activeCategoryId});
 }
 
 /// @nodoc
@@ -57,7 +57,7 @@ class _$SettingsPageStateCopyWithImpl<$Res, $Val extends SettingsPageState>
                 null == activeCategoryId
                     ? _value.activeCategoryId
                     : activeCategoryId // ignore: cast_nullable_to_non_nullable
-                        as SettingCategory,
+                        as SettingPageId,
           )
           as $Val,
     );
@@ -73,7 +73,7 @@ abstract class _$$SettingsPageStateImplCopyWith<$Res>
   ) = __$$SettingsPageStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({SettingCategory activeCategoryId});
+  $Res call({SettingPageId activeCategoryId});
 }
 
 /// @nodoc
@@ -96,7 +96,7 @@ class __$$SettingsPageStateImplCopyWithImpl<$Res>
             null == activeCategoryId
                 ? _value.activeCategoryId
                 : activeCategoryId // ignore: cast_nullable_to_non_nullable
-                    as SettingCategory,
+                    as SettingPageId,
       ),
     );
   }
@@ -108,7 +108,7 @@ class _$SettingsPageStateImpl implements _SettingsPageState {
   const _$SettingsPageStateImpl({required this.activeCategoryId});
 
   @override
-  final SettingCategory activeCategoryId;
+  final SettingPageId activeCategoryId;
 
   @override
   String toString() {
@@ -141,11 +141,11 @@ class _$SettingsPageStateImpl implements _SettingsPageState {
 
 abstract class _SettingsPageState implements SettingsPageState {
   const factory _SettingsPageState({
-    required final SettingCategory activeCategoryId,
+    required final SettingPageId activeCategoryId,
   }) = _$SettingsPageStateImpl;
 
   @override
-  SettingCategory get activeCategoryId;
+  SettingPageId get activeCategoryId;
 
   /// Create a copy of SettingsPageState
   /// with the given fields replaced by the non-null parameter values.

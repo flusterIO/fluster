@@ -1,5 +1,5 @@
 import 'package:fluster/state/providers/settingsPage/settings_page_provider.dart';
-import 'package:fluster/static/settings/setting_categories.dart';
+import 'package:fluster/static/settings/setting_pages/all_settings.dart';
 import 'package:fluster/static/styles/shad/shad_themes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -14,7 +14,7 @@ class SettingsSideMenuPanel extends ConsumerWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       spacing: 12,
-      children: List.generate(SettingPageCategories.items.length, (int idx) {
+      children: List.generate(allSettings.length, (int idx) {
         return SizedBox(
           width: double.infinity,
           child: MouseRegion(
@@ -24,7 +24,7 @@ class SettingsSideMenuPanel extends ConsumerWidget {
                 final currentState = ref.read(settingsPageProvider);
                 ref.read(settingsPageProvider.notifier).state = currentState
                     .copyWith(
-                      activeCategoryId: SettingPageCategories.items[idx].id,
+                      activeCategoryId: allSettings[idx].pageId,
                     );
               },
               child: AnimatedContainer(
@@ -34,7 +34,7 @@ class SettingsSideMenuPanel extends ConsumerWidget {
                   border: Border.all(
                     color:
                         settingPageState.activeCategoryId ==
-                                SettingPageCategories.items[idx].id
+                                allSettings[idx].pageId
                             ? shad.primary
                             : shad.border,
                   ),
@@ -46,9 +46,9 @@ class SettingsSideMenuPanel extends ConsumerWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   spacing: 2,
                   children: [
-                    Text(SettingPageCategories.items[idx].label),
+                    Text(allSettings[idx].label),
                     Text(
-                      SettingPageCategories.items[idx].desc,
+                      allSettings[idx].desc,
                       style: theme.textTheme.bodySmall!.copyWith(
                         color: shad.mutedForeground,
                       ),

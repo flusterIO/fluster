@@ -1,4 +1,5 @@
 import 'package:fluster/static/styles/static_styles.dart';
+import 'package:fluster/widgets/brand/fluster_logo.dart';
 import 'package:flutter/widgets.dart';
 
 class Dashboard extends StatelessWidget {
@@ -13,7 +14,8 @@ class Dashboard extends StatelessWidget {
             SizedBox(height: 18),
             Text("Dashboardddddd"),
             SizedBox(height: 10),
-            Text("Dashboard goes here")
+            FlusterLogo(),
+            FlusterWideLogo(),
           ],
         ),
       ),

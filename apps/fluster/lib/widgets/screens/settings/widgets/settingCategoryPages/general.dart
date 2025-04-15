@@ -1,6 +1,6 @@
-import 'package:fluster/widgets/interaction/inputs/dark_mode_toggle/desktop_dark_mode_toggle.dart';
-import 'package:fluster/widgets/interaction/inputs/path_picker/path_picker_input_desktop.dart';
-import 'package:fluster/widgets/screens/settings/widgets/section.dart';
+import 'package:fluster/static/settings/setting_pages/general_settings.dart';
+import 'package:fluster/widgets/interaction/inputs/setting_page/setting_page_input.dart';
+import 'package:fluster/widgets/wrappers/page_container.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -20,27 +20,16 @@ class GeneralSettingsCategoryPage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     // final theme = Theme.of(context);
     // final shad = theme.extension<ShadTheme>()!;
-    return SingleChildScrollView(
-      // behavior: MaterialScrollBehavior(),
-      // axisDirection: AxisDirection.down,
-      // clipBehavior: Clip.antiAlias,
-      // dragStartBehavior: DragStartBehavior.start,
-      child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 32),
-        child: Form(
-          key: _formKey,
-          child: Column(
-            spacing: 32,
-            children: [
-              SettingSection(label: "Dark Mode", children: [DarkModeToggle()]),
-              SettingSection(
-                label: "Bibliography",
-                children: [
-                    PathPickerInput(formKey: _formKey,)
-                ],
-              ),
-            ],
-          ),
+    return PageContainer(
+      child: Form(
+        key: _formKey,
+        child: Column(
+          children: List.generate(general_settings.items.length, (int idx) {
+            return SettingPageInput(
+              item: general_settings.items[idx],
+              formKey: _formKey,
+            );
+          }),
         ),
       ),
     );

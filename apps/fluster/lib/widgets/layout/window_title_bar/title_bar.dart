@@ -3,12 +3,9 @@ import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:fluster/state/providers/panelLeft/panel_left_provider.dart';
 import 'package:fluster/state/providers/panelRight/panel_right_provider.dart';
 import 'package:fluster/static/styles/shad/shad_themes.dart';
-// import 'package:fluent_ui/fluent_ui.dart';
+import 'package:fluster/widgets/interaction/commandPalette/command_palette_container.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-// import 'package:ulld_native/src/state/providers/panelLeft/panel_left_provider.dart';
-// import 'package:ulld_native/src/state/providers/panelRight/panel_right_provider.dart';
-// import 'package:ulld_native/static/styles/shadThemes/shad_theme.dart';
 
 class WindowTitleBar extends ConsumerWidget {
   const WindowTitleBar({super.key});
@@ -22,14 +19,43 @@ class WindowTitleBar extends ConsumerWidget {
       child: WindowTitleBarBox(
         child: MoveWindow(
           child: Row(
-            mainAxisAlignment: MainAxisAlignment.end,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Row(
                 children: [
+                  CloseWindowButton(),
                   MinimizeWindowButton(),
                   MaximizeWindowButton(),
-                  CloseWindowButton(),
                 ],
+              ),
+              Container(
+                decoration: BoxDecoration(
+                  color: shadTheme.foreground.withOpacity(0.15),
+                  borderRadius: BorderRadius.all(Radius.circular(8)),
+                ),
+                child: GestureDetector(
+                  onTap: () {
+                    showCommandPalette(context);
+                  },
+                  child: MouseRegion(
+                    cursor: SystemMouseCursors.click,
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                        vertical: 1,
+                        horizontal: 32,
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        spacing: 8,
+                        children: [
+                          Icon(Icons.search, size: 14),
+                          Text("Search"),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),

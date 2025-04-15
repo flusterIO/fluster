@@ -30,6 +30,7 @@ class FlusterDesktopApp extends ConsumerWidget {
       highContrastDarkTheme: darkThemeData,
       themeMode: themeMode,
       debugShowCheckedModeBanner: false,
+    // FLUTTER_MULTI_PLATFORM_WARNING: This will need to be adjusted for non-desktop environments.
       scrollBehavior: const MaterialScrollBehavior().copyWith(
         scrollbars: false,
       ),
