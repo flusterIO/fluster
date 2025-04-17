@@ -1,0 +1,10 @@
+[package]
+name = "fluster_rust_types"
+version.workspace = true
+authors.workspace = true
+description.workspace = true
+documentation.workspace = true
+edition.workspace = true
+
+[dependencies]
+thiserror = {workspace = true}

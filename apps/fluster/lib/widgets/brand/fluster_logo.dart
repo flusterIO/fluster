@@ -35,17 +35,17 @@ class FlusterWideLogo extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.center,
-            spacing: 4,
+      spacing: 4,
       children: [
         FlusterLogo(
           colored: true,
           // TODO: Figure out how to pass props without this fucking constant error.
-          size: height * 0.8
+          size: height * 0.8,
         ),
         Container(
           decoration: BoxDecoration(color: theme?.foreground),
           height: height,
-        width: 2,
+          width: 2,
         ),
         Column(
           mainAxisAlignment: MainAxisAlignment.center,

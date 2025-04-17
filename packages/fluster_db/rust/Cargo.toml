@@ -7,7 +7,20 @@ edition = "2021"
 crate-type = ["cdylib", "staticlib"]
 
 [dependencies]
-flutter_rust_bridge = "=2.9.0"
+chrono = { workspace = true }
+flutter_rust_bridge = { workspace = true }
+gray_matter = { workspace = true }
+mdxjs = "0.3.4"
+serde = { workspace = true, features = ["derive"] }
+surrealdb = { workspace = true, features = [
+    "kv-surrealkv",
+    "protocol-ws",
+    "rustls",
+] }
+tokio = { version = "1.44.2", features = ["macros", "rt-multi-thread"] }
+
+[dev-dependencies]
+fluster_test_utils = { path = "../../fluster_test_utils" }
 
 [lints.rust]
 unexpected_cfgs = { level = "warn", check-cfg = ['cfg(frb_expand)'] }

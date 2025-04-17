@@ -1,0 +1,15 @@
+[package]
+name = "fluster_test_utils"
+version.workspace = true
+authors.workspace = true
+description.workspace = true
+documentation.workspace = true
+edition.workspace = true
+
+[dependencies]
+chrono = { workspace = true }
+handlebars = "6.3.2"
+include_dir = { workspace = true }
+serde = { workspace = true }
+serde_json = { workspace = true }
+tempfile = "3.19.1"

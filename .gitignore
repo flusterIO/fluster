@@ -70,3 +70,4 @@ app.*.map.json
 /packages/dum_native/.flutter-plugins
 /packages/dum_native/.flutter-plugins-dependencies
 /packages/dum_native/build/
+/target

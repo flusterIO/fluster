@@ -1,0 +1,45 @@
+syntax = "proto3";
+package mdx.v1;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/timestamp.proto";
+
+service MdxService {
+  rpc parseByPath(PathRequest) returns (MdxNoteResponse);
+}
+
+message FrontMatter {
+  string title = 1;
+  optional string summary = 2;
+  google.protobuf.Timestamp created_at = 3;
+  google.protobuf.Timestamp updated_at = 4;
+}
+
+message File {
+  /// All paths are relative to notes directory root.
+  string path = 3;
+  /// File descriptor
+  google.protobuf.FileDescriptorSet descriptor = 4;
+}
+
+message MdxNote {
+  FrontMatter matter = 1;
+  /// body is equivalent to raw file contents with the front matter yaml removed.
+  string body = 2;
+  File file = 3;
+}
+
+message NoteSummary {
+  string title = 1;
+  string summary = 2;
+  google.protobuf.Timestamp created_at = 3;
+  google.protobuf.Timestamp updated_at = 4;
+}
+
+message PathRequest {
+  string path = 1;
+}
+
+message MdxNoteResponse {
+  MdxNote note = 1;
+}

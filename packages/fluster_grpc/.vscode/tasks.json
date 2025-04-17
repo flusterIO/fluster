@@ -1,0 +1,9 @@
+{
+    "tasks": [ 
+        {
+            "label": "Build grpc rust",
+            "type": "shell",
+            "command": "cargo build"
+        }
+    ]
+}

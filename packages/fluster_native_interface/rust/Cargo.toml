@@ -10,7 +10,15 @@ edition.workspace = true
 crate-type = ["cdylib", "staticlib"]
 
 [dependencies]
-flutter_rust_bridge = "=2.9.0"
+dirs = { workspace = true }
+env_logger = "0.11.8"
+flutter_rust_bridge = { workspace = true }
+log = "0.4.27"
+tracing = { workspace = true }
+tracing-subscriber = { workspace = true }
+thiserror = { workspace = true }
+fluster_rust_types = { path = "../../fluster_rust_types/" }
+regex = "1.11.1"
 
 [lints.rust]
 unexpected_cfgs = { level = "warn", check-cfg = ['cfg(frb_expand)'] }
