@@ -18,6 +18,7 @@ surrealdb = { workspace = true, features = [
     "rustls",
 ] }
 tokio = { version = "1.44.2", features = ["macros", "rt-multi-thread"] }
+validator = "0.20.0"
 
 [dev-dependencies]
 fluster_test_utils = { path = "../../fluster_test_utils" }

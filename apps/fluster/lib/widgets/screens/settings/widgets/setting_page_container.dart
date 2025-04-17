@@ -9,33 +9,39 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class SettingsPageContainer extends ConsumerWidget {
   final _formKey = GlobalKey<FormState>();
-  final SettingPageData pageData;
+  final SettingPageDataAbstract pageData;
 
   SettingsPageContainer({super.key, required this.pageData});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final activeId = ref.watch(settingsPageProvider);
-    final activeSettingsPage = getSettings().pages.firstWhere(
+    final activeSettingsPage = getInitialSettings().pages.firstWhere(
       (x) => x.id == activeId.activeCategoryId,
     );
     return PageContainer(
       child: Form(
         key: _formKey,
-        child: Column( 
-                    children: List.generate(activeSettingsPage.sections.length, (int idx) {
-                        return SettingSection(
-                            label: activeSettingsPage.sections[idx].label,
-                            subtitle: activeSettingsPage.sections[idx].subtitle,
-                            children: List.generate(
-                               activeSettingsPage.sections[idx].items.length, (int idx2) {
-                                return SettingPageInput(
-                                    item: activeSettingsPage.sections[idx].items[idx2],
-                                    formKey: _formKey
-                                );
-                        }));
-                    }),
-                ),
+        child: Column(
+          spacing: 48,
+          children: List.generate(activeSettingsPage.sections.length, (
+            int idx,
+          ) {
+            return SettingSection(
+              label: activeSettingsPage.sections[idx].label,
+              subtitle: activeSettingsPage.sections[idx].subtitle,
+              children: List.generate(
+                activeSettingsPage.sections[idx].items.length,
+                (int idx2) {
+                  return SettingPageInput(
+                    item: activeSettingsPage.sections[idx].items[idx2],
+                    formKey: _formKey,
+                  );
+                },
+              ),
+            );
+          }),
+        ),
       ),
     );
   }

@@ -19,8 +19,8 @@ abstract class SettingAbstract<T> {
   });
 
   String getFormattedId() {
-        return "s-${id.toString()}";
-    }
+    return "s-${id.toString()}";
+  }
 
   Future<T> read();
 

@@ -1,31 +1,42 @@
+import 'package:fluster/data_models/setting/setting_abstract.dart';
 import 'package:fluster/data_models/setting/setting_pages.dart';
 import 'package:fluster/data_models/setting/setting_section.dart';
+import 'package:fluster/static/settings/setting_by_category/keymap.dart';
 import 'package:fluster/static/settings/setting_sections/general/general_settings.dart';
 
 class Settings {
-  final List<SettingPageData> pages;
+  final List<SettingPageDataAbstract> pages;
+  final bool isSeeded = false;
   const Settings({required this.pages});
+  SettingPageDataAbstract getPageById<T extends SettingAbstract>(
+    SettingPageId id,
+  ) {
+    return pages.firstWhere((x) => x.id == id) as SettingPageDataAbstract<T>;
+  }
+
+  /// Reads all settings from the database and returns a new instance with settings applied from the database.
+  Future<Settings> toSeeded() async {
+    // FIX: Set all settings here, and return the new instance.
+    return this;
+  }
 }
 
-Settings getSettings() {
+Settings getInitialSettings() {
   return Settings(
     pages: [
       SettingPageData(
         id: SettingPageId.general,
         label: "General",
         desc: "General purpose settings.",
-        sections: [SettingSection(
-                    label: "General Purpose Settings",
-                    subtitle: "Some test subtitle",
-                    items: generalSettings
-                )],
+        sections: [
+          SettingSection(
+            label: "General Purpose Settings",
+            subtitle: "Some test subtitle",
+            items: generalSettings,
+          ),
+        ],
       ),
-      SettingPageData(
-        id: SettingPageId.keymap,
-        label: "Keymap",
-        desc: "View or modify your keyboard shortcuts.",
-        sections: [ 
-            ]),
+      getKeymapSettings(),
       SettingPageData(
         id: SettingPageId.searchAndTaggables,
         label: "Search & Organization",

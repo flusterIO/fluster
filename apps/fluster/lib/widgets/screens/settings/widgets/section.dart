@@ -13,19 +13,34 @@ class SettingSection extends StatelessWidget {
   });
   @override
   Widget build(BuildContext context) {
-    var items = <Widget>[];
+    var colChildren = <Widget>[];
     if (label != null && label != "") {
-      items.add(SettingsSectionLabel(content: label!));
+      colChildren.add(SettingsSectionLabel(content: label!));
       if (subtitle != null && subtitle != "") {
-        items.add(SettingsSectionLabel(content: label!, subtitle: true,));
+        colChildren.add(SettingsSectionLabel(content: label!, subtitle: true));
       }
     }
-    items.addAll(children);
     return Column(
-      spacing: 0,
+      spacing: 24,
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.start,
-      children: items,
+      children:
+          colChildren.isNotEmpty
+              ? [
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  spacing: 0,
+                  children: colChildren,
+                ),
+                Column(
+                  spacing: 24,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: children,
+                ),
+              ]
+              : children,
     );
   }
 }

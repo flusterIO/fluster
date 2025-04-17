@@ -57,6 +57,7 @@ dependencies:
   fluster_native_interface:
     path: ../../packages/fluster_native_interface
   shared_preferences: ^2.5.3
+  loading_indicator: ^3.1.1
 dev_dependencies:
   flutter_test:
     sdk: flutter

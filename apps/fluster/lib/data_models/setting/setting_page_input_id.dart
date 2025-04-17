@@ -1,1 +1,1 @@
-enum SettingPageInputId { darkmode, rootRelativeFilePath }
+enum SettingPageInputId { darkmode, rootRelativeFilePath, keymapEntry }

@@ -2,6 +2,7 @@ import 'package:fluster/data_models/setting/setting_abstract.dart';
 import 'package:fluster/data_models/setting/setting_item.dart';
 import 'package:fluster/data_models/setting/setting_page_input_id.dart';
 import 'package:fluster/widgets/interaction/inputs/setting_page/setting_inputs/dark_mode_toggle/desktop_dark_mode_toggle.dart';
+import 'package:fluster/widgets/interaction/inputs/setting_page/setting_inputs/keymap_entry/keymap_entry_input.dart';
 import 'package:fluster/widgets/interaction/inputs/setting_page/setting_inputs/path_picker/path_picker_input_desktop.dart';
 import 'package:flutter/material.dart';
 
@@ -18,6 +19,8 @@ class SettingPageInput extends StatelessWidget {
     switch (item.inputKey) {
       case SettingPageInputId.darkmode:
         return DarkModeToggle();
+      case SettingPageInputId.keymapEntry:
+        return KeymapEntryInput(setting: item as KeymapSetting,);
       case SettingPageInputId.rootRelativeFilePath:
         return PathPickerInput(
           formKey: formKey,

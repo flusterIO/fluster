@@ -1,4 +1,5 @@
-enum KeymapId {
+enum GlobalActionId {
     toggleRightPanel,   
     toggleLeftPanel
-}
+} 
+

@@ -1,14 +1,17 @@
+import 'package:fluster/data_models/actions/global_action.dart';
 import 'package:fluster/data_models/setting/setting_abstract.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 // RESUME: Come back here and implement the toString and fromString methods to properly parse and store each keymap as a string. Check the keys and format in the main.dart/app.dart file and adjust accordingly.
 class KeymapSetting extends SettingAbstract<String> {
+  final GlobalAction action;
   const KeymapSetting({
     required super.value,
     required super.defaultValue,
     required super.label,
     required super.id,
     required super.inputKey,
+    required this.action,
     super.desc,
   });
 

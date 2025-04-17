@@ -11,7 +11,7 @@ class SettingsSideMenuPanel extends ConsumerWidget {
     final theme = Theme.of(context);
     final shad = theme.extension<ShadTheme>()!;
     final settingPageState = ref.watch(settingsPageProvider);
-    final allSettings = getSettings();
+    final allSettings = getInitialSettings();
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       spacing: 12,

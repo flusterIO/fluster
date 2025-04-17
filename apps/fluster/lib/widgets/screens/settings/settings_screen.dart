@@ -10,7 +10,7 @@ class SettingsScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext buildContext, WidgetRef ref) {
     final currentId = ref.watch(settingsPageProvider);
-    final item = getSettings().pages.firstWhere(
+    final item = getInitialSettings().pages.firstWhere(
       (x) => x.id == currentId.activeCategoryId,
     );
     return SettingsPageContainer(pageData: item);

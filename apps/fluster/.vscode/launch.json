@@ -1,93 +1,52 @@
 {
-    // Use IntelliSense to learn about possible attributes.
-    // Hover to view descriptions of existing attributes.
-    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
-    //  per dart-flutter extensions directions at: https://dartcode.org/docs/launch-configuration/
-    //
-    // although one can, NEVER EVER put any define args in these launch configs as it's
-    // too easy to by mistake include private keys and have them end up in the
-    // git repo.
-    //
-    // Since build variants require the -t target-main-dart.dart
-    // they go as separate launch config settings here
-    //
-    //
-    // Remember deviceID only works for connected running devices or emulators(simulators)
-    // To launch non running emulators(simulators) one uses a task as than it will expose that
-    // in the command pallete
-    //
-    // For running connected devices its deviceID in the config and
-    //   "compounds": [{
-    //      "name": "All Devices",
-    //      "configurations": ["Run Dev Android", "Run Dev Iphone"],
-    //
-    //  }]
-    // The All Devices will show up as a Run Device launch Config Option in the Run menu
-    "version": "0.2.0",
-    "configurations": [
-        // {
-        //     // Profile launch config so that I can profile flutter mobile apps
-        //     "name": "Flutter-Profile",
-        //     "type": "dart",
-        //     "request": "launch",
-        //     "program": "lib/main.dart",
-        //     "flutterMode": "profile"
-        // },
-        {
-            // Debug launch config so that I can debug an app
-            "name": "Flutter-Debug",
-            "request": "launch",
-            "type": "dart",
-            "program": "lib/main.dart",
-            "flutterMode": "debug"
-        },
-        // per: https://pub.dev/documentation/golden_toolkit/latest/#configure-vs-code
-        {
-            // Golden launch config so that I can update goldens after I change UI code
-            "name": "Golden",
-            "request": "launch",
-            "type": "dart",
-            "codeLens": {
-                "for": [
-                    "run-test",
-                    "run-test-file"
-                ]
-            },
-            "args": [
-                "--update-goldens"
-            ]
-        },
-        // Release launch config so that I can run a released app on a device
-        {
-            "name": "Flutter-Release",
-            "request": "launch",
-            "type": "dart",
-            "program": "lib/main.dart",
-            "flutterMode": "release"
-        },
-        // Integration Test launch config so that I can launch the  app to drive the integration tests on
-        {
-            "name": "Integration Tests: Launch App",
-            "request": "launch",
-            "type": "dart",
-            "program": "lib/main.dart",
-            "flutterMode": "debug"
-        },
-        {
-            "name": "Flutter: Profile",
-            "request": "launch",
-            "type": "dart",
-            "flutterMode": "profile"
-        },
-        // for emulators per: https://www.reddit.com/r/FlutterDev/comments/8j8w5t/how_do_i_make_vs_code_automatically_open_an/
-        // stops the rendering white box error when launching emulators
-        {
-            "name": "Flutter",
-            "request": "launch",
-            "type": "dart",
-            "args": [
-                "--enable-software-rendering"
-            ]
-        }
-    ]
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Flutter-Debug",
+      "request": "launch",
+      "type": "dart",
+      "program": "lib/main.dart",
+      "flutterMode": "debug"
+    },
+    {
+      "name": "Golden",
+      "request": "launch",
+      "type": "dart",
+      "codeLens": {
+        "for": ["run-test", "run-test-file"]
+      },
+      "args": ["--update-goldens"]
+    },
+    {
+      "name": "Flutter-Release",
+      "request": "launch",
+      "type": "dart",
+      "program": "lib/main.dart",
+      "flutterMode": "release"
+    },
+    {
+      "name": "Integration Tests: Launch App",
+      "request": "launch",
+      "type": "dart",
+      "program": "lib/main.dart",
+      "flutterMode": "debug"
+    },
+    {
+      "name": "Flutter: Profile",
+      "request": "launch",
+      "type": "dart",
+      "program": "lib/main.dart",
+      "flutterMode": "profile"
+    },
+    {
+      "name": "Flutter Development",
+      "request": "launch",
+      "program": "lib/main.dart",
+      "type": "dart",
+      "console": "debugConsole",
+      "flutterMode": "debug",
+      "cwd": "/Users/bigsexy/Desktop/fluster/apps/fluster",
+      "args": []
+    }
+  ]
 }
