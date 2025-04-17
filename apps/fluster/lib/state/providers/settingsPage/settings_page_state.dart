@@ -5,7 +5,6 @@ part "settings_page_state.freezed.dart";
 
 @freezed
 class SettingsPageState with _$SettingsPageState {
-  const factory SettingsPageState({
-    required SettingPageId activeCategoryId,
-  }) = _SettingsPageState;
+  const factory SettingsPageState({required SettingPageId activeCategoryId}) =
+      _SettingsPageState;
 }

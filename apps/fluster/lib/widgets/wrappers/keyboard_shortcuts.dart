@@ -5,9 +5,9 @@ import 'package:fluster/static/settings/keymap/keymap_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-
 class ShortcutGroup {
   final ShortcutActivator activator;
+
   /// Takes an un-intialized Intent class.
   final Type intent;
   final Action action;
@@ -26,12 +26,12 @@ class KeyboardShortcuts extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final km = Keymap().keys;
     final Map<ShortcutActivator, Intent> shortcutMap = {
-        km[KeymapId.toggleRightPanel]!: TogglePanelRightIntent(),
-        km[KeymapId.toggleLeftPanel]!: TogglePanelLeftIntent()
+      km[KeymapId.toggleRightPanel]!: TogglePanelRightIntent(),
+      km[KeymapId.toggleLeftPanel]!: TogglePanelLeftIntent(),
     };
     final Map<Type, Action> actionMap = {
-        TogglePanelRightIntent: TogglePanelRightAction(ref),
-        TogglePanelLeftIntent: TogglePanelLeftAction(ref),
+      TogglePanelRightIntent: TogglePanelRightAction(ref),
+      TogglePanelLeftIntent: TogglePanelLeftAction(ref),
     };
     return Shortcuts(
       shortcuts: shortcutMap,
@@ -40,16 +40,17 @@ class KeyboardShortcuts extends ConsumerWidget {
   }
 }
 
-
 class KeyboardShortcutGroup {
-    final Type action;
-    final Type intent;
-    const KeyboardShortcutGroup({required this.action, required this.intent}); 
+  final Type action;
+  final Type intent;
+  const KeyboardShortcutGroup({required this.action, required this.intent});
 }
 
 List<KeyboardShortcutGroup> getShortcuts() {
-    return [
-        KeyboardShortcutGroup(action: TogglePanelLeftAction, intent: TogglePanelRightIntent)
-    ];
+  return [
+    KeyboardShortcutGroup(
+      action: TogglePanelLeftAction,
+      intent: TogglePanelRightIntent,
+    ),
+  ];
 }
-

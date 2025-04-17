@@ -18,8 +18,7 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$SettingsState {
   /// in seconds.
-  dynamic get default_notification_duration =>
-      throw _privateConstructorUsedError;
+  dynamic get defaultNotificationDuration => throw _privateConstructorUsedError;
 
   /// Create a copy of SettingsState
   /// with the given fields replaced by the non-null parameter values.
@@ -35,7 +34,7 @@ abstract class $SettingsStateCopyWith<$Res> {
     $Res Function(SettingsState) then,
   ) = _$SettingsStateCopyWithImpl<$Res, SettingsState>;
   @useResult
-  $Res call({dynamic default_notification_duration});
+  $Res call({dynamic defaultNotificationDuration});
 }
 
 /// @nodoc
@@ -52,13 +51,13 @@ class _$SettingsStateCopyWithImpl<$Res, $Val extends SettingsState>
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
-  $Res call({Object? default_notification_duration = freezed}) {
+  $Res call({Object? defaultNotificationDuration = freezed}) {
     return _then(
       _value.copyWith(
-            default_notification_duration:
-                freezed == default_notification_duration
-                    ? _value.default_notification_duration
-                    : default_notification_duration // ignore: cast_nullable_to_non_nullable
+            defaultNotificationDuration:
+                freezed == defaultNotificationDuration
+                    ? _value.defaultNotificationDuration
+                    : defaultNotificationDuration // ignore: cast_nullable_to_non_nullable
                         as dynamic,
           )
           as $Val,
@@ -75,7 +74,7 @@ abstract class _$$SettingsStateImplCopyWith<$Res>
   ) = __$$SettingsStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({dynamic default_notification_duration});
+  $Res call({dynamic defaultNotificationDuration});
 }
 
 /// @nodoc
@@ -91,13 +90,13 @@ class __$$SettingsStateImplCopyWithImpl<$Res>
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
-  $Res call({Object? default_notification_duration = freezed}) {
+  $Res call({Object? defaultNotificationDuration = freezed}) {
     return _then(
       _$SettingsStateImpl(
-        default_notification_duration:
-            freezed == default_notification_duration
-                ? _value.default_notification_duration!
-                : default_notification_duration,
+        defaultNotificationDuration:
+            freezed == defaultNotificationDuration
+                ? _value.defaultNotificationDuration!
+                : defaultNotificationDuration,
       ),
     );
   }
@@ -106,16 +105,16 @@ class __$$SettingsStateImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$SettingsStateImpl implements _SettingsState {
-  const _$SettingsStateImpl({this.default_notification_duration = 10});
+  const _$SettingsStateImpl({this.defaultNotificationDuration = 10});
 
   /// in seconds.
   @override
   @JsonKey()
-  final dynamic default_notification_duration;
+  final dynamic defaultNotificationDuration;
 
   @override
   String toString() {
-    return 'SettingsState(default_notification_duration: $default_notification_duration)';
+    return 'SettingsState(defaultNotificationDuration: $defaultNotificationDuration)';
   }
 
   @override
@@ -124,15 +123,15 @@ class _$SettingsStateImpl implements _SettingsState {
         (other.runtimeType == runtimeType &&
             other is _$SettingsStateImpl &&
             const DeepCollectionEquality().equals(
-              other.default_notification_duration,
-              default_notification_duration,
+              other.defaultNotificationDuration,
+              defaultNotificationDuration,
             ));
   }
 
   @override
   int get hashCode => Object.hash(
     runtimeType,
-    const DeepCollectionEquality().hash(default_notification_duration),
+    const DeepCollectionEquality().hash(defaultNotificationDuration),
   );
 
   /// Create a copy of SettingsState
@@ -145,12 +144,12 @@ class _$SettingsStateImpl implements _SettingsState {
 }
 
 abstract class _SettingsState implements SettingsState {
-  const factory _SettingsState({final dynamic default_notification_duration}) =
+  const factory _SettingsState({final dynamic defaultNotificationDuration}) =
       _$SettingsStateImpl;
 
   /// in seconds.
   @override
-  dynamic get default_notification_duration;
+  dynamic get defaultNotificationDuration;
 
   /// Create a copy of SettingsState
   /// with the given fields replaced by the non-null parameter values.

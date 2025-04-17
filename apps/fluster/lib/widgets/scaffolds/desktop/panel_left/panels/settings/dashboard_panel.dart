@@ -1,5 +1,5 @@
 import 'package:fluster/state/providers/settingsPage/settings_page_provider.dart';
-import 'package:fluster/static/settings/setting_pages/all_settings.dart';
+import 'package:fluster/static/settings/settings_root.dart';
 import 'package:fluster/static/styles/shad/shad_themes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -11,10 +11,11 @@ class SettingsSideMenuPanel extends ConsumerWidget {
     final theme = Theme.of(context);
     final shad = theme.extension<ShadTheme>()!;
     final settingPageState = ref.watch(settingsPageProvider);
+    final allSettings = getSettings();
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       spacing: 12,
-      children: List.generate(allSettings.length, (int idx) {
+      children: List.generate(allSettings.pages.length, (int idx) {
         return SizedBox(
           width: double.infinity,
           child: MouseRegion(
@@ -23,9 +24,7 @@ class SettingsSideMenuPanel extends ConsumerWidget {
               onTap: () {
                 final currentState = ref.read(settingsPageProvider);
                 ref.read(settingsPageProvider.notifier).state = currentState
-                    .copyWith(
-                      activeCategoryId: allSettings[idx].pageId,
-                    );
+                    .copyWith(activeCategoryId: allSettings.pages[idx].id);
               },
               child: AnimatedContainer(
                 duration: Duration(milliseconds: 150),
@@ -34,21 +33,20 @@ class SettingsSideMenuPanel extends ConsumerWidget {
                   border: Border.all(
                     color:
                         settingPageState.activeCategoryId ==
-                                allSettings[idx].pageId
+                                allSettings.pages[idx].id
                             ? shad.primary
                             : shad.border,
                   ),
                   borderRadius: BorderRadius.all(Radius.circular(8)),
-                  // color:
                 ),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   spacing: 2,
                   children: [
-                    Text(allSettings[idx].label),
+                    Text(allSettings.pages[idx].label),
                     Text(
-                      allSettings[idx].desc,
+                      allSettings.pages[idx].desc,
                       style: theme.textTheme.bodySmall!.copyWith(
                         color: shad.mutedForeground,
                       ),
