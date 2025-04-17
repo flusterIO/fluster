@@ -1,3 +1,4 @@
+import 'package:fluster/widgets/wrappers/page_container.dart';
 import 'package:flutter/widgets.dart';
 
 class BibliographyScreen extends StatefulWidget {
@@ -9,6 +10,6 @@ class BibliographyScreen extends StatefulWidget {
 class _BibliographyScreenState extends State<BibliographyScreen> {
   @override
   Widget build(buildContext) {
-    return Text("Bibliography");
+    return PageContainer(child: Text("Bibliography"));
   }
 }

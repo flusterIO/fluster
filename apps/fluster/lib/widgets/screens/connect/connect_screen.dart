@@ -1,3 +1,4 @@
+import 'package:fluster/widgets/wrappers/page_container.dart';
 import 'package:flutter/widgets.dart';
 
 class ConnectScreen extends StatefulWidget {
@@ -9,6 +10,6 @@ class ConnectScreen extends StatefulWidget {
 class _ConnectScreenState extends State<ConnectScreen> {
   @override
   Widget build(buildContext) {
-    return Text("Connect");
+    return PageContainer(child: Text("Connect"));
   }
 }

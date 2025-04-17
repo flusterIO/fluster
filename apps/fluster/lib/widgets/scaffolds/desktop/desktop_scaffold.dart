@@ -6,12 +6,7 @@ import 'package:fluster/widgets/scaffolds/desktop/desktop_resize_group.dart';
 import 'package:fluster/widgets/scaffolds/desktop/desktop_sidebar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-// import 'package:ulld_native/src/widgets/scaffolds/scaffoldWidgets/desktop/desktop_resize_group.dart';
-// import 'package:ulld_native/src/widgets/scaffolds/scaffoldWidgets/desktop/notifications_container.dart';
-// import 'package:ulld_native/src/widgets/scaffolds/scaffoldWidgets/desktop/window_title_bar.dart';
-// import 'package:ulld_native/src/widgets/scaffolds/scaffoldWidgets/sideMenu/responsiveRail/responsive_nav_rail.dart';
-// import 'package:ulld_native/static/constants/constants.dart';
-// import 'package:ulld_native/static/styles/shadThemes/shad_theme.dart';
+
 
 class DesktopAppScaffold extends ConsumerWidget {
   const DesktopAppScaffold({required this.child, super.key});

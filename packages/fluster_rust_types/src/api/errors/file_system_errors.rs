@@ -1,5 +1,4 @@
 #[derive(Debug, Clone)]
-
 pub struct PathNotFoundError<'a> {
     pub path: &'a str,
 }
