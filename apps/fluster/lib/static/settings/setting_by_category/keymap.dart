@@ -15,7 +15,7 @@ KeymapSettingPageData getKeymapSettings() {
         items: [
           KeymapSetting(
             label: "Toggle left panel",
-            id: SettingUniqueKey.keymapTogglePanelLeft,
+            settingUniqueKey: SettingUniqueKey.keymapTogglePanelLeft,
             action: getToggleLeftPanelAction(),
             inputKey: SettingPageInputId.keymapEntry,
             value: null,

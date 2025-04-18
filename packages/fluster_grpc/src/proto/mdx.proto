@@ -5,7 +5,7 @@ import "google/protobuf/descriptor.proto";
 import "google/protobuf/timestamp.proto";
 
 service MdxService {
-  rpc parseByPath(PathRequest) returns (MdxNoteResponse);
+  // rpc parseByPath(PathRequest) returns (MdxNoteResponse);
 }
 
 message FrontMatter {

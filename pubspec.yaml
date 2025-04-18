@@ -1,11 +1,10 @@
-name: fluster
+name: fluster_io
 publish_to: none
 environment:
   sdk: ^3.7.0
-# workspace:
-#   - apps/fluster
-#   - packages/fluster_native_interface
-#   - packages/fluster_db
+workspace:
+  - apps/fluster
+  - packages/fluster_native_interface
 dev_dependencies:
   melos: ^6.0.0
 flutter:

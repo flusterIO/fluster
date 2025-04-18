@@ -9,7 +9,7 @@ class KeymapSetting extends SettingAbstract<String> {
     required super.value,
     required super.defaultValue,
     required super.label,
-    required super.id,
+    required super.settingUniqueKey,
     required super.inputKey,
     required this.action,
     super.desc,
@@ -17,7 +17,7 @@ class KeymapSetting extends SettingAbstract<String> {
 
   @override
   void setValue(SharedPreferences prefs, String value) {
-    prefs.setString(getFormattedId(), value);
+    prefs.setString(super.getFormattedId(), value);
   }
 
   @override
@@ -32,7 +32,7 @@ class StringSetting extends SettingAbstract<String> {
     required super.value,
     required super.defaultValue,
     required super.label,
-    required super.id,
+    required super.settingUniqueKey,
     required super.inputKey,
     super.desc,
   });
@@ -54,7 +54,7 @@ class BoolSetting extends SettingAbstract<bool> {
     required super.value,
     required super.defaultValue,
     required super.label,
-    required super.id,
+    required super.settingUniqueKey,
     required super.inputKey,
     super.desc,
   });
@@ -76,7 +76,7 @@ class IntSetting extends SettingAbstract<int> {
     required super.value,
     required super.defaultValue,
     required super.label,
-    required super.id,
+    required super.settingUniqueKey,
     required super.inputKey,
     super.desc,
   });
@@ -98,7 +98,7 @@ class DoubleSetting extends SettingAbstract<double> {
     required super.value,
     required super.defaultValue,
     required super.label,
-    required super.id,
+    required super.settingUniqueKey,
     required super.inputKey,
     super.desc,
   });
@@ -120,7 +120,7 @@ class StringListSetting extends SettingAbstract<List<String>> {
     required super.value,
     required super.defaultValue,
     required super.label,
-    required super.id,
+    required super.settingUniqueKey,
     required super.inputKey,
     super.desc,
   });

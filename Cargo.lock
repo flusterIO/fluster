@@ -1400,6 +1400,7 @@ name = "fluster_db"
 version = "0.1.0"
 dependencies = [
  "chrono",
+ "fluster_rust_types",
  "fluster_test_utils",
  "flutter_rust_bridge",
  "gray_matter",
@@ -1431,6 +1432,7 @@ version = "0.0.1"
 dependencies = [
  "dirs",
  "fluster_rust_types",
+ "log",
  "log4rs",
  "thiserror 2.0.12",
  "tracing",
@@ -1442,6 +1444,7 @@ version = "0.0.1"
 dependencies = [
  "dirs",
  "env_logger 0.11.8",
+ "fluster_db",
  "fluster_rust_types",
  "flutter_rust_bridge",
  "log",

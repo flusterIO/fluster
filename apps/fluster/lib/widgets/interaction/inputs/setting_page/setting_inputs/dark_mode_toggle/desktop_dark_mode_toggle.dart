@@ -1,18 +1,19 @@
-import 'package:fluster/state/providers/theme/theme_provider.dart';
+import 'package:fluster/state/store.dart';
+import 'package:fluster/state/ui/panels/actions/ui_actions.dart';
+import 'package:fluster/static/extension_methods/context_extension.dart';
 import 'package:fluster/static/styles/shad/shad_themes.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class DarkModeToggle extends ConsumerWidget {
+class DarkModeToggle extends StatelessWidget {
   const DarkModeToggle({super.key});
 
-  void setThemeMode(ThemeMode themeMode, WidgetRef ref) {
-    ref.read(themeProvider.notifier).state = themeMode;
+  void setThemeMode(ThemeMode themeMode) {
+        globalReduxStore.dispatch(SetThemeModeAction(themeMode));
   }
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final ThemeMode currentTheme = ref.watch(themeProvider);
+  Widget build(BuildContext context) {
+    final ThemeMode currentTheme = context.state.uiState.themeMode;
     final ShadTheme? theme = Theme.of(context).extension<ShadTheme>();
     return Row(
       children: <Widget>[
@@ -23,7 +24,7 @@ class DarkModeToggle extends ConsumerWidget {
             icon: const Icon(Icons.sunny),
             color: currentTheme == ThemeMode.light ? theme?.primary : null,
             onPressed: () {
-              setThemeMode(ThemeMode.light, ref);
+              setThemeMode(ThemeMode.light);
               // context.read<GlobalBloc>().add(SetDarkMode(ThemeMode.dark));
             },
           ),
@@ -35,7 +36,7 @@ class DarkModeToggle extends ConsumerWidget {
             icon: const Icon(Icons.dark_mode),
             color: currentTheme == ThemeMode.dark ? theme?.primary : null,
             onPressed: () {
-              setThemeMode(ThemeMode.dark, ref);
+              setThemeMode(ThemeMode.dark);
               // context.read<GlobalBloc>().add(SetDarkMode(ThemeMode.dark));
             },
           ),
@@ -47,7 +48,7 @@ class DarkModeToggle extends ConsumerWidget {
             icon: const Icon(Icons.api),
             color: currentTheme == ThemeMode.system ? theme?.primary : null,
             onPressed: () {
-              setThemeMode(ThemeMode.system, ref);
+              setThemeMode(ThemeMode.system);
             },
           ),
         ),

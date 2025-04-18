@@ -2,6 +2,7 @@ name: fluster_native_interface
 description: "Most of the heavy lifting for Fluster."
 version: 0.0.1
 homepage: ulld.vercel.app
+resolution: workspace
 environment:
   sdk: ^3.8.0-265.0.dev
   flutter: ">=3.3.0"

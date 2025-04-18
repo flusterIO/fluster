@@ -1,18 +1,22 @@
 flutter_launcher_icons:
-  android: "launcher_icon"
-  ios: true
   image_path: "lib/static/assets/images/logo/logo_512.png"
   min_sdk_android: 21 # android min sdk min:16, default 21
-  background_color_ios: "#ffffff"
-  web:
+  background_color_ios: "#242b32"
+  # web:
+  #   generate: true
+  #   image_path: "lib/static/assets/images/logo/logo_512.png"
+  #   background_color: "#474747"
+  #   # theme_color: "#hexcode"
+  linux:
     generate: true
-    image_path: "lib/static/assets/images/logo/logo_512.png"
-    background_color: "#474747"
-    # theme_color: "#hexcode"
+    icon_size: 96 # min:48, max:256, default: 48
   windows:
     generate: true
-    image_path: "lib/static/assets/images/logo/logo_512.png"
-    icon_size: 48 # min:48, max:256, default: 48
+    icon_size: 96 # min:48, max:256, default: 48
   macos:
     generate: true
-    image_path: "lib/static/assets/images/logo/logo_512.png"
+    icon_size: 96 # min:48, max:256, default: 48
+  ios:
+    generate: true
+  android:
+    generate: true

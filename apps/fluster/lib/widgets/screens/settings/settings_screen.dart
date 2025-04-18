@@ -1,17 +1,15 @@
-import 'package:fluster/state/providers/settingsPage/settings_page_provider.dart';
+import 'package:fluster/static/extension_methods/context_extension.dart';
 import 'package:fluster/static/settings/settings_root.dart';
 import 'package:fluster/widgets/screens/settings/widgets/setting_page_container.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class SettingsScreen extends ConsumerWidget {
+class SettingsScreen extends StatelessWidget {
   const SettingsScreen({super.key});
 
   @override
-  Widget build(BuildContext buildContext, WidgetRef ref) {
-    final currentId = ref.watch(settingsPageProvider);
+  Widget build(BuildContext context) {
     final item = getInitialSettings().pages.firstWhere(
-      (x) => x.id == currentId.activeCategoryId,
+      (x) => x.id == context.state.navigationState.settingPageId,
     );
     return SettingsPageContainer(pageData: item);
   }

@@ -4,9 +4,11 @@
 
 import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:fluster/app.dart';
+import 'package:fluster/state/global/global_state.dart';
 import 'package:fluster_native_interface/fluster_native_interface.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:async_redux/async_redux.dart';
+import 'package:fluster/state/store.dart';
 
 // import 'package:ulld_native/static/styles/theme_notifier.dart';
 
@@ -23,21 +25,12 @@ void main() async {
 
   WidgetsFlutterBinding.ensureInitialized();
 
-  // final database = AppDatabase();
-
-  // await database
-  //     .into(database.)
-  //     .insert(
-  //       SettingsTableCompanion.insert(
-  //         title: 'todo: finish drift setup',
-  //         content: 'We can now write queries and define our own tables.',
-  //       ),
-  //     );
   runApp(
     // For widgets to be able to read providers, we need to wrap the entire
     // application in a "ProviderScope" widget.
     // This is where the state of our providers will be stored.
-    const ProviderScope(
+    StoreProvider<GlobalAppState>(
+      store: globalReduxStore,
       // observers: <ProviderObserver>[StateLogger()],
       child: FlusterDesktopApp(),
     ),

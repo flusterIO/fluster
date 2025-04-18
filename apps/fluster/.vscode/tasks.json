@@ -3,7 +3,7 @@
         {
             "label": "Run Builders",
             "type": "shell",
-            "command": "dart run build_runner build --delete-conflicting-outputs"
+            "command": "cd $FLUSTER_NATIVE_ROOT/apps/fluster/ && dart run build_runner build --delete-conflicting-outputs"
         },
         {
             "label": "Format Everything",

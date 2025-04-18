@@ -1,23 +1,19 @@
-import 'package:fluster/state/providers/panelLeft/panel_left_provider.dart';
-import 'package:fluster/state/providers/panelRight/panel_right_provider.dart';
+import 'package:fluster/static/extension_methods/context_extension.dart';
 import 'package:fluster/static/styles/shad/shad_themes.dart';
 import 'package:fluster/widgets/scaffolds/desktop/panel_left/desktop_panel_left.dart';
 import 'package:fluster/widgets/scaffolds/desktop/panel_right/desktop_panel_right.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_resizable_container/flutter_resizable_container.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class DesktopResizeGroup extends ConsumerWidget {
+class DesktopResizeGroup extends StatelessWidget {
   final Widget child;
   const DesktopResizeGroup({super.key, required this.child});
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final rightPanelState = ref.watch(panelRightProvider);
-    final leftPanelState = ref.watch(panelLeftProvider);
+  Widget build(BuildContext context) {
     final ShadTheme? theme = Theme.of(context).extension<ShadTheme>();
     final children = <ResizableChild>[];
 
-    if (leftPanelState.open) {
+    if (context.state.uiState.panelLeftState.open) {
       children.add(
         ResizableChild(
           divider: ResizableDivider(color: theme?.border, thickness: 2),
@@ -40,7 +36,7 @@ class DesktopResizeGroup extends ConsumerWidget {
       ),
     );
 
-    if (rightPanelState.open) {
+    if (context.state.uiState.panelLeftState.open) {
       children.add(
         ResizableChild(
           divider: ResizableDivider(color: theme?.border, thickness: 2),

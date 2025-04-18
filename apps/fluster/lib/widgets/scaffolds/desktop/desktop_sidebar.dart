@@ -1,22 +1,22 @@
 import 'package:fluster/data_models/structs/navigation_item.dart';
-import 'package:fluster/state/providers/panelLeft/panel_left_provider.dart';
-import 'package:fluster/state/providers/side_menu_desktop/provider.dart';
+import 'package:fluster/state/store.dart';
+import 'package:fluster/state/ui/panels/panel_left/actions/panel_left_actions.dart';
 import 'package:fluster/static/data/navigation_items.dart';
+import 'package:fluster/static/extension_methods/context_extension.dart';
 import 'package:fluster/static/styles/shad/shad_themes.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class ResponsiveNavigationRail extends ConsumerWidget {
+class ResponsiveNavigationRail extends StatelessWidget {
   const ResponsiveNavigationRail({super.key});
 
   List<Widget> getItems(
     List<NavigationItem> items,
     BuildContext context,
     ShadTheme theme,
-    WidgetRef ref,
   ) {
     return List.generate(items.length, (int idx) {
-      final active = ref.watch(sideMenuProvider).selectedId == items[idx].id;
+      final active =
+          context.state.navigationState.navigationId == items[idx].id;
       return Container(
         decoration: BoxDecoration(
           border: Border(
@@ -32,14 +32,12 @@ class ResponsiveNavigationRail extends ConsumerWidget {
           child: GestureDetector(
             onTap: () {
               if (active) {
-                final currentState = ref.read(panelLeftProvider);
-                ref.read(panelLeftProvider.notifier).state = currentState
-                    .copyWith(open: !currentState.open);
+                globalReduxStore.dispatch(TogglePanelLeftAction());
               } else {
-                items[idx].navigate(context, ref);
+                items[idx].navigate(context);
                 final id = items[idx].id;
                 if (id != null) {
-                  ref.read(sideMenuProvider.notifier).state.selectedId = id;
+                  // ref.read(sideMenuProvider.notifier).state.selectedId = id;
                 }
               }
             },
@@ -57,7 +55,7 @@ class ResponsiveNavigationRail extends ConsumerWidget {
   }
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context) {
     SideMenuState data = SideMenuState();
     final ShadTheme theme = Theme.of(context).extension<ShadTheme>()!;
     return Container(
@@ -71,13 +69,10 @@ class ResponsiveNavigationRail extends ConsumerWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
+            Column(spacing: 16, children: getItems(data.menu, context, theme)),
             Column(
               spacing: 16,
-              children: getItems(data.menu, context, theme, ref),
-            ),
-            Column(
-              spacing: 16,
-              children: getItems(data.bottomSideMenuItems, context, theme, ref),
+              children: getItems(data.bottomSideMenuItems, context, theme),
             ),
           ],
         ),

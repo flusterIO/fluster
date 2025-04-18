@@ -15,6 +15,8 @@ class CommandPalette extends StatefulWidget {
   final TextEditingController controller = TextEditingController();
   final List<int> selections = [];
 
+  CommandPalette({super.key});
+
   @override
   State<CommandPalette> createState() => CommandPaletteState();
 }

@@ -1,16 +1,17 @@
-import 'package:fluster/state/providers/settingsPage/settings_page_provider.dart';
+import 'package:fluster/state/navigation/actions/navigation_actions.dart';
+import 'package:fluster/state/store.dart';
+import 'package:fluster/static/extension_methods/context_extension.dart';
 import 'package:fluster/static/settings/settings_root.dart';
 import 'package:fluster/static/styles/shad/shad_themes.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class SettingsSideMenuPanel extends ConsumerWidget {
+class SettingsSideMenuPanel extends StatelessWidget {
   const SettingsSideMenuPanel({super.key});
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final shad = theme.extension<ShadTheme>()!;
-    final settingPageState = ref.watch(settingsPageProvider);
+    // final settingPageState = ref.watch(settingsPageProvider);
     final allSettings = getInitialSettings();
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -22,9 +23,9 @@ class SettingsSideMenuPanel extends ConsumerWidget {
             cursor: SystemMouseCursors.click,
             child: GestureDetector(
               onTap: () {
-                final currentState = ref.read(settingsPageProvider);
-                ref.read(settingsPageProvider.notifier).state = currentState
-                    .copyWith(activeCategoryId: allSettings.pages[idx].id);
+                globalReduxStore.dispatch(
+                  SetSettingsPage(allSettings.pages[idx].id),
+                );
               },
               child: AnimatedContainer(
                 duration: Duration(milliseconds: 150),
@@ -32,7 +33,7 @@ class SettingsSideMenuPanel extends ConsumerWidget {
                 decoration: BoxDecoration(
                   border: Border.all(
                     color:
-                        settingPageState.activeCategoryId ==
+                        context.state.navigationState.settingPageId ==
                                 allSettings.pages[idx].id
                             ? shad.primary
                             : shad.border,

@@ -1,23 +1,22 @@
 import 'package:fluster/data_models/setting/setting_pages.dart';
-import 'package:fluster/state/providers/settingsPage/settings_page_provider.dart';
+import 'package:fluster/static/extension_methods/context_extension.dart';
 import 'package:fluster/static/settings/settings_root.dart';
 import 'package:fluster/widgets/interaction/inputs/setting_page/setting_page_input.dart';
 import 'package:fluster/widgets/screens/settings/widgets/section.dart';
 import 'package:fluster/widgets/wrappers/page_container.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class SettingsPageContainer extends ConsumerWidget {
+class SettingsPageContainer extends StatelessWidget {
   final _formKey = GlobalKey<FormState>();
   final SettingPageDataAbstract pageData;
 
   SettingsPageContainer({super.key, required this.pageData});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final activeId = ref.watch(settingsPageProvider);
+  Widget build(BuildContext context) {
+    final activeId = context.state.navigationState.settingPageId;
     final activeSettingsPage = getInitialSettings().pages.firstWhere(
-      (x) => x.id == activeId.activeCategoryId,
+      (x) => x.id == activeId,
     );
     return PageContainer(
       child: Form(

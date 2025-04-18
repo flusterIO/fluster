@@ -1,5 +1,4 @@
 import 'package:flutter/widgets.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 enum CommandPaletteCategory { root, location, action }
 
@@ -9,7 +8,7 @@ class CommandPaletteItem {
   final Widget Function()? preview;
   final Widget Function()? icon;
   final CommandPaletteCategory category;
-  final void Function(BuildContext context, WidgetRef ref)? onSelect;
+  final void Function(BuildContext context)? onSelect;
   const CommandPaletteItem({
     required this.title,
     required this.category,

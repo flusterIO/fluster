@@ -9,14 +9,14 @@ final generalSettings = <SettingAbstract>[
     value: null,
     defaultValue: ThemeMode.dark.toString(),
     label: "Dark Mode",
-    id: SettingUniqueKey.darkmode,
+    settingUniqueKey: SettingUniqueKey.darkmode,
     inputKey: SettingPageInputId.darkmode,
   ),
   StringSetting(
     value: null,
     defaultValue: "",
     label: "Path to .bib file",
-    id: SettingUniqueKey.bibpath,
+    settingUniqueKey: SettingUniqueKey.bibpath,
     inputKey: SettingPageInputId.rootRelativeFilePath,
   ),
 ];

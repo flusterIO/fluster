@@ -1,10 +1,8 @@
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:fluster/data_models/structs/navigation_item.dart';
 import 'package:fluster/router/routes.dart';
-import 'package:fluster/state/methods/sync.dart';
 import 'package:fluster/static/enums/navigation_item_id.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 // import 'package:ulld_native/src/routes/routes.dart';
 // import 'package:ulld_native/src/state/methods/sync.dart';
 // import 'package:ulld_native/src/state/providers/database/database_utils.dart';
@@ -21,7 +19,7 @@ class SideMenuState {
       icon: FluentIcons.home_32_regular,
       title: 'Home',
       iconType: IconType.Flutter,
-      navigate: (BuildContext context, WidgetRef _) {
+      navigate: (BuildContext context) {
         HomeScreenRoute().go(context);
       },
     ),
@@ -30,7 +28,7 @@ class SideMenuState {
       iconType: IconType.Flutter,
       icon: FluentIcons.connected_32_regular,
       title: 'Connect',
-      navigate: (BuildContext context, WidgetRef _) {
+      navigate: (BuildContext context) {
         ConnectRoute().go(context);
       },
     ),
@@ -39,7 +37,7 @@ class SideMenuState {
       icon: FluentIcons.bookmark_32_regular,
       iconType: IconType.Flutter,
       title: 'Bookmarks',
-      navigate: (BuildContext context, WidgetRef _) {
+      navigate: (BuildContext context) {
         BookmarksRoute().go(context);
       },
     ),
@@ -48,7 +46,7 @@ class SideMenuState {
       icon: FluentIcons.book_template_20_regular,
       title: 'Bibliography',
       iconType: IconType.Flutter,
-      navigate: (BuildContext context, WidgetRef _) {
+      navigate: (BuildContext context) {
         BibliographyRoute().go(context);
       },
     ),
@@ -59,8 +57,8 @@ class SideMenuState {
       icon: FluentIcons.cube_sync_24_regular,
       title: 'Sync',
       iconType: IconType.Flutter,
-      navigate: (BuildContext context, WidgetRef ref) async {
-        await syncDirectory(ref);
+      navigate: (BuildContext context) async {
+        // await syncDirectory(ref);
       },
     ),
     NavigationItem(
@@ -68,7 +66,7 @@ class SideMenuState {
       icon: FluentIcons.settings_32_regular,
       title: 'Settings',
       iconType: IconType.Flutter,
-      navigate: (BuildContext context, WidgetRef _) {
+      navigate: (BuildContext context) {
         SettingsRoute().go(context);
       },
     ),

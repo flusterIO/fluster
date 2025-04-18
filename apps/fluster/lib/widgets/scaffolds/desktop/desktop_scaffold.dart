@@ -5,15 +5,14 @@ import 'package:fluster/widgets/layout/window_title_bar/title_bar.dart';
 import 'package:fluster/widgets/scaffolds/desktop/desktop_resize_group.dart';
 import 'package:fluster/widgets/scaffolds/desktop/desktop_sidebar.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 
-class DesktopAppScaffold extends ConsumerWidget {
+class DesktopAppScaffold extends StatelessWidget {
   const DesktopAppScaffold({required this.child, super.key});
   final Widget child;
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context) {
     final ShadTheme? theme = Theme.of(context).extension<ShadTheme>();
     return Scaffold(
       primary: true,

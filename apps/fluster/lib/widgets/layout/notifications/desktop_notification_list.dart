@@ -1,12 +1,12 @@
 import 'dart:async';
-import 'package:fluster/state/providers/notifications/notification_item.dart';
-import 'package:fluster/state/providers/notifications/notifications_provider.dart';
+import 'package:fluster/data_models/notifications/toast.dart';
+import 'package:fluster/state/notifications/actions/remove_toast_by_id_actions.dart';
+import 'package:fluster/state/store.dart';
 import 'package:fluster/static/styles/shad/shad_themes.dart';
 import 'package:flutter/material.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class DesktopNotification extends ConsumerWidget {
-  final NotificationItem item;
+class DesktopNotification extends StatelessWidget {
+  final ToastNotificationItem item;
   final Animation<double> anim;
   final int idx;
   final bool? exiting;
@@ -20,15 +20,12 @@ class DesktopNotification extends ConsumerWidget {
     this.exiting,
   });
 
-  void setRemoveTimer(WidgetRef ref) {
+  void setRemoveTimer() {
     if (item.duration == null) {
       return;
     }
     var timer = Timer(item.duration!, () {
-      final currentState = ref.read(notificationsProvider);
-      ref.read(notificationsProvider.notifier).state = currentState.copyWith(
-        items: currentState.items.where((x) => x.id != item.id).toList(),
-      );
+      globalReduxStore.dispatch(RemoveToastByIdAction(item.id));
     });
     timer.cancel();
   }
@@ -91,8 +88,8 @@ class DesktopNotification extends ConsumerWidget {
   }
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    setRemoveTimer(ref);
+  Widget build(BuildContext context) {
+    setRemoveTimer();
 
     final progress = CurvedAnimation(parent: anim, curve: Curves.easeInOut);
     if (exiting == true) {
