@@ -1,19 +1,33 @@
 {
-    "name": "fluster.ts",
-    "version": "0.0.1",
+    "name": "@fluster.io/fluster-ts",
     "description": "Fluster types, grpc client and api for developers.",
-    "license": "ISC",
+    "version": "0.0.1",
     "author": "Andrew Mueller <fluster.eyeoh@gmail.com",
-    "type": "module",
-    "main": "index.js",
-    "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1"
+    "publishConfig": {
+        "access": "public"
     },
     "dependencies": {
         "google-protobuf": "^3.21.4",
         "ts-protoc-gen": "^0.15.0"
     },
     "devDependencies": {
+        "@types/node": "^22.14.1",
+        "changeset": "^0.2.6",
+        "glob": "^11.0.1",
+        "syncpack": "^13.0.3",
+        "tsc": "^2.0.4",
+        "tsup": "^8.4.0",
+        "typescript": "^5.8.3",
         "wireit": "^0.14.12"
-    }
+    },
+    "homepage": "https://ulld.vercel.app",
+    "license": "ISC",
+    "main": "dist/index.js",
+    "module": "dist/index.mjs",
+    "scripts": {
+        "build": "tsup",
+        "lint": "tsc --no-emit"
+    },
+    "type": "module",
+    "types": "dist/index.d.ts"
 }

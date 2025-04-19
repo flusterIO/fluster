@@ -14,6 +14,12 @@ scripts:
     name: Test with coverage
     description: Test rust throughout the workspace.
     run: cargo llvm-cov --html
+  format_everything:
+    name: Format Everything
+    description: Just as the name implies, formats everything
+    step:
+      - dart fix
+      - pnpm syncpack format
   generate_icons:
     name: Generate Icons
     description: Generate icons using flutter_launcher_icons.
@@ -39,6 +45,16 @@ scripts:
       - $FLUSTER_NATIVE_ROOT/packages/fluster_internal_workspace/fluster_internal_workspace generate_grpc_script
       - $FLUSTER_NATIVE_ROOT/packages/fluster_grpc/scripts/clean.sh
       - $FLUSTER_NATIVE_ROOT/packages/fluster_grpc/scripts/distribute_proto.sh
+  build_node:
+    name: Build node package
+    steps:
+      - pnpm syncpack format
+      - cd $FLUSTER_NATIVE_ROOT/packages/fluster_ts && pnpm build
+  distribute_node:
+    name: Build node package
+    steps:
+      - melos run build_node
+      - cd $FLUSTER_NATIVE_ROOT/packages/fluster_ts && npm publish
   build_python:
     name: Build Python Wheel
     run: cd $FLUSTER_NATIVE_ROOT/packages/fluster_py && python -m build
@@ -53,5 +69,12 @@ scripts:
   build_all:
     name: Build Everything
     steps:
+      - $FLUSTER_NATIVE_ROOT/packages/fluster_internal_workspace/fluster_internal_workspace set_distributed_versions
       - melos run build_protos
       - melos run build_desktop
+  distribute_all:
+    name: Distribute Everything
+    steps:
+      - melos run build_all
+      - melos run distribute_python
+      - melos run distribute_node

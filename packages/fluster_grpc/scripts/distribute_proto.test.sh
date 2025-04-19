@@ -19,7 +19,7 @@ protoc \
     --proto_path="$FLUSTER_NATIVE_ROOT/packages/fluster_grpc/src" \
     --plugin="protoc-gen-ts=$FLUSTER_NATIVE_ROOT/packages/fluster_ts/node_modules/.bin/protoc-gen-ts" \
     --ts_opt=esModuleInterop=true \
-    --js_out="$FLUSTER_NATIVE_ROOT/packages/fluster_ts/build/generated/grpc" \
+    --js_out="$FLUSTER_NATIVE_ROOT/packages/fluster_ts/dist/generated/grpc" \
     --ts_out="$FLUSTER_NATIVE_ROOT/packages/fluster_ts/src/generated/grpc" \
     "$FLUSTER_NATIVE_ROOT/packages/fluster_grpc/src/proto/database.proto" \
     "$FLUSTER_NATIVE_ROOT/packages/fluster_grpc/src/proto/fluster.proto" \

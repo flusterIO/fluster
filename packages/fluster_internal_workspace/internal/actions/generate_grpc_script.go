@@ -9,6 +9,7 @@ import (
 	"text/template"
 
 	"github.com/charmbracelet/log"
+	"github.com/flusterIo/fluster_internal_workspace/internal/utils"
 )
 
 var (
@@ -29,10 +30,7 @@ func (x ProtoFile) FileNameShort() string {
 }
 
 func GenerateGrpcScript() {
-	nativeRoot := os.Getenv("FLUSTER_NATIVE_ROOT")
-	if nativeRoot == "" {
-		log.Fatal("No FLUSTER_NATIVE_ROOT environment variable found. Set this to the root of the workspace and try again.")
-	}
+	nativeRoot := utils.GetNativeRoot()
 	protoRoot := path.Join(nativeRoot, "packages", "fluster_grpc", "src", "proto")
 	files, err := os.ReadDir(protoRoot)
 	if err != nil {
@@ -43,9 +41,6 @@ func GenerateGrpcScript() {
 		if !item.IsDir() {
 			protoFiles = append(protoFiles, ProtoFile{item})
 		}
-	}
-	for _, item := range protoFiles {
-		println(item.FileName())
 	}
 	templ, err := template.ParseFS(templateFiles, "templates/**")
 	if err != nil {
