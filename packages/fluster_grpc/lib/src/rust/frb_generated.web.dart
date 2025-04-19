@@ -7,6 +7,7 @@
 // ignore_for_file: argument_type_not_assignable
 
 import 'api/services/mdx_service/server.dart';
+import 'api/services/mdx_service/server/mdx_proto.dart';
 import 'api/services/settings_service/server.dart';
 import 'api/services/settings_service/server/settings_proto.dart';
 import 'dart:async';
@@ -29,7 +30,19 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   bool dco_decode_bool(dynamic raw);
 
   @protected
+  FrontMatter dco_decode_box_autoadd_front_matter(dynamic raw);
+
+  @protected
+  MdxNote dco_decode_box_autoadd_mdx_note(dynamic raw);
+
+  @protected
   SettingType dco_decode_box_autoadd_setting_type(dynamic raw);
+
+  @protected
+  File dco_decode_file(dynamic raw);
+
+  @protected
+  FrontMatter dco_decode_front_matter(dynamic raw);
 
   @protected
   GetUserSettingsResponse dco_decode_get_user_settings_response(dynamic raw);
@@ -44,10 +57,31 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   List<SettingField> dco_decode_list_setting_field(dynamic raw);
 
   @protected
+  MdxNote dco_decode_mdx_note(dynamic raw);
+
+  @protected
+  MdxNoteResponse dco_decode_mdx_note_response(dynamic raw);
+
+  @protected
   MdxServiceHandler dco_decode_mdx_service_handler(dynamic raw);
 
   @protected
+  NoteSummary dco_decode_note_summary(dynamic raw);
+
+  @protected
+  String? dco_decode_opt_String(dynamic raw);
+
+  @protected
+  FrontMatter? dco_decode_opt_box_autoadd_front_matter(dynamic raw);
+
+  @protected
+  MdxNote? dco_decode_opt_box_autoadd_mdx_note(dynamic raw);
+
+  @protected
   SettingType? dco_decode_opt_box_autoadd_setting_type(dynamic raw);
+
+  @protected
+  PathRequest dco_decode_path_request(dynamic raw);
 
   @protected
   SettingField dco_decode_setting_field(dynamic raw);
@@ -71,7 +105,19 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   bool sse_decode_bool(SseDeserializer deserializer);
 
   @protected
+  FrontMatter sse_decode_box_autoadd_front_matter(SseDeserializer deserializer);
+
+  @protected
+  MdxNote sse_decode_box_autoadd_mdx_note(SseDeserializer deserializer);
+
+  @protected
   SettingType sse_decode_box_autoadd_setting_type(SseDeserializer deserializer);
+
+  @protected
+  File sse_decode_file(SseDeserializer deserializer);
+
+  @protected
+  FrontMatter sse_decode_front_matter(SseDeserializer deserializer);
 
   @protected
   GetUserSettingsResponse sse_decode_get_user_settings_response(
@@ -90,14 +136,37 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   );
 
   @protected
+  MdxNote sse_decode_mdx_note(SseDeserializer deserializer);
+
+  @protected
+  MdxNoteResponse sse_decode_mdx_note_response(SseDeserializer deserializer);
+
+  @protected
   MdxServiceHandler sse_decode_mdx_service_handler(
     SseDeserializer deserializer,
   );
 
   @protected
+  NoteSummary sse_decode_note_summary(SseDeserializer deserializer);
+
+  @protected
+  String? sse_decode_opt_String(SseDeserializer deserializer);
+
+  @protected
+  FrontMatter? sse_decode_opt_box_autoadd_front_matter(
+    SseDeserializer deserializer,
+  );
+
+  @protected
+  MdxNote? sse_decode_opt_box_autoadd_mdx_note(SseDeserializer deserializer);
+
+  @protected
   SettingType? sse_decode_opt_box_autoadd_setting_type(
     SseDeserializer deserializer,
   );
+
+  @protected
+  PathRequest sse_decode_path_request(SseDeserializer deserializer);
 
   @protected
   SettingField sse_decode_setting_field(SseDeserializer deserializer);
@@ -123,10 +192,25 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   void sse_encode_bool(bool self, SseSerializer serializer);
 
   @protected
+  void sse_encode_box_autoadd_front_matter(
+    FrontMatter self,
+    SseSerializer serializer,
+  );
+
+  @protected
+  void sse_encode_box_autoadd_mdx_note(MdxNote self, SseSerializer serializer);
+
+  @protected
   void sse_encode_box_autoadd_setting_type(
     SettingType self,
     SseSerializer serializer,
   );
+
+  @protected
+  void sse_encode_file(File self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_front_matter(FrontMatter self, SseSerializer serializer);
 
   @protected
   void sse_encode_get_user_settings_response(
@@ -150,8 +234,35 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   );
 
   @protected
+  void sse_encode_mdx_note(MdxNote self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_mdx_note_response(
+    MdxNoteResponse self,
+    SseSerializer serializer,
+  );
+
+  @protected
   void sse_encode_mdx_service_handler(
     MdxServiceHandler self,
+    SseSerializer serializer,
+  );
+
+  @protected
+  void sse_encode_note_summary(NoteSummary self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_opt_String(String? self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_opt_box_autoadd_front_matter(
+    FrontMatter? self,
+    SseSerializer serializer,
+  );
+
+  @protected
+  void sse_encode_opt_box_autoadd_mdx_note(
+    MdxNote? self,
     SseSerializer serializer,
   );
 
@@ -160,6 +271,9 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
     SettingType? self,
     SseSerializer serializer,
   );
+
+  @protected
+  void sse_encode_path_request(PathRequest self, SseSerializer serializer);
 
   @protected
   void sse_encode_setting_field(SettingField self, SseSerializer serializer);
