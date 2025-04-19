@@ -1,0 +1,12 @@
+Metadata-Version: 2.4
+Name: flusterIo
+Version: 0.0.2
+License: MIT
+Description-Content-Type: text/markdown
+Dynamic: description
+Dynamic: description-content-type
+Dynamic: license
+
+# Fluster Python
+
+For now this package is pretty much useless, but it's being populated by some generated code for the [Fluster](ulld.vercel.app) note taking application to allow users to interact with their data how they see fit.

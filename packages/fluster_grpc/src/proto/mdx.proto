@@ -4,6 +4,8 @@ package mdx.v1;
 import "google/protobuf/descriptor.proto";
 import "google/protobuf/timestamp.proto";
 
+option go_package = "./mdx";
+
 service MdxService {
   // rpc parseByPath(PathRequest) returns (MdxNoteResponse);
 }

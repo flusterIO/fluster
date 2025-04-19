@@ -18,9 +18,6 @@ scripts:
     name: Generate Icons
     description: Generate icons using flutter_launcher_icons.
     run: cd $FLUSTER_NATIVE_ROOT/apps/fluster/ && dart run flutter_launcher_icons -f $FLUSTER_NATIVE_ROOT/apps/fluster/flutter_launcher_icons.yaml
-  # run_builders:
-  #   name: Run Builders
-  #   run:
   build_rust:
     name: buildRust
     description: Compile using flutter_rust_bridge in the fluster_native_interface package.
@@ -35,3 +32,26 @@ scripts:
       - melos run generate_icons
       - melos run build_rust
       - melos run build_fluster
+  build_protos:
+    name: Build Protos
+    description: Build and distribute protobuffs to all languages
+    steps:
+      - $FLUSTER_NATIVE_ROOT/packages/fluster_internal_workspace/fluster_internal_workspace generate_grpc_script
+      - $FLUSTER_NATIVE_ROOT/packages/fluster_grpc/scripts/clean.sh
+      - $FLUSTER_NATIVE_ROOT/packages/fluster_grpc/scripts/distribute_proto.sh
+  build_python:
+    name: Build Python Wheel
+    run: cd $FLUSTER_NATIVE_ROOT/packages/fluster_py && python -m build
+  distribute_python:
+    name: Distribute Python to pypi
+    description: Distribute Python to pypi
+    run: twine upload $FLUSTER_NATIVE_ROOT/packages/fluster_py/dist/
+  build_workspace_tools:
+    name: Build Go workspace tools
+    description: Build Go workspace tools
+    run: cd $FLUSTER_NATIVE_ROOT/packages/fluster_internal_workspace && go build
+  build_all:
+    name: Build Everything
+    steps:
+      - melos run build_protos
+      - melos run build_desktop

@@ -1,0 +1,6 @@
+syntax = "proto3";
+package fluster.v1;
+
+option go_package = "./fluster";
+
+service FlusterService {}

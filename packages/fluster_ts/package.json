@@ -1,0 +1,19 @@
+{
+    "name": "fluster.ts",
+    "version": "0.0.1",
+    "description": "Fluster types, grpc client and api for developers.",
+    "license": "ISC",
+    "author": "Andrew Mueller <fluster.eyeoh@gmail.com",
+    "type": "module",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "dependencies": {
+        "google-protobuf": "^3.21.4",
+        "ts-protoc-gen": "^0.15.0"
+    },
+    "devDependencies": {
+        "wireit": "^0.14.12"
+    }
+}

@@ -1,9 +1,14 @@
 {
-    "tasks": [ 
+    "tasks": [
         {
             "label": "Build grpc rust",
             "type": "shell",
-            "command": "cargo build"
+            "command": "cd $FLUSTER_NATIVE_ROOT/packages/fluster_grpc && cargo build"
+        },
+        {
+            "label": "Build grpc for all languages",
+            "type": "shell",
+            "command": "cd $FLUSTER_NATIVE_ROOT/packages/fluster_grpc && sh $FLUSTER_NATIVE_ROOT/packages/fluster_grpc/distribute_proto.sh"
         }
     ]
 }
