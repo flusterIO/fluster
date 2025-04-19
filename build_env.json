@@ -1,3 +1,9 @@
 {
-    "distributedApiVersion": "0.0.1"
+    "distributedApiVersion": "0.0.1",
+    "fluster": {
+        "logo": {
+            "backgroundColor": "#333333",
+            "foregroundColor": "#0ba5e9"
+        }
+    }
 }

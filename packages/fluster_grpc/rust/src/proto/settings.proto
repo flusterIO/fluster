@@ -1,0 +1,25 @@
+syntax = "proto3";
+package settings.v1;
+
+option go_package = "./settings";
+
+service SettingService {
+  // rpc getUserSettings(database.v1.DatabaseCredentialsRequest) returns (GetUserSettingsResponse);
+}
+
+enum SettingType {
+  SETTING_TYPE_STRING_UNSPECIFIED = 0;
+  SETTING_TYPE_INT = 1;
+  SETTING_TYPE_FLOAT = 2;
+  SETTING_TYPE_BOOL = 3;
+}
+
+///  A stripped down version of the SettingItem model.
+message SettingField {
+  string label = 1;
+  string value = 2;
+}
+
+message GetUserSettingsResponse {
+  repeated SettingField settings = 1;
+}

@@ -36,6 +36,7 @@ class KeymapSettingPageData<T extends SettingAbstract>
     required super.sections,
     super.id = SettingPageId.keymap,
   });
+
   Map<ShortcutActivator, Intent> toAppScaffoldShortcuts() {
     var m = <ShortcutActivator, Intent>{};
     for (var sec in sections) {
@@ -55,10 +56,5 @@ class KeymapSettingPageData<T extends SettingAbstract>
       }
     }
     return m;
-  }
-
-  Future<KeymapSettingPageData> setDatabaseKeymap() async {
-    // FIX: Fix this immediately. Right now, no user settings will be applied.
-    return this;
   }
 }

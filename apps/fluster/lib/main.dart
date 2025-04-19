@@ -20,11 +20,19 @@ import 'package:fluster/state/store.dart';
 //   // await config.apply();
 // }
 
+Future setupLogger() async {
+  // setupLogStream().listen((msg) {
+  //   // This should use a logging framework in real applications
+  //   print("${msg.logLevel} ${msg.lbl.padRight(8)}: ${msg.msg}");
+  // });
+}
+
 void main() async {
   // await _configureMacosWindowUtils();
 
   WidgetsFlutterBinding.ensureInitialized();
 
+  await setupLogger();
   runApp(
     // For widgets to be able to read providers, we need to wrap the entire
     // application in a "ProviderScope" widget.

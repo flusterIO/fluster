@@ -1,27 +1,13 @@
-mkdir -p "$FLUSTER_NATIVE_ROOT/packages/fluster_py/fluster_py/generated/grpc"
-mkdir -p "$FLUSTER_NATIVE_ROOT/packages/fluster_go/generated/grpc"
-mkdir -p "$FLUSTER_NATIVE_ROOT/packages/fluster_ts/src/generated/grpc"
+# Change into proper dir
+cd "$FLUSTER_NATIVE_ROOT/packages/fluster_grpc" || exit
+# Clean the previous build 
+sh "$FLUSTER_NATIVE_ROOT/packages/fluster_grpc/scripts/clean.sh"
+# Generate a new script according to the file structure
+"$FLUSTER_NATIVE_ROOT/packages/fluster_internal_workspace/fluster_internal_workspace" generate_grpc_script
+# Make sure that script is executable
+chmod +x "$FLUSTER_NATIVE_ROOT/packages/fluster_grpc/scripts/.proto_build_script.sh"
+# Execute that dude...
+sh "$FLUSTER_NATIVE_ROOT/packages/fluster_grpc/scripts/.proto_build_script.sh"
 
-protoc \
-    --proto_path="$FLUSTER_NATIVE_ROOT/packages/fluster_grpc/src" \
-    --python_out="$FLUSTER_NATIVE_ROOT/packages/fluster_py/fluster_py/generated/grpc" \
-    --go_opt=Mprotos/database.proto=fluster_grpc/database \
-    --go_opt=Mprotos/fluster.proto=fluster_grpc/fluster \
-    --go_opt=Mprotos/mdx.proto=fluster_grpc/mdx \
-    --go_opt=Mprotos/settings.proto=fluster_grpc/settings \
-    --go_out="$FLUSTER_NATIVE_ROOT/packages/fluster_go/generated/grpc" \
-    "$FLUSTER_NATIVE_ROOT/packages/fluster_grpc/src/proto/database.proto" \
-    "$FLUSTER_NATIVE_ROOT/packages/fluster_grpc/src/proto/fluster.proto" \
-    "$FLUSTER_NATIVE_ROOT/packages/fluster_grpc/src/proto/mdx.proto" \
-    "$FLUSTER_NATIVE_ROOT/packages/fluster_grpc/src/proto/settings.proto" \
-
-protoc \
-    --proto_path="$FLUSTER_NATIVE_ROOT/packages/fluster_grpc/src" \
-    --plugin="protoc-gen-ts=$FLUSTER_NATIVE_ROOT/packages/fluster_ts/node_modules/.bin/protoc-gen-ts" \
-    --ts_opt=esModuleInterop=true \
-    --js_out="$FLUSTER_NATIVE_ROOT/packages/fluster_ts/dist/generated/grpc" \
-    --ts_out="$FLUSTER_NATIVE_ROOT/packages/fluster_ts/src/generated/grpc" \
-    "$FLUSTER_NATIVE_ROOT/packages/fluster_grpc/src/proto/database.proto" \
-    "$FLUSTER_NATIVE_ROOT/packages/fluster_grpc/src/proto/fluster.proto" \
-    "$FLUSTER_NATIVE_ROOT/packages/fluster_grpc/src/proto/mdx.proto" \
-    "$FLUSTER_NATIVE_ROOT/packages/fluster_grpc/src/proto/settings.proto" \
+# Generate flutter bindings
+flutter_rust_bridge_codegen generate

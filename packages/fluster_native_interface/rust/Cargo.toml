@@ -19,7 +19,9 @@ tracing-subscriber = { workspace = true }
 thiserror = { workspace = true }
 fluster_rust_types = { path = "../../fluster_rust_types/" }
 fluster_db = { path = "../../fluster_db/" }
+fluster_grpc = { path = "../../fluster_grpc/rust" }
 regex = "1.11.1"
+flutter_logger = "0.6.1"
 
 [lints.rust]
 unexpected_cfgs = { level = "warn", check-cfg = ['cfg(frb_expand)'] }

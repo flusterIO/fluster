@@ -2,7 +2,10 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
+import 'package:fluster/data_models/actions/global_actions/toggle_left_panel.dart';
+import 'package:fluster/data_models/setting/setting_pages.dart';
 import 'package:fluster/router/router.dart';
+import 'package:fluster/state/ui/panels/panel_left/actions/panel_left_actions.dart';
 import 'package:fluster/static/extension_methods/context_extension.dart';
 import 'package:fluster/static/styles/themes/themes.dart';
 import 'package:fluster/widgets/scaffolds/desktop/loading_indicator.dart';
@@ -23,13 +26,15 @@ class FlusterDesktopApp extends StatelessWidget {
       scrollBehavior: const MaterialScrollBehavior().copyWith(
         scrollbars: false,
       ),
+      shortcuts: {
+        getToggleLeftPanelAction().activator: ToggleLeftPanelIntent(),
+      },
+      actions: {ToggleLeftPanelIntent: getToggleLeftPanelAction()},
       // shortcuts:
-      //     (ref.context.sgetPageById(SettingPageId.keymap)
-      //             as KeymapSettingPageData)
+      //     context.state.settingsState.settings.pages[SettingPageId.keymap]
       //         .toAppScaffoldShortcuts(),
       // actions:
-      //     (settings.getPageById(SettingPageId.keymap)
-      //             as KeymapSettingPageData)
+      //     context.state.settingsState.settings.pages[SettingPageId.keymap]
       //         .toAppScaffoldActions(),
       builder:
           (_, child) => MediaQuery(

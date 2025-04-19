@@ -11,21 +11,20 @@ class SettingsSideMenuPanel extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final shad = theme.extension<ShadTheme>()!;
-    // final settingPageState = ref.watch(settingsPageProvider);
-    final allSettings = getInitialSettings();
+    final pages =
+        context.state.settingsState.settings?.pages.values.toList() ?? [];
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       spacing: 12,
-      children: List.generate(allSettings.pages.length, (int idx) {
+      children: List.generate(pages.length, (int idx) {
         return SizedBox(
           width: double.infinity,
           child: MouseRegion(
             cursor: SystemMouseCursors.click,
             child: GestureDetector(
               onTap: () {
-                globalReduxStore.dispatch(
-                  SetSettingsPage(allSettings.pages[idx].id),
-                );
+                globalReduxStore.dispatch(SetSettingsPage(pages[idx].id));
               },
               child: AnimatedContainer(
                 duration: Duration(milliseconds: 150),
@@ -34,7 +33,7 @@ class SettingsSideMenuPanel extends StatelessWidget {
                   border: Border.all(
                     color:
                         context.state.navigationState.settingPageId ==
-                                allSettings.pages[idx].id
+                                pages[idx].id
                             ? shad.primary
                             : shad.border,
                   ),
@@ -45,9 +44,9 @@ class SettingsSideMenuPanel extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   spacing: 2,
                   children: [
-                    Text(allSettings.pages[idx].label),
+                    Text(pages[idx].label),
                     Text(
-                      allSettings.pages[idx].desc,
+                      pages[idx].desc,
                       style: theme.textTheme.bodySmall!.copyWith(
                         color: shad.mutedForeground,
                       ),
