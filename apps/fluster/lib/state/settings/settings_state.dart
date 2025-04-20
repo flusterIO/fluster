@@ -5,7 +5,6 @@ import 'package:fluster/state/network/network_state.dart';
 import 'package:fluster/state/store.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:fluster/static/settings/settings_root.dart';
-// import 'package:fluster_native_interface/fluster_native_interface.dart' as rust;
 
 part "settings_state.freezed.dart";
 
@@ -17,7 +16,7 @@ class SettingsState with _$SettingsState {
     required Settings settings,
 
     /// false initially, and set to true after the database is read and the settings have been set appropriately.
-    // @Default(false) bool hasReadDb,
+    @Default(false) bool hasSeeded,
   }) = _SettingsState;
   static SettingsState initialState() =>
       SettingsState(settings: Settings.initialSettings());
@@ -25,7 +24,7 @@ class SettingsState with _$SettingsState {
     globalReduxStore.dispatch(
       SetLoadingAction(true, LoadingSource.databaseSettings),
     );
-    final t = Timer(Duration(seconds: 10), () => {});
+    final t = Timer(Duration(seconds: 3), () => {});
     t.cancel();
     // RESUME: Come back here immediately. This is where the seeding needs to happen.
     // rust.

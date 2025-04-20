@@ -1,7 +1,6 @@
 trash "$FLUSTER_NATIVE_ROOT/packages/fluster_py/fluster_py/generated/grpc/"
 trash "$FLUSTER_NATIVE_ROOT/packages/fluster_go/pkg/grpc/"
 trash "$FLUSTER_NATIVE_ROOT/packages/fluster_ts/src/generated/grpc/"
-# trash "$FLUSTER_NATIVE_ROOT/packages/fluster_grpc/rust/generated/"
 trash "$FLUSTER_NATIVE_ROOT/packages/fluster_grpc/rust/src/frb_generated.rs"
 trash "$FLUSTER_NATIVE_ROOT/packages/fluster_native_interface/rust/src/frb_generated.rs"
 touch "$FLUSTER_NATIVE_ROOT/packages/fluster_grpc/rust/src/frb_generated.rs"
@@ -9,4 +8,3 @@ touch "$FLUSTER_NATIVE_ROOT/packages/fluster_native_interface/rust/src/frb_gener
 mkdir "$FLUSTER_NATIVE_ROOT/packages/fluster_py/fluster_py/generated/grpc/"
 mkdir "$FLUSTER_NATIVE_ROOT/packages/fluster_go/pkg/grpc/"
 mkdir "$FLUSTER_NATIVE_ROOT/packages/fluster_ts/src/generated/grpc/"
-# mkdir "$FLUSTER_NATIVE_ROOT/packages/fluster_grpc/rust/generated/"

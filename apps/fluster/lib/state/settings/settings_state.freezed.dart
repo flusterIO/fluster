@@ -19,6 +19,9 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$SettingsState {
   Settings get settings => throw _privateConstructorUsedError;
 
+  /// false initially, and set to true after the database is read and the settings have been set appropriately.
+  bool get hasSeeded => throw _privateConstructorUsedError;
+
   /// Create a copy of SettingsState
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
@@ -33,7 +36,7 @@ abstract class $SettingsStateCopyWith<$Res> {
     $Res Function(SettingsState) then,
   ) = _$SettingsStateCopyWithImpl<$Res, SettingsState>;
   @useResult
-  $Res call({Settings settings});
+  $Res call({Settings settings, bool hasSeeded});
 }
 
 /// @nodoc
@@ -50,7 +53,7 @@ class _$SettingsStateCopyWithImpl<$Res, $Val extends SettingsState>
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
-  $Res call({Object? settings = null}) {
+  $Res call({Object? settings = null, Object? hasSeeded = null}) {
     return _then(
       _value.copyWith(
             settings:
@@ -58,6 +61,11 @@ class _$SettingsStateCopyWithImpl<$Res, $Val extends SettingsState>
                     ? _value.settings
                     : settings // ignore: cast_nullable_to_non_nullable
                         as Settings,
+            hasSeeded:
+                null == hasSeeded
+                    ? _value.hasSeeded
+                    : hasSeeded // ignore: cast_nullable_to_non_nullable
+                        as bool,
           )
           as $Val,
     );
@@ -73,7 +81,7 @@ abstract class _$$SettingsStateImplCopyWith<$Res>
   ) = __$$SettingsStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({Settings settings});
+  $Res call({Settings settings, bool hasSeeded});
 }
 
 /// @nodoc
@@ -89,7 +97,7 @@ class __$$SettingsStateImplCopyWithImpl<$Res>
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
-  $Res call({Object? settings = null}) {
+  $Res call({Object? settings = null, Object? hasSeeded = null}) {
     return _then(
       _$SettingsStateImpl(
         settings:
@@ -97,6 +105,11 @@ class __$$SettingsStateImplCopyWithImpl<$Res>
                 ? _value.settings
                 : settings // ignore: cast_nullable_to_non_nullable
                     as Settings,
+        hasSeeded:
+            null == hasSeeded
+                ? _value.hasSeeded
+                : hasSeeded // ignore: cast_nullable_to_non_nullable
+                    as bool,
       ),
     );
   }
@@ -105,14 +118,20 @@ class __$$SettingsStateImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$SettingsStateImpl extends _SettingsState {
-  const _$SettingsStateImpl({required this.settings}) : super._();
+  const _$SettingsStateImpl({required this.settings, this.hasSeeded = false})
+    : super._();
 
   @override
   final Settings settings;
 
+  /// false initially, and set to true after the database is read and the settings have been set appropriately.
+  @override
+  @JsonKey()
+  final bool hasSeeded;
+
   @override
   String toString() {
-    return 'SettingsState(settings: $settings)';
+    return 'SettingsState(settings: $settings, hasSeeded: $hasSeeded)';
   }
 
   @override
@@ -121,11 +140,13 @@ class _$SettingsStateImpl extends _SettingsState {
         (other.runtimeType == runtimeType &&
             other is _$SettingsStateImpl &&
             (identical(other.settings, settings) ||
-                other.settings == settings));
+                other.settings == settings) &&
+            (identical(other.hasSeeded, hasSeeded) ||
+                other.hasSeeded == hasSeeded));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, settings);
+  int get hashCode => Object.hash(runtimeType, settings, hasSeeded);
 
   /// Create a copy of SettingsState
   /// with the given fields replaced by the non-null parameter values.
@@ -137,12 +158,18 @@ class _$SettingsStateImpl extends _SettingsState {
 }
 
 abstract class _SettingsState extends SettingsState {
-  const factory _SettingsState({required final Settings settings}) =
-      _$SettingsStateImpl;
+  const factory _SettingsState({
+    required final Settings settings,
+    final bool hasSeeded,
+  }) = _$SettingsStateImpl;
   const _SettingsState._() : super._();
 
   @override
   Settings get settings;
+
+  /// false initially, and set to true after the database is read and the settings have been set appropriately.
+  @override
+  bool get hasSeeded;
 
   /// Create a copy of SettingsState
   /// with the given fields replaced by the non-null parameter values.

@@ -6,3 +6,5 @@ pub mod settings_proto {
 
 #[derive(Debug, Default)]
 pub struct SettingServiceHandler {}
+
+impl SettingService for SettingServiceHandler {}

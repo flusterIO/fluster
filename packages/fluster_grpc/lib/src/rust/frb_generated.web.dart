@@ -23,6 +23,22 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
     required super.portManager,
   });
 
+  CrossPlatformFinalizerArg
+  get rust_arc_decrement_strong_count_SettingItemPtr =>
+      wire.rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerSettingItem;
+
+  @protected
+  SettingItem
+  dco_decode_Auto_RefMut_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerSettingItem(
+    dynamic raw,
+  );
+
+  @protected
+  SettingItem
+  dco_decode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerSettingItem(
+    dynamic raw,
+  );
+
   @protected
   String dco_decode_String(dynamic raw);
 
@@ -34,6 +50,9 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
 
   @protected
   MdxNote dco_decode_box_autoadd_mdx_note(dynamic raw);
+
+  @protected
+  SettingItem dco_decode_box_autoadd_setting_item(dynamic raw);
 
   @protected
   SettingType dco_decode_box_autoadd_setting_type(dynamic raw);
@@ -87,6 +106,9 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   SettingField dco_decode_setting_field(dynamic raw);
 
   @protected
+  SettingItem dco_decode_setting_item(dynamic raw);
+
+  @protected
   SettingServiceHandler dco_decode_setting_service_handler(dynamic raw);
 
   @protected
@@ -99,6 +121,21 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   void dco_decode_unit(dynamic raw);
 
   @protected
+  BigInt dco_decode_usize(dynamic raw);
+
+  @protected
+  SettingItem
+  sse_decode_Auto_RefMut_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerSettingItem(
+    SseDeserializer deserializer,
+  );
+
+  @protected
+  SettingItem
+  sse_decode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerSettingItem(
+    SseDeserializer deserializer,
+  );
+
+  @protected
   String sse_decode_String(SseDeserializer deserializer);
 
   @protected
@@ -109,6 +146,9 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
 
   @protected
   MdxNote sse_decode_box_autoadd_mdx_note(SseDeserializer deserializer);
+
+  @protected
+  SettingItem sse_decode_box_autoadd_setting_item(SseDeserializer deserializer);
 
   @protected
   SettingType sse_decode_box_autoadd_setting_type(SseDeserializer deserializer);
@@ -172,6 +212,9 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   SettingField sse_decode_setting_field(SseDeserializer deserializer);
 
   @protected
+  SettingItem sse_decode_setting_item(SseDeserializer deserializer);
+
+  @protected
   SettingServiceHandler sse_decode_setting_service_handler(
     SseDeserializer deserializer,
   );
@@ -184,6 +227,23 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
 
   @protected
   void sse_decode_unit(SseDeserializer deserializer);
+
+  @protected
+  BigInt sse_decode_usize(SseDeserializer deserializer);
+
+  @protected
+  void
+  sse_encode_Auto_RefMut_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerSettingItem(
+    SettingItem self,
+    SseSerializer serializer,
+  );
+
+  @protected
+  void
+  sse_encode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerSettingItem(
+    SettingItem self,
+    SseSerializer serializer,
+  );
 
   @protected
   void sse_encode_String(String self, SseSerializer serializer);
@@ -199,6 +259,12 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
 
   @protected
   void sse_encode_box_autoadd_mdx_note(MdxNote self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_box_autoadd_setting_item(
+    SettingItem self,
+    SseSerializer serializer,
+  );
 
   @protected
   void sse_encode_box_autoadd_setting_type(
@@ -279,6 +345,9 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   void sse_encode_setting_field(SettingField self, SseSerializer serializer);
 
   @protected
+  void sse_encode_setting_item(SettingItem self, SseSerializer serializer);
+
+  @protected
   void sse_encode_setting_service_handler(
     SettingServiceHandler self,
     SseSerializer serializer,
@@ -292,12 +361,31 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
 
   @protected
   void sse_encode_unit(void self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_usize(BigInt self, SseSerializer serializer);
 }
 
 // Section: wire_class
 
 class RustLibWire implements BaseWire {
   RustLibWire.fromExternalLibrary(ExternalLibrary lib);
+
+  void
+  rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerSettingItem(
+    int ptr,
+  ) => wasmModule
+      .rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerSettingItem(
+        ptr,
+      );
+
+  void
+  rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerSettingItem(
+    int ptr,
+  ) => wasmModule
+      .rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerSettingItem(
+        ptr,
+      );
 }
 
 @JS('wasm_bindgen')
@@ -305,4 +393,14 @@ external RustLibWasmModule get wasmModule;
 
 @JS()
 @anonymous
-extension type RustLibWasmModule._(JSObject _) implements JSObject {}
+extension type RustLibWasmModule._(JSObject _) implements JSObject {
+  external void
+  rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerSettingItem(
+    int ptr,
+  );
+
+  external void
+  rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerSettingItem(
+    int ptr,
+  );
+}

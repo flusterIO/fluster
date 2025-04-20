@@ -11,9 +11,10 @@ from google.protobuf import symbol_database as _symbol_database
 _sym_db = _symbol_database.Default()
 
 
+import database_pb2 as database__pb2
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x0esettings.proto\x12\x0bsettings.v1\"\x92\x01\n\x0bSettingItem\x12\r\n\x05label\x18\x01 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x02 \x01(\t\x12\x0c\n\x04page\x18\x03 \x01(\t\x12\r\n\x05value\x18\x04 \x01(\t\x12\x1a\n\x12setting_unique_key\x18\x05 \x01(\t\x12&\n\x04type\x18\x06 \x01(\x0e\x32\x18.settings.v1.SettingType\",\n\x0cSettingField\x12\r\n\x05label\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t\"F\n\x17GetUserSettingsResponse\x12+\n\x08settings\x18\x01 \x03(\x0b\x32\x19.settings.v1.SettingField*w\n\x0bSettingType\x12#\n\x1fSETTING_TYPE_STRING_UNSPECIFIED\x10\x00\x12\x14\n\x10SETTING_TYPE_INT\x10\x01\x12\x16\n\x12SETTING_TYPE_FLOAT\x10\x02\x12\x15\n\x11SETTING_TYPE_BOOL\x10\x03\x32\x10\n\x0eSettingServiceB\x0cZ\n./settingsb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x0esettings.proto\x12\x0bsettings.v1\x1a\x0e\x64\x61tabase.proto\"\x92\x01\n\x0bSettingItem\x12\r\n\x05label\x18\x01 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x02 \x01(\t\x12\x0c\n\x04page\x18\x03 \x01(\t\x12\r\n\x05value\x18\x04 \x01(\t\x12\x1a\n\x12setting_unique_key\x18\x05 \x01(\t\x12&\n\x04type\x18\x06 \x01(\x0e\x32\x18.settings.v1.SettingType\",\n\x0cSettingField\x12\r\n\x05label\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t\"F\n\x17GetUserSettingsResponse\x12+\n\x08settings\x18\x01 \x03(\x0b\x32\x19.settings.v1.SettingField*w\n\x0bSettingType\x12#\n\x1fSETTING_TYPE_STRING_UNSPECIFIED\x10\x00\x12\x14\n\x10SETTING_TYPE_INT\x10\x01\x12\x16\n\x12SETTING_TYPE_FLOAT\x10\x02\x12\x15\n\x11SETTING_TYPE_BOOL\x10\x03\x32r\n\x0eSettingService\x12`\n\x0fgetUserSettings\x12\'.database.v1.DatabaseCredentialsRequest\x1a$.settings.v1.GetUserSettingsResponseB\x0cZ\n./settingsb\x06proto3')
 
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, globals())
 _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'settings_pb2', globals())
@@ -21,14 +22,14 @@ if _descriptor._USE_C_DESCRIPTORS == False:
 
   DESCRIPTOR._options = None
   DESCRIPTOR._serialized_options = b'Z\n./settings'
-  _SETTINGTYPE._serialized_start=298
-  _SETTINGTYPE._serialized_end=417
-  _SETTINGITEM._serialized_start=32
-  _SETTINGITEM._serialized_end=178
-  _SETTINGFIELD._serialized_start=180
-  _SETTINGFIELD._serialized_end=224
-  _GETUSERSETTINGSRESPONSE._serialized_start=226
-  _GETUSERSETTINGSRESPONSE._serialized_end=296
-  _SETTINGSERVICE._serialized_start=419
-  _SETTINGSERVICE._serialized_end=435
+  _SETTINGTYPE._serialized_start=314
+  _SETTINGTYPE._serialized_end=433
+  _SETTINGITEM._serialized_start=48
+  _SETTINGITEM._serialized_end=194
+  _SETTINGFIELD._serialized_start=196
+  _SETTINGFIELD._serialized_end=240
+  _GETUSERSETTINGSRESPONSE._serialized_start=242
+  _GETUSERSETTINGSRESPONSE._serialized_end=312
+  _SETTINGSERVICE._serialized_start=435
+  _SETTINGSERVICE._serialized_end=549
 # @@protoc_insertion_point(module_scope)

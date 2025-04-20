@@ -2,6 +2,7 @@
 // file: settings.proto
 
 import * as jspb from "google-protobuf";
+import * as database_pb from "./database_pb";
 
 export class SettingItem extends jspb.Message {
   getLabel(): string;

@@ -1,7 +1,9 @@
+import 'package:fluster/data_models/setting/setting_item.dart';
 import 'package:fluster/data_models/setting/setting_pages.dart';
 import 'package:fluster/data_models/setting/setting_section.dart';
 import 'package:fluster/static/settings/setting_by_category/keymap.dart';
 import 'package:fluster/static/settings/setting_sections/general/general_settings.dart';
+import 'package:flutter/widgets.dart';
 
 class Settings {
   final Map<SettingPageId, SettingPageDataAbstract> pages;
@@ -45,5 +47,16 @@ class Settings {
             ]),
       },
     );
+  }
+
+  Map<ShortcutActivator, VoidCallback> toCallbackShortcuts() {
+    var data = <ShortcutActivator, VoidCallback>{};
+    for (var sec
+        in (pages[SettingPageId.keymap] as KeymapSettingPageData).sections) {
+      for (var km in (sec.items as List<KeymapSetting>)) {
+        data[km.action.activator] = km.action.callback;
+      }
+    }
+    return data;
   }
 }

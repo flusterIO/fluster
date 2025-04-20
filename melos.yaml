@@ -28,7 +28,11 @@ scripts:
     name: buildRust
     description: Compile using flutter_rust_bridge in the fluster_native_interface package.
     steps:
-      - sh $FLUSTER_NATIVE_ROOT/packages/fluster_grpc/scripts/distribute_proto.sh
+      - $FLUSTER_NATIVE_ROOT/packages/fluster_grpc/scripts/distribute_proto.sh
+  build_rust_with_errors:
+    name: Build rust with errors
+    description: Compile using flutter_rust_bridge in the fluster_native_interface package.
+    run: FRB_DEBUG_SKIP_SANITY_CHECK_CLASS_NAME_DUPLICATES=1  $FLUSTER_NATIVE_ROOT/packages/fluster_grpc/scripts/distribute_proto.sh
   build_fluster:
     name: Build Fluster
     description: Builds the fluster flutter app alone.

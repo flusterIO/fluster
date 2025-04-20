@@ -9,6 +9,10 @@ class SetLoadingAction extends FlusterAction {
 
   @override
   GlobalAppState reduce() {
+    final hasSeeded =
+        (isLoading == false) && (source == LoadingSource.databaseSettings)
+            ? true
+            : state.settingsState.hasSeeded;
     if (isLoading) {
       return state.copyWith(
         networkState: state.networkState.copyWith(
@@ -18,6 +22,7 @@ class SetLoadingAction extends FlusterAction {
                   ? state.networkState.loadingSources
                   : [...state.networkState.loadingSources, source!],
         ),
+        settingsState: state.settingsState.copyWith(hasSeeded: hasSeeded),
       );
     } else {
       // is not loading. DOn't directly set loading here, and leave that to the length of the array so specific types of loading states can be removed individually.
@@ -29,6 +34,7 @@ class SetLoadingAction extends FlusterAction {
                     .where((x) => x != source!)
                     .toList(),
           ),
+          settingsState: state.settingsState.copyWith(hasSeeded: hasSeeded),
         );
       }
     }

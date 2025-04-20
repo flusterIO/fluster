@@ -6,89 +6,148 @@
 import '../../../../frb_generated.dart';
 import 'package:flutter_rust_bridge/flutter_rust_bridge_for_generated.dart';
 
-// These function are ignored because they are on traits that is not defined in current crate (put an empty `#[frb]` on it to unignore): `assert_receiver_is_total_eq`, `clear`, `clear`, `clone`, `clone`, `clone`, `cmp`, `encode_raw`, `encode_raw`, `encoded_len`, `encoded_len`, `eq`, `eq`, `eq`, `fmt`, `fmt`, `fmt`, `from`, `hash`, `merge_field`, `merge_field`, `partial_cmp`, `try_from`
 
-class GetUserSettingsResponse {
-  final List<SettingField> settings;
+            // These function are ignored because they are on traits that is not defined in current crate (put an empty `#[frb]` on it to unignore): `assert_receiver_is_total_eq`, `clear`, `clear`, `clear`, `clone`, `clone`, `clone`, `clone`, `cmp`, `encode_raw`, `encode_raw`, `encode_raw`, `encoded_len`, `encoded_len`, `encoded_len`, `eq`, `eq`, `eq`, `eq`, `fmt`, `fmt`, `fmt`, `fmt`, `from`, `hash`, `merge_field`, `merge_field`, `merge_field`, `partial_cmp`, `try_from`
 
-  const GetUserSettingsResponse({required this.settings});
 
-  static Future<GetUserSettingsResponse> default_() =>
-      RustLib.instance.api
-          .crateApiServicesSettingsServiceServerSettingsProtoGetUserSettingsResponseDefault();
+            
 
-  @override
-  int get hashCode => settings.hashCode;
+            
+                // Rust type: RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<SettingItem>>
+                abstract class SettingItem implements RustOpaqueInterface {
+                    static Future<SettingItem>  default_()=>RustLib.instance.api.crateApiServicesSettingsServiceServerSettingsProtoSettingItemDefault();
 
-  @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      other is GetUserSettingsResponse &&
-          runtimeType == other.runtimeType &&
-          settings == other.settings;
-}
+
+///Returns the enum value of `type`, or the default if the field is set to an invalid enum value.
+ Future<SettingType>  r#type();
+
+
+///Sets `type` to the provided enum value.
+ Future<void>  setType({required SettingType value });
+
+
+
+                    
+                }
+                
+
+class GetUserSettingsResponse  {
+                final List<SettingField> settings;
+
+                const GetUserSettingsResponse({required this.settings ,});
+
+                static Future<GetUserSettingsResponse>  default_()=>RustLib.instance.api.crateApiServicesSettingsServiceServerSettingsProtoGetUserSettingsResponseDefault();
+
+
+                
+
+                
+        @override
+        int get hashCode => settings.hashCode;
+        
+
+                
+        @override
+        bool operator ==(Object other) =>
+            identical(this, other) ||
+            other is GetUserSettingsResponse &&
+                runtimeType == other.runtimeType
+                && settings == other.settings;
+        
+            }
 
 /// /  A stripped down version of the SettingItem model.
-class SettingField {
-  final String label;
-  final String value;
+class SettingField  {
+                final String label;
+final String value;
 
-  const SettingField({required this.label, required this.value});
+                const SettingField({required this.label ,required this.value ,});
 
-  static Future<SettingField> default_() =>
-      RustLib.instance.api
-          .crateApiServicesSettingsServiceServerSettingsProtoSettingFieldDefault();
+                static Future<SettingField>  default_()=>RustLib.instance.api.crateApiServicesSettingsServiceServerSettingsProtoSettingFieldDefault();
 
-  @override
-  int get hashCode => label.hashCode ^ value.hashCode;
 
-  @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      other is SettingField &&
-          runtimeType == other.runtimeType &&
-          label == other.label &&
-          value == other.value;
-}
+                
+
+                
+        @override
+        int get hashCode => label.hashCode^value.hashCode;
+        
+
+                
+        @override
+        bool operator ==(Object other) =>
+            identical(this, other) ||
+            other is SettingField &&
+                runtimeType == other.runtimeType
+                && label == other.label&& value == other.value;
+        
+            }
+
+class SettingItem  {
+                final String label;
+final String description;
+final String page;
+final String value;
+final String settingUniqueKey;
+final int type;
+
+                const SettingItem({required this.label ,required this.description ,required this.page ,required this.value ,required this.settingUniqueKey ,required this.type ,});
+
+                static Future<SettingItem>  default_()=>RustLib.instance.api.crateApiServicesSettingsServiceServerSettingsProtoSettingItemDefault();
+
+
+///Returns the enum value of `type`, or the default if the field is set to an invalid enum value.
+ Future<SettingType>  r#type()=>RustLib.instance.api.crateApiServicesSettingsServiceServerSettingsProtoSettingItemR#type(that = this, );
+
+
+///Sets `type` to the provided enum value.
+ Future<void>  setType({required SettingType value })=>RustLib.instance.api.crateApiServicesSettingsServiceServerSettingsProtoSettingItemSetType(that: this, value: value);
+
+
+                
+
+                
+        @override
+        int get hashCode => label.hashCode^description.hashCode^page.hashCode^value.hashCode^settingUniqueKey.hashCode^type.hashCode;
+        
+
+                
+        @override
+        bool operator ==(Object other) =>
+            identical(this, other) ||
+            other is SettingItem &&
+                runtimeType == other.runtimeType
+                && label == other.label&& description == other.description&& page == other.page&& value == other.value&& settingUniqueKey == other.settingUniqueKey&& type == other.type;
+        
+            }
 
 enum SettingType {
-  stringUnspecified,
-  int,
-  float,
-  bool;
+                    stringUnspecified,
+int,
+float,
+bool,
+                    ;
+                    /// String value of the enum field names used in the ProtoBuf definition.
+///
+/// The values are not transformed in any way and thus are considered stable
+/// (if the ProtoBuf definition does not change) and safe for programmatic use.
+ Future<void>  asStrName()=>RustLib.instance.api.crateApiServicesSettingsServiceServerSettingsProtoSettingTypeAsStrName(that: this, );
 
-  /// String value of the enum field names used in the ProtoBuf definition.
-  ///
-  /// The values are not transformed in any way and thus are considered stable
-  /// (if the ProtoBuf definition does not change) and safe for programmatic use.
-  Future<void> asStrName() => RustLib.instance.api
-      .crateApiServicesSettingsServiceServerSettingsProtoSettingTypeAsStrName(
-        that: this,
-      );
 
-  static Future<SettingType> default_() =>
-      RustLib.instance.api
-          .crateApiServicesSettingsServiceServerSettingsProtoSettingTypeDefault();
+static Future<SettingType>  default_()=>RustLib.instance.api.crateApiServicesSettingsServiceServerSettingsProtoSettingTypeDefault();
 
-  ///Converts an `i32` to a `SettingType`, or `None` if `value` is not a valid variant.
-  static Future<SettingType?> fromI32({required int value}) => RustLib
-      .instance
-      .api
-      .crateApiServicesSettingsServiceServerSettingsProtoSettingTypeFromI32(
-        value: value,
-      );
 
-  /// Creates an enum from field names used in the ProtoBuf definition.
-  static Future<SettingType?> fromStrName({required String value}) => RustLib
-      .instance
-      .api
-      .crateApiServicesSettingsServiceServerSettingsProtoSettingTypeFromStrName(
-        value: value,
-      );
+///Converts an `i32` to a `SettingType`, or `None` if `value` is not a valid variant.
+static Future<SettingType?>  fromI32({required int value })=>RustLib.instance.api.crateApiServicesSettingsServiceServerSettingsProtoSettingTypeFromI32(value: value);
 
-  ///Returns `true` if `value` is a variant of `SettingType`.
-  static Future<bool> isValid({required int value}) => RustLib.instance.api
-      .crateApiServicesSettingsServiceServerSettingsProtoSettingTypeIsValid(
-        value: value,
-      );
-}
+
+/// Creates an enum from field names used in the ProtoBuf definition.
+static Future<SettingType?>  fromStrName({required String value })=>RustLib.instance.api.crateApiServicesSettingsServiceServerSettingsProtoSettingTypeFromStrName(value: value);
+
+
+///Returns `true` if `value` is a variant of `SettingType`.
+static Future<bool>  isValid({required int value })=>RustLib.instance.api.crateApiServicesSettingsServiceServerSettingsProtoSettingTypeIsValid(value: value);
+
+
+                }
+            
