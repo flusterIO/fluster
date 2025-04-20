@@ -73,6 +73,90 @@ func (SettingType) EnumDescriptor() ([]byte, []int) {
 	return file_settings_proto_rawDescGZIP(), []int{0}
 }
 
+type SettingItem struct {
+	state            protoimpl.MessageState `protogen:"open.v1"`
+	Label            string                 `protobuf:"bytes,1,opt,name=label,proto3" json:"label,omitempty"`
+	Description      string                 `protobuf:"bytes,2,opt,name=description,proto3" json:"description,omitempty"`
+	Page             string                 `protobuf:"bytes,3,opt,name=page,proto3" json:"page,omitempty"`
+	Value            string                 `protobuf:"bytes,4,opt,name=value,proto3" json:"value,omitempty"`
+	SettingUniqueKey string                 `protobuf:"bytes,5,opt,name=setting_unique_key,json=settingUniqueKey,proto3" json:"setting_unique_key,omitempty"`
+	Type             SettingType            `protobuf:"varint,6,opt,name=type,proto3,enum=settings.v1.SettingType" json:"type,omitempty"`
+	unknownFields    protoimpl.UnknownFields
+	sizeCache        protoimpl.SizeCache
+}
+
+func (x *SettingItem) Reset() {
+	*x = SettingItem{}
+	mi := &file_settings_proto_msgTypes[0]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *SettingItem) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*SettingItem) ProtoMessage() {}
+
+func (x *SettingItem) ProtoReflect() protoreflect.Message {
+	mi := &file_settings_proto_msgTypes[0]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use SettingItem.ProtoReflect.Descriptor instead.
+func (*SettingItem) Descriptor() ([]byte, []int) {
+	return file_settings_proto_rawDescGZIP(), []int{0}
+}
+
+func (x *SettingItem) GetLabel() string {
+	if x != nil {
+		return x.Label
+	}
+	return ""
+}
+
+func (x *SettingItem) GetDescription() string {
+	if x != nil {
+		return x.Description
+	}
+	return ""
+}
+
+func (x *SettingItem) GetPage() string {
+	if x != nil {
+		return x.Page
+	}
+	return ""
+}
+
+func (x *SettingItem) GetValue() string {
+	if x != nil {
+		return x.Value
+	}
+	return ""
+}
+
+func (x *SettingItem) GetSettingUniqueKey() string {
+	if x != nil {
+		return x.SettingUniqueKey
+	}
+	return ""
+}
+
+func (x *SettingItem) GetType() SettingType {
+	if x != nil {
+		return x.Type
+	}
+	return SettingType_SETTING_TYPE_STRING_UNSPECIFIED
+}
+
 // /  A stripped down version of the SettingItem model.
 type SettingField struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
@@ -84,7 +168,7 @@ type SettingField struct {
 
 func (x *SettingField) Reset() {
 	*x = SettingField{}
-	mi := &file_settings_proto_msgTypes[0]
+	mi := &file_settings_proto_msgTypes[1]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -96,7 +180,7 @@ func (x *SettingField) String() string {
 func (*SettingField) ProtoMessage() {}
 
 func (x *SettingField) ProtoReflect() protoreflect.Message {
-	mi := &file_settings_proto_msgTypes[0]
+	mi := &file_settings_proto_msgTypes[1]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -109,7 +193,7 @@ func (x *SettingField) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use SettingField.ProtoReflect.Descriptor instead.
 func (*SettingField) Descriptor() ([]byte, []int) {
-	return file_settings_proto_rawDescGZIP(), []int{0}
+	return file_settings_proto_rawDescGZIP(), []int{1}
 }
 
 func (x *SettingField) GetLabel() string {
@@ -135,7 +219,7 @@ type GetUserSettingsResponse struct {
 
 func (x *GetUserSettingsResponse) Reset() {
 	*x = GetUserSettingsResponse{}
-	mi := &file_settings_proto_msgTypes[1]
+	mi := &file_settings_proto_msgTypes[2]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -147,7 +231,7 @@ func (x *GetUserSettingsResponse) String() string {
 func (*GetUserSettingsResponse) ProtoMessage() {}
 
 func (x *GetUserSettingsResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_settings_proto_msgTypes[1]
+	mi := &file_settings_proto_msgTypes[2]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -160,7 +244,7 @@ func (x *GetUserSettingsResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetUserSettingsResponse.ProtoReflect.Descriptor instead.
 func (*GetUserSettingsResponse) Descriptor() ([]byte, []int) {
-	return file_settings_proto_rawDescGZIP(), []int{1}
+	return file_settings_proto_rawDescGZIP(), []int{2}
 }
 
 func (x *GetUserSettingsResponse) GetSettings() []*SettingField {
@@ -174,7 +258,14 @@ var File_settings_proto protoreflect.FileDescriptor
 
 const file_settings_proto_rawDesc = "" +
 	"\n" +
-	"\x0esettings.proto\x12\vsettings.v1\":\n" +
+	"\x0esettings.proto\x12\vsettings.v1\"\xcb\x01\n" +
+	"\vSettingItem\x12\x14\n" +
+	"\x05label\x18\x01 \x01(\tR\x05label\x12 \n" +
+	"\vdescription\x18\x02 \x01(\tR\vdescription\x12\x12\n" +
+	"\x04page\x18\x03 \x01(\tR\x04page\x12\x14\n" +
+	"\x05value\x18\x04 \x01(\tR\x05value\x12,\n" +
+	"\x12setting_unique_key\x18\x05 \x01(\tR\x10settingUniqueKey\x12,\n" +
+	"\x04type\x18\x06 \x01(\x0e2\x18.settings.v1.SettingTypeR\x04type\":\n" +
 	"\fSettingField\x12\x14\n" +
 	"\x05label\x18\x01 \x01(\tR\x05label\x12\x14\n" +
 	"\x05value\x18\x02 \x01(\tR\x05value\"P\n" +
@@ -201,19 +292,21 @@ func file_settings_proto_rawDescGZIP() []byte {
 }
 
 var file_settings_proto_enumTypes = make([]protoimpl.EnumInfo, 1)
-var file_settings_proto_msgTypes = make([]protoimpl.MessageInfo, 2)
+var file_settings_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
 var file_settings_proto_goTypes = []any{
 	(SettingType)(0),                // 0: settings.v1.SettingType
-	(*SettingField)(nil),            // 1: settings.v1.SettingField
-	(*GetUserSettingsResponse)(nil), // 2: settings.v1.GetUserSettingsResponse
+	(*SettingItem)(nil),             // 1: settings.v1.SettingItem
+	(*SettingField)(nil),            // 2: settings.v1.SettingField
+	(*GetUserSettingsResponse)(nil), // 3: settings.v1.GetUserSettingsResponse
 }
 var file_settings_proto_depIdxs = []int32{
-	1, // 0: settings.v1.GetUserSettingsResponse.settings:type_name -> settings.v1.SettingField
-	1, // [1:1] is the sub-list for method output_type
-	1, // [1:1] is the sub-list for method input_type
-	1, // [1:1] is the sub-list for extension type_name
-	1, // [1:1] is the sub-list for extension extendee
-	0, // [0:1] is the sub-list for field type_name
+	0, // 0: settings.v1.SettingItem.type:type_name -> settings.v1.SettingType
+	2, // 1: settings.v1.GetUserSettingsResponse.settings:type_name -> settings.v1.SettingField
+	2, // [2:2] is the sub-list for method output_type
+	2, // [2:2] is the sub-list for method input_type
+	2, // [2:2] is the sub-list for extension type_name
+	2, // [2:2] is the sub-list for extension extendee
+	0, // [0:2] is the sub-list for field type_name
 }
 
 func init() { file_settings_proto_init() }
@@ -227,7 +320,7 @@ func file_settings_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_settings_proto_rawDesc), len(file_settings_proto_rawDesc)),
 			NumEnums:      1,
-			NumMessages:   2,
+			NumMessages:   3,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

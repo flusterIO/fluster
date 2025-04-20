@@ -13,7 +13,7 @@ _sym_db = _symbol_database.Default()
 
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x0esettings.proto\x12\x0bsettings.v1\",\n\x0cSettingField\x12\r\n\x05label\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t\"F\n\x17GetUserSettingsResponse\x12+\n\x08settings\x18\x01 \x03(\x0b\x32\x19.settings.v1.SettingField*w\n\x0bSettingType\x12#\n\x1fSETTING_TYPE_STRING_UNSPECIFIED\x10\x00\x12\x14\n\x10SETTING_TYPE_INT\x10\x01\x12\x16\n\x12SETTING_TYPE_FLOAT\x10\x02\x12\x15\n\x11SETTING_TYPE_BOOL\x10\x03\x32\x10\n\x0eSettingServiceB\x0cZ\n./settingsb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x0esettings.proto\x12\x0bsettings.v1\"\x92\x01\n\x0bSettingItem\x12\r\n\x05label\x18\x01 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x02 \x01(\t\x12\x0c\n\x04page\x18\x03 \x01(\t\x12\r\n\x05value\x18\x04 \x01(\t\x12\x1a\n\x12setting_unique_key\x18\x05 \x01(\t\x12&\n\x04type\x18\x06 \x01(\x0e\x32\x18.settings.v1.SettingType\",\n\x0cSettingField\x12\r\n\x05label\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t\"F\n\x17GetUserSettingsResponse\x12+\n\x08settings\x18\x01 \x03(\x0b\x32\x19.settings.v1.SettingField*w\n\x0bSettingType\x12#\n\x1fSETTING_TYPE_STRING_UNSPECIFIED\x10\x00\x12\x14\n\x10SETTING_TYPE_INT\x10\x01\x12\x16\n\x12SETTING_TYPE_FLOAT\x10\x02\x12\x15\n\x11SETTING_TYPE_BOOL\x10\x03\x32\x10\n\x0eSettingServiceB\x0cZ\n./settingsb\x06proto3')
 
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, globals())
 _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'settings_pb2', globals())
@@ -21,12 +21,14 @@ if _descriptor._USE_C_DESCRIPTORS == False:
 
   DESCRIPTOR._options = None
   DESCRIPTOR._serialized_options = b'Z\n./settings'
-  _SETTINGTYPE._serialized_start=149
-  _SETTINGTYPE._serialized_end=268
-  _SETTINGFIELD._serialized_start=31
-  _SETTINGFIELD._serialized_end=75
-  _GETUSERSETTINGSRESPONSE._serialized_start=77
-  _GETUSERSETTINGSRESPONSE._serialized_end=147
-  _SETTINGSERVICE._serialized_start=270
-  _SETTINGSERVICE._serialized_end=286
+  _SETTINGTYPE._serialized_start=298
+  _SETTINGTYPE._serialized_end=417
+  _SETTINGITEM._serialized_start=32
+  _SETTINGITEM._serialized_end=178
+  _SETTINGFIELD._serialized_start=180
+  _SETTINGFIELD._serialized_end=224
+  _GETUSERSETTINGSRESPONSE._serialized_start=226
+  _GETUSERSETTINGSRESPONSE._serialized_end=296
+  _SETTINGSERVICE._serialized_start=419
+  _SETTINGSERVICE._serialized_end=435
 # @@protoc_insertion_point(module_scope)

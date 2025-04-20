@@ -9,20 +9,29 @@ class SetLoadingAction extends FlusterAction {
 
   @override
   GlobalAppState reduce() {
-    return state.copyWith(
-      networkState: state.networkState.copyWith(
-        loading: isLoading,
-        loadingSources:
-            source == null
-                ? state.networkState.loadingSources
-                : isLoading
-                ? state.networkState.loadingSources.withAppendedLoadingSource(
-                  source,
-                )
-                : state.networkState.loadingSources.withLoadingSourceRemoved(
-                  source,
-                ),
-      ),
-    );
+    if (isLoading) {
+      return state.copyWith(
+        networkState: state.networkState.copyWith(
+          loading: true,
+          loadingSources:
+              source == null
+                  ? state.networkState.loadingSources
+                  : [...state.networkState.loadingSources, source!],
+        ),
+      );
+    } else {
+      // is not loading. DOn't directly set loading here, and leave that to the length of the array so specific types of loading states can be removed individually.
+      if (source != null) {
+        return state.copyWith(
+          networkState: state.networkState.copyWith(
+            loadingSources:
+                state.networkState.loadingSources
+                    .where((x) => x != source!)
+                    .toList(),
+          ),
+        );
+      }
+    }
+    return state;
   }
 }

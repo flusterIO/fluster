@@ -14,6 +14,15 @@ enum SettingType {
   SETTING_TYPE_BOOL = 3;
 }
 
+message SettingItem {
+  string label = 1;
+  string description = 2;
+  string page = 3;
+  string value = 4;
+  string setting_unique_key = 5;
+  SettingType type = 6;
+}
+
 ///  A stripped down version of the SettingItem model.
 message SettingField {
   string label = 1;

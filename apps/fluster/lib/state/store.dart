@@ -1,8 +1,10 @@
 import 'package:async_redux/async_redux.dart';
 import 'package:fluster/state/global/global_state.dart';
+import 'package:fluster/util/state_logger.dart';
 
 final globalReduxStore = Store<GlobalAppState>(
   initialState: GlobalAppState.initialState(),
+  actionObservers: [DevelopmentStateLogger()],
   // middleware: [
   // The following middleware both achieve the same goal: Load search
   // results from github in response to SearchActions.

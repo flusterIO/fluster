@@ -16,8 +16,13 @@ class NetworkState with _$NetworkState {
     loadingSources: [LoadingSource.databaseSettings],
   );
   NetworkState withAppendedLoadingSource(LoadingSource loadingSource) =>
-      copyWith(loadingSources: [...loadingSources, loadingSource]);
+      copyWith(
+        loadingSources: [...loadingSources, loadingSource],
+        loading: true,
+      );
 
-  NetworkState withLoadingSourceRemoved(LoadingSource loadingSource) =>
-      copyWith(loadingSources: loadingSources.where((x) => x != loadingSource));
+  NetworkState withLoadingSourceRemoved(LoadingSource loadingSource) {
+    final x = loadingSources.where((x) => x != loadingSource).toList();
+    return copyWith(loadingSources: x, loading: x.isNotEmpty);
+  }
 }

@@ -6,11 +6,11 @@ description.workspace = true
 documentation.workspace = true
 edition.workspace = true
 
-[[bin]] # Bin to run the HelloWorld gRPC server
+[[bin]] # Bin to run the gRPC server
 name = "fluster-server"
 path = "src/api/server.rs"
 
-[[bin]] # Bin to run the HelloWorld gRPC client
+[[bin]] # Bin to run the gRPC client
 name = "fluster-client"
 path = "src/api/client.rs"
 

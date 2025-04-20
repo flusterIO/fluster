@@ -3,6 +3,46 @@
 
 import * as jspb from "google-protobuf";
 
+export class SettingItem extends jspb.Message {
+  getLabel(): string;
+  setLabel(value: string): void;
+
+  getDescription(): string;
+  setDescription(value: string): void;
+
+  getPage(): string;
+  setPage(value: string): void;
+
+  getValue(): string;
+  setValue(value: string): void;
+
+  getSettingUniqueKey(): string;
+  setSettingUniqueKey(value: string): void;
+
+  getType(): SettingTypeMap[keyof SettingTypeMap];
+  setType(value: SettingTypeMap[keyof SettingTypeMap]): void;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): SettingItem.AsObject;
+  static toObject(includeInstance: boolean, msg: SettingItem): SettingItem.AsObject;
+  static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
+  static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
+  static serializeBinaryToWriter(message: SettingItem, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): SettingItem;
+  static deserializeBinaryFromReader(message: SettingItem, reader: jspb.BinaryReader): SettingItem;
+}
+
+export namespace SettingItem {
+  export type AsObject = {
+    label: string,
+    description: string,
+    page: string,
+    value: string,
+    settingUniqueKey: string,
+    type: SettingTypeMap[keyof SettingTypeMap],
+  }
+}
+
 export class SettingField extends jspb.Message {
   getLabel(): string;
   setLabel(value: string): void;
