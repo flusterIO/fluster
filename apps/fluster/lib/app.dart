@@ -3,6 +3,7 @@
 // BSD-style license that can be found in the LICENSE file.
 
 import 'package:fluster/router/router.dart';
+import 'package:fluster/state/settings/settings_state.dart';
 import 'package:fluster/static/extension_methods/context_extension.dart';
 import 'package:fluster/static/styles/themes/themes.dart';
 import 'package:fluster/widgets/scaffolds/desktop/loading_indicator.dart';
@@ -12,6 +13,9 @@ class FlusterDesktopApp extends StatelessWidget {
   const FlusterDesktopApp({super.key});
   @override
   Widget build(BuildContext context) {
+    if (!context.state.settingsState.hasSeeded) {
+      SettingsState.readDatabaseAndSeed();
+    }
     return MaterialApp.router(
       title: "Fluster",
       theme: lightThemeData,
@@ -23,14 +27,6 @@ class FlusterDesktopApp extends StatelessWidget {
       scrollBehavior: const MaterialScrollBehavior().copyWith(
         scrollbars: false,
       ),
-      // shortcuts:
-      //     (ref.context.sgetPageById(SettingPageId.keymap)
-      //             as KeymapSettingPageData)
-      //         .toAppScaffoldShortcuts(),
-      // actions:
-      //     (settings.getPageById(SettingPageId.keymap)
-      //             as KeymapSettingPageData)
-      //         .toAppScaffoldActions(),
       builder:
           (_, child) => MediaQuery(
             data: MediaQuery.of(context).copyWith(

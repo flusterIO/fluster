@@ -17,8 +17,8 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$NetworkState {
-  dynamic get loading => throw _privateConstructorUsedError;
-  dynamic get loadingSources => throw _privateConstructorUsedError;
+  bool get loading => throw _privateConstructorUsedError;
+  List<LoadingSource> get loadingSources => throw _privateConstructorUsedError;
 
   /// Create a copy of NetworkState
   /// with the given fields replaced by the non-null parameter values.
@@ -34,7 +34,7 @@ abstract class $NetworkStateCopyWith<$Res> {
     $Res Function(NetworkState) then,
   ) = _$NetworkStateCopyWithImpl<$Res, NetworkState>;
   @useResult
-  $Res call({dynamic loading, dynamic loadingSources});
+  $Res call({bool loading, List<LoadingSource> loadingSources});
 }
 
 /// @nodoc
@@ -51,19 +51,19 @@ class _$NetworkStateCopyWithImpl<$Res, $Val extends NetworkState>
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
-  $Res call({Object? loading = freezed, Object? loadingSources = freezed}) {
+  $Res call({Object? loading = null, Object? loadingSources = null}) {
     return _then(
       _value.copyWith(
             loading:
-                freezed == loading
+                null == loading
                     ? _value.loading
                     : loading // ignore: cast_nullable_to_non_nullable
-                        as dynamic,
+                        as bool,
             loadingSources:
-                freezed == loadingSources
+                null == loadingSources
                     ? _value.loadingSources
                     : loadingSources // ignore: cast_nullable_to_non_nullable
-                        as dynamic,
+                        as List<LoadingSource>,
           )
           as $Val,
     );
@@ -79,7 +79,7 @@ abstract class _$$NetworkStateImplCopyWith<$Res>
   ) = __$$NetworkStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({dynamic loading, dynamic loadingSources});
+  $Res call({bool loading, List<LoadingSource> loadingSources});
 }
 
 /// @nodoc
@@ -95,12 +95,19 @@ class __$$NetworkStateImplCopyWithImpl<$Res>
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
-  $Res call({Object? loading = freezed, Object? loadingSources = freezed}) {
+  $Res call({Object? loading = null, Object? loadingSources = null}) {
     return _then(
       _$NetworkStateImpl(
-        loading: freezed == loading ? _value.loading! : loading,
+        loading:
+            null == loading
+                ? _value.loading
+                : loading // ignore: cast_nullable_to_non_nullable
+                    as bool,
         loadingSources:
-            freezed == loadingSources ? _value.loadingSources! : loadingSources,
+            null == loadingSources
+                ? _value._loadingSources
+                : loadingSources // ignore: cast_nullable_to_non_nullable
+                    as List<LoadingSource>,
       ),
     );
   }
@@ -108,18 +115,24 @@ class __$$NetworkStateImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$NetworkStateImpl implements _NetworkState {
+class _$NetworkStateImpl extends _NetworkState {
   const _$NetworkStateImpl({
     this.loading = true,
-    this.loadingSources = const [],
-  });
+    final List<LoadingSource> loadingSources = const [],
+  }) : _loadingSources = loadingSources,
+       super._();
 
   @override
   @JsonKey()
-  final dynamic loading;
+  final bool loading;
+  final List<LoadingSource> _loadingSources;
   @override
   @JsonKey()
-  final dynamic loadingSources;
+  List<LoadingSource> get loadingSources {
+    if (_loadingSources is EqualUnmodifiableListView) return _loadingSources;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_loadingSources);
+  }
 
   @override
   String toString() {
@@ -131,18 +144,18 @@ class _$NetworkStateImpl implements _NetworkState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$NetworkStateImpl &&
-            const DeepCollectionEquality().equals(other.loading, loading) &&
+            (identical(other.loading, loading) || other.loading == loading) &&
             const DeepCollectionEquality().equals(
-              other.loadingSources,
-              loadingSources,
+              other._loadingSources,
+              _loadingSources,
             ));
   }
 
   @override
   int get hashCode => Object.hash(
     runtimeType,
-    const DeepCollectionEquality().hash(loading),
-    const DeepCollectionEquality().hash(loadingSources),
+    loading,
+    const DeepCollectionEquality().hash(_loadingSources),
   );
 
   /// Create a copy of NetworkState
@@ -154,16 +167,17 @@ class _$NetworkStateImpl implements _NetworkState {
       __$$NetworkStateImplCopyWithImpl<_$NetworkStateImpl>(this, _$identity);
 }
 
-abstract class _NetworkState implements NetworkState {
+abstract class _NetworkState extends NetworkState {
   const factory _NetworkState({
-    final dynamic loading,
-    final dynamic loadingSources,
+    final bool loading,
+    final List<LoadingSource> loadingSources,
   }) = _$NetworkStateImpl;
+  const _NetworkState._() : super._();
 
   @override
-  dynamic get loading;
+  bool get loading;
   @override
-  dynamic get loadingSources;
+  List<LoadingSource> get loadingSources;
 
   /// Create a copy of NetworkState
   /// with the given fields replaced by the non-null parameter values.

@@ -5,6 +5,7 @@
 import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:fluster/app.dart';
 import 'package:fluster/state/global/global_state.dart';
+import 'package:fluster/widgets/wrappers/keyboard_shortcut_wrapper.dart';
 import 'package:fluster_native_interface/fluster_native_interface.dart';
 import 'package:flutter/material.dart';
 import 'package:async_redux/async_redux.dart';
@@ -20,11 +21,19 @@ import 'package:fluster/state/store.dart';
 //   // await config.apply();
 // }
 
+Future setupLogger() async {
+  // setupLogStream().listen((msg) {
+  //   // This should use a logging framework in real applications
+  //   print("${msg.logLevel} ${msg.lbl.padRight(8)}: ${msg.msg}");
+  // });
+}
+
 void main() async {
   // await _configureMacosWindowUtils();
 
+  await RustLib.init();
   WidgetsFlutterBinding.ensureInitialized();
-
+  await setupLogger();
   runApp(
     // For widgets to be able to read providers, we need to wrap the entire
     // application in a "ProviderScope" widget.
@@ -32,7 +41,7 @@ void main() async {
     StoreProvider<GlobalAppState>(
       store: globalReduxStore,
       // observers: <ProviderObserver>[StateLogger()],
-      child: FlusterDesktopApp(),
+      child: DesktopKeyboardShortcuts(child: FlusterDesktopApp()),
     ),
   );
   doWhenWindowReady(() {
@@ -44,5 +53,4 @@ void main() async {
     appWindow.maximize();
     appWindow.show();
   });
-  await RustLib.init();
 }

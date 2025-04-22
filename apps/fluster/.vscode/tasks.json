@@ -13,7 +13,7 @@
         {
             "label": "Generate Icons",
             "type": "shell",
-            "command": "flutter pub run flutter_launcher_icons:main"
+            "command": "cd $FLUSTER_NATIVE_ROOT/apps/fluster/ && flutter pub run flutter_launcher_icons:main"
         },
         {
             "label": "Lint",

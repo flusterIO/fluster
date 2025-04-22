@@ -14,7 +14,6 @@ class CommandPaletteResults extends StatefulWidget {
 class _CommandPaletteResultsState extends State<CommandPaletteResults> {
   @override
   Widget build(BuildContext context) {
-    // RESUME: Look up the min function in dart and renable this.
     return ConstrainedBox(
       constraints: BoxConstraints(
         // minHeight: 200,

@@ -17,7 +17,8 @@ publish_to: "none" # Remove this line if you wish to publish to pub.dev
 # of the product and file versions while build-number is used as the build suffix.
 version: 1.0.0+1
 environment:
-  sdk: ^3.8.0-265.0.dev
+  sdk: 3.9.0-32.0.dev
+  flutter: "3.32.0-1.0.pre.180"
 resolution: workspace
 # Dependencies specify other packages that your package needs in order to work.
 # To automatically upgrade your package dependencies to the latest versions
@@ -58,6 +59,9 @@ dependencies:
   loading_indicator: ^3.1.1
   async_redux: ^23.1.1
   flutter_hooks_async_redux: ^2.0.0
+  rive: ^0.13.20
+  flex_color_scheme: ^8.2.0
+  flutter_dotenv: ^5.2.1
   # flutter_redux: ^0.10.0
   # flutter_redux_navigation: ^0.7.1
   # redux: ^5.0.0
