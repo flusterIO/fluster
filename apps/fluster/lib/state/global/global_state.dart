@@ -1,3 +1,4 @@
+import 'package:fluster/state/command_palette/command_palette_state.dart';
 import 'package:fluster/state/error/error_state.dart';
 import 'package:fluster/state/navigation/navigation_state.dart';
 import 'package:fluster/state/notifications/notification_state.dart';
@@ -17,6 +18,7 @@ class GlobalAppState with _$GlobalAppState {
     required GlobalUIState uiState,
     required NavigationState navigationState,
     required GlobalNotificationState notificationState,
+    required CommandPaletteState commandPaletteState,
   }) = _GlobalAppState;
   static GlobalAppState initialState() => GlobalAppState(
     settingsState: SettingsState.initialState(),
@@ -25,5 +27,6 @@ class GlobalAppState with _$GlobalAppState {
     uiState: GlobalUIState.initialState(),
     navigationState: NavigationState.initialState(),
     notificationState: GlobalNotificationState.initialState(),
+    commandPaletteState: CommandPaletteState.initialState(),
   );
 }

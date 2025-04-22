@@ -4,7 +4,6 @@
 
 list(APPEND FLUTTER_PLUGIN_LIST
   bitsdojo_window_linux
-  rive_common
   window_size
 )
 

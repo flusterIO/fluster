@@ -27,12 +27,13 @@ class SetLoadingAction extends FlusterAction {
     } else {
       // is not loading. DOn't directly set loading here, and leave that to the length of the array so specific types of loading states can be removed individually.
       if (source != null) {
+      final loadingSources = state.networkState.loadingSources
+                    .where((x) => x != source!)
+                    .toList();
         return state.copyWith(
           networkState: state.networkState.copyWith(
-            loadingSources:
-                state.networkState.loadingSources
-                    .where((x) => x != source!)
-                    .toList(),
+            loadingSources: loadingSources,
+            loading: loadingSources.isNotEmpty
           ),
           settingsState: state.settingsState.copyWith(hasSeeded: hasSeeded),
         );

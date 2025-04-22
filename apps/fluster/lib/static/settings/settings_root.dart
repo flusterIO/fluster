@@ -1,9 +1,8 @@
-import 'package:fluster/data_models/setting/setting_item.dart';
 import 'package:fluster/data_models/setting/setting_pages.dart';
 import 'package:fluster/data_models/setting/setting_section.dart';
 import 'package:fluster/static/settings/setting_by_category/keymap.dart';
 import 'package:fluster/static/settings/setting_sections/general/general_settings.dart';
-import 'package:flutter/widgets.dart';
+import 'package:fluster/storage/kv/engines/shared_preferences_keyvalue_engine.dart';
 
 class Settings {
   final Map<SettingPageId, SettingPageDataAbstract> pages;
@@ -11,6 +10,7 @@ class Settings {
   const Settings({required this.pages});
 
   static Settings initialSettings() {
+    final kv = SharedPreferencesEngine();
     return Settings(
       pages: {
         SettingPageId.general: SettingPageData(
@@ -21,7 +21,7 @@ class Settings {
             SettingSection(
               label: "General Purpose Settings",
               subtitle: "Some test subtitle",
-              items: generalSettings,
+              items: getGeneralSettings(kv),
             ),
           ],
         ),
@@ -47,16 +47,5 @@ class Settings {
             ]),
       },
     );
-  }
-
-  Map<ShortcutActivator, VoidCallback> toCallbackShortcuts() {
-    var data = <ShortcutActivator, VoidCallback>{};
-    for (var sec
-        in (pages[SettingPageId.keymap] as KeymapSettingPageData).sections) {
-      for (var km in sec.items) {
-        data[(km as KeymapSetting).action.activator] = km.action.callback;
-      }
-    }
-    return data;
   }
 }

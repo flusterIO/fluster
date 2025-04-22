@@ -1,27 +1,15 @@
-import 'package:fluster/static/styles/brand/brand_styles.dart';
+import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:fluster/static/styles/shad/shad_themes.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 
 class FlusterLogo extends StatelessWidget {
   final bool colored;
   final double size;
   const FlusterLogo({super.key, this.colored = true, this.size = 120});
 
-  ColorFilter _getColorFilter() {
-    return colored
-        ? ColorFilter.mode(flusterBlue, BlendMode.srcIn)
-        : ColorFilter.mode(Colors.white, BlendMode.srcIn);
-  }
-
   @override
   Widget build(BuildContext context) {
-    return SvgPicture.asset(
-      "lib/static/assets/images/logo/fluster.svg",
-      width: size,
-      height: size,
-      colorFilter: _getColorFilter(),
-    );
+    return Icon(FluentIcons.brain_circuit_24_filled);
   }
 }
 

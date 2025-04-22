@@ -24,7 +24,7 @@ class SettingsSideMenuPanel extends StatelessWidget {
             cursor: SystemMouseCursors.click,
             child: GestureDetector(
               onTap: () {
-                globalReduxStore.dispatch(SetSettingsPage(pages[idx].id));
+                globalReduxStore.dispatch(SetSettingsPageAction(pages[idx].id));
               },
               child: AnimatedContainer(
                 duration: Duration(milliseconds: 150),

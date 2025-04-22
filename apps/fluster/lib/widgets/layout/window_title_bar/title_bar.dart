@@ -1,10 +1,11 @@
 import 'package:async_redux/async_redux.dart';
 import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
+import 'package:fluster/state/command_palette/actions/set_command_palette_open.dart';
+import 'package:fluster/state/store.dart';
 import 'package:fluster/state/ui/panels/panel_left/actions/panel_left_actions.dart';
 import 'package:fluster/state/ui/panels/panel_right/actions/panel_right_actions.dart';
 import 'package:fluster/static/styles/shad/shad_themes.dart';
-import 'package:fluster/widgets/interaction/commandPalette/command_palette_container.dart';
 import 'package:flutter/material.dart';
 
 class WindowTitleBar extends StatelessWidget {
@@ -35,7 +36,8 @@ class WindowTitleBar extends StatelessWidget {
                 ),
                 child: GestureDetector(
                   onTap: () {
-                    showCommandPalette(context);
+                    // showCommandPalette(context);
+                        globalReduxStore.dispatch(SetCommandPaletteOpenAction(true));
                   },
                   child: MouseRegion(
                     cursor: SystemMouseCursors.click,
@@ -82,6 +84,7 @@ class WindowTitleBar extends StatelessWidget {
                       child: GestureDetector(
                         onTap: () {
                           context.dispatch(TogglePanelRightAction());
+                                                    print("Right");
                         },
                         child: Icon(
                           FluentIcons.align_right_32_filled,

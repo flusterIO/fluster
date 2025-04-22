@@ -5,6 +5,8 @@ environment:
 workspace:
   - apps/fluster
   - packages/fluster_native_interface
+dependency_overrides:
+  flutter_hooks: 0.20.5
 dev_dependencies:
   melos: ^6.0.0
 flutter:

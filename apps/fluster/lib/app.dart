@@ -16,6 +16,8 @@ class FlusterDesktopApp extends StatelessWidget {
     if (!context.state.settingsState.hasSeeded) {
       SettingsState.readDatabaseAndSeed();
     }
+    print(context.state.networkState.loading);
+
     return MaterialApp.router(
       title: "Fluster",
       theme: lightThemeData,

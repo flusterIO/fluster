@@ -1,4 +1,4 @@
-import 'package:fluster/data_models/setting/setting_item.dart';
+import 'package:fluster/data_models/setting/setting_implementations/keymap_setting.dart';
 import 'package:flutter/widgets.dart';
 
 class KeymapEntryInput extends StatefulWidget {

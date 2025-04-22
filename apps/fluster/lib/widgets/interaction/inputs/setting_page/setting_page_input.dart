@@ -1,5 +1,6 @@
 import 'package:fluster/data_models/setting/setting_abstract.dart';
-import 'package:fluster/data_models/setting/setting_item.dart';
+import 'package:fluster/data_models/setting/setting_implementations/keymap_setting.dart';
+import 'package:fluster/data_models/setting/setting_implementations/string_setting.dart';
 import 'package:fluster/data_models/setting/setting_page_input_id.dart';
 import 'package:fluster/widgets/interaction/inputs/setting_page/setting_inputs/dark_mode_toggle/desktop_dark_mode_toggle.dart';
 import 'package:fluster/widgets/interaction/inputs/setting_page/setting_inputs/keymap_entry/keymap_entry_input.dart';

@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:async_redux/async_redux.dart';
 import 'package:fluster/state/global/global_state.dart';
+import 'package:fluster/state/network/network_state.dart';
 import 'package:fluster/static/settings/settings_root.dart';
 
 class SetInitialSettingStateAction extends ReduxAction<GlobalAppState> {
@@ -12,7 +13,8 @@ class SetInitialSettingStateAction extends ReduxAction<GlobalAppState> {
   @override
   FutureOr<GlobalAppState?> reduce() {
     return state.copyWith(
-      settingsState: state.settingsState.copyWith(settings: settings, isLoading: false),
+      settingsState: state.settingsState.copyWith(settings: settings),
+      networkState: state.networkState.withLoadingSourceRemoved(LoadingSource.databaseSettings)
     );
   }
 

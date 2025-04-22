@@ -1,7 +1,7 @@
 // import 'package:fluster_native_interface/fluster_native_interface.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
-import 'package:fluster/data_models/setting/setting_item.dart';
+import 'package:fluster/data_models/setting/setting_implementations/string_setting.dart';
 import 'package:fluster/static/styles/shad/shad_themes.dart';
 import 'package:fluster/util/debouncer.dart';
 import 'package:flutter/material.dart';
@@ -83,8 +83,8 @@ class _PathPickerInputState extends State<PathPickerInput> {
 
   Future<void> _setExistingSettingValue() async {
     if (widget.setting != null) {
-      final val = await widget.setting!.read();
-      _fileExtensionController.text = val;
+      await widget.setting!.read();
+      _fileExtensionController.text = "";
     }
   }
 
@@ -124,7 +124,7 @@ class _PathPickerInputState extends State<PathPickerInput> {
     });
     if (fn != "..." && widget.setting != null) {
       _debouncer.run(() {
-        widget.setting?.update(fn);
+
       });
     }
   }

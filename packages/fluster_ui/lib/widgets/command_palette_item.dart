@@ -4,6 +4,7 @@ enum CommandPaletteCategory { root, location, action }
 
 class CommandPaletteItem {
   final String title;
+    final String id;
   final List<CommandPaletteItem> items;
   final Widget Function()? preview;
   final Widget Function()? icon;
@@ -12,6 +13,7 @@ class CommandPaletteItem {
   const CommandPaletteItem({
     required this.title,
     required this.category,
+    required this.id,
     this.items = const [],
     this.preview,
     this.onSelect,

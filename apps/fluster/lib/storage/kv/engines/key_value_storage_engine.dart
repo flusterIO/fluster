@@ -1,11 +1,12 @@
-abstract class KeyValueStorageEngine<T> {
-    final String uniqueKey;
-    final T defaultValue;
-    const KeyValueStorageEngine({required this.uniqueKey, required this.defaultValue});
+abstract class KeyValueStorageEngine {
+  const KeyValueStorageEngine();
 
-    /// Returns a boolean indicating whether or not the value is stored in the database.
-    bool exists();
-    Future<T> read();
-    Future<T> save();
-    Future<T> update(T newValue);
+  /// Returns a boolean indicating whether or not the value is stored in the database.
+  bool exists(String id);
+  Future<double> saveDouble(String id, double newValue);
+  Future<double> readDouble(String id);
+  Future<String> saveString(String id, String newValue);
+  Future<String> readString(String id);
+  Future<bool> saveBool(String id, bool newValue);
+  Future<bool> readBool(String id);
 }

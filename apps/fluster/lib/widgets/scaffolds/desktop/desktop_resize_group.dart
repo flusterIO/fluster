@@ -29,14 +29,10 @@ class DesktopResizeGroup extends StatelessWidget {
         divider: ResizableDivider(color: theme?.border, thickness: 2),
         size: const ResizableSize.expand(flex: 6),
         child: child,
-        // child: Padding(
-        //   padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 32),
-        //   child: child,
-        // ),
       ),
     );
 
-    if (context.state.uiState.panelLeftState.open) {
+    if (context.state.uiState.panelRightState.open) {
       children.add(
         ResizableChild(
           divider: ResizableDivider(color: theme?.border, thickness: 2),

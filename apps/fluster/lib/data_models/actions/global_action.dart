@@ -1,26 +1,35 @@
 import 'package:fluster/data_models/actions/global_action_ids.dart';
+import 'package:fluster/data_models/actions/global_action_map.dart';
 import 'package:flutter/material.dart';
 
 class GlobalAction<T extends Intent> extends Action<T> {
   final GlobalActionId globalActionId;
-  final ShortcutActivator activator;
+  final ShortcutActivator? activator;
+  final String _splitter = "-";
+  GlobalAction({required this.globalActionId, this.activator});
 
-  /// intent must be a subclass of Intent. This can't be statically typed in dart, at least not that my 2 weeks of experience leads me to believe, so the `Type` class is used to refer to the type pre-initialization.
-  final Type intent;
-  final Object? Function() callback;
-  GlobalAction({
-    required this.globalActionId,
-    required this.activator,
-    required this.intent,
-    required this.callback,
-  });
+  String toFormattedString() {
+    var s = <String>[];
+    assert(
+      activator != null,
+      "Tried to call toFormattedString on a GlobalAction without an activator",
+    );
+    for (var k in activator!.triggers!) {
+      s.add("${k.keyId}");
+    }
+    return s.join(_splitter);
+  }
 
-  // String valueToString() {
-  //   return "${activator.triggers.join('-')}-${activator.keys.join('-')}";
-  // }
+  static GlobalAction fromFormattedEntry({
+    required GlobalActionId id,
+    required String value,
+  }) {
+    return GlobalAction(globalActionId: id);
+  }
 
   @override
   Object? invoke(T intent) {
-    return callback();
+    callGlobalAction(globalActionId);
+    return null;
   }
 }

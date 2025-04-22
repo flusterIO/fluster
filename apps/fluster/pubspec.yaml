@@ -45,23 +45,22 @@ dependencies:
   fluentui_system_icons: ^1.1.273
   flutter_resizable_container: ^4.0.1
   flutter_spinkit: ^5.2.1
-  flutter_svg: ^2.0.17
   bitsdojo_window: ^0.1.6
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
-  cupertino_icons: ^1.0.8
   fluent_ui: ^4.11.3
   uuid: ^4.5.1
   file_picker: ^10.1.2
   fluster_native_interface:
     path: ../../packages/fluster_native_interface
-  shared_preferences: ^2.5.3
-  loading_indicator: ^3.1.1
+  fluster_ui:
+    path: ../../packages/fluster_ui
   async_redux: ^23.1.1
   flutter_hooks_async_redux: ^2.0.0
-  rive: ^0.13.20
   flex_color_scheme: ^8.2.0
   flutter_dotenv: ^5.2.1
+  flutter_hooks: ^0.21.2
+  loading_indicator: ^3.1.1
   # flutter_redux: ^0.10.0
   # flutter_redux_navigation: ^0.7.1
   # redux: ^5.0.0

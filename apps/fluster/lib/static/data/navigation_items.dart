@@ -1,6 +1,8 @@
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:fluster/data_models/structs/navigation_item.dart';
 import 'package:fluster/router/routes.dart';
+import 'package:fluster/state/navigation/actions/navigation_actions.dart';
+import 'package:fluster/state/store.dart';
 import 'package:fluster/static/enums/navigation_item_id.dart';
 import 'package:flutter/material.dart';
 // import 'package:ulld_native/src/routes/routes.dart';
@@ -21,6 +23,7 @@ class SideMenuState {
       iconType: IconType.Flutter,
       navigate: (BuildContext context) {
         HomeScreenRoute().go(context);
+        globalReduxStore.dispatch(SetNavigationIdAction(NavigationItemId.home));
       },
     ),
     NavigationItem(
@@ -30,6 +33,7 @@ class SideMenuState {
       title: 'Connect',
       navigate: (BuildContext context) {
         ConnectRoute().go(context);
+        globalReduxStore.dispatch(SetNavigationIdAction(NavigationItemId.connect));
       },
     ),
     NavigationItem(
@@ -39,6 +43,7 @@ class SideMenuState {
       title: 'Bookmarks',
       navigate: (BuildContext context) {
         BookmarksRoute().go(context);
+        globalReduxStore.dispatch(SetNavigationIdAction(NavigationItemId.bookmarks));
       },
     ),
     NavigationItem(
@@ -48,13 +53,14 @@ class SideMenuState {
       iconType: IconType.Flutter,
       navigate: (BuildContext context) {
         BibliographyRoute().go(context);
+        globalReduxStore.dispatch(SetNavigationIdAction(NavigationItemId.bibliography));
       },
     ),
   ];
 
   final List<NavigationItem> bottomSideMenuItems = <NavigationItem>[
     NavigationItem(
-      icon: FluentIcons.cube_sync_24_regular,
+      icon: FluentIcons.database_lightning_20_regular,
       title: 'Sync',
       iconType: IconType.Flutter,
       navigate: (BuildContext context) async {
@@ -68,6 +74,7 @@ class SideMenuState {
       iconType: IconType.Flutter,
       navigate: (BuildContext context) {
         SettingsRoute().go(context);
+        globalReduxStore.dispatch(SetNavigationIdAction(NavigationItemId.settings));
       },
     ),
   ];
