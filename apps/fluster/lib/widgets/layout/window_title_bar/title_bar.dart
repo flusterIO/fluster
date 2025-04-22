@@ -5,17 +5,23 @@ import 'package:fluster/state/command_palette/actions/set_command_palette_open.d
 import 'package:fluster/state/store.dart';
 import 'package:fluster/state/ui/panels/panel_left/actions/panel_left_actions.dart';
 import 'package:fluster/state/ui/panels/panel_right/actions/panel_right_actions.dart';
-import 'package:fluster/static/styles/shad/shad_themes.dart';
 import 'package:flutter/material.dart';
 
 class WindowTitleBar extends StatelessWidget {
   const WindowTitleBar({super.key});
   @override
   Widget build(BuildContext context) {
-    final shadTheme = Theme.of(context).extension<ShadTheme>()!;
+    final theme = Theme.of(context);
     return Container(
       decoration: BoxDecoration(
-        border: BorderDirectional(bottom: BorderSide(color: shadTheme.border)),
+        border: BorderDirectional(
+          bottom: BorderSide(
+            width: 1,
+            color:
+                theme.textTheme.bodyMedium?.color?.withOpacity(0.1) ??
+                theme.primaryColor.withValues(alpha: 0.05),
+          ),
+        ),
       ),
       child: WindowTitleBarBox(
         child: MoveWindow(
@@ -31,13 +37,17 @@ class WindowTitleBar extends StatelessWidget {
               ),
               Container(
                 decoration: BoxDecoration(
-                  color: shadTheme.foreground.withOpacity(0.15),
+                  color: theme.textTheme.bodyMedium?.color?.withValues( 
+                                        alpha: 0.1
+                                    ),
                   borderRadius: BorderRadius.all(Radius.circular(8)),
                 ),
                 child: GestureDetector(
                   onTap: () {
                     // showCommandPalette(context);
-                        globalReduxStore.dispatch(SetCommandPaletteOpenAction(true));
+                    globalReduxStore.dispatch(
+                      SetCommandPaletteOpenAction(true),
+                    );
                   },
                   child: MouseRegion(
                     cursor: SystemMouseCursors.click,
@@ -74,7 +84,7 @@ class WindowTitleBar extends StatelessWidget {
                         },
                         child: Icon(
                           FluentIcons.align_left_32_filled,
-                          color: shadTheme.mutedForeground,
+                          // color: shadTheme.mutedForeground,
                           size: 20,
                         ),
                       ),
@@ -84,11 +94,10 @@ class WindowTitleBar extends StatelessWidget {
                       child: GestureDetector(
                         onTap: () {
                           context.dispatch(TogglePanelRightAction());
-                                                    print("Right");
                         },
                         child: Icon(
                           FluentIcons.align_right_32_filled,
-                          color: shadTheme.mutedForeground,
+                          // color: shadTheme.mutedForeground,
                           size: 20,
                         ),
                       ),

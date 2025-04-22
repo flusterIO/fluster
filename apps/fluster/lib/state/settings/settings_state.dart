@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:fluster/state/network/actions/set_loading_action.dart';
 import 'package:fluster/state/network/network_state.dart';
 import 'package:fluster/state/store.dart';
+import 'package:fluster_ui/widgets/command_palette_container.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:fluster/static/settings/settings_root.dart';
 

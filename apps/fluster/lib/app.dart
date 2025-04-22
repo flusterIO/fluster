@@ -2,10 +2,10 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
+import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:fluster/router/router.dart';
 import 'package:fluster/state/settings/settings_state.dart';
 import 'package:fluster/static/extension_methods/context_extension.dart';
-import 'package:fluster/static/styles/themes/themes.dart';
 import 'package:fluster/widgets/scaffolds/desktop/loading_indicator.dart';
 import 'package:flutter/material.dart';
 
@@ -16,31 +16,27 @@ class FlusterDesktopApp extends StatelessWidget {
     if (!context.state.settingsState.hasSeeded) {
       SettingsState.readDatabaseAndSeed();
     }
-    print(context.state.networkState.loading);
 
     return MaterialApp.router(
       title: "Fluster",
-      theme: lightThemeData,
-      darkTheme: darkThemeData,
-      highContrastDarkTheme: darkThemeData,
+      theme: FlexThemeData.light(scheme: FlexScheme.flutterDash),
+      darkTheme: FlexThemeData.dark(scheme: FlexScheme.flutterDash),
       themeMode: context.state.uiState.themeMode,
       debugShowCheckedModeBanner: false,
       // FLUTTER_MULTI_PLATFORM_WARNING: This will need to be adjusted for non-desktop environments.
       scrollBehavior: const MaterialScrollBehavior().copyWith(
         scrollbars: false,
       ),
-      builder:
-          (_, child) => MediaQuery(
-            data: MediaQuery.of(context).copyWith(
-              textScaler: MediaQuery.of(
-                context,
-              ).textScaler.clamp(minScaleFactor: 0.6, maxScaleFactor: 0.9),
-            ),
-            child:
-                context.state.networkState.loading
-                    ? DesktopLoadingWidgetIndicator()
-                    : child!,
-          ),
+      builder: (_, child) => MediaQuery(
+        data: MediaQuery.of(context).copyWith(
+          textScaler: MediaQuery.of(
+            context,
+          ).textScaler.clamp(minScaleFactor: 0.6, maxScaleFactor: 0.9),
+        ),
+        child: context.state.networkState.loading
+            ? DesktopLoadingWidgetIndicator()
+            : child!,
+      ),
       routerConfig: router,
     );
   }

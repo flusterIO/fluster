@@ -1,3 +1,4 @@
+import 'package:fluster_ui/widgets/command_palette_container.dart';
 import 'package:fluster_ui/widgets/command_palette_item.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 

@@ -1,8 +1,6 @@
 import 'package:fluster/state/navigation/actions/navigation_actions.dart';
 import 'package:fluster/state/store.dart';
 import 'package:fluster/static/extension_methods/context_extension.dart';
-import 'package:fluster/static/settings/settings_root.dart';
-import 'package:fluster/static/styles/shad/shad_themes.dart';
 import 'package:flutter/material.dart';
 
 class SettingsSideMenuPanel extends StatelessWidget {
@@ -10,7 +8,6 @@ class SettingsSideMenuPanel extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final shad = theme.extension<ShadTheme>()!;
     final pages =
         context.state.settingsState.settings?.pages.values.toList() ?? [];
 
@@ -34,8 +31,8 @@ class SettingsSideMenuPanel extends StatelessWidget {
                     color:
                         context.state.navigationState.settingPageId ==
                                 pages[idx].id
-                            ? shad.primary
-                            : shad.border,
+                            ? theme.primaryColor
+                            : Colors.transparent,
                   ),
                   borderRadius: BorderRadius.all(Radius.circular(8)),
                 ),
@@ -48,7 +45,7 @@ class SettingsSideMenuPanel extends StatelessWidget {
                     Text(
                       pages[idx].desc,
                       style: theme.textTheme.bodySmall!.copyWith(
-                        color: shad.mutedForeground,
+                        // color: theme.textTheme.headlineSmall,
                       ),
                     ),
                   ],

@@ -239,11 +239,11 @@ class _PathPickerInputState extends State<PathPickerInput> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final shad = theme.extension<ShadTheme>()!;
+    // final shad = theme.extension<ShadTheme>()!;
     return TextFormField(
       maxLines: 1,
       controller: _textEditController,
-      cursorColor: shad.primary,
+      cursorColor: theme.primaryColor,
       onFieldSubmitted: (String? val) {
         validateAndReturn();
       },
@@ -271,9 +271,9 @@ class _PathPickerInputState extends State<PathPickerInput> {
         label: Text("Path to bibtex file"),
         isDense: true,
         focusedBorder: UnderlineInputBorder(
-          borderSide: BorderSide(color: shad.primary),
+          borderSide: BorderSide(color: theme.primaryColor),
         ),
-        floatingLabelStyle: TextStyle(color: shad.primary), // disabledBorder:
+        floatingLabelStyle: TextStyle(color: theme.primaryColor), // disabledBorder:
         suffixIcon: MouseRegion(
           cursor: SystemMouseCursors.click,
           child: GestureDetector(

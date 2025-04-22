@@ -17,10 +17,11 @@ class CommandPaletteSearchInputState extends State<CommandPaletteSearchInput> {
   @override
   Widget build(BuildContext context) {
     return FocusTraversalOrder(
-      order: const NumericFocusOrder(1),
+      order: const NumericFocusOrder(0),
       child: TextField(
         maxLines: 1,
         controller: widget.controller,
+        autofocus: true,
         // focusNode: widget.focusNode,
         decoration: InputDecoration(
           border: OutlineInputBorder(),

@@ -1,3 +1,4 @@
+import 'package:fluster/data_models/setting/setting_pages.dart';
 import 'package:fluster/state/command_palette/actions/set_command_palette_open.dart';
 import 'package:fluster/state/store.dart';
 import 'package:fluster/static/constants/static_constants.dart';
@@ -19,7 +20,7 @@ class DesktopAppScaffold extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final ShadTheme? theme = Theme.of(context).extension<ShadTheme>();
+    final theme = Theme.of(context);
     final children = [
       Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -38,17 +39,21 @@ class DesktopAppScaffold extends StatelessWidget {
     ];
     final commandPaletteOpen = context.state.commandPaletteState.open;
     if (commandPaletteOpen) {
+      final s =
+          context.state.settingsState.settings.pages[SettingPageId.keymap]
+              as KeymapSettingPageData;
       children.add(
         CommandPalette(
           setIsOpen: setCommandPaletteOpen,
           isOpen: context.state.commandPaletteState.open,
-          items: context.state.commandPaletteState.items
+          items: context.state.commandPaletteState.items,
+          listeners: s.getKeyboardListeners(),
         ),
       );
     }
     return Scaffold(
       primary: true,
-      backgroundColor: theme?.background,
+      backgroundColor: theme.scaffoldBackgroundColor,
       body: SafeArea(
         child: Column(
           children: [

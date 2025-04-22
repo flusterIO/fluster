@@ -1,5 +1,4 @@
 import 'package:fluster/static/extension_methods/context_extension.dart';
-import 'package:fluster/static/styles/shad/shad_themes.dart';
 import 'package:fluster/widgets/scaffolds/desktop/panel_left/desktop_panel_left.dart';
 import 'package:fluster/widgets/scaffolds/desktop/panel_right/desktop_panel_right.dart';
 import 'package:flutter/material.dart';
@@ -10,13 +9,12 @@ class DesktopResizeGroup extends StatelessWidget {
   const DesktopResizeGroup({super.key, required this.child});
   @override
   Widget build(BuildContext context) {
-    final ShadTheme? theme = Theme.of(context).extension<ShadTheme>();
     final children = <ResizableChild>[];
 
     if (context.state.uiState.panelLeftState.open) {
       children.add(
         ResizableChild(
-          divider: ResizableDivider(color: theme?.border, thickness: 2),
+          divider: ResizableDivider(thickness: 2),
           size: ResizableSize.shrink(min: 160),
           child: DesktopPanelLeftSwitch(),
           // minSize: 120,
@@ -26,7 +24,7 @@ class DesktopResizeGroup extends StatelessWidget {
 
     children.add(
       ResizableChild(
-        divider: ResizableDivider(color: theme?.border, thickness: 2),
+        divider: ResizableDivider(thickness: 2),
         size: const ResizableSize.expand(flex: 6),
         child: child,
       ),
@@ -35,7 +33,7 @@ class DesktopResizeGroup extends StatelessWidget {
     if (context.state.uiState.panelRightState.open) {
       children.add(
         ResizableChild(
-          divider: ResizableDivider(color: theme?.border, thickness: 2),
+          divider: ResizableDivider(thickness: 2),
           size: ResizableSize.expand(flex: 3),
           child: DesktopPanelRight(),
         ),

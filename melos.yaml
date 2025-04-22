@@ -24,6 +24,11 @@ scripts:
     name: Generate Icons
     description: Generate icons using flutter_launcher_icons.
     run: cd $FLUSTER_NATIVE_ROOT/apps/fluster/ && dart run flutter_launcher_icons -f $FLUSTER_NATIVE_ROOT/apps/fluster/flutter_launcher_icons.yaml
+  generate_docs:
+    name: Generate Docs
+    description: Generate Docs throughout the monorepo.
+    steps:
+      - cargo doc --workspace
   build_rust:
     name: buildRust
     description: Compile using flutter_rust_bridge in the fluster_native_interface package.

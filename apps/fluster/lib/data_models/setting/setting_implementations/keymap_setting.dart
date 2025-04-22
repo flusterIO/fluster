@@ -1,5 +1,7 @@
 import 'package:fluster/data_models/actions/global_action.dart';
 import 'package:fluster/data_models/setting/setting_abstract.dart';
+import 'package:fluster_ui/widgets/command_palette_container.dart';
+import 'package:flutter/widgets.dart';
 
 enum KeymapEntryType { Global, CommandPaletteInput }
 
@@ -18,6 +20,11 @@ class KeymapSetting extends SettingAbstract<String> {
     required super.kv,
     super.desc,
   });
+
+
+  FlusterKeyPressResult handleKeyPress(FocusNode node, RawKeyEvent e) {
+     return FlusterKeyPressResult.actionTakenCanIgnoreRest;
+    }
 
   String formatEntry() {
     return action.toFormattedString();

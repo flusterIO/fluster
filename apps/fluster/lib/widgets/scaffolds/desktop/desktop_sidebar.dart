@@ -3,7 +3,6 @@ import 'package:fluster/state/store.dart';
 import 'package:fluster/state/ui/panels/panel_left/actions/panel_left_actions.dart';
 import 'package:fluster/static/data/navigation_items.dart';
 import 'package:fluster/static/extension_methods/context_extension.dart';
-import 'package:fluster/static/styles/shad/shad_themes.dart';
 import 'package:flutter/material.dart';
 
 class ResponsiveNavigationRail extends StatelessWidget {
@@ -12,7 +11,7 @@ class ResponsiveNavigationRail extends StatelessWidget {
   List<Widget> getItems(
     List<NavigationItem> items,
     BuildContext context,
-    ShadTheme theme,
+    ThemeData theme,
   ) {
     return List.generate(items.length, (int idx) {
       final active =
@@ -21,7 +20,7 @@ class ResponsiveNavigationRail extends StatelessWidget {
         decoration: BoxDecoration(
           border: Border(
             left: BorderSide(
-              color: active ? theme.primary : Colors.transparent,
+              color: active ? theme.primaryColor : Colors.transparent,
               width: 2,
             ),
           ),
@@ -43,10 +42,9 @@ class ResponsiveNavigationRail extends StatelessWidget {
             },
             child: Icon(
               items[idx].icon,
-              color:
-                  active
-                      ? theme.foreground
-                      : theme.foreground.withOpacity(0.85),
+              color: active
+                  ? theme.textTheme.bodyLarge!.color
+                  : theme.textTheme.bodyLarge!.color!.withOpacity(0.85),
             ),
           ),
         ),
@@ -57,12 +55,18 @@ class ResponsiveNavigationRail extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     SideMenuState data = SideMenuState();
-    final ShadTheme theme = Theme.of(context).extension<ShadTheme>()!;
+    final theme = Theme.of(context);
     return Container(
       decoration: BoxDecoration(
-        border: Border(right: BorderSide(width: 1, color: theme.border)),
+        border: Border(
+          right: BorderSide(
+            width: 1,
+            color: theme.textTheme.titleMedium?.color?.withOpacity(0.2) ?? Colors.transparent,
+          ),
+        ),
       ),
       // width: 64,
+      // height: MediaQuery.sizeOf(context).height,
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 0),
         child: Column(
