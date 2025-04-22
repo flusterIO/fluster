@@ -91,6 +91,7 @@ flutter:
   uses-material-design: true
   assets:
     - lib/static/assets/images/logo/logo_512.png
+    - lib/static/assets/images/logo/logo_mac.png
     - lib/static/assets/images/logo/fluster.svg
   fonts: # Required if your app uses custom fonts
     - family: OpenSans

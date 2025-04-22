@@ -1,5 +1,4 @@
 use std::sync::LazyLock;
-
 use surrealdb::{
     engine::remote::ws::{Client, Ws},
     opt::auth::Root,
