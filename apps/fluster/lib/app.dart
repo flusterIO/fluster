@@ -3,10 +3,10 @@
 // BSD-style license that can be found in the LICENSE file.
 
 import 'package:flex_color_scheme/flex_color_scheme.dart';
-import 'package:fluster/router/router.dart';
-import 'package:fluster/state/settings/settings_state.dart';
-import 'package:fluster/static/extension_methods/context_extension.dart';
-import 'package:fluster/widgets/scaffolds/desktop/loading_indicator.dart';
+import 'package:fluster/core/extension_methods/context_extension.dart';
+import 'package:fluster/features/navigation/business/entities/router/router.dart';
+import 'package:fluster/features/scaffold/presentation/widgets/desktop/loading_indicator.dart';
+import 'package:fluster/features/settings/state/settings/settings_state.dart';
 import 'package:flutter/material.dart';
 
 class FlusterDesktopApp extends StatelessWidget {

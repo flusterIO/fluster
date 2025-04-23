@@ -80,6 +80,7 @@ dev_dependencies:
   # rules and activating additional ones.
   flutter_lints: ^5.0.0
   flutter_redux_dev_tools: ^0.5.2
+  lints: ^5.1.1
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 
@@ -90,16 +91,16 @@ flutter:
   # the material Icons class.
   uses-material-design: true
   assets:
-    - lib/static/assets/images/logo/logo_512.png
-    - lib/static/assets/images/logo/logo_mac.png
-    - lib/static/assets/images/logo/fluster.svg
+    - lib/core/static/assets/images/logo/logo_512.png
+    - lib/core/static/assets/images/logo/logo_mac.png
+    - lib/core/static/assets/images/logo/fluster.svg
   fonts: # Required if your app uses custom fonts
     - family: OpenSans
       fonts:
-        - asset: lib/static/assets/fonts/openSans/OpenSans-Regular.ttf
-        - asset: lib/static/assets/fonts/openSans/OpenSans-Italic.ttf
+        - asset: lib/core/static/assets/fonts/openSans/OpenSans-Regular.ttf
+        - asset: lib/core/static/assets/fonts/openSans/OpenSans-Italic.ttf
           style: italic
-        - asset: lib/static/assets/fonts/openSans/OpenSans-Bold.ttf
+        - asset: lib/core/static/assets/fonts/openSans/OpenSans-Bold.ttf
           weight: 700
 flutter_launcher_icons:
   path: ../..

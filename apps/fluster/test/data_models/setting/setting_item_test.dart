@@ -1,8 +1,8 @@
-import "package:fluster/data_models/actions/global_actions/toggle_left_panel.dart";
-import "package:fluster/data_models/setting/setting_implementations/keymap_setting.dart";
-import "package:fluster/data_models/setting/setting_keys.dart";
-import "package:fluster/data_models/setting/setting_page_input_id.dart";
-import "package:fluster/storage/kv/engines/shared_preferences_keyvalue_engine.dart";
+import "package:fluster/core/storage/kv/engines/shared_preferences_keyvalue_engine.dart";
+import "package:fluster/features/panel_left/presentation/state/actions/toggle_panel_left.dart";
+import "package:fluster/features/settings/data/models/setting_implementations/keymap_setting.dart";
+import "package:fluster/features/settings/data/models/setting_keys.dart";
+import "package:fluster/features/settings/data/models/setting_page_input_id.dart";
 import "package:flutter_test/flutter_test.dart";
 
 void main() {
@@ -16,7 +16,7 @@ void main() {
       inputKey: SettingPageInputId.keymapEntry,
       action: getToggleLeftPanelAction(),
       kv: SharedPreferencesEngine(),
-      keymapType: KeymapEntryType.Global,
+      keymapType: KeymapEntryType.global,
     );
   });
   group("Parses keymap properly", () {

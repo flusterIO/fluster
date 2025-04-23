@@ -4,12 +4,12 @@
 
 import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:fluster/app.dart';
-import 'package:fluster/state/global/global_state.dart';
-import 'package:fluster/widgets/wrappers/keyboard_shortcut_wrapper.dart';
+import 'package:fluster/core/state/global_state.dart';
+import 'package:fluster/core/state/store.dart';
+import 'package:fluster/features/navigation/business/entities/keyboard_shortcut_wrapper.dart';
 import 'package:fluster_native_interface/fluster_native_interface.dart';
 import 'package:flutter/material.dart';
 import 'package:async_redux/async_redux.dart';
-import 'package:fluster/state/store.dart';
 // import 'package:ulld_native/static/styles/theme_notifier.dart';
 
 /// This method initializes macos_window_utils and styles the window.

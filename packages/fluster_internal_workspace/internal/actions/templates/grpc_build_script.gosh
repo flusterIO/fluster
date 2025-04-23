@@ -1,18 +1,17 @@
 mkdir -p "$FLUSTER_NATIVE_ROOT/packages/fluster_py/fluster_py/generated/grpc"
-mkdir -p "$FLUSTER_NATIVE_ROOT/packages/fluster_go/generated/grpc"
+mkdir -p "$FLUSTER_NATIVE_ROOT/packages/fluster_go/pkg/generated/grpc"
 mkdir -p "$FLUSTER_NATIVE_ROOT/packages/fluster_ts/src/generated/grpc"
 
 protoc \
     --proto_path="$FLUSTER_NATIVE_ROOT/packages/fluster_grpc/src" \
     --python_out="$FLUSTER_NATIVE_ROOT/packages/fluster_py/fluster_py/generated/grpc" \{{range .}}
     --go_opt=Mprotos/{{.FileName}}=fluster_grpc/{{.FileNameShort}} \{{end}}
-    --go_out="$FLUSTER_NATIVE_ROOT/packages/fluster_go/generated/grpc" \{{range .}}
+    --go_out="$FLUSTER_NATIVE_ROOT/packages/fluster_go/pkg/generated/grpc" \{{range .}}
     "$FLUSTER_NATIVE_ROOT/packages/fluster_grpc/src/proto/{{.FileName}}" \{{end}}
 
 protoc \
     --proto_path="$FLUSTER_NATIVE_ROOT/packages/fluster_grpc/src" \
     --plugin="protoc-gen-ts=$FLUSTER_NATIVE_ROOT/packages/fluster_ts/node_modules/.bin/protoc-gen-ts" \
     --ts_opt=esModuleInterop=true \
-    --js_out="$FLUSTER_NATIVE_ROOT/packages/fluster_ts/dist/generated/grpc" \
     --ts_out="$FLUSTER_NATIVE_ROOT/packages/fluster_ts/src/generated/grpc" \{{range .}}
     "$FLUSTER_NATIVE_ROOT/packages/fluster_grpc/src/proto/{{.FileName}}" \{{end}}

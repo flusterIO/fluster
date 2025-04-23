@@ -1,1 +1,0 @@
-const appBarHeightOffset = 43;
