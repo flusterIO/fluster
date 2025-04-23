@@ -1,6 +1,6 @@
 import 'package:fluster/core/global_actions/global_action.dart';
+import 'package:fluster/core/models/key_press_listener/key_press_listener.dart';
 import 'package:fluster/features/settings/data/models/setting_abstract.dart';
-import 'package:fluster_ui/widgets/command_palette_container.dart';
 import 'package:flutter/widgets.dart';
 
 enum KeymapEntryType { global, commandPaletteInput }

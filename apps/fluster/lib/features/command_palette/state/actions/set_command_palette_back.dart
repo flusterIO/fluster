@@ -1,6 +1,6 @@
 import 'package:fluster/core/state/global_state.dart';
 import 'package:fluster/core/types/state_types.dart';
-import 'package:fluster_ui/widgets/command_palette_item.dart';
+import 'package:fluster/features/command_palette/data/models/command_palette_item.dart';
 
 class CommandPaletteBackAction extends FlusterAction {
   CommandPaletteBackAction();

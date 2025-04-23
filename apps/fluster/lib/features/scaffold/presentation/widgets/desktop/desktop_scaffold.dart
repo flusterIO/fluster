@@ -1,13 +1,15 @@
 import 'package:fluster/core/extension_methods/context_extension.dart';
 import 'package:fluster/core/state/store.dart';
 import 'package:fluster/core/static/constants/static_constants.dart';
+import 'package:fluster/features/command_palette/data/command_palette_tree/command_palette_root.dart';
+import 'package:fluster/features/command_palette/data/models/command_palette_item.dart';
+import 'package:fluster/features/command_palette/presentation/widgets/command_palette/command_palette_container.dart';
 import 'package:fluster/features/command_palette/state/actions/set_command_palette_open.dart';
 import 'package:fluster/features/notifications/presentation/widgets/desktop/desktop_notification.dart';
 import 'package:fluster/features/scaffold/presentation/widgets/desktop/desktop_resize_group.dart';
 import 'package:fluster/features/scaffold/presentation/widgets/desktop/desktop_sidebar.dart';
 import 'package:fluster/features/scaffold/presentation/widgets/title_bar.dart';
 import 'package:fluster/features/settings/data/models/setting_pages.dart';
-import 'package:fluster_ui/widgets/command_palette_container.dart';
 import 'package:flutter/material.dart';
 
 class DesktopAppScaffold extends StatelessWidget {
@@ -45,8 +47,8 @@ class DesktopAppScaffold extends StatelessWidget {
         CommandPalette(
           setIsOpen: setCommandPaletteOpen,
           isOpen: context.state.commandPaletteState.open,
-          items: context.state.commandPaletteState.items,
           listeners: s.getKeyboardListeners(),
+          initialCategory: CommandPaletteRoot(),
         ),
       );
     }
