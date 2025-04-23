@@ -10,10 +10,6 @@ scripts:
     name: Test Flutter
     description: Test the Flutter & Dart side of the workspace.
     run: flutter test $FLUSTER_NATIVE_ROOT/apps/fluster --coverage --no-pub && flutter pub run test_cov_console --file=$FLUSTER_NATIVE_ROOT/apps/fluster/coverage/lcov.info
-  test_rust:
-    name: Test with coverage
-    description: Test rust throughout the workspace.
-    run: cargo llvm-cov --html
   format_everything:
     name: Format Everything
     description: Just as the name implies, formats everything
@@ -28,7 +24,16 @@ scripts:
     name: Generate Docs
     description: Generate Docs throughout the monorepo.
     steps:
+      - cargo doc --workspace --no-deps
+  generate_docs_with_deps:
+    name: Generate Docs with dependencies for offline development
+    description: Generate Docs throughout the monorepo with dependencies included.
+    steps:
       - cargo doc --workspace
+  test_rust:
+    name: Test with coverage
+    description: Test rust throughout the workspace.
+    run: cargo llvm-cov --html
   build_rust:
     name: buildRust
     description: Compile using flutter_rust_bridge in the fluster_native_interface package.
@@ -56,6 +61,15 @@ scripts:
       - $FLUSTER_NATIVE_ROOT/packages/fluster_internal_workspace/fluster_internal_workspace generate_grpc_script
       - $FLUSTER_NATIVE_ROOT/packages/fluster_grpc/scripts/clean.sh
       - $FLUSTER_NATIVE_ROOT/packages/fluster_grpc/scripts/distribute_proto.sh
+  build_native:
+    name: Build Native
+    description: Builds the entire desktop application apart from flutter itself
+    steps:
+      - melos run build_protos
+      - melos run generate_docs
+      - melos run build_rust
+      - melos run build_go
+      - melos run build_ts
   build_node:
     name: Build node package
     steps:

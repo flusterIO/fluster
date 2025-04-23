@@ -31,7 +31,7 @@ func (x ProtoFile) FileNameShort() string {
 
 func GenerateGrpcScript() {
 	nativeRoot := utils.GetNativeRoot()
-	protoRoot := path.Join(nativeRoot, "packages", "fluster_grpc", "src", "proto")
+	protoRoot := path.Join(nativeRoot, "packages", "fluster_grpc", "rust", "src", "proto")
 	files, err := os.ReadDir(protoRoot)
 	if err != nil {
 		log.Fatal(err)

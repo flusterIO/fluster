@@ -17,7 +17,6 @@ class SetSettingsPageAction extends FlusterAction {
 }
 
 
-
 class SetNavigationIdAction extends FlusterAction {
   final NavigationItemId id;
   SetNavigationIdAction(this.id);

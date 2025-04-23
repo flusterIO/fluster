@@ -65,8 +65,7 @@ class _$NavigationStateCopyWithImpl<$Res, $Val extends NavigationState>
             navigationId:
                 freezed == navigationId
                     ? _value.navigationId
-                    : navigationId // ignore: cast_nullable_to_non_nullable
-                        as NavigationItemId,
+                    : navigationId // ignore: cast_nullable_to_non_nullable,
           )
           as $Val,
     );
