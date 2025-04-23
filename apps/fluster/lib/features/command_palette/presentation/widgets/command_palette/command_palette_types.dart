@@ -10,5 +10,5 @@ enum FlusterKeyPressResult {
 
 class FlusterKeyPressListener {
   FlusterKeyPressListener({required this.listener});
-  final FlusterKeyPressResult Function(FocusNode, RawKeyEvent) listener;
+  final FlusterKeyPressResult Function(FocusNode, KeyEvent) listener;
 }

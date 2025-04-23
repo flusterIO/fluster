@@ -23,6 +23,12 @@ class CommandPalette extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
+    final brightness = Theme.brightnessOf(context);
+    final hasAnimated = useState(false);
+    useEffect(() {
+      hasAnimated.value = true;
+      return () {};
+    }, []);
     return GestureDetector(
       onTap: () {
         setIsOpen(false);
@@ -30,12 +36,15 @@ class CommandPalette extends HookWidget {
       child: AnimatedContainer(
         padding: const EdgeInsets.symmetric(vertical: 64, horizontal: 64),
         decoration: BoxDecoration(
-          color: isOpen ? Colors.black : Colors.transparent,
+          color: hasAnimated.value
+              ? Colors.black.withValues(
+                  alpha: brightness == Brightness.dark ? 0.7 : 0.2,
+                )
+              : Colors.transparent,
         ),
         duration: const Duration(milliseconds: 3000),
         curve: Curves.easeOut,
         child: CommandPaletteWidget(
-          navStack: <CommandPaletteCategory>[initialCategory],
           listeners: listeners,
         ),
       ),

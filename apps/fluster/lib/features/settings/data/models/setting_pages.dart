@@ -2,6 +2,7 @@ import 'package:fluster/core/global_actions/global_action_map.dart';
 import 'package:fluster/core/models/key_press_listener/key_press_listener.dart';
 import 'package:fluster/features/settings/data/models/setting_abstract.dart';
 import 'package:fluster/features/settings/data/models/setting_implementations/keymap_setting.dart';
+import 'package:fluster/features/settings/data/models/setting_keys.dart';
 import 'package:fluster/features/settings/data/models/setting_section.dart';
 import 'package:flutter/material.dart';
 
@@ -65,5 +66,16 @@ class KeymapSettingPageData<T extends SettingAbstract>
       }
     }
     return data;
+  }
+
+  KeymapSetting getSettingById(SettingUniqueKey id) {
+    for (var s in sections) {
+      if (s.items.containsKey(id)) {
+        return s.items[id] as KeymapSetting;
+      }
+    }
+    throw FormatException(
+      "Attemptd to getSettingById in the keymap setting class with an invalid key $id",
+    );
   }
 }

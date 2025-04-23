@@ -1,4 +1,6 @@
+import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 
 final GlobalKey<CommandPaletteSearchInputState> commandPaletteInputKey =
     GlobalKey<CommandPaletteSearchInputState>(debugLabel: 'app shell');
@@ -16,6 +18,7 @@ class CommandPaletteSearchInputState extends State<CommandPaletteSearchInput> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return FocusTraversalOrder(
       order: const NumericFocusOrder(0),
       child: TextField(
@@ -24,10 +27,14 @@ class CommandPaletteSearchInputState extends State<CommandPaletteSearchInput> {
         autofocus: true,
         // focusNode: widget.focusNode,
         decoration: InputDecoration(
-          border: OutlineInputBorder(),
+          // border: OutlineInputBorder(),
+          border: InputBorder.none,
           hintText: "Search...",
-          fillColor: Colors.green,
+          prefixIcon: Icon(FluentIcons.search_48_filled),
+          filled: true,
+          fillColor: theme.scaffoldBackgroundColor,
         ),
+        stylusHandwritingEnabled: true,
       ),
     );
   }
