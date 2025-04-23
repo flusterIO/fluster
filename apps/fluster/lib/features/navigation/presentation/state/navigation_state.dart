@@ -1,4 +1,4 @@
-import 'package:fluster/features/navigation/business/enums/navigation_item_id.dart';
+import 'package:fluster/features/navigation/business/entities/navigation_item_id.dart';
 import 'package:fluster/features/settings/data/models/setting_pages.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 

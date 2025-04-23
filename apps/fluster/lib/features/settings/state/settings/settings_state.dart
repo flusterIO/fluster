@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:fluster/core/state/nested_state/network_state/actions/set_loading_action.dart';
 import 'package:fluster/core/state/nested_state/network_state/network_state.dart';
 import 'package:fluster/core/state/store.dart';
-import 'package:fluster/core/static/settings/settings_root.dart';
+import 'package:fluster/features/settings/data/setting_sections/settings_root.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part "settings_state.freezed.dart";

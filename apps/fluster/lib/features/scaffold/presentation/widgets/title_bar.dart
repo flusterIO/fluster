@@ -4,7 +4,7 @@ import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:fluster/core/state/nested_state/layout_state/panels/panel_left/actions/panel_left_actions.dart';
 import 'package:fluster/core/state/nested_state/layout_state/panels/panel_right/actions/panel_right_actions.dart';
 import 'package:fluster/core/state/store.dart';
-import 'package:fluster/features/command_palette/presentation/state/actions/set_command_palette_open.dart';
+import 'package:fluster/features/command_palette/state/actions/set_command_palette_open.dart';
 import 'package:flutter/material.dart';
 
 class WindowTitleBar extends StatelessWidget {

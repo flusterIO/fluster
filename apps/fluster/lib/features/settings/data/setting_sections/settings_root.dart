@@ -1,8 +1,8 @@
-import 'package:fluster/core/static/settings/setting_by_category/keymap.dart';
-import 'package:fluster/core/static/settings/setting_sections/general/general_settings.dart';
 import 'package:fluster/core/storage/kv/engines/shared_preferences_keyvalue_engine.dart';
 import 'package:fluster/features/settings/data/models/setting_pages.dart';
 import 'package:fluster/features/settings/data/models/setting_section.dart';
+import 'package:fluster/features/settings/data/setting_by_category/keymap/keymap.dart';
+import 'package:fluster/features/settings/data/setting_sections/general/general_settings.dart';
 
 class Settings {
   final Map<SettingPageId, SettingPageDataAbstract> pages;

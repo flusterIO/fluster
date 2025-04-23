@@ -1,7 +1,7 @@
 import 'package:fluster/core/extension_methods/context_extension.dart';
 import 'package:fluster/core/state/store.dart';
 import 'package:fluster/core/static/constants/static_constants.dart';
-import 'package:fluster/features/command_palette/presentation/state/actions/set_command_palette_open.dart';
+import 'package:fluster/features/command_palette/state/actions/set_command_palette_open.dart';
 import 'package:fluster/features/notifications/presentation/widgets/desktop/desktop_notification.dart';
 import 'package:fluster/features/scaffold/presentation/widgets/desktop/desktop_resize_group.dart';
 import 'package:fluster/features/scaffold/presentation/widgets/desktop/desktop_sidebar.dart';

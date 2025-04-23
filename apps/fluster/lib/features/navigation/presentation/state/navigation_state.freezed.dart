@@ -54,7 +54,7 @@ class _$NavigationStateCopyWithImpl<$Res, $Val extends NavigationState>
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
-  $Res call({Object? settingPageId = null, Object? navigationId = null}) {
+  $Res call({Object? settingPageId = null, Object? navigationId = freezed}) {
     return _then(
       _value.copyWith(
             settingPageId:
@@ -63,7 +63,7 @@ class _$NavigationStateCopyWithImpl<$Res, $Val extends NavigationState>
                     : settingPageId // ignore: cast_nullable_to_non_nullable
                         as SettingPageId,
             navigationId:
-                null == navigationId
+                freezed == navigationId
                     ? _value.navigationId
                     : navigationId // ignore: cast_nullable_to_non_nullable
                         as NavigationItemId,
@@ -98,7 +98,7 @@ class __$$NavigationStateImplCopyWithImpl<$Res>
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
-  $Res call({Object? settingPageId = null, Object? navigationId = null}) {
+  $Res call({Object? settingPageId = null, Object? navigationId = freezed}) {
     return _then(
       _$NavigationStateImpl(
         settingPageId:
@@ -107,7 +107,7 @@ class __$$NavigationStateImplCopyWithImpl<$Res>
                 : settingPageId // ignore: cast_nullable_to_non_nullable
                     as SettingPageId,
         navigationId:
-            null == navigationId
+            freezed == navigationId
                 ? _value.navigationId
                 : navigationId // ignore: cast_nullable_to_non_nullable
                     as NavigationItemId,
@@ -144,12 +144,18 @@ class _$NavigationStateImpl extends _NavigationState {
             other is _$NavigationStateImpl &&
             (identical(other.settingPageId, settingPageId) ||
                 other.settingPageId == settingPageId) &&
-            (identical(other.navigationId, navigationId) ||
-                other.navigationId == navigationId));
+            const DeepCollectionEquality().equals(
+              other.navigationId,
+              navigationId,
+            ));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, settingPageId, navigationId);
+  int get hashCode => Object.hash(
+    runtimeType,
+    settingPageId,
+    const DeepCollectionEquality().hash(navigationId),
+  );
 
   /// Create a copy of NavigationState
   /// with the given fields replaced by the non-null parameter values.

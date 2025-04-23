@@ -1,7 +1,7 @@
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:fluster/core/state/store.dart';
+import 'package:fluster/features/navigation/business/entities/navigation_item_id.dart';
 import 'package:fluster/features/navigation/business/entities/router/routes.dart';
-import 'package:fluster/features/navigation/business/enums/navigation_item_id.dart';
 import 'package:fluster/features/navigation/presentation/state/actions/navigation_actions.dart';
 import 'package:flutter/material.dart';
 

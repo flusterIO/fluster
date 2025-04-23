@@ -1,6 +1,6 @@
 import 'package:fluster/core/extension_methods/context_extension.dart';
-import 'package:fluster/features/scaffold/presentation/widgets/desktop/panel_left/desktop_panel_left.dart';
-import 'package:fluster/features/scaffold/presentation/widgets/desktop/panel_right/desktop_panel_right.dart';
+import 'package:fluster/features/panel_left/presentation/widgets/desktop_panel_left.dart';
+import 'package:fluster/features/panel_right/presentation/widgets/desktop_panel_right.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_resizable_container/flutter_resizable_container.dart';
 

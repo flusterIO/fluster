@@ -1,5 +1,5 @@
 import 'package:fluster/core/storage/kv/engines/shared_preferences_keyvalue_engine.dart';
-import 'package:fluster/features/command_palette/presentation/state/actions/toggle_command_palette.dart';
+import 'package:fluster/features/command_palette/state/actions/toggle_command_palette.dart';
 import 'package:fluster/features/panel_left/presentation/state/actions/toggle_panel_left.dart';
 import 'package:fluster/features/panel_right/presentation/state/actions/toggle_panel_right.dart';
 import 'package:fluster/features/settings/data/models/setting_implementations/keymap_setting.dart';
