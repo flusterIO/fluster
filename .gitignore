@@ -72,3 +72,4 @@ app.*.map.json
 /packages/dum_native/build/
 /target
 **/node_modules
+codecov.*

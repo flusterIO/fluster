@@ -15,12 +15,7 @@ class SettingsPageContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final activeId = context.state.navigationState.settingPageId;
-    final activeSettingsPage = context
-        .state
-        .settingsState
-        .settings
-        .pages
-        .values
+    final activeSettingsPage = context.state.settingsState.settings.pages.values
         .firstWhere((x) => x.id == activeId);
     return PageContainer(
       child: Form(
@@ -30,19 +25,26 @@ class SettingsPageContainer extends StatelessWidget {
           children: List.generate(activeSettingsPage.sections.length, (
             int idx,
           ) {
-            final itemValues = useMemoized(()=> activeSettingsPage.sections[idx].items.values.toList(), []);
+            final sec = activeSettingsPage.sections[idx];
+            if (sec == null) {
+              throw FormatException(
+                "Attempted to access a settings section that does not exist.",
+              );
+            }
+            final itemValues = useMemoized(
+              () =>
+                  activeSettingsPage.sections[idx]?.items.values.toList() ?? [],
+              [],
+            );
             return SettingSection(
-              label: activeSettingsPage.sections[idx].label,
-              subtitle: activeSettingsPage.sections[idx].subtitle,
-              children: List.generate(
-                activeSettingsPage.sections[idx].items.length,
-                (int idx2) {
-                  return SettingPageInput(
-                    item: itemValues[idx2],
-                    formKey: _formKey,
-                  );
-                },
-              ),
+              label: sec.label,
+              subtitle: sec.subtitle,
+              children: List.generate(sec.items.length, (int idx2) {
+                return SettingPageInput(
+                  item: itemValues[idx2],
+                  formKey: _formKey,
+                );
+              }),
             );
           }),
         ),

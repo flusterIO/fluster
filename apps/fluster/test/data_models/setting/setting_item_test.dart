@@ -1,34 +1,25 @@
-import "package:fluster/core/storage/kv/engines/shared_preferences_keyvalue_engine.dart";
-import "package:fluster/features/panel_left/presentation/state/actions/toggle_panel_left.dart";
-import "package:fluster/features/settings/data/models/setting_implementations/keymap_setting.dart";
-import "package:fluster/features/settings/data/models/setting_keys.dart";
-import "package:fluster/features/settings/data/models/setting_page_input_id.dart";
+import "package:fluster/features/settings/data/models/keymap_setting_page_data.dart";
+import "package:fluster/features/settings/data/setting_by_category/keymap/keymap.dart";
 import "package:flutter_test/flutter_test.dart";
 
 void main() {
-  late KeymapSetting sut;
+  late KeymapSettingPageData sut;
+
   setUp(() {
-    sut = KeymapSetting(
-      value: null,
-      defaultValue: "",
-      label: "Settings panel right",
-      settingUniqueKey: SettingUniqueKey.keymapTogglePanelRight,
-      inputKey: SettingPageInputId.keymapEntry,
-      action: getToggleLeftPanelAction(),
-      kv: SharedPreferencesEngine(),
-      keymapType: KeymapEntryType.global,
-    );
+    sut = getKeymapSettings();
   });
-  group("Parses keymap properly", () {
-    test("Formats to string properly", () {
-      // Arrange
-      var s = sut..action.toFormattedString();
-
-      print("s is: {s}");
-      // Act
-
-      // Assert
-      expect(s, "", reason: "test");
+  group("Structure is typesafe.", () {
+    test("All keys are in place.", () {
+      for (var s in sut.sections.values) {
+        for (var k in s.items.entries) {
+          expect(
+            k.key,
+            k.value.settingUniqueKey,
+            reason:
+                "The settingUniqueKey field in a keymap setting must match the key in SettingsPageData[section].",
+          );
+        }
+      }
     });
   });
 }

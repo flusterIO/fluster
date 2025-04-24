@@ -9,7 +9,12 @@ scripts:
   test_flutter:
     name: Test Flutter
     description: Test the Flutter & Dart side of the workspace.
-    run: flutter test $FLUSTER_NATIVE_ROOT/apps/fluster --coverage --no-pub && flutter pub run test_cov_console --file=$FLUSTER_NATIVE_ROOT/apps/fluster/coverage/lcov.info
+    run: cd $FLUSTER_NATIVE_ROOT/apps/fluster && flutter test $FLUSTER_NATIVE_ROOT/apps/fluster --coverage --no-pub --coverage-path $FLUSTER_NATIVE_ROOT/apps/fluster/.coverage/lcov.info && flutter pub global run test_cov_console --file=$FLUSTER_NATIVE_ROOT/apps/fluster/.coverage/lcov.info
+  test_go:
+    name: Test Golang
+    description: Test Golang Projects
+    steps:
+      - cd $FLUSTER_NATIVE_ROOT/packages/fluster_cli && go test -cover -coverprofile $FLUSTER_NATIVE_ROOT/packages/fluster_cli/.coverage/coverage.out
   format_everything:
     name: Format Everything
     description: Just as the name implies, formats everything

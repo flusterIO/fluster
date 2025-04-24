@@ -1,7 +1,5 @@
-import 'package:fluster/core/models/key_press_listener/key_press_listener.dart';
 import 'package:fluster/features/command_palette/data/models/command_palette_category.dart';
 import 'package:fluster/features/command_palette/presentation/widgets/command_palette/command_palette.dart';
-import 'package:fluster/features/command_palette/state/command_palette_keymap_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
@@ -43,10 +41,7 @@ class CommandPalette extends HookWidget {
         ),
         duration: const Duration(milliseconds: 3000),
         curve: Curves.easeOut,
-        child: CommandPaletteKeymapWidget(
-          child: CommandPaletteWidget(
-          ),
-        ),
+        child: CommandPaletteWidget(),
       ),
     );
   }

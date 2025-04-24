@@ -11,7 +11,7 @@ class SetInitialSettingStateAction extends ReduxAction<GlobalAppState> {
   SetInitialSettingStateAction(this.settings);
 
   @override
-  FutureOr<GlobalAppState?> reduce() {
+  GlobalAppState reduce() {
     return state.copyWith(
       settingsState: state.settingsState.copyWith(settings: settings),
       networkState: state.networkState.withLoadingSourceRemoved(

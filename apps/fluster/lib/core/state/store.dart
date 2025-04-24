@@ -1,8 +1,8 @@
-import 'package:async_redux/async_redux.dart';
+import 'package:async_redux/async_redux.dart' as r;
 import 'package:fluster/core/state/global_state.dart';
 import 'package:fluster/core/util/state_logger.dart';
 
-final globalReduxStore = Store<GlobalAppState>(
+final globalReduxStore = r.Store<GlobalAppState>(
   initialState: GlobalAppState.initialState(),
   actionObservers: [DevelopmentStateLogger()],
   // middleware: [

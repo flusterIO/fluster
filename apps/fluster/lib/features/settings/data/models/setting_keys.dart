@@ -5,8 +5,8 @@ enum SettingUniqueKey {
   keymapTogglePanelRight,
   keymapOpenCommandPalette,
   keymapCommandPaletteBack,
-  keymapSelectItemDown,
-  keymapSelectItemUp,
-  keymapSelectItemRight,
-  keymapSelectItemLeft,
+  keymapFocusItemDown,
+  keymapFocusItemUp,
+  keymapFocusItemRight,
+  keymapFocusItemLeft,
 }

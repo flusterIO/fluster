@@ -10,14 +10,14 @@ import 'package:fluster/features/command_palette/presentation/widgets/command_pa
 import 'package:fluster/features/command_palette/presentation/widgets/command_palette/command_pallete_search_result.dart';
 import 'package:fluster/features/command_palette/state/actions/set_command_palette_back.dart';
 import 'package:fluster/features/command_palette/state/actions/set_command_palette_open.dart';
+import 'package:fluster/features/command_palette/state/actions/set_command_palette_selected_index_action.dart';
+import 'package:fluster/features/settings/data/models/keymap_setting_page_data.dart';
 import 'package:fluster/features/settings/data/models/setting_page_ids/setting_page_ids.dart';
-import 'package:fluster/features/settings/data/models/setting_pages.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
 class CommandPaletteWidget extends HookWidget {
-
   KeyEventResult handleKeyPress(
     FocusNode node,
     KeyEvent e,
@@ -47,6 +47,22 @@ class CommandPaletteWidget extends HookWidget {
       return KeyEventResult.handled;
     }
 
+    if (SingleActivator(
+      LogicalKeyboardKey.tab,
+      shift: true,
+    ).accepts(e, HardwareKeyboard.instance)) {
+      globalReduxStore.dispatch(SetCommandPaletteSelectedIndexAction(1));
+      return KeyEventResult.handled;
+    }
+
+    if (SingleActivator(
+      LogicalKeyboardKey.tab,
+      shift: false,
+    ).accepts(e, HardwareKeyboard.instance)) {
+      globalReduxStore.dispatch(SetCommandPaletteSelectedIndexAction(-1));
+      return KeyEventResult.handled;
+    }
+
     if (e.logicalKey == LogicalKeyboardKey.enter) {
       // RESUME: Come back here and implement the search functionality.
       print(node);
@@ -65,7 +81,6 @@ class CommandPaletteWidget extends HookWidget {
     final focusScope = useFocusScopeNode();
     final isEmptyInput = useState(true);
     final searchController = useSearchController();
-    final selectedIndex = useState(0);
     focusScope.onKeyEvent = (FocusNode n, KeyEvent e) => handleKeyPress(
       n,
       e,
@@ -77,6 +92,7 @@ class CommandPaletteWidget extends HookWidget {
     final width = min(size.width - 80, 768).toDouble();
     final theme = Theme.of(context);
     final activeStackItem = navStack[navStack.length - 1];
+    print("index: ${context.state.commandPaletteState.selectedIndex}");
     return FocusScope(
       node: focusScope,
       autofocus: true,
@@ -103,7 +119,6 @@ class CommandPaletteWidget extends HookWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.center,
-
               children: [
                 CommandPaletteTopIndicatorBar(
                   activeCategory:
@@ -113,21 +128,18 @@ class CommandPaletteWidget extends HookWidget {
                 CommandPaletteSearchInput(controller: searchController),
                 activeStackItem.items.isEmpty
                     ? CommandPaletteNoResults()
-                    : AnimatedList(
-                        initialItemCount: activeStackItem.items.length,
+                    : ListView.builder(
+                        itemCount: activeStackItem.items.length,
                         shrinkWrap: true,
-                        itemBuilder:
-                            (
-                              BuildContext childContext,
-                              int idx,
-                              Animation anim,
-                            ) {
-                              return CommandPaletteResult(
-                                item: activeStackItem.items[idx],
-                                idx: idx,
-                                pseudoFocused: idx == selectedIndex.value,
-                              );
-                            },
+                        itemBuilder: (BuildContext childContext, int idx) {
+                          return CommandPaletteResult(
+                            item: activeStackItem.items[idx],
+                            idx: idx,
+                            pseudoFocused:
+                                idx ==
+                                context.state.commandPaletteState.selectedIndex,
+                          );
+                        },
                       ),
               ],
             ),

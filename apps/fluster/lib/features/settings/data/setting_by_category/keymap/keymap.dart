@@ -4,21 +4,21 @@ import 'package:fluster/core/global_actions/global_actions/select_item_direction
 import 'package:fluster/core/global_actions/global_actions/toggle_command_palette.dart';
 import 'package:fluster/core/storage/kv/engines/shared_preferences_keyvalue_engine.dart';
 import 'package:fluster/features/panel_left/models/global_actions.dart';
+import 'package:fluster/features/settings/data/models/keymap_setting_page_data.dart';
 import 'package:fluster/features/settings/data/models/setting_implementations/keymap_setting.dart';
 import 'package:fluster/features/settings/data/models/setting_keys.dart';
 import 'package:fluster/features/settings/data/models/setting_page_input_id.dart';
-import 'package:fluster/features/settings/data/models/setting_pages.dart';
 import 'package:fluster/features/settings/data/models/setting_section.dart';
 import 'package:fluster/features/settings/data/models/setting_page_ids/setting_page_ids.dart';
 
 // TEST: Add test to ensure that all keys match the settingUniqueKey field, as that can't be statically typed.
-KeymapSettingPageData getKeymapSettings() {
+KeymapSettingPageData<KeymapSetting> getKeymapSettings() {
   final kv = SharedPreferencesEngine();
   return KeymapSettingPageData<KeymapSetting>(
     label: "Keymap",
     desc: "View or modify your keyboard shortcuts.",
     sections: {
-        KeymapSectionId.uiAndLayout: SettingSection(
+      KeymapSectionId.uiAndLayout: SettingSection(
         label: "UI & Layout",
         items: {
           SettingUniqueKey.keymapTogglePanelLeft: KeymapSetting(
@@ -66,10 +66,10 @@ KeymapSettingPageData getKeymapSettings() {
       KeymapSectionId.navigation: SettingSection(
         label: "Navigation",
         items: {
-          SettingUniqueKey.keymapSelectItemDown: KeymapSetting(
+          SettingUniqueKey.keymapFocusItemUp: KeymapSetting(
             keymapType: KeymapEntryType.commandPaletteInput,
-            label: "Select item down",
-            settingUniqueKey: SettingUniqueKey.keymapSelectItemDown,
+            label: "Select item up",
+            settingUniqueKey: SettingUniqueKey.keymapFocusItemUp,
             action: selectItemDownGlobalAction,
             inputKey: SettingPageInputId.keymapEntry,
             value: null,
@@ -77,30 +77,30 @@ KeymapSettingPageData getKeymapSettings() {
             kv: kv,
           ),
 
-          SettingUniqueKey.keymapSelectItemUp: KeymapSetting(
+          SettingUniqueKey.keymapFocusItemDown: KeymapSetting(
             keymapType: KeymapEntryType.commandPaletteInput,
             label: "Select item down",
-            settingUniqueKey: SettingUniqueKey.keymapSelectItemUp,
+            settingUniqueKey: SettingUniqueKey.keymapFocusItemDown,
             action: selectItemUpGlobalAction,
             inputKey: SettingPageInputId.keymapEntry,
             value: null,
             defaultValue: "",
             kv: kv,
           ),
-          SettingUniqueKey.keymapSelectItemRight: KeymapSetting(
+          SettingUniqueKey.keymapFocusItemRight: KeymapSetting(
             keymapType: KeymapEntryType.commandPaletteInput,
-            label: "Select item down",
-            settingUniqueKey: SettingUniqueKey.keymapSelectItemRight,
+            label: "Select item right",
+            settingUniqueKey: SettingUniqueKey.keymapFocusItemRight,
             action: selectItemRightGlobalAction,
             inputKey: SettingPageInputId.keymapEntry,
             value: null,
             defaultValue: "",
             kv: kv,
           ),
-          SettingUniqueKey.keymapSelectItemLeft: KeymapSetting(
+          SettingUniqueKey.keymapFocusItemLeft: KeymapSetting(
             keymapType: KeymapEntryType.commandPaletteInput,
-            label: "Select item down",
-            settingUniqueKey: SettingUniqueKey.keymapSelectItemLeft,
+            label: "Select item left",
+            settingUniqueKey: SettingUniqueKey.keymapFocusItemLeft,
             action: selectItemLeftGlobalAction,
             inputKey: SettingPageInputId.keymapEntry,
             value: null,

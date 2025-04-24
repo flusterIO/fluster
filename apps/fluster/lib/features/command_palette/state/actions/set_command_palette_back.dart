@@ -20,8 +20,8 @@ class CommandPaletteBackAction extends FlusterAction {
         navigationStack: newStack,
         open: newStack.isNotEmpty,
         query: hasStack ? state.commandPaletteState.query : "",
-        items: hasStack
-            ? state.commandPaletteState.items
+        filteredItems: newStack.isNotEmpty
+            ? newStack[newStack.length - 1].items as List<CommandPaletteItem>
             : <CommandPaletteItem>[],
       ),
     );

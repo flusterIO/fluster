@@ -8,8 +8,6 @@ import 'package:fluster/features/notifications/presentation/widgets/desktop/desk
 import 'package:fluster/features/scaffold/presentation/widgets/desktop/desktop_resize_group.dart';
 import 'package:fluster/features/scaffold/presentation/widgets/desktop/desktop_sidebar.dart';
 import 'package:fluster/features/scaffold/presentation/widgets/title_bar.dart';
-import 'package:fluster/features/settings/data/models/setting_page_ids/setting_page_ids.dart';
-import 'package:fluster/features/settings/data/models/setting_pages.dart';
 import 'package:flutter/material.dart';
 
 class DesktopAppScaffold extends StatelessWidget {
@@ -46,9 +44,6 @@ class DesktopAppScaffold extends StatelessWidget {
     ];
     final commandPaletteOpen = context.state.commandPaletteState.open;
     if (commandPaletteOpen) {
-      final s =
-          context.state.settingsState.settings.pages[SettingPageId.keymap]
-              as KeymapSettingPageData;
       children.add(
         CommandPalette(
           setIsOpen: setCommandPaletteOpen,

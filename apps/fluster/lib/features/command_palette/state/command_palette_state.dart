@@ -14,13 +14,22 @@ class CommandPaletteState with _$CommandPaletteState {
   const factory CommandPaletteState({
     @Default(true) bool open,
     @Default("") String query,
-    @Default([]) List<CommandPaletteItem> items,
+    @Default([]) List<CommandPaletteItem> filteredItems,
     @Default([]) List<CommandPaletteEntry> navigationStack,
     @Default(0) int selectedIndex,
   }) = _CommandPaletteState;
   static CommandPaletteState initialState() => CommandPaletteState(open: false);
-  
-  CommandPaletteState withAddedSelectedIndex(int addToIndex) => CommandPaletteState( 
-        selectedIndex: max(selectedIndex + addToIndex % items.length - 1, 0)
+
+  CommandPaletteState withAddedSelectedIndex(int addToIndex) {
+    final currentItem = navigationStack[navigationStack.length - 1];
+    if (currentItem.items.isEmpty) {
+      return copyWith();
+    }
+    return copyWith(
+      selectedIndex: max(
+        (selectedIndex + addToIndex) % currentItem.items.length,
+        0,
+      ),
     );
+  }
 }

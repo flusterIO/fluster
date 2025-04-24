@@ -61,6 +61,8 @@ dependencies:
   flutter_dotenv: ^5.2.1
   flutter_hooks: ^0.21.2
   loading_indicator: ^3.1.1
+  redux_persist_flutter: ^0.9.0
+  redux_persist: ^0.9.0
   # flutter_redux: ^0.10.0
   # flutter_redux_navigation: ^0.7.1
   # redux: ^5.0.0

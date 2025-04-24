@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:fluster/core/state/global_state.dart';
 import 'package:fluster/core/types/state_types.dart';
 import 'package:fluster/features/scaffold/presentation/widgets/desktop/error_page.dart';
@@ -9,7 +7,7 @@ class EmitFlusterErrorAction extends FlusterAction {
   EmitFlusterErrorAction(this.error);
 
   @override
-  FutureOr<GlobalAppState?> reduce() {
+  GlobalAppState reduce() {
     return state.copyWith(
       errorState: state.errorState.withAppendedError(error),
     );
