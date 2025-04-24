@@ -1,3 +1,4 @@
+import 'package:fluster/features/command_palette/data/models/command_palette_entry.dart';
 import 'package:fluster/features/command_palette/data/models/command_palette_item.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
@@ -12,7 +13,7 @@ class CommandPaletteState with _$CommandPaletteState {
     @Default(true) bool open,
     @Default("") String query,
     @Default([]) List<CommandPaletteItem> items,
-    @Default([]) List<String> navigationStack,
+    @Default([]) List<CommandPaletteEntry> navigationStack,
   }) = _CommandPaletteState;
   static CommandPaletteState initialState() => CommandPaletteState(open: false);
 }

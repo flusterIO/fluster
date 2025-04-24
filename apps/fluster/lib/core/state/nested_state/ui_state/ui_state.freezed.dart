@@ -20,6 +20,7 @@ mixin _$GlobalUIState {
   PanelLeftState get panelLeftState => throw _privateConstructorUsedError;
   PanelRightState get panelRightState => throw _privateConstructorUsedError;
   ThemeMode get themeMode => throw _privateConstructorUsedError;
+  FlexScheme get colorScheme => throw _privateConstructorUsedError;
 
   /// Create a copy of GlobalUIState
   /// with the given fields replaced by the non-null parameter values.
@@ -39,10 +40,10 @@ abstract class $GlobalUIStateCopyWith<$Res> {
     PanelLeftState panelLeftState,
     PanelRightState panelRightState,
     ThemeMode themeMode,
+    FlexScheme colorScheme,
   });
 
   $PanelLeftStateCopyWith<$Res> get panelLeftState;
-  $PanelRightStateCopyWith<$Res> get panelRightState;
 }
 
 /// @nodoc
@@ -61,8 +62,9 @@ class _$GlobalUIStateCopyWithImpl<$Res, $Val extends GlobalUIState>
   @override
   $Res call({
     Object? panelLeftState = null,
-    Object? panelRightState = null,
+    Object? panelRightState = freezed,
     Object? themeMode = null,
+    Object? colorScheme = null,
   }) {
     return _then(
       _value.copyWith(
@@ -72,7 +74,7 @@ class _$GlobalUIStateCopyWithImpl<$Res, $Val extends GlobalUIState>
                     : panelLeftState // ignore: cast_nullable_to_non_nullable
                         as PanelLeftState,
             panelRightState:
-                null == panelRightState
+                freezed == panelRightState
                     ? _value.panelRightState
                     : panelRightState // ignore: cast_nullable_to_non_nullable
                         as PanelRightState,
@@ -81,6 +83,11 @@ class _$GlobalUIStateCopyWithImpl<$Res, $Val extends GlobalUIState>
                     ? _value.themeMode
                     : themeMode // ignore: cast_nullable_to_non_nullable
                         as ThemeMode,
+            colorScheme:
+                null == colorScheme
+                    ? _value.colorScheme
+                    : colorScheme // ignore: cast_nullable_to_non_nullable
+                        as FlexScheme,
           )
           as $Val,
     );
@@ -93,16 +100,6 @@ class _$GlobalUIStateCopyWithImpl<$Res, $Val extends GlobalUIState>
   $PanelLeftStateCopyWith<$Res> get panelLeftState {
     return $PanelLeftStateCopyWith<$Res>(_value.panelLeftState, (value) {
       return _then(_value.copyWith(panelLeftState: value) as $Val);
-    });
-  }
-
-  /// Create a copy of GlobalUIState
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @pragma('vm:prefer-inline')
-  $PanelRightStateCopyWith<$Res> get panelRightState {
-    return $PanelRightStateCopyWith<$Res>(_value.panelRightState, (value) {
-      return _then(_value.copyWith(panelRightState: value) as $Val);
     });
   }
 }
@@ -120,12 +117,11 @@ abstract class _$$GlobalUIStateImplCopyWith<$Res>
     PanelLeftState panelLeftState,
     PanelRightState panelRightState,
     ThemeMode themeMode,
+    FlexScheme colorScheme,
   });
 
   @override
   $PanelLeftStateCopyWith<$Res> get panelLeftState;
-  @override
-  $PanelRightStateCopyWith<$Res> get panelRightState;
 }
 
 /// @nodoc
@@ -143,8 +139,9 @@ class __$$GlobalUIStateImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? panelLeftState = null,
-    Object? panelRightState = null,
+    Object? panelRightState = freezed,
     Object? themeMode = null,
+    Object? colorScheme = null,
   }) {
     return _then(
       _$GlobalUIStateImpl(
@@ -154,7 +151,7 @@ class __$$GlobalUIStateImplCopyWithImpl<$Res>
                 : panelLeftState // ignore: cast_nullable_to_non_nullable
                     as PanelLeftState,
         panelRightState:
-            null == panelRightState
+            freezed == panelRightState
                 ? _value.panelRightState
                 : panelRightState // ignore: cast_nullable_to_non_nullable
                     as PanelRightState,
@@ -163,6 +160,11 @@ class __$$GlobalUIStateImplCopyWithImpl<$Res>
                 ? _value.themeMode
                 : themeMode // ignore: cast_nullable_to_non_nullable
                     as ThemeMode,
+        colorScheme:
+            null == colorScheme
+                ? _value.colorScheme
+                : colorScheme // ignore: cast_nullable_to_non_nullable
+                    as FlexScheme,
       ),
     );
   }
@@ -175,6 +177,7 @@ class _$GlobalUIStateImpl extends _GlobalUIState {
     required this.panelLeftState,
     required this.panelRightState,
     required this.themeMode,
+    this.colorScheme = FlexScheme.shadBlue,
   }) : super._();
 
   @override
@@ -183,10 +186,13 @@ class _$GlobalUIStateImpl extends _GlobalUIState {
   final PanelRightState panelRightState;
   @override
   final ThemeMode themeMode;
+  @override
+  @JsonKey()
+  final FlexScheme colorScheme;
 
   @override
   String toString() {
-    return 'GlobalUIState(panelLeftState: $panelLeftState, panelRightState: $panelRightState, themeMode: $themeMode)';
+    return 'GlobalUIState(panelLeftState: $panelLeftState, panelRightState: $panelRightState, themeMode: $themeMode, colorScheme: $colorScheme)';
   }
 
   @override
@@ -196,15 +202,24 @@ class _$GlobalUIStateImpl extends _GlobalUIState {
             other is _$GlobalUIStateImpl &&
             (identical(other.panelLeftState, panelLeftState) ||
                 other.panelLeftState == panelLeftState) &&
-            (identical(other.panelRightState, panelRightState) ||
-                other.panelRightState == panelRightState) &&
+            const DeepCollectionEquality().equals(
+              other.panelRightState,
+              panelRightState,
+            ) &&
             (identical(other.themeMode, themeMode) ||
-                other.themeMode == themeMode));
+                other.themeMode == themeMode) &&
+            (identical(other.colorScheme, colorScheme) ||
+                other.colorScheme == colorScheme));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, panelLeftState, panelRightState, themeMode);
+  int get hashCode => Object.hash(
+    runtimeType,
+    panelLeftState,
+    const DeepCollectionEquality().hash(panelRightState),
+    themeMode,
+    colorScheme,
+  );
 
   /// Create a copy of GlobalUIState
   /// with the given fields replaced by the non-null parameter values.
@@ -220,6 +235,7 @@ abstract class _GlobalUIState extends GlobalUIState {
     required final PanelLeftState panelLeftState,
     required final PanelRightState panelRightState,
     required final ThemeMode themeMode,
+    final FlexScheme colorScheme,
   }) = _$GlobalUIStateImpl;
   const _GlobalUIState._() : super._();
 
@@ -229,6 +245,8 @@ abstract class _GlobalUIState extends GlobalUIState {
   PanelRightState get panelRightState;
   @override
   ThemeMode get themeMode;
+  @override
+  FlexScheme get colorScheme;
 
   /// Create a copy of GlobalUIState
   /// with the given fields replaced by the non-null parameter values.

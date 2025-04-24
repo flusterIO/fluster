@@ -1,9 +1,17 @@
 import 'package:fluster/core/global_actions/global_action_ids.dart';
-import 'package:fluster/core/state/nested_state/layout_state/panels/panel_left/actions/panel_left_actions.dart';
-import 'package:fluster/core/state/nested_state/layout_state/panels/panel_right/actions/panel_right_actions.dart';
 import 'package:fluster/core/state/store.dart';
 import 'package:fluster/features/command_palette/state/actions/set_command_palette_back.dart';
 import 'package:fluster/features/command_palette/state/actions/set_command_palette_open.dart';
+import 'package:fluster/features/panel_left/state/actions/toggle_panel_left.dart';
+import 'package:fluster/features/panel_right/state/actions/toggle_panel_right.dart';
+
+
+final globalActionMap = <GlobalActionId, void Function()>{ 
+    GlobalActionId.toggleLeftPanel: () => globalReduxStore.dispatch(TogglePanelLeftAction()),
+    GlobalActionId.toggleRightPanel: () => globalReduxStore.dispatch(TogglePanelRightAction()),
+    GlobalActionId.commandPaletteOpen: () => globalReduxStore.dispatch(SetCommandPaletteOpenAction(true)),
+    GlobalActionId.commandPaletteBack: () => globalReduxStore.dispatch(CommandPaletteBackAction())
+};
 
 void callGlobalAction(GlobalActionId id) {
   switch (id) {

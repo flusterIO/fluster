@@ -29,7 +29,10 @@ class GlobalAction<T extends Intent> extends Action<T> {
 
   @override
   Object? invoke(T intent) {
-    callGlobalAction(globalActionId);
+    final f = globalActionMap[globalActionId];
+    if (f != null) {
+      f();
+    }
     return null;
   }
 }

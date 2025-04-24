@@ -20,7 +20,8 @@ mixin _$CommandPaletteState {
   bool get open => throw _privateConstructorUsedError;
   String get query => throw _privateConstructorUsedError;
   List<CommandPaletteItem> get items => throw _privateConstructorUsedError;
-  List<String> get navigationStack => throw _privateConstructorUsedError;
+  List<CommandPaletteEntry> get navigationStack =>
+      throw _privateConstructorUsedError;
 
   /// Create a copy of CommandPaletteState
   /// with the given fields replaced by the non-null parameter values.
@@ -40,7 +41,7 @@ abstract class $CommandPaletteStateCopyWith<$Res> {
     bool open,
     String query,
     List<CommandPaletteItem> items,
-    List<String> navigationStack,
+    List<CommandPaletteEntry> navigationStack,
   });
 }
 
@@ -85,7 +86,7 @@ class _$CommandPaletteStateCopyWithImpl<$Res, $Val extends CommandPaletteState>
                 null == navigationStack
                     ? _value.navigationStack
                     : navigationStack // ignore: cast_nullable_to_non_nullable
-                        as List<String>,
+                        as List<CommandPaletteEntry>,
           )
           as $Val,
     );
@@ -105,7 +106,7 @@ abstract class _$$CommandPaletteStateImplCopyWith<$Res>
     bool open,
     String query,
     List<CommandPaletteItem> items,
-    List<String> navigationStack,
+    List<CommandPaletteEntry> navigationStack,
   });
 }
 
@@ -149,7 +150,7 @@ class __$$CommandPaletteStateImplCopyWithImpl<$Res>
             null == navigationStack
                 ? _value._navigationStack
                 : navigationStack // ignore: cast_nullable_to_non_nullable
-                    as List<String>,
+                    as List<CommandPaletteEntry>,
       ),
     );
   }
@@ -162,7 +163,7 @@ class _$CommandPaletteStateImpl extends _CommandPaletteState {
     this.open = true,
     this.query = "",
     final List<CommandPaletteItem> items = const [],
-    final List<String> navigationStack = const [],
+    final List<CommandPaletteEntry> navigationStack = const [],
   }) : _items = items,
        _navigationStack = navigationStack,
        super._();
@@ -182,10 +183,10 @@ class _$CommandPaletteStateImpl extends _CommandPaletteState {
     return EqualUnmodifiableListView(_items);
   }
 
-  final List<String> _navigationStack;
+  final List<CommandPaletteEntry> _navigationStack;
   @override
   @JsonKey()
-  List<String> get navigationStack {
+  List<CommandPaletteEntry> get navigationStack {
     if (_navigationStack is EqualUnmodifiableListView) return _navigationStack;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_navigationStack);
@@ -236,7 +237,7 @@ abstract class _CommandPaletteState extends CommandPaletteState {
     final bool open,
     final String query,
     final List<CommandPaletteItem> items,
-    final List<String> navigationStack,
+    final List<CommandPaletteEntry> navigationStack,
   }) = _$CommandPaletteStateImpl;
   const _CommandPaletteState._() : super._();
 
@@ -247,7 +248,7 @@ abstract class _CommandPaletteState extends CommandPaletteState {
   @override
   List<CommandPaletteItem> get items;
   @override
-  List<String> get navigationStack;
+  List<CommandPaletteEntry> get navigationStack;
 
   /// Create a copy of CommandPaletteState
   /// with the given fields replaced by the non-null parameter values.

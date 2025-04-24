@@ -1,5 +1,6 @@
-import 'package:fluster/core/state/nested_state/layout_state/panels/panel_left/panel_left_state.dart';
-import 'package:fluster/core/state/nested_state/layout_state/panels/panel_right/panel_right_state.dart';
+import 'package:flex_color_scheme/flex_color_scheme.dart';
+import 'package:fluster/features/panel_left/state/panel_left_state.dart';
+import 'package:fluster/features/panel_right/state/panel_right_state.dart';
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
@@ -12,6 +13,7 @@ class GlobalUIState with _$GlobalUIState {
     required PanelLeftState panelLeftState,
     required PanelRightState panelRightState,
     required ThemeMode themeMode,
+    @Default(FlexScheme.shadBlue) FlexScheme colorScheme,
   }) = _GlobalUIState;
   static GlobalUIState initialState() => GlobalUIState(
     panelLeftState: PanelLeftState.initialState(),

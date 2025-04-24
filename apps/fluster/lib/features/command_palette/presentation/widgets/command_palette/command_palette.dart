@@ -2,46 +2,78 @@ import 'dart:math';
 
 import 'package:fluster/core/extension_methods/context_extension.dart';
 import 'package:fluster/core/models/key_press_listener/key_press_listener.dart';
+import 'package:fluster/core/state/store.dart';
 import 'package:fluster/core/static/constants/static_constants.dart';
-import 'package:fluster/features/command_palette/data/command_palette_tree/command_palette_root.dart';
 import 'package:fluster/features/command_palette/data/models/command_palette_category.dart';
-import 'package:fluster/features/command_palette/data/models/command_palette_entry.dart';
 import 'package:fluster/features/command_palette/presentation/widgets/command_palette/command_palette_no_results.dart';
 import 'package:fluster/features/command_palette/presentation/widgets/command_palette/command_palette_search_input.dart';
 import 'package:fluster/features/command_palette/presentation/widgets/command_palette/command_palette_top_indicator_bar.dart';
 import 'package:fluster/features/command_palette/presentation/widgets/command_palette/command_pallete_search_result.dart';
+import 'package:fluster/features/command_palette/state/actions/set_command_palette_back.dart';
+import 'package:fluster/features/command_palette/state/actions/set_command_palette_open.dart';
 import 'package:fluster/features/settings/data/models/setting_pages.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
 class CommandPaletteWidget extends HookWidget {
-  final List<CommandPaletteCategory> initialNavStack;
   final List<FlusterKeyPressListener> listeners;
 
-  KeyEventResult handleKeyPress(FocusNode node, KeyEvent event, SearchController controller, KeymapSettingPageData settingData) {
-    // for (var k in listeners) {
-    //   k.listener(node, event);
-    // }
-    if (controller.text == "" && true) {}
+  KeyEventResult handleKeyPress(
+    FocusNode node,
+    KeyEvent e,
+    SearchController controller,
+    KeymapSettingPageData settingData,
+    ValueNotifier<bool> isEmptyInput,
+  ) {
+    // Reset the isEmptyInput field early if the input is no longer empty.
+    if (controller.text != "") {
+      isEmptyInput.value = false;
+    }
+    if (e.logicalKey == LogicalKeyboardKey.escape) {
+      globalReduxStore.dispatch(SetCommandPaletteOpenAction(false));
+      return KeyEventResult.handled;
+    }
+
+    // If the input is empty for the first time, set the isEmptyInput value to true.
+    if (controller.text == "" && !isEmptyInput.value) {
+      isEmptyInput.value = true;
+      return KeyEventResult.ignored;
+    }
+    // If the input is already empty, then close the command palette or go back.
+    if (isEmptyInput.value && e.logicalKey == LogicalKeyboardKey.backspace) {
+      globalReduxStore.dispatch(CommandPaletteBackAction());
+      return KeyEventResult.handled;
+    }
+
+    if (e.logicalKey == LogicalKeyboardKey.enter) {
+      print(node);
+      // globalReduxStore.dispatch(CommandPaletteBackAction());
+      return KeyEventResult.handled;
+    }
     return KeyEventResult.ignored;
   }
 
-  const CommandPaletteWidget({
-    super.key,
-    required this.listeners,
-    this.initialNavStack = const [CommandPaletteRoot()],
-  });
+  const CommandPaletteWidget({super.key, required this.listeners});
 
   @override
   Widget build(BuildContext context) {
-    final navStack = useState<List<CommandPaletteEntry>>(initialNavStack);
+    final navStack = context.state.commandPaletteState.navigationStack;
     final size = MediaQuery.sizeOf(context);
     final focusScope = useFocusScopeNode();
+    final isEmptyInput = useState(true);
     final searchController = useSearchController();
-    focusScope.onKeyEvent = (FocusNode n, KeyEvent e) => handleKeyPress(n, e, searchController, context.state.settingsState.settings.pages[SettingPageId.keymap] as KeymapSettingPageData);
+    focusScope.onKeyEvent = (FocusNode n, KeyEvent e) => handleKeyPress(
+      n,
+      e,
+      searchController,
+      context.state.settingsState.settings.pages[SettingPageId.keymap]
+          as KeymapSettingPageData,
+      isEmptyInput,
+    );
     final width = min(size.width - 80, 768).toDouble();
     final theme = Theme.of(context);
-    final activeStackItem = navStack.value[navStack.value.length - 1];
+    final activeStackItem = navStack[navStack.length - 1];
     return FocusScope(
       node: focusScope,
       autofocus: true,
@@ -72,8 +104,7 @@ class CommandPaletteWidget extends HookWidget {
               children: [
                 CommandPaletteTopIndicatorBar(
                   activeCategory:
-                      navStack.value[navStack.value.length - 1]
-                          as CommandPaletteCategory,
+                      navStack[navStack.length - 1] as CommandPaletteCategory,
                   width: width,
                 ),
                 CommandPaletteSearchInput(controller: searchController),

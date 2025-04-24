@@ -1,1 +1,1 @@
-enum CommandPaletteCategoryId { navigation, root, globalActions }
+enum CommandPaletteCategoryId { navigation, themes, root, globalActions }

@@ -1,6 +1,6 @@
 import 'package:fluster/core/state/nested_state/error_state/error_state.dart';
-import 'package:fluster/core/state/nested_state/layout_state/ui_state.dart';
 import 'package:fluster/core/state/nested_state/network_state/network_state.dart';
+import 'package:fluster/core/state/nested_state/ui_state/ui_state.dart';
 import 'package:fluster/features/command_palette/state/command_palette_state.dart';
 import 'package:fluster/features/navigation/presentation/state/navigation_state.dart';
 import 'package:fluster/features/notifications/presentation/state/notification_state.dart';

@@ -1,7 +1,7 @@
 import 'package:fluster/core/storage/kv/engines/shared_preferences_keyvalue_engine.dart';
 import 'package:fluster/features/command_palette/state/actions/toggle_command_palette.dart';
-import 'package:fluster/features/panel_left/presentation/state/actions/toggle_panel_left.dart';
-import 'package:fluster/features/panel_right/presentation/state/actions/toggle_panel_right.dart';
+import 'package:fluster/features/panel_left/models/global_actions.dart';
+import 'package:fluster/features/panel_right/data/models/global_actions.dart';
 import 'package:fluster/features/settings/data/models/setting_implementations/keymap_setting.dart';
 import 'package:fluster/features/settings/data/models/setting_keys.dart';
 import 'package:fluster/features/settings/data/models/setting_page_input_id.dart';
@@ -21,7 +21,7 @@ KeymapSettingPageData getKeymapSettings() {
             keymapType: KeymapEntryType.global,
             label: "Toggle left panel",
             settingUniqueKey: SettingUniqueKey.keymapTogglePanelLeft,
-            action: getToggleLeftPanelAction(),
+            action: getToggleLeftPanelGlobalAction(),
             inputKey: SettingPageInputId.keymapEntry,
             value: null,
             defaultValue: "",
@@ -31,7 +31,7 @@ KeymapSettingPageData getKeymapSettings() {
             keymapType: KeymapEntryType.global,
             label: "Toggle right panel",
             settingUniqueKey: SettingUniqueKey.keymapTogglePanelRight,
-            action: getToggleRightPanelAction(),
+            action: getToggleRightGlobalPanelAction(),
             inputKey: SettingPageInputId.keymapEntry,
             value: null,
             defaultValue: "",

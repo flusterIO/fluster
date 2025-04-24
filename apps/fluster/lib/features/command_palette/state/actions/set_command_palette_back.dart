@@ -1,5 +1,6 @@
 import 'package:fluster/core/state/global_state.dart';
 import 'package:fluster/core/types/state_types.dart';
+import 'package:fluster/features/command_palette/data/models/command_palette_category.dart';
 import 'package:fluster/features/command_palette/data/models/command_palette_item.dart';
 
 class CommandPaletteBackAction extends FlusterAction {
@@ -7,17 +8,17 @@ class CommandPaletteBackAction extends FlusterAction {
 
   @override
   GlobalAppState reduce() {
-    final hasStack = state.commandPaletteState.navigationStack.isNotEmpty;
-    final navStack = hasStack
+    final hasStack = state.commandPaletteState.navigationStack.length >= 2;
+    final newStack = hasStack
         ? state.commandPaletteState.navigationStack.sublist(
             0,
-            state.commandPaletteState.navigationStack.length - 1,
+            state.commandPaletteState.navigationStack.length - 2,
           )
-        : <String>[];
+        : <CommandPaletteCategory>[];
     return state.copyWith(
       commandPaletteState: state.commandPaletteState.copyWith(
-        navigationStack: navStack,
-        open: !hasStack,
+        navigationStack: newStack,
+        open: newStack.isNotEmpty,
         query: hasStack ? state.commandPaletteState.query : "",
         items: hasStack
             ? state.commandPaletteState.items

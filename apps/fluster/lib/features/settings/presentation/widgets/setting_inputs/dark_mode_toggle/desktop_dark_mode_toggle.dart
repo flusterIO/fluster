@@ -1,5 +1,5 @@
 import 'package:fluster/core/extension_methods/context_extension.dart';
-import 'package:fluster/core/state/nested_state/layout_state/panels/actions/ui_actions.dart';
+import 'package:fluster/core/state/nested_state/ui_state/actions/ui_actions.dart';
 import 'package:fluster/core/state/store.dart';
 import 'package:flutter/material.dart';
 

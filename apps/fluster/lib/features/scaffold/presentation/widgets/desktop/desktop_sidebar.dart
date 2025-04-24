@@ -1,7 +1,7 @@
 import 'package:fluster/core/extension_methods/context_extension.dart';
-import 'package:fluster/core/state/nested_state/layout_state/panels/panel_left/actions/panel_left_actions.dart';
 import 'package:fluster/core/state/store.dart';
 import 'package:fluster/features/navigation/business/entities/navigation_items.dart';
+import 'package:fluster/features/panel_left/state/actions/toggle_panel_left.dart';
 import 'package:flutter/material.dart';
 
 class ResponsiveNavigationRail extends StatelessWidget {
