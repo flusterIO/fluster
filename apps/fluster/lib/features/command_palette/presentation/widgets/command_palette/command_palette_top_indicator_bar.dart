@@ -16,7 +16,7 @@ class CommandPaletteTopIndicatorBar extends StatelessWidget {
       // height: 64,
         width: width,
       child: Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: const EdgeInsets.all(10.0),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.center,

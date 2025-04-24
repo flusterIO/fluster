@@ -4,9 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 
 
-GlobalAction getOpenCommandPaletteAction() {
-  return GlobalAction(
+final openCommandPaletteAction = GlobalAction(
     globalActionId: GlobalActionId.commandPaletteOpen,
     activator: LogicalKeySet(LogicalKeyboardKey.meta, LogicalKeyboardKey.keyP),
   );
-}

@@ -2,6 +2,10 @@ enum GlobalActionId {
     toggleRightPanel,   
     toggleLeftPanel,
     commandPaletteOpen,
-    commandPaletteBack
+    commandPaletteBack,
+    selectItemRight,
+    selectItemLeft,
+    selectItemUp,
+    selectItemDown,
 } 
 

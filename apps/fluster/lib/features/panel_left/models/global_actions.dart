@@ -4,9 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 
 
-GlobalAction getToggleLeftPanelGlobalAction() {
-  return GlobalAction(
+final toggleLeftPanelGlobalAction = GlobalAction(
     globalActionId: GlobalActionId.toggleLeftPanel,
     activator: LogicalKeySet(LogicalKeyboardKey.meta, LogicalKeyboardKey.keyL),
   );
-}

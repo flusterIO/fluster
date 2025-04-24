@@ -4,9 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 
 
-GlobalAction getCommandPaletteBackAction() {
-  return GlobalAction(
-    globalActionId: GlobalActionId.commandPaletteBack,
-    activator: LogicalKeySet(LogicalKeyboardKey.alt, LogicalKeyboardKey.keyO),
+final toggleRightGlobalPanelAction = GlobalAction(
+    globalActionId: GlobalActionId.toggleRightPanel,
+    activator: LogicalKeySet(LogicalKeyboardKey.meta, LogicalKeyboardKey.keyR),
   );
-}

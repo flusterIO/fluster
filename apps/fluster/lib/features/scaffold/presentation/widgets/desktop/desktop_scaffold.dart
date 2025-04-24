@@ -8,6 +8,7 @@ import 'package:fluster/features/notifications/presentation/widgets/desktop/desk
 import 'package:fluster/features/scaffold/presentation/widgets/desktop/desktop_resize_group.dart';
 import 'package:fluster/features/scaffold/presentation/widgets/desktop/desktop_sidebar.dart';
 import 'package:fluster/features/scaffold/presentation/widgets/title_bar.dart';
+import 'package:fluster/features/settings/data/models/setting_page_ids/setting_page_ids.dart';
 import 'package:fluster/features/settings/data/models/setting_pages.dart';
 import 'package:flutter/material.dart';
 
@@ -52,7 +53,6 @@ class DesktopAppScaffold extends StatelessWidget {
         CommandPalette(
           setIsOpen: setCommandPaletteOpen,
           isOpen: context.state.commandPaletteState.open,
-          listeners: s.getKeyboardListeners(),
           initialCategory: CommandPaletteRoot(),
         ),
       );

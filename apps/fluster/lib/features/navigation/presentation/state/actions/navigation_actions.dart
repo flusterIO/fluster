@@ -2,7 +2,7 @@
 import 'package:fluster/core/state/global_state.dart';
 import 'package:fluster/core/types/state_types.dart';
 import 'package:fluster/features/navigation/business/entities/navigation_item_id.dart';
-import 'package:fluster/features/settings/data/models/setting_pages.dart';
+import 'package:fluster/features/settings/data/models/setting_page_ids/setting_page_ids.dart';
 
 class SetSettingsPageAction extends FlusterAction {
   final SettingPageId id;

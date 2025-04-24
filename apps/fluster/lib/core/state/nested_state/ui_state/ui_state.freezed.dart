@@ -44,6 +44,7 @@ abstract class $GlobalUIStateCopyWith<$Res> {
   });
 
   $PanelLeftStateCopyWith<$Res> get panelLeftState;
+  $PanelRightStateCopyWith<$Res> get panelRightState;
 }
 
 /// @nodoc
@@ -62,7 +63,7 @@ class _$GlobalUIStateCopyWithImpl<$Res, $Val extends GlobalUIState>
   @override
   $Res call({
     Object? panelLeftState = null,
-    Object? panelRightState = freezed,
+    Object? panelRightState = null,
     Object? themeMode = null,
     Object? colorScheme = null,
   }) {
@@ -74,7 +75,7 @@ class _$GlobalUIStateCopyWithImpl<$Res, $Val extends GlobalUIState>
                     : panelLeftState // ignore: cast_nullable_to_non_nullable
                         as PanelLeftState,
             panelRightState:
-                freezed == panelRightState
+                null == panelRightState
                     ? _value.panelRightState
                     : panelRightState // ignore: cast_nullable_to_non_nullable
                         as PanelRightState,
@@ -102,6 +103,16 @@ class _$GlobalUIStateCopyWithImpl<$Res, $Val extends GlobalUIState>
       return _then(_value.copyWith(panelLeftState: value) as $Val);
     });
   }
+
+  /// Create a copy of GlobalUIState
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $PanelRightStateCopyWith<$Res> get panelRightState {
+    return $PanelRightStateCopyWith<$Res>(_value.panelRightState, (value) {
+      return _then(_value.copyWith(panelRightState: value) as $Val);
+    });
+  }
 }
 
 /// @nodoc
@@ -122,6 +133,8 @@ abstract class _$$GlobalUIStateImplCopyWith<$Res>
 
   @override
   $PanelLeftStateCopyWith<$Res> get panelLeftState;
+  @override
+  $PanelRightStateCopyWith<$Res> get panelRightState;
 }
 
 /// @nodoc
@@ -139,7 +152,7 @@ class __$$GlobalUIStateImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? panelLeftState = null,
-    Object? panelRightState = freezed,
+    Object? panelRightState = null,
     Object? themeMode = null,
     Object? colorScheme = null,
   }) {
@@ -151,7 +164,7 @@ class __$$GlobalUIStateImplCopyWithImpl<$Res>
                 : panelLeftState // ignore: cast_nullable_to_non_nullable
                     as PanelLeftState,
         panelRightState:
-            freezed == panelRightState
+            null == panelRightState
                 ? _value.panelRightState
                 : panelRightState // ignore: cast_nullable_to_non_nullable
                     as PanelRightState,
@@ -202,10 +215,8 @@ class _$GlobalUIStateImpl extends _GlobalUIState {
             other is _$GlobalUIStateImpl &&
             (identical(other.panelLeftState, panelLeftState) ||
                 other.panelLeftState == panelLeftState) &&
-            const DeepCollectionEquality().equals(
-              other.panelRightState,
-              panelRightState,
-            ) &&
+            (identical(other.panelRightState, panelRightState) ||
+                other.panelRightState == panelRightState) &&
             (identical(other.themeMode, themeMode) ||
                 other.themeMode == themeMode) &&
             (identical(other.colorScheme, colorScheme) ||
@@ -216,7 +227,7 @@ class _$GlobalUIStateImpl extends _GlobalUIState {
   int get hashCode => Object.hash(
     runtimeType,
     panelLeftState,
-    const DeepCollectionEquality().hash(panelRightState),
+    panelRightState,
     themeMode,
     colorScheme,
   );

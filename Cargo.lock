@@ -1449,6 +1449,7 @@ dependencies = [
  "flutter_rust_bridge",
  "log",
  "regex",
+ "strsim",
  "thiserror 2.0.12",
  "tracing",
  "tracing-subscriber",

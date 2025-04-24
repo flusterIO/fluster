@@ -1,18 +1,17 @@
 import 'package:fluster/core/global_actions/global_action_map.dart';
-import 'package:fluster/core/models/key_press_listener/key_press_listener.dart';
 import 'package:fluster/features/settings/data/models/setting_abstract.dart';
 import 'package:fluster/features/settings/data/models/setting_implementations/keymap_setting.dart';
 import 'package:fluster/features/settings/data/models/setting_keys.dart';
+import 'package:fluster/features/settings/data/models/setting_page_ids/setting_page_ids.dart';
 import 'package:fluster/features/settings/data/models/setting_section.dart';
 import 'package:flutter/material.dart';
 
-enum SettingPageId { webInterface, ui, keymap, general, ai, searchAndTaggables }
 
-abstract class SettingPageDataAbstract<T extends SettingAbstract> {
+abstract class SettingPageDataAbstract<T extends SettingAbstract, J> {
   final String label;
   final String desc;
   final SettingPageId id;
-  final List<SettingSection<T>> sections;
+  final Map<J, SettingSection<T>> sections;
   const SettingPageDataAbstract({
     required this.label,
     required this.desc,
@@ -22,7 +21,7 @@ abstract class SettingPageDataAbstract<T extends SettingAbstract> {
 }
 
 class SettingPageData<T extends SettingAbstract>
-    extends SettingPageDataAbstract<T> {
+    extends SettingPageDataAbstract<T, SettingSections> {
   const SettingPageData({
     required super.label,
     required super.desc,
@@ -32,7 +31,7 @@ class SettingPageData<T extends SettingAbstract>
 }
 
 class KeymapSettingPageData<T extends SettingAbstract>
-    extends SettingPageDataAbstract<T> {
+    extends SettingPageDataAbstract<T, KeymapSectionId> {
   const KeymapSettingPageData({
     required super.label,
     required super.desc,
@@ -42,7 +41,7 @@ class KeymapSettingPageData<T extends SettingAbstract>
 
   Map<ShortcutActivator, VoidCallback> toCallbackShortcuts() {
     var data = <ShortcutActivator, VoidCallback>{};
-    for (var sec in sections) {
+    for (var sec in sections.values) {
       for (var k in sec.items.keys) {
         final km = (sec.items[k] as KeymapSetting);
         if (km.keymapType == KeymapEntryType.global &&
@@ -55,21 +54,8 @@ class KeymapSettingPageData<T extends SettingAbstract>
     return data;
   }
 
-  List<FlusterKeyPressListener> getKeyboardListeners() {
-    var data = <FlusterKeyPressListener>[];
-    for (var s in sections) {
-      for (var k in s.items.keys) {
-        final km = s.items[k] as KeymapSetting;
-        if (km.keymapType == KeymapEntryType.commandPaletteInput) {
-          data.add(FlusterKeyPressListener(listener: km.handleKeyPress));
-        }
-      }
-    }
-    return data;
-  }
-
   KeymapSetting getSettingById(SettingUniqueKey id) {
-    for (var s in sections) {
+    for (var s in sections.values) {
       if (s.items.containsKey(id)) {
         return s.items[id] as KeymapSetting;
       }

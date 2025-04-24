@@ -10,18 +10,13 @@ use surrealdb::{
 static DB: LazyLock<surrealdb::Surreal<surrealdb::engine::remote::ws::Client>> =
     std::sync::LazyLock::new(Surreal::init);
 
-pub struct DatabaseAuthCredentials {
-    user_name: String,
-    password: String,
-}
-
 pub struct DatabaseOptions<'a> {
     pub database_name: String,
     pub port: String,
     pub credentials: Root<'a>,
 }
 
-impl<'a> Default for DatabaseOptions<'a> {
+impl Default for DatabaseOptions<'_> {
     fn default() -> Self {
         Self {
             database_name: Default::default(),
@@ -41,7 +36,13 @@ pub async fn get_database(
     if e.is_err() {
         return Err(fluster_rust_types::database_errors::DatabaseError::FailToConnect);
     }
-    DB.signin(opts.credentials).await;
-    DB.use_ns("fluster").use_db(opts.database_name).await;
+    let res = DB.signin(opts.credentials).await;
+    if res.is_err() {
+        return Err(fluster_rust_types::database_errors::DatabaseError::FailToConnect);
+    }
+    let res2 = DB.use_ns("fluster").use_db(opts.database_name).await;
+    if res2.is_err() {
+        return Err(fluster_rust_types::database_errors::DatabaseError::FailToConnect);
+    }
     Ok(&DB)
 }

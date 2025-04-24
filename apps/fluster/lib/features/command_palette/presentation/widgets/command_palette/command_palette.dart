@@ -1,7 +1,6 @@
 import 'dart:math';
 
 import 'package:fluster/core/extension_methods/context_extension.dart';
-import 'package:fluster/core/models/key_press_listener/key_press_listener.dart';
 import 'package:fluster/core/state/store.dart';
 import 'package:fluster/core/static/constants/static_constants.dart';
 import 'package:fluster/features/command_palette/data/models/command_palette_category.dart';
@@ -11,13 +10,13 @@ import 'package:fluster/features/command_palette/presentation/widgets/command_pa
 import 'package:fluster/features/command_palette/presentation/widgets/command_palette/command_pallete_search_result.dart';
 import 'package:fluster/features/command_palette/state/actions/set_command_palette_back.dart';
 import 'package:fluster/features/command_palette/state/actions/set_command_palette_open.dart';
+import 'package:fluster/features/settings/data/models/setting_page_ids/setting_page_ids.dart';
 import 'package:fluster/features/settings/data/models/setting_pages.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
 class CommandPaletteWidget extends HookWidget {
-  final List<FlusterKeyPressListener> listeners;
 
   KeyEventResult handleKeyPress(
     FocusNode node,
@@ -31,7 +30,9 @@ class CommandPaletteWidget extends HookWidget {
       isEmptyInput.value = false;
     }
     if (e.logicalKey == LogicalKeyboardKey.escape) {
-      globalReduxStore.dispatch(SetCommandPaletteOpenAction(false, initialCategory: null));
+      globalReduxStore.dispatch(
+        SetCommandPaletteOpenAction(false, initialCategory: null),
+      );
       return KeyEventResult.handled;
     }
 
@@ -47,6 +48,7 @@ class CommandPaletteWidget extends HookWidget {
     }
 
     if (e.logicalKey == LogicalKeyboardKey.enter) {
+      // RESUME: Come back here and implement the search functionality.
       print(node);
       // globalReduxStore.dispatch(CommandPaletteBackAction());
       return KeyEventResult.handled;
@@ -54,7 +56,7 @@ class CommandPaletteWidget extends HookWidget {
     return KeyEventResult.ignored;
   }
 
-  const CommandPaletteWidget({super.key, required this.listeners});
+  const CommandPaletteWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -111,16 +113,21 @@ class CommandPaletteWidget extends HookWidget {
                 CommandPaletteSearchInput(controller: searchController),
                 activeStackItem.items.isEmpty
                     ? CommandPaletteNoResults()
-                    : ListView.builder(
-                        itemCount: activeStackItem.items.length,
+                    : AnimatedList(
+                        initialItemCount: activeStackItem.items.length,
                         shrinkWrap: true,
-                        itemBuilder: (BuildContext childContext, int idx) {
-                          return CommandPaletteResult(
-                            item: activeStackItem.items[idx],
-                            idx: idx,
-                            pseudoFocused: idx == selectedIndex.value,
-                          );
-                        },
+                        itemBuilder:
+                            (
+                              BuildContext childContext,
+                              int idx,
+                              Animation anim,
+                            ) {
+                              return CommandPaletteResult(
+                                item: activeStackItem.items[idx],
+                                idx: idx,
+                                pseudoFocused: idx == selectedIndex.value,
+                              );
+                            },
                       ),
               ],
             ),

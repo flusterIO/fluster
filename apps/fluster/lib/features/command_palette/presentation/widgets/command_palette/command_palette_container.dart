@@ -1,6 +1,7 @@
 import 'package:fluster/core/models/key_press_listener/key_press_listener.dart';
 import 'package:fluster/features/command_palette/data/models/command_palette_category.dart';
 import 'package:fluster/features/command_palette/presentation/widgets/command_palette/command_palette.dart';
+import 'package:fluster/features/command_palette/state/command_palette_keymap_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
@@ -10,7 +11,6 @@ class CommandPalette extends HookWidget {
   final List<int> selections = [];
   final void Function(bool) setIsOpen;
   final bool isOpen;
-  final List<FlusterKeyPressListener> listeners;
   final CommandPaletteCategory initialCategory;
   // final KeyEventResultjV
   CommandPalette({
@@ -18,7 +18,6 @@ class CommandPalette extends HookWidget {
     required this.setIsOpen,
     required this.isOpen,
     required this.initialCategory,
-    required this.listeners,
   });
 
   @override
@@ -44,8 +43,9 @@ class CommandPalette extends HookWidget {
         ),
         duration: const Duration(milliseconds: 3000),
         curve: Curves.easeOut,
-        child: CommandPaletteWidget(
-          listeners: listeners,
+        child: CommandPaletteKeymapWidget(
+          child: CommandPaletteWidget(
+          ),
         ),
       ),
     );

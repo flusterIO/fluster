@@ -21,10 +21,6 @@ class KeymapSetting extends SettingAbstract<String> {
     super.desc,
   });
 
-  FlusterKeyPressResult handleKeyPress(FocusNode node, KeyEvent e) {
-    return FlusterKeyPressResult.actionTakenCanIgnoreRest;
-  }
-
   String formatEntry() {
     return action.toFormattedString();
   }

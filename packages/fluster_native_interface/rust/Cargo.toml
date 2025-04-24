@@ -20,6 +20,7 @@ thiserror = { workspace = true }
 fluster_rust_types = { path = "../../fluster_rust_types/" }
 fluster_db = { path = "../../fluster_db/" }
 regex = "1.11.1"
+strsim = "0.11.1"
 
 [lints.rust]
 unexpected_cfgs = { level = "warn", check-cfg = ['cfg(frb_expand)'] }

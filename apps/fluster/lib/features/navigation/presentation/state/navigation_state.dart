@@ -1,5 +1,5 @@
 import 'package:fluster/features/navigation/business/entities/navigation_item_id.dart';
-import 'package:fluster/features/settings/data/models/setting_pages.dart';
+import 'package:fluster/features/settings/data/models/setting_page_ids/setting_page_ids.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part "navigation_state.freezed.dart";

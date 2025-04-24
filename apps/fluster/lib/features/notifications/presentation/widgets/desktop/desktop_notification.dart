@@ -9,7 +9,7 @@ import 'package:flutter/material.dart';
 
 final notificationsListKey = GlobalKey<AnimatedListState>();
 
-// RESUME: Come back and fix this. Currently, removing items and then adding more items fails for some reason. Also, the animations don't you know... animate shit.
+// FIXME: Come back and fix this. Currently, removing items and then adding more items fails for some reason. Also, the animations don't you know... animate shit.
 class NotificationsContainerDesktop extends StatelessWidget {
   const NotificationsContainerDesktop({super.key});
 

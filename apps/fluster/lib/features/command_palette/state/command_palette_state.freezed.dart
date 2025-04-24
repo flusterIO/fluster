@@ -22,6 +22,7 @@ mixin _$CommandPaletteState {
   List<CommandPaletteItem> get items => throw _privateConstructorUsedError;
   List<CommandPaletteEntry> get navigationStack =>
       throw _privateConstructorUsedError;
+  int get selectedIndex => throw _privateConstructorUsedError;
 
   /// Create a copy of CommandPaletteState
   /// with the given fields replaced by the non-null parameter values.
@@ -42,6 +43,7 @@ abstract class $CommandPaletteStateCopyWith<$Res> {
     String query,
     List<CommandPaletteItem> items,
     List<CommandPaletteEntry> navigationStack,
+    int selectedIndex,
   });
 }
 
@@ -64,6 +66,7 @@ class _$CommandPaletteStateCopyWithImpl<$Res, $Val extends CommandPaletteState>
     Object? query = null,
     Object? items = null,
     Object? navigationStack = null,
+    Object? selectedIndex = null,
   }) {
     return _then(
       _value.copyWith(
@@ -87,6 +90,11 @@ class _$CommandPaletteStateCopyWithImpl<$Res, $Val extends CommandPaletteState>
                     ? _value.navigationStack
                     : navigationStack // ignore: cast_nullable_to_non_nullable
                         as List<CommandPaletteEntry>,
+            selectedIndex:
+                null == selectedIndex
+                    ? _value.selectedIndex
+                    : selectedIndex // ignore: cast_nullable_to_non_nullable
+                        as int,
           )
           as $Val,
     );
@@ -107,6 +115,7 @@ abstract class _$$CommandPaletteStateImplCopyWith<$Res>
     String query,
     List<CommandPaletteItem> items,
     List<CommandPaletteEntry> navigationStack,
+    int selectedIndex,
   });
 }
 
@@ -128,6 +137,7 @@ class __$$CommandPaletteStateImplCopyWithImpl<$Res>
     Object? query = null,
     Object? items = null,
     Object? navigationStack = null,
+    Object? selectedIndex = null,
   }) {
     return _then(
       _$CommandPaletteStateImpl(
@@ -151,6 +161,11 @@ class __$$CommandPaletteStateImplCopyWithImpl<$Res>
                 ? _value._navigationStack
                 : navigationStack // ignore: cast_nullable_to_non_nullable
                     as List<CommandPaletteEntry>,
+        selectedIndex:
+            null == selectedIndex
+                ? _value.selectedIndex
+                : selectedIndex // ignore: cast_nullable_to_non_nullable
+                    as int,
       ),
     );
   }
@@ -164,6 +179,7 @@ class _$CommandPaletteStateImpl extends _CommandPaletteState {
     this.query = "",
     final List<CommandPaletteItem> items = const [],
     final List<CommandPaletteEntry> navigationStack = const [],
+    this.selectedIndex = 0,
   }) : _items = items,
        _navigationStack = navigationStack,
        super._();
@@ -193,8 +209,12 @@ class _$CommandPaletteStateImpl extends _CommandPaletteState {
   }
 
   @override
+  @JsonKey()
+  final int selectedIndex;
+
+  @override
   String toString() {
-    return 'CommandPaletteState(open: $open, query: $query, items: $items, navigationStack: $navigationStack)';
+    return 'CommandPaletteState(open: $open, query: $query, items: $items, navigationStack: $navigationStack, selectedIndex: $selectedIndex)';
   }
 
   @override
@@ -208,7 +228,9 @@ class _$CommandPaletteStateImpl extends _CommandPaletteState {
             const DeepCollectionEquality().equals(
               other._navigationStack,
               _navigationStack,
-            ));
+            ) &&
+            (identical(other.selectedIndex, selectedIndex) ||
+                other.selectedIndex == selectedIndex));
   }
 
   @override
@@ -218,6 +240,7 @@ class _$CommandPaletteStateImpl extends _CommandPaletteState {
     query,
     const DeepCollectionEquality().hash(_items),
     const DeepCollectionEquality().hash(_navigationStack),
+    selectedIndex,
   );
 
   /// Create a copy of CommandPaletteState
@@ -238,6 +261,7 @@ abstract class _CommandPaletteState extends CommandPaletteState {
     final String query,
     final List<CommandPaletteItem> items,
     final List<CommandPaletteEntry> navigationStack,
+    final int selectedIndex,
   }) = _$CommandPaletteStateImpl;
   const _CommandPaletteState._() : super._();
 
@@ -249,6 +273,8 @@ abstract class _CommandPaletteState extends CommandPaletteState {
   List<CommandPaletteItem> get items;
   @override
   List<CommandPaletteEntry> get navigationStack;
+  @override
+  int get selectedIndex;
 
   /// Create a copy of CommandPaletteState
   /// with the given fields replaced by the non-null parameter values.
