@@ -31,7 +31,7 @@ class CommandPaletteWidget extends HookWidget {
       isEmptyInput.value = false;
     }
     if (e.logicalKey == LogicalKeyboardKey.escape) {
-      globalReduxStore.dispatch(SetCommandPaletteOpenAction(false));
+      globalReduxStore.dispatch(SetCommandPaletteOpenAction(false, initialCategory: null));
       return KeyEventResult.handled;
     }
 
@@ -63,6 +63,7 @@ class CommandPaletteWidget extends HookWidget {
     final focusScope = useFocusScopeNode();
     final isEmptyInput = useState(true);
     final searchController = useSearchController();
+    final selectedIndex = useState(0);
     focusScope.onKeyEvent = (FocusNode n, KeyEvent e) => handleKeyPress(
       n,
       e,
@@ -108,7 +109,6 @@ class CommandPaletteWidget extends HookWidget {
                   width: width,
                 ),
                 CommandPaletteSearchInput(controller: searchController),
-                // CommandPaletteResults(items: items, controller: scrollController),
                 activeStackItem.items.isEmpty
                     ? CommandPaletteNoResults()
                     : ListView.builder(
@@ -118,6 +118,7 @@ class CommandPaletteWidget extends HookWidget {
                           return CommandPaletteResult(
                             item: activeStackItem.items[idx],
                             idx: idx,
+                            pseudoFocused: idx == selectedIndex.value,
                           );
                         },
                       ),

@@ -4,10 +4,13 @@ import 'package:flutter/material.dart';
 class CommandPaletteResult extends StatelessWidget {
   final CommandPaletteEntry item;
   final int idx;
+  // Can't actually focus the list item while keeping focus on the input, but can simulate the equivalent manually wth an index.
+  final bool pseudoFocused;
   const CommandPaletteResult({
     super.key,
     required this.item,
     required this.idx,
+    required this.pseudoFocused,
   });
   @override
   Widget build(BuildContext context) {

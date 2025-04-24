@@ -2,7 +2,6 @@ import 'package:fluster/core/extension_methods/context_extension.dart';
 import 'package:fluster/core/state/store.dart';
 import 'package:fluster/core/static/constants/static_constants.dart';
 import 'package:fluster/features/command_palette/data/command_palette_tree/command_palette_root.dart';
-import 'package:fluster/features/command_palette/data/models/command_palette_item.dart';
 import 'package:fluster/features/command_palette/presentation/widgets/command_palette/command_palette_container.dart';
 import 'package:fluster/features/command_palette/state/actions/set_command_palette_open.dart';
 import 'package:fluster/features/notifications/presentation/widgets/desktop/desktop_notification.dart';
@@ -16,8 +15,14 @@ class DesktopAppScaffold extends StatelessWidget {
   const DesktopAppScaffold({required this.child, super.key});
   final Widget child;
 
-  void setCommandPaletteOpen(bool isOpen) =>
-      globalReduxStore.dispatch(SetCommandPaletteOpenAction(isOpen));
+  void setCommandPaletteOpen(bool isOpen) => globalReduxStore.dispatch(
+    SetCommandPaletteOpenAction(
+      isOpen,
+      initialCategory: isOpen
+          ? CommandPaletteRoot()
+          : null,
+    ),
+  );
 
   @override
   Widget build(BuildContext context) {
