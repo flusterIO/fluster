@@ -5,5 +5,5 @@ import 'package:flutter/widgets.dart';
 
 final toggleLeftPanelGlobalAction = GlobalAction(
   globalActionId: GlobalActionId.toggleLeftPanel,
-  activator: SingleActivator(LogicalKeyboardKey.keyL, alt: true),
+  activator: SingleActivator(LogicalKeyboardKey.keyE, meta: true),
 );
