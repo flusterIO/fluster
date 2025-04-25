@@ -92,7 +92,6 @@ class CommandPaletteWidget extends HookWidget {
     final width = min(size.width - 80, 768).toDouble();
     final theme = Theme.of(context);
     final activeStackItem = navStack[navStack.length - 1];
-    print("index: ${context.state.commandPaletteState.selectedIndex}");
     return FocusScope(
       node: focusScope,
       autofocus: true,
@@ -129,11 +128,18 @@ class CommandPaletteWidget extends HookWidget {
                 activeStackItem.items.isEmpty
                     ? CommandPaletteNoResults()
                     : ListView.builder(
-                        itemCount: activeStackItem.items.length,
+                        itemCount: context
+                            .state
+                            .commandPaletteState
+                            .filteredItems
+                            .length,
                         shrinkWrap: true,
                         itemBuilder: (BuildContext childContext, int idx) {
                           return CommandPaletteResult(
-                            item: activeStackItem.items[idx],
+                            item: context
+                                .state
+                                .commandPaletteState
+                                .filteredItems[idx],
                             idx: idx,
                             pseudoFocused:
                                 idx ==

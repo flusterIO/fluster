@@ -19,7 +19,7 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$CommandPaletteState {
   bool get open => throw _privateConstructorUsedError;
   String get query => throw _privateConstructorUsedError;
-  List<CommandPaletteItem> get filteredItems =>
+  List<CommandPaletteEntry> get filteredItems =>
       throw _privateConstructorUsedError;
   List<CommandPaletteEntry> get navigationStack =>
       throw _privateConstructorUsedError;
@@ -42,7 +42,7 @@ abstract class $CommandPaletteStateCopyWith<$Res> {
   $Res call({
     bool open,
     String query,
-    List<CommandPaletteItem> filteredItems,
+    List<CommandPaletteEntry> filteredItems,
     List<CommandPaletteEntry> navigationStack,
     int selectedIndex,
   });
@@ -85,7 +85,7 @@ class _$CommandPaletteStateCopyWithImpl<$Res, $Val extends CommandPaletteState>
                 null == filteredItems
                     ? _value.filteredItems
                     : filteredItems // ignore: cast_nullable_to_non_nullable
-                        as List<CommandPaletteItem>,
+                        as List<CommandPaletteEntry>,
             navigationStack:
                 null == navigationStack
                     ? _value.navigationStack
@@ -114,7 +114,7 @@ abstract class _$$CommandPaletteStateImplCopyWith<$Res>
   $Res call({
     bool open,
     String query,
-    List<CommandPaletteItem> filteredItems,
+    List<CommandPaletteEntry> filteredItems,
     List<CommandPaletteEntry> navigationStack,
     int selectedIndex,
   });
@@ -156,7 +156,7 @@ class __$$CommandPaletteStateImplCopyWithImpl<$Res>
             null == filteredItems
                 ? _value._filteredItems
                 : filteredItems // ignore: cast_nullable_to_non_nullable
-                    as List<CommandPaletteItem>,
+                    as List<CommandPaletteEntry>,
         navigationStack:
             null == navigationStack
                 ? _value._navigationStack
@@ -178,7 +178,7 @@ class _$CommandPaletteStateImpl extends _CommandPaletteState {
   const _$CommandPaletteStateImpl({
     this.open = true,
     this.query = "",
-    final List<CommandPaletteItem> filteredItems = const [],
+    final List<CommandPaletteEntry> filteredItems = const [],
     final List<CommandPaletteEntry> navigationStack = const [],
     this.selectedIndex = 0,
   }) : _filteredItems = filteredItems,
@@ -191,10 +191,10 @@ class _$CommandPaletteStateImpl extends _CommandPaletteState {
   @override
   @JsonKey()
   final String query;
-  final List<CommandPaletteItem> _filteredItems;
+  final List<CommandPaletteEntry> _filteredItems;
   @override
   @JsonKey()
-  List<CommandPaletteItem> get filteredItems {
+  List<CommandPaletteEntry> get filteredItems {
     if (_filteredItems is EqualUnmodifiableListView) return _filteredItems;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_filteredItems);
@@ -263,7 +263,7 @@ abstract class _CommandPaletteState extends CommandPaletteState {
   const factory _CommandPaletteState({
     final bool open,
     final String query,
-    final List<CommandPaletteItem> filteredItems,
+    final List<CommandPaletteEntry> filteredItems,
     final List<CommandPaletteEntry> navigationStack,
     final int selectedIndex,
   }) = _$CommandPaletteStateImpl;
@@ -274,7 +274,7 @@ abstract class _CommandPaletteState extends CommandPaletteState {
   @override
   String get query;
   @override
-  List<CommandPaletteItem> get filteredItems;
+  List<CommandPaletteEntry> get filteredItems;
   @override
   List<CommandPaletteEntry> get navigationStack;
   @override
