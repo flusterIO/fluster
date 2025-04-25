@@ -7,7 +7,9 @@ part of 'routes.dart';
 // **************************************************************************
 
 List<RouteBase> get $appRoutes => [
+  $commandPaletteRoute,
   $homeScreenRoute,
+  $dashboardRoute,
   $splashScreenRoute,
   $settingsRoute,
   $connectRoute,
@@ -15,14 +17,64 @@ List<RouteBase> get $appRoutes => [
   $bookmarksRoute,
 ];
 
+RouteBase get $commandPaletteRoute => GoRouteData.$route(
+  path: '/commandPalette',
+
+  factory: $CommandPaletteRouteExtension._fromState,
+);
+
+extension $CommandPaletteRouteExtension on CommandPaletteRoute {
+  static CommandPaletteRoute _fromState(GoRouterState state) =>
+      const CommandPaletteRoute();
+
+  String get location => GoRouteData.$location('/commandPalette');
+
+  void go(BuildContext context) => context.go(location);
+
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
+}
+
 RouteBase get $homeScreenRoute => GoRouteData.$route(
-  path: '/dashboard',
+  path: '/',
 
   factory: $HomeScreenRouteExtension._fromState,
+  routes: [
+    GoRouteData.$route(
+      path: '/commandPalette',
+
+      factory: $CommandPaletteRouteExtension._fromState,
+    ),
+  ],
 );
 
 extension $HomeScreenRouteExtension on HomeScreenRoute {
   static HomeScreenRoute _fromState(GoRouterState state) => HomeScreenRoute();
+
+  String get location => GoRouteData.$location('/');
+
+  void go(BuildContext context) => context.go(location);
+
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
+}
+
+RouteBase get $dashboardRoute => GoRouteData.$route(
+  path: '/dashboard',
+
+  factory: $DashboardRouteExtension._fromState,
+);
+
+extension $DashboardRouteExtension on DashboardRoute {
+  static DashboardRoute _fromState(GoRouterState state) => DashboardRoute();
 
   String get location => GoRouteData.$location('/dashboard');
 

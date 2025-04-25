@@ -47,7 +47,7 @@ class WindowTitleBar extends StatelessWidget {
                 ),
                 child: GestureDetector(
                   onTap: () {
-                                        showCommandPalette();
+                    showCommandPalette();
                   },
                   child: MouseRegion(
                     cursor: SystemMouseCursors.click,

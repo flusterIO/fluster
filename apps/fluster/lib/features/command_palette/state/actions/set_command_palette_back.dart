@@ -21,10 +21,10 @@ class CommandPaletteBackAction extends FlusterAction {
         ? newStack[newStack.length - 1].items
         : <CommandPaletteEntry>[];
 
-    desktopScaffoldKey.currentContext?.pop();
-    print("newFilteredItems: ${newFilteredItems.length}");
-    print("newStack: ${newStack.length}");
-        return state;
+    print("New stack: ${newStack.isEmpty}");
+    if(newStack.isEmpty) {
+        GoRouter.of(desktopScaffoldKey.currentContext!).pop();
+    }
     return state.copyWith(
       commandPaletteState: state.commandPaletteState.copyWith(
         navigationStack: newStack,

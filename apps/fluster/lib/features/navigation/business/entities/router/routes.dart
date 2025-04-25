@@ -1,5 +1,6 @@
 import 'package:fluster/features/bibliography/presentation/screens/desktop/bibliography_screen.dart';
 import 'package:fluster/features/bookmarks/presentation/screens/desktop/bookmarks_screen.dart';
+import 'package:fluster/features/command_palette/presentation/widgets/command_palette/command_palette.dart';
 import 'package:fluster/features/dashboard/presentation/screens/desktop/dashboard_desktop.dart';
 import 'package:fluster/features/peer_to_peer/presentation/screens/desktop/connect_screen.dart';
 import 'package:fluster/features/settings/presentation/screens/settings_screen.dart';
@@ -9,21 +10,45 @@ import 'package:go_router/go_router.dart';
 
 part 'routes.g.dart';
 
-// class NoTransitionRoute extends GoRoute {
-//   const NoTransitionRoute({builder, super.path});
 
-//   @override
-//   Duration get transitionDuration => const Duration(milliseconds: 0);
-// }
+
+@TypedGoRoute<CommandPaletteRoute>(path: '/commandPalette', routes: [])
+@immutable
+class CommandPaletteRoute extends GoRouteData {
+  const CommandPaletteRoute();
+
+  @override
+  Page<void> buildPage(BuildContext context, GoRouterState state) {
+    return NoTransitionPage<CommandPaletteWidget>(
+      child: CommandPaletteWidget(key: state.pageKey),
+    );
+  }
+}
+
 
 @TypedGoRoute<HomeScreenRoute>(
+  path: '/',
+  routes: <TypedRoute<RouteData>>[
+        TypedGoRoute<CommandPaletteRoute>(path: "/commandPalette"),
+  ],
+)
+@immutable
+class HomeScreenRoute extends GoRouteData {
+  @override
+  Page<void> buildPage(BuildContext context, GoRouterState state) {
+    return NoTransitionPage<Dashboard>(child: Dashboard(key: state.pageKey));
+  }
+}
+
+
+@TypedGoRoute<DashboardRoute>(
   path: '/dashboard',
   routes: <TypedRoute<RouteData>>[
     // TypedGoRoute<SettingsRoute>(path: 'settings')
   ],
 )
 @immutable
-class HomeScreenRoute extends GoRouteData {
+class DashboardRoute extends GoRouteData {
   @override
   Page<void> buildPage(BuildContext context, GoRouterState state) {
     return NoTransitionPage<Dashboard>(child: Dashboard(key: state.pageKey));
@@ -108,6 +133,7 @@ class BookmarksRoute extends GoRouteData {
     );
   }
 }
+
 
 // @TypedGoRoute<NotesRoute>(
 //   path: '/notes',

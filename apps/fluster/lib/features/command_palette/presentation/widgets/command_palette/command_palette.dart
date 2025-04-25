@@ -20,12 +20,16 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 
 class CommandPaletteWidget extends HookWidget {
   KeyEventResult handleKeyPress(
-    FocusNode node,
-    KeyEvent e,
-    TextEditingController controller,
-    KeymapSettingPageData settingData,
-    ValueNotifier<bool> isEmptyInput,
-    void Function() onAccept,
+    {
+        required FocusNode node,
+        required KeyEvent e,
+        required TextEditingController controller,
+        required KeymapSettingPageData settingData,
+        required ValueNotifier<bool> isEmptyInput,
+        required void Function() onAccept,
+        required int lastBackReq,
+        required void Function() setLastBackReq,
+    }
   ) {
     // Reset the isEmptyInput field early if the input is no longer empty.
     if (controller.text != "") {
@@ -46,7 +50,8 @@ class CommandPaletteWidget extends HookWidget {
     }
     // If the input is already empty, then close the command palette or go back.
     if (e.logicalKey == LogicalKeyboardKey.backspace) {
-      if (isEmptyInput.value && e.synthesized == false) {
+      if (isEmptyInput.value && e.synthesized == false && DateTime.now().millisecondsSinceEpoch - lastBackReq >= 300) {
+      setLastBackReq();
         globalReduxStore.dispatch(CommandPaletteBackAction());
       }
       return KeyEventResult.ignored;
@@ -114,19 +119,24 @@ class CommandPaletteWidget extends HookWidget {
       }
       return () {};
     }, [isEmptyInput]);
+    final lastBackReq = useState<int>(DateTime.now().millisecondsSinceEpoch);
+    void setLastBackReq() {
+         lastBackReq.value = DateTime.now().millisecondsSinceEpoch; 
+        }
     focusScope.onKeyEvent = (FocusNode n, KeyEvent e) => handleKeyPress(
-      n,
-      e,
-      editController,
-      context.state.settingsState.settings.pages[SettingPageId.keymap]
+      node: n,
+      e: e,
+      controller: editController,
+            settingData: context.state.settingsState.settings.pages[SettingPageId.keymap]
           as KeymapSettingPageData,
-      isEmptyInput,
-      () => activeStackItem
+      isEmptyInput: isEmptyInput,
+      onAccept: () => activeStackItem
           .items[context.state.commandPaletteState.selectedIndex]
           .enter(),
+            lastBackReq: lastBackReq.value,
+            setLastBackReq: setLastBackReq
     );
     final width = min(size.width - 80, 768).toDouble();
-    final theme = Theme.of(context);
     return FocusScope(
       node: focusScope,
       autofocus: true,
