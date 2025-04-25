@@ -3,7 +3,12 @@ import 'package:flutter/material.dart';
 
 class CommandPaletteSearchInput extends StatefulWidget {
   final TextEditingController controller;
-  const CommandPaletteSearchInput({super.key, required this.controller});
+  final double width;
+  const CommandPaletteSearchInput({
+    super.key,
+    required this.controller,
+    required this.width,
+  });
   @override
   State<CommandPaletteSearchInput> createState() =>
       CommandPaletteSearchInputState();
@@ -17,20 +22,24 @@ class CommandPaletteSearchInputState extends State<CommandPaletteSearchInput> {
     final theme = Theme.of(context);
     return FocusTraversalOrder(
       order: const NumericFocusOrder(0),
-      child: TextField(
-        maxLines: 1,
-        controller: widget.controller,
-        autofocus: true,
-        // focusNode: widget.focusNode,
-        decoration: InputDecoration(
-          // border: OutlineInputBorder(),
-          border: InputBorder.none,
-          hintText: "Search...",
-          prefixIcon: Icon(FluentIcons.search_48_filled),
-          filled: true,
-          fillColor: theme.scaffoldBackgroundColor,
+      child: SizedBox(
+        width: widget.width,
+        child: TextField(
+          maxLines: 1,
+          controller: widget.controller,
+          autofocus: true,
+
+          // focusNode: widget.focusNode,
+          decoration: InputDecoration(
+            // border: OutlineInputBorder(),
+            border: InputBorder.none,
+            hintText: "Search...",
+            prefixIcon: Icon(FluentIcons.search_48_filled),
+            filled: true,
+            fillColor: theme.scaffoldBackgroundColor,
+          ),
+          stylusHandwritingEnabled: true,
         ),
-        stylusHandwritingEnabled: true,
       ),
     );
   }

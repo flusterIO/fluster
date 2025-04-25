@@ -10,7 +10,6 @@ import 'package:flutter/material.dart';
 
 
 void showCommandPalette() {  
-    // CommandPaletteRoute().push(parentRouterKey.currentContext!);
     showDialog(
         context: parentRouterKey.currentContext!,
         builder: (_) => CommandPaletteWidget(),
