@@ -19,6 +19,9 @@ class SetColorSchemeAction extends FlusterAction {
 
   @override
   GlobalAppState reduce() {
-    return state.copyWith(uiState: state.uiState.copyWith(colorScheme: scheme));
+    return state.copyWith(
+      uiState: state.uiState.copyWith(colorScheme: scheme),
+      // commandPaletteState: state.commandPaletteState.reset(),
+    );
   }
 }

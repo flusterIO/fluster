@@ -8,41 +8,51 @@ import 'package:fluster/features/command_palette/data/models/command_palette_ent
 import 'package:fluster/features/command_palette/data/models/command_palette_item.dart';
 import 'package:flutter/widgets.dart';
 
-
 class ThemeCommandPaletteEntry extends CommandPaletteItem {
-const ThemeCommandPaletteEntry({required super.label, required super.action, required super.category, required super.items, required super.desc});
+  const ThemeCommandPaletteEntry({
+    required super.label,
+    required super.action,
+    required super.category,
+    required super.items,
+    required super.desc,
+  });
 }
 
 class ThemesNavigationCommandPaletteCategory extends CommandPaletteCategory {
-    ThemesNavigationCommandPaletteCategory(): super( 
+  ThemesNavigationCommandPaletteCategory()
+    : super(
         label: "Themes",
         desc: "Quickly toggle themes throughout the application",
         category: CommandPaletteCategoryId.themes,
         items: FlexScheme.values.map((s) {
-            return ThemeCommandPaletteEntry(
+          return ThemeCommandPaletteEntry(
             label: s.toString(),
-                desc: "",
-                items: [],
-                category: CommandPaletteCategoryId.themes,
-                action: (){
-                   globalReduxStore.dispatch(SetColorSchemeAction(s));
-                }
-        );
-        } ).toList()
-    );
+            desc: "",
+            items: [],
+            category: CommandPaletteCategoryId.themes,
+            action: () {
+              print("called theme action for ${s.toString()}");
+              globalReduxStore.dispatchAll([
+                SetColorSchemeAction(s),
+                // SetCommandPaletteOpenAction(false, initialCategory: null),
+              ]);
+            },
+          );
+        }).toList(),
+      );
 
   @override
   IconData getIcon() {
-        return FluentIcons.paint_brush_32_filled;
+    return FluentIcons.paint_brush_32_filled;
   }
 
   @override
   CommandPaletteEntry getItem(int idx) {
-        return items[idx];
+    return items[idx];
   }
 
   @override
   int length() {
-        return items.length;
+    return items.length;
   }
 }

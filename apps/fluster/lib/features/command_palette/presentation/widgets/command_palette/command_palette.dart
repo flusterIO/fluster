@@ -2,6 +2,7 @@ import 'dart:math';
 import 'package:fluster/core/extension_methods/context_extension.dart';
 import 'package:fluster/core/models/string_similarity_result.dart';
 import 'package:fluster/core/state/store.dart';
+import 'package:fluster/core/static/constants/static_constants.dart';
 import 'package:fluster/features/command_palette/data/models/command_palette_category.dart';
 import 'package:fluster/features/command_palette/data/models/command_palette_entry.dart';
 import 'package:fluster/features/command_palette/presentation/widgets/command_palette/command_palette_no_results.dart';
@@ -19,18 +20,16 @@ import 'package:flutter/services.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
 class CommandPaletteWidget extends HookWidget {
-  KeyEventResult handleKeyPress(
-    {
-        required FocusNode node,
-        required KeyEvent e,
-        required TextEditingController controller,
-        required KeymapSettingPageData settingData,
-        required ValueNotifier<bool> isEmptyInput,
-        required void Function() onAccept,
-        required int lastBackReq,
-        required void Function() setLastBackReq,
-    }
-  ) {
+  KeyEventResult handleKeyPress({
+    required FocusNode node,
+    required KeyEvent e,
+    required TextEditingController controller,
+    required KeymapSettingPageData settingData,
+    required ValueNotifier<bool> isEmptyInput,
+    required void Function() onAccept,
+    required int lastBackReq,
+    required void Function() setLastBackReq,
+  }) {
     // Reset the isEmptyInput field early if the input is no longer empty.
     if (controller.text != "") {
       isEmptyInput.value = false;
@@ -50,8 +49,10 @@ class CommandPaletteWidget extends HookWidget {
     }
     // If the input is already empty, then close the command palette or go back.
     if (e.logicalKey == LogicalKeyboardKey.backspace) {
-      if (isEmptyInput.value && e.synthesized == false && DateTime.now().millisecondsSinceEpoch - lastBackReq >= 300) {
-      setLastBackReq();
+      if (isEmptyInput.value &&
+          e.synthesized == false &&
+          DateTime.now().millisecondsSinceEpoch - lastBackReq >= 300) {
+        setLastBackReq();
         globalReduxStore.dispatch(CommandPaletteBackAction());
       }
       return KeyEventResult.ignored;
@@ -121,81 +122,91 @@ class CommandPaletteWidget extends HookWidget {
     }, [isEmptyInput]);
     final lastBackReq = useState<int>(DateTime.now().millisecondsSinceEpoch);
     void setLastBackReq() {
-         lastBackReq.value = DateTime.now().millisecondsSinceEpoch; 
-        }
+      lastBackReq.value = DateTime.now().millisecondsSinceEpoch;
+    }
+
     focusScope.onKeyEvent = (FocusNode n, KeyEvent e) => handleKeyPress(
       node: n,
       e: e,
       controller: editController,
-            settingData: context.state.settingsState.settings.pages[SettingPageId.keymap]
-          as KeymapSettingPageData,
+      settingData:
+          context.state.settingsState.settings.pages[SettingPageId.keymap]
+              as KeymapSettingPageData,
       isEmptyInput: isEmptyInput,
       onAccept: () => activeStackItem
           .items[context.state.commandPaletteState.selectedIndex]
-          .enter(),
-            lastBackReq: lastBackReq.value,
-            setLastBackReq: setLastBackReq
+          .callAction(),
+      lastBackReq: lastBackReq.value,
+      setLastBackReq: setLastBackReq,
     );
     final width = min(size.width - 80, 768).toDouble();
     return FocusScope(
       node: focusScope,
       autofocus: true,
       descendantsAreFocusable: true,
-      child: Center(
-        child: Card(
-          // width: width,
-          // decoration: BoxDecoration(
-          //   border: Border.all(width: 1, color: theme.dividerColor),
-          //   color: theme.cardColor,
-          //   borderRadius: BorderRadius.all(
-          //     Radius.circular(borderRadiusBase.toDouble()),
-          //   ),
-          // ),
-          child: ConstrainedBox(
-            constraints: BoxConstraints(
-              minHeight: 96,
-              maxHeight: min(300, MediaQuery.sizeOf(context).height - 200),
-              minWidth: width,
-              maxWidth: width,
-            ),
-            child: Column(
-              spacing: 0,
-              mainAxisAlignment: MainAxisAlignment.center,
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                CommandPaletteTopIndicatorBar(
-                  activeCategory:
-                      navStack[navStack.length - 1] as CommandPaletteCategory,
-                  width: width,
-                ),
-                CommandPaletteSearchInput(controller: editController),
-                activeStackItem.items.isEmpty
-                    ? CommandPaletteNoResults()
-                    : ListView.builder(
-                        itemCount: context
-                            .state
-                            .commandPaletteState
-                            .filteredItems
-                            .length,
-                        shrinkWrap: true,
-                                    padding: EdgeInsets.symmetric(vertical: 8, horizontal: 2),
-                        itemBuilder: (BuildContext childContext, int idx) {
-                          return CommandPaletteResult(
-                            item: context
-                                .state
-                                .commandPaletteState
-                                .filteredItems[idx],
-                            idx: idx,
-                            pseudoFocused:
-                                idx ==
-                                context.state.commandPaletteState.selectedIndex,
-                          );
-                        },
-                      ),
-              ],
-            ),
+      child: Card(
+        elevation: 800,
+        shape: RoundedRectangleBorder(
+          side: BorderSide(color: Theme.of(context).dividerColor),
+          borderRadius: BorderRadiusGeometry.all(
+            Radius.circular(borderRadiusBase.toDouble()),
           ),
+        ),
+        // width: width,
+        // decoration: BoxDecoration(
+        //   border: Border.all(width: 1, color: theme.dividerColor),
+        //   color: theme.cardColor,
+        //   borderRadius: BorderRadius.all(
+        //     Radius.circular(borderRadiusBase.toDouble()),
+        //   ),
+        // ),
+        child: Column(
+          spacing: 0,
+          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            CommandPaletteTopIndicatorBar(
+              activeCategory:
+                  navStack[navStack.length - 1] as CommandPaletteCategory,
+              width: width,
+            ),
+            CommandPaletteSearchInput(controller: editController),
+            activeStackItem.items.isEmpty
+                ? CommandPaletteNoResults()
+                : ConstrainedBox(
+                    constraints: BoxConstraints(
+                      minHeight: 96,
+                      maxHeight: min(
+                        300,
+                        MediaQuery.sizeOf(context).height - 200,
+                      ),
+                      minWidth: width,
+                      maxWidth: width,
+                    ),
+                    child: ListView.builder(
+                      itemCount: context
+                          .state
+                          .commandPaletteState
+                          .filteredItems
+                          .length,
+                      shrinkWrap: true,
+                      padding: EdgeInsets.symmetric(vertical: 8, horizontal: 2),
+                      itemBuilder: (BuildContext childContext, int idx) {
+                        return CommandPaletteResult(
+                          item: context
+                              .state
+                              .commandPaletteState
+                              .filteredItems[idx],
+                          idx: idx,
+                          pseudoFocused:
+                              idx ==
+                              context.state.commandPaletteState.selectedIndex,
+                        );
+                      },
+                    ),
+                  ),
+          ],
         ),
       ),
     );

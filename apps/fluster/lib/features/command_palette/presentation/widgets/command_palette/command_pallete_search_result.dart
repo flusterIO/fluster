@@ -28,25 +28,26 @@ class CommandPaletteResult extends StatelessWidget {
       ),
 
       child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 24),
+        padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16),
         child: Column(
-          spacing: 4,
+          spacing: 2,
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
               item.label,
-              style: TextStyle(fontSize: baseTextSize * 1.05),
+              style: TextStyle(fontSize: 14),
               maxLines: 1,
               softWrap: false,
             ),
-            if (item.desc != null)
+            if (item.desc != null && item.desc != "")
               Text(
                 item.desc!,
                 style: TextStyle(
                   color: theme.textTheme.bodyMedium?.color?.withValues(
                     alpha: mutedTextAlpha,
                   ),
+                  fontSize: 12,
                 ),
                 maxLines: 2,
                 softWrap: true,

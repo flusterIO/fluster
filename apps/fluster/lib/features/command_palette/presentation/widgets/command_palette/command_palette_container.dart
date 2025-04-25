@@ -32,7 +32,7 @@ class CommandPalette extends HookWidget {
           padding: const EdgeInsets.symmetric(vertical: 64, horizontal: 64),
           // For some reason the click listener only works with this decoration applied.
           decoration: BoxDecoration(color: Colors.transparent),
-          child: CommandPaletteWidget(),
+          child: Positioned(top: 96, child: CommandPaletteWidget()),
         ),
       ),
     );

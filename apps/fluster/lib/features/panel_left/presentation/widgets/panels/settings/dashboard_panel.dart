@@ -9,7 +9,7 @@ class SettingsSideMenuPanel extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final pages =
-        context.state.settingsState.settings?.pages.values.toList() ?? [];
+        context.state.settingsState.settings.pages.values.toList();
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -24,7 +24,7 @@ class SettingsSideMenuPanel extends StatelessWidget {
                 globalReduxStore.dispatch(SetSettingsPageAction(pages[idx].id));
               },
               child: AnimatedContainer(
-                duration: Duration(milliseconds: 150),
+                duration: Duration(milliseconds: 50),
                 padding: EdgeInsets.all(8),
                 decoration: BoxDecoration(
                   border: Border.all(

@@ -33,7 +33,7 @@ class SideMenuState {
       icon: FluentIcons.home_32_regular,
       title: 'Home',
       navigate: (BuildContext context) {
-        HomeScreenRoute().go(context);
+        DashboardRoute().go(context);
         globalReduxStore.dispatch(SetNavigationIdAction(NavigationItemId.home));
       },
     ),

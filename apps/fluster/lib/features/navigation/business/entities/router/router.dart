@@ -14,12 +14,14 @@ final GlobalKey<NavigatorState> parentRouterKey = GlobalKey<NavigatorState>(
 final router = GoRouter(
   navigatorKey: parentRouterKey,
   // initialLocation: const SplashScreenRoute().location,
-  initialLocation: HomeScreenRoute().location,
+  initialLocation: DashboardRoute().location,
   debugLogDiagnostics: true,
+
   routes: <RouteBase>[
     ShellRoute(
       routes: $appRoutes,
       navigatorKey: appShellNavigatorKey,
+      parentNavigatorKey: parentRouterKey,
       builder: (BuildContext context, GoRouterState routerState, Widget child) {
         // FLUTTER_MULTI_PLATFORM_WARNING: Platform switch goes here!
         return DesktopAppScaffold(child: child);

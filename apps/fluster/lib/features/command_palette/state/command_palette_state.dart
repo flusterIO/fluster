@@ -29,4 +29,13 @@ class CommandPaletteState with _$CommandPaletteState {
       ),
     );
   }
+
+  CommandPaletteState reset() {
+    return CommandPaletteState(
+      open: false,
+      filteredItems: [],
+      selectedIndex: 0,
+      navigationStack: [],
+    );
+  }
 }

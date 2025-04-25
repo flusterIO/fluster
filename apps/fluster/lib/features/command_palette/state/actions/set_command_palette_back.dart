@@ -20,8 +20,6 @@ class CommandPaletteBackAction extends FlusterAction {
     final newFilteredItems = newStack.isNotEmpty
         ? newStack[newStack.length - 1].items
         : <CommandPaletteEntry>[];
-
-    print("New stack: ${newStack.isEmpty}");
     if(newStack.isEmpty) {
         GoRouter.of(desktopScaffoldKey.currentContext!).pop();
     }

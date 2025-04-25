@@ -22,8 +22,8 @@ class FlusterDesktopApp extends HookWidget {
     return MaterialApp.router(
       title: "Fluster",
       scaffoldMessengerKey: desktopScaffoldMessenegerKey,
-      theme: FlexThemeData.light(scheme: FlexScheme.flutterDash),
-      darkTheme: FlexThemeData.dark(scheme: FlexScheme.flutterDash),
+      theme: FlexThemeData.light(scheme: context.state.uiState.colorScheme),
+      darkTheme: FlexThemeData.dark(scheme: context.state.uiState.colorScheme),
       themeMode: context.state.uiState.themeMode,
       debugShowCheckedModeBanner: false,
       // FLUTTER_MULTI_PLATFORM_WARNING: This will need to be adjusted for non-desktop environments.
