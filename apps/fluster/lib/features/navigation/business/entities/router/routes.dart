@@ -5,6 +5,7 @@ import 'package:fluster/features/command_palette/presentation/widgets/command_pa
 import 'package:fluster/features/command_palette/presentation/widgets/command_palette/command_palette_container.dart';
 import 'package:fluster/features/dashboard/presentation/screens/desktop/dashboard_desktop.dart';
 import 'package:fluster/features/peer_to_peer/presentation/screens/desktop/connect_screen.dart';
+import 'package:fluster/features/scaffold/presentation/widgets/desktop/desktop_scaffold.dart';
 import 'package:fluster/features/settings/presentation/screens/settings_screen.dart';
 import 'package:fluster/features/splash/presentation/screens/desktop/splash_screen.dart';
 import 'package:flutter/material.dart';
@@ -19,11 +20,8 @@ class CommandPaletteRoute extends GoRouteData {
 
   @override
   Page<void> buildPage(BuildContext context, GoRouterState state) {
-
     return NoTransitionPage<CommandPalette>(
-      child: CommandPaletteWidget(
-        key: state.pageKey,
-      ),
+      child: CommandPaletteWidget(key: state.pageKey),
     );
     return NoTransitionPage<CommandPalette>(
       child: CommandPalette(
@@ -36,20 +34,6 @@ class CommandPaletteRoute extends GoRouteData {
   // @override
   // Page<void> build(BuildContext context, GoRouterState state) {
   // }
-}
-
-@TypedGoRoute<HomeScreenRoute>(
-  path: '/',
-  routes: <TypedRoute<RouteData>>[
-    TypedGoRoute<CommandPaletteRoute>(path: "/commandPalette"),
-  ],
-)
-@immutable
-class HomeScreenRoute extends GoRouteData {
-  @override
-  Page<void> buildPage(BuildContext context, GoRouterState state) {
-    return NoTransitionPage<Dashboard>(child: Dashboard(key: state.pageKey));
-  }
 }
 
 @TypedGoRoute<DashboardRoute>(
@@ -143,6 +127,32 @@ class BookmarksRoute extends GoRouteData {
       child: BookmarksScreen(key: state.pageKey),
     );
   }
+}
+
+@TypedGoRoute<HomeScreenRoute>(
+  path: '/',
+  routes: <TypedRoute<RouteData>>[
+    TypedGoRoute<CommandPaletteRoute>(path: "/commandPalette"),
+    TypedGoRoute<DashboardRoute>(path: "/dashboard"),
+    TypedGoRoute<SplashScreenRoute>(path: "/splash"),
+    TypedGoRoute<SettingsRoute>(path: "/settings"),
+    TypedGoRoute<ConnectRoute>(path: "/connect"),
+    TypedGoRoute<BibliographyRoute>(path: "/bibliography"),
+    TypedGoRoute<BookmarksRoute>(path: "/bookmarks"),
+  ],
+)
+@immutable
+class HomeScreenRoute extends GoRouteData {
+  @override
+  Widget build(BuildContext context, GoRouterState state) {
+    // TODO: implement build
+    // return Dashboard(key: state.pageKey);
+    return DesktopAppScaffold(child: Dashboard());
+  }
+
+  // @override
+  //  buildPage(BuildContext context, GoRouterState state) {
+  // }
 }
 
 // @TypedGoRoute<NotesRoute>(

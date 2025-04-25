@@ -8,13 +8,13 @@ part of 'routes.dart';
 
 List<RouteBase> get $appRoutes => [
   $commandPaletteRoute,
-  $homeScreenRoute,
   $dashboardRoute,
   $splashScreenRoute,
   $settingsRoute,
   $connectRoute,
   $bibliographyRoute,
   $bookmarksRoute,
+  $homeScreenRoute,
 ];
 
 RouteBase get $commandPaletteRoute => GoRouteData.$route(
@@ -28,34 +28,6 @@ extension $CommandPaletteRouteExtension on CommandPaletteRoute {
       const CommandPaletteRoute();
 
   String get location => GoRouteData.$location('/commandPalette');
-
-  void go(BuildContext context) => context.go(location);
-
-  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
-
-  void pushReplacement(BuildContext context) =>
-      context.pushReplacement(location);
-
-  void replace(BuildContext context) => context.replace(location);
-}
-
-RouteBase get $homeScreenRoute => GoRouteData.$route(
-  path: '/',
-
-  factory: $HomeScreenRouteExtension._fromState,
-  routes: [
-    GoRouteData.$route(
-      path: '/commandPalette',
-
-      factory: $CommandPaletteRouteExtension._fromState,
-    ),
-  ],
-);
-
-extension $HomeScreenRouteExtension on HomeScreenRoute {
-  static HomeScreenRoute _fromState(GoRouterState state) => HomeScreenRoute();
-
-  String get location => GoRouteData.$location('/');
 
   void go(BuildContext context) => context.go(location);
 
@@ -185,6 +157,64 @@ extension $BookmarksRouteExtension on BookmarksRoute {
       const BookmarksRoute();
 
   String get location => GoRouteData.$location('/bookmarks');
+
+  void go(BuildContext context) => context.go(location);
+
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
+}
+
+RouteBase get $homeScreenRoute => GoRouteData.$route(
+  path: '/',
+
+  factory: $HomeScreenRouteExtension._fromState,
+  routes: [
+    GoRouteData.$route(
+      path: '/commandPalette',
+
+      factory: $CommandPaletteRouteExtension._fromState,
+    ),
+    GoRouteData.$route(
+      path: '/dashboard',
+
+      factory: $DashboardRouteExtension._fromState,
+    ),
+    GoRouteData.$route(
+      path: '/splash',
+
+      factory: $SplashScreenRouteExtension._fromState,
+    ),
+    GoRouteData.$route(
+      path: '/settings',
+
+      factory: $SettingsRouteExtension._fromState,
+    ),
+    GoRouteData.$route(
+      path: '/connect',
+
+      factory: $ConnectRouteExtension._fromState,
+    ),
+    GoRouteData.$route(
+      path: '/bibliography',
+
+      factory: $BibliographyRouteExtension._fromState,
+    ),
+    GoRouteData.$route(
+      path: '/bookmarks',
+
+      factory: $BookmarksRouteExtension._fromState,
+    ),
+  ],
+);
+
+extension $HomeScreenRouteExtension on HomeScreenRoute {
+  static HomeScreenRoute _fromState(GoRouterState state) => HomeScreenRoute();
+
+  String get location => GoRouteData.$location('/');
 
   void go(BuildContext context) => context.go(location);
 

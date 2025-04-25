@@ -1,4 +1,3 @@
-import 'package:fluster/features/scaffold/presentation/widgets/desktop/desktop_scaffold.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -14,7 +13,7 @@ final GlobalKey<NavigatorState> parentRouterKey = GlobalKey<NavigatorState>(
 final router = GoRouter(
   navigatorKey: parentRouterKey,
   // initialLocation: const SplashScreenRoute().location,
-  initialLocation: DashboardRoute().location,
+  initialLocation: HomeScreenRoute().location,
   debugLogDiagnostics: true,
 
   routes: <RouteBase>[
@@ -24,7 +23,7 @@ final router = GoRouter(
       parentNavigatorKey: parentRouterKey,
       builder: (BuildContext context, GoRouterState routerState, Widget child) {
         // FLUTTER_MULTI_PLATFORM_WARNING: Platform switch goes here!
-        return DesktopAppScaffold(child: child);
+        return child;
       },
     ),
   ],
