@@ -1,5 +1,6 @@
 use strsim::jaro_winkler;
 
+#[flutter_rust_bridge::frb(sync)]
 pub fn get_text_similarity(a: String, b: String) -> f64 {
     jaro_winkler(&a, &b)
 }

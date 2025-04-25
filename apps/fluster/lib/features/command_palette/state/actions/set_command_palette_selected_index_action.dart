@@ -17,3 +17,17 @@ class SetCommandPaletteSelectedIndexAction extends FlusterAction {
     );
   }
 }
+
+class ResetCommandPaletteIndex extends FlusterAction {
+  ResetCommandPaletteIndex();
+
+  @override
+  GlobalAppState reduce() {
+    if (!state.commandPaletteState.open) {
+      return state;
+    }
+    return state.copyWith(
+      commandPaletteState: state.commandPaletteState.copyWith(selectedIndex: 0),
+    );
+  }
+}

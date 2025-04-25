@@ -1,14 +1,16 @@
 import 'dart:math';
-
 import 'package:fluster/core/extension_methods/context_extension.dart';
+import 'package:fluster/core/models/string_similarity_result.dart';
 import 'package:fluster/core/state/store.dart';
 import 'package:fluster/core/static/constants/static_constants.dart';
 import 'package:fluster/features/command_palette/data/models/command_palette_category.dart';
+import 'package:fluster/features/command_palette/data/models/command_palette_entry.dart';
 import 'package:fluster/features/command_palette/presentation/widgets/command_palette/command_palette_no_results.dart';
 import 'package:fluster/features/command_palette/presentation/widgets/command_palette/command_palette_search_input.dart';
 import 'package:fluster/features/command_palette/presentation/widgets/command_palette/command_palette_top_indicator_bar.dart';
 import 'package:fluster/features/command_palette/presentation/widgets/command_palette/command_pallete_search_result.dart';
 import 'package:fluster/features/command_palette/state/actions/set_command_palette_back.dart';
+import 'package:fluster/features/command_palette/state/actions/set_command_palette_filtered_items.dart';
 import 'package:fluster/features/command_palette/state/actions/set_command_palette_open.dart';
 import 'package:fluster/features/command_palette/state/actions/set_command_palette_selected_index_action.dart';
 import 'package:fluster/features/settings/data/models/keymap_setting_page_data.dart';
@@ -21,7 +23,7 @@ class CommandPaletteWidget extends HookWidget {
   KeyEventResult handleKeyPress(
     FocusNode node,
     KeyEvent e,
-    SearchController controller,
+    TextEditingController controller,
     KeymapSettingPageData settingData,
     ValueNotifier<bool> isEmptyInput,
   ) {
@@ -29,6 +31,7 @@ class CommandPaletteWidget extends HookWidget {
     if (controller.text != "") {
       isEmptyInput.value = false;
     }
+
     if (e.logicalKey == LogicalKeyboardKey.escape) {
       globalReduxStore.dispatch(
         SetCommandPaletteOpenAction(false, initialCategory: null),
@@ -74,17 +77,42 @@ class CommandPaletteWidget extends HookWidget {
 
   const CommandPaletteWidget({super.key});
 
+  void handleQueryChange(String queryValue, List<CommandPaletteEntry> items) {
+    final similarityResults =
+        StringSimilarityResult.fromArray<CommandPaletteEntry>(
+          items,
+          queryValue,
+          (x) => "${x.label} ${x.desc ?? ''}",
+          threshold: 0.1,
+        );
+    globalReduxStore.dispatch(
+      SetCommandPaletteFilteredItems(similarityResults.toList()),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final navStack = context.state.commandPaletteState.navigationStack;
     final size = MediaQuery.sizeOf(context);
     final focusScope = useFocusScopeNode();
     final isEmptyInput = useState(true);
-    final searchController = useSearchController();
+    final editController = useTextEditingController();
+    editController.addListener(
+      () => handleQueryChange(
+        editController.text,
+        navStack.isNotEmpty ? navStack[navStack.length - 1].items : [],
+      ),
+    );
+    useEffect(() {
+      if (!isEmptyInput.value) {
+        globalReduxStore.dispatch(ResetCommandPaletteIndex());
+      }
+      return () {};
+    }, [isEmptyInput]);
     focusScope.onKeyEvent = (FocusNode n, KeyEvent e) => handleKeyPress(
       n,
       e,
-      searchController,
+      editController,
       context.state.settingsState.settings.pages[SettingPageId.keymap]
           as KeymapSettingPageData,
       isEmptyInput,
@@ -124,7 +152,7 @@ class CommandPaletteWidget extends HookWidget {
                       navStack[navStack.length - 1] as CommandPaletteCategory,
                   width: width,
                 ),
-                CommandPaletteSearchInput(controller: searchController),
+                CommandPaletteSearchInput(controller: editController),
                 activeStackItem.items.isEmpty
                     ? CommandPaletteNoResults()
                     : ListView.builder(

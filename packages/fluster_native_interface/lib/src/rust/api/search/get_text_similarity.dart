@@ -6,8 +6,7 @@
 import '../../frb_generated.dart';
 import 'package:flutter_rust_bridge/flutter_rust_bridge_for_generated.dart';
 
-Future<double> getTextSimilarity({required String a, required String b}) =>
-    RustLib.instance.api.crateApiSearchGetTextSimilarityGetTextSimilarity(
-      a: a,
-      b: b,
-    );
+double getTextSimilarity({required String a, required String b}) => RustLib
+    .instance
+    .api
+    .crateApiSearchGetTextSimilarityGetTextSimilarity(a: a, b: b);
