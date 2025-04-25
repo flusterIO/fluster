@@ -16,43 +16,54 @@ class CommandPaletteResult extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    return Container(
-      decoration: BoxDecoration(
-        shape: BoxShape.rectangle,
-        border: Border(
-          left: BorderSide(
-            color: pseudoFocused ? theme.primaryColor : Colors.transparent,
-            width: 2,
-          ),
-        ),
-      ),
-
-      child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16),
-        child: Column(
-          spacing: 2,
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              item.label,
-              style: TextStyle(fontSize: 14),
-              maxLines: 1,
-              softWrap: false,
-            ),
-            if (item.desc != null && item.desc != "")
-              Text(
-                item.desc!,
-                style: TextStyle(
-                  color: theme.textTheme.bodyMedium?.color?.withValues(
-                    alpha: mutedTextAlpha,
-                  ),
-                  fontSize: 12,
-                ),
-                maxLines: 2,
-                softWrap: true,
+    if (pseudoFocused) {
+      Scrollable.ensureVisible(context);
+    }
+    return MouseRegion(
+      cursor: SystemMouseCursors.click,
+      child: GestureDetector(
+        onTap: () {
+          item.callAction();
+        },
+        child: Container(
+          decoration: BoxDecoration(
+            shape: BoxShape.rectangle,
+            border: Border(
+              left: BorderSide(
+                color: pseudoFocused ? theme.primaryColor : Colors.transparent,
+                width: 2,
               ),
-          ],
+            ),
+          ),
+
+          child: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16),
+            child: Column(
+              spacing: 2,
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  item.label,
+                  style: TextStyle(fontSize: 14),
+                  maxLines: 1,
+                  softWrap: false,
+                ),
+                if (item.desc != null && item.desc != "")
+                  Text(
+                    item.desc!,
+                    style: TextStyle(
+                      color: theme.textTheme.bodyMedium?.color?.withValues(
+                        alpha: mutedTextAlpha,
+                      ),
+                      fontSize: 12,
+                    ),
+                    maxLines: 2,
+                    softWrap: true,
+                  ),
+              ],
+            ),
+          ),
         ),
       ),
     );

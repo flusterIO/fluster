@@ -6,6 +6,7 @@ import 'package:fluster/features/command_palette/data/models/command_palette_cat
 import 'package:fluster/features/command_palette/data/models/command_palette_category_enum.dart';
 import 'package:fluster/features/command_palette/data/models/command_palette_entry.dart';
 import 'package:fluster/features/command_palette/data/models/command_palette_item.dart';
+import 'package:fluster/features/settings/data/enums/formatted_flex_scheme_name.dart';
 import 'package:flutter/widgets.dart';
 
 class ThemeCommandPaletteEntry extends CommandPaletteItem {
@@ -26,7 +27,7 @@ class ThemesNavigationCommandPaletteCategory extends CommandPaletteCategory {
         category: CommandPaletteCategoryId.themes,
         items: FlexScheme.values.map((s) {
           return ThemeCommandPaletteEntry(
-            label: s.toString(),
+            label: getFlexColorSchemeFormattedName(s),
             desc: "",
             items: [],
             category: CommandPaletteCategoryId.themes,

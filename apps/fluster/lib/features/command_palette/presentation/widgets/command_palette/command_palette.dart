@@ -26,7 +26,7 @@ class CommandPaletteWidget extends HookWidget {
     required TextEditingController controller,
     required KeymapSettingPageData settingData,
     required ValueNotifier<bool> isEmptyInput,
-    required void Function() onAccept,
+    required BuildContext context,
     required int lastBackReq,
     required void Function() setLastBackReq,
   }) {
@@ -76,7 +76,22 @@ class CommandPaletteWidget extends HookWidget {
 
     if (e.logicalKey == LogicalKeyboardKey.enter) {
       // RESUME: Come back here and implement the search functionality.
-      onAccept();
+      // globalReduxStore.state.commandPaletteState.navigationStack[globalReduxStore.state.commandPaletteState.selectedIndex].callAction();
+      // print("State: ${context.state.commandPaletteState.selectedIndex}");
+      // final idx = context.state.commandPaletteState.selectedIndex;
+      // print("Huh? ${idx <= context.state.commandPaletteState.navigationStack.length - 1}");
+      // if(idx <= context.state.commandPaletteState.navigationStack.length - 1) {
+      //     context.state.commandPaletteState.navigationStack[idx].callAction();
+      // }
+      context
+          .state
+          .commandPaletteState
+          .filteredItems[context.state.commandPaletteState.selectedIndex]
+          .callAction();
+      // onAccept();
+      // onAccept: () => activeStackItem
+      //     .items[context.state.commandPaletteState.selectedIndex]
+      //     .callAction(),
       return KeyEventResult.handled;
     }
     return KeyEventResult.ignored;
@@ -90,7 +105,7 @@ class CommandPaletteWidget extends HookWidget {
           items,
           queryValue,
           (x) => "${x.label} ${x.desc ?? ''}",
-          threshold: 0.1,
+          // threshold: 0.1,
         );
     globalReduxStore.dispatch(
       SetCommandPaletteFilteredItems(similarityResults.toList()),
@@ -133,25 +148,28 @@ class CommandPaletteWidget extends HookWidget {
           context.state.settingsState.settings.pages[SettingPageId.keymap]
               as KeymapSettingPageData,
       isEmptyInput: isEmptyInput,
-      onAccept: () => activeStackItem
-          .items[context.state.commandPaletteState.selectedIndex]
-          .callAction(),
+      context: context,
       lastBackReq: lastBackReq.value,
       setLastBackReq: setLastBackReq,
     );
     final width = min(size.width - 80, 768).toDouble();
+    editController.addListener(
+      () => globalReduxStore.dispatch(SetCommandPaletteSelectedIndexAction(0)),
+    );
+    final theme = Theme.of(context);
     return FocusScope(
       node: focusScope,
       autofocus: true,
       descendantsAreFocusable: true,
-      child: Card(
-        elevation: 800,
-        shape: RoundedRectangleBorder(
-          side: BorderSide(color: Theme.of(context).dividerColor),
-          borderRadius: BorderRadiusGeometry.all(
-            Radius.circular(borderRadiusBase.toDouble()),
-          ),
-        ),
+      child: Scaffold(
+        primary: false,
+        // elevation: 800,
+        // shape: RoundedRectangleBorder(
+        //   side: BorderSide(color: Theme.of(context).dividerColor),
+        //   borderRadius: BorderRadiusGeometry.all(
+        //     Radius.circular(borderRadiusBase.toDouble()),
+        //   ),
+        // ),
         // width: width,
         // decoration: BoxDecoration(
         //   border: Border.all(width: 1, color: theme.dividerColor),
@@ -160,53 +178,65 @@ class CommandPaletteWidget extends HookWidget {
         //     Radius.circular(borderRadiusBase.toDouble()),
         //   ),
         // ),
-        child: Column(
-          spacing: 0,
-          mainAxisAlignment: MainAxisAlignment.center,
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            CommandPaletteTopIndicatorBar(
-              activeCategory:
-                  navStack[navStack.length - 1] as CommandPaletteCategory,
-              width: width,
+        body: Padding(
+          padding: const EdgeInsets.all(32.0),
+          child: Container(
+            decoration: BoxDecoration(
+              border: Border.all(color: theme.dividerColor, width: 1),
+                borderRadius: BorderRadius.all(Radius.circular(borderRadiusBase.toDouble()))
             ),
-            CommandPaletteSearchInput(controller: editController),
-            activeStackItem.items.isEmpty
-                ? CommandPaletteNoResults()
-                : ConstrainedBox(
-                    constraints: BoxConstraints(
-                      minHeight: 96,
-                      maxHeight: min(
-                        300,
-                        MediaQuery.sizeOf(context).height - 200,
-                      ),
-                      minWidth: width,
-                      maxWidth: width,
-                    ),
-                    child: ListView.builder(
-                      itemCount: context
-                          .state
-                          .commandPaletteState
-                          .filteredItems
-                          .length,
-                      shrinkWrap: true,
-                      padding: EdgeInsets.symmetric(vertical: 8, horizontal: 2),
-                      itemBuilder: (BuildContext childContext, int idx) {
-                        return CommandPaletteResult(
-                          item: context
+            child: Column(
+              spacing: 0,
+              mainAxisAlignment: MainAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                CommandPaletteTopIndicatorBar(
+                  activeCategory:
+                      navStack[navStack.length - 1] as CommandPaletteCategory,
+                  width: width,
+                ),
+                CommandPaletteSearchInput(controller: editController),
+                activeStackItem.items.isEmpty
+                    ? CommandPaletteNoResults()
+                    : ConstrainedBox(
+                        constraints: BoxConstraints(
+                          minHeight: 96,
+                          maxHeight: min(
+                            300,
+                            MediaQuery.sizeOf(context).height - 200,
+                          ),
+                          minWidth: width,
+                          maxWidth: width,
+                        ),
+                        child: ListView.builder(
+                          itemCount: context
                               .state
                               .commandPaletteState
-                              .filteredItems[idx],
-                          idx: idx,
-                          pseudoFocused:
-                              idx ==
-                              context.state.commandPaletteState.selectedIndex,
-                        );
-                      },
-                    ),
-                  ),
-          ],
+                              .filteredItems
+                              .length,
+                          shrinkWrap: true,
+                          padding: EdgeInsets.symmetric(
+                            vertical: 8,
+                            horizontal: 2,
+                          ),
+                          itemBuilder: (BuildContext childContext, int idx) {
+                            return CommandPaletteResult(
+                              item: context
+                                  .state
+                                  .commandPaletteState
+                                  .filteredItems[idx],
+                              idx: idx,
+                              pseudoFocused:
+                                  idx ==
+                                  context.state.commandPaletteState.selectedIndex,
+                            );
+                          },
+                        ),
+                      ),
+              ],
+            ),
+          ),
         ),
       ),
     );
