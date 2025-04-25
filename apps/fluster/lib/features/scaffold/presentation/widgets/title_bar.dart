@@ -1,6 +1,7 @@
 import 'package:async_redux/async_redux.dart';
 import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
+import 'package:fluster/core/global_actions/global_action_map.dart';
 import 'package:fluster/core/state/store.dart';
 import 'package:fluster/features/command_palette/data/command_palette_tree/command_palette_root.dart';
 import 'package:fluster/features/command_palette/presentation/widgets/command_palette/command_palette_container.dart';
@@ -46,19 +47,7 @@ class WindowTitleBar extends StatelessWidget {
                 ),
                 child: GestureDetector(
                   onTap: () {
-                    // showCommandPalette(context);
-                    // globalReduxStore.dispatch(
-                    //   SetCommandPaletteOpenAction(true, initialCategory: CommandPaletteRoot()),
-                    // );
-                    showDialog(
-                      context: context,
-                      builder: (BuildContext _) {
-                        globalReduxStore.dispatch(SetCommandPaletteOpenAction(true, initialCategory: CommandPaletteRoot()));
-                        return CommandPalette(
-                          initialCategory: CommandPaletteRoot(),
-                        );
-                      },
-                    );
+                                        showCommandPalette();
                   },
                   child: MouseRegion(
                     cursor: SystemMouseCursors.click,

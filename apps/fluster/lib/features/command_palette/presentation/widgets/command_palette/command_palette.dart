@@ -2,8 +2,6 @@ import 'dart:math';
 import 'package:fluster/core/extension_methods/context_extension.dart';
 import 'package:fluster/core/models/string_similarity_result.dart';
 import 'package:fluster/core/state/store.dart';
-import 'package:fluster/core/static/constants/static_constants.dart';
-import 'package:fluster/core/static/global_keys.dart';
 import 'package:fluster/features/command_palette/data/models/command_palette_category.dart';
 import 'package:fluster/features/command_palette/data/models/command_palette_entry.dart';
 import 'package:fluster/features/command_palette/presentation/widgets/command_palette/command_palette_no_results.dart';
@@ -19,7 +17,6 @@ import 'package:fluster/features/settings/data/models/setting_page_ids/setting_p
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:go_router/go_router.dart';
 
 class CommandPaletteWidget extends HookWidget {
   KeyEventResult handleKeyPress(
@@ -48,10 +45,11 @@ class CommandPaletteWidget extends HookWidget {
       return KeyEventResult.ignored;
     }
     // If the input is already empty, then close the command palette or go back.
-    if (isEmptyInput.value && e.logicalKey == LogicalKeyboardKey.backspace && e.synthesized == false) {
-      globalReduxStore.dispatch(CommandPaletteBackAction());
-      desktopScaffoldKey.currentContext?.pop();
-      return KeyEventResult.handled;
+    if (e.logicalKey == LogicalKeyboardKey.backspace) {
+      if (isEmptyInput.value && e.synthesized == false) {
+        globalReduxStore.dispatch(CommandPaletteBackAction());
+      }
+      return KeyEventResult.ignored;
     }
 
     if (SingleActivator(
@@ -73,7 +71,6 @@ class CommandPaletteWidget extends HookWidget {
     if (e.logicalKey == LogicalKeyboardKey.enter) {
       // RESUME: Come back here and implement the search functionality.
       onAccept();
-      // globalReduxStore.dispatch(CommandPaletteBackAction());
       return KeyEventResult.handled;
     }
     return KeyEventResult.ignored;
@@ -97,8 +94,8 @@ class CommandPaletteWidget extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final navStack = context.state.commandPaletteState.navigationStack;
-    if(navStack.isEmpty) {
-       return Container();
+    if (navStack.isEmpty) {
+      return Container();
     }
     final activeStackItem = navStack[navStack.length - 1];
     final size = MediaQuery.sizeOf(context);
@@ -172,6 +169,7 @@ class CommandPaletteWidget extends HookWidget {
                             .filteredItems
                             .length,
                         shrinkWrap: true,
+                                    padding: EdgeInsets.symmetric(vertical: 8, horizontal: 2),
                         itemBuilder: (BuildContext childContext, int idx) {
                           return CommandPaletteResult(
                             item: context

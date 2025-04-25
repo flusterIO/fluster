@@ -1,7 +1,9 @@
 import 'package:fluster/core/state/global_state.dart';
+import 'package:fluster/core/static/global_keys.dart';
 import 'package:fluster/core/types/state_types.dart';
 import 'package:fluster/features/command_palette/data/models/command_palette_category.dart';
 import 'package:fluster/features/command_palette/data/models/command_palette_entry.dart';
+import 'package:go_router/go_router.dart';
 
 class SetCommandPaletteOpenAction extends FlusterAction {
   final bool open;
@@ -14,6 +16,9 @@ class SetCommandPaletteOpenAction extends FlusterAction {
       !(open && initialCategory == null),
       "Received a SetCommandPaletteOpenAction request without an initial category.",
     );
+    if (open == false) {
+      desktopScaffoldKey.currentContext?.pop();
+    }
     return state.copyWith(
       commandPaletteState: state.commandPaletteState.copyWith(
         open: open,
@@ -23,7 +28,7 @@ class SetCommandPaletteOpenAction extends FlusterAction {
         filteredItems: initialCategory != null
             ? initialCategory!.items
             : <CommandPaletteEntry>[],
-        selectedIndex: open ? state.commandPaletteState.selectedIndex : 0
+        selectedIndex: open ? state.commandPaletteState.selectedIndex : 0,
       ),
     );
   }
