@@ -13,7 +13,7 @@ final GlobalKey<NavigatorState> parentRouterKey = GlobalKey<NavigatorState>(
 final router = GoRouter(
   navigatorKey: parentRouterKey,
   // initialLocation: const SplashScreenRoute().location,
-  initialLocation: HomeScreenRoute().location,
+  initialLocation: const HomeScreenRoute().location,
   debugLogDiagnostics: true,
 
   routes: <RouteBase>[

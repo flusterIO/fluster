@@ -35,6 +35,10 @@ class CommandPaletteWidget extends HookWidget {
       isEmptyInput.value = false;
     }
 
+    if (e is! KeyDownEvent) {
+      return KeyEventResult.ignored;
+    }
+
     if (e.logicalKey == LogicalKeyboardKey.escape) {
       globalReduxStore.dispatch(
         SetCommandPaletteOpenAction(false, initialCategory: null),
@@ -75,23 +79,11 @@ class CommandPaletteWidget extends HookWidget {
     }
 
     if (e.logicalKey == LogicalKeyboardKey.enter) {
-      // RESUME: Come back here and implement the search functionality.
-      // globalReduxStore.state.commandPaletteState.navigationStack[globalReduxStore.state.commandPaletteState.selectedIndex].callAction();
-      // print("State: ${context.state.commandPaletteState.selectedIndex}");
-      // final idx = context.state.commandPaletteState.selectedIndex;
-      // print("Huh? ${idx <= context.state.commandPaletteState.navigationStack.length - 1}");
-      // if(idx <= context.state.commandPaletteState.navigationStack.length - 1) {
-      //     context.state.commandPaletteState.navigationStack[idx].callAction();
-      // }
       context
           .state
           .commandPaletteState
           .filteredItems[context.state.commandPaletteState.selectedIndex]
-          .callAction();
-      // onAccept();
-      // onAccept: () => activeStackItem
-      //     .items[context.state.commandPaletteState.selectedIndex]
-      //     .callAction(),
+          .callAction("Source one");
       return KeyEventResult.handled;
     }
     return KeyEventResult.ignored;
@@ -157,14 +149,15 @@ class CommandPaletteWidget extends HookWidget {
       () => globalReduxStore.dispatch(SetCommandPaletteSelectedIndexAction(0)),
     );
     final theme = Theme.of(context);
-    return FocusScope(
-      node: focusScope,
-      autofocus: true,
-      descendantsAreFocusable: true,
-      child: Scaffold(
-        primary: false,
-        backgroundColor: Colors.transparent,
-        body: Row(
+    return Scaffold(
+      primary: false,
+      backgroundColor: Colors.transparent,
+      extendBody: true,
+      body: FocusScope(
+        node: focusScope,
+        autofocus: true,
+        descendantsAreFocusable: true,
+        child: Row(
           mainAxisSize: MainAxisSize.max,
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.center,
@@ -190,7 +183,9 @@ class CommandPaletteWidget extends HookWidget {
                     children: [
                       CommandPaletteTopIndicatorBar(
                         activeCategory:
-                            navStack[navStack.length - 1]
+                            navStack[navStack.isNotEmpty
+                                    ? navStack.length - 1
+                                    : 0]
                                 as CommandPaletteCategory,
                         width: width,
                       ),

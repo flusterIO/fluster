@@ -11,5 +11,5 @@ abstract class CommandPaletteEntry {
     required this.items,
     required this.desc,
   });
-  void callAction();
+  void callAction(String src);
 }

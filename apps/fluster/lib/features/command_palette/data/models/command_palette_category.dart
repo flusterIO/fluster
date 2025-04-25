@@ -18,7 +18,8 @@ abstract class CommandPaletteCategory extends CommandPaletteEntry {
   IconData getIcon();
 
   @override
-  void callAction() {
+  void callAction(String src) {
+        print("Source in category: ${src}");
     globalReduxStore.dispatch(AppendCommandPaletteCategoryAction(this));
   }
 }

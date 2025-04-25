@@ -32,10 +32,8 @@ class ThemesNavigationCommandPaletteCategory extends CommandPaletteCategory {
             items: [],
             category: CommandPaletteCategoryId.themes,
             action: () {
-              print("called theme action for ${s.toString()}");
               globalReduxStore.dispatchAll([
                 SetColorSchemeAction(s),
-                // SetCommandPaletteOpenAction(false, initialCategory: null),
               ]);
             },
           );

@@ -65,7 +65,7 @@ class NotificationsContainerDesktop extends StatelessWidget {
       child: AnimatedList(
         key: notificationsListKey,
         initialItemCount: context.state.notificationState.toasts.length,
-        shrinkWrap: true,
+        // shrinkWrap: true,
         clipBehavior: Clip.antiAlias,
         physics: BouncingScrollPhysics(),
         itemBuilder: (

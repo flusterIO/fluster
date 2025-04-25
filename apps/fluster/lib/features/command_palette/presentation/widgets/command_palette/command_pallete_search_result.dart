@@ -23,7 +23,7 @@ class CommandPaletteResult extends StatelessWidget {
       cursor: SystemMouseCursors.click,
       child: GestureDetector(
         onTap: () {
-          item.callAction();
+          item.callAction("Source two");
         },
         child: Container(
           decoration: BoxDecoration(
@@ -35,7 +35,6 @@ class CommandPaletteResult extends StatelessWidget {
               ),
             ),
           ),
-
           child: Padding(
             padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16),
             child: Column(

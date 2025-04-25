@@ -1,9 +1,8 @@
+import 'package:fluster/core/global_actions/global_action_map.dart';
 import 'package:fluster/core/state/global_state.dart';
-import 'package:fluster/core/static/global_keys.dart';
 import 'package:fluster/core/types/state_types.dart';
 import 'package:fluster/features/command_palette/data/models/command_palette_category.dart';
 import 'package:fluster/features/command_palette/data/models/command_palette_entry.dart';
-import 'package:go_router/go_router.dart';
 
 class CommandPaletteBackAction extends FlusterAction {
   CommandPaletteBackAction();
@@ -21,13 +20,14 @@ class CommandPaletteBackAction extends FlusterAction {
         ? newStack[newStack.length - 1].items
         : <CommandPaletteEntry>[];
     if(newStack.isEmpty) {
-        GoRouter.of(desktopScaffoldKey.currentContext!).pop();
+      closeCommandPalette();
     }
     return state.copyWith(
       commandPaletteState: state.commandPaletteState.copyWith(
         navigationStack: newStack,
         open: newStack.isNotEmpty,
         filteredItems: newFilteredItems,
+        selectedIndex: 0
       ),
     );
   }

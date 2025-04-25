@@ -13,7 +13,22 @@ import 'package:go_router/go_router.dart';
 
 part 'routes.g.dart';
 
-@TypedGoRoute<CommandPaletteRoute>(path: '/commandPalette', routes: [])
+class RouteNames {
+  static const String home = "home";
+  static const String commandPalette = "commandPalette";
+  static const String bibliography = "bibliography";
+  static const String connect = "connect";
+  static const String settings = "settings";
+  static const String dashboard = "dashboard";
+  static const String splash = "splash";
+  static const String bookmarks = "bookmarks";
+}
+
+@TypedGoRoute<CommandPaletteRoute>(
+  path: '/commandPalette',
+  name: RouteNames.commandPalette,
+  routes: [],
+)
 @immutable
 class CommandPaletteRoute extends GoRouteData {
   const CommandPaletteRoute();
@@ -38,12 +53,14 @@ class CommandPaletteRoute extends GoRouteData {
 
 @TypedGoRoute<DashboardRoute>(
   path: '/dashboard',
+  name: RouteNames.dashboard,
   routes: <TypedRoute<RouteData>>[
     // TypedGoRoute<SettingsRoute>(path: 'settings')
   ],
 )
 @immutable
 class DashboardRoute extends GoRouteData {
+  const DashboardRoute();
   @override
   Page<void> buildPage(BuildContext context, GoRouterState state) {
     return NoTransitionPage<Dashboard>(child: Dashboard(key: state.pageKey));
@@ -52,6 +69,7 @@ class DashboardRoute extends GoRouteData {
 
 @TypedGoRoute<SplashScreenRoute>(
   path: '/splash',
+  name: RouteNames.splash,
   routes: <TypedRoute<RouteData>>[
     // TypedGoRoute<SettingsRoute>(path: 'settings')
   ],
@@ -86,6 +104,7 @@ class SettingsRoute extends GoRouteData {
 
 @TypedGoRoute<ConnectRoute>(
   path: '/connect',
+  name: RouteNames.settings,
   // routes: [],
 )
 @immutable
@@ -102,6 +121,7 @@ class ConnectRoute extends GoRouteData {
 
 @TypedGoRoute<BibliographyRoute>(
   path: '/bibliography',
+  name: RouteNames.bibliography,
   // routes: [],
 )
 @immutable
@@ -116,7 +136,11 @@ class BibliographyRoute extends GoRouteData {
   }
 }
 
-@TypedGoRoute<BookmarksRoute>(path: '/bookmarks', routes: [])
+@TypedGoRoute<BookmarksRoute>(
+  path: '/bookmarks',
+  name: RouteNames.bookmarks,
+  routes: [],
+)
 @immutable
 class BookmarksRoute extends GoRouteData {
   const BookmarksRoute();
@@ -131,6 +155,7 @@ class BookmarksRoute extends GoRouteData {
 
 @TypedGoRoute<HomeScreenRoute>(
   path: '/',
+  name: RouteNames.home,
   routes: <TypedRoute<RouteData>>[
     TypedGoRoute<CommandPaletteRoute>(path: "/commandPalette"),
     TypedGoRoute<DashboardRoute>(path: "/dashboard"),
@@ -143,6 +168,7 @@ class BookmarksRoute extends GoRouteData {
 )
 @immutable
 class HomeScreenRoute extends GoRouteData {
+  const HomeScreenRoute();
   @override
   Widget build(BuildContext context, GoRouterState state) {
     // TODO: implement build
