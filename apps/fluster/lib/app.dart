@@ -4,21 +4,24 @@
 
 import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:fluster/core/extension_methods/context_extension.dart';
+import 'package:fluster/core/static/global_keys.dart';
 import 'package:fluster/features/navigation/business/entities/router/router.dart';
 import 'package:fluster/features/scaffold/presentation/widgets/desktop/loading_indicator.dart';
 import 'package:fluster/features/settings/state/settings/settings_state.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 
-class FlusterDesktopApp extends StatelessWidget {
+class FlusterDesktopApp extends HookWidget {
   const FlusterDesktopApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     if (!context.state.settingsState.hasSeeded) {
       SettingsState.readDatabaseAndSeed();
     }
-
     return MaterialApp.router(
       title: "Fluster",
+      scaffoldMessengerKey: desktopScaffoldMessenegerKey,
       theme: FlexThemeData.light(scheme: FlexScheme.flutterDash),
       darkTheme: FlexThemeData.dark(scheme: FlexScheme.flutterDash),
       themeMode: context.state.uiState.themeMode,
@@ -31,7 +34,7 @@ class FlusterDesktopApp extends StatelessWidget {
         data: MediaQuery.of(context).copyWith(
           textScaler: MediaQuery.of(
             context,
-          ).textScaler.clamp(minScaleFactor: 0.6, maxScaleFactor: 0.9),
+          ).textScaler.clamp(minScaleFactor: 0.6, maxScaleFactor: 1),
         ),
         child: context.state.networkState.loading
             ? DesktopLoadingWidgetIndicator()

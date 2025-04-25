@@ -18,7 +18,6 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$CommandPaletteState {
   bool get open => throw _privateConstructorUsedError;
-  String get query => throw _privateConstructorUsedError;
   List<CommandPaletteEntry> get filteredItems =>
       throw _privateConstructorUsedError;
   List<CommandPaletteEntry> get navigationStack =>
@@ -41,7 +40,6 @@ abstract class $CommandPaletteStateCopyWith<$Res> {
   @useResult
   $Res call({
     bool open,
-    String query,
     List<CommandPaletteEntry> filteredItems,
     List<CommandPaletteEntry> navigationStack,
     int selectedIndex,
@@ -64,7 +62,6 @@ class _$CommandPaletteStateCopyWithImpl<$Res, $Val extends CommandPaletteState>
   @override
   $Res call({
     Object? open = null,
-    Object? query = null,
     Object? filteredItems = null,
     Object? navigationStack = null,
     Object? selectedIndex = null,
@@ -76,11 +73,6 @@ class _$CommandPaletteStateCopyWithImpl<$Res, $Val extends CommandPaletteState>
                     ? _value.open
                     : open // ignore: cast_nullable_to_non_nullable
                         as bool,
-            query:
-                null == query
-                    ? _value.query
-                    : query // ignore: cast_nullable_to_non_nullable
-                        as String,
             filteredItems:
                 null == filteredItems
                     ? _value.filteredItems
@@ -113,7 +105,6 @@ abstract class _$$CommandPaletteStateImplCopyWith<$Res>
   @useResult
   $Res call({
     bool open,
-    String query,
     List<CommandPaletteEntry> filteredItems,
     List<CommandPaletteEntry> navigationStack,
     int selectedIndex,
@@ -135,7 +126,6 @@ class __$$CommandPaletteStateImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? open = null,
-    Object? query = null,
     Object? filteredItems = null,
     Object? navigationStack = null,
     Object? selectedIndex = null,
@@ -147,11 +137,6 @@ class __$$CommandPaletteStateImplCopyWithImpl<$Res>
                 ? _value.open
                 : open // ignore: cast_nullable_to_non_nullable
                     as bool,
-        query:
-            null == query
-                ? _value.query
-                : query // ignore: cast_nullable_to_non_nullable
-                    as String,
         filteredItems:
             null == filteredItems
                 ? _value._filteredItems
@@ -177,7 +162,6 @@ class __$$CommandPaletteStateImplCopyWithImpl<$Res>
 class _$CommandPaletteStateImpl extends _CommandPaletteState {
   const _$CommandPaletteStateImpl({
     this.open = true,
-    this.query = "",
     final List<CommandPaletteEntry> filteredItems = const [],
     final List<CommandPaletteEntry> navigationStack = const [],
     this.selectedIndex = 0,
@@ -188,9 +172,6 @@ class _$CommandPaletteStateImpl extends _CommandPaletteState {
   @override
   @JsonKey()
   final bool open;
-  @override
-  @JsonKey()
-  final String query;
   final List<CommandPaletteEntry> _filteredItems;
   @override
   @JsonKey()
@@ -215,7 +196,7 @@ class _$CommandPaletteStateImpl extends _CommandPaletteState {
 
   @override
   String toString() {
-    return 'CommandPaletteState(open: $open, query: $query, filteredItems: $filteredItems, navigationStack: $navigationStack, selectedIndex: $selectedIndex)';
+    return 'CommandPaletteState(open: $open, filteredItems: $filteredItems, navigationStack: $navigationStack, selectedIndex: $selectedIndex)';
   }
 
   @override
@@ -224,7 +205,6 @@ class _$CommandPaletteStateImpl extends _CommandPaletteState {
         (other.runtimeType == runtimeType &&
             other is _$CommandPaletteStateImpl &&
             (identical(other.open, open) || other.open == open) &&
-            (identical(other.query, query) || other.query == query) &&
             const DeepCollectionEquality().equals(
               other._filteredItems,
               _filteredItems,
@@ -241,7 +221,6 @@ class _$CommandPaletteStateImpl extends _CommandPaletteState {
   int get hashCode => Object.hash(
     runtimeType,
     open,
-    query,
     const DeepCollectionEquality().hash(_filteredItems),
     const DeepCollectionEquality().hash(_navigationStack),
     selectedIndex,
@@ -262,7 +241,6 @@ class _$CommandPaletteStateImpl extends _CommandPaletteState {
 abstract class _CommandPaletteState extends CommandPaletteState {
   const factory _CommandPaletteState({
     final bool open,
-    final String query,
     final List<CommandPaletteEntry> filteredItems,
     final List<CommandPaletteEntry> navigationStack,
     final int selectedIndex,
@@ -271,8 +249,6 @@ abstract class _CommandPaletteState extends CommandPaletteState {
 
   @override
   bool get open;
-  @override
-  String get query;
   @override
   List<CommandPaletteEntry> get filteredItems;
   @override

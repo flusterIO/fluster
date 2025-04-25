@@ -23,6 +23,7 @@ class SetCommandPaletteOpenAction extends FlusterAction {
         filteredItems: initialCategory != null
             ? initialCategory!.items
             : <CommandPaletteEntry>[],
+        selectedIndex: open ? state.commandPaletteState.selectedIndex : 0
       ),
     );
   }

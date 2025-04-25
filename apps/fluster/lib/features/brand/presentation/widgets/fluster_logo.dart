@@ -25,7 +25,6 @@ class FlusterWideLogo extends StatelessWidget {
       children: [
         FlusterLogo(
           colored: true,
-          // TODO: Figure out how to pass props without this fucking constant error.
           size: height * 0.8,
         ),
         Container(
@@ -46,7 +45,7 @@ class FlusterWideLogo extends StatelessWidget {
               ),
             ),
             Text(
-              "Be less dum",
+              "Be less dum.",
               style: TextStyle(
                 fontWeight: FontWeight.w300,
                 height: 1,

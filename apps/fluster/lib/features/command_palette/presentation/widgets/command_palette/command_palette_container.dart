@@ -1,5 +1,7 @@
+import 'package:fluster/core/state/store.dart';
 import 'package:fluster/features/command_palette/data/models/command_palette_category.dart';
 import 'package:fluster/features/command_palette/presentation/widgets/command_palette/command_palette.dart';
+import 'package:fluster/features/command_palette/state/actions/set_command_palette_open.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
@@ -7,41 +9,31 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 class CommandPalette extends HookWidget {
   final TextEditingController controller = TextEditingController();
   final List<int> selections = [];
-  final void Function(bool) setIsOpen;
-  final bool isOpen;
   final CommandPaletteCategory initialCategory;
   // final KeyEventResultjV
-  CommandPalette({
-    super.key,
-    required this.setIsOpen,
-    required this.isOpen,
-    required this.initialCategory,
-  });
+  CommandPalette({super.key, required this.initialCategory});
 
   @override
   Widget build(BuildContext context) {
-    final brightness = Theme.brightnessOf(context);
     final hasAnimated = useState(false);
     useEffect(() {
       hasAnimated.value = true;
       return () {};
     }, []);
+
     return GestureDetector(
       onTap: () {
-        setIsOpen(false);
+        globalReduxStore.dispatch(
+          SetCommandPaletteOpenAction(false, initialCategory: null),
+        );
       },
-      child: AnimatedContainer(
-        padding: const EdgeInsets.symmetric(vertical: 64, horizontal: 64),
-        decoration: BoxDecoration(
-          color: hasAnimated.value
-              ? Colors.black.withValues(
-                  alpha: brightness == Brightness.dark ? 0.7 : 0.2,
-                )
-              : Colors.transparent,
+      child: Expanded(
+        child: Container(
+          padding: const EdgeInsets.symmetric(vertical: 64, horizontal: 64),
+          // For some reason the click listener only works with this decoration applied.
+          decoration: BoxDecoration(color: Colors.transparent),
+          child: CommandPaletteWidget(),
         ),
-        duration: const Duration(milliseconds: 3000),
-        curve: Curves.easeOut,
-        child: CommandPaletteWidget(),
       ),
     );
   }

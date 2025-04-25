@@ -12,7 +12,6 @@ class CommandPaletteState with _$CommandPaletteState {
   const CommandPaletteState._();
   const factory CommandPaletteState({
     @Default(true) bool open,
-    @Default("") String query,
     @Default([]) List<CommandPaletteEntry> filteredItems,
     @Default([]) List<CommandPaletteEntry> navigationStack,
     @Default(0) int selectedIndex,

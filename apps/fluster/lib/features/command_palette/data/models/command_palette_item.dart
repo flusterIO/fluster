@@ -9,4 +9,8 @@ abstract class CommandPaletteItem extends CommandPaletteEntry {
     required super.desc,
     required this.action,
   });
+  @override
+    void enter() {
+        action();
+    }
 }

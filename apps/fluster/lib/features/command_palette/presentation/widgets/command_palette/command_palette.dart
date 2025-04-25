@@ -3,6 +3,7 @@ import 'package:fluster/core/extension_methods/context_extension.dart';
 import 'package:fluster/core/models/string_similarity_result.dart';
 import 'package:fluster/core/state/store.dart';
 import 'package:fluster/core/static/constants/static_constants.dart';
+import 'package:fluster/core/static/global_keys.dart';
 import 'package:fluster/features/command_palette/data/models/command_palette_category.dart';
 import 'package:fluster/features/command_palette/data/models/command_palette_entry.dart';
 import 'package:fluster/features/command_palette/presentation/widgets/command_palette/command_palette_no_results.dart';
@@ -18,6 +19,7 @@ import 'package:fluster/features/settings/data/models/setting_page_ids/setting_p
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:go_router/go_router.dart';
 
 class CommandPaletteWidget extends HookWidget {
   KeyEventResult handleKeyPress(
@@ -26,6 +28,7 @@ class CommandPaletteWidget extends HookWidget {
     TextEditingController controller,
     KeymapSettingPageData settingData,
     ValueNotifier<bool> isEmptyInput,
+    void Function() onAccept,
   ) {
     // Reset the isEmptyInput field early if the input is no longer empty.
     if (controller.text != "") {
@@ -45,8 +48,9 @@ class CommandPaletteWidget extends HookWidget {
       return KeyEventResult.ignored;
     }
     // If the input is already empty, then close the command palette or go back.
-    if (isEmptyInput.value && e.logicalKey == LogicalKeyboardKey.backspace) {
+    if (isEmptyInput.value && e.logicalKey == LogicalKeyboardKey.backspace && e.synthesized == false) {
       globalReduxStore.dispatch(CommandPaletteBackAction());
+      desktopScaffoldKey.currentContext?.pop();
       return KeyEventResult.handled;
     }
 
@@ -54,7 +58,7 @@ class CommandPaletteWidget extends HookWidget {
       LogicalKeyboardKey.tab,
       shift: true,
     ).accepts(e, HardwareKeyboard.instance)) {
-      globalReduxStore.dispatch(SetCommandPaletteSelectedIndexAction(1));
+      globalReduxStore.dispatch(SetCommandPaletteSelectedIndexAction(-1));
       return KeyEventResult.handled;
     }
 
@@ -62,13 +66,13 @@ class CommandPaletteWidget extends HookWidget {
       LogicalKeyboardKey.tab,
       shift: false,
     ).accepts(e, HardwareKeyboard.instance)) {
-      globalReduxStore.dispatch(SetCommandPaletteSelectedIndexAction(-1));
+      globalReduxStore.dispatch(SetCommandPaletteSelectedIndexAction(1));
       return KeyEventResult.handled;
     }
 
     if (e.logicalKey == LogicalKeyboardKey.enter) {
       // RESUME: Come back here and implement the search functionality.
-      print(node);
+      onAccept();
       // globalReduxStore.dispatch(CommandPaletteBackAction());
       return KeyEventResult.handled;
     }
@@ -93,6 +97,10 @@ class CommandPaletteWidget extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final navStack = context.state.commandPaletteState.navigationStack;
+    if(navStack.isEmpty) {
+       return Container();
+    }
+    final activeStackItem = navStack[navStack.length - 1];
     final size = MediaQuery.sizeOf(context);
     final focusScope = useFocusScopeNode();
     final isEmptyInput = useState(true);
@@ -116,24 +124,26 @@ class CommandPaletteWidget extends HookWidget {
       context.state.settingsState.settings.pages[SettingPageId.keymap]
           as KeymapSettingPageData,
       isEmptyInput,
+      () => activeStackItem
+          .items[context.state.commandPaletteState.selectedIndex]
+          .enter(),
     );
     final width = min(size.width - 80, 768).toDouble();
     final theme = Theme.of(context);
-    final activeStackItem = navStack[navStack.length - 1];
     return FocusScope(
       node: focusScope,
       autofocus: true,
       descendantsAreFocusable: true,
       child: Center(
-        child: Container(
-          width: width,
-          decoration: BoxDecoration(
-            border: Border.all(width: 1, color: theme.dividerColor),
-            color: theme.cardColor,
-            borderRadius: BorderRadius.all(
-              Radius.circular(borderRadiusBase.toDouble()),
-            ),
-          ),
+        child: Card(
+          // width: width,
+          // decoration: BoxDecoration(
+          //   border: Border.all(width: 1, color: theme.dividerColor),
+          //   color: theme.cardColor,
+          //   borderRadius: BorderRadius.all(
+          //     Radius.circular(borderRadiusBase.toDouble()),
+          //   ),
+          // ),
           child: ConstrainedBox(
             constraints: BoxConstraints(
               minHeight: 96,
