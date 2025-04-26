@@ -10,7 +10,6 @@ crate-type = ["cdylib", "staticlib"]
 chrono = { workspace = true }
 flutter_rust_bridge = { workspace = true }
 gray_matter = { workspace = true }
-mdxjs = "0.3.4"
 serde = { workspace = true, features = ["derive"] }
 surrealdb = { workspace = true, features = [
     "kv-surrealkv",

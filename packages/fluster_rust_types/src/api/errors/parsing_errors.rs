@@ -4,4 +4,7 @@ pub enum ParsingError {
     MdxParsingError(String),
     #[error("Fluster was unable to find a title for the note at `{0}`.")]
     NoTitleError(String),
+
+    #[error("Failed to find the note at `{0}`.")]
+    AttemptedToParseFileWasntFound(String),
 }

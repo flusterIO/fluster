@@ -7,7 +7,6 @@
 package settings
 
 import (
-	database "./database"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	anypb "google.golang.org/protobuf/types/known/anypb"
@@ -184,7 +183,7 @@ var File_proto_settings_proto protoreflect.FileDescriptor
 
 const file_proto_settings_proto_rawDesc = "" +
 	"\n" +
-	"\x14proto/settings.proto\x12\vsettings.v1\x1a\x19google/protobuf/any.proto\x1a\x14proto/database.proto\"q\n" +
+	"\x14proto/settings.proto\x12\vsettings.v1\x1a\x19google/protobuf/any.proto\"q\n" +
 	"\vSettingItem\x12\x14\n" +
 	"\x05label\x18\x01 \x01(\tR\x05label\x12 \n" +
 	"\vdescription\x18\x02 \x01(\tR\vdescription\x12*\n" +
@@ -193,9 +192,8 @@ const file_proto_settings_proto_rawDesc = "" +
 	"\x05label\x18\x01 \x01(\tR\x05label\x12*\n" +
 	"\x05value\x18\x03 \x01(\v2\x14.google.protobuf.AnyR\x05value\"P\n" +
 	"\x17GetUserSettingsResponse\x125\n" +
-	"\bsettings\x18\x01 \x03(\v2\x19.settings.v1.SettingFieldR\bsettings2r\n" +
-	"\x0eSettingService\x12`\n" +
-	"\x0fgetUserSettings\x12'.database.v1.DatabaseCredentialsRequest\x1a$.settings.v1.GetUserSettingsResponseB\fZ\n" +
+	"\bsettings\x18\x01 \x03(\v2\x19.settings.v1.SettingFieldR\bsettings2\x10\n" +
+	"\x0eSettingServiceB\fZ\n" +
 	"./settingsb\x06proto3"
 
 var (
@@ -212,20 +210,17 @@ func file_proto_settings_proto_rawDescGZIP() []byte {
 
 var file_proto_settings_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
 var file_proto_settings_proto_goTypes = []any{
-	(*SettingItem)(nil),                         // 0: settings.v1.SettingItem
-	(*SettingField)(nil),                        // 1: settings.v1.SettingField
-	(*GetUserSettingsResponse)(nil),             // 2: settings.v1.GetUserSettingsResponse
-	(*anypb.Any)(nil),                           // 3: google.protobuf.Any
-	(*database.DatabaseCredentialsRequest)(nil), // 4: database.v1.DatabaseCredentialsRequest
+	(*SettingItem)(nil),             // 0: settings.v1.SettingItem
+	(*SettingField)(nil),            // 1: settings.v1.SettingField
+	(*GetUserSettingsResponse)(nil), // 2: settings.v1.GetUserSettingsResponse
+	(*anypb.Any)(nil),               // 3: google.protobuf.Any
 }
 var file_proto_settings_proto_depIdxs = []int32{
 	3, // 0: settings.v1.SettingItem.value:type_name -> google.protobuf.Any
 	3, // 1: settings.v1.SettingField.value:type_name -> google.protobuf.Any
 	1, // 2: settings.v1.GetUserSettingsResponse.settings:type_name -> settings.v1.SettingField
-	4, // 3: settings.v1.SettingService.getUserSettings:input_type -> database.v1.DatabaseCredentialsRequest
-	2, // 4: settings.v1.SettingService.getUserSettings:output_type -> settings.v1.GetUserSettingsResponse
-	4, // [4:5] is the sub-list for method output_type
-	3, // [3:4] is the sub-list for method input_type
+	3, // [3:3] is the sub-list for method output_type
+	3, // [3:3] is the sub-list for method input_type
 	3, // [3:3] is the sub-list for extension type_name
 	3, // [3:3] is the sub-list for extension extendee
 	0, // [0:3] is the sub-list for field type_name

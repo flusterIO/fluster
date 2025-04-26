@@ -21,6 +21,16 @@ fluster_rust_types = { path = "../../fluster_rust_types/" }
 fluster_db = { path = "../../fluster_db/" }
 regex = "1.11.1"
 strsim = "0.11.1"
+ignore = "0.4.23"
+gray_matter.workspace = true
+rayon = "1.10.0"
+crossbeam = "0.8.4"
+crossbeam-channel = "0.5.15"
+miette = { version = "7.5.0", features = ["fancy"] }
+tokio = { version = "1.44.2", features = ["full"] }
+
+[build-dependencies]
+flutter_rust_bridge_codegen = "2.9.0"
 
 [lints.rust]
 unexpected_cfgs = { level = "warn", check-cfg = ['cfg(frb_expand)'] }

@@ -2,12 +2,11 @@ syntax = "proto3";
 package settings.v1;
 
 import "google/protobuf/any.proto";
-import "proto/database.proto";
 
 option go_package = "./settings";
 
 service SettingService {
-  rpc getUserSettings(database.v1.DatabaseCredentialsRequest) returns (GetUserSettingsResponse);
+  // rpc getUserSettings(database.v1.DatabaseCredentialsRequest) returns (GetUserSettingsResponse);
 }
 
 message SettingItem {

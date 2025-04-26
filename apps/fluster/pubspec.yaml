@@ -17,7 +17,7 @@ publish_to: "none" # Remove this line if you wish to publish to pub.dev
 # of the product and file versions while build-number is used as the build suffix.
 version: 1.0.0+1
 environment:
-  sdk: 3.9.0-32.0.dev
+  sdk: ^3.8.0
   flutter: "3.32.0-1.0.pre.180"
 resolution: workspace
 # Dependencies specify other packages that your package needs in order to work.

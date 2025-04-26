@@ -7,4 +7,11 @@ documentation.workspace = true
 edition.workspace = true
 
 [dependencies]
-thiserror = {workspace = true}
+gray_matter.workspace = true
+ignore = "0.4.23"
+markdown = "1.0.0"
+mdxjs = "1.0.0"
+serde.workspace = true
+thiserror = { workspace = true }
+fluster_test_utils = { path = "../fluster_test_utils/" }
+miette = { version = "7.5.0", features = ["fancy"] }

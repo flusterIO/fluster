@@ -7,7 +7,6 @@ pub static TEMPLATE_DIR: include_dir::Dir =
 #[derive(Debug, Serialize, Deserialize)]
 pub struct MdxTestContent {
     pub title: String,
-    pub created: chrono::DateTime<chrono::prelude::Utc>,
     pub tags: Vec<String>,
 }
 
@@ -35,7 +34,6 @@ impl Default for MdxTestContent {
     fn default() -> Self {
         Self {
             title: get_test_title(),
-            created: get_test_date(),
             tags: get_test_tags(),
         }
     }

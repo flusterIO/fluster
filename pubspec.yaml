@@ -1,7 +1,7 @@
 name: fluster_io
 publish_to: none
 environment:
-  sdk: ^3.7.0
+  sdk: ^3.8.0
 workspace:
   - apps/fluster
   - packages/fluster_native_interface

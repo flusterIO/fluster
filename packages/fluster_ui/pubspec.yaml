@@ -3,8 +3,8 @@ description: "Fluster UI widgets"
 version: 0.0.1
 homepage: ulld.vercel.app
 environment:
-  sdk: ^3.9.0-32.0.dev
-  flutter: ">=1.17.0"
+  sdk: ^3.8.0
+  flutter: "3.32.0-1.0.pre.180"
 dependencies:
   flutter:
     sdk: flutter

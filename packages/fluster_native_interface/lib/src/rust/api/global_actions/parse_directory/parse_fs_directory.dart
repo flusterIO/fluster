@@ -6,7 +6,7 @@
 import '../../../frb_generated.dart';
 import 'package:flutter_rust_bridge/flutter_rust_bridge_for_generated.dart';
 
-Future<void> syncDirectory({required String dirPath}) => RustLib.instance.api
-    .crateApiGlobalActionsParseDirectoryParseDirectorySyncDirectory(
-      dirPath: dirPath,
+Future<void> syncDirectory({required String dirName}) => RustLib.instance.api
+    .crateApiGlobalActionsParseDirectoryParseFsDirectorySyncDirectory(
+      dirName: dirName,
     );
