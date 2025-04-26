@@ -4,6 +4,7 @@
 // ignore_for_file: unused_import, unused_element, unnecessary_import, duplicate_ignore, invalid_use_of_internal_member, annotate_overrides, non_constant_identifier_names, curly_braces_in_flow_control_structures, prefer_const_literals_to_create_immutables, unused_field
 
 import 'api/fs/fs_utils.dart';
+import 'api/global_actions/parse_directory/parse_directory.dart';
 import 'api/search/get_text_similarity.dart';
 import 'dart:async';
 import 'dart:convert';
@@ -63,7 +64,7 @@ class RustLib extends BaseEntrypoint<RustLibApi, RustLibApiImpl, RustLibWire> {
   String get codegenVersion => '2.9.0';
 
   @override
-  int get rustContentHash => -963497066;
+  int get rustContentHash => -1350829662;
 
   static const kDefaultExternalLibraryLoaderConfig =
       ExternalLibraryLoaderConfig(
@@ -80,6 +81,10 @@ abstract class RustLibApi extends BaseApi {
   });
 
   bool crateApiFsFsUtilsPathExists({required String filePath});
+
+  Future<void> crateApiGlobalActionsParseDirectoryParseDirectorySyncDirectory({
+    required String dirPath,
+  });
 }
 
 class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
@@ -143,6 +148,38 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
 
   TaskConstMeta get kCrateApiFsFsUtilsPathExistsConstMeta =>
       const TaskConstMeta(debugName: "path_exists", argNames: ["filePath"]);
+
+  @override
+  Future<void> crateApiGlobalActionsParseDirectoryParseDirectorySyncDirectory({
+    required String dirPath,
+  }) {
+    return handler.executeNormal(
+      NormalTask(
+        callFfi: (port_) {
+          final serializer = SseSerializer(generalizedFrbRustBinding);
+          sse_encode_String(dirPath, serializer);
+          pdeCallFfi(
+            generalizedFrbRustBinding,
+            serializer,
+            funcId: 3,
+            port: port_,
+          );
+        },
+        codec: SseCodec(
+          decodeSuccessData: sse_decode_unit,
+          decodeErrorData: null,
+        ),
+        constMeta:
+            kCrateApiGlobalActionsParseDirectoryParseDirectorySyncDirectoryConstMeta,
+        argValues: [dirPath],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta
+  get kCrateApiGlobalActionsParseDirectoryParseDirectorySyncDirectoryConstMeta =>
+      const TaskConstMeta(debugName: "sync_directory", argNames: ["dirPath"]);
 
   @protected
   String dco_decode_String(dynamic raw) {

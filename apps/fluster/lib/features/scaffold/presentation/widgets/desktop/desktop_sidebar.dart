@@ -44,6 +44,7 @@ class ResponsiveNavigationRail extends StatelessWidget {
               color: active
                   ? theme.textTheme.bodyLarge!.color
                   : theme.textTheme.bodyLarge!.color!.withOpacity(0.85),
+              size: 16,
             ),
           ),
         ),
@@ -66,10 +67,8 @@ class ResponsiveNavigationRail extends StatelessWidget {
           ),
         ),
       ),
-      // width: 64,
-      // height: MediaQuery.sizeOf(context).height,
       child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 0),
+        padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 6),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.center,

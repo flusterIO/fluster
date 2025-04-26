@@ -1,5 +1,4 @@
 import 'package:flex_color_scheme/flex_color_scheme.dart';
-import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:fluster/core/state/nested_state/ui_state/actions/ui_actions.dart';
 import 'package:fluster/core/state/store.dart';
 import 'package:fluster/features/command_palette/data/models/command_palette_category.dart';
@@ -8,6 +7,7 @@ import 'package:fluster/features/command_palette/data/models/command_palette_ent
 import 'package:fluster/features/command_palette/data/models/command_palette_item.dart';
 import 'package:fluster/features/settings/data/enums/formatted_flex_scheme_name.dart';
 import 'package:flutter/widgets.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class ThemeCommandPaletteEntry extends CommandPaletteItem {
   const ThemeCommandPaletteEntry({
@@ -42,7 +42,7 @@ class ThemesNavigationCommandPaletteCategory extends CommandPaletteCategory {
 
   @override
   IconData getIcon() {
-    return FluentIcons.paint_brush_32_filled;
+    return FontAwesomeIcons.palette;
   }
 
   @override

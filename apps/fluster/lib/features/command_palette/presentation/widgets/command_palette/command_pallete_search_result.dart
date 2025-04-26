@@ -23,7 +23,7 @@ class CommandPaletteResult extends StatelessWidget {
       cursor: SystemMouseCursors.click,
       child: GestureDetector(
         onTap: () {
-          item.callAction("Source two");
+          item.callAction();
         },
         child: Container(
           decoration: BoxDecoration(

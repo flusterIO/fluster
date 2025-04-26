@@ -1,8 +1,10 @@
 import 'dart:math';
 import 'package:fluster/core/extension_methods/context_extension.dart';
+import 'package:fluster/core/global_actions/global_action_map.dart';
 import 'package:fluster/core/models/string_similarity_result.dart';
 import 'package:fluster/core/state/store.dart';
 import 'package:fluster/core/static/constants/static_constants.dart';
+import 'package:fluster/core/static/global_keys.dart';
 import 'package:fluster/features/command_palette/data/models/command_palette_category.dart';
 import 'package:fluster/features/command_palette/data/models/command_palette_entry.dart';
 import 'package:fluster/features/command_palette/presentation/widgets/command_palette/command_palette_no_results.dart';
@@ -83,7 +85,7 @@ class CommandPaletteWidget extends HookWidget {
           .state
           .commandPaletteState
           .filteredItems[context.state.commandPaletteState.selectedIndex]
-          .callAction("Source one");
+          .callAction();
       return KeyEventResult.handled;
     }
     return KeyEventResult.ignored;
@@ -153,6 +155,7 @@ class CommandPaletteWidget extends HookWidget {
       primary: false,
       backgroundColor: Colors.transparent,
       extendBody: true,
+      key: commandPaletteGlobalKey,
       body: FocusScope(
         node: focusScope,
         autofocus: true,
@@ -162,79 +165,82 @@ class CommandPaletteWidget extends HookWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Positioned(
-              left: (0.5 * (size.width - width)),
-              // top: 0,
-              child: Padding(
-                padding: const EdgeInsets.all(32.0),
-                child: Container(
-                  decoration: BoxDecoration(
-                    border: Border.all(color: theme.dividerColor, width: 1),
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(borderRadiusBase.toDouble()),
+            TapRegion(
+              onTapOutside: (_) => closeCommandPalette(),
+              child: Positioned(
+                left: (0.5 * (size.width - width)),
+                // top: 0,
+                child: Padding(
+                  padding: const EdgeInsets.all(32.0),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      border: Border.all(color: theme.dividerColor, width: 1),
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(borderRadiusBase.toDouble()),
+                      ),
+                      color: theme.cardColor,
                     ),
-                    color: theme.cardColor,
-                  ),
-                  child: Column(
-                    spacing: 0,
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    mainAxisSize: MainAxisSize.min,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      CommandPaletteTopIndicatorBar(
-                        activeCategory:
-                            navStack[navStack.isNotEmpty
-                                    ? navStack.length - 1
-                                    : 0]
-                                as CommandPaletteCategory,
-                        width: width,
-                      ),
-                      CommandPaletteSearchInput(
-                        controller: editController,
-                        width: width,
-                      ),
-                      activeStackItem.items.isEmpty
-                          ? CommandPaletteNoResults(width: width)
-                          : ConstrainedBox(
-                              constraints: BoxConstraints(
-                                minHeight: 96,
-                                maxHeight: min(
-                                  300,
-                                  MediaQuery.sizeOf(context).height - 200,
+                    child: Column(
+                      spacing: 0,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      mainAxisSize: MainAxisSize.min,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        CommandPaletteTopIndicatorBar(
+                          activeCategory:
+                              navStack[navStack.isNotEmpty
+                                      ? navStack.length - 1
+                                      : 0]
+                                  as CommandPaletteCategory,
+                          width: width,
+                        ),
+                        CommandPaletteSearchInput(
+                          controller: editController,
+                          width: width,
+                        ),
+                        activeStackItem.items.isEmpty
+                            ? CommandPaletteNoResults(width: width)
+                            : ConstrainedBox(
+                                constraints: BoxConstraints(
+                                  minHeight: 96,
+                                  maxHeight: min(
+                                    300,
+                                    MediaQuery.sizeOf(context).height - 200,
+                                  ),
+                                  minWidth: width,
+                                  maxWidth: width,
                                 ),
-                                minWidth: width,
-                                maxWidth: width,
-                              ),
-                              child: ListView.builder(
-                                itemCount: context
-                                    .state
-                                    .commandPaletteState
-                                    .filteredItems
-                                    .length,
-                                shrinkWrap: true,
-                                padding: EdgeInsets.symmetric(
-                                  vertical: 8,
-                                  horizontal: 2,
+                                child: ListView.builder(
+                                  itemCount: context
+                                      .state
+                                      .commandPaletteState
+                                      .filteredItems
+                                      .length,
+                                  shrinkWrap: true,
+                                  padding: EdgeInsets.symmetric(
+                                    vertical: 8,
+                                    horizontal: 2,
+                                  ),
+                                  itemBuilder:
+                                      (BuildContext childContext, int idx) {
+                                        return CommandPaletteResult(
+                                          item: context
+                                              .state
+                                              .commandPaletteState
+                                              .filteredItems[idx],
+                                          idx: idx,
+                                          pseudoFocused:
+                                              idx ==
+                                              context
+                                                  .state
+                                                  .commandPaletteState
+                                                  .selectedIndex,
+                                        );
+                                      },
                                 ),
-                                itemBuilder:
-                                    (BuildContext childContext, int idx) {
-                                      return CommandPaletteResult(
-                                        item: context
-                                            .state
-                                            .commandPaletteState
-                                            .filteredItems[idx],
-                                        idx: idx,
-                                        pseudoFocused:
-                                            idx ==
-                                            context
-                                                .state
-                                                .commandPaletteState
-                                                .selectedIndex,
-                                      );
-                                    },
                               ),
-                            ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
               ),

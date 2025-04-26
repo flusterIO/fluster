@@ -7,6 +7,7 @@
 // ignore_for_file: argument_type_not_assignable
 
 import 'api/fs/fs_utils.dart';
+import 'api/global_actions/parse_directory/parse_directory.dart';
 import 'api/search/get_text_similarity.dart';
 import 'dart:async';
 import 'dart:convert';

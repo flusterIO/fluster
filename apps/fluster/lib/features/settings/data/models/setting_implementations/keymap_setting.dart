@@ -15,7 +15,6 @@ class KeymapSetting extends SettingAbstract<String> {
     required super.inputKey,
     required this.action,
     required this.keymapType,
-    required super.kv,
     super.desc,
   });
 

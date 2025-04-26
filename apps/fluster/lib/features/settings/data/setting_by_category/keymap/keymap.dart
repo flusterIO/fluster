@@ -2,7 +2,6 @@ import 'package:fluster/core/global_actions/global_actions/command_palette_back.
 import 'package:fluster/core/global_actions/global_actions/global_actions.dart';
 import 'package:fluster/core/global_actions/global_actions/select_item_direction.dart';
 import 'package:fluster/core/global_actions/global_actions/toggle_command_palette.dart';
-import 'package:fluster/core/storage/kv/engines/shared_preferences_keyvalue_engine.dart';
 import 'package:fluster/features/panel_left/models/global_actions.dart';
 import 'package:fluster/features/settings/data/models/keymap_setting_page_data.dart';
 import 'package:fluster/features/settings/data/models/setting_implementations/keymap_setting.dart';
@@ -13,7 +12,6 @@ import 'package:fluster/features/settings/data/models/setting_page_ids/setting_p
 
 // TEST: Add test to ensure that all keys match the settingUniqueKey field, as that can't be statically typed.
 KeymapSettingPageData<KeymapSetting> getKeymapSettings() {
-  final kv = SharedPreferencesEngine();
   return KeymapSettingPageData<KeymapSetting>(
     label: "Keymap",
     desc: "View or modify your keyboard shortcuts.",
@@ -29,7 +27,6 @@ KeymapSettingPageData<KeymapSetting> getKeymapSettings() {
             inputKey: SettingPageInputId.keymapEntry,
             value: null,
             defaultValue: "",
-            kv: kv,
           ),
           SettingUniqueKey.keymapTogglePanelRight: KeymapSetting(
             keymapType: KeymapEntryType.global,
@@ -39,7 +36,6 @@ KeymapSettingPageData<KeymapSetting> getKeymapSettings() {
             inputKey: SettingPageInputId.keymapEntry,
             value: null,
             defaultValue: "",
-            kv: kv,
           ),
           SettingUniqueKey.keymapOpenCommandPalette: KeymapSetting(
             keymapType: KeymapEntryType.global,
@@ -49,7 +45,6 @@ KeymapSettingPageData<KeymapSetting> getKeymapSettings() {
             inputKey: SettingPageInputId.keymapEntry,
             value: null,
             defaultValue: "",
-            kv: kv,
           ),
           SettingUniqueKey.keymapCommandPaletteBack: KeymapSetting(
             keymapType: KeymapEntryType.commandPaletteInput,
@@ -59,7 +54,6 @@ KeymapSettingPageData<KeymapSetting> getKeymapSettings() {
             inputKey: SettingPageInputId.keymapEntry,
             value: null,
             defaultValue: "",
-            kv: kv,
           ),
         },
       ),
@@ -74,7 +68,6 @@ KeymapSettingPageData<KeymapSetting> getKeymapSettings() {
             inputKey: SettingPageInputId.keymapEntry,
             value: null,
             defaultValue: "",
-            kv: kv,
           ),
 
           SettingUniqueKey.keymapFocusItemDown: KeymapSetting(
@@ -85,7 +78,6 @@ KeymapSettingPageData<KeymapSetting> getKeymapSettings() {
             inputKey: SettingPageInputId.keymapEntry,
             value: null,
             defaultValue: "",
-            kv: kv,
           ),
           SettingUniqueKey.keymapFocusItemRight: KeymapSetting(
             keymapType: KeymapEntryType.commandPaletteInput,
@@ -95,7 +87,6 @@ KeymapSettingPageData<KeymapSetting> getKeymapSettings() {
             inputKey: SettingPageInputId.keymapEntry,
             value: null,
             defaultValue: "",
-            kv: kv,
           ),
           SettingUniqueKey.keymapFocusItemLeft: KeymapSetting(
             keymapType: KeymapEntryType.commandPaletteInput,
@@ -105,7 +96,6 @@ KeymapSettingPageData<KeymapSetting> getKeymapSettings() {
             inputKey: SettingPageInputId.keymapEntry,
             value: null,
             defaultValue: "",
-            kv: kv,
           ),
         },
       ),

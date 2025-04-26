@@ -5,6 +5,7 @@ import 'package:fluster/features/command_palette/data/models/command_palette_cat
 import 'package:fluster/features/command_palette/data/models/command_palette_entry.dart';
 import 'package:fluster/features/navigation/business/entities/router/routes.dart';
 import 'package:flutter/widgets.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class NavigationCommandPaletteCategory extends CommandPaletteCategory {
   NavigationCommandPaletteCategory()
@@ -60,7 +61,7 @@ class NavigationCommandPaletteCategory extends CommandPaletteCategory {
 
   @override
   IconData getIcon() {
-    return FluentIcons.directions_48_filled;
+    return FontAwesomeIcons.road;
   }
 
   @override

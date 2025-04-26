@@ -1,2 +1,2 @@
 
-enum CommandPaletteView { List, SideBySideMdx }
+enum CommandPaletteLayout { list, sideBySideMdx }

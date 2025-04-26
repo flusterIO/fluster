@@ -1,15 +1,9 @@
-import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:fluster/core/state/store.dart';
 import 'package:fluster/features/navigation/business/entities/navigation_item_id.dart';
-import 'package:fluster/features/navigation/business/entities/router/routes.dart';
-import 'package:fluster/features/navigation/presentation/state/actions/navigation_actions.dart';
+import 'package:fluster/features/navigation/state/actions/navigation_actions.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-// import 'package:ulld_native/src/routes/routes.dart';
-// import 'package:ulld_native/src/state/methods/sync.dart';
-// import 'package:ulld_native/src/state/providers/database/database_utils.dart';
-// import 'package:ulld_native/src/widgets/scaffolds/scaffoldWidgets/sideMenu/responsiveRail/menu_model.dart';
-// import 'package:ulld_native/static/enums/side_menu_item_id.dart';
 class NavigationItem {
   const NavigationItem({
     required this.icon,
@@ -30,19 +24,17 @@ class SideMenuState {
   final List<NavigationItem> menu = <NavigationItem>[
     NavigationItem(
       id: NavigationItemId.home,
-      icon: FluentIcons.home_32_regular,
+      icon: FontAwesomeIcons.house,
       title: 'Home',
       navigate: (BuildContext context) {
-        DashboardRoute().go(context);
         globalReduxStore.dispatch(SetNavigationIdAction(NavigationItemId.home));
       },
     ),
     NavigationItem(
       id: NavigationItemId.connect,
-      icon: FluentIcons.connected_32_regular,
+      icon: FontAwesomeIcons.networkWired,
       title: 'Connect',
       navigate: (BuildContext context) {
-        ConnectRoute().go(context);
         globalReduxStore.dispatch(
           SetNavigationIdAction(NavigationItemId.connect),
         );
@@ -50,10 +42,9 @@ class SideMenuState {
     ),
     NavigationItem(
       id: NavigationItemId.bookmarks,
-      icon: FluentIcons.bookmark_32_regular,
+      icon: FontAwesomeIcons.bookOpen,
       title: 'Bookmarks',
       navigate: (BuildContext context) {
-        BookmarksRoute().go(context);
         globalReduxStore.dispatch(
           SetNavigationIdAction(NavigationItemId.bookmarks),
         );
@@ -61,10 +52,9 @@ class SideMenuState {
     ),
     NavigationItem(
       id: NavigationItemId.bibliography,
-      icon: FluentIcons.book_template_20_regular,
+      icon: FontAwesomeIcons.school,
       title: 'Bibliography',
       navigate: (BuildContext context) {
-        BibliographyRoute().go(context);
         globalReduxStore.dispatch(
           SetNavigationIdAction(NavigationItemId.bibliography),
         );
@@ -74,7 +64,7 @@ class SideMenuState {
 
   final List<NavigationItem> bottomSideMenuItems = <NavigationItem>[
     NavigationItem(
-      icon: FluentIcons.database_lightning_20_regular,
+      icon: FontAwesomeIcons.microchip,
       title: 'Sync',
       navigate: (BuildContext context) async {
         // await syncDirectory(ref);
@@ -82,10 +72,9 @@ class SideMenuState {
     ),
     NavigationItem(
       id: NavigationItemId.settings,
-      icon: FluentIcons.settings_32_regular,
+      icon: FontAwesomeIcons.gears,
       title: 'Settings',
       navigate: (BuildContext context) {
-        SettingsRoute().go(context);
         globalReduxStore.dispatch(
           SetNavigationIdAction(NavigationItemId.settings),
         );

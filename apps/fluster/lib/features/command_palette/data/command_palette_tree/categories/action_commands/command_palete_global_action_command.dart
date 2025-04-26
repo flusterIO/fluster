@@ -1,0 +1,25 @@
+import 'dart:async';
+
+import 'package:fluster/core/global_actions/global_action_ids.dart';
+import 'package:fluster/core/global_actions/global_action_map.dart';
+import 'package:fluster/core/state/global_state.dart';
+import 'package:fluster/core/types/state_types.dart';
+import 'package:fluster/features/command_palette/data/models/command_palette_entry.dart';
+
+class CommandPaletteGlobalActionCommand extends CommandPaletteEntry {
+  final GlobalActionId actionId;
+  const CommandPaletteGlobalActionCommand({
+    required super.label,
+    required super.category,
+    required super.items,
+    required super.desc,
+    required this.actionId,
+  });
+  @override
+  void callAction() async {
+    final f = globalActionMap[actionId];
+    if (f != null) {
+      await f();
+    }
+  }
+}

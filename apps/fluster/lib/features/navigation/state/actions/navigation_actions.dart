@@ -1,4 +1,3 @@
-
 import 'package:fluster/core/state/global_state.dart';
 import 'package:fluster/core/types/state_types.dart';
 import 'package:fluster/features/navigation/business/entities/navigation_item_id.dart';
@@ -11,11 +10,10 @@ class SetSettingsPageAction extends FlusterAction {
   @override
   GlobalAppState reduce() {
     return state.copyWith(
-      navigationState: state.navigationState.copyWith(settingPageId: id)
+      navigationState: state.navigationState.copyWith(settingPageId: id),
     );
   }
 }
-
 
 class SetNavigationIdAction extends FlusterAction {
   final NavigationItemId id;
@@ -24,7 +22,7 @@ class SetNavigationIdAction extends FlusterAction {
   @override
   GlobalAppState reduce() {
     return state.copyWith(
-            navigationState: state.navigationState.copyWith(navigationId: id)
+      navigationState: state.navigationState.copyWith(navigationId: id),
     );
   }
 }

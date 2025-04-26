@@ -1,8 +1,8 @@
-import 'package:fluster/core/storage/kv/engines/shared_preferences_keyvalue_engine.dart';
 import 'package:fluster/features/settings/data/models/setting_page_ids/setting_page_ids.dart';
 import 'package:fluster/features/settings/data/models/setting_pages.dart';
 import 'package:fluster/features/settings/data/models/setting_section.dart';
 import 'package:fluster/features/settings/data/setting_by_category/keymap/keymap.dart';
+import 'package:fluster/features/settings/data/setting_by_category/syncing/syncing_settings.dart';
 import 'package:fluster/features/settings/data/setting_sections/general/general_settings.dart';
 
 class Settings {
@@ -11,7 +11,6 @@ class Settings {
   const Settings({required this.pages});
 
   static Settings initialSettings() {
-    final kv = SharedPreferencesEngine();
     return Settings(
       pages: {
         SettingPageId.general: SettingPageData(
@@ -22,7 +21,7 @@ class Settings {
             SettingSections.general: SettingSection(
               label: "General Purpose Settings",
               subtitle: "Some test subtitle",
-              items: getGeneralSettings(kv),
+              items: getGeneralSettings(),
             ),
           },
         ),
@@ -46,6 +45,7 @@ class Settings {
               "Settings related to the nested web interface. Only modify these if you know what you're doing.",
           sections: {},
         ),
+        SettingPageId.syncingAndDatabase: getSyncynAndSettingPageData(),
       },
     );
   }

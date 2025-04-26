@@ -7,7 +7,6 @@ class StringSetting extends SettingAbstract<String> {
     required super.label,
     required super.settingUniqueKey,
     required super.inputKey,
-    required super.kv,
     super.desc,
   });
 

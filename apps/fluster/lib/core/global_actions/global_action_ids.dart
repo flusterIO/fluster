@@ -7,4 +7,5 @@ enum GlobalActionId {
   selectItemLeft,
   selectItemUp,
   selectItemDown,
+syncDirectoryWithDatabase
 }

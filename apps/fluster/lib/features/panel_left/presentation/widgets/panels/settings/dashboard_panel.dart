@@ -1,6 +1,6 @@
 import 'package:fluster/core/extension_methods/context_extension.dart';
 import 'package:fluster/core/state/store.dart';
-import 'package:fluster/features/navigation/presentation/state/actions/navigation_actions.dart';
+import 'package:fluster/features/navigation/state/actions/navigation_actions.dart';
 import 'package:flutter/material.dart';
 
 class SettingsSideMenuPanel extends StatelessWidget {
@@ -8,8 +8,7 @@ class SettingsSideMenuPanel extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final pages =
-        context.state.settingsState.settings.pages.values.toList();
+    final pages = context.state.settingsState.settings.pages.values.toList();
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -30,9 +29,9 @@ class SettingsSideMenuPanel extends StatelessWidget {
                   border: Border.all(
                     color:
                         context.state.navigationState.settingPageId ==
-                                pages[idx].id
-                            ? theme.primaryColor
-                            : Colors.transparent,
+                            pages[idx].id
+                        ? theme.primaryColor
+                        : Colors.transparent,
                   ),
                   borderRadius: BorderRadius.all(Radius.circular(8)),
                 ),

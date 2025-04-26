@@ -23,6 +23,7 @@ mixin _$NavigationState {
   /// This navigation key describes the outtermost navigator.
   NavigationItemId get navigationId => throw _privateConstructorUsedError;
   FocusIndices get focusIndices => throw _privateConstructorUsedError;
+  NavigationItemId get mainPaneId => throw _privateConstructorUsedError;
 
   /// Create a copy of NavigationState
   /// with the given fields replaced by the non-null parameter values.
@@ -42,6 +43,7 @@ abstract class $NavigationStateCopyWith<$Res> {
     SettingPageId settingPageId,
     NavigationItemId navigationId,
     FocusIndices focusIndices,
+    NavigationItemId mainPaneId,
   });
 }
 
@@ -63,6 +65,7 @@ class _$NavigationStateCopyWithImpl<$Res, $Val extends NavigationState>
     Object? settingPageId = null,
     Object? navigationId = null,
     Object? focusIndices = null,
+    Object? mainPaneId = null,
   }) {
     return _then(
       _value.copyWith(
@@ -81,6 +84,11 @@ class _$NavigationStateCopyWithImpl<$Res, $Val extends NavigationState>
                     ? _value.focusIndices
                     : focusIndices // ignore: cast_nullable_to_non_nullable
                         as FocusIndices,
+            mainPaneId:
+                null == mainPaneId
+                    ? _value.mainPaneId
+                    : mainPaneId // ignore: cast_nullable_to_non_nullable
+                        as NavigationItemId,
           )
           as $Val,
     );
@@ -100,6 +108,7 @@ abstract class _$$NavigationStateImplCopyWith<$Res>
     SettingPageId settingPageId,
     NavigationItemId navigationId,
     FocusIndices focusIndices,
+    NavigationItemId mainPaneId,
   });
 }
 
@@ -120,6 +129,7 @@ class __$$NavigationStateImplCopyWithImpl<$Res>
     Object? settingPageId = null,
     Object? navigationId = null,
     Object? focusIndices = null,
+    Object? mainPaneId = null,
   }) {
     return _then(
       _$NavigationStateImpl(
@@ -138,6 +148,11 @@ class __$$NavigationStateImplCopyWithImpl<$Res>
                 ? _value.focusIndices
                 : focusIndices // ignore: cast_nullable_to_non_nullable
                     as FocusIndices,
+        mainPaneId:
+            null == mainPaneId
+                ? _value.mainPaneId
+                : mainPaneId // ignore: cast_nullable_to_non_nullable
+                    as NavigationItemId,
       ),
     );
   }
@@ -150,6 +165,7 @@ class _$NavigationStateImpl extends _NavigationState {
     required this.settingPageId,
     required this.navigationId,
     required this.focusIndices,
+    required this.mainPaneId,
   }) : super._();
 
   /// This key is used to navigate within the settings page.
@@ -161,10 +177,12 @@ class _$NavigationStateImpl extends _NavigationState {
   final NavigationItemId navigationId;
   @override
   final FocusIndices focusIndices;
+  @override
+  final NavigationItemId mainPaneId;
 
   @override
   String toString() {
-    return 'NavigationState(settingPageId: $settingPageId, navigationId: $navigationId, focusIndices: $focusIndices)';
+    return 'NavigationState(settingPageId: $settingPageId, navigationId: $navigationId, focusIndices: $focusIndices, mainPaneId: $mainPaneId)';
   }
 
   @override
@@ -177,12 +195,19 @@ class _$NavigationStateImpl extends _NavigationState {
             (identical(other.navigationId, navigationId) ||
                 other.navigationId == navigationId) &&
             (identical(other.focusIndices, focusIndices) ||
-                other.focusIndices == focusIndices));
+                other.focusIndices == focusIndices) &&
+            (identical(other.mainPaneId, mainPaneId) ||
+                other.mainPaneId == mainPaneId));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, settingPageId, navigationId, focusIndices);
+  int get hashCode => Object.hash(
+    runtimeType,
+    settingPageId,
+    navigationId,
+    focusIndices,
+    mainPaneId,
+  );
 
   /// Create a copy of NavigationState
   /// with the given fields replaced by the non-null parameter values.
@@ -201,6 +226,7 @@ abstract class _NavigationState extends NavigationState {
     required final SettingPageId settingPageId,
     required final NavigationItemId navigationId,
     required final FocusIndices focusIndices,
+    required final NavigationItemId mainPaneId,
   }) = _$NavigationStateImpl;
   const _NavigationState._() : super._();
 
@@ -213,6 +239,8 @@ abstract class _NavigationState extends NavigationState {
   NavigationItemId get navigationId;
   @override
   FocusIndices get focusIndices;
+  @override
+  NavigationItemId get mainPaneId;
 
   /// Create a copy of NavigationState
   /// with the given fields replaced by the non-null parameter values.

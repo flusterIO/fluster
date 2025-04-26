@@ -55,7 +55,6 @@ abstract class $GlobalAppStateCopyWith<$Res> {
   $NetworkStateCopyWith<$Res> get networkState;
   $GlobalErrorStateCopyWith<$Res> get errorState;
   $GlobalUIStateCopyWith<$Res> get uiState;
-  $NavigationStateCopyWith<$Res> get navigationState;
   $GlobalNotificationStateCopyWith<$Res> get notificationState;
   $CommandPaletteStateCopyWith<$Res> get commandPaletteState;
 }
@@ -79,7 +78,7 @@ class _$GlobalAppStateCopyWithImpl<$Res, $Val extends GlobalAppState>
     Object? networkState = null,
     Object? errorState = null,
     Object? uiState = null,
-    Object? navigationState = null,
+    Object? navigationState = freezed,
     Object? notificationState = null,
     Object? commandPaletteState = null,
   }) {
@@ -106,7 +105,7 @@ class _$GlobalAppStateCopyWithImpl<$Res, $Val extends GlobalAppState>
                     : uiState // ignore: cast_nullable_to_non_nullable
                         as GlobalUIState,
             navigationState:
-                null == navigationState
+                freezed == navigationState
                     ? _value.navigationState
                     : navigationState // ignore: cast_nullable_to_non_nullable
                         as NavigationState,
@@ -169,16 +168,6 @@ class _$GlobalAppStateCopyWithImpl<$Res, $Val extends GlobalAppState>
   /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
-  $NavigationStateCopyWith<$Res> get navigationState {
-    return $NavigationStateCopyWith<$Res>(_value.navigationState, (value) {
-      return _then(_value.copyWith(navigationState: value) as $Val);
-    });
-  }
-
-  /// Create a copy of GlobalAppState
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @pragma('vm:prefer-inline')
   $GlobalNotificationStateCopyWith<$Res> get notificationState {
     return $GlobalNotificationStateCopyWith<$Res>(_value.notificationState, (
       value,
@@ -228,8 +217,6 @@ abstract class _$$GlobalAppStateImplCopyWith<$Res>
   @override
   $GlobalUIStateCopyWith<$Res> get uiState;
   @override
-  $NavigationStateCopyWith<$Res> get navigationState;
-  @override
   $GlobalNotificationStateCopyWith<$Res> get notificationState;
   @override
   $CommandPaletteStateCopyWith<$Res> get commandPaletteState;
@@ -253,7 +240,7 @@ class __$$GlobalAppStateImplCopyWithImpl<$Res>
     Object? networkState = null,
     Object? errorState = null,
     Object? uiState = null,
-    Object? navigationState = null,
+    Object? navigationState = freezed,
     Object? notificationState = null,
     Object? commandPaletteState = null,
   }) {
@@ -280,7 +267,7 @@ class __$$GlobalAppStateImplCopyWithImpl<$Res>
                 : uiState // ignore: cast_nullable_to_non_nullable
                     as GlobalUIState,
         navigationState:
-            null == navigationState
+            freezed == navigationState
                 ? _value.navigationState
                 : navigationState // ignore: cast_nullable_to_non_nullable
                     as NavigationState,
@@ -344,8 +331,10 @@ class _$GlobalAppStateImpl implements _GlobalAppState {
             (identical(other.errorState, errorState) ||
                 other.errorState == errorState) &&
             (identical(other.uiState, uiState) || other.uiState == uiState) &&
-            (identical(other.navigationState, navigationState) ||
-                other.navigationState == navigationState) &&
+            const DeepCollectionEquality().equals(
+              other.navigationState,
+              navigationState,
+            ) &&
             (identical(other.notificationState, notificationState) ||
                 other.notificationState == notificationState) &&
             (identical(other.commandPaletteState, commandPaletteState) ||
@@ -359,7 +348,7 @@ class _$GlobalAppStateImpl implements _GlobalAppState {
     networkState,
     errorState,
     uiState,
-    navigationState,
+    const DeepCollectionEquality().hash(navigationState),
     notificationState,
     commandPaletteState,
   );

@@ -27,6 +27,11 @@ class SettingPageInput extends StatelessWidget {
           formKey: formKey,
           setting: item as StringSetting,
         );
+      case SettingPageInputId.systemWidePath:
+        return PathPickerInput(
+          formKey: formKey,
+          setting: item as StringSetting,
+        );
     }
   }
 }

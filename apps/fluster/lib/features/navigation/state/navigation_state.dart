@@ -15,13 +15,15 @@ class NavigationState with _$NavigationState {
     /// This navigation key describes the outtermost navigator.
     required NavigationItemId navigationId,
     required FocusIndices focusIndices,
+    required NavigationItemId mainPaneId,
     // required FocusIndices layoutDimensions,
- }) = _NavigationState;
+  }) = _NavigationState;
 
   static NavigationState initialState() => NavigationState(
     settingPageId: SettingPageId.general,
     navigationId: NavigationItemId.home,
     focusIndices: FocusIndices(vertical: 0, horizontal: 1),
+    mainPaneId: NavigationItemId.home,
   );
 
   NavigationState withSettingsPageReset() => NavigationState.initialState();

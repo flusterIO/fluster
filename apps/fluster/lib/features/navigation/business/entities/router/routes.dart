@@ -38,34 +38,24 @@ class CommandPaletteRoute extends GoRouteData {
     return NoTransitionPage<CommandPalette>(
       child: CommandPaletteWidget(key: state.pageKey),
     );
-    return NoTransitionPage<CommandPalette>(
-      child: CommandPalette(
-        key: state.pageKey,
-        initialCategory: CommandPaletteRoot(),
-      ),
-    );
-  }
-
-  // @override
-  // Page<void> build(BuildContext context, GoRouterState state) {
-  // }
-}
-
-@TypedGoRoute<DashboardRoute>(
-  path: '/dashboard',
-  name: RouteNames.dashboard,
-  routes: <TypedRoute<RouteData>>[
-    // TypedGoRoute<SettingsRoute>(path: 'settings')
-  ],
-)
-@immutable
-class DashboardRoute extends GoRouteData {
-  const DashboardRoute();
-  @override
-  Page<void> buildPage(BuildContext context, GoRouterState state) {
-    return NoTransitionPage<Dashboard>(child: Dashboard(key: state.pageKey));
   }
 }
+
+// @TypedGoRoute<DashboardRoute>(
+//   path: '/dashboard',
+//   name: RouteNames.dashboard,
+//   routes: <TypedRoute<RouteData>>[
+//     // TypedGoRoute<SettingsRoute>(path: 'settings')
+//   ],
+// )
+// @immutable
+// class DashboardRoute extends GoRouteData {
+//   const DashboardRoute();
+//   @override
+//   Page<void> buildPage(BuildContext context, GoRouterState state) {
+//     return NoTransitionPage<Dashboard>(child: Dashboard(key: state.pageKey));
+//   }
+// }
 
 @TypedGoRoute<SplashScreenRoute>(
   path: '/splash',
@@ -86,84 +76,84 @@ class SplashScreenRoute extends GoRouteData {
   }
 }
 
-@TypedGoRoute<SettingsRoute>(
-  path: '/settings',
-  // routes: [],
-)
-@immutable
-class SettingsRoute extends GoRouteData {
-  const SettingsRoute();
+// @TypedGoRoute<SettingsRoute>(
+//   path: '/settings',
+//   // routes: [],
+// )
+// @immutable
+// class SettingsRoute extends GoRouteData {
+//   const SettingsRoute();
 
-  @override
-  Page<void> buildPage(BuildContext context, GoRouterState state) {
-    return NoTransitionPage<SettingsScreen>(
-      child: SettingsScreen(key: state.pageKey),
-    );
-  }
-}
+//   @override
+//   Page<void> buildPage(BuildContext context, GoRouterState state) {
+//     return NoTransitionPage<SettingsScreen>(
+//       child: SettingsScreen(key: state.pageKey),
+//     );
+//   }
+// }
 
-@TypedGoRoute<ConnectRoute>(
-  path: '/connect',
-  name: RouteNames.settings,
-  // routes: [],
-)
-@immutable
-class ConnectRoute extends GoRouteData {
-  const ConnectRoute();
+// @TypedGoRoute<ConnectRoute>(
+//   path: '/connect',
+//   name: RouteNames.settings,
+//   // routes: [],
+// )
+// @immutable
+// class ConnectRoute extends GoRouteData {
+//   const ConnectRoute();
 
-  @override
-  Page<void> buildPage(BuildContext context, GoRouterState state) {
-    return NoTransitionPage<ConnectScreen>(
-      child: ConnectScreen(key: state.pageKey),
-    );
-  }
-}
+//   @override
+//   Page<void> buildPage(BuildContext context, GoRouterState state) {
+//     return NoTransitionPage<ConnectScreen>(
+//       child: ConnectScreen(key: state.pageKey),
+//     );
+//   }
+// }
 
-@TypedGoRoute<BibliographyRoute>(
-  path: '/bibliography',
-  name: RouteNames.bibliography,
-  // routes: [],
-)
-@immutable
-class BibliographyRoute extends GoRouteData {
-  const BibliographyRoute();
+// @TypedGoRoute<BibliographyRoute>(
+//   path: '/bibliography',
+//   name: RouteNames.bibliography,
+//   // routes: [],
+// )
+// @immutable
+// class BibliographyRoute extends GoRouteData {
+//   const BibliographyRoute();
 
-  @override
-  Page<void> buildPage(BuildContext context, GoRouterState state) {
-    return NoTransitionPage<BibliographyScreen>(
-      child: BibliographyScreen(key: state.pageKey),
-    );
-  }
-}
+//   @override
+//   Page<void> buildPage(BuildContext context, GoRouterState state) {
+//     return NoTransitionPage<BibliographyScreen>(
+//       child: BibliographyScreen(key: state.pageKey),
+//     );
+//   }
+// }
 
-@TypedGoRoute<BookmarksRoute>(
-  path: '/bookmarks',
-  name: RouteNames.bookmarks,
-  routes: [],
-)
-@immutable
-class BookmarksRoute extends GoRouteData {
-  const BookmarksRoute();
+// @TypedGoRoute<BookmarksRoute>(
+//   path: '/bookmarks',
+//   name: RouteNames.bookmarks,
+//   routes: [],
+// )
+// @immutable
+// class BookmarksRoute extends GoRouteData {
+//   const BookmarksRoute();
 
-  @override
-  Page<void> buildPage(BuildContext context, GoRouterState state) {
-    return NoTransitionPage<BookmarksScreen>(
-      child: BookmarksScreen(key: state.pageKey),
-    );
-  }
-}
+//   @override
+//   Page<void> buildPage(BuildContext context, GoRouterState state) {
+//     return NoTransitionPage<BookmarksScreen>(
+//       child: BookmarksScreen(key: state.pageKey),
+//     );
+//   }
+// }
 
 @TypedGoRoute<HomeScreenRoute>(
   path: '/',
   name: RouteNames.home,
   routes: <TypedRoute<RouteData>>[
     TypedGoRoute<CommandPaletteRoute>(path: "/commandPalette"),
-    TypedGoRoute<DashboardRoute>(path: "/dashboard"),
     TypedGoRoute<SplashScreenRoute>(path: "/splash"),
-    TypedGoRoute<SettingsRoute>(path: "/settings"),
-    TypedGoRoute<ConnectRoute>(path: "/connect"),
-    TypedGoRoute<BibliographyRoute>(path: "/bibliography"),
-    TypedGoRoute<BookmarksRoute>(path: "/bookmarks"),
+    // TypedGoRoute<DashboardRoute>(path: "/dashboard"),
+    // TypedGoRoute<SettingsRoute>(path: "/settings"),
+    // TypedGoRoute<ConnectRoute>(path: "/connect"),
+    // TypedGoRoute<BibliographyRoute>(path: "/bibliography"),
+    // TypedGoRoute<BookmarksRoute>(path: "/bookmarks"),
   ],
 )
 @immutable

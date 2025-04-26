@@ -15,8 +15,7 @@ class GoRouteCommandPaletteOption extends CommandPaletteEntry {
   });
 
   @override
-  void callAction(String src) {
-        print("Src: $src");
+  void callAction() {
     // TEMP: Try the nested router...
     appShellNavigatorKey.currentContext?.pushNamed(routeName);
     globalReduxStore.dispatch(SetCommandPaletteOpenAction(false, initialCategory: null));

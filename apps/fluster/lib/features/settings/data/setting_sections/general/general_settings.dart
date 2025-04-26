@@ -5,7 +5,7 @@ import 'package:fluster/features/settings/data/models/setting_keys.dart';
 import 'package:fluster/features/settings/data/models/setting_page_input_id.dart';
 import 'package:flutter/material.dart';
 
-Map<SettingUniqueKey, SettingAbstract> getGeneralSettings(KeyValueStorageEngine engine) {
+Map<SettingUniqueKey, SettingAbstract> getGeneralSettings() {
   return <SettingUniqueKey, SettingAbstract>{
     SettingUniqueKey.darkmode: StringSetting(
       value: null,
@@ -13,7 +13,6 @@ Map<SettingUniqueKey, SettingAbstract> getGeneralSettings(KeyValueStorageEngine 
       label: "Dark Mode",
       settingUniqueKey: SettingUniqueKey.darkmode,
       inputKey: SettingPageInputId.darkmode,
-      kv: engine,
     ),
     SettingUniqueKey.bibpath: StringSetting(
       value: null,
@@ -21,7 +20,6 @@ Map<SettingUniqueKey, SettingAbstract> getGeneralSettings(KeyValueStorageEngine 
       label: "Path to .bib file",
       settingUniqueKey: SettingUniqueKey.bibpath,
       inputKey: SettingPageInputId.rootRelativeFilePath,
-      kv: engine,
     ),
-};
+  };
 }

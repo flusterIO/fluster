@@ -1,4 +1,3 @@
-import 'package:fluster/core/storage/kv/engines/key_value_storage_engine.dart';
 import 'package:fluster/features/settings/data/models/setting_keys.dart';
 import 'package:fluster/features/settings/data/models/setting_page_input_id.dart';
 
@@ -9,7 +8,6 @@ abstract class SettingAbstract<T> {
   final String? desc;
   final SettingUniqueKey settingUniqueKey;
   final SettingPageInputId inputKey;
-  final KeyValueStorageEngine kv;
   const SettingAbstract({
     required this.value,
     required this.defaultValue,
@@ -17,7 +15,6 @@ abstract class SettingAbstract<T> {
     required this.settingUniqueKey,
     required this.inputKey,
     required this.desc,
-    required this.kv,
   });
 
   String getFormattedId() {

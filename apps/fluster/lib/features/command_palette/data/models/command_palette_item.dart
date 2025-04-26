@@ -12,8 +12,7 @@ abstract class CommandPaletteItem extends CommandPaletteEntry {
 
 
   @override
-    void callAction(String source) {
-        print("Source in item ${source}");
+    void callAction() {
         action();
     }
 }
