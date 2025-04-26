@@ -63,7 +63,7 @@ final globalActionMap = <GlobalActionId, FutureOr<void> Function()>{
     // if(finalValue){
     // // TEMP: Show a dialog here that the directory can't sync until the user sets their directory path.
     // }
-    // native.syncDirectory(dirPath: );
+    print("Syncing directory");
     native.syncDirectory(dirName: finalValue);
   },
 };

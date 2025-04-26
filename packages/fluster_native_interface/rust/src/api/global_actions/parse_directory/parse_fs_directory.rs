@@ -26,16 +26,20 @@ pub async fn sync_directory(dir_name: String) {
                 WalkState::Continue
             })
         });
+
     drop(sender);
 
     let mut sql_string = "";
-    for note in receiver {
-        if (note.is_ok()) {
-            println!("Note is ok: {:?}", note.unwrap().file_path);
-        } else {
-            println!("Are any of us really Ok?: {:?}", note.unwrap().file_path);
-        }
+    if let Ok(note) = receiver.recv() {
+        println!("Note is ok: {:?}", note.unwrap().file_path);
     }
+    // for note in receiver {
+    //     if (note.is_ok()) {
+    //         println!("Note is ok: {:?}", note.unwrap().file_path);
+    //     } else {
+    //         println!("Are any of us really Ok?: {:?}", note.unwrap().file_path);
+    //     }
+    // }
 }
 
 #[cfg(test)]
