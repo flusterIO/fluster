@@ -1,5 +1,5 @@
 [package]
-name = "fluster_rust_types"
+name = "fluster_models"
 version.workspace = true
 authors.workspace = true
 description.workspace = true
@@ -14,4 +14,9 @@ mdxjs = "1.0.0"
 serde.workspace = true
 thiserror = { workspace = true }
 fluster_test_utils = { path = "../fluster_test_utils/" }
+fluster_db = { path = "../fluster_db/" }
+fluster_types = { path = "../fluster_types/" }
 miette = { version = "7.5.0", features = ["fancy"] }
+surrealdb.workspace = true
+futures = "0.3.31"
+tokio = "1.44.2"

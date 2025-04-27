@@ -5,7 +5,8 @@ members = [
     "packages/fluster_grpc",
     "packages/fluster_db",
     "packages/fluster_test_utils",
-    "packages/fluster_rust_types",
+    "packages/fluster_types",
+    "packages/fluster_models",
     "packages/fluster_logger",
 ]
 
@@ -13,7 +14,7 @@ members = [
 [workspace.package]
 version = "0.0.1"
 authors = ["Andrew Iglinski"]
-description = "Free, open sources academic note taking."
+description = "Be less dum."
 documentation = "ulld.vercel.app"
 edition = "2021"
 
@@ -29,6 +30,8 @@ tracing = "0.1"
 tracing-subscriber = "0.3.0"
 surrealdb = { version = "=2.2.1", features = [
     # "kv-surrealkv",
+    "kv-rocksdb",
+    "kv-surrealkv",
     "protocol-ws",
     "rustls",
 ] }

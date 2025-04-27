@@ -7,4 +7,10 @@ pub enum DatabaseError {
 
     #[error("Failed to connect to Fluster's database.")]
     FailToConnect,
+
+    #[error("Failed to insert an item into the database.")]
+    FailToCreateEntity,
+
+    #[error("Failed to find entry.")]
+    FailToFind,
 }

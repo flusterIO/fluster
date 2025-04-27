@@ -17,7 +17,8 @@ log = "0.4.27"
 tracing = { workspace = true }
 tracing-subscriber = { workspace = true }
 thiserror = { workspace = true }
-fluster_rust_types = { path = "../../fluster_rust_types/" }
+fluster_types = { path = "../../fluster_types/" }
+fluster_models = { path = "../../fluster_models/" }
 fluster_db = { path = "../../fluster_db/" }
 regex = "1.11.1"
 strsim = "0.11.1"
@@ -31,6 +32,7 @@ tokio = { version = "1.44.2", features = ["full"] }
 slicestring = "0.3.3"
 globset = "0.4.16"
 fs_extra = "1.3.0"
+lazy_static = "1.5.0"
 
 [build-dependencies]
 flutter_rust_bridge_codegen = "2.9.0"

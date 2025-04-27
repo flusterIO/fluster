@@ -1,4 +1,4 @@
-pub use fluster_rust_types::file_system_errors::FileSystemError;
+pub use fluster_types::file_system_errors::FileSystemError;
 use ignore::WalkBuilder;
 
 #[flutter_rust_bridge::frb(sync)]
@@ -8,22 +8,22 @@ pub fn path_exists(file_path: &str) -> bool {
 
 #[flutter_rust_bridge::frb(sync)]
 pub fn get_app_config_dir(
-) -> Result<String, fluster_rust_types::file_system_errors::FileSystemError> {
+) -> Result<String, fluster_types::file_system_errors::FileSystemError> {
     let dir = dirs::config_dir().or(dirs::config_local_dir());
     if (dir.is_some()) {
         return Ok(dir.unwrap().join("fluster").to_str().unwrap().to_owned());
     }
-    Err(fluster_rust_types::file_system_errors::FileSystemError::DataDirNotFound())
+    Err(fluster_types::file_system_errors::FileSystemError::DataDirNotFound())
 }
 
 #[flutter_rust_bridge::frb(sync)]
-pub fn get_app_data_dir() -> Result<String, fluster_rust_types::file_system_errors::FileSystemError>
+pub fn get_app_data_dir() -> Result<String, fluster_types::file_system_errors::FileSystemError>
 {
     let dir = dirs::data_dir().or(dirs::data_local_dir());
     if (dir.is_some()) {
         return Ok(dir.unwrap().join("fluster").to_str().unwrap().to_owned());
     }
-    Err(fluster_rust_types::file_system_errors::FileSystemError::DataDirNotFound())
+    Err(fluster_types::file_system_errors::FileSystemError::DataDirNotFound())
 }
 
 // #[flutter_rust_bridge::frb()]

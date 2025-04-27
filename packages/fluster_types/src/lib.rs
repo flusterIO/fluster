@@ -1,3 +1,5 @@
 pub mod constants;
 pub mod errors;
-pub mod models;
+pub mod traits;
+pub mod typedefs;
+

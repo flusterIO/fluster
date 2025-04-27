@@ -11,5 +11,5 @@ dirs.workspace = true
 log4rs = { workspace = true }
 thiserror = { workspace = true }
 tracing.workspace = true
-fluster_rust_types = { path = "../fluster_rust_types" }
+fluster_types = { path = "../fluster_types" }
 log = "0.4.27"

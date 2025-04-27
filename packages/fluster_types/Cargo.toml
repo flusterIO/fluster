@@ -1,0 +1,12 @@
+[package]
+name = "fluster_types"
+version.workspace = true
+authors.workspace = true
+description.workspace = true
+documentation.workspace = true
+edition.workspace = true
+
+[dependencies]
+serde.workspace = true
+surrealdb = { workspace = true, features = ["kv-rocksdb"] }
+thiserror.workspace = true
