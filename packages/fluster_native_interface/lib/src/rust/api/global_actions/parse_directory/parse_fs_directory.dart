@@ -6,6 +6,10 @@
 import '../../../frb_generated.dart';
 import 'package:flutter_rust_bridge/flutter_rust_bridge_for_generated.dart';
 
+Future<String> formatPath({required String p}) => RustLib.instance.api
+    .crateApiGlobalActionsParseDirectoryParseFsDirectoryFormatPath(p: p);
+
+/// Glob matches all parsable files.
 Future<void> syncDirectory({required String dirName}) => RustLib.instance.api
     .crateApiGlobalActionsParseDirectoryParseFsDirectorySyncDirectory(
       dirName: dirName,

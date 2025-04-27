@@ -28,6 +28,8 @@ crossbeam = "0.8.4"
 crossbeam-channel = "0.5.15"
 miette = { version = "7.5.0", features = ["fancy"] }
 tokio = { version = "1.44.2", features = ["full"] }
+slicestring = "0.3.3"
+globset = "0.4.16"
 
 [build-dependencies]
 flutter_rust_bridge_codegen = "2.9.0"

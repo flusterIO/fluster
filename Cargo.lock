@@ -1680,12 +1680,14 @@ dependencies = [
  "fluster_rust_types",
  "flutter_rust_bridge",
  "flutter_rust_bridge_codegen",
+ "globset",
  "gray_matter",
  "ignore",
  "log",
  "miette 7.5.0",
  "rayon",
  "regex",
+ "slicestring",
  "strsim",
  "thiserror 2.0.12",
  "tokio",
@@ -4853,6 +4855,12 @@ checksum = "8f92a496fb766b417c996b9c5e57daf2f7ad3b0bebe1ccfca4856390e3d3bb67"
 dependencies = [
  "autocfg",
 ]
+
+[[package]]
+name = "slicestring"
+version = "0.3.3"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "84214dff6bab2662cd094e247e6b73728ff0e23111d78124146801ca18dd47b4"
 
 [[package]]
 name = "smallvec"
