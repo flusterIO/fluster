@@ -1,4 +1,4 @@
-use std::{env, process::exit};
+use std::{env, path, process::exit};
 
 pub fn get_development_root_or_die() -> String {
     let r = env::var("FLUSTER_NATIVE_ROOT");
@@ -7,4 +7,14 @@ pub fn get_development_root_or_die() -> String {
         exit(1)
     }
     r.unwrap().to_owned()
+}
+
+pub fn get_test_mdx_path() -> std::path::PathBuf {
+    let root = get_development_root_or_die();
+    path::Path::new(&root)
+        .join("packages")
+        .join("fluster_test_utils")
+        .join("src")
+        .join("test_content")
+        .join("test_mdx_content.mdx")
 }

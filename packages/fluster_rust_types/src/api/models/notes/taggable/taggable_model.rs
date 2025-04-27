@@ -4,3 +4,9 @@ use serde::{Deserialize, Serialize};
 pub struct Taggable {
     value: String,
 }
+
+impl Taggable {
+    pub fn from_string(val: String) -> Taggable {
+        Taggable { value: val }
+    }
+}
