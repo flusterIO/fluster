@@ -2,12 +2,11 @@ use std::path;
 
 use crossbeam_channel::unbounded;
 use fluster_models::models::notes::mdx::mdx_note::MdxNoteRust;
-use globset::Glob;
 use ignore::{WalkBuilder, WalkState};
 
 pub async fn sync_directory(dir_name: String) {
     let (sender, receiver) =
-        unbounded::<Result<MdxNoteRust, fluster_types::parsing_errors::ParsingError>>();
+        unbounded::<Result<MdxNoteRust, fluster_types::errors::parsing_errors::ParsingError>>();
     let notes_path = path::Path::new(&dir_name);
 
     WalkBuilder::new(notes_path)

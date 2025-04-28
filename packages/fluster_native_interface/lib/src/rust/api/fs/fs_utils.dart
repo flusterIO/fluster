@@ -14,5 +14,5 @@ String getAppConfigDir() =>
 
 String getAppDataDir() => RustLib.instance.api.crateApiFsFsUtilsGetAppDataDir();
 
-// Rust type: RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner< FileSystemError>>
+// Rust type: RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<FileSystemError>>
 abstract class FileSystemError implements RustOpaqueInterface {}

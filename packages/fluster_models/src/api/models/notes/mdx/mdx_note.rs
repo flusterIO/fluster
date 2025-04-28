@@ -1,8 +1,4 @@
-use fluster_types::{
-    errors::{database_errors, parsing_errors},
-    traits::note_traits::FlusterDBEntity,
-    typedefs::note_type_utils::{DbRecord, FlusterDb},
-};
+use fluster_types::errors::{database_errors, parsing_errors};
 // use fluster_models::database_errors;
 use gray_matter::{engine::YAML, Matter};
 use serde::Serialize;
@@ -51,30 +47,31 @@ impl MdxNoteRust {
     }
 }
 
-impl FlusterDBEntity<MdxNoteRust> for MdxNoteRust {
-    async fn save(&self, db: FlusterDb<'_>) -> Option<database_errors::DatabaseError> {
-        // let err = db.use_db("notes").await;
-        // if err.is_err() {
-        //     return Some(database_errors::DatabaseError::FailToConnect);
-        // } else {
-        //     // RESUME:Come handle the syncing here after returning to the repository.
-        //     // let note = db.create("mdx_note").await;
-        //     let note: Option<DbRecord> = db
-        //         .upsert(("mdx_note", &self.file_path))
-        //         .content(self.clone())
-        //         .await
-        //         .expect("Failed to parse mdx note.");
-        //     if (note.is_some()) {
-        //         println!("Saved successfully! {:?}", &note);
-        //     }
-        // }
-        None
-    }
+// RESUME:  Come back here and implement this trait once the database health report is clear.
+// impl FlusterDBEntity<MdxNoteRust> for MdxNoteRust {
+//     async fn save(&self, db: FlusterDb) -> Option<database_errors::DatabaseError> {
+//         // let err = db.use_db("notes").await;
+//         // if err.is_err() {
+//         //     return Some(database_errors::DatabaseError::FailToConnect);
+//         // } else {
+//         //     // RESUME:Come handle the syncing here after returning to the repository.
+//         //     // let note = db.create("mdx_note").await;
+//         //     let note: Option<DbRecord> = db
+//         //         .upsert(("mdx_note", &self.file_path))
+//         //         .content(self.clone())
+//         //         .await
+//         //         .expect("Failed to parse mdx note.");
+//         //     if (note.is_some()) {
+//         //         println!("Saved successfully! {:?}", &note);
+//         //     }
+//         // }
+//         None
+//     }
 
-    async fn from_id(id: String) -> Result<MdxNoteRust, database_errors::DatabaseError> {
-        todo!()
-    }
-}
+//     async fn from_id(id: String) -> Result<MdxNoteRust, database_errors::DatabaseError> {
+//         todo!()
+//     }
+// }
 
 #[cfg(test)]
 mod tests {

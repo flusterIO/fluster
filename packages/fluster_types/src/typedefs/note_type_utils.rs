@@ -1,10 +1,7 @@
 use std::sync::LazyLock;
 
 use serde::Deserialize;
-use surrealdb::{
-    engine::{any::IntoEndpoint, local::RocksDb, remote::ws::Client},
-    RecordId, Surreal,
-};
+use surrealdb::{engine::remote::ws::Client, RecordId, Surreal};
 
 use crate::errors::database_errors;
 
@@ -12,6 +9,8 @@ use crate::errors::database_errors;
 pub struct DbRecord {
     pub id: RecordId,
 }
+
+pub type FlusterDb = Surreal<surrealdb::engine::local::Db>;
 
 pub type DbRecordOption = Option<DbRecord>;
 
