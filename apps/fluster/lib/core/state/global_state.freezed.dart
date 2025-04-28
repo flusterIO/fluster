@@ -26,6 +26,7 @@ mixin _$GlobalAppState {
       throw _privateConstructorUsedError;
   CommandPaletteState get commandPaletteState =>
       throw _privateConstructorUsedError;
+  DatabaseState get databaseState => throw _privateConstructorUsedError;
 
   /// Create a copy of GlobalAppState
   /// with the given fields replaced by the non-null parameter values.
@@ -49,14 +50,17 @@ abstract class $GlobalAppStateCopyWith<$Res> {
     NavigationState navigationState,
     GlobalNotificationState notificationState,
     CommandPaletteState commandPaletteState,
+    DatabaseState databaseState,
   });
 
   $SettingsStateCopyWith<$Res> get settingsState;
   $NetworkStateCopyWith<$Res> get networkState;
   $GlobalErrorStateCopyWith<$Res> get errorState;
   $GlobalUIStateCopyWith<$Res> get uiState;
+  $NavigationStateCopyWith<$Res> get navigationState;
   $GlobalNotificationStateCopyWith<$Res> get notificationState;
   $CommandPaletteStateCopyWith<$Res> get commandPaletteState;
+  $DatabaseStateCopyWith<$Res> get databaseState;
 }
 
 /// @nodoc
@@ -78,9 +82,10 @@ class _$GlobalAppStateCopyWithImpl<$Res, $Val extends GlobalAppState>
     Object? networkState = null,
     Object? errorState = null,
     Object? uiState = null,
-    Object? navigationState = freezed,
+    Object? navigationState = null,
     Object? notificationState = null,
     Object? commandPaletteState = null,
+    Object? databaseState = null,
   }) {
     return _then(
       _value.copyWith(
@@ -105,7 +110,7 @@ class _$GlobalAppStateCopyWithImpl<$Res, $Val extends GlobalAppState>
                     : uiState // ignore: cast_nullable_to_non_nullable
                         as GlobalUIState,
             navigationState:
-                freezed == navigationState
+                null == navigationState
                     ? _value.navigationState
                     : navigationState // ignore: cast_nullable_to_non_nullable
                         as NavigationState,
@@ -119,6 +124,11 @@ class _$GlobalAppStateCopyWithImpl<$Res, $Val extends GlobalAppState>
                     ? _value.commandPaletteState
                     : commandPaletteState // ignore: cast_nullable_to_non_nullable
                         as CommandPaletteState,
+            databaseState:
+                null == databaseState
+                    ? _value.databaseState
+                    : databaseState // ignore: cast_nullable_to_non_nullable
+                        as DatabaseState,
           )
           as $Val,
     );
@@ -168,6 +178,16 @@ class _$GlobalAppStateCopyWithImpl<$Res, $Val extends GlobalAppState>
   /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
+  $NavigationStateCopyWith<$Res> get navigationState {
+    return $NavigationStateCopyWith<$Res>(_value.navigationState, (value) {
+      return _then(_value.copyWith(navigationState: value) as $Val);
+    });
+  }
+
+  /// Create a copy of GlobalAppState
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
   $GlobalNotificationStateCopyWith<$Res> get notificationState {
     return $GlobalNotificationStateCopyWith<$Res>(_value.notificationState, (
       value,
@@ -185,6 +205,16 @@ class _$GlobalAppStateCopyWithImpl<$Res, $Val extends GlobalAppState>
       value,
     ) {
       return _then(_value.copyWith(commandPaletteState: value) as $Val);
+    });
+  }
+
+  /// Create a copy of GlobalAppState
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $DatabaseStateCopyWith<$Res> get databaseState {
+    return $DatabaseStateCopyWith<$Res>(_value.databaseState, (value) {
+      return _then(_value.copyWith(databaseState: value) as $Val);
     });
   }
 }
@@ -206,6 +236,7 @@ abstract class _$$GlobalAppStateImplCopyWith<$Res>
     NavigationState navigationState,
     GlobalNotificationState notificationState,
     CommandPaletteState commandPaletteState,
+    DatabaseState databaseState,
   });
 
   @override
@@ -217,9 +248,13 @@ abstract class _$$GlobalAppStateImplCopyWith<$Res>
   @override
   $GlobalUIStateCopyWith<$Res> get uiState;
   @override
+  $NavigationStateCopyWith<$Res> get navigationState;
+  @override
   $GlobalNotificationStateCopyWith<$Res> get notificationState;
   @override
   $CommandPaletteStateCopyWith<$Res> get commandPaletteState;
+  @override
+  $DatabaseStateCopyWith<$Res> get databaseState;
 }
 
 /// @nodoc
@@ -240,9 +275,10 @@ class __$$GlobalAppStateImplCopyWithImpl<$Res>
     Object? networkState = null,
     Object? errorState = null,
     Object? uiState = null,
-    Object? navigationState = freezed,
+    Object? navigationState = null,
     Object? notificationState = null,
     Object? commandPaletteState = null,
+    Object? databaseState = null,
   }) {
     return _then(
       _$GlobalAppStateImpl(
@@ -267,7 +303,7 @@ class __$$GlobalAppStateImplCopyWithImpl<$Res>
                 : uiState // ignore: cast_nullable_to_non_nullable
                     as GlobalUIState,
         navigationState:
-            freezed == navigationState
+            null == navigationState
                 ? _value.navigationState
                 : navigationState // ignore: cast_nullable_to_non_nullable
                     as NavigationState,
@@ -281,6 +317,11 @@ class __$$GlobalAppStateImplCopyWithImpl<$Res>
                 ? _value.commandPaletteState
                 : commandPaletteState // ignore: cast_nullable_to_non_nullable
                     as CommandPaletteState,
+        databaseState:
+            null == databaseState
+                ? _value.databaseState
+                : databaseState // ignore: cast_nullable_to_non_nullable
+                    as DatabaseState,
       ),
     );
   }
@@ -297,6 +338,7 @@ class _$GlobalAppStateImpl implements _GlobalAppState {
     required this.navigationState,
     required this.notificationState,
     required this.commandPaletteState,
+    required this.databaseState,
   });
 
   @override
@@ -313,10 +355,12 @@ class _$GlobalAppStateImpl implements _GlobalAppState {
   final GlobalNotificationState notificationState;
   @override
   final CommandPaletteState commandPaletteState;
+  @override
+  final DatabaseState databaseState;
 
   @override
   String toString() {
-    return 'GlobalAppState(settingsState: $settingsState, networkState: $networkState, errorState: $errorState, uiState: $uiState, navigationState: $navigationState, notificationState: $notificationState, commandPaletteState: $commandPaletteState)';
+    return 'GlobalAppState(settingsState: $settingsState, networkState: $networkState, errorState: $errorState, uiState: $uiState, navigationState: $navigationState, notificationState: $notificationState, commandPaletteState: $commandPaletteState, databaseState: $databaseState)';
   }
 
   @override
@@ -331,14 +375,14 @@ class _$GlobalAppStateImpl implements _GlobalAppState {
             (identical(other.errorState, errorState) ||
                 other.errorState == errorState) &&
             (identical(other.uiState, uiState) || other.uiState == uiState) &&
-            const DeepCollectionEquality().equals(
-              other.navigationState,
-              navigationState,
-            ) &&
+            (identical(other.navigationState, navigationState) ||
+                other.navigationState == navigationState) &&
             (identical(other.notificationState, notificationState) ||
                 other.notificationState == notificationState) &&
             (identical(other.commandPaletteState, commandPaletteState) ||
-                other.commandPaletteState == commandPaletteState));
+                other.commandPaletteState == commandPaletteState) &&
+            (identical(other.databaseState, databaseState) ||
+                other.databaseState == databaseState));
   }
 
   @override
@@ -348,9 +392,10 @@ class _$GlobalAppStateImpl implements _GlobalAppState {
     networkState,
     errorState,
     uiState,
-    const DeepCollectionEquality().hash(navigationState),
+    navigationState,
     notificationState,
     commandPaletteState,
+    databaseState,
   );
 
   /// Create a copy of GlobalAppState
@@ -374,6 +419,7 @@ abstract class _GlobalAppState implements GlobalAppState {
     required final NavigationState navigationState,
     required final GlobalNotificationState notificationState,
     required final CommandPaletteState commandPaletteState,
+    required final DatabaseState databaseState,
   }) = _$GlobalAppStateImpl;
 
   @override
@@ -390,6 +436,8 @@ abstract class _GlobalAppState implements GlobalAppState {
   GlobalNotificationState get notificationState;
   @override
   CommandPaletteState get commandPaletteState;
+  @override
+  DatabaseState get databaseState;
 
   /// Create a copy of GlobalAppState
   /// with the given fields replaced by the non-null parameter values.

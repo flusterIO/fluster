@@ -2,6 +2,7 @@ import 'package:fluster/core/state/nested_state/error_state/error_state.dart';
 import 'package:fluster/core/state/nested_state/network_state/network_state.dart';
 import 'package:fluster/core/state/nested_state/ui_state/ui_state.dart';
 import 'package:fluster/features/command_palette/state/command_palette_state.dart';
+import 'package:fluster/features/database/state/database_state.dart';
 import 'package:fluster/features/navigation/state/navigation_state.dart';
 import 'package:fluster/features/notifications/presentation/state/notification_state.dart';
 import 'package:fluster/features/settings/state/settings/settings_state.dart';
@@ -19,6 +20,7 @@ class GlobalAppState with _$GlobalAppState {
     required NavigationState navigationState,
     required GlobalNotificationState notificationState,
     required CommandPaletteState commandPaletteState,
+    required DatabaseState databaseState,
   }) = _GlobalAppState;
   static GlobalAppState initialState() => GlobalAppState(
     settingsState: SettingsState.initialState(),
@@ -28,5 +30,6 @@ class GlobalAppState with _$GlobalAppState {
     navigationState: NavigationState.initialState(),
     notificationState: GlobalNotificationState.initialState(),
     commandPaletteState: CommandPaletteState.initialState(),
+    databaseState: DatabaseState.initialState(),
   );
 }
