@@ -12,26 +12,27 @@ class DesktopPanelLeftSwitch extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // final sideMenuState = ref.watch(sideMenuProvider);
-        final currentUrl = GoRouter.of(context).routeInformationProvider.value.uri.toString();
+    final currentUrl = GoRouter.of(
+      context,
+    ).routeInformationProvider.value.uri.toString();
     return Padding(
-      padding: EdgeInsets.symmetric(vertical: 24, horizontal: 12),
+      padding: EdgeInsets.only(top: 24, bottom: 24, left: 0, right: 12),
       child: () {
-                if(currentUrl == DashboardRoute().location.toString()) {
-                return DashboardSideMenuPanel();
-                }
-                if(currentUrl == ConnectRoute().location.toString()){
-            return ConnectSideMenuPanel();
-                }
-                if(currentUrl == BibliographyRoute().location.toString()) {
-
-            return BibliographySideMenuPanel();
-                }
-                if(currentUrl == SettingsRoute().location.toString()) {
-            return SettingsSideMenuPanel();
-                }
-                if(currentUrl == BookmarksRoute().location.toString()) {
-            return BookmarksSideMenuPanel();
-                }
+        if (currentUrl == DashboardRoute().location.toString()) {
+          return DashboardSideMenuPanel();
+        }
+        if (currentUrl == ConnectRoute().location.toString()) {
+          return ConnectSideMenuPanel();
+        }
+        if (currentUrl == BibliographyRoute().location.toString()) {
+          return BibliographySideMenuPanel();
+        }
+        if (currentUrl == SettingsRoute().location.toString()) {
+          return SettingsSideMenuPanel();
+        }
+        if (currentUrl == BookmarksRoute().location.toString()) {
+          return BookmarksSideMenuPanel();
+        }
       }(),
     );
   }
