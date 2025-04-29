@@ -20,7 +20,7 @@ class DesktopKeyboardShortcuts extends HookWidget {
     );
     final focusNode = useFocusScopeNode();
     return CallbackShortcuts(
-      bindings: keymapSettings.toCallbackShortcuts(),
+      bindings: keymapSettings.toCallbackShortcuts(context),
       child: FocusScope(
         descendantsAreFocusable: true,
         node: focusNode,

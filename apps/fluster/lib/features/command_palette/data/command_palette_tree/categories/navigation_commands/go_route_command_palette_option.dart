@@ -1,3 +1,4 @@
+import 'package:async_redux/async_redux.dart';
 import 'package:fluster/core/state/store.dart';
 import 'package:fluster/features/command_palette/data/models/command_palette_entry.dart';
 import 'package:fluster/features/command_palette/state/actions/set_command_palette_open.dart';
@@ -15,8 +16,8 @@ class GoRouteCommandPaletteOption extends CommandPaletteEntry {
   });
 
   @override
-  void callAction() {
+  void callAction(context) {
     mainAppScaffoldKey.currentContext?.go(url);
-    globalReduxStore.dispatch(SetCommandPaletteOpenAction(false, initialCategory: null));
+    context.dispatch(SetCommandPaletteOpenAction(false, initialCategory: null));
   }
 }

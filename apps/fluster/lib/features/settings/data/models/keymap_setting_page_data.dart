@@ -15,7 +15,7 @@ class KeymapSettingPageData<T extends SettingAbstract>
     super.id = SettingPageId.keymap,
   });
 
-  Map<ShortcutActivator, VoidCallback> toCallbackShortcuts() {
+  Map<ShortcutActivator, VoidCallback> toCallbackShortcuts(BuildContext context) {
     var data = <ShortcutActivator, VoidCallback>{};
     for (var sec in sections.values) {
       for (var k in sec.items.keys) {
@@ -25,7 +25,7 @@ class KeymapSettingPageData<T extends SettingAbstract>
           data[km.action.activator!] = () {
             final f = globalActionMap[km.action.globalActionId];
             if (f != null) {
-              f();
+              f(context);
             }
           };
         }

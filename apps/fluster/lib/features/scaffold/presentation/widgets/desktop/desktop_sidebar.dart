@@ -1,3 +1,4 @@
+import 'package:async_redux/async_redux.dart';
 import 'package:fluster/core/extension_methods/context_extension.dart';
 import 'package:fluster/core/state/store.dart';
 import 'package:fluster/features/navigation/business/entities/navigation_items.dart';
@@ -32,7 +33,7 @@ class ResponsiveNavigationRail extends StatelessWidget {
           child: GestureDetector(
             onTap: () {
               if (active) {
-                globalReduxStore.dispatch(TogglePanelLeftAction());
+                context.dispatch(TogglePanelLeftAction());
               } else {
                 final onClick = items[idx].onClick;
                 if (onClick != null) {

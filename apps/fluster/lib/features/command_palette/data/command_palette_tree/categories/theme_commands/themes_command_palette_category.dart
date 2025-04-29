@@ -1,6 +1,7 @@
+import 'package:async_redux/async_redux.dart';
 import 'package:flex_color_scheme/flex_color_scheme.dart';
+import 'package:fluster/core/state/global_state.dart';
 import 'package:fluster/core/state/nested_state/ui_state/actions/ui_actions.dart';
-import 'package:fluster/core/state/store.dart';
 import 'package:fluster/features/command_palette/data/models/command_palette_category.dart';
 import 'package:fluster/features/command_palette/data/models/command_palette_category_enum.dart';
 import 'package:fluster/features/command_palette/data/models/command_palette_entry.dart';
@@ -32,11 +33,11 @@ class ThemesNavigationCommandPaletteCategory extends CommandPaletteCategory {
             desc: "",
             items: [],
             category: CommandPaletteCategoryId.themes,
-            action: () {
-              globalReduxStore.dispatchAll([SetColorSchemeAction(s)]);
-              globalReduxStore.dispatch(
+            action: (context) {
+              context.dispatchAll(<ReduxAction<GlobalAppState>>[
+                SetColorSchemeAction(s),
                 SetCommandPaletteOpenAction(false, initialCategory: null),
-              );
+              ]);
             },
           );
         }).toList(),

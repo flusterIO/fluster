@@ -44,15 +44,15 @@ void closeCommandPalette() {
   Navigator.of(parentRouterKey.currentContext!).pop();
 }
 
-final globalActionMap = <GlobalActionId, FutureOr<void> Function()>{
-  GlobalActionId.toggleLeftPanel: () =>
+final globalActionMap = <GlobalActionId, FutureOr<void> Function(BuildContext)>{
+  GlobalActionId.toggleLeftPanel: (_) =>
       globalReduxStore.dispatch(TogglePanelLeftAction()),
-  GlobalActionId.toggleRightPanel: () =>
+  GlobalActionId.toggleRightPanel: (_) =>
       globalReduxStore.dispatch(TogglePanelRightAction()),
-  GlobalActionId.commandPaletteOpen: () {
+  GlobalActionId.commandPaletteOpen: (_) {
     showCommandPalette();
   },
-  GlobalActionId.syncDirectoryWithDatabase: () {
+  GlobalActionId.syncDirectoryWithDatabase: (_) {
     final val = globalReduxStore
         .state
         .settingsState
@@ -67,7 +67,7 @@ final globalActionMap = <GlobalActionId, FutureOr<void> Function()>{
     print("Syncing directory");
     native.syncDirectory(dirName: finalValue);
   },
-  GlobalActionId.toggleDarkMode: () {
-    toggleDarkMode(null);
+  GlobalActionId.toggleDarkMode: (_) {
+    toggleDarkMode(null, null);
   },
 };

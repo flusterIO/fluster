@@ -1,5 +1,5 @@
 import 'dart:async';
-import 'package:fluster/core/state/store.dart';
+import 'package:async_redux/async_redux.dart';
 import 'package:fluster/core/static/constants/static_constants.dart';
 import 'package:fluster/features/notifications/data/models/toast.dart';
 import 'package:fluster/features/notifications/presentation/state/actions/remove_toast_by_id_actions.dart';
@@ -20,12 +20,12 @@ class DesktopNotification extends StatelessWidget {
     this.exiting,
   });
 
-  void setRemoveTimer() {
+  void setRemoveTimer(BuildContext context) {
     if (item.duration == null) {
       return;
     }
     var timer = Timer(item.duration!, () {
-      globalReduxStore.dispatch(RemoveToastByIdAction(item.id));
+      context.dispatch(RemoveToastByIdAction(item.id));
     });
     timer.cancel();
   }
@@ -89,7 +89,7 @@ class DesktopNotification extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    setRemoveTimer();
+    setRemoveTimer(context);
 
     final progress = CurvedAnimation(parent: anim, curve: Curves.easeInOut);
     if (exiting == true) {

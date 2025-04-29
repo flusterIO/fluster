@@ -1,3 +1,4 @@
+import 'package:async_redux/async_redux.dart';
 import 'package:fluster/core/state/store.dart';
 import 'package:fluster/features/command_palette/data/models/command_palette_category.dart';
 import 'package:fluster/features/command_palette/presentation/widgets/command_palette/command_palette.dart';
@@ -23,7 +24,7 @@ class CommandPalette extends HookWidget {
 
     return GestureDetector(
       onTap: () {
-        globalReduxStore.dispatch(
+        context.dispatch(
           SetCommandPaletteOpenAction(false, initialCategory: null),
         );
       },

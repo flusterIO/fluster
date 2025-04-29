@@ -1,13 +1,13 @@
+import 'package:async_redux/async_redux.dart';
 import 'package:fluster/core/extension_methods/context_extension.dart';
 import 'package:fluster/core/state/nested_state/ui_state/actions/ui_actions.dart';
-import 'package:fluster/core/state/store.dart';
 import 'package:flutter/material.dart';
 
 class DarkModeToggle extends StatelessWidget {
   const DarkModeToggle({super.key});
 
-  void setThemeMode(ThemeMode themeMode) {
-    globalReduxStore.dispatch(SetThemeModeAction(themeMode));
+  void setThemeMode(ThemeMode themeMode, BuildContext context) {
+    context.dispatch(SetThemeModeAction(themeMode));
   }
 
   @override
@@ -23,7 +23,7 @@ class DarkModeToggle extends StatelessWidget {
             icon: const Icon(Icons.sunny),
             color: currentTheme == ThemeMode.light ? theme.primaryColor : null,
             onPressed: () {
-              setThemeMode(ThemeMode.light);
+              setThemeMode(ThemeMode.light, context);
               // context.read<GlobalBloc>().add(SetDarkMode(ThemeMode.dark));
             },
           ),
@@ -35,7 +35,7 @@ class DarkModeToggle extends StatelessWidget {
             icon: const Icon(Icons.dark_mode),
             color: currentTheme == ThemeMode.dark ? theme.primaryColor : null,
             onPressed: () {
-              setThemeMode(ThemeMode.dark);
+              setThemeMode(ThemeMode.dark, context);
               // context.read<GlobalBloc>().add(SetDarkMode(ThemeMode.dark));
             },
           ),
@@ -47,7 +47,7 @@ class DarkModeToggle extends StatelessWidget {
             icon: const Icon(Icons.api),
             color: currentTheme == ThemeMode.system ? theme.primaryColor : null,
             onPressed: () {
-              setThemeMode(ThemeMode.system);
+              setThemeMode(ThemeMode.system, context);
             },
           ),
         ),

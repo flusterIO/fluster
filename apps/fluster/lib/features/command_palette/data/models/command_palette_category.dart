@@ -1,3 +1,4 @@
+import 'package:async_redux/async_redux.dart';
 import 'package:fluster/core/state/store.dart';
 import 'package:fluster/features/command_palette/data/models/command_palette_entry.dart';
 import 'package:fluster/features/command_palette/data/models/command_palette_view.dart';
@@ -21,7 +22,7 @@ abstract class CommandPaletteCategory extends CommandPaletteEntry {
   IconData getIcon();
 
   @override
-  void callAction() {
-    globalReduxStore.dispatch(AppendCommandPaletteCategoryAction(this));
+  void callAction(context) {
+    context.dispatch(AppendCommandPaletteCategoryAction(this));
   }
 }

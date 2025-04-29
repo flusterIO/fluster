@@ -1,4 +1,5 @@
 import 'dart:math';
+import 'package:async_redux/async_redux.dart';
 import 'package:fluster/core/extension_methods/context_extension.dart';
 import 'package:fluster/core/global_actions/global_action_map.dart';
 import 'package:fluster/core/models/string_similarity_result.dart';
@@ -42,7 +43,7 @@ class CommandPaletteWidget extends HookWidget {
     }
 
     if (e.logicalKey == LogicalKeyboardKey.escape) {
-      globalReduxStore.dispatch(
+      context.dispatch(
         SetCommandPaletteOpenAction(false, initialCategory: null),
       );
       return KeyEventResult.handled;
@@ -59,7 +60,7 @@ class CommandPaletteWidget extends HookWidget {
           e.synthesized == false &&
           DateTime.now().millisecondsSinceEpoch - lastBackReq >= 300) {
         setLastBackReq();
-        globalReduxStore.dispatch(CommandPaletteBackAction());
+        context.dispatch(CommandPaletteBackAction());
       }
       return KeyEventResult.ignored;
     }
@@ -68,7 +69,7 @@ class CommandPaletteWidget extends HookWidget {
       LogicalKeyboardKey.tab,
       shift: true,
     ).accepts(e, HardwareKeyboard.instance)) {
-      globalReduxStore.dispatch(SetCommandPaletteSelectedIndexAction(-1));
+      context.dispatch(SetCommandPaletteSelectedIndexAction(-1));
       return KeyEventResult.handled;
     }
 
@@ -76,7 +77,7 @@ class CommandPaletteWidget extends HookWidget {
       LogicalKeyboardKey.tab,
       shift: false,
     ).accepts(e, HardwareKeyboard.instance)) {
-      globalReduxStore.dispatch(SetCommandPaletteSelectedIndexAction(1));
+      context.dispatch(SetCommandPaletteSelectedIndexAction(1));
       return KeyEventResult.handled;
     }
 
@@ -85,7 +86,7 @@ class CommandPaletteWidget extends HookWidget {
           .state
           .commandPaletteState
           .filteredItems[context.state.commandPaletteState.selectedIndex]
-          .callAction();
+          .callAction(context);
       return KeyEventResult.handled;
     }
     return KeyEventResult.ignored;
@@ -93,7 +94,11 @@ class CommandPaletteWidget extends HookWidget {
 
   const CommandPaletteWidget({super.key});
 
-  void handleQueryChange(String queryValue, List<CommandPaletteEntry> items) {
+  void handleQueryChange(
+    String queryValue,
+    List<CommandPaletteEntry> items,
+    BuildContext context,
+  ) {
     final similarityResults =
         StringSimilarityResult.fromArray<CommandPaletteEntry>(
           items,
@@ -101,7 +106,7 @@ class CommandPaletteWidget extends HookWidget {
           (x) => "${x.label} ${x.desc ?? ''}",
           // threshold: 0.1,
         );
-    globalReduxStore.dispatch(
+    context.dispatch(
       SetCommandPaletteFilteredItems(similarityResults.toList()),
     );
   }
@@ -121,11 +126,12 @@ class CommandPaletteWidget extends HookWidget {
       () => handleQueryChange(
         editController.text,
         navStack.isNotEmpty ? navStack[navStack.length - 1].items : [],
+        context,
       ),
     );
     useEffect(() {
       if (!isEmptyInput.value) {
-        globalReduxStore.dispatch(ResetCommandPaletteIndex());
+        context.dispatch(ResetCommandPaletteIndex());
       }
       return () {};
     }, [isEmptyInput]);
@@ -148,7 +154,7 @@ class CommandPaletteWidget extends HookWidget {
     );
     final width = min(size.width - 80, 768).toDouble();
     editController.addListener(
-      () => globalReduxStore.dispatch(SetCommandPaletteSelectedIndexAction(0)),
+      () => context.dispatch(SetCommandPaletteSelectedIndexAction(0)),
     );
     final theme = Theme.of(context);
     return Scaffold(

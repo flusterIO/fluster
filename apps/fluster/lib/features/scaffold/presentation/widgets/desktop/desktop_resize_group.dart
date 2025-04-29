@@ -8,7 +8,7 @@ final globalPanelRightOpen = ValueNotifier(true);
 
 class DesktopResizeGroup extends StatelessWidget {
   final Widget child;
-  DesktopResizeGroup({super.key, required this.child});
+  const DesktopResizeGroup({super.key, required this.child});
   @override
   Widget build(BuildContext context) {
     return ValueListenableBuilder(

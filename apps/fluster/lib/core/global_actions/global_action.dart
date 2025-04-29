@@ -1,5 +1,6 @@
 import 'package:fluster/core/global_actions/global_action_ids.dart';
 import 'package:fluster/core/global_actions/global_action_map.dart';
+import 'package:fluster/features/navigation/business/entities/router/router.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -42,7 +43,7 @@ class GlobalAction<T extends Intent> extends Action<T> {
   Object? invoke(T intent) {
     final f = globalActionMap[globalActionId];
     if (f != null) {
-      f();
+      f(appShellNavigatorKey.currentState!.context);
     } else {
       throw FormatException(
         "Attempted to call an action $globalActionId that is not available in the globalActionMap.",

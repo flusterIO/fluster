@@ -1,5 +1,5 @@
+import 'package:async_redux/async_redux.dart';
 import 'package:fluster/core/extension_methods/context_extension.dart';
-import 'package:fluster/core/state/store.dart';
 import 'package:fluster/features/navigation/state/actions/navigation_actions.dart';
 import 'package:flutter/material.dart';
 
@@ -20,7 +20,7 @@ class SettingsSideMenuPanel extends StatelessWidget {
             cursor: SystemMouseCursors.click,
             child: GestureDetector(
               onTap: () {
-                globalReduxStore.dispatch(SetSettingsPageAction(pages[idx].id));
+                context.dispatch(SetSettingsPageAction(pages[idx].id));
               },
               child: AnimatedContainer(
                 duration: Duration(milliseconds: 50),

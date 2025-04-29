@@ -8,8 +8,8 @@ class ToggleDarkModeCommand extends CommandPaletteItem {
         label: "Toggle Dark Mode",
         desc: "",
         items: [],
-        action: () {
-          toggleDarkMode(null);
+        action: (context) {
+          toggleDarkMode(null, context);
         },
         category: CommandPaletteCategoryId.themes,
       );
