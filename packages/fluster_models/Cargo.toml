@@ -20,3 +20,4 @@ miette = { version = "7.5.0", features = ["fancy"] }
 surrealdb.workspace = true
 futures = "0.3.31"
 tokio = "1.44.2"
+log = "0.4.27"

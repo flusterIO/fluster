@@ -18,7 +18,7 @@ const LOG_FILE_COUNT: u32 = 3;
 const RUN_TIME: Duration = Duration::from_secs(2);
 
 /// Location where logs will be written to
-const FILE_PATH: &str = "/tmp/fluster.log";
+const FILE_PATH: &str = "/logs/fluster.log";
 
 /// Location where log archives will be moved to
 /// For Pattern info See:
@@ -27,7 +27,7 @@ const ARCHIVE_PATTERN: &str = "/tmp/archive/fluster.{}.log";
 
 use std::{path::PathBuf, time::Duration};
 
-use log::{LevelFilter, SetLoggerError};
+use log::LevelFilter;
 use log4rs::{
     append::{
         console::{ConsoleAppender, Target},
@@ -41,9 +41,29 @@ use log4rs::{
     Handle,
 };
 
-fn get_logger() -> Result<Handle, SetLoggerError> {
-    let output_root = dirs::data_dir()
-        .unwrap_or(dirs::cache_dir().unwrap_or(dirs::home_dir().unwrap_or(PathBuf::new())));
+fn get_output_root() -> Result<PathBuf, fluster_types::errors::file_system_errors::FileSystemError>
+{
+    // let output_root = dirs::data_dir().unwrap_or(dirs::data_local_dir().unwrap_or(dirs::config_dir()));
+    let mut d = dirs::data_dir();
+    if d.is_some() {
+        Ok(d.unwrap())
+    } else {
+        d = dirs::data_local_dir();
+        if d.is_some() {
+            Ok(d.unwrap())
+        } else {
+            d = dirs::config_dir();
+            if d.is_some() {
+                Ok(d.unwrap())
+            } else {
+                Err(fluster_types::errors::file_system_errors::FileSystemError::DataDirNotFound())
+            }
+        }
+    }
+}
+
+pub fn get_logger() -> Result<Handle, fluster_types::errors::file_system_errors::FileSystemError> {
+    let output_root = get_output_root()?;
     let level = log::LevelFilter::Info;
 
     // Build a stderr logger.
@@ -85,7 +105,10 @@ fn get_logger() -> Result<Handle, SetLoggerError> {
     // This means you can change the default log level to trace
     // if you are trying to debug an issue and need more logs on then turn it off
     // once you are done.
-    let _handle = log4rs::init_config(config)?;
+    let _handle = log4rs::init_config(config);
+    if (_handle.is_err()) {
+        return Err(fluster_types::errors::file_system_errors::FileSystemError::DataDirNotFound());
+    }
 
-    Ok(_handle)
+    Ok(_handle.unwrap())
 }

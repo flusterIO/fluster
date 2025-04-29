@@ -9,6 +9,7 @@ import 'package:fluster/features/navigation/business/entities/router/routes.dart
 import 'package:fluster/features/scaffold/presentation/widgets/desktop/loading_indicator.dart';
 import 'package:fluster_native_interface/fluster_native_interface.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 
 final globalColorScheme = ValueNotifier(FlexScheme.shadBlue);
 final globalThemeMode = ValueNotifier(ThemeMode.system);
@@ -55,11 +56,7 @@ class FlusterDesktopApp extends StatelessWidget {
                     child: child ?? DesktopLoadingWidgetIndicator(),
                   ),
                   // routerConfig: router,
-                  routerConfig: getRouter(
-                    initialDbStatus == FlusterDatabaseStatus.notInitialized
-                        ? SetupOnboardingStepRoute().location
-                        : HomeScreenRoute().location,
-                  ),
+                  routerConfig: appRouter,
                 );
               },
             );

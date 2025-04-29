@@ -20,6 +20,7 @@ thiserror = { workspace = true }
 fluster_types = { path = "../../fluster_types/" }
 fluster_models = { path = "../../fluster_models/" }
 fluster_db = { path = "../../fluster_db/" }
+fluster_logger = { path = "../../fluster_logger/" }
 regex = "1.11.1"
 strsim = "0.11.1"
 ignore = "0.4.23"

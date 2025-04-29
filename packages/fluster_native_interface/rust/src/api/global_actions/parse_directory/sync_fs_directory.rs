@@ -3,6 +3,7 @@ use std::path;
 use crossbeam_channel::unbounded;
 use fluster_models::models::notes::mdx::mdx_note::MdxNoteRust;
 use ignore::{WalkBuilder, WalkState};
+use log::info;
 
 pub async fn sync_directory(dir_name: String) {
     let (sender, receiver) =
@@ -20,7 +21,6 @@ pub async fn sync_directory(dir_name: String) {
                 let entry = either_entry.unwrap();
                 let path = entry.path();
                 if path.is_file() && path.extension() == Some("mdx".as_ref()) {
-                    println!("Path in mdx filter {:?}", path.to_str());
                     let note = MdxNoteRust::from_file_system_path(path.to_str().unwrap());
                     sender.send(note).unwrap();
                 }
@@ -32,7 +32,7 @@ pub async fn sync_directory(dir_name: String) {
 
     let mut sql_string = "";
     if let Ok(note) = receiver.recv() {
-        println!("Note is ok: {:?}", note.unwrap().file_path);
+        info!("Note is ok: {:?}", note.unwrap().file_path);
     }
 }
 

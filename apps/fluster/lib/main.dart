@@ -7,7 +7,8 @@ import 'package:fluster/app.dart';
 import 'package:fluster/core/state/global_state.dart';
 import 'package:fluster/core/state/store.dart';
 import 'package:fluster/features/navigation/business/entities/keyboard_shortcut_wrapper.dart';
-import 'package:fluster_native_interface/fluster_native_interface.dart';
+import 'package:fluster_native_interface/fluster_native_interface.dart'
+    as native;
 import 'package:flutter/material.dart';
 import 'package:async_redux/async_redux.dart';
 // import 'package:ulld_native/static/styles/theme_notifier.dart';
@@ -23,9 +24,12 @@ import 'package:async_redux/async_redux.dart';
 void main() async {
   // await _configureMacosWindowUtils();
 
-  await RustLib.init();
+  await native.RustLib.init();
   WidgetsFlutterBinding.ensureInitialized();
-  final initialDbStatus = await getDatabaseStatus();
+  final initialDbStatus = await native.getDatabaseStatus();
+  if (initialDbStatus == native.FlusterDatabaseStatus.notInitialized) {
+    native.setupFileSystemForData();
+  }
   runApp(
     // For widgets to be able to read providers, we need to wrap the entire
     // application in a "ProviderScope" widget.

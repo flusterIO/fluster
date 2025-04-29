@@ -9,7 +9,8 @@
 import 'api/data_interface/get_database_status.dart';
 import 'api/fs/fs_setup.dart';
 import 'api/fs/fs_utils.dart';
-import 'api/global_actions/parse_directory/parse_fs_directory.dart';
+import 'api/global_actions/parse_directory/sync_fs_directory.dart';
+import 'api/initialize/on_desktop_init.dart';
 import 'api/search/get_text_similarity.dart';
 import 'dart:async';
 import 'dart:convert';

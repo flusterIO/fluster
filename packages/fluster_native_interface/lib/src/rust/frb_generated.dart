@@ -6,7 +6,8 @@
 import 'api/data_interface/get_database_status.dart';
 import 'api/fs/fs_setup.dart';
 import 'api/fs/fs_utils.dart';
-import 'api/global_actions/parse_directory/parse_fs_directory.dart';
+import 'api/global_actions/parse_directory/sync_fs_directory.dart';
+import 'api/initialize/on_desktop_init.dart';
 import 'api/search/get_text_similarity.dart';
 import 'dart:async';
 import 'dart:convert';
@@ -66,7 +67,7 @@ class RustLib extends BaseEntrypoint<RustLibApi, RustLibApiImpl, RustLibWire> {
   String get codegenVersion => '2.9.0';
 
   @override
-  int get rustContentHash => -953969739;
+  int get rustContentHash => -1634453751;
 
   static const kDefaultExternalLibraryLoaderConfig =
       ExternalLibraryLoaderConfig(
@@ -89,12 +90,13 @@ abstract class RustLibApi extends BaseApi {
     required String b,
   });
 
+  Future<void> crateApiInitializeOnDesktopInitOnDesktopInit();
+
   bool crateApiFsFsUtilsPathExists({required String filePath});
 
   Future<FileSystemError?> crateApiFsFsSetupSetupFileSystemForData();
 
-  Future<void>
-  crateApiGlobalActionsParseDirectoryParseFsDirectorySyncDirectory({
+  Future<void> crateApiGlobalActionsParseDirectorySyncFsDirectorySyncDirectory({
     required String dirName,
   });
 
@@ -224,13 +226,40 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
       );
 
   @override
+  Future<void> crateApiInitializeOnDesktopInitOnDesktopInit() {
+    return handler.executeNormal(
+      NormalTask(
+        callFfi: (port_) {
+          final serializer = SseSerializer(generalizedFrbRustBinding);
+          pdeCallFfi(
+            generalizedFrbRustBinding,
+            serializer,
+            funcId: 5,
+            port: port_,
+          );
+        },
+        codec: SseCodec(
+          decodeSuccessData: sse_decode_unit,
+          decodeErrorData: null,
+        ),
+        constMeta: kCrateApiInitializeOnDesktopInitOnDesktopInitConstMeta,
+        argValues: [],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta get kCrateApiInitializeOnDesktopInitOnDesktopInitConstMeta =>
+      const TaskConstMeta(debugName: "on_desktop_init", argNames: []);
+
+  @override
   bool crateApiFsFsUtilsPathExists({required String filePath}) {
     return handler.executeSync(
       SyncTask(
         callFfi: () {
           final serializer = SseSerializer(generalizedFrbRustBinding);
           sse_encode_String(filePath, serializer);
-          return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 5)!;
+          return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 6)!;
         },
         codec: SseCodec(
           decodeSuccessData: sse_decode_bool,
@@ -255,7 +284,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
           pdeCallFfi(
             generalizedFrbRustBinding,
             serializer,
-            funcId: 6,
+            funcId: 7,
             port: port_,
           );
         },
@@ -278,8 +307,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
       );
 
   @override
-  Future<void>
-  crateApiGlobalActionsParseDirectoryParseFsDirectorySyncDirectory({
+  Future<void> crateApiGlobalActionsParseDirectorySyncFsDirectorySyncDirectory({
     required String dirName,
   }) {
     return handler.executeNormal(
@@ -290,7 +318,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
           pdeCallFfi(
             generalizedFrbRustBinding,
             serializer,
-            funcId: 7,
+            funcId: 8,
             port: port_,
           );
         },
@@ -299,7 +327,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
           decodeErrorData: null,
         ),
         constMeta:
-            kCrateApiGlobalActionsParseDirectoryParseFsDirectorySyncDirectoryConstMeta,
+            kCrateApiGlobalActionsParseDirectorySyncFsDirectorySyncDirectoryConstMeta,
         argValues: [dirName],
         apiImpl: this,
       ),
@@ -307,7 +335,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   TaskConstMeta
-  get kCrateApiGlobalActionsParseDirectoryParseFsDirectorySyncDirectoryConstMeta =>
+  get kCrateApiGlobalActionsParseDirectorySyncFsDirectorySyncDirectoryConstMeta =>
       const TaskConstMeta(debugName: "sync_directory", argNames: ["dirName"]);
 
   RustArcIncrementStrongCountFnType

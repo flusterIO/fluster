@@ -1,11 +1,20 @@
-use fluster_types::errors::{database_errors, parsing_errors};
+use fluster_types::{
+    constants::database_constants::{FLUSTER_NAMESPACE, MDX_NOTE_TABLE_NAME, NOTES_DATABASE_NAME},
+    errors::{
+        database_errors::{self, DatabaseError},
+        parsing_errors,
+    },
+    traits::db_entity::FlusterDatabaseEntity,
+    typedefs::note_type_utils::{DbRecord, FlusterDb},
+};
 // use fluster_models::database_errors;
 use gray_matter::{engine::YAML, Matter};
-use serde::Serialize;
+use serde::{Deserialize, Serialize};
+use surrealdb::Uuid;
 
 use crate::models::notes::front_matter::front_matter_model::FrontMatter;
 
-#[derive(Serialize, Debug, Clone)]
+#[derive(Serialize, Deserialize, Debug, Clone)]
 pub struct MdxNoteRust {
     pub id: Option<surrealdb::sql::Thing>,
     pub front_matter: FrontMatter,
@@ -14,7 +23,6 @@ pub struct MdxNoteRust {
     /// File path relative to the user's root notes directory.
     pub file_path: String,
 }
-
 impl MdxNoteRust {
     pub fn from_raw_mdx_string(
         raw_file_content: String,
@@ -22,7 +30,6 @@ impl MdxNoteRust {
     ) -> Result<MdxNoteRust, parsing_errors::ParsingError> {
         let matter = Matter::<YAML>::new();
         let result = matter.parse(&raw_file_content);
-        println!("Result: {:?}", result);
         let fp = file_path.unwrap_or("Unknown");
         Ok(MdxNoteRust {
             front_matter: FrontMatter::from_gray_matter(result.data),
@@ -47,35 +54,43 @@ impl MdxNoteRust {
     }
 }
 
-// RESUME:  Come back here and implement this trait once the database health report is clear.
-// impl FlusterDBEntity<MdxNoteRust> for MdxNoteRust {
-//     async fn save(&self, db: FlusterDb) -> Option<database_errors::DatabaseError> {
-//         // let err = db.use_db("notes").await;
-//         // if err.is_err() {
-//         //     return Some(database_errors::DatabaseError::FailToConnect);
-//         // } else {
-//         //     // RESUME:Come handle the syncing here after returning to the repository.
-//         //     // let note = db.create("mdx_note").await;
-//         //     let note: Option<DbRecord> = db
-//         //         .upsert(("mdx_note", &self.file_path))
-//         //         .content(self.clone())
-//         //         .await
-//         //         .expect("Failed to parse mdx note.");
-//         //     if (note.is_some()) {
-//         //         println!("Saved successfully! {:?}", &note);
-//         //     }
-//         // }
-//         None
-//     }
+#[allow(clippy::comparison_to_empty)]
+impl FlusterDatabaseEntity<MdxNoteRust> for MdxNoteRust {
+    async fn save(&self, db: FlusterDb) -> Option<DatabaseError> {
+        let err = db
+            .use_ns(FLUSTER_NAMESPACE)
+            .use_db(NOTES_DATABASE_NAME)
+            .await;
+        if err.is_ok() {
+            let res: Result<Option<MdxNoteRust>, surrealdb::Error> = db
+                .upsert((MDX_NOTE_TABLE_NAME, &self.get_id()))
+                .content(self.to_owned())
+                .await;
+            if res.is_ok() {
+                None
+            } else {
+                Some(DatabaseError::FailToCreateEntity)
+            }
+        } else {
+            Some(DatabaseError::FailToCreateEntity)
+        }
+    }
 
-//     async fn from_id(id: String) -> Result<MdxNoteRust, database_errors::DatabaseError> {
-//         todo!()
-//     }
-// }
+    fn get_id(&self) -> String {
+        if self.id.is_some() {
+            self.id.clone().unwrap().to_raw()
+        } else if self.file_path != "" {
+            self.file_path.clone()
+        } else {
+            Uuid::new_v4().to_string()
+        }
+    }
+}
 
 #[cfg(test)]
 mod tests {
 
+    use fluster_db::api::db::get_database;
     use fluster_types::errors::parsing_errors;
 
     use super::*;
@@ -114,17 +129,17 @@ mod tests {
         );
     }
 
-    // #[tokio::test]
-    // async fn saves_parsed_note_successfully() {
-    //     let note = get_test_note().expect("Failed to get test note.");
-    //     let db = get_local_main_database(DatabaseOptions::default()).await;
-    //     assert!(db.is_ok(), "Database is returned without error.");
-    //     let res = note.save(db.unwrap()).await;
-    //     assert!(
-    //         res.is_none(),
-    //         "Mdx note was saved without throwing an error."
-    //     );
-    // }
+    #[tokio::test]
+    async fn saves_parsed_note_successfully() {
+        let note = get_test_note().expect("Failed to get test note.");
+        let db = get_database().await;
+        assert!(db.is_ok(), "Database is returned without error.");
+        let res = note.save(db.unwrap()).await;
+        assert!(
+            res.is_none(),
+            "Mdx note was saved without throwing an error."
+        );
+    }
 
     // #[test]
     // fn mdx_note_parses() {
