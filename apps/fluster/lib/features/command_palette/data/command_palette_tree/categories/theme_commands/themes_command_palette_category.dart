@@ -1,11 +1,11 @@
 import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:fluster/core/state/nested_state/ui_state/actions/ui_actions.dart';
 import 'package:fluster/core/state/store.dart';
-import 'package:fluster/features/command_palette/data/command_palette_tree/categories/theme_commands/toggle_dark_mode_command.dart';
 import 'package:fluster/features/command_palette/data/models/command_palette_category.dart';
 import 'package:fluster/features/command_palette/data/models/command_palette_category_enum.dart';
 import 'package:fluster/features/command_palette/data/models/command_palette_entry.dart';
 import 'package:fluster/features/command_palette/data/models/command_palette_item.dart';
+import 'package:fluster/features/command_palette/state/actions/set_command_palette_open.dart';
 import 'package:fluster/features/settings/data/enums/formatted_flex_scheme_name.dart';
 import 'package:flutter/widgets.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -27,16 +27,19 @@ class ThemesNavigationCommandPaletteCategory extends CommandPaletteCategory {
         desc: "Quickly toggle themes throughout the application",
         category: CommandPaletteCategoryId.themes,
         items: FlexScheme.values.map((s) {
-            return ThemeCommandPaletteEntry(
-              label: getFlexColorSchemeFormattedName(s),
-              desc: "",
-              items: [],
-              category: CommandPaletteCategoryId.themes,
-              action: () {
-                globalReduxStore.dispatchAll([SetColorSchemeAction(s)]);
-              },
-            );
-          }).toList(),
+          return ThemeCommandPaletteEntry(
+            label: getFlexColorSchemeFormattedName(s),
+            desc: "",
+            items: [],
+            category: CommandPaletteCategoryId.themes,
+            action: () {
+              globalReduxStore.dispatchAll([SetColorSchemeAction(s)]);
+              globalReduxStore.dispatch(
+                SetCommandPaletteOpenAction(false, initialCategory: null),
+              );
+            },
+          );
+        }).toList(),
       );
 
   @override

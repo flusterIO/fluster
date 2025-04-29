@@ -10,8 +10,6 @@ import 'package:fluster/features/scaffold/presentation/widgets/desktop/loading_i
 import 'package:fluster_native_interface/fluster_native_interface.dart';
 import 'package:flutter/material.dart';
 
-import 'package:flutter/widgets.dart';
-
 final globalColorScheme = ValueNotifier(FlexScheme.shadBlue);
 final globalThemeMode = ValueNotifier(ThemeMode.system);
 final globalCommandPaletteOpen = ValueNotifier(false);

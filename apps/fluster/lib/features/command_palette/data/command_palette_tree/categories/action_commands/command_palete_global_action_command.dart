@@ -1,8 +1,8 @@
-import 'dart:async';
 
 import 'package:fluster/core/global_actions/global_action_ids.dart';
 import 'package:fluster/core/global_actions/global_action_map.dart';
 import 'package:fluster/features/command_palette/data/models/command_palette_entry.dart';
+import 'package:fluster/features/command_palette/state/actions/set_command_palette_open.dart';
 
 class CommandPaletteGlobalActionCommand extends CommandPaletteEntry {
   final GlobalActionId actionId;
@@ -16,6 +16,7 @@ class CommandPaletteGlobalActionCommand extends CommandPaletteEntry {
   @override
   void callAction() async {
     final f = globalActionMap[actionId];
+    SetCommandPaletteOpenAction(false, initialCategory: null);
     if (f != null) {
       await f();
     }
