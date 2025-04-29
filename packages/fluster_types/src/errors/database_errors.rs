@@ -13,4 +13,7 @@ pub enum DatabaseError {
 
     #[error("Failed to find entry.")]
     FailToFind,
+
+    #[error("Failed to find that entry by id.")]
+    FailToFindById,
 }

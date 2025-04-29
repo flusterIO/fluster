@@ -32,7 +32,7 @@ impl FrontMatter {
                 let mut x = FrontMatter::default();
                 // Set title
                 let data = p.as_hashmap();
-                if (data.is_err()) {
+                if data.is_err() {
                     return FrontMatter::default();
                 }
                 let d = data.unwrap();

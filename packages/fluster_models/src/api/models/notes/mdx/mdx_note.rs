@@ -56,7 +56,7 @@ impl MdxNoteRust {
 
 #[allow(clippy::comparison_to_empty)]
 impl FlusterDatabaseEntity<MdxNoteRust> for MdxNoteRust {
-    async fn save(&self, db: FlusterDb) -> Option<DatabaseError> {
+    async fn save(&self, db: &FlusterDb) -> Option<DatabaseError> {
         let err = db
             .use_ns(FLUSTER_NAMESPACE)
             .use_db(NOTES_DATABASE_NAME)
@@ -83,6 +83,19 @@ impl FlusterDatabaseEntity<MdxNoteRust> for MdxNoteRust {
             self.file_path.clone()
         } else {
             Uuid::new_v4().to_string()
+        }
+    }
+
+    async fn from_id_string(id: &str, db: &FlusterDb) -> Result<MdxNoteRust, DatabaseError> {
+        let item: Result<Option<MdxNoteRust>, surrealdb::Error> =
+            db.select((MDX_NOTE_TABLE_NAME, id)).await;
+        if item.is_err() {
+            return Err(DatabaseError::FailToFindById);
+        }
+        if let Some(unwrapped) = item.unwrap() {
+            Ok(unwrapped)
+        } else {
+            Err(DatabaseError::FailToFindById)
         }
     }
 }
@@ -134,29 +147,16 @@ mod tests {
         let note = get_test_note().expect("Failed to get test note.");
         let db = get_database().await;
         assert!(db.is_ok(), "Database is returned without error.");
-        let res = note.save(db.unwrap()).await;
+        let res = note.save(db.as_ref().unwrap()).await;
         assert!(
             res.is_none(),
             "Mdx note was saved without throwing an error."
         );
+        let id = note.get_id();
+        let found_item = MdxNoteRust::from_id_string(&id, db.as_ref().unwrap());
+        assert!(
+            found_item.await.is_ok(),
+            "Mdx note found by id after inserting item successfully"
+        );
     }
-
-    // #[test]
-    // fn mdx_note_parses() {
-    //     let root = fluster_test_utils::test_utils::get_development_root_or_die();
-    //     let test_content_path = path::Path::new(&root)
-    //         .join("packages")
-    //         .join("fluster_test_utils")
-    //         .join("src")
-    //         .join("api")
-    //         .join("test_content")
-    //         .join("test_mdx_content.mdx");
-    //     if note.is_err() {
-    //         println!("Note: {:?}", note);
-    //     }
-    //     // let err = note.is_err();
-    //     assert!(note.is_ok(), "Parsed note successfully");
-    //     // assert_eq!(note.front_matter)
-    //     // assert_eq!(rsult, 4);
-    // }
 }
