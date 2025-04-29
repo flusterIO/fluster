@@ -20,7 +20,7 @@ void showCommandPalette() {
     return;
   }
   showDialog(
-    context: desktopScaffoldMessenegerKey.currentContext!,
+    context:  parentRouterKey.currentContext!,
     builder: (_) => CommandPaletteWidget(),
     barrierDismissible: false,
   );

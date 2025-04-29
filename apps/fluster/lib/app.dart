@@ -14,6 +14,7 @@ import 'package:flutter/widgets.dart';
 
 final globalColorScheme = ValueNotifier(FlexScheme.shadBlue);
 final globalThemeMode = ValueNotifier(ThemeMode.system);
+final globalCommandPaletteOpen = ValueNotifier(false);
 
 //NOTE: Don't use any state here or it causes massive layout shift.
 class FlusterDesktopApp extends StatelessWidget {

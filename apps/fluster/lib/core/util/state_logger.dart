@@ -22,6 +22,7 @@ class ThemeStateObserver extends ActionObserver<GlobalAppState> {
     // ignore: avoid_print
     print("$action");
     if(action is SetThemeModeAction) {
+    // FIXME: Implement the global theme here.
     print("Action here: ${action}");
          // globalThemeMode.value = action.
     }
