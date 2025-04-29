@@ -284,7 +284,7 @@ class NoteByIdRoute extends GoRouteData {
   path: '/',
   name: RouteNames.home,
   routes: <TypedRoute<RouteData>>[
-    TypedGoRoute<CommandPaletteRoute>(path: "/commandPalette"),
+    // TypedGoRoute<CommandPaletteRoute>(path: "/commandPalette"),
     TypedGoRoute<OnboardingScreenRoute>(path: "/onboarding"),
     TypedGoRoute<DashboardRoute>(path: "/dashboard"),
     TypedGoRoute<SettingsRoute>(path: "/settings"),
@@ -301,8 +301,4 @@ class HomeScreenRoute extends GoRouteData {
   Page<void> buildPage(BuildContext context, GoRouterState state) {
     return NoTransitionPage<DesktopAppScaffold>(child: Dashboard());
   }
-
-  // @override
-  //  buildPage(BuildContext context, GoRouterState state) {
-  // }
 }

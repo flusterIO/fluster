@@ -32,7 +32,6 @@ void main() async {
     // This is where the state of our providers will be stored.
     StoreProvider<GlobalAppState>(
       store: globalReduxStore,
-      // observers: <ProviderObserver>[StateLogger()],
       child: DesktopKeyboardShortcuts(
         child: FlusterDesktopApp(initialDbStatus: initialDbStatus),
       ),

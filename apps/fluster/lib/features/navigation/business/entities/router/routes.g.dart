@@ -377,16 +377,6 @@ RouteBase get $homeScreenRoute => GoRouteData.$route(
   factory: $HomeScreenRouteExtension._fromState,
   routes: [
     GoRouteData.$route(
-      path: '/commandPalette',
-
-      factory: $CommandPaletteRouteExtension._fromState,
-    ),
-    GoRouteData.$route(
-      path: '/splash',
-
-      factory: $SplashScreenRouteExtension._fromState,
-    ),
-    GoRouteData.$route(
       path: '/onboarding',
 
       factory: $OnboardingScreenRouteExtension._fromState,

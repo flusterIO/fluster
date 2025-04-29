@@ -1,4 +1,5 @@
 import 'package:flex_color_scheme/flex_color_scheme.dart';
+import 'package:fluster/app.dart';
 import 'package:fluster/features/panel_left/state/panel_left_state.dart';
 import 'package:fluster/features/panel_right/state/panel_right_state.dart';
 import 'package:flutter/material.dart';

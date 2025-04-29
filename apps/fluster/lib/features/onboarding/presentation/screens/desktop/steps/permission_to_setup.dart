@@ -1,5 +1,7 @@
 import 'dart:math';
 
+import 'package:fluster/core/state/store.dart';
+import 'package:fluster/features/onboarding/state/actions/set_onboarding_index.dart';
 import 'package:flutter/material.dart';
 import 'package:fluster_native_interface/fluster_native_interface.dart'
     as native;
@@ -41,8 +43,10 @@ class PermissionToSetupStep extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     FilledButton(
-                      onPressed: () {
-                        native.setupFileSystemForData();
+                      onPressed: () async {
+                        // FIXME: Add error handling here.
+                        final success = await native.setupFileSystemForData();
+                        globalReduxStore.dispatch(SetOnboardingIndex(1));
                       },
                       child: Text("Continue"),
                     ),

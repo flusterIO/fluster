@@ -6,8 +6,7 @@ import 'package:flutter/material.dart';
 
 class SetOnboardingIndex extends FlusterAction {
   final int changeInIndex;
-  final BuildContext context;
-  SetOnboardingIndex(this.changeInIndex, this.context);
+  SetOnboardingIndex(this.changeInIndex);
 
   @override
   GlobalAppState reduce() {
