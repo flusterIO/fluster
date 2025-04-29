@@ -4,7 +4,10 @@ import 'package:fluster/core/util/state_logger.dart';
 
 final globalReduxStore = r.Store<GlobalAppState>(
   initialState: GlobalAppState.initialState(),
-  actionObservers: [DevelopmentStateLogger()],
+  actionObservers: [
+    DevelopmentStateLogger(),
+    ThemeStateObserver()
+],
   // middleware: [
   // The following middleware both achieve the same goal: Load search
   // results from github in response to SearchActions.

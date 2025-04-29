@@ -1,6 +1,5 @@
 import 'package:fluster/core/global_actions/global_action_map.dart';
 import 'package:fluster/core/state/global_state.dart';
-import 'package:fluster/core/static/global_keys.dart';
 import 'package:fluster/core/types/state_types.dart';
 import 'package:fluster/features/command_palette/data/models/command_palette_category.dart';
 import 'package:fluster/features/command_palette/data/models/command_palette_entry.dart';
@@ -17,7 +16,6 @@ class SetCommandPaletteOpenAction extends FlusterAction {
       !(open && initialCategory == null),
       "Received a SetCommandPaletteOpenAction request without an initial category.",
     );
-    print("here?: ${open}");
     if (open == false) {
       closeCommandPalette();
       // desktopScaffoldKey.currentContext?.pop();

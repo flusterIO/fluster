@@ -13,18 +13,17 @@ class DevelopmentStateLogger extends ActionObserver<GlobalAppState> {
   }
 }
 
-
 class ThemeStateObserver extends ActionObserver<GlobalAppState> {
   ThemeStateObserver();
 
   @override
   void observe(ReduxAction action, int dispatchCount, {required bool ini}) {
-    // ignore: avoid_print
-    print("$action");
-    if(action is SetThemeModeAction) {
-    // FIXME: Implement the global theme here.
-    print("Action here: ${action}");
-         // globalThemeMode.value = action.
+    if (action is SetColorSchemeAction) {
+      globalColorScheme.value = (action as SetColorSchemeAction).scheme;
+    }
+
+    if (action is SetThemeModeAction) {
+      globalThemeMode.value = (action as SetThemeModeAction).themeMode;
     }
   }
 }

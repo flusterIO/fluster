@@ -5,9 +5,9 @@ import 'package:fluster/features/navigation/business/entities/router/router.dart
 import 'package:go_router/go_router.dart';
 
 class GoRouteCommandPaletteOption extends CommandPaletteEntry {
-  final String routeName;
+  final String url;
   const GoRouteCommandPaletteOption({
-    required this.routeName,
+    required this.url,
     required super.category,
     required super.items,
     required super.desc,
@@ -16,8 +16,7 @@ class GoRouteCommandPaletteOption extends CommandPaletteEntry {
 
   @override
   void callAction() {
-    // TEMP: Try the nested router...
-    appShellNavigatorKey.currentContext?.pushNamed(routeName);
+    mainAppScaffoldKey.currentContext?.go(url);
     globalReduxStore.dispatch(SetCommandPaletteOpenAction(false, initialCategory: null));
   }
 }

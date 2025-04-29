@@ -2,6 +2,7 @@ import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:fluster/features/command_palette/data/command_palette_tree/categories/action_commands/command_palette_action_commands.dart';
 import 'package:fluster/features/command_palette/data/command_palette_tree/categories/navigation_commands/navigation_command_palette_category.dart';
 import 'package:fluster/features/command_palette/data/command_palette_tree/categories/theme_commands/themes_command_palette_category.dart';
+import 'package:fluster/features/command_palette/data/command_palette_tree/categories/theme_commands/toggle_dark_mode_command.dart';
 import 'package:fluster/features/command_palette/data/models/command_palette_category.dart';
 import 'package:fluster/features/command_palette/data/models/command_palette_category_enum.dart';
 import 'package:fluster/features/command_palette/data/models/command_palette_entry.dart';
@@ -14,10 +15,11 @@ class CommandPaletteRoot extends CommandPaletteCategory {
         desc: null,
         category: CommandPaletteCategoryId.root,
         items: <CommandPaletteEntry>[
-                NavigationCommandPaletteCategory(),
-                ThemesNavigationCommandPaletteCategory(),
-                CommandPaletteActionCommands()
-            ],
+          NavigationCommandPaletteCategory(),
+          ThemesNavigationCommandPaletteCategory(),
+          CommandPaletteActionCommands(),
+          ToggleDarkModeCommand(),
+        ],
       );
 
   @override
