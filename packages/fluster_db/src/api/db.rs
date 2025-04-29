@@ -11,7 +11,7 @@ pub fn get_database_path() -> Option<PathBuf> {
         log::error!("Failed to get a databse path for your operating system. Something is likely configured terribly wrong.");
         return None;
     }
-    d
+    Some(d.unwrap().join("Fluster").join("data").join("database"))
 }
 
 pub struct DatabaseOptions<'a> {
@@ -41,9 +41,7 @@ pub async fn get_database(
     if d.is_none() {
         return Err(fluster_types::errors::database_errors::DatabaseError::FailToConnect);
     }
-    let e =
-        surrealdb::Surreal::new::<RocksDb>(format!("rocksdb://{}", d.unwrap().to_str().unwrap()))
-            .await;
+    let e = surrealdb::Surreal::new::<RocksDb>(d.unwrap().to_str().unwrap()).await;
     if e.is_err() {
         return Err(fluster_types::errors::database_errors::DatabaseError::FailToConnect);
     }

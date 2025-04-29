@@ -25,6 +25,7 @@ void main() async {
 
   await RustLib.init();
   WidgetsFlutterBinding.ensureInitialized();
+  final initialDbStatus = await getDatabaseStatus();
   runApp(
     // For widgets to be able to read providers, we need to wrap the entire
     // application in a "ProviderScope" widget.
@@ -32,7 +33,9 @@ void main() async {
     StoreProvider<GlobalAppState>(
       store: globalReduxStore,
       // observers: <ProviderObserver>[StateLogger()],
-      child: DesktopKeyboardShortcuts(child: FlusterDesktopApp()),
+      child: DesktopKeyboardShortcuts(
+        child: FlusterDesktopApp(initialDbStatus: initialDbStatus),
+      ),
     ),
   );
   doWhenWindowReady(() {

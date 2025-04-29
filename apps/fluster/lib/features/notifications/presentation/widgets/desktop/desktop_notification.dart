@@ -7,7 +7,9 @@ import 'package:fluster/features/notifications/presentation/state/actions/remove
 import 'package:fluster/features/notifications/presentation/widgets/desktop/desktop_notification_list.dart';
 import 'package:flutter/material.dart';
 
-final notificationsListKey = GlobalKey<AnimatedListState>();
+final notificationsListKey = GlobalKey<AnimatedListState>(
+    debugLabel: "animageList"
+);
 
 // FIXME: Come back and fix this. Currently, removing items and then adding more items fails for some reason. Also, the animations don't you know... animate shit.
 class NotificationsContainerDesktop extends StatelessWidget {

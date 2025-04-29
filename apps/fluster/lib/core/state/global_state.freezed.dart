@@ -27,6 +27,7 @@ mixin _$GlobalAppState {
   CommandPaletteState get commandPaletteState =>
       throw _privateConstructorUsedError;
   DatabaseState get databaseState => throw _privateConstructorUsedError;
+  OnboardingState get onboardingState => throw _privateConstructorUsedError;
 
   /// Create a copy of GlobalAppState
   /// with the given fields replaced by the non-null parameter values.
@@ -51,6 +52,7 @@ abstract class $GlobalAppStateCopyWith<$Res> {
     GlobalNotificationState notificationState,
     CommandPaletteState commandPaletteState,
     DatabaseState databaseState,
+    OnboardingState onboardingState,
   });
 
   $SettingsStateCopyWith<$Res> get settingsState;
@@ -61,6 +63,7 @@ abstract class $GlobalAppStateCopyWith<$Res> {
   $GlobalNotificationStateCopyWith<$Res> get notificationState;
   $CommandPaletteStateCopyWith<$Res> get commandPaletteState;
   $DatabaseStateCopyWith<$Res> get databaseState;
+  $OnboardingStateCopyWith<$Res> get onboardingState;
 }
 
 /// @nodoc
@@ -86,6 +89,7 @@ class _$GlobalAppStateCopyWithImpl<$Res, $Val extends GlobalAppState>
     Object? notificationState = null,
     Object? commandPaletteState = null,
     Object? databaseState = null,
+    Object? onboardingState = null,
   }) {
     return _then(
       _value.copyWith(
@@ -129,6 +133,11 @@ class _$GlobalAppStateCopyWithImpl<$Res, $Val extends GlobalAppState>
                     ? _value.databaseState
                     : databaseState // ignore: cast_nullable_to_non_nullable
                         as DatabaseState,
+            onboardingState:
+                null == onboardingState
+                    ? _value.onboardingState
+                    : onboardingState // ignore: cast_nullable_to_non_nullable
+                        as OnboardingState,
           )
           as $Val,
     );
@@ -217,6 +226,16 @@ class _$GlobalAppStateCopyWithImpl<$Res, $Val extends GlobalAppState>
       return _then(_value.copyWith(databaseState: value) as $Val);
     });
   }
+
+  /// Create a copy of GlobalAppState
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $OnboardingStateCopyWith<$Res> get onboardingState {
+    return $OnboardingStateCopyWith<$Res>(_value.onboardingState, (value) {
+      return _then(_value.copyWith(onboardingState: value) as $Val);
+    });
+  }
 }
 
 /// @nodoc
@@ -237,6 +256,7 @@ abstract class _$$GlobalAppStateImplCopyWith<$Res>
     GlobalNotificationState notificationState,
     CommandPaletteState commandPaletteState,
     DatabaseState databaseState,
+    OnboardingState onboardingState,
   });
 
   @override
@@ -255,6 +275,8 @@ abstract class _$$GlobalAppStateImplCopyWith<$Res>
   $CommandPaletteStateCopyWith<$Res> get commandPaletteState;
   @override
   $DatabaseStateCopyWith<$Res> get databaseState;
+  @override
+  $OnboardingStateCopyWith<$Res> get onboardingState;
 }
 
 /// @nodoc
@@ -279,6 +301,7 @@ class __$$GlobalAppStateImplCopyWithImpl<$Res>
     Object? notificationState = null,
     Object? commandPaletteState = null,
     Object? databaseState = null,
+    Object? onboardingState = null,
   }) {
     return _then(
       _$GlobalAppStateImpl(
@@ -322,6 +345,11 @@ class __$$GlobalAppStateImplCopyWithImpl<$Res>
                 ? _value.databaseState
                 : databaseState // ignore: cast_nullable_to_non_nullable
                     as DatabaseState,
+        onboardingState:
+            null == onboardingState
+                ? _value.onboardingState
+                : onboardingState // ignore: cast_nullable_to_non_nullable
+                    as OnboardingState,
       ),
     );
   }
@@ -339,6 +367,7 @@ class _$GlobalAppStateImpl implements _GlobalAppState {
     required this.notificationState,
     required this.commandPaletteState,
     required this.databaseState,
+    required this.onboardingState,
   });
 
   @override
@@ -357,10 +386,12 @@ class _$GlobalAppStateImpl implements _GlobalAppState {
   final CommandPaletteState commandPaletteState;
   @override
   final DatabaseState databaseState;
+  @override
+  final OnboardingState onboardingState;
 
   @override
   String toString() {
-    return 'GlobalAppState(settingsState: $settingsState, networkState: $networkState, errorState: $errorState, uiState: $uiState, navigationState: $navigationState, notificationState: $notificationState, commandPaletteState: $commandPaletteState, databaseState: $databaseState)';
+    return 'GlobalAppState(settingsState: $settingsState, networkState: $networkState, errorState: $errorState, uiState: $uiState, navigationState: $navigationState, notificationState: $notificationState, commandPaletteState: $commandPaletteState, databaseState: $databaseState, onboardingState: $onboardingState)';
   }
 
   @override
@@ -382,7 +413,9 @@ class _$GlobalAppStateImpl implements _GlobalAppState {
             (identical(other.commandPaletteState, commandPaletteState) ||
                 other.commandPaletteState == commandPaletteState) &&
             (identical(other.databaseState, databaseState) ||
-                other.databaseState == databaseState));
+                other.databaseState == databaseState) &&
+            (identical(other.onboardingState, onboardingState) ||
+                other.onboardingState == onboardingState));
   }
 
   @override
@@ -396,6 +429,7 @@ class _$GlobalAppStateImpl implements _GlobalAppState {
     notificationState,
     commandPaletteState,
     databaseState,
+    onboardingState,
   );
 
   /// Create a copy of GlobalAppState
@@ -420,6 +454,7 @@ abstract class _GlobalAppState implements GlobalAppState {
     required final GlobalNotificationState notificationState,
     required final CommandPaletteState commandPaletteState,
     required final DatabaseState databaseState,
+    required final OnboardingState onboardingState,
   }) = _$GlobalAppStateImpl;
 
   @override
@@ -438,6 +473,8 @@ abstract class _GlobalAppState implements GlobalAppState {
   CommandPaletteState get commandPaletteState;
   @override
   DatabaseState get databaseState;
+  @override
+  OnboardingState get onboardingState;
 
   /// Create a copy of GlobalAppState
   /// with the given fields replaced by the non-null parameter values.

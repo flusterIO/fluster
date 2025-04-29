@@ -3,6 +3,7 @@ import 'package:fluster/core/state/store.dart';
 import 'package:fluster/features/navigation/business/entities/navigation_items.dart';
 import 'package:fluster/features/panel_left/state/actions/toggle_panel_left.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class ResponsiveNavigationRail extends StatelessWidget {
   const ResponsiveNavigationRail({super.key});
@@ -14,7 +15,8 @@ class ResponsiveNavigationRail extends StatelessWidget {
   ) {
     return List.generate(items.length, (int idx) {
       final active =
-          context.state.navigationState.navigationId == items[idx].id;
+          GoRouter.of(context).routeInformationProvider.value.uri.toString() ==
+          items[idx].href;
       return Container(
         decoration: BoxDecoration(
           border: Border(
@@ -32,10 +34,13 @@ class ResponsiveNavigationRail extends StatelessWidget {
               if (active) {
                 globalReduxStore.dispatch(TogglePanelLeftAction());
               } else {
-                items[idx].navigate(context);
-                final id = items[idx].id;
-                if (id != null) {
-                  // ref.read(sideMenuProvider.notifier).state.selectedId = id;
+                final onClick = items[idx].onClick;
+                if (onClick != null) {
+                  onClick();
+                }
+                final href = items[idx].href;
+                if (href != null) {
+                  context.go(href);
                 }
               }
             },

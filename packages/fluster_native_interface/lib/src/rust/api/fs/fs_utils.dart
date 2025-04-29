@@ -4,6 +4,7 @@
 // ignore_for_file: invalid_use_of_internal_member, unused_import, unnecessary_import
 
 import '../../frb_generated.dart';
+import 'fs_setup.dart';
 import 'package:flutter_rust_bridge/flutter_rust_bridge_for_generated.dart';
 
 bool pathExists({required String filePath}) =>
@@ -13,6 +14,3 @@ String getAppConfigDir() =>
     RustLib.instance.api.crateApiFsFsUtilsGetAppConfigDir();
 
 String getAppDataDir() => RustLib.instance.api.crateApiFsFsUtilsGetAppDataDir();
-
-// Rust type: RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<FileSystemError>>
-abstract class FileSystemError implements RustOpaqueInterface {}

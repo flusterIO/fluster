@@ -4,20 +4,33 @@
 
 import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:fluster/core/extension_methods/context_extension.dart';
+import 'package:fluster/core/state/store.dart';
 import 'package:fluster/core/static/global_keys.dart';
+import 'package:fluster/features/database/state/actions/ping_database_status.dart';
+import 'package:fluster/features/database/state/database_state.dart';
 import 'package:fluster/features/navigation/business/entities/router/router.dart';
+import 'package:fluster/features/navigation/business/entities/router/routes.dart';
 import 'package:fluster/features/scaffold/presentation/widgets/desktop/loading_indicator.dart';
 import 'package:fluster/features/settings/state/settings/settings_state.dart';
+import 'package:fluster_native_interface/fluster_native_interface.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
 class FlusterDesktopApp extends HookWidget {
-  const FlusterDesktopApp({super.key});
+  final FlusterDatabaseStatus initialDbStatus;
+  const FlusterDesktopApp({super.key, required this.initialDbStatus});
 
   @override
   Widget build(BuildContext context) {
     if (!context.state.settingsState.hasSeeded) {
       SettingsState.readDatabaseAndSeed();
+    }
+    // final router = useMemoized(() {
+    //   return ;
+    // }, [context.state.databaseState.status]);
+    if (context.state.databaseState.status ==
+        FlusterDatabaseStatus.awaitingInitialPing) {
+      globalReduxStore.dispatch(PingDatabaseStatus());
     }
     return MaterialApp.router(
       title: "Fluster",
@@ -40,7 +53,12 @@ class FlusterDesktopApp extends HookWidget {
             ? DesktopLoadingWidgetIndicator()
             : child!,
       ),
-      routerConfig: router,
+      // routerConfig: router,
+      routerConfig: getRouter(
+        initialDbStatus == FlusterDatabaseStatus.notInitialized
+            ? SetupOnboardingStepRoute().location
+            : HomeScreenRoute().location,
+      ),
     );
   }
 }

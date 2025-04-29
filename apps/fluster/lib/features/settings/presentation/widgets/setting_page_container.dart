@@ -7,7 +7,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
 class SettingsPageContainer extends StatelessWidget {
-  final _formKey = GlobalKey<FormState>();
+  final _formKey = GlobalKey<FormState>(
+        debugLabel: "settingsPageFormKey"
+    );
   final SettingPageDataAbstract pageData;
 
   SettingsPageContainer({super.key, required this.pageData});

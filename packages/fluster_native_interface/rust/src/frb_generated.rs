@@ -25,7 +25,7 @@
 
 // Section: imports
 
-use crate::api::fs::fs_utils::*;
+use crate::api::fs::fs_setup::*;
 use flutter_rust_bridge::for_generated::byteorder::{NativeEndian, ReadBytesExt, WriteBytesExt};
 use flutter_rust_bridge::for_generated::{transform_result_dco, Lifetimeable, Lockable};
 use flutter_rust_bridge::{Handler, IntoIntoDart};
@@ -38,7 +38,7 @@ flutter_rust_bridge::frb_generated_boilerplate!(
     default_rust_auto_opaque = RustAutoOpaqueMoi,
 );
 pub(crate) const FLUTTER_RUST_BRIDGE_CODEGEN_VERSION: &str = "2.9.0";
-pub(crate) const FLUTTER_RUST_BRIDGE_CODEGEN_CONTENT_HASH: i32 = -94432937;
+pub(crate) const FLUTTER_RUST_BRIDGE_CODEGEN_CONTENT_HASH: i32 = -953969739;
 
 // Section: executor
 
@@ -101,6 +101,44 @@ fn wire__crate__api__fs__fs_utils__get_app_data_dir_impl(
                 let output_ok = crate::api::fs::fs_utils::get_app_data_dir()?;
                 Ok(output_ok)
             })())
+        },
+    )
+}
+fn wire__crate__api__data_interface__get_database_status__get_database_status_impl(
+    port_: flutter_rust_bridge::for_generated::MessagePort,
+    ptr_: flutter_rust_bridge::for_generated::PlatformGeneralizedUint8ListPtr,
+    rust_vec_len_: i32,
+    data_len_: i32,
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_async::<flutter_rust_bridge::for_generated::SseCodec, _, _, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "get_database_status",
+            port: Some(port_),
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
+        },
+        move || {
+            let message = unsafe {
+                flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(
+                    ptr_,
+                    rust_vec_len_,
+                    data_len_,
+                )
+            };
+            let mut deserializer =
+                flutter_rust_bridge::for_generated::SseDeserializer::new(message);
+            deserializer.end();
+            move |context| async move {
+                transform_result_sse::<_, ()>(
+                    (move || async move {
+                        let output_ok = Result::<_, ()>::Ok(
+                            crate::api::data_interface::get_database_status::get_database_status()
+                                .await,
+                        )?;
+                        Ok(output_ok)
+                    })()
+                    .await,
+                )
+            }
         },
     )
 }
@@ -268,6 +306,28 @@ impl SseDecode for f64 {
     }
 }
 
+impl SseDecode for crate::api::data_interface::get_database_status::FlusterDatabaseStatus {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut inner = <i32>::sse_decode(deserializer);
+        return match inner {
+            0 => crate::api::data_interface::get_database_status::FlusterDatabaseStatus::NotInitialized,
+1 => crate::api::data_interface::get_database_status::FlusterDatabaseStatus::ErrorEncountered,
+2 => crate::api::data_interface::get_database_status::FlusterDatabaseStatus::NotConnected,
+3 => crate::api::data_interface::get_database_status::FlusterDatabaseStatus::Connected,
+4 => crate::api::data_interface::get_database_status::FlusterDatabaseStatus::AwaitingInitialPing,
+            _ => unreachable!("Invalid variant for FlusterDatabaseStatus: {}", inner),
+        };
+    }
+}
+
+impl SseDecode for i32 {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        deserializer.cursor.read_i32::<NativeEndian>().unwrap()
+    }
+}
+
 impl SseDecode for Vec<u8> {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
@@ -310,13 +370,6 @@ impl SseDecode for usize {
     }
 }
 
-impl SseDecode for i32 {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
-        deserializer.cursor.read_i32::<NativeEndian>().unwrap()
-    }
-}
-
 fn pde_ffi_dispatcher_primary_impl(
     func_id: i32,
     port: flutter_rust_bridge::for_generated::MessagePort,
@@ -326,8 +379,9 @@ fn pde_ffi_dispatcher_primary_impl(
 ) {
     // Codec=Pde (Serialization + dispatch), see doc to use other codecs
     match func_id {
-                        5 => wire__crate__api__fs__fs_setup__setup_file_system_for_data_impl(port, ptr, rust_vec_len, data_len),
-6 => wire__crate__api__global_actions__parse_directory__parse_fs_directory__sync_directory_impl(port, ptr, rust_vec_len, data_len),
+                        3 => wire__crate__api__data_interface__get_database_status__get_database_status_impl(port, ptr, rust_vec_len, data_len),
+6 => wire__crate__api__fs__fs_setup__setup_file_system_for_data_impl(port, ptr, rust_vec_len, data_len),
+7 => wire__crate__api__global_actions__parse_directory__parse_fs_directory__sync_directory_impl(port, ptr, rust_vec_len, data_len),
                         _ => unreachable!(),
                     }
 }
@@ -342,12 +396,12 @@ fn pde_ffi_dispatcher_sync_impl(
     match func_id {
         1 => wire__crate__api__fs__fs_utils__get_app_config_dir_impl(ptr, rust_vec_len, data_len),
         2 => wire__crate__api__fs__fs_utils__get_app_data_dir_impl(ptr, rust_vec_len, data_len),
-        3 => wire__crate__api__search__get_text_similarity__get_text_similarity_impl(
+        4 => wire__crate__api__search__get_text_similarity__get_text_similarity_impl(
             ptr,
             rust_vec_len,
             data_len,
         ),
-        4 => wire__crate__api__fs__fs_utils__path_exists_impl(ptr, rust_vec_len, data_len),
+        5 => wire__crate__api__fs__fs_utils__path_exists_impl(ptr, rust_vec_len, data_len),
         _ => unreachable!(),
     }
 }
@@ -366,6 +420,37 @@ impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive for FrbWrapper<
 impl flutter_rust_bridge::IntoIntoDart<FrbWrapper<FileSystemError>> for FileSystemError {
     fn into_into_dart(self) -> FrbWrapper<FileSystemError> {
         self.into()
+    }
+}
+
+// Codec=Dco (DartCObject based), see doc to use other codecs
+impl flutter_rust_bridge::IntoDart
+    for crate::api::data_interface::get_database_status::FlusterDatabaseStatus
+{
+    fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
+        match self {
+            Self::NotInitialized => 0.into_dart(),
+            Self::ErrorEncountered => 1.into_dart(),
+            Self::NotConnected => 2.into_dart(),
+            Self::Connected => 3.into_dart(),
+            Self::AwaitingInitialPing => 4.into_dart(),
+            _ => unreachable!(),
+        }
+    }
+}
+impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive
+    for crate::api::data_interface::get_database_status::FlusterDatabaseStatus
+{
+}
+impl
+    flutter_rust_bridge::IntoIntoDart<
+        crate::api::data_interface::get_database_status::FlusterDatabaseStatus,
+    > for crate::api::data_interface::get_database_status::FlusterDatabaseStatus
+{
+    fn into_into_dart(
+        self,
+    ) -> crate::api::data_interface::get_database_status::FlusterDatabaseStatus {
+        self
     }
 }
 
@@ -405,6 +490,25 @@ impl SseEncode for f64 {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
         serializer.cursor.write_f64::<NativeEndian>(self).unwrap();
+    }
+}
+
+impl SseEncode for crate::api::data_interface::get_database_status::FlusterDatabaseStatus {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <i32>::sse_encode(match self {crate::api::data_interface::get_database_status::FlusterDatabaseStatus::NotInitialized => { 0 }
+crate::api::data_interface::get_database_status::FlusterDatabaseStatus::ErrorEncountered => { 1 }
+crate::api::data_interface::get_database_status::FlusterDatabaseStatus::NotConnected => { 2 }
+crate::api::data_interface::get_database_status::FlusterDatabaseStatus::Connected => { 3 }
+crate::api::data_interface::get_database_status::FlusterDatabaseStatus::AwaitingInitialPing => { 4 }
+ _ => { unimplemented!(""); }}, serializer);
+    }
+}
+
+impl SseEncode for i32 {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        serializer.cursor.write_i32::<NativeEndian>(self).unwrap();
     }
 }
 
@@ -450,13 +554,6 @@ impl SseEncode for usize {
     }
 }
 
-impl SseEncode for i32 {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
-        serializer.cursor.write_i32::<NativeEndian>(self).unwrap();
-    }
-}
-
 #[cfg(not(target_family = "wasm"))]
 mod io {
     // This file is automatically generated, so please do not edit it.
@@ -465,7 +562,7 @@ mod io {
     // Section: imports
 
     use super::*;
-    use crate::api::fs::fs_utils::*;
+    use crate::api::fs::fs_setup::*;
     use flutter_rust_bridge::for_generated::byteorder::{
         NativeEndian, ReadBytesExt, WriteBytesExt,
     };
@@ -502,7 +599,7 @@ mod web {
     // Section: imports
 
     use super::*;
-    use crate::api::fs::fs_utils::*;
+    use crate::api::fs::fs_setup::*;
     use flutter_rust_bridge::for_generated::byteorder::{
         NativeEndian, ReadBytesExt, WriteBytesExt,
     };

@@ -5,6 +5,7 @@ import 'package:fluster/features/command_palette/state/command_palette_state.dar
 import 'package:fluster/features/database/state/database_state.dart';
 import 'package:fluster/features/navigation/state/navigation_state.dart';
 import 'package:fluster/features/notifications/presentation/state/notification_state.dart';
+import 'package:fluster/features/onboarding/state/onboarding_state.dart';
 import 'package:fluster/features/settings/state/settings/settings_state.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
@@ -21,6 +22,7 @@ class GlobalAppState with _$GlobalAppState {
     required GlobalNotificationState notificationState,
     required CommandPaletteState commandPaletteState,
     required DatabaseState databaseState,
+    required OnboardingState onboardingState,
   }) = _GlobalAppState;
   static GlobalAppState initialState() => GlobalAppState(
     settingsState: SettingsState.initialState(),
@@ -31,5 +33,6 @@ class GlobalAppState with _$GlobalAppState {
     notificationState: GlobalNotificationState.initialState(),
     commandPaletteState: CommandPaletteState.initialState(),
     databaseState: DatabaseState.initialState(),
+    onboardingState: OnboardingState.initialState(),
   );
 }

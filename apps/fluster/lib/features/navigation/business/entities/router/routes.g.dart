@@ -9,6 +9,18 @@ part of 'routes.dart';
 List<RouteBase> get $appRoutes => [
   $commandPaletteRoute,
   $splashScreenRoute,
+  $originsOfFlusterOnboardingRoute,
+  $tourOfFlusterOnboardingRoute,
+  $locationOfNotesOnboardingRoute,
+  $setupOnboardingStepRoute,
+  $onboardingScreenRoute,
+  $settingsRoute,
+  $bookmarksRoute,
+  $connectRoute,
+  $snippetsListRoute,
+  $bibliographyRoute,
+  $dashboardRoute,
+  $noteByIdRoute,
   $homeScreenRoute,
 ];
 
@@ -58,6 +70,306 @@ extension $SplashScreenRouteExtension on SplashScreenRoute {
   void replace(BuildContext context) => context.replace(location);
 }
 
+RouteBase get $originsOfFlusterOnboardingRoute => GoRouteData.$route(
+  path: '/onboarding/originsOfFluster',
+  name: 'onboarding-origins',
+
+  factory: $OriginsOfFlusterOnboardingRouteExtension._fromState,
+);
+
+extension $OriginsOfFlusterOnboardingRouteExtension
+    on OriginsOfFlusterOnboardingRoute {
+  static OriginsOfFlusterOnboardingRoute _fromState(GoRouterState state) =>
+      const OriginsOfFlusterOnboardingRoute();
+
+  String get location => GoRouteData.$location('/onboarding/originsOfFluster');
+
+  void go(BuildContext context) => context.go(location);
+
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
+}
+
+RouteBase get $tourOfFlusterOnboardingRoute => GoRouteData.$route(
+  path: '/onboarding/tour',
+  name: 'onboarding-tour',
+
+  factory: $TourOfFlusterOnboardingRouteExtension._fromState,
+);
+
+extension $TourOfFlusterOnboardingRouteExtension
+    on TourOfFlusterOnboardingRoute {
+  static TourOfFlusterOnboardingRoute _fromState(GoRouterState state) =>
+      const TourOfFlusterOnboardingRoute();
+
+  String get location => GoRouteData.$location('/onboarding/tour');
+
+  void go(BuildContext context) => context.go(location);
+
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
+}
+
+RouteBase get $locationOfNotesOnboardingRoute => GoRouteData.$route(
+  path: '/onboarding/locationOfNotes',
+  name: 'onboarding-location',
+
+  factory: $LocationOfNotesOnboardingRouteExtension._fromState,
+);
+
+extension $LocationOfNotesOnboardingRouteExtension
+    on LocationOfNotesOnboardingRoute {
+  static LocationOfNotesOnboardingRoute _fromState(GoRouterState state) =>
+      const LocationOfNotesOnboardingRoute();
+
+  String get location => GoRouteData.$location('/onboarding/locationOfNotes');
+
+  void go(BuildContext context) => context.go(location);
+
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
+}
+
+RouteBase get $setupOnboardingStepRoute => GoRouteData.$route(
+  path: '/onboarding/setup',
+  name: 'onboarding-setup',
+
+  factory: $SetupOnboardingStepRouteExtension._fromState,
+);
+
+extension $SetupOnboardingStepRouteExtension on SetupOnboardingStepRoute {
+  static SetupOnboardingStepRoute _fromState(GoRouterState state) =>
+      const SetupOnboardingStepRoute();
+
+  String get location => GoRouteData.$location('/onboarding/setup');
+
+  void go(BuildContext context) => context.go(location);
+
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
+}
+
+RouteBase get $onboardingScreenRoute => GoRouteData.$route(
+  path: '/onboarding',
+  name: 'onboarding',
+
+  factory: $OnboardingScreenRouteExtension._fromState,
+  routes: [
+    GoRouteData.$route(
+      path: '/onboarding/setup',
+
+      factory: $SetupOnboardingStepRouteExtension._fromState,
+    ),
+    GoRouteData.$route(
+      path: '/onboarding/tour',
+
+      factory: $TourOfFlusterOnboardingRouteExtension._fromState,
+    ),
+    GoRouteData.$route(
+      path: '/onboarding/locationOfNotes',
+
+      factory: $LocationOfNotesOnboardingRouteExtension._fromState,
+    ),
+    GoRouteData.$route(
+      path: '/onboarding/originsOfFluster',
+
+      factory: $OriginsOfFlusterOnboardingRouteExtension._fromState,
+    ),
+  ],
+);
+
+extension $OnboardingScreenRouteExtension on OnboardingScreenRoute {
+  static OnboardingScreenRoute _fromState(GoRouterState state) =>
+      const OnboardingScreenRoute();
+
+  String get location => GoRouteData.$location('/onboarding');
+
+  void go(BuildContext context) => context.go(location);
+
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
+}
+
+RouteBase get $settingsRoute => GoRouteData.$route(
+  path: '/settings',
+  name: 'snippetsList',
+
+  factory: $SettingsRouteExtension._fromState,
+);
+
+extension $SettingsRouteExtension on SettingsRoute {
+  static SettingsRoute _fromState(GoRouterState state) => const SettingsRoute();
+
+  String get location => GoRouteData.$location('/settings');
+
+  void go(BuildContext context) => context.go(location);
+
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
+}
+
+RouteBase get $bookmarksRoute => GoRouteData.$route(
+  path: '/bookmarks',
+  name: 'bookmarks',
+
+  factory: $BookmarksRouteExtension._fromState,
+);
+
+extension $BookmarksRouteExtension on BookmarksRoute {
+  static BookmarksRoute _fromState(GoRouterState state) =>
+      const BookmarksRoute();
+
+  String get location => GoRouteData.$location('/bookmarks');
+
+  void go(BuildContext context) => context.go(location);
+
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
+}
+
+RouteBase get $connectRoute => GoRouteData.$route(
+  path: '/connect',
+  name: 'connect',
+
+  factory: $ConnectRouteExtension._fromState,
+);
+
+extension $ConnectRouteExtension on ConnectRoute {
+  static ConnectRoute _fromState(GoRouterState state) => const ConnectRoute();
+
+  String get location => GoRouteData.$location('/connect');
+
+  void go(BuildContext context) => context.go(location);
+
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
+}
+
+RouteBase get $snippetsListRoute => GoRouteData.$route(
+  path: '/snippets',
+  name: 'snippetsList',
+
+  factory: $SnippetsListRouteExtension._fromState,
+);
+
+extension $SnippetsListRouteExtension on SnippetsListRoute {
+  static SnippetsListRoute _fromState(GoRouterState state) =>
+      const SnippetsListRoute();
+
+  String get location => GoRouteData.$location('/snippets');
+
+  void go(BuildContext context) => context.go(location);
+
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
+}
+
+RouteBase get $bibliographyRoute => GoRouteData.$route(
+  path: '/bibliography',
+  name: 'bibliography',
+
+  factory: $BibliographyRouteExtension._fromState,
+);
+
+extension $BibliographyRouteExtension on BibliographyRoute {
+  static BibliographyRoute _fromState(GoRouterState state) =>
+      const BibliographyRoute();
+
+  String get location => GoRouteData.$location('/bibliography');
+
+  void go(BuildContext context) => context.go(location);
+
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
+}
+
+RouteBase get $dashboardRoute => GoRouteData.$route(
+  path: '/dashboard',
+  name: 'dashboard',
+
+  factory: $DashboardRouteExtension._fromState,
+);
+
+extension $DashboardRouteExtension on DashboardRoute {
+  static DashboardRoute _fromState(GoRouterState state) =>
+      const DashboardRoute();
+
+  String get location => GoRouteData.$location('/dashboard');
+
+  void go(BuildContext context) => context.go(location);
+
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
+}
+
+RouteBase get $noteByIdRoute => GoRouteData.$route(
+  path: '/note/:noteId',
+  name: 'noteById',
+
+  factory: $NoteByIdRouteExtension._fromState,
+);
+
+extension $NoteByIdRouteExtension on NoteByIdRoute {
+  static NoteByIdRoute _fromState(GoRouterState state) =>
+      NoteByIdRoute(noteId: int.parse(state.pathParameters['noteId']!)!);
+
+  String get location =>
+      GoRouteData.$location('/note/${Uri.encodeComponent(noteId.toString())}');
+
+  void go(BuildContext context) => context.go(location);
+
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
+}
+
 RouteBase get $homeScreenRoute => GoRouteData.$route(
   path: '/',
   name: 'home',
@@ -73,6 +385,36 @@ RouteBase get $homeScreenRoute => GoRouteData.$route(
       path: '/splash',
 
       factory: $SplashScreenRouteExtension._fromState,
+    ),
+    GoRouteData.$route(
+      path: '/onboarding',
+
+      factory: $OnboardingScreenRouteExtension._fromState,
+    ),
+    GoRouteData.$route(
+      path: '/dashboard',
+
+      factory: $DashboardRouteExtension._fromState,
+    ),
+    GoRouteData.$route(
+      path: '/settings',
+
+      factory: $SettingsRouteExtension._fromState,
+    ),
+    GoRouteData.$route(
+      path: '/connect',
+
+      factory: $ConnectRouteExtension._fromState,
+    ),
+    GoRouteData.$route(
+      path: '/bibliography',
+
+      factory: $BibliographyRouteExtension._fromState,
+    ),
+    GoRouteData.$route(
+      path: '/bookmarks',
+
+      factory: $BookmarksRouteExtension._fromState,
     ),
   ],
 );

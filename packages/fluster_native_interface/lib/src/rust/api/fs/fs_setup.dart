@@ -8,3 +8,6 @@ import 'package:flutter_rust_bridge/flutter_rust_bridge_for_generated.dart';
 
 Future<FileSystemError?> setupFileSystemForData() =>
     RustLib.instance.api.crateApiFsFsSetupSetupFileSystemForData();
+
+// Rust type: RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<FileSystemError>>
+abstract class FileSystemError implements RustOpaqueInterface {}

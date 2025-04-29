@@ -1,12 +1,12 @@
-import 'package:fluster/features/bibliography/presentation/screens/desktop/bibliography_screen.dart';
-import 'package:fluster/features/bookmarks/presentation/screens/desktop/bookmarks_screen.dart';
-import 'package:fluster/features/command_palette/data/command_palette_tree/command_palette_root.dart';
 import 'package:fluster/features/command_palette/presentation/widgets/command_palette/command_palette.dart';
 import 'package:fluster/features/command_palette/presentation/widgets/command_palette/command_palette_container.dart';
 import 'package:fluster/features/dashboard/presentation/screens/desktop/dashboard_desktop.dart';
-import 'package:fluster/features/peer_to_peer/presentation/screens/desktop/connect_screen.dart';
+import 'package:fluster/features/onboarding/presentation/screens/desktop/initial_setup_onboarding.dart';
+import 'package:fluster/features/onboarding/presentation/screens/desktop/steps/a_little_about_fluster.dart';
+import 'package:fluster/features/onboarding/presentation/screens/desktop/steps/location_of_notes.dart';
+import 'package:fluster/features/onboarding/presentation/screens/desktop/steps/origins_of_fluster.dart';
+import 'package:fluster/features/onboarding/presentation/screens/desktop/steps/permission_to_setup.dart';
 import 'package:fluster/features/scaffold/presentation/widgets/desktop/desktop_scaffold.dart';
-import 'package:fluster/features/settings/presentation/screens/settings_screen.dart';
 import 'package:fluster/features/splash/presentation/screens/desktop/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -20,8 +20,15 @@ class RouteNames {
   static const String connect = "connect";
   static const String settings = "settings";
   static const String dashboard = "dashboard";
+  static const String snippetsList = "snippetsList";
   static const String splash = "splash";
   static const String bookmarks = "bookmarks";
+  static const String onboarding = "onboarding";
+  static const String onboardingSetup = "onboarding-setup";
+  static const String onboardingLocationOfNotes = "onboarding-location";
+  static const String onboardingTourOfFluster = "onboarding-tour";
+  static const String onboardingOriginsOfFluster = "onboarding-origins";
+  static const String noteById = "noteById";
 }
 
 @TypedGoRoute<CommandPaletteRoute>(
@@ -76,127 +83,226 @@ class SplashScreenRoute extends GoRouteData {
   }
 }
 
-// @TypedGoRoute<SettingsRoute>(
-//   path: '/settings',
-//   // routes: [],
-// )
-// @immutable
-// class SettingsRoute extends GoRouteData {
-//   const SettingsRoute();
+@TypedGoRoute<OriginsOfFlusterOnboardingRoute>(
+  path: '/onboarding/originsOfFluster',
+  name: RouteNames.onboardingOriginsOfFluster,
+  routes: <TypedRoute<RouteData>>[],
+)
+@immutable
+class OriginsOfFlusterOnboardingRoute extends GoRouteData {
+  const OriginsOfFlusterOnboardingRoute();
 
-//   @override
-//   Page<void> buildPage(BuildContext context, GoRouterState state) {
-//     return NoTransitionPage<SettingsScreen>(
-//       child: SettingsScreen(key: state.pageKey),
-//     );
-//   }
-// }
+  @override
+  Widget build(BuildContext context, GoRouterState state) {
+    return OriginsOfFlusterStep(key: state.pageKey);
+  }
+}
 
-// @TypedGoRoute<ConnectRoute>(
-//   path: '/connect',
-//   name: RouteNames.settings,
-//   // routes: [],
-// )
-// @immutable
-// class ConnectRoute extends GoRouteData {
-//   const ConnectRoute();
+@TypedGoRoute<TourOfFlusterOnboardingRoute>(
+  path: '/onboarding/tour',
+  name: RouteNames.onboardingTourOfFluster,
+  routes: <TypedRoute<RouteData>>[],
+)
+@immutable
+class TourOfFlusterOnboardingRoute extends GoRouteData {
+  const TourOfFlusterOnboardingRoute();
 
-//   @override
-//   Page<void> buildPage(BuildContext context, GoRouterState state) {
-//     return NoTransitionPage<ConnectScreen>(
-//       child: ConnectScreen(key: state.pageKey),
-//     );
-//   }
-// }
+  @override
+  Widget build(BuildContext context, GoRouterState state) {
+    return ALittleAboutFlusterStep(key: state.pageKey);
+  }
+}
 
-// @TypedGoRoute<BibliographyRoute>(
-//   path: '/bibliography',
-//   name: RouteNames.bibliography,
-//   // routes: [],
-// )
-// @immutable
-// class BibliographyRoute extends GoRouteData {
-//   const BibliographyRoute();
+@TypedGoRoute<LocationOfNotesOnboardingRoute>(
+  path: '/onboarding/locationOfNotes',
+  name: RouteNames.onboardingLocationOfNotes,
+  routes: <TypedRoute<RouteData>>[],
+)
+@immutable
+class LocationOfNotesOnboardingRoute extends GoRouteData {
+  const LocationOfNotesOnboardingRoute();
 
-//   @override
-//   Page<void> buildPage(BuildContext context, GoRouterState state) {
-//     return NoTransitionPage<BibliographyScreen>(
-//       child: BibliographyScreen(key: state.pageKey),
-//     );
-//   }
-// }
+  @override
+  Widget build(BuildContext context, GoRouterState state) {
+    return LocationOfNotesStep(key: state.pageKey);
+  }
+}
 
-// @TypedGoRoute<BookmarksRoute>(
-//   path: '/bookmarks',
-//   name: RouteNames.bookmarks,
-//   routes: [],
-// )
-// @immutable
-// class BookmarksRoute extends GoRouteData {
-//   const BookmarksRoute();
+@TypedGoRoute<SetupOnboardingStepRoute>(
+  path: '/onboarding/setup',
+  name: RouteNames.onboardingSetup,
+  routes: <TypedRoute<RouteData>>[],
+)
+@immutable
+class SetupOnboardingStepRoute extends GoRouteData {
+  const SetupOnboardingStepRoute();
 
-//   @override
-//   Page<void> buildPage(BuildContext context, GoRouterState state) {
-//     return NoTransitionPage<BookmarksScreen>(
-//       child: BookmarksScreen(key: state.pageKey),
-//     );
-//   }
-// }
+  @override
+  Widget build(BuildContext context, GoRouterState state) {
+    return PermissionToSetupStep(key: state.pageKey);
+  }
+}
+
+@TypedGoRoute<OnboardingScreenRoute>(
+  path: '/onboarding',
+  name: RouteNames.onboarding,
+  routes: <TypedRoute<RouteData>>[
+    TypedGoRoute<SetupOnboardingStepRoute>(path: '/onboarding/setup'),
+    TypedGoRoute<TourOfFlusterOnboardingRoute>(path: '/onboarding/tour'),
+    TypedGoRoute<LocationOfNotesOnboardingRoute>(
+      path: '/onboarding/locationOfNotes',
+    ),
+    TypedGoRoute<OriginsOfFlusterOnboardingRoute>(
+      path: '/onboarding/originsOfFluster',
+    ),
+  ],
+)
+@immutable
+class OnboardingScreenRoute extends GoRouteData {
+  const OnboardingScreenRoute();
+
+  @override
+  Page<void> buildPage(BuildContext context, GoRouterState state) {
+    return NoTransitionPage<InitialOnboardingDesktopScreen>(
+      child: InitialOnboardingDesktopScreen(
+        key: state.pageKey,
+        child: Placeholder(),
+      ),
+    );
+  }
+}
+
+@TypedGoRoute<SettingsRoute>(
+  path: '/settings',
+  name: RouteNames.snippetsList,
+  routes: <TypedRoute<RouteData>>[],
+)
+@immutable
+class SettingsRoute extends GoRouteData {
+  const SettingsRoute();
+
+  @override
+  Page<void> buildPage(BuildContext context, GoRouterState state) {
+    return NoTransitionPage<SettingsRoute>(child: Placeholder());
+  }
+}
+
+@TypedGoRoute<BookmarksRoute>(
+  path: '/bookmarks',
+  name: RouteNames.bookmarks,
+  routes: <TypedRoute<RouteData>>[],
+)
+@immutable
+class BookmarksRoute extends GoRouteData {
+  const BookmarksRoute();
+
+  @override
+  Page<void> buildPage(BuildContext context, GoRouterState state) {
+    return NoTransitionPage<BookmarksRoute>(child: Placeholder());
+  }
+}
+
+@TypedGoRoute<ConnectRoute>(
+  path: '/connect',
+  name: RouteNames.connect,
+  routes: <TypedRoute<RouteData>>[],
+)
+@immutable
+class ConnectRoute extends GoRouteData {
+  const ConnectRoute();
+
+  @override
+  Page<void> buildPage(BuildContext context, GoRouterState state) {
+    return NoTransitionPage<ConnectRoute>(child: Placeholder());
+  }
+}
+
+@TypedGoRoute<SnippetsListRoute>(
+  path: '/snippets',
+  name: RouteNames.snippetsList,
+  routes: <TypedRoute<RouteData>>[],
+)
+@immutable
+class SnippetsListRoute extends GoRouteData {
+  const SnippetsListRoute();
+
+  @override
+  Page<void> buildPage(BuildContext context, GoRouterState state) {
+    return NoTransitionPage<SnippetsListRoute>(child: Placeholder());
+  }
+}
+
+@TypedGoRoute<BibliographyRoute>(
+  path: '/bibliography',
+  name: RouteNames.bibliography,
+  routes: <TypedRoute<RouteData>>[],
+)
+@immutable
+class BibliographyRoute extends GoRouteData {
+  const BibliographyRoute();
+
+  @override
+  Page<void> buildPage(BuildContext context, GoRouterState state) {
+    return NoTransitionPage<BibliographyRoute>(child: Placeholder());
+  }
+}
+
+@TypedGoRoute<DashboardRoute>(
+  path: '/dashboard',
+  name: RouteNames.dashboard,
+  routes: <TypedRoute<RouteData>>[],
+)
+@immutable
+class DashboardRoute extends GoRouteData {
+  const DashboardRoute();
+
+  @override
+  Page<void> buildPage(BuildContext context, GoRouterState state) {
+    return NoTransitionPage<DashboardRoute>(child: Placeholder());
+  }
+}
+
+@TypedGoRoute<NoteByIdRoute>(
+  path: '/note/:noteId',
+  name: RouteNames.noteById,
+  routes: <TypedRoute<RouteData>>[],
+)
+@immutable
+class NoteByIdRoute extends GoRouteData {
+  final int noteId;
+  const NoteByIdRoute({required this.noteId});
+
+  @override
+  Page<void> buildPage(BuildContext context, GoRouterState state) {
+    final id = state.pathParameters['userId'];
+    print("NoteId: {id}");
+    return NoTransitionPage<NoteByIdRoute>(child: Placeholder());
+  }
+}
 
 @TypedGoRoute<HomeScreenRoute>(
   path: '/',
   name: RouteNames.home,
   routes: <TypedRoute<RouteData>>[
     TypedGoRoute<CommandPaletteRoute>(path: "/commandPalette"),
-    TypedGoRoute<SplashScreenRoute>(path: "/splash"),
-    // TypedGoRoute<DashboardRoute>(path: "/dashboard"),
-    // TypedGoRoute<SettingsRoute>(path: "/settings"),
-    // TypedGoRoute<ConnectRoute>(path: "/connect"),
-    // TypedGoRoute<BibliographyRoute>(path: "/bibliography"),
-    // TypedGoRoute<BookmarksRoute>(path: "/bookmarks"),
+    TypedGoRoute<OnboardingScreenRoute>(path: "/onboarding"),
+    TypedGoRoute<DashboardRoute>(path: "/dashboard"),
+    TypedGoRoute<SettingsRoute>(path: "/settings"),
+    TypedGoRoute<ConnectRoute>(path: "/connect"),
+    TypedGoRoute<BibliographyRoute>(path: "/bibliography"),
+    TypedGoRoute<BookmarksRoute>(path: "/bookmarks"),
   ],
 )
 @immutable
 class HomeScreenRoute extends GoRouteData {
   const HomeScreenRoute();
+
   @override
-  Widget build(BuildContext context, GoRouterState state) {
-    // TODO: implement build
-    // return Dashboard(key: state.pageKey);
-    return DesktopAppScaffold(child: Dashboard());
+  Page<void> buildPage(BuildContext context, GoRouterState state) {
+    return NoTransitionPage<DesktopAppScaffold>(child: Dashboard());
   }
 
   // @override
   //  buildPage(BuildContext context, GoRouterState state) {
   // }
 }
-
-// @TypedGoRoute<NotesRoute>(
-//   path: '/notes',
-//   routes: [TypedGoRoute<NoteByIdRoute>(path: 'notes/:id')],
-// )
-// @immutable
-// class NotesRoute extends GoRouteData {
-//   const NotesRoute();
-
-//   @override
-//   Page<void> buildPage(BuildContext context, GoRouterState state) {
-//     return NoTransitionPage<NotesRouteRoot>(
-//       child: NotesRouteRoot(key: state.pageKey),
-//     );
-//   }
-// }
-
-// @immutable
-// class NoteByIdRoute extends GoRouteData {
-//   const NoteByIdRoute({required this.id});
-
-//   final int id;
-
-//   @override
-//   Page<void> buildPage(BuildContext context, GoRouterState state) {
-//     return NoTransitionPage<NoteByIdRoute>(
-//       child: NoteByIdScreen(key: state.pageKey, id: id),
-//     );
-//   }
-// }

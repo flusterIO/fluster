@@ -31,7 +31,8 @@ class DesktopAppScaffold extends HookWidget {
                   ResponsiveNavigationRail(),
                   SizedBox(
                     width:
-                        MediaQuery.sizeOf(context).width - desktopFixedSidebarWidth,
+                        MediaQuery.sizeOf(context).width -
+                        desktopFixedSidebarWidth,
                     child: DesktopResizeGroup(child: child),
                   ),
                 ],

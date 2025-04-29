@@ -18,7 +18,7 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$DatabaseState {
   /// Use this key to onboard the user, and use this time to iinitialize the database.
-  DatabaseStatus get status => throw _privateConstructorUsedError;
+  native.FlusterDatabaseStatus get status => throw _privateConstructorUsedError;
 
   /// Create a copy of DatabaseState
   /// with the given fields replaced by the non-null parameter values.
@@ -34,7 +34,7 @@ abstract class $DatabaseStateCopyWith<$Res> {
     $Res Function(DatabaseState) then,
   ) = _$DatabaseStateCopyWithImpl<$Res, DatabaseState>;
   @useResult
-  $Res call({DatabaseStatus status});
+  $Res call({native.FlusterDatabaseStatus status});
 }
 
 /// @nodoc
@@ -58,7 +58,7 @@ class _$DatabaseStateCopyWithImpl<$Res, $Val extends DatabaseState>
                 null == status
                     ? _value.status
                     : status // ignore: cast_nullable_to_non_nullable
-                        as DatabaseStatus,
+                        as native.FlusterDatabaseStatus,
           )
           as $Val,
     );
@@ -74,7 +74,7 @@ abstract class _$$DatabaseStateImplCopyWith<$Res>
   ) = __$$DatabaseStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({DatabaseStatus status});
+  $Res call({native.FlusterDatabaseStatus status});
 }
 
 /// @nodoc
@@ -97,7 +97,7 @@ class __$$DatabaseStateImplCopyWithImpl<$Res>
             null == status
                 ? _value.status
                 : status // ignore: cast_nullable_to_non_nullable
-                    as DatabaseStatus,
+                    as native.FlusterDatabaseStatus,
       ),
     );
   }
@@ -110,7 +110,7 @@ class _$DatabaseStateImpl extends _DatabaseState {
 
   /// Use this key to onboard the user, and use this time to iinitialize the database.
   @override
-  final DatabaseStatus status;
+  final native.FlusterDatabaseStatus status;
 
   @override
   String toString() {
@@ -138,13 +138,14 @@ class _$DatabaseStateImpl extends _DatabaseState {
 }
 
 abstract class _DatabaseState extends DatabaseState {
-  const factory _DatabaseState({required final DatabaseStatus status}) =
-      _$DatabaseStateImpl;
+  const factory _DatabaseState({
+    required final native.FlusterDatabaseStatus status,
+  }) = _$DatabaseStateImpl;
   const _DatabaseState._() : super._();
 
   /// Use this key to onboard the user, and use this time to iinitialize the database.
   @override
-  DatabaseStatus get status;
+  native.FlusterDatabaseStatus get status;
 
   /// Create a copy of DatabaseState
   /// with the given fields replaced by the non-null parameter values.

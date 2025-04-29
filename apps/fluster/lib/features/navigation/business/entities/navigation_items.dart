@@ -1,20 +1,24 @@
 import 'package:fluster/core/state/store.dart';
 import 'package:fluster/features/navigation/business/entities/navigation_item_id.dart';
-import 'package:fluster/features/navigation/state/actions/navigation_actions.dart';
+import 'package:fluster/features/navigation/business/entities/router/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:fluster_native_interface/fluster_native_interface.dart'
+    as native;
 
 class NavigationItem {
   const NavigationItem({
     required this.icon,
     required this.title,
-    required this.navigate,
+    required this.href,
+    required this.onClick,
     this.id,
   });
   final IconData icon;
   final String title;
   final NavigationItemId? id;
-  final Function(BuildContext) navigate;
+  final String? href;
+  final void Function()? onClick;
 }
 
 class SideMenuState {
@@ -26,39 +30,29 @@ class SideMenuState {
       id: NavigationItemId.home,
       icon: FontAwesomeIcons.house,
       title: 'Home',
-      navigate: (BuildContext context) {
-        globalReduxStore.dispatch(SetNavigationIdAction(NavigationItemId.home));
-      },
+      href: HomeScreenRoute().location,
+      onClick: null,
     ),
     NavigationItem(
       id: NavigationItemId.connect,
       icon: FontAwesomeIcons.networkWired,
       title: 'Connect',
-      navigate: (BuildContext context) {
-        globalReduxStore.dispatch(
-          SetNavigationIdAction(NavigationItemId.connect),
-        );
-      },
+      href: ConnectRoute().location,
+      onClick: null,
     ),
     NavigationItem(
       id: NavigationItemId.bookmarks,
       icon: FontAwesomeIcons.bookOpen,
       title: 'Bookmarks',
-      navigate: (BuildContext context) {
-        globalReduxStore.dispatch(
-          SetNavigationIdAction(NavigationItemId.bookmarks),
-        );
-      },
+      href: BookmarksRoute().location,
+      onClick: null,
     ),
     NavigationItem(
       id: NavigationItemId.bibliography,
       icon: FontAwesomeIcons.school,
       title: 'Bibliography',
-      navigate: (BuildContext context) {
-        globalReduxStore.dispatch(
-          SetNavigationIdAction(NavigationItemId.bibliography),
-        );
-      },
+      href: BibliographyRoute().location,
+      onClick: null,
     ),
   ];
 
@@ -66,19 +60,23 @@ class SideMenuState {
     NavigationItem(
       icon: FontAwesomeIcons.microchip,
       title: 'Sync',
-      navigate: (BuildContext context) async {
-        // await syncDirectory(ref);
+      href: null,
+      onClick: () {
+        // FIXME: Create a method that just gets a setting by SettingUniqueKey from the settings state class and then pass that to this method to sync the db.
+        // final state =
+        // native.syncDirectory(dirName: globalReduxStore.state.settingsState.settings.pages[])
       },
+      // id: NavigationItemId.jVgc
+      // navigate: (BuildContext context) async {
+      //   await syncDirectory(ref);
+      // },
     ),
     NavigationItem(
       id: NavigationItemId.settings,
       icon: FontAwesomeIcons.gears,
       title: 'Settings',
-      navigate: (BuildContext context) {
-        globalReduxStore.dispatch(
-          SetNavigationIdAction(NavigationItemId.settings),
-        );
-      },
+      href: SettingsRoute().location,
+      onClick: null,
     ),
   ];
 }
