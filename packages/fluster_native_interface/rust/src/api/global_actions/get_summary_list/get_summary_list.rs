@@ -43,6 +43,9 @@ SELECT front_matter, id FROM type::table($table_name);
             let mdx_note_summaries: surrealdb::Result<Vec<MdxNoteSummary>> = items.take(0);
             if mdx_note_summaries.is_ok() {
                 results.mdx_notes = mdx_note_summaries.unwrap();
+            } else {
+                dbg!("Error: {:?}", mdx_note_summaries);
+                return Err(DatabaseError::FailToFind);
             }
         } else {
             return Err(DatabaseError::FailToFind);
@@ -62,7 +65,7 @@ mod tests {
         let query = SummaryListQuery::default();
         let db = get_database().await;
         assert!(db.is_ok(), "Database intialization returns no errors.");
-        let summaries = get_summary_list(query, db.as_ref().unwrap()).await;
+        let summaries = get_summary_list(query).await;
         dbg!(&summaries);
         assert!(
             &summaries.is_ok(),

@@ -44,6 +44,10 @@ log4rs = { version = "1.3.0", features = [
 thiserror = "2.0.12"
 
 
+# TODO: Remove this and the reliance on console_subscriber when actually building for production.
+[build]
+rustflags = ["--cfg", "tokio_unstable"]
+
 [profile.release]
 lto = true
 strip = true

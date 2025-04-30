@@ -1,0 +1,11 @@
+#V2
+help
+SELECT * FROM mdx_notes;
+quit
+select title from mdx_notes;
+select front_matter from mdx_notes;
+clear
+select front_matter from mdx_notes;
+select COUNT() from mdx_notes;
+select COUNT(id) from mdx_notes;
+select front_matter from mdx_notes;

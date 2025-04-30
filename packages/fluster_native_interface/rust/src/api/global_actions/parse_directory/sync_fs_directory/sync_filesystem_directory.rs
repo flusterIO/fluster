@@ -1,6 +1,4 @@
-use std::path;
-
-use crossbeam_channel::unbounded;
+use crossbeam_channel::{bounded, unbounded};
 use fluster_db::api::db::get_database;
 use fluster_models::models::notes::mdx::mdx_note::MdxNoteRust;
 pub use fluster_types::{
@@ -8,12 +6,22 @@ pub use fluster_types::{
 };
 use ignore::{WalkBuilder, WalkState};
 use log::info;
+use rayon::prelude::*;
+use std::path;
 
 pub async fn sync_directory(dir_name: String) -> Option<Vec<DatabaseError>> {
     let (sender, receiver) =
         unbounded::<Result<MdxNoteRust, fluster_types::errors::parsing_errors::ParsingError>>();
     let notes_path = path::Path::new(&dir_name);
     let mut errors: Vec<DatabaseError> = Vec::new();
+
+    let database = get_database().await;
+
+    if database.is_err() {
+        errors.push(DatabaseError::FailToConnect);
+        return Some(errors);
+    }
+    let db = database.unwrap();
 
     WalkBuilder::new(notes_path)
         .threads(32)
@@ -36,19 +44,17 @@ pub async fn sync_directory(dir_name: String) -> Option<Vec<DatabaseError>> {
         });
 
     drop(sender);
-
-    let db = get_database().await;
-    if db.is_err() {
-        errors.push(DatabaseError::FailToConnect);
-    } else if let Ok(note) = receiver.recv() {
-        let save_res = note.as_ref().unwrap().save(&db.unwrap()).await;
-        if let Some(save_res_error) = save_res {
-            errors.push(save_res_error);
+    for x in receiver.iter() {
+        if let Ok(note) = x {
+            let save_res = note.save(db).await;
+            if let Some(save_res_error) = save_res {
+                errors.push(save_res_error);
+            }
+        } else {
+            errors.push(DatabaseError::FailToCreateEntity);
         }
-        info!("Saved note at: {:?}", note.unwrap().file_path);
-    } else {
-        errors.push(DatabaseError::FailToCreateEntity);
     }
+    // drop(sender);
     if !errors.is_empty() {
         Some(errors)
     } else {
@@ -64,7 +70,16 @@ mod tests {
     async fn locates_files() {
         let f = sync_directory("/Users/bigsexy/Desktop/notes/content/".to_owned()).await;
         assert!(true == true, "True does indeed equal true.");
+        // assert_eq!(result, 4);
+    }
 
+    #[tokio::test]
+    async fn sync_returns_no_errors() {
+        let f = sync_directory("/Users/bigsexy/Desktop/notes/content/".to_owned()).await;
+        assert!(
+            f.is_none_or(|x| x.is_empty()),
+            "True does indeed equal true."
+        );
         // assert_eq!(result, 4);
     }
 }

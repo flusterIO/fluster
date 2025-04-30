@@ -1,6 +1,11 @@
 use fluster_types::typedefs::note_type_utils::FlusterDb;
 use std::path::PathBuf;
-use surrealdb::{engine::local::RocksDb, opt::auth::Root};
+use surrealdb::{
+    engine::local::{Db, RocksDb},
+    opt::auth::Root,
+    Surreal,
+};
+use tokio::sync::OnceCell;
 
 pub fn get_database_path() -> Option<PathBuf> {
     let mut d = dirs::data_dir();
@@ -13,6 +18,9 @@ pub fn get_database_path() -> Option<PathBuf> {
     }
     Some(d.unwrap().join("Fluster").join("data").join("database"))
 }
+
+// static DB: LazyLock<Surreal<Db>> = LazyLock::new(Surreal::init);
+static DB: OnceCell<Surreal<Db>> = OnceCell::const_new();
 
 pub struct DatabaseOptions<'a> {
     pub database_name: String,
@@ -36,36 +44,22 @@ impl Default for DatabaseOptions<'_> {
 /// This should be used as the only way to read get access to the database. This desperately need
 /// to be set to a constructor, but it's early, I'm tired, I'm new to rust, and rust is hard...
 pub async fn get_database(
-) -> Result<FlusterDb, fluster_types::errors::database_errors::DatabaseError> {
-    let d = get_database_path();
-    if d.is_none() {
-        return Err(fluster_types::errors::database_errors::DatabaseError::FailToConnect);
-    }
-    let e = surrealdb::Surreal::new::<RocksDb>(d.unwrap().to_str().unwrap()).await;
-    if e.is_err() {
-        return Err(fluster_types::errors::database_errors::DatabaseError::FailToConnect);
-    }
-    let x = e.unwrap().to_owned();
-    Ok(x)
+) -> Result<&'static FlusterDb, fluster_types::errors::database_errors::DatabaseError> {
+    let db = DB
+        .get_or_init(|| async {
+            let d = get_database_path().unwrap();
+            let res = surrealdb::Surreal::new::<RocksDb>(d.to_str().unwrap()).await;
+            if res.is_err() {
+                println!(
+                    "RESSSS: Instanciating surrealdb returned an error. {:?}",
+                    res
+                );
+            }
+            res.unwrap()
+        })
+        .await;
+    Ok(db)
 }
-
-// pub async fn get_database(
-//     opts: DatabaseOptions<'_>,
-// ) -> Result<&LazyLock<Surreal<Client>>, fluster_types::errors::database_errors::DatabaseError> {
-//     let e = DB.connect::<Ws>(format!("rocksdb://{}", opts.port)).await;
-//     if e.is_err() {
-//         return Err(fluster_types::errors::database_errors::DatabaseError::FailToConnect);
-//     }
-//     let res = DB.signin(opts.credentials).await;
-//     if res.is_err() {
-//         return Err(fluster_types::errors::database_errors::DatabaseError::FailToConnect);
-//     }
-//     let res2 = DB.use_ns("fluster").use_db(opts.database_name).await;
-//     if res2.is_err() {
-//         return Err(fluster_types::errors::database_errors::DatabaseError::FailToConnect);
-//     }
-//     Ok(&DB)
-// }
 
 #[cfg(test)]
 mod tests {
