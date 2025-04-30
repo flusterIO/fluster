@@ -1851,6 +1851,7 @@ dependencies = [
  "markdown",
  "mdxjs",
  "miette 7.5.0",
+ "rayon",
  "regex",
  "serde",
  "surrealdb",

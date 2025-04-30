@@ -14,8 +14,8 @@ use surrealdb::Uuid;
 use tokio::fs;
 
 use crate::models::{
-    nested_models::datetime::fluster_time::FlusterTime,
-    notes::front_matter::front_matter_model::FrontMatter,
+    nested_models::fluster_datetime::fluster_time::FlusterTime,
+    notes::front_matter::front_matter_model::FrontMatter, taggable::tag_model::Tag,
 };
 
 #[derive(Serialize, Deserialize, Debug, Clone)]
@@ -32,6 +32,9 @@ pub struct MdxNoteRust {
     pub updated_at: Option<FlusterTime>,
     /// Time that the file was last accessed.
     pub accessed_at: Option<FlusterTime>,
+
+    /// Tags embedded within the note.
+    pub tags: Vec<Tag>,
 }
 
 impl MdxNoteRust {
@@ -42,6 +45,7 @@ impl MdxNoteRust {
         let matter = Matter::<YAML>::new();
         let result = matter.parse(&raw_file_content);
         let fp = file_path.unwrap_or("Unknown");
+        let post_tag_parse = Tag::from_mdx_content(&result.content);
         Ok(MdxNoteRust {
             front_matter: FrontMatter::from_gray_matter(result.data),
             raw_body: result.content,
@@ -50,6 +54,7 @@ impl MdxNoteRust {
             created_at: None,
             updated_at: None,
             accessed_at: None, // updated_at:
+            tags: post_tag_parse.tags,
         })
     }
     /// All paths must be validated to ensure that they exist **before** pasing them into this

@@ -24,3 +24,4 @@ log = "0.4.27"
 regex = "1.11.1"
 time = { version = "0.3.41", features = ["macros", "serde", "serde-human-readable", "serde-well-known"] }
 filetime = "0.2.25"
+rayon = "1.10.0"
