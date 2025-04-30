@@ -13,7 +13,7 @@ pub async fn get_summary_list(
     query: SummaryListQuery,
 ) -> Result<SummaryListResults, DatabaseError> {
     let notes_sql = "
-SELECT front_matter, id FROM type::table($table_name);
+SELECT front_matter, id FROM $table_name;
         ";
     let db = get_database().await;
     if db.is_err() {
@@ -29,7 +29,7 @@ SELECT front_matter, id FROM type::table($table_name);
     if db_err.is_err() {
         return Err(DatabaseError::FailToFind);
     }
-    let result = db
+    let result: Result<surrealdb::Response, surrealdb::Error> = db
         .unwrap()
         .query(notes_sql)
         .bind(("table_name", MDX_NOTE_TABLE_NAME))
@@ -40,7 +40,7 @@ SELECT front_matter, id FROM type::table($table_name);
         let res_items = result.unwrap();
         if let Ok(mut items) = res_items.check() {
             // FIXME: Add pagination here. The take param works as an index *from* when specified
-            let mdx_note_summaries: surrealdb::Result<Vec<MdxNoteSummary>> = items.take(0);
+            let mdx_note_summaries: surrealdb::Result<Vec<MdxNoteSummary>> = items.take(20);
             if mdx_note_summaries.is_ok() {
                 results.mdx_notes = mdx_note_summaries.unwrap();
             } else {

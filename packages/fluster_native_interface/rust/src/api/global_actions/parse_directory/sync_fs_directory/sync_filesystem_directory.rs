@@ -1,12 +1,10 @@
-use crossbeam_channel::{bounded, unbounded};
+use crossbeam_channel::unbounded;
 use fluster_db::api::db::get_database;
 use fluster_models::models::notes::mdx::mdx_note::MdxNoteRust;
 pub use fluster_types::{
     errors::database_errors::DatabaseError, traits::db_entity::FlusterDatabaseEntity,
 };
 use ignore::{WalkBuilder, WalkState};
-use log::info;
-use rayon::prelude::*;
 use std::path;
 
 pub async fn sync_directory(dir_name: String) -> Option<Vec<DatabaseError>> {

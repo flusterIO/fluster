@@ -9,3 +9,5 @@ select front_matter from mdx_notes;
 select COUNT() from mdx_notes;
 select COUNT(id) from mdx_notes;
 select front_matter from mdx_notes;
+SELECT front_matter, id FROM $table_name;
+SELECT front_matter, id FROM mdx_notes;

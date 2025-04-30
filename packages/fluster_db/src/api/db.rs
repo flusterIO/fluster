@@ -50,10 +50,7 @@ pub async fn get_database(
             let d = get_database_path().unwrap();
             let res = surrealdb::Surreal::new::<RocksDb>(d.to_str().unwrap()).await;
             if res.is_err() {
-                println!(
-                    "RESSSS: Instanciating surrealdb returned an error. {:?}",
-                    res
-                );
+                println!("Instanciating surrealdb returned an error. {:?}", res);
             }
             res.unwrap()
         })

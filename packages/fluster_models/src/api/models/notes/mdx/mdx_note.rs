@@ -1,3 +1,6 @@
+use std::{fs::FileTimes, ptr::null};
+
+use filetime::FileTime;
 use fluster_types::{
     constants::database_constants::{FLUSTER_NAMESPACE, MDX_NOTE_TABLE_NAME, NOTES_DATABASE_NAME},
     errors::{database_errors::DatabaseError, parsing_errors},
@@ -8,8 +11,12 @@ use fluster_types::{
 use gray_matter::{engine::YAML, Matter};
 use serde::{Deserialize, Serialize};
 use surrealdb::Uuid;
+use tokio::fs;
 
-use crate::models::notes::front_matter::front_matter_model::FrontMatter;
+use crate::models::{
+    nested_models::datetime::fluster_time::FlusterTime,
+    notes::front_matter::front_matter_model::FrontMatter,
+};
 
 #[derive(Serialize, Deserialize, Debug, Clone)]
 pub struct MdxNoteRust {
@@ -19,9 +26,16 @@ pub struct MdxNoteRust {
     pub raw_body: String,
     /// File path relative to the user's root notes directory.
     pub file_path: String,
+    /// Time that the file was created.
+    pub created_at: Option<FlusterTime>,
+    /// Time that the file was last modified.
+    pub updated_at: Option<FlusterTime>,
+    /// Time that the file was last accessed.
+    pub accessed_at: Option<FlusterTime>,
 }
+
 impl MdxNoteRust {
-    pub fn from_raw_mdx_string(
+    pub async fn from_raw_mdx_string(
         raw_file_content: String,
         file_path: Option<&str>,
     ) -> Result<MdxNoteRust, parsing_errors::ParsingError> {
@@ -33,16 +47,41 @@ impl MdxNoteRust {
             raw_body: result.content,
             file_path: fp.to_owned(),
             id: None,
+            created_at: None,
+            updated_at: None,
+            accessed_at: None, // updated_at:
         })
     }
     /// All paths must be validated to ensure that they exist **before** pasing them into this
     /// function.
-    pub fn from_file_system_path(
+    pub async fn from_file_system_path(
         file_path: &str,
     ) -> Result<MdxNoteRust, parsing_errors::ParsingError> {
-        let raw_file_content = std::fs::read_to_string(file_path);
+        let raw_file_content = fs::read_to_string(file_path).await;
+        let file_meta = fs::metadata(file_path).await;
+        if (file_meta.is_err()) {
+            return Err(parsing_errors::ParsingError::MdxParsingError(
+                file_path.to_owned(),
+            ));
+        }
         if let Ok(content) = raw_file_content {
-            MdxNoteRust::from_raw_mdx_string(content, Some(file_path))
+            let note = MdxNoteRust::from_raw_mdx_string(content, Some(file_path)).await;
+            if let Ok(mut note_data) = note {
+                note_data.accessed_at = FlusterTime::from_file_time(Some(
+                    FileTime::from_last_access_time(file_meta.as_ref().unwrap()),
+                ));
+                note_data.created_at = FlusterTime::from_file_time(FileTime::from_creation_time(
+                    file_meta.as_ref().unwrap(),
+                ));
+                note_data.updated_at = FlusterTime::from_file_time(Some(
+                    FileTime::from_last_modification_time(file_meta.as_ref().unwrap()),
+                ));
+                Ok(note_data)
+            } else {
+                Err(parsing_errors::ParsingError::MdxParsingError(
+                    file_path.to_owned(),
+                ))
+            }
         } else {
             Err(parsing_errors::ParsingError::MdxParsingError(
                 file_path.to_owned(),
@@ -105,14 +144,14 @@ mod tests {
 
     use super::*;
 
-    fn get_test_note() -> Result<MdxNoteRust, parsing_errors::ParsingError> {
+    async fn get_test_note() -> Result<MdxNoteRust, parsing_errors::ParsingError> {
         let test_content_path = fluster_test_utils::test_utils::get_test_mdx_path();
-        MdxNoteRust::from_file_system_path(test_content_path.to_str().unwrap())
+        MdxNoteRust::from_file_system_path(test_content_path.to_str().unwrap()).await
     }
 
-    #[test]
-    fn parses_note_from_fs_successfully() {
-        let note = get_test_note();
+    #[tokio::test]
+    async fn parses_note_from_fs_successfully() {
+        let note = get_test_note().await;
         println!("Parsed Note: {:?}", note);
         assert!(note.is_ok(), "Note did not return errors.");
         assert_eq!(
@@ -141,7 +180,7 @@ mod tests {
 
     #[tokio::test]
     async fn saves_parsed_note_successfully() {
-        let note = get_test_note().expect("Failed to get test note.");
+        let note = get_test_note().await.expect("Failed to get test note.");
         let db = get_database().await;
         assert!(db.is_ok(), "Database is returned without error.");
         let res = note.save(db.as_ref().unwrap()).await;
