@@ -1,3 +1,4 @@
+use fluster_db::api::db::get_database;
 use fluster_types::constants::database_constants::{
     FLUSTER_NAMESPACE, MDX_NOTE_TABLE_NAME, NOTES_DATABASE_NAME,
 };
@@ -10,13 +11,18 @@ use super::{summary_list_query::SummaryListQuery, summary_list_result::SummaryLi
 
 pub async fn get_summary_list(
     query: SummaryListQuery,
-    db: &FlusterDb,
 ) -> Result<SummaryListResults, DatabaseError> {
     let notes_sql = "
 SELECT front_matter, id FROM type::table($table_name);
         ";
+    let db = get_database().await;
+    if db.is_err() {
+        return Err(DatabaseError::FailToConnect);
+    }
     let mut results = SummaryListResults::default();
     let db_err = db
+        .as_ref()
+        .unwrap()
         .use_ns(FLUSTER_NAMESPACE)
         .use_db(NOTES_DATABASE_NAME)
         .await;
@@ -24,6 +30,7 @@ SELECT front_matter, id FROM type::table($table_name);
         return Err(DatabaseError::FailToFind);
     }
     let result = db
+        .unwrap()
         .query(notes_sql)
         .bind(("table_name", MDX_NOTE_TABLE_NAME))
         .await;

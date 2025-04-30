@@ -7,14 +7,10 @@ import '../../frb_generated.dart';
 import 'fs_setup.dart';
 import 'package:flutter_rust_bridge/flutter_rust_bridge_for_generated.dart';
 
+bool pathExists({required String filePath}) =>
+    RustLib.instance.api.crateApiFsFsUtilsPathExists(filePath: filePath);
 
-            
+String getAppConfigDir() =>
+    RustLib.instance.api.crateApiFsFsUtilsGetAppConfigDir();
 
-            bool  pathExists({required String filePath }) => RustLib.instance.api.crateApiFsFsUtilsPathExists(filePath: filePath);
-
-String  getAppConfigDir() => RustLib.instance.api.crateApiFsFsUtilsGetAppConfigDir();
-
-String  getAppDataDir() => RustLib.instance.api.crateApiFsFsUtilsGetAppDataDir();
-
-            
-            
+String getAppDataDir() => RustLib.instance.api.crateApiFsFsUtilsGetAppDataDir();

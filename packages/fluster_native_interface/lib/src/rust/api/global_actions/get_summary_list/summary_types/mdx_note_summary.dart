@@ -7,34 +7,17 @@ import '../../../../frb_generated.dart';
 import '../get_summary_list.dart';
 import 'package:flutter_rust_bridge/flutter_rust_bridge_for_generated.dart';
 
+// Rust type: RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<MdxNoteSummary>>
+abstract class MdxNoteSummary implements RustOpaqueInterface {
+  Thing get id;
 
-            
+  String? get summary;
 
-            
-
-            
-                // Rust type: RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<MdxNoteSummary>>
-                abstract class MdxNoteSummary implements RustOpaqueInterface {
-                     Thing get id;
-
-
- String? get summary;
-
-
- String get title;
-
+  String get title;
 
   set id(Thing id);
 
-
   set summary(String? summary);
 
-
   set title(String title);
-
-
-
-                    
-                }
-                
-            
+}

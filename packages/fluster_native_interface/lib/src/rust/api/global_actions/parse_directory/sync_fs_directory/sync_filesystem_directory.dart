@@ -7,10 +7,9 @@ import '../../../../frb_generated.dart';
 import '../../get_summary_list/get_summary_list.dart';
 import 'package:flutter_rust_bridge/flutter_rust_bridge_for_generated.dart';
 
-
-            
-
-            Future<List<DatabaseError>?>  syncDirectory({required String dirName }) => RustLib.instance.api.crateApiGlobalActionsParseDirectorySyncFsDirectorySyncFilesystemDirectorySyncDirectory(dirName: dirName);
-
-            
-            
+Future<List<DatabaseError>?> syncDirectory({required String dirName}) => RustLib
+    .instance
+    .api
+    .crateApiGlobalActionsParseDirectorySyncFsDirectorySyncFilesystemDirectorySyncDirectory(
+      dirName: dirName,
+    );

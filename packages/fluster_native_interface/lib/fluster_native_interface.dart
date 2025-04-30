@@ -7,5 +7,6 @@ export 'src/rust/api/global_actions/parse_directory/sync_fs_directory/sync_files
 export 'src/rust/api/global_actions/get_summary_list/get_summary_list.dart';
 export 'src/rust/api/global_actions/get_summary_list/summary_list_query.dart';
 export 'src/rust/api/global_actions/get_summary_list/summary_list_result.dart';
+export 'src/rust/api/global_actions/get_summary_list/summary_types/mdx_note_summary.dart';
 export 'src/rust/api/data_interface/get_database_status.dart';
 export 'src/rust/frb_generated.dart' show RustLib;

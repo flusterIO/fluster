@@ -1,11 +1,8 @@
 use fluster_types::{
     constants::database_constants::{FLUSTER_NAMESPACE, MDX_NOTE_TABLE_NAME, NOTES_DATABASE_NAME},
-    errors::{
-        database_errors::{self, DatabaseError},
-        parsing_errors,
-    },
+    errors::{database_errors::DatabaseError, parsing_errors},
     traits::db_entity::FlusterDatabaseEntity,
-    typedefs::note_type_utils::{DbRecord, FlusterDb},
+    typedefs::note_type_utils::FlusterDb,
 };
 // use fluster_models::database_errors;
 use gray_matter::{engine::YAML, Matter};

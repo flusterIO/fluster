@@ -9,35 +9,14 @@ import 'summary_list_query.dart';
 import 'summary_list_result.dart';
 import 'summary_types/mdx_note_summary.dart';
 
+Future<SummaryListResults> getSummaryList({required SummaryListQuery query}) =>
+    RustLib.instance.api
+        .crateApiGlobalActionsGetSummaryListGetSummaryListGetSummaryList(
+          query: query,
+        );
 
-            
+// Rust type: RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<DatabaseError>>
+abstract class DatabaseError implements RustOpaqueInterface {}
 
-            Future<SummaryListResults>  getSummaryList({required SummaryListQuery query , required FlusterDb db }) => RustLib.instance.api.crateApiGlobalActionsGetSummaryListGetSummaryListGetSummaryList(query: query, db: db);
-
-            
-                // Rust type: RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<DatabaseError>>
-                abstract class DatabaseError implements RustOpaqueInterface {
-                    
-
-                    
-                }
-                
-
-
-                // Rust type: RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<FlusterDb>>
-                abstract class FlusterDb implements RustOpaqueInterface {
-                    
-
-                    
-                }
-                
-
-
-                // Rust type: RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<Thing>>
-                abstract class Thing implements RustOpaqueInterface {
-                    
-
-                    
-                }
-                
-            
+// Rust type: RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<Thing>>
+abstract class Thing implements RustOpaqueInterface {}

@@ -6,24 +6,23 @@
 import '../../frb_generated.dart';
 import 'package:flutter_rust_bridge/flutter_rust_bridge_for_generated.dart';
 
+Future<FlusterDatabaseStatus> getDatabaseStatus() => RustLib.instance.api
+    .crateApiDataInterfaceGetDatabaseStatusGetDatabaseStatus();
 
-            
+enum FlusterDatabaseStatus {
+  /// NotInitialized is true when the database directory doesn't exist.
+  notInitialized,
 
-            Future<FlusterDatabaseStatus>  getDatabaseStatus() => RustLib.instance.api.crateApiDataInterfaceGetDatabaseStatusGetDatabaseStatus();
+  ///  There's an error with the database that needs to be handled elsewhere.
+  errorEncountered,
 
-            enum FlusterDatabaseStatus {
-                    /// NotInitialized is true when the database directory doesn't exist.
-notInitialized,
-///  There's an error with the database that needs to be handled elsewhere.
-errorEncountered,
-/// Not connected is reserved for use in future remote database support.
-notConnected,
-/// Connected: Everything's honkey-dorey.
-connected,
-/// The state when the app initially starts, before the database status is returned from
-/// the async function.
-awaitingInitialPing,
-                    ;
-                    
-                }
-            
+  /// Not connected is reserved for use in future remote database support.
+  notConnected,
+
+  /// Connected: Everything's honkey-dorey.
+  connected,
+
+  /// The state when the app initially starts, before the database status is returned from
+  /// the async function.
+  awaitingInitialPing,
+}

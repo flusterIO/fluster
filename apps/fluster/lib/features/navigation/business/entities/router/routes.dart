@@ -258,7 +258,7 @@ class DashboardRoute extends GoRouteData {
 
   @override
   Page<void> buildPage(BuildContext context, GoRouterState state) {
-    return NoTransitionPage<DashboardRoute>(child: Placeholder());
+    return NoTransitionPage<DashboardRoute>(child: DashbboardDesktop());
   }
 }
 
@@ -299,6 +299,6 @@ class HomeScreenRoute extends GoRouteData {
 
   @override
   Page<void> buildPage(BuildContext context, GoRouterState state) {
-    return NoTransitionPage<DesktopAppScaffold>(child: Dashboard());
+    return NoTransitionPage<DesktopAppScaffold>(child: DashbboardDesktop());
   }
 }

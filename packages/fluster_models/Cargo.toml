@@ -21,3 +21,4 @@ surrealdb.workspace = true
 futures = "0.3.31"
 tokio = "1.44.2"
 log = "0.4.27"
+regex = "1.11.1"

@@ -16,975 +16,1633 @@ import 'api/search/get_text_similarity.dart';
 import 'dart:async';
 import 'dart:convert';
 import 'frb_generated.dart';
-import 'frb_generated.io.dart' if (dart.library.js_interop) 'frb_generated.web.dart';
+import 'frb_generated.io.dart'
+    if (dart.library.js_interop) 'frb_generated.web.dart';
 import 'package:flutter_rust_bridge/flutter_rust_bridge_for_generated.dart';
 
+/// Main entrypoint of the Rust API
+class RustLib extends BaseEntrypoint<RustLibApi, RustLibApiImpl, RustLibWire> {
+  @internal
+  static final instance = RustLib._();
 
-                /// Main entrypoint of the Rust API
-                class RustLib extends BaseEntrypoint<RustLibApi, RustLibApiImpl, RustLibWire> {
-                  @internal
-                  static final instance = RustLib._();
+  RustLib._();
 
-                  RustLib._();
+  /// Initialize flutter_rust_bridge
+  static Future<void> init({
+    RustLibApi? api,
+    BaseHandler? handler,
+    ExternalLibrary? externalLibrary,
+  }) async {
+    await instance.initImpl(
+      api: api,
+      handler: handler,
+      externalLibrary: externalLibrary,
+    );
+  }
 
-                  /// Initialize flutter_rust_bridge
-                  static Future<void> init({
-                    RustLibApi? api,
-                    BaseHandler? handler,
-                    ExternalLibrary? externalLibrary,
-                  }) async {
-                    await instance.initImpl(
-                      api: api,
-                      handler: handler,
-                      externalLibrary: externalLibrary,
-                    );
-                  }
+  /// Initialize flutter_rust_bridge in mock mode.
+  /// No libraries for FFI are loaded.
+  static void initMock({required RustLibApi api}) {
+    instance.initMockImpl(api: api);
+  }
 
-                  /// Initialize flutter_rust_bridge in mock mode.
-                  /// No libraries for FFI are loaded.
-                  static void initMock({
-                    required RustLibApi api,
-                  }) {
-                    instance.initMockImpl(
-                      api: api,
-                    );
-                  }
+  /// Dispose flutter_rust_bridge
+  ///
+  /// The call to this function is optional, since flutter_rust_bridge (and everything else)
+  /// is automatically disposed when the app stops.
+  static void dispose() => instance.disposeImpl();
 
-                  /// Dispose flutter_rust_bridge
-                  ///
-                  /// The call to this function is optional, since flutter_rust_bridge (and everything else)
-                  /// is automatically disposed when the app stops.
-                  static void dispose() => instance.disposeImpl();
+  @override
+  ApiImplConstructor<RustLibApiImpl, RustLibWire> get apiImplConstructor =>
+      RustLibApiImpl.new;
 
-                  @override
-                  ApiImplConstructor<RustLibApiImpl, RustLibWire> get apiImplConstructor => RustLibApiImpl.new;
+  @override
+  WireConstructor<RustLibWire> get wireConstructor =>
+      RustLibWire.fromExternalLibrary;
 
-                  @override
-                  WireConstructor<RustLibWire> get wireConstructor => RustLibWire.fromExternalLibrary;
+  @override
+  Future<void> executeRustInitializers() async {}
 
-                  @override
-                  Future<void> executeRustInitializers() async {
-                    
-                  }
+  @override
+  ExternalLibraryLoaderConfig get defaultExternalLibraryLoaderConfig =>
+      kDefaultExternalLibraryLoaderConfig;
 
-                  @override
-                  ExternalLibraryLoaderConfig get defaultExternalLibraryLoaderConfig => kDefaultExternalLibraryLoaderConfig;
+  @override
+  String get codegenVersion => '2.9.0';
 
-                  @override
-                  String get codegenVersion => '2.9.0';
+  @override
+  int get rustContentHash => -1938105847;
 
-                  @override
-                  int get rustContentHash => -1938105847;
+  static const kDefaultExternalLibraryLoaderConfig =
+      ExternalLibraryLoaderConfig(
+        stem: 'fluster_native_interface',
+        ioDirectory: 'rust/target/release/',
+        webPrefix: 'pkg/',
+      );
+}
 
-                  static const kDefaultExternalLibraryLoaderConfig = ExternalLibraryLoaderConfig(
-                    stem: 'fluster_native_interface',
-                    ioDirectory: 'rust/target/release/',
-                    webPrefix: 'pkg/',
-                  );
-                }
-                
+abstract class RustLibApi extends BaseApi {
+  Thing
+  crateApiGlobalActionsGetSummaryListSummaryTypesMdxNoteSummaryMdxNoteSummaryAutoAccessorGetId({
+    required MdxNoteSummary that,
+  });
 
-                abstract class RustLibApi extends BaseApi {
-                  Thing crateApiGlobalActionsGetSummaryListSummaryTypesMdxNoteSummaryMdxNoteSummaryAutoAccessorGetId({required MdxNoteSummary that });
+  String?
+  crateApiGlobalActionsGetSummaryListSummaryTypesMdxNoteSummaryMdxNoteSummaryAutoAccessorGetSummary({
+    required MdxNoteSummary that,
+  });
 
-String? crateApiGlobalActionsGetSummaryListSummaryTypesMdxNoteSummaryMdxNoteSummaryAutoAccessorGetSummary({required MdxNoteSummary that });
+  String
+  crateApiGlobalActionsGetSummaryListSummaryTypesMdxNoteSummaryMdxNoteSummaryAutoAccessorGetTitle({
+    required MdxNoteSummary that,
+  });
 
-String crateApiGlobalActionsGetSummaryListSummaryTypesMdxNoteSummaryMdxNoteSummaryAutoAccessorGetTitle({required MdxNoteSummary that });
+  void
+  crateApiGlobalActionsGetSummaryListSummaryTypesMdxNoteSummaryMdxNoteSummaryAutoAccessorSetId({
+    required MdxNoteSummary that,
+    required Thing id,
+  });
 
-void crateApiGlobalActionsGetSummaryListSummaryTypesMdxNoteSummaryMdxNoteSummaryAutoAccessorSetId({required MdxNoteSummary that , required Thing id });
+  void
+  crateApiGlobalActionsGetSummaryListSummaryTypesMdxNoteSummaryMdxNoteSummaryAutoAccessorSetSummary({
+    required MdxNoteSummary that,
+    String? summary,
+  });
 
-void crateApiGlobalActionsGetSummaryListSummaryTypesMdxNoteSummaryMdxNoteSummaryAutoAccessorSetSummary({required MdxNoteSummary that , String? summary });
+  void
+  crateApiGlobalActionsGetSummaryListSummaryTypesMdxNoteSummaryMdxNoteSummaryAutoAccessorSetTitle({
+    required MdxNoteSummary that,
+    required String title,
+  });
 
-void crateApiGlobalActionsGetSummaryListSummaryTypesMdxNoteSummaryMdxNoteSummaryAutoAccessorSetTitle({required MdxNoteSummary that , required String title });
+  String crateApiFsFsUtilsGetAppConfigDir();
 
-String crateApiFsFsUtilsGetAppConfigDir();
+  String crateApiFsFsUtilsGetAppDataDir();
 
-String crateApiFsFsUtilsGetAppDataDir();
+  Future<FlusterDatabaseStatus>
+  crateApiDataInterfaceGetDatabaseStatusGetDatabaseStatus();
 
-Future<FlusterDatabaseStatus> crateApiDataInterfaceGetDatabaseStatusGetDatabaseStatus();
+  Future<SummaryListResults>
+  crateApiGlobalActionsGetSummaryListGetSummaryListGetSummaryList({
+    required SummaryListQuery query,
+  });
 
-Future<SummaryListResults> crateApiGlobalActionsGetSummaryListGetSummaryListGetSummaryList({required SummaryListQuery query , required FlusterDb db });
+  double crateApiSearchGetTextSimilarityGetTextSimilarity({
+    required String a,
+    required String b,
+  });
 
-double crateApiSearchGetTextSimilarityGetTextSimilarity({required String a , required String b });
+  Future<void> crateApiInitializeOnDesktopInitOnDesktopInit();
 
-Future<void> crateApiInitializeOnDesktopInitOnDesktopInit();
+  bool crateApiFsFsUtilsPathExists({required String filePath});
 
-bool crateApiFsFsUtilsPathExists({required String filePath });
+  Future<FileSystemError?> crateApiFsFsSetupSetupFileSystemForData();
 
-Future<FileSystemError?> crateApiFsFsSetupSetupFileSystemForData();
+  Future<List<DatabaseError>?>
+  crateApiGlobalActionsParseDirectorySyncFsDirectorySyncFilesystemDirectorySyncDirectory({
+    required String dirName,
+  });
 
-Future<List<DatabaseError>?> crateApiGlobalActionsParseDirectorySyncFsDirectorySyncFilesystemDirectorySyncDirectory({required String dirName });
+  RustArcIncrementStrongCountFnType
+  get rust_arc_increment_strong_count_DatabaseError;
 
-RustArcIncrementStrongCountFnType get rust_arc_increment_strong_count_DatabaseError;
+  RustArcDecrementStrongCountFnType
+  get rust_arc_decrement_strong_count_DatabaseError;
 
-RustArcDecrementStrongCountFnType get rust_arc_decrement_strong_count_DatabaseError;
+  CrossPlatformFinalizerArg
+  get rust_arc_decrement_strong_count_DatabaseErrorPtr;
 
-CrossPlatformFinalizerArg get rust_arc_decrement_strong_count_DatabaseErrorPtr;
+  RustArcIncrementStrongCountFnType
+  get rust_arc_increment_strong_count_FileSystemError;
 
-RustArcIncrementStrongCountFnType get rust_arc_increment_strong_count_FileSystemError;
+  RustArcDecrementStrongCountFnType
+  get rust_arc_decrement_strong_count_FileSystemError;
 
-RustArcDecrementStrongCountFnType get rust_arc_decrement_strong_count_FileSystemError;
+  CrossPlatformFinalizerArg
+  get rust_arc_decrement_strong_count_FileSystemErrorPtr;
 
-CrossPlatformFinalizerArg get rust_arc_decrement_strong_count_FileSystemErrorPtr;
+  RustArcIncrementStrongCountFnType
+  get rust_arc_increment_strong_count_MdxNoteSummary;
 
-RustArcIncrementStrongCountFnType get rust_arc_increment_strong_count_FlusterDb;
+  RustArcDecrementStrongCountFnType
+  get rust_arc_decrement_strong_count_MdxNoteSummary;
 
-RustArcDecrementStrongCountFnType get rust_arc_decrement_strong_count_FlusterDb;
+  CrossPlatformFinalizerArg
+  get rust_arc_decrement_strong_count_MdxNoteSummaryPtr;
 
-CrossPlatformFinalizerArg get rust_arc_decrement_strong_count_FlusterDbPtr;
+  RustArcIncrementStrongCountFnType get rust_arc_increment_strong_count_Thing;
 
-RustArcIncrementStrongCountFnType get rust_arc_increment_strong_count_MdxNoteSummary;
+  RustArcDecrementStrongCountFnType get rust_arc_decrement_strong_count_Thing;
 
-RustArcDecrementStrongCountFnType get rust_arc_decrement_strong_count_MdxNoteSummary;
+  CrossPlatformFinalizerArg get rust_arc_decrement_strong_count_ThingPtr;
+}
 
-CrossPlatformFinalizerArg get rust_arc_decrement_strong_count_MdxNoteSummaryPtr;
+class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
+  RustLibApiImpl({
+    required super.handler,
+    required super.wire,
+    required super.generalizedFrbRustBinding,
+    required super.portManager,
+  });
 
-RustArcIncrementStrongCountFnType get rust_arc_increment_strong_count_Thing;
-
-RustArcDecrementStrongCountFnType get rust_arc_decrement_strong_count_Thing;
-
-CrossPlatformFinalizerArg get rust_arc_decrement_strong_count_ThingPtr;
-
-
-                }
-                
-
-                class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
-                  RustLibApiImpl({
-                    required super.handler,
-                    required super.wire,
-                    required super.generalizedFrbRustBinding,
-                    required super.portManager,
-                  });
-
-                  @override Thing crateApiGlobalActionsGetSummaryListSummaryTypesMdxNoteSummaryMdxNoteSummaryAutoAccessorGetId({required MdxNoteSummary that })  { return handler.executeSync(SyncTask(
-            callFfi: () {
-              
-            final serializer = SseSerializer(generalizedFrbRustBinding);sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerMdxNoteSummary(that, serializer);
-            return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 1)!;
-            
-            },
-            codec: 
-        SseCodec(
-          decodeSuccessData: sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerThing,
+  @override
+  Thing
+  crateApiGlobalActionsGetSummaryListSummaryTypesMdxNoteSummaryMdxNoteSummaryAutoAccessorGetId({
+    required MdxNoteSummary that,
+  }) {
+    return handler.executeSync(
+      SyncTask(
+        callFfi: () {
+          final serializer = SseSerializer(generalizedFrbRustBinding);
+          sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerMdxNoteSummary(
+            that,
+            serializer,
+          );
+          return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 1)!;
+        },
+        codec: SseCodec(
+          decodeSuccessData:
+              sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerThing,
           decodeErrorData: null,
-        )
-        ,
-            constMeta: kCrateApiGlobalActionsGetSummaryListSummaryTypesMdxNoteSummaryMdxNoteSummaryAutoAccessorGetIdConstMeta,
-            argValues: [that],
-            apiImpl: this,
-        )); }
+        ),
+        constMeta:
+            kCrateApiGlobalActionsGetSummaryListSummaryTypesMdxNoteSummaryMdxNoteSummaryAutoAccessorGetIdConstMeta,
+        argValues: [that],
+        apiImpl: this,
+      ),
+    );
+  }
 
+  TaskConstMeta
+  get kCrateApiGlobalActionsGetSummaryListSummaryTypesMdxNoteSummaryMdxNoteSummaryAutoAccessorGetIdConstMeta =>
+      const TaskConstMeta(
+        debugName: "MdxNoteSummary_auto_accessor_get_id",
+        argNames: ["that"],
+      );
 
-        TaskConstMeta get kCrateApiGlobalActionsGetSummaryListSummaryTypesMdxNoteSummaryMdxNoteSummaryAutoAccessorGetIdConstMeta => const TaskConstMeta(
-            debugName: "MdxNoteSummary_auto_accessor_get_id",
-            argNames: ["that"],
-        );
-        
-
-@override String? crateApiGlobalActionsGetSummaryListSummaryTypesMdxNoteSummaryMdxNoteSummaryAutoAccessorGetSummary({required MdxNoteSummary that })  { return handler.executeSync(SyncTask(
-            callFfi: () {
-              
-            final serializer = SseSerializer(generalizedFrbRustBinding);sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerMdxNoteSummary(that, serializer);
-            return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 2)!;
-            
-            },
-            codec: 
-        SseCodec(
+  @override
+  String?
+  crateApiGlobalActionsGetSummaryListSummaryTypesMdxNoteSummaryMdxNoteSummaryAutoAccessorGetSummary({
+    required MdxNoteSummary that,
+  }) {
+    return handler.executeSync(
+      SyncTask(
+        callFfi: () {
+          final serializer = SseSerializer(generalizedFrbRustBinding);
+          sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerMdxNoteSummary(
+            that,
+            serializer,
+          );
+          return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 2)!;
+        },
+        codec: SseCodec(
           decodeSuccessData: sse_decode_opt_String,
           decodeErrorData: null,
-        )
-        ,
-            constMeta: kCrateApiGlobalActionsGetSummaryListSummaryTypesMdxNoteSummaryMdxNoteSummaryAutoAccessorGetSummaryConstMeta,
-            argValues: [that],
-            apiImpl: this,
-        )); }
+        ),
+        constMeta:
+            kCrateApiGlobalActionsGetSummaryListSummaryTypesMdxNoteSummaryMdxNoteSummaryAutoAccessorGetSummaryConstMeta,
+        argValues: [that],
+        apiImpl: this,
+      ),
+    );
+  }
 
+  TaskConstMeta
+  get kCrateApiGlobalActionsGetSummaryListSummaryTypesMdxNoteSummaryMdxNoteSummaryAutoAccessorGetSummaryConstMeta =>
+      const TaskConstMeta(
+        debugName: "MdxNoteSummary_auto_accessor_get_summary",
+        argNames: ["that"],
+      );
 
-        TaskConstMeta get kCrateApiGlobalActionsGetSummaryListSummaryTypesMdxNoteSummaryMdxNoteSummaryAutoAccessorGetSummaryConstMeta => const TaskConstMeta(
-            debugName: "MdxNoteSummary_auto_accessor_get_summary",
-            argNames: ["that"],
-        );
-        
-
-@override String crateApiGlobalActionsGetSummaryListSummaryTypesMdxNoteSummaryMdxNoteSummaryAutoAccessorGetTitle({required MdxNoteSummary that })  { return handler.executeSync(SyncTask(
-            callFfi: () {
-              
-            final serializer = SseSerializer(generalizedFrbRustBinding);sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerMdxNoteSummary(that, serializer);
-            return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 3)!;
-            
-            },
-            codec: 
-        SseCodec(
+  @override
+  String
+  crateApiGlobalActionsGetSummaryListSummaryTypesMdxNoteSummaryMdxNoteSummaryAutoAccessorGetTitle({
+    required MdxNoteSummary that,
+  }) {
+    return handler.executeSync(
+      SyncTask(
+        callFfi: () {
+          final serializer = SseSerializer(generalizedFrbRustBinding);
+          sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerMdxNoteSummary(
+            that,
+            serializer,
+          );
+          return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 3)!;
+        },
+        codec: SseCodec(
           decodeSuccessData: sse_decode_String,
           decodeErrorData: null,
-        )
-        ,
-            constMeta: kCrateApiGlobalActionsGetSummaryListSummaryTypesMdxNoteSummaryMdxNoteSummaryAutoAccessorGetTitleConstMeta,
-            argValues: [that],
-            apiImpl: this,
-        )); }
+        ),
+        constMeta:
+            kCrateApiGlobalActionsGetSummaryListSummaryTypesMdxNoteSummaryMdxNoteSummaryAutoAccessorGetTitleConstMeta,
+        argValues: [that],
+        apiImpl: this,
+      ),
+    );
+  }
 
+  TaskConstMeta
+  get kCrateApiGlobalActionsGetSummaryListSummaryTypesMdxNoteSummaryMdxNoteSummaryAutoAccessorGetTitleConstMeta =>
+      const TaskConstMeta(
+        debugName: "MdxNoteSummary_auto_accessor_get_title",
+        argNames: ["that"],
+      );
 
-        TaskConstMeta get kCrateApiGlobalActionsGetSummaryListSummaryTypesMdxNoteSummaryMdxNoteSummaryAutoAccessorGetTitleConstMeta => const TaskConstMeta(
-            debugName: "MdxNoteSummary_auto_accessor_get_title",
-            argNames: ["that"],
-        );
-        
-
-@override void crateApiGlobalActionsGetSummaryListSummaryTypesMdxNoteSummaryMdxNoteSummaryAutoAccessorSetId({required MdxNoteSummary that , required Thing id })  { return handler.executeSync(SyncTask(
-            callFfi: () {
-              
-            final serializer = SseSerializer(generalizedFrbRustBinding);sse_encode_Auto_RefMut_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerMdxNoteSummary(that, serializer);
-sse_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerThing(id, serializer);
-            return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 4)!;
-            
-            },
-            codec: 
-        SseCodec(
+  @override
+  void
+  crateApiGlobalActionsGetSummaryListSummaryTypesMdxNoteSummaryMdxNoteSummaryAutoAccessorSetId({
+    required MdxNoteSummary that,
+    required Thing id,
+  }) {
+    return handler.executeSync(
+      SyncTask(
+        callFfi: () {
+          final serializer = SseSerializer(generalizedFrbRustBinding);
+          sse_encode_Auto_RefMut_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerMdxNoteSummary(
+            that,
+            serializer,
+          );
+          sse_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerThing(
+            id,
+            serializer,
+          );
+          return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 4)!;
+        },
+        codec: SseCodec(
           decodeSuccessData: sse_decode_unit,
           decodeErrorData: null,
-        )
-        ,
-            constMeta: kCrateApiGlobalActionsGetSummaryListSummaryTypesMdxNoteSummaryMdxNoteSummaryAutoAccessorSetIdConstMeta,
-            argValues: [that, id],
-            apiImpl: this,
-        )); }
+        ),
+        constMeta:
+            kCrateApiGlobalActionsGetSummaryListSummaryTypesMdxNoteSummaryMdxNoteSummaryAutoAccessorSetIdConstMeta,
+        argValues: [that, id],
+        apiImpl: this,
+      ),
+    );
+  }
 
+  TaskConstMeta
+  get kCrateApiGlobalActionsGetSummaryListSummaryTypesMdxNoteSummaryMdxNoteSummaryAutoAccessorSetIdConstMeta =>
+      const TaskConstMeta(
+        debugName: "MdxNoteSummary_auto_accessor_set_id",
+        argNames: ["that", "id"],
+      );
 
-        TaskConstMeta get kCrateApiGlobalActionsGetSummaryListSummaryTypesMdxNoteSummaryMdxNoteSummaryAutoAccessorSetIdConstMeta => const TaskConstMeta(
-            debugName: "MdxNoteSummary_auto_accessor_set_id",
-            argNames: ["that", "id"],
-        );
-        
-
-@override void crateApiGlobalActionsGetSummaryListSummaryTypesMdxNoteSummaryMdxNoteSummaryAutoAccessorSetSummary({required MdxNoteSummary that , String? summary })  { return handler.executeSync(SyncTask(
-            callFfi: () {
-              
-            final serializer = SseSerializer(generalizedFrbRustBinding);sse_encode_Auto_RefMut_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerMdxNoteSummary(that, serializer);
-sse_encode_opt_String(summary, serializer);
-            return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 5)!;
-            
-            },
-            codec: 
-        SseCodec(
+  @override
+  void
+  crateApiGlobalActionsGetSummaryListSummaryTypesMdxNoteSummaryMdxNoteSummaryAutoAccessorSetSummary({
+    required MdxNoteSummary that,
+    String? summary,
+  }) {
+    return handler.executeSync(
+      SyncTask(
+        callFfi: () {
+          final serializer = SseSerializer(generalizedFrbRustBinding);
+          sse_encode_Auto_RefMut_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerMdxNoteSummary(
+            that,
+            serializer,
+          );
+          sse_encode_opt_String(summary, serializer);
+          return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 5)!;
+        },
+        codec: SseCodec(
           decodeSuccessData: sse_decode_unit,
           decodeErrorData: null,
-        )
-        ,
-            constMeta: kCrateApiGlobalActionsGetSummaryListSummaryTypesMdxNoteSummaryMdxNoteSummaryAutoAccessorSetSummaryConstMeta,
-            argValues: [that, summary],
-            apiImpl: this,
-        )); }
+        ),
+        constMeta:
+            kCrateApiGlobalActionsGetSummaryListSummaryTypesMdxNoteSummaryMdxNoteSummaryAutoAccessorSetSummaryConstMeta,
+        argValues: [that, summary],
+        apiImpl: this,
+      ),
+    );
+  }
 
+  TaskConstMeta
+  get kCrateApiGlobalActionsGetSummaryListSummaryTypesMdxNoteSummaryMdxNoteSummaryAutoAccessorSetSummaryConstMeta =>
+      const TaskConstMeta(
+        debugName: "MdxNoteSummary_auto_accessor_set_summary",
+        argNames: ["that", "summary"],
+      );
 
-        TaskConstMeta get kCrateApiGlobalActionsGetSummaryListSummaryTypesMdxNoteSummaryMdxNoteSummaryAutoAccessorSetSummaryConstMeta => const TaskConstMeta(
-            debugName: "MdxNoteSummary_auto_accessor_set_summary",
-            argNames: ["that", "summary"],
-        );
-        
-
-@override void crateApiGlobalActionsGetSummaryListSummaryTypesMdxNoteSummaryMdxNoteSummaryAutoAccessorSetTitle({required MdxNoteSummary that , required String title })  { return handler.executeSync(SyncTask(
-            callFfi: () {
-              
-            final serializer = SseSerializer(generalizedFrbRustBinding);sse_encode_Auto_RefMut_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerMdxNoteSummary(that, serializer);
-sse_encode_String(title, serializer);
-            return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 6)!;
-            
-            },
-            codec: 
-        SseCodec(
+  @override
+  void
+  crateApiGlobalActionsGetSummaryListSummaryTypesMdxNoteSummaryMdxNoteSummaryAutoAccessorSetTitle({
+    required MdxNoteSummary that,
+    required String title,
+  }) {
+    return handler.executeSync(
+      SyncTask(
+        callFfi: () {
+          final serializer = SseSerializer(generalizedFrbRustBinding);
+          sse_encode_Auto_RefMut_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerMdxNoteSummary(
+            that,
+            serializer,
+          );
+          sse_encode_String(title, serializer);
+          return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 6)!;
+        },
+        codec: SseCodec(
           decodeSuccessData: sse_decode_unit,
           decodeErrorData: null,
-        )
-        ,
-            constMeta: kCrateApiGlobalActionsGetSummaryListSummaryTypesMdxNoteSummaryMdxNoteSummaryAutoAccessorSetTitleConstMeta,
-            argValues: [that, title],
-            apiImpl: this,
-        )); }
+        ),
+        constMeta:
+            kCrateApiGlobalActionsGetSummaryListSummaryTypesMdxNoteSummaryMdxNoteSummaryAutoAccessorSetTitleConstMeta,
+        argValues: [that, title],
+        apiImpl: this,
+      ),
+    );
+  }
 
+  TaskConstMeta
+  get kCrateApiGlobalActionsGetSummaryListSummaryTypesMdxNoteSummaryMdxNoteSummaryAutoAccessorSetTitleConstMeta =>
+      const TaskConstMeta(
+        debugName: "MdxNoteSummary_auto_accessor_set_title",
+        argNames: ["that", "title"],
+      );
 
-        TaskConstMeta get kCrateApiGlobalActionsGetSummaryListSummaryTypesMdxNoteSummaryMdxNoteSummaryAutoAccessorSetTitleConstMeta => const TaskConstMeta(
-            debugName: "MdxNoteSummary_auto_accessor_set_title",
-            argNames: ["that", "title"],
-        );
-        
-
-@override String crateApiFsFsUtilsGetAppConfigDir()  { return handler.executeSync(SyncTask(
-            callFfi: () {
-              
-            final serializer = SseSerializer(generalizedFrbRustBinding);
-            return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 7)!;
-            
-            },
-            codec: 
-        SseCodec(
+  @override
+  String crateApiFsFsUtilsGetAppConfigDir() {
+    return handler.executeSync(
+      SyncTask(
+        callFfi: () {
+          final serializer = SseSerializer(generalizedFrbRustBinding);
+          return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 7)!;
+        },
+        codec: SseCodec(
           decodeSuccessData: sse_decode_String,
-          decodeErrorData: sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFileSystemError,
-        )
-        ,
-            constMeta: kCrateApiFsFsUtilsGetAppConfigDirConstMeta,
-            argValues: [],
-            apiImpl: this,
-        )); }
+          decodeErrorData:
+              sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFileSystemError,
+        ),
+        constMeta: kCrateApiFsFsUtilsGetAppConfigDirConstMeta,
+        argValues: [],
+        apiImpl: this,
+      ),
+    );
+  }
 
+  TaskConstMeta get kCrateApiFsFsUtilsGetAppConfigDirConstMeta =>
+      const TaskConstMeta(debugName: "get_app_config_dir", argNames: []);
 
-        TaskConstMeta get kCrateApiFsFsUtilsGetAppConfigDirConstMeta => const TaskConstMeta(
-            debugName: "get_app_config_dir",
-            argNames: [],
-        );
-        
-
-@override String crateApiFsFsUtilsGetAppDataDir()  { return handler.executeSync(SyncTask(
-            callFfi: () {
-              
-            final serializer = SseSerializer(generalizedFrbRustBinding);
-            return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 8)!;
-            
-            },
-            codec: 
-        SseCodec(
+  @override
+  String crateApiFsFsUtilsGetAppDataDir() {
+    return handler.executeSync(
+      SyncTask(
+        callFfi: () {
+          final serializer = SseSerializer(generalizedFrbRustBinding);
+          return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 8)!;
+        },
+        codec: SseCodec(
           decodeSuccessData: sse_decode_String,
-          decodeErrorData: sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFileSystemError,
-        )
-        ,
-            constMeta: kCrateApiFsFsUtilsGetAppDataDirConstMeta,
-            argValues: [],
-            apiImpl: this,
-        )); }
+          decodeErrorData:
+              sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFileSystemError,
+        ),
+        constMeta: kCrateApiFsFsUtilsGetAppDataDirConstMeta,
+        argValues: [],
+        apiImpl: this,
+      ),
+    );
+  }
 
+  TaskConstMeta get kCrateApiFsFsUtilsGetAppDataDirConstMeta =>
+      const TaskConstMeta(debugName: "get_app_data_dir", argNames: []);
 
-        TaskConstMeta get kCrateApiFsFsUtilsGetAppDataDirConstMeta => const TaskConstMeta(
-            debugName: "get_app_data_dir",
-            argNames: [],
-        );
-        
-
-@override Future<FlusterDatabaseStatus> crateApiDataInterfaceGetDatabaseStatusGetDatabaseStatus()  { return handler.executeNormal(NormalTask(
-            callFfi: (port_) {
-              
-            final serializer = SseSerializer(generalizedFrbRustBinding);
-            pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 9, port: port_);
-            
-            },
-            codec: 
-        SseCodec(
+  @override
+  Future<FlusterDatabaseStatus>
+  crateApiDataInterfaceGetDatabaseStatusGetDatabaseStatus() {
+    return handler.executeNormal(
+      NormalTask(
+        callFfi: (port_) {
+          final serializer = SseSerializer(generalizedFrbRustBinding);
+          pdeCallFfi(
+            generalizedFrbRustBinding,
+            serializer,
+            funcId: 9,
+            port: port_,
+          );
+        },
+        codec: SseCodec(
           decodeSuccessData: sse_decode_fluster_database_status,
           decodeErrorData: null,
-        )
-        ,
-            constMeta: kCrateApiDataInterfaceGetDatabaseStatusGetDatabaseStatusConstMeta,
-            argValues: [],
-            apiImpl: this,
-        )); }
+        ),
+        constMeta:
+            kCrateApiDataInterfaceGetDatabaseStatusGetDatabaseStatusConstMeta,
+        argValues: [],
+        apiImpl: this,
+      ),
+    );
+  }
 
+  TaskConstMeta
+  get kCrateApiDataInterfaceGetDatabaseStatusGetDatabaseStatusConstMeta =>
+      const TaskConstMeta(debugName: "get_database_status", argNames: []);
 
-        TaskConstMeta get kCrateApiDataInterfaceGetDatabaseStatusGetDatabaseStatusConstMeta => const TaskConstMeta(
-            debugName: "get_database_status",
-            argNames: [],
-        );
-        
-
-@override Future<SummaryListResults> crateApiGlobalActionsGetSummaryListGetSummaryListGetSummaryList({required SummaryListQuery query , required FlusterDb db })  { return handler.executeNormal(NormalTask(
-            callFfi: (port_) {
-              
-            final serializer = SseSerializer(generalizedFrbRustBinding);sse_encode_box_autoadd_summary_list_query(query, serializer);
-sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFlusterDb(db, serializer);
-            pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 10, port: port_);
-            
-            },
-            codec: 
-        SseCodec(
+  @override
+  Future<SummaryListResults>
+  crateApiGlobalActionsGetSummaryListGetSummaryListGetSummaryList({
+    required SummaryListQuery query,
+  }) {
+    return handler.executeNormal(
+      NormalTask(
+        callFfi: (port_) {
+          final serializer = SseSerializer(generalizedFrbRustBinding);
+          sse_encode_box_autoadd_summary_list_query(query, serializer);
+          pdeCallFfi(
+            generalizedFrbRustBinding,
+            serializer,
+            funcId: 10,
+            port: port_,
+          );
+        },
+        codec: SseCodec(
           decodeSuccessData: sse_decode_summary_list_results,
-          decodeErrorData: sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerDatabaseError,
-        )
-        ,
-            constMeta: kCrateApiGlobalActionsGetSummaryListGetSummaryListGetSummaryListConstMeta,
-            argValues: [query, db],
-            apiImpl: this,
-        )); }
+          decodeErrorData:
+              sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerDatabaseError,
+        ),
+        constMeta:
+            kCrateApiGlobalActionsGetSummaryListGetSummaryListGetSummaryListConstMeta,
+        argValues: [query],
+        apiImpl: this,
+      ),
+    );
+  }
 
+  TaskConstMeta
+  get kCrateApiGlobalActionsGetSummaryListGetSummaryListGetSummaryListConstMeta =>
+      const TaskConstMeta(debugName: "get_summary_list", argNames: ["query"]);
 
-        TaskConstMeta get kCrateApiGlobalActionsGetSummaryListGetSummaryListGetSummaryListConstMeta => const TaskConstMeta(
-            debugName: "get_summary_list",
-            argNames: ["query", "db"],
-        );
-        
-
-@override double crateApiSearchGetTextSimilarityGetTextSimilarity({required String a , required String b })  { return handler.executeSync(SyncTask(
-            callFfi: () {
-              
-            final serializer = SseSerializer(generalizedFrbRustBinding);sse_encode_String(a, serializer);
-sse_encode_String(b, serializer);
-            return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 11)!;
-            
-            },
-            codec: 
-        SseCodec(
+  @override
+  double crateApiSearchGetTextSimilarityGetTextSimilarity({
+    required String a,
+    required String b,
+  }) {
+    return handler.executeSync(
+      SyncTask(
+        callFfi: () {
+          final serializer = SseSerializer(generalizedFrbRustBinding);
+          sse_encode_String(a, serializer);
+          sse_encode_String(b, serializer);
+          return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 11)!;
+        },
+        codec: SseCodec(
           decodeSuccessData: sse_decode_f_64,
           decodeErrorData: null,
-        )
-        ,
-            constMeta: kCrateApiSearchGetTextSimilarityGetTextSimilarityConstMeta,
-            argValues: [a, b],
-            apiImpl: this,
-        )); }
+        ),
+        constMeta: kCrateApiSearchGetTextSimilarityGetTextSimilarityConstMeta,
+        argValues: [a, b],
+        apiImpl: this,
+      ),
+    );
+  }
 
+  TaskConstMeta
+  get kCrateApiSearchGetTextSimilarityGetTextSimilarityConstMeta =>
+      const TaskConstMeta(
+        debugName: "get_text_similarity",
+        argNames: ["a", "b"],
+      );
 
-        TaskConstMeta get kCrateApiSearchGetTextSimilarityGetTextSimilarityConstMeta => const TaskConstMeta(
-            debugName: "get_text_similarity",
-            argNames: ["a", "b"],
-        );
-        
-
-@override Future<void> crateApiInitializeOnDesktopInitOnDesktopInit()  { return handler.executeNormal(NormalTask(
-            callFfi: (port_) {
-              
-            final serializer = SseSerializer(generalizedFrbRustBinding);
-            pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 12, port: port_);
-            
-            },
-            codec: 
-        SseCodec(
+  @override
+  Future<void> crateApiInitializeOnDesktopInitOnDesktopInit() {
+    return handler.executeNormal(
+      NormalTask(
+        callFfi: (port_) {
+          final serializer = SseSerializer(generalizedFrbRustBinding);
+          pdeCallFfi(
+            generalizedFrbRustBinding,
+            serializer,
+            funcId: 12,
+            port: port_,
+          );
+        },
+        codec: SseCodec(
           decodeSuccessData: sse_decode_unit,
           decodeErrorData: null,
-        )
-        ,
-            constMeta: kCrateApiInitializeOnDesktopInitOnDesktopInitConstMeta,
-            argValues: [],
-            apiImpl: this,
-        )); }
+        ),
+        constMeta: kCrateApiInitializeOnDesktopInitOnDesktopInitConstMeta,
+        argValues: [],
+        apiImpl: this,
+      ),
+    );
+  }
 
+  TaskConstMeta get kCrateApiInitializeOnDesktopInitOnDesktopInitConstMeta =>
+      const TaskConstMeta(debugName: "on_desktop_init", argNames: []);
 
-        TaskConstMeta get kCrateApiInitializeOnDesktopInitOnDesktopInitConstMeta => const TaskConstMeta(
-            debugName: "on_desktop_init",
-            argNames: [],
-        );
-        
-
-@override bool crateApiFsFsUtilsPathExists({required String filePath })  { return handler.executeSync(SyncTask(
-            callFfi: () {
-              
-            final serializer = SseSerializer(generalizedFrbRustBinding);sse_encode_String(filePath, serializer);
-            return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 13)!;
-            
-            },
-            codec: 
-        SseCodec(
+  @override
+  bool crateApiFsFsUtilsPathExists({required String filePath}) {
+    return handler.executeSync(
+      SyncTask(
+        callFfi: () {
+          final serializer = SseSerializer(generalizedFrbRustBinding);
+          sse_encode_String(filePath, serializer);
+          return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 13)!;
+        },
+        codec: SseCodec(
           decodeSuccessData: sse_decode_bool,
           decodeErrorData: null,
-        )
-        ,
-            constMeta: kCrateApiFsFsUtilsPathExistsConstMeta,
-            argValues: [filePath],
-            apiImpl: this,
-        )); }
+        ),
+        constMeta: kCrateApiFsFsUtilsPathExistsConstMeta,
+        argValues: [filePath],
+        apiImpl: this,
+      ),
+    );
+  }
 
+  TaskConstMeta get kCrateApiFsFsUtilsPathExistsConstMeta =>
+      const TaskConstMeta(debugName: "path_exists", argNames: ["filePath"]);
 
-        TaskConstMeta get kCrateApiFsFsUtilsPathExistsConstMeta => const TaskConstMeta(
-            debugName: "path_exists",
-            argNames: ["filePath"],
-        );
-        
-
-@override Future<FileSystemError?> crateApiFsFsSetupSetupFileSystemForData()  { return handler.executeNormal(NormalTask(
-            callFfi: (port_) {
-              
-            final serializer = SseSerializer(generalizedFrbRustBinding);
-            pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 14, port: port_);
-            
-            },
-            codec: 
-        SseCodec(
-          decodeSuccessData: sse_decode_opt_box_autoadd_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFileSystemError,
+  @override
+  Future<FileSystemError?> crateApiFsFsSetupSetupFileSystemForData() {
+    return handler.executeNormal(
+      NormalTask(
+        callFfi: (port_) {
+          final serializer = SseSerializer(generalizedFrbRustBinding);
+          pdeCallFfi(
+            generalizedFrbRustBinding,
+            serializer,
+            funcId: 14,
+            port: port_,
+          );
+        },
+        codec: SseCodec(
+          decodeSuccessData:
+              sse_decode_opt_box_autoadd_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFileSystemError,
           decodeErrorData: null,
-        )
-        ,
-            constMeta: kCrateApiFsFsSetupSetupFileSystemForDataConstMeta,
-            argValues: [],
-            apiImpl: this,
-        )); }
+        ),
+        constMeta: kCrateApiFsFsSetupSetupFileSystemForDataConstMeta,
+        argValues: [],
+        apiImpl: this,
+      ),
+    );
+  }
 
+  TaskConstMeta get kCrateApiFsFsSetupSetupFileSystemForDataConstMeta =>
+      const TaskConstMeta(
+        debugName: "setup_file_system_for_data",
+        argNames: [],
+      );
 
-        TaskConstMeta get kCrateApiFsFsSetupSetupFileSystemForDataConstMeta => const TaskConstMeta(
-            debugName: "setup_file_system_for_data",
-            argNames: [],
-        );
-        
-
-@override Future<List<DatabaseError>?> crateApiGlobalActionsParseDirectorySyncFsDirectorySyncFilesystemDirectorySyncDirectory({required String dirName })  { return handler.executeNormal(NormalTask(
-            callFfi: (port_) {
-              
-            final serializer = SseSerializer(generalizedFrbRustBinding);sse_encode_String(dirName, serializer);
-            pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 15, port: port_);
-            
-            },
-            codec: 
-        SseCodec(
-          decodeSuccessData: sse_decode_opt_list_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerDatabaseError,
+  @override
+  Future<List<DatabaseError>?>
+  crateApiGlobalActionsParseDirectorySyncFsDirectorySyncFilesystemDirectorySyncDirectory({
+    required String dirName,
+  }) {
+    return handler.executeNormal(
+      NormalTask(
+        callFfi: (port_) {
+          final serializer = SseSerializer(generalizedFrbRustBinding);
+          sse_encode_String(dirName, serializer);
+          pdeCallFfi(
+            generalizedFrbRustBinding,
+            serializer,
+            funcId: 15,
+            port: port_,
+          );
+        },
+        codec: SseCodec(
+          decodeSuccessData:
+              sse_decode_opt_list_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerDatabaseError,
           decodeErrorData: null,
+        ),
+        constMeta:
+            kCrateApiGlobalActionsParseDirectorySyncFsDirectorySyncFilesystemDirectorySyncDirectoryConstMeta,
+        argValues: [dirName],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta
+  get kCrateApiGlobalActionsParseDirectorySyncFsDirectorySyncFilesystemDirectorySyncDirectoryConstMeta =>
+      const TaskConstMeta(debugName: "sync_directory", argNames: ["dirName"]);
+
+  RustArcIncrementStrongCountFnType
+  get rust_arc_increment_strong_count_DatabaseError => wire
+      .rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerDatabaseError;
+
+  RustArcDecrementStrongCountFnType
+  get rust_arc_decrement_strong_count_DatabaseError => wire
+      .rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerDatabaseError;
+
+  RustArcIncrementStrongCountFnType
+  get rust_arc_increment_strong_count_FileSystemError => wire
+      .rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFileSystemError;
+
+  RustArcDecrementStrongCountFnType
+  get rust_arc_decrement_strong_count_FileSystemError => wire
+      .rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFileSystemError;
+
+  RustArcIncrementStrongCountFnType
+  get rust_arc_increment_strong_count_MdxNoteSummary => wire
+      .rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerMdxNoteSummary;
+
+  RustArcDecrementStrongCountFnType
+  get rust_arc_decrement_strong_count_MdxNoteSummary => wire
+      .rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerMdxNoteSummary;
+
+  RustArcIncrementStrongCountFnType
+  get rust_arc_increment_strong_count_Thing => wire
+      .rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerThing;
+
+  RustArcDecrementStrongCountFnType
+  get rust_arc_decrement_strong_count_Thing => wire
+      .rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerThing;
+
+  @protected
+  DatabaseError
+  dco_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerDatabaseError(
+    dynamic raw,
+  ) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return DatabaseErrorImpl.frbInternalDcoDecode(raw as List<dynamic>);
+  }
+
+  @protected
+  FileSystemError
+  dco_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFileSystemError(
+    dynamic raw,
+  ) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return FileSystemErrorImpl.frbInternalDcoDecode(raw as List<dynamic>);
+  }
+
+  @protected
+  MdxNoteSummary
+  dco_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerMdxNoteSummary(
+    dynamic raw,
+  ) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return MdxNoteSummaryImpl.frbInternalDcoDecode(raw as List<dynamic>);
+  }
+
+  @protected
+  Thing
+  dco_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerThing(
+    dynamic raw,
+  ) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return ThingImpl.frbInternalDcoDecode(raw as List<dynamic>);
+  }
+
+  @protected
+  MdxNoteSummary
+  dco_decode_Auto_RefMut_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerMdxNoteSummary(
+    dynamic raw,
+  ) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return MdxNoteSummaryImpl.frbInternalDcoDecode(raw as List<dynamic>);
+  }
+
+  @protected
+  MdxNoteSummary
+  dco_decode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerMdxNoteSummary(
+    dynamic raw,
+  ) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return MdxNoteSummaryImpl.frbInternalDcoDecode(raw as List<dynamic>);
+  }
+
+  @protected
+  DatabaseError
+  dco_decode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerDatabaseError(
+    dynamic raw,
+  ) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return DatabaseErrorImpl.frbInternalDcoDecode(raw as List<dynamic>);
+  }
+
+  @protected
+  FileSystemError
+  dco_decode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFileSystemError(
+    dynamic raw,
+  ) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return FileSystemErrorImpl.frbInternalDcoDecode(raw as List<dynamic>);
+  }
+
+  @protected
+  MdxNoteSummary
+  dco_decode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerMdxNoteSummary(
+    dynamic raw,
+  ) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return MdxNoteSummaryImpl.frbInternalDcoDecode(raw as List<dynamic>);
+  }
+
+  @protected
+  Thing
+  dco_decode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerThing(
+    dynamic raw,
+  ) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return ThingImpl.frbInternalDcoDecode(raw as List<dynamic>);
+  }
+
+  @protected
+  String dco_decode_String(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return raw as String;
+  }
+
+  @protected
+  bool dco_decode_bool(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return raw as bool;
+  }
+
+  @protected
+  FileSystemError
+  dco_decode_box_autoadd_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFileSystemError(
+    dynamic raw,
+  ) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return dco_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFileSystemError(
+      raw,
+    );
+  }
+
+  @protected
+  SummaryListQuery dco_decode_box_autoadd_summary_list_query(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return dco_decode_summary_list_query(raw);
+  }
+
+  @protected
+  double dco_decode_f_64(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return raw as double;
+  }
+
+  @protected
+  FlusterDatabaseStatus dco_decode_fluster_database_status(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return FlusterDatabaseStatus.values[raw as int];
+  }
+
+  @protected
+  int dco_decode_i_32(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return raw as int;
+  }
+
+  @protected
+  List<DatabaseError>
+  dco_decode_list_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerDatabaseError(
+    dynamic raw,
+  ) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return (raw as List<dynamic>)
+        .map(
+          dco_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerDatabaseError,
         )
-        ,
-            constMeta: kCrateApiGlobalActionsParseDirectorySyncFsDirectorySyncFilesystemDirectorySyncDirectoryConstMeta,
-            argValues: [dirName],
-            apiImpl: this,
-        )); }
+        .toList();
+  }
 
+  @protected
+  List<MdxNoteSummary>
+  dco_decode_list_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerMdxNoteSummary(
+    dynamic raw,
+  ) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return (raw as List<dynamic>)
+        .map(
+          dco_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerMdxNoteSummary,
+        )
+        .toList();
+  }
 
-        TaskConstMeta get kCrateApiGlobalActionsParseDirectorySyncFsDirectorySyncFilesystemDirectorySyncDirectoryConstMeta => const TaskConstMeta(
-            debugName: "sync_directory",
-            argNames: ["dirName"],
+  @protected
+  Uint8List dco_decode_list_prim_u_8_strict(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return raw as Uint8List;
+  }
+
+  @protected
+  String? dco_decode_opt_String(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return raw == null ? null : dco_decode_String(raw);
+  }
+
+  @protected
+  FileSystemError?
+  dco_decode_opt_box_autoadd_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFileSystemError(
+    dynamic raw,
+  ) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return raw == null
+        ? null
+        : dco_decode_box_autoadd_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFileSystemError(
+            raw,
+          );
+  }
+
+  @protected
+  List<DatabaseError>?
+  dco_decode_opt_list_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerDatabaseError(
+    dynamic raw,
+  ) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return raw == null
+        ? null
+        : dco_decode_list_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerDatabaseError(
+            raw,
+          );
+  }
+
+  @protected
+  SummaryListQuery dco_decode_summary_list_query(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    final arr = raw as List<dynamic>;
+    if (arr.isNotEmpty)
+      throw Exception('unexpected arr length: expect 0 but see ${arr.length}');
+    return SummaryListQuery();
+  }
+
+  @protected
+  SummaryListResults dco_decode_summary_list_results(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    final arr = raw as List<dynamic>;
+    if (arr.length != 1)
+      throw Exception('unexpected arr length: expect 1 but see ${arr.length}');
+    return SummaryListResults(
+      mdxNotes:
+          dco_decode_list_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerMdxNoteSummary(
+            arr[0],
+          ),
+    );
+  }
+
+  @protected
+  int dco_decode_u_8(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return raw as int;
+  }
+
+  @protected
+  void dco_decode_unit(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return;
+  }
+
+  @protected
+  BigInt dco_decode_usize(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return dcoDecodeU64(raw);
+  }
+
+  @protected
+  DatabaseError
+  sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerDatabaseError(
+    SseDeserializer deserializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    return DatabaseErrorImpl.frbInternalSseDecode(
+      sse_decode_usize(deserializer),
+      sse_decode_i_32(deserializer),
+    );
+  }
+
+  @protected
+  FileSystemError
+  sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFileSystemError(
+    SseDeserializer deserializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    return FileSystemErrorImpl.frbInternalSseDecode(
+      sse_decode_usize(deserializer),
+      sse_decode_i_32(deserializer),
+    );
+  }
+
+  @protected
+  MdxNoteSummary
+  sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerMdxNoteSummary(
+    SseDeserializer deserializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    return MdxNoteSummaryImpl.frbInternalSseDecode(
+      sse_decode_usize(deserializer),
+      sse_decode_i_32(deserializer),
+    );
+  }
+
+  @protected
+  Thing
+  sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerThing(
+    SseDeserializer deserializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    return ThingImpl.frbInternalSseDecode(
+      sse_decode_usize(deserializer),
+      sse_decode_i_32(deserializer),
+    );
+  }
+
+  @protected
+  MdxNoteSummary
+  sse_decode_Auto_RefMut_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerMdxNoteSummary(
+    SseDeserializer deserializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    return MdxNoteSummaryImpl.frbInternalSseDecode(
+      sse_decode_usize(deserializer),
+      sse_decode_i_32(deserializer),
+    );
+  }
+
+  @protected
+  MdxNoteSummary
+  sse_decode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerMdxNoteSummary(
+    SseDeserializer deserializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    return MdxNoteSummaryImpl.frbInternalSseDecode(
+      sse_decode_usize(deserializer),
+      sse_decode_i_32(deserializer),
+    );
+  }
+
+  @protected
+  DatabaseError
+  sse_decode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerDatabaseError(
+    SseDeserializer deserializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    return DatabaseErrorImpl.frbInternalSseDecode(
+      sse_decode_usize(deserializer),
+      sse_decode_i_32(deserializer),
+    );
+  }
+
+  @protected
+  FileSystemError
+  sse_decode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFileSystemError(
+    SseDeserializer deserializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    return FileSystemErrorImpl.frbInternalSseDecode(
+      sse_decode_usize(deserializer),
+      sse_decode_i_32(deserializer),
+    );
+  }
+
+  @protected
+  MdxNoteSummary
+  sse_decode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerMdxNoteSummary(
+    SseDeserializer deserializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    return MdxNoteSummaryImpl.frbInternalSseDecode(
+      sse_decode_usize(deserializer),
+      sse_decode_i_32(deserializer),
+    );
+  }
+
+  @protected
+  Thing
+  sse_decode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerThing(
+    SseDeserializer deserializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    return ThingImpl.frbInternalSseDecode(
+      sse_decode_usize(deserializer),
+      sse_decode_i_32(deserializer),
+    );
+  }
+
+  @protected
+  String sse_decode_String(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    var inner = sse_decode_list_prim_u_8_strict(deserializer);
+    return utf8.decoder.convert(inner);
+  }
+
+  @protected
+  bool sse_decode_bool(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    return deserializer.buffer.getUint8() != 0;
+  }
+
+  @protected
+  FileSystemError
+  sse_decode_box_autoadd_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFileSystemError(
+    SseDeserializer deserializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    return (sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFileSystemError(
+      deserializer,
+    ));
+  }
+
+  @protected
+  SummaryListQuery sse_decode_box_autoadd_summary_list_query(
+    SseDeserializer deserializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    return (sse_decode_summary_list_query(deserializer));
+  }
+
+  @protected
+  double sse_decode_f_64(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    return deserializer.buffer.getFloat64();
+  }
+
+  @protected
+  FlusterDatabaseStatus sse_decode_fluster_database_status(
+    SseDeserializer deserializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    var inner = sse_decode_i_32(deserializer);
+    return FlusterDatabaseStatus.values[inner];
+  }
+
+  @protected
+  int sse_decode_i_32(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    return deserializer.buffer.getInt32();
+  }
+
+  @protected
+  List<DatabaseError>
+  sse_decode_list_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerDatabaseError(
+    SseDeserializer deserializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+
+    var len_ = sse_decode_i_32(deserializer);
+    var ans_ = <DatabaseError>[];
+    for (var idx_ = 0; idx_ < len_; ++idx_) {
+      ans_.add(
+        sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerDatabaseError(
+          deserializer,
+        ),
+      );
+    }
+    return ans_;
+  }
+
+  @protected
+  List<MdxNoteSummary>
+  sse_decode_list_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerMdxNoteSummary(
+    SseDeserializer deserializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+
+    var len_ = sse_decode_i_32(deserializer);
+    var ans_ = <MdxNoteSummary>[];
+    for (var idx_ = 0; idx_ < len_; ++idx_) {
+      ans_.add(
+        sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerMdxNoteSummary(
+          deserializer,
+        ),
+      );
+    }
+    return ans_;
+  }
+
+  @protected
+  Uint8List sse_decode_list_prim_u_8_strict(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    var len_ = sse_decode_i_32(deserializer);
+    return deserializer.buffer.getUint8List(len_);
+  }
+
+  @protected
+  String? sse_decode_opt_String(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+
+    if (sse_decode_bool(deserializer)) {
+      return (sse_decode_String(deserializer));
+    } else {
+      return null;
+    }
+  }
+
+  @protected
+  FileSystemError?
+  sse_decode_opt_box_autoadd_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFileSystemError(
+    SseDeserializer deserializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+
+    if (sse_decode_bool(deserializer)) {
+      return (sse_decode_box_autoadd_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFileSystemError(
+        deserializer,
+      ));
+    } else {
+      return null;
+    }
+  }
+
+  @protected
+  List<DatabaseError>?
+  sse_decode_opt_list_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerDatabaseError(
+    SseDeserializer deserializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+
+    if (sse_decode_bool(deserializer)) {
+      return (sse_decode_list_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerDatabaseError(
+        deserializer,
+      ));
+    } else {
+      return null;
+    }
+  }
+
+  @protected
+  SummaryListQuery sse_decode_summary_list_query(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    return SummaryListQuery();
+  }
+
+  @protected
+  SummaryListResults sse_decode_summary_list_results(
+    SseDeserializer deserializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    var var_mdxNotes =
+        sse_decode_list_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerMdxNoteSummary(
+          deserializer,
         );
-        
-
-RustArcIncrementStrongCountFnType get rust_arc_increment_strong_count_DatabaseError => wire.rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerDatabaseError;
-
-RustArcDecrementStrongCountFnType get rust_arc_decrement_strong_count_DatabaseError => wire.rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerDatabaseError;
-
-RustArcIncrementStrongCountFnType get rust_arc_increment_strong_count_FileSystemError => wire.rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFileSystemError;
-
-RustArcDecrementStrongCountFnType get rust_arc_decrement_strong_count_FileSystemError => wire.rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFileSystemError;
-
-RustArcIncrementStrongCountFnType get rust_arc_increment_strong_count_FlusterDb => wire.rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFlusterDb;
-
-RustArcDecrementStrongCountFnType get rust_arc_decrement_strong_count_FlusterDb => wire.rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFlusterDb;
-
-RustArcIncrementStrongCountFnType get rust_arc_increment_strong_count_MdxNoteSummary => wire.rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerMdxNoteSummary;
-
-RustArcDecrementStrongCountFnType get rust_arc_decrement_strong_count_MdxNoteSummary => wire.rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerMdxNoteSummary;
-
-RustArcIncrementStrongCountFnType get rust_arc_increment_strong_count_Thing => wire.rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerThing;
-
-RustArcDecrementStrongCountFnType get rust_arc_decrement_strong_count_Thing => wire.rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerThing;
-
-
-
-                  @protected DatabaseError dco_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerDatabaseError(dynamic raw){ // Codec=Dco (DartCObject based), see doc to use other codecs
-return DatabaseErrorImpl.frbInternalDcoDecode(raw as List<dynamic>); }
-
-@protected FileSystemError dco_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFileSystemError(dynamic raw){ // Codec=Dco (DartCObject based), see doc to use other codecs
-return FileSystemErrorImpl.frbInternalDcoDecode(raw as List<dynamic>); }
-
-@protected MdxNoteSummary dco_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerMdxNoteSummary(dynamic raw){ // Codec=Dco (DartCObject based), see doc to use other codecs
-return MdxNoteSummaryImpl.frbInternalDcoDecode(raw as List<dynamic>); }
-
-@protected Thing dco_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerThing(dynamic raw){ // Codec=Dco (DartCObject based), see doc to use other codecs
-return ThingImpl.frbInternalDcoDecode(raw as List<dynamic>); }
-
-@protected MdxNoteSummary dco_decode_Auto_RefMut_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerMdxNoteSummary(dynamic raw){ // Codec=Dco (DartCObject based), see doc to use other codecs
-return MdxNoteSummaryImpl.frbInternalDcoDecode(raw as List<dynamic>); }
-
-@protected FlusterDb dco_decode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFlusterDb(dynamic raw){ // Codec=Dco (DartCObject based), see doc to use other codecs
-return FlusterDbImpl.frbInternalDcoDecode(raw as List<dynamic>); }
-
-@protected MdxNoteSummary dco_decode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerMdxNoteSummary(dynamic raw){ // Codec=Dco (DartCObject based), see doc to use other codecs
-return MdxNoteSummaryImpl.frbInternalDcoDecode(raw as List<dynamic>); }
-
-@protected DatabaseError dco_decode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerDatabaseError(dynamic raw){ // Codec=Dco (DartCObject based), see doc to use other codecs
-return DatabaseErrorImpl.frbInternalDcoDecode(raw as List<dynamic>); }
-
-@protected FileSystemError dco_decode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFileSystemError(dynamic raw){ // Codec=Dco (DartCObject based), see doc to use other codecs
-return FileSystemErrorImpl.frbInternalDcoDecode(raw as List<dynamic>); }
-
-@protected FlusterDb dco_decode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFlusterDb(dynamic raw){ // Codec=Dco (DartCObject based), see doc to use other codecs
-return FlusterDbImpl.frbInternalDcoDecode(raw as List<dynamic>); }
-
-@protected MdxNoteSummary dco_decode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerMdxNoteSummary(dynamic raw){ // Codec=Dco (DartCObject based), see doc to use other codecs
-return MdxNoteSummaryImpl.frbInternalDcoDecode(raw as List<dynamic>); }
-
-@protected Thing dco_decode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerThing(dynamic raw){ // Codec=Dco (DartCObject based), see doc to use other codecs
-return ThingImpl.frbInternalDcoDecode(raw as List<dynamic>); }
-
-@protected String dco_decode_String(dynamic raw){ // Codec=Dco (DartCObject based), see doc to use other codecs
-return raw as String; }
-
-@protected bool dco_decode_bool(dynamic raw){ // Codec=Dco (DartCObject based), see doc to use other codecs
-return raw as bool; }
-
-@protected FileSystemError dco_decode_box_autoadd_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFileSystemError(dynamic raw){ // Codec=Dco (DartCObject based), see doc to use other codecs
-return dco_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFileSystemError(raw); }
-
-@protected SummaryListQuery dco_decode_box_autoadd_summary_list_query(dynamic raw){ // Codec=Dco (DartCObject based), see doc to use other codecs
-return dco_decode_summary_list_query(raw); }
-
-@protected double dco_decode_f_64(dynamic raw){ // Codec=Dco (DartCObject based), see doc to use other codecs
-return raw as double; }
-
-@protected FlusterDatabaseStatus dco_decode_fluster_database_status(dynamic raw){ // Codec=Dco (DartCObject based), see doc to use other codecs
-return FlusterDatabaseStatus.values[raw as int]; }
-
-@protected int dco_decode_i_32(dynamic raw){ // Codec=Dco (DartCObject based), see doc to use other codecs
-return raw as int; }
-
-@protected List<DatabaseError> dco_decode_list_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerDatabaseError(dynamic raw){ // Codec=Dco (DartCObject based), see doc to use other codecs
-return (raw as List<dynamic>).map(dco_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerDatabaseError).toList(); }
-
-@protected List<MdxNoteSummary> dco_decode_list_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerMdxNoteSummary(dynamic raw){ // Codec=Dco (DartCObject based), see doc to use other codecs
-return (raw as List<dynamic>).map(dco_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerMdxNoteSummary).toList(); }
-
-@protected Uint8List dco_decode_list_prim_u_8_strict(dynamic raw){ // Codec=Dco (DartCObject based), see doc to use other codecs
-return raw as Uint8List; }
-
-@protected String? dco_decode_opt_String(dynamic raw){ // Codec=Dco (DartCObject based), see doc to use other codecs
-return raw == null ? null : dco_decode_String(raw); }
-
-@protected FileSystemError? dco_decode_opt_box_autoadd_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFileSystemError(dynamic raw){ // Codec=Dco (DartCObject based), see doc to use other codecs
-return raw == null ? null : dco_decode_box_autoadd_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFileSystemError(raw); }
-
-@protected List<DatabaseError>? dco_decode_opt_list_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerDatabaseError(dynamic raw){ // Codec=Dco (DartCObject based), see doc to use other codecs
-return raw == null ? null : dco_decode_list_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerDatabaseError(raw); }
-
-@protected SummaryListQuery dco_decode_summary_list_query(dynamic raw){ // Codec=Dco (DartCObject based), see doc to use other codecs
-final arr = raw as List<dynamic>;
-                if (arr.length != 0) throw Exception('unexpected arr length: expect 0 but see ${arr.length}');
-                return SummaryListQuery(); }
-
-@protected SummaryListResults dco_decode_summary_list_results(dynamic raw){ // Codec=Dco (DartCObject based), see doc to use other codecs
-final arr = raw as List<dynamic>;
-                if (arr.length != 1) throw Exception('unexpected arr length: expect 1 but see ${arr.length}');
-                return SummaryListResults(mdxNotes: dco_decode_list_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerMdxNoteSummary(arr[0]),); }
-
-@protected int dco_decode_u_8(dynamic raw){ // Codec=Dco (DartCObject based), see doc to use other codecs
-return raw as int; }
-
-@protected void dco_decode_unit(dynamic raw){ // Codec=Dco (DartCObject based), see doc to use other codecs
-return; }
-
-@protected BigInt dco_decode_usize(dynamic raw){ // Codec=Dco (DartCObject based), see doc to use other codecs
-return dcoDecodeU64(raw); }
-
-@protected DatabaseError sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerDatabaseError(SseDeserializer deserializer){ // Codec=Sse (Serialization based), see doc to use other codecs
-return DatabaseErrorImpl.frbInternalSseDecode(sse_decode_usize(deserializer), sse_decode_i_32(deserializer)); }
-
-@protected FileSystemError sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFileSystemError(SseDeserializer deserializer){ // Codec=Sse (Serialization based), see doc to use other codecs
-return FileSystemErrorImpl.frbInternalSseDecode(sse_decode_usize(deserializer), sse_decode_i_32(deserializer)); }
-
-@protected MdxNoteSummary sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerMdxNoteSummary(SseDeserializer deserializer){ // Codec=Sse (Serialization based), see doc to use other codecs
-return MdxNoteSummaryImpl.frbInternalSseDecode(sse_decode_usize(deserializer), sse_decode_i_32(deserializer)); }
-
-@protected Thing sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerThing(SseDeserializer deserializer){ // Codec=Sse (Serialization based), see doc to use other codecs
-return ThingImpl.frbInternalSseDecode(sse_decode_usize(deserializer), sse_decode_i_32(deserializer)); }
-
-@protected MdxNoteSummary sse_decode_Auto_RefMut_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerMdxNoteSummary(SseDeserializer deserializer){ // Codec=Sse (Serialization based), see doc to use other codecs
-return MdxNoteSummaryImpl.frbInternalSseDecode(sse_decode_usize(deserializer), sse_decode_i_32(deserializer)); }
-
-@protected FlusterDb sse_decode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFlusterDb(SseDeserializer deserializer){ // Codec=Sse (Serialization based), see doc to use other codecs
-return FlusterDbImpl.frbInternalSseDecode(sse_decode_usize(deserializer), sse_decode_i_32(deserializer)); }
-
-@protected MdxNoteSummary sse_decode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerMdxNoteSummary(SseDeserializer deserializer){ // Codec=Sse (Serialization based), see doc to use other codecs
-return MdxNoteSummaryImpl.frbInternalSseDecode(sse_decode_usize(deserializer), sse_decode_i_32(deserializer)); }
-
-@protected DatabaseError sse_decode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerDatabaseError(SseDeserializer deserializer){ // Codec=Sse (Serialization based), see doc to use other codecs
-return DatabaseErrorImpl.frbInternalSseDecode(sse_decode_usize(deserializer), sse_decode_i_32(deserializer)); }
-
-@protected FileSystemError sse_decode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFileSystemError(SseDeserializer deserializer){ // Codec=Sse (Serialization based), see doc to use other codecs
-return FileSystemErrorImpl.frbInternalSseDecode(sse_decode_usize(deserializer), sse_decode_i_32(deserializer)); }
-
-@protected FlusterDb sse_decode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFlusterDb(SseDeserializer deserializer){ // Codec=Sse (Serialization based), see doc to use other codecs
-return FlusterDbImpl.frbInternalSseDecode(sse_decode_usize(deserializer), sse_decode_i_32(deserializer)); }
-
-@protected MdxNoteSummary sse_decode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerMdxNoteSummary(SseDeserializer deserializer){ // Codec=Sse (Serialization based), see doc to use other codecs
-return MdxNoteSummaryImpl.frbInternalSseDecode(sse_decode_usize(deserializer), sse_decode_i_32(deserializer)); }
-
-@protected Thing sse_decode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerThing(SseDeserializer deserializer){ // Codec=Sse (Serialization based), see doc to use other codecs
-return ThingImpl.frbInternalSseDecode(sse_decode_usize(deserializer), sse_decode_i_32(deserializer)); }
-
-@protected String sse_decode_String(SseDeserializer deserializer){ // Codec=Sse (Serialization based), see doc to use other codecs
-var inner = sse_decode_list_prim_u_8_strict(deserializer);
-        return utf8.decoder.convert(inner); }
-
-@protected bool sse_decode_bool(SseDeserializer deserializer){ // Codec=Sse (Serialization based), see doc to use other codecs
-return deserializer.buffer.getUint8() != 0; }
-
-@protected FileSystemError sse_decode_box_autoadd_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFileSystemError(SseDeserializer deserializer){ // Codec=Sse (Serialization based), see doc to use other codecs
-return (sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFileSystemError(deserializer)); }
-
-@protected SummaryListQuery sse_decode_box_autoadd_summary_list_query(SseDeserializer deserializer){ // Codec=Sse (Serialization based), see doc to use other codecs
-return (sse_decode_summary_list_query(deserializer)); }
-
-@protected double sse_decode_f_64(SseDeserializer deserializer){ // Codec=Sse (Serialization based), see doc to use other codecs
-return deserializer.buffer.getFloat64(); }
-
-@protected FlusterDatabaseStatus sse_decode_fluster_database_status(SseDeserializer deserializer){ // Codec=Sse (Serialization based), see doc to use other codecs
-var inner = sse_decode_i_32(deserializer);
-        return FlusterDatabaseStatus.values[inner]; }
-
-@protected int sse_decode_i_32(SseDeserializer deserializer){ // Codec=Sse (Serialization based), see doc to use other codecs
-return deserializer.buffer.getInt32(); }
-
-@protected List<DatabaseError> sse_decode_list_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerDatabaseError(SseDeserializer deserializer){ // Codec=Sse (Serialization based), see doc to use other codecs
-
-        var len_ = sse_decode_i_32(deserializer);
-        var ans_ = <DatabaseError>[];
-        for (var idx_ = 0; idx_ < len_; ++idx_) { ans_.add(sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerDatabaseError(deserializer)); }
-        return ans_;
-         }
-
-@protected List<MdxNoteSummary> sse_decode_list_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerMdxNoteSummary(SseDeserializer deserializer){ // Codec=Sse (Serialization based), see doc to use other codecs
-
-        var len_ = sse_decode_i_32(deserializer);
-        var ans_ = <MdxNoteSummary>[];
-        for (var idx_ = 0; idx_ < len_; ++idx_) { ans_.add(sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerMdxNoteSummary(deserializer)); }
-        return ans_;
-         }
-
-@protected Uint8List sse_decode_list_prim_u_8_strict(SseDeserializer deserializer){ // Codec=Sse (Serialization based), see doc to use other codecs
-var len_ = sse_decode_i_32(deserializer);
-                return deserializer.buffer.getUint8List(len_); }
-
-@protected String? sse_decode_opt_String(SseDeserializer deserializer){ // Codec=Sse (Serialization based), see doc to use other codecs
-
-            if (sse_decode_bool(deserializer)) {
-                return (sse_decode_String(deserializer));
-            } else {
-                return null;
-            }
-             }
-
-@protected FileSystemError? sse_decode_opt_box_autoadd_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFileSystemError(SseDeserializer deserializer){ // Codec=Sse (Serialization based), see doc to use other codecs
-
-            if (sse_decode_bool(deserializer)) {
-                return (sse_decode_box_autoadd_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFileSystemError(deserializer));
-            } else {
-                return null;
-            }
-             }
-
-@protected List<DatabaseError>? sse_decode_opt_list_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerDatabaseError(SseDeserializer deserializer){ // Codec=Sse (Serialization based), see doc to use other codecs
-
-            if (sse_decode_bool(deserializer)) {
-                return (sse_decode_list_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerDatabaseError(deserializer));
-            } else {
-                return null;
-            }
-             }
-
-@protected SummaryListQuery sse_decode_summary_list_query(SseDeserializer deserializer){ // Codec=Sse (Serialization based), see doc to use other codecs
-return SummaryListQuery(); }
-
-@protected SummaryListResults sse_decode_summary_list_results(SseDeserializer deserializer){ // Codec=Sse (Serialization based), see doc to use other codecs
-var var_mdxNotes = sse_decode_list_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerMdxNoteSummary(deserializer);
-return SummaryListResults(mdxNotes: var_mdxNotes); }
-
-@protected int sse_decode_u_8(SseDeserializer deserializer){ // Codec=Sse (Serialization based), see doc to use other codecs
-return deserializer.buffer.getUint8(); }
-
-@protected void sse_decode_unit(SseDeserializer deserializer){ // Codec=Sse (Serialization based), see doc to use other codecs
- }
-
-@protected BigInt sse_decode_usize(SseDeserializer deserializer){ // Codec=Sse (Serialization based), see doc to use other codecs
-return deserializer.buffer.getBigUint64(); }
-
-@protected void sse_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerDatabaseError(DatabaseError self, SseSerializer serializer){ // Codec=Sse (Serialization based), see doc to use other codecs
-sse_encode_usize((self as DatabaseErrorImpl).frbInternalSseEncode(move: true), serializer); }
-
-@protected void sse_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFileSystemError(FileSystemError self, SseSerializer serializer){ // Codec=Sse (Serialization based), see doc to use other codecs
-sse_encode_usize((self as FileSystemErrorImpl).frbInternalSseEncode(move: true), serializer); }
-
-@protected void sse_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerMdxNoteSummary(MdxNoteSummary self, SseSerializer serializer){ // Codec=Sse (Serialization based), see doc to use other codecs
-sse_encode_usize((self as MdxNoteSummaryImpl).frbInternalSseEncode(move: true), serializer); }
-
-@protected void sse_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerThing(Thing self, SseSerializer serializer){ // Codec=Sse (Serialization based), see doc to use other codecs
-sse_encode_usize((self as ThingImpl).frbInternalSseEncode(move: true), serializer); }
-
-@protected void sse_encode_Auto_RefMut_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerMdxNoteSummary(MdxNoteSummary self, SseSerializer serializer){ // Codec=Sse (Serialization based), see doc to use other codecs
-sse_encode_usize((self as MdxNoteSummaryImpl).frbInternalSseEncode(move: false), serializer); }
-
-@protected void sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFlusterDb(FlusterDb self, SseSerializer serializer){ // Codec=Sse (Serialization based), see doc to use other codecs
-sse_encode_usize((self as FlusterDbImpl).frbInternalSseEncode(move: false), serializer); }
-
-@protected void sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerMdxNoteSummary(MdxNoteSummary self, SseSerializer serializer){ // Codec=Sse (Serialization based), see doc to use other codecs
-sse_encode_usize((self as MdxNoteSummaryImpl).frbInternalSseEncode(move: false), serializer); }
-
-@protected void sse_encode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerDatabaseError(DatabaseError self, SseSerializer serializer){ // Codec=Sse (Serialization based), see doc to use other codecs
-sse_encode_usize((self as DatabaseErrorImpl).frbInternalSseEncode(move: null), serializer); }
-
-@protected void sse_encode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFileSystemError(FileSystemError self, SseSerializer serializer){ // Codec=Sse (Serialization based), see doc to use other codecs
-sse_encode_usize((self as FileSystemErrorImpl).frbInternalSseEncode(move: null), serializer); }
-
-@protected void sse_encode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFlusterDb(FlusterDb self, SseSerializer serializer){ // Codec=Sse (Serialization based), see doc to use other codecs
-sse_encode_usize((self as FlusterDbImpl).frbInternalSseEncode(move: null), serializer); }
-
-@protected void sse_encode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerMdxNoteSummary(MdxNoteSummary self, SseSerializer serializer){ // Codec=Sse (Serialization based), see doc to use other codecs
-sse_encode_usize((self as MdxNoteSummaryImpl).frbInternalSseEncode(move: null), serializer); }
-
-@protected void sse_encode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerThing(Thing self, SseSerializer serializer){ // Codec=Sse (Serialization based), see doc to use other codecs
-sse_encode_usize((self as ThingImpl).frbInternalSseEncode(move: null), serializer); }
-
-@protected void sse_encode_String(String self, SseSerializer serializer){ // Codec=Sse (Serialization based), see doc to use other codecs
-sse_encode_list_prim_u_8_strict(utf8.encoder.convert(self), serializer); }
-
-@protected void sse_encode_bool(bool self, SseSerializer serializer){ // Codec=Sse (Serialization based), see doc to use other codecs
-serializer.buffer.putUint8(self ? 1 : 0); }
-
-@protected void sse_encode_box_autoadd_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFileSystemError(FileSystemError self, SseSerializer serializer){ // Codec=Sse (Serialization based), see doc to use other codecs
-sse_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFileSystemError(self, serializer); }
-
-@protected void sse_encode_box_autoadd_summary_list_query(SummaryListQuery self, SseSerializer serializer){ // Codec=Sse (Serialization based), see doc to use other codecs
-sse_encode_summary_list_query(self, serializer); }
-
-@protected void sse_encode_f_64(double self, SseSerializer serializer){ // Codec=Sse (Serialization based), see doc to use other codecs
-serializer.buffer.putFloat64(self); }
-
-@protected void sse_encode_fluster_database_status(FlusterDatabaseStatus self, SseSerializer serializer){ // Codec=Sse (Serialization based), see doc to use other codecs
-sse_encode_i_32(self.index, serializer); }
-
-@protected void sse_encode_i_32(int self, SseSerializer serializer){ // Codec=Sse (Serialization based), see doc to use other codecs
-serializer.buffer.putInt32(self); }
-
-@protected void sse_encode_list_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerDatabaseError(List<DatabaseError> self, SseSerializer serializer){ // Codec=Sse (Serialization based), see doc to use other codecs
-sse_encode_i_32(self.length, serializer);
-        for (final item in self) { sse_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerDatabaseError(item, serializer); } }
-
-@protected void sse_encode_list_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerMdxNoteSummary(List<MdxNoteSummary> self, SseSerializer serializer){ // Codec=Sse (Serialization based), see doc to use other codecs
-sse_encode_i_32(self.length, serializer);
-        for (final item in self) { sse_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerMdxNoteSummary(item, serializer); } }
-
-@protected void sse_encode_list_prim_u_8_strict(Uint8List self, SseSerializer serializer){ // Codec=Sse (Serialization based), see doc to use other codecs
-sse_encode_i_32(self.length, serializer);
-                    serializer.buffer.putUint8List(self); }
-
-@protected void sse_encode_opt_String(String? self, SseSerializer serializer){ // Codec=Sse (Serialization based), see doc to use other codecs
-
-                sse_encode_bool(self != null, serializer);
-                if (self != null) {
-                    sse_encode_String(self, serializer);
-                }
-                 }
-
-@protected void sse_encode_opt_box_autoadd_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFileSystemError(FileSystemError? self, SseSerializer serializer){ // Codec=Sse (Serialization based), see doc to use other codecs
-
-                sse_encode_bool(self != null, serializer);
-                if (self != null) {
-                    sse_encode_box_autoadd_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFileSystemError(self, serializer);
-                }
-                 }
-
-@protected void sse_encode_opt_list_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerDatabaseError(List<DatabaseError>? self, SseSerializer serializer){ // Codec=Sse (Serialization based), see doc to use other codecs
-
-                sse_encode_bool(self != null, serializer);
-                if (self != null) {
-                    sse_encode_list_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerDatabaseError(self, serializer);
-                }
-                 }
-
-@protected void sse_encode_summary_list_query(SummaryListQuery self, SseSerializer serializer){ // Codec=Sse (Serialization based), see doc to use other codecs
- }
-
-@protected void sse_encode_summary_list_results(SummaryListResults self, SseSerializer serializer){ // Codec=Sse (Serialization based), see doc to use other codecs
-sse_encode_list_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerMdxNoteSummary(self.mdxNotes, serializer);
- }
-
-@protected void sse_encode_u_8(int self, SseSerializer serializer){ // Codec=Sse (Serialization based), see doc to use other codecs
-serializer.buffer.putUint8(self); }
-
-@protected void sse_encode_unit(void self, SseSerializer serializer){ // Codec=Sse (Serialization based), see doc to use other codecs
- }
-
-@protected void sse_encode_usize(BigInt self, SseSerializer serializer){ // Codec=Sse (Serialization based), see doc to use other codecs
-serializer.buffer.putBigUint64(self); }
-                }
-                
-
-            @sealed class DatabaseErrorImpl extends RustOpaque implements DatabaseError {
-                // Not to be used by end users
-                DatabaseErrorImpl.frbInternalDcoDecode(List<dynamic> wire):
-                    super.frbInternalDcoDecode(wire, _kStaticData);
-
-                // Not to be used by end users
-                DatabaseErrorImpl.frbInternalSseDecode(BigInt ptr, int externalSizeOnNative):
-                    super.frbInternalSseDecode(ptr, externalSizeOnNative, _kStaticData);
-
-                static final _kStaticData = RustArcStaticData(
-                    rustArcIncrementStrongCount: RustLib.instance.api.rust_arc_increment_strong_count_DatabaseError,
-                    rustArcDecrementStrongCount: RustLib.instance.api.rust_arc_decrement_strong_count_DatabaseError,
-                    rustArcDecrementStrongCountPtr: RustLib.instance.api.rust_arc_decrement_strong_count_DatabaseErrorPtr,
-                );
-
-                
-            }
-            @sealed class FileSystemErrorImpl extends RustOpaque implements FileSystemError {
-                // Not to be used by end users
-                FileSystemErrorImpl.frbInternalDcoDecode(List<dynamic> wire):
-                    super.frbInternalDcoDecode(wire, _kStaticData);
-
-                // Not to be used by end users
-                FileSystemErrorImpl.frbInternalSseDecode(BigInt ptr, int externalSizeOnNative):
-                    super.frbInternalSseDecode(ptr, externalSizeOnNative, _kStaticData);
-
-                static final _kStaticData = RustArcStaticData(
-                    rustArcIncrementStrongCount: RustLib.instance.api.rust_arc_increment_strong_count_FileSystemError,
-                    rustArcDecrementStrongCount: RustLib.instance.api.rust_arc_decrement_strong_count_FileSystemError,
-                    rustArcDecrementStrongCountPtr: RustLib.instance.api.rust_arc_decrement_strong_count_FileSystemErrorPtr,
-                );
-
-                
-            }
-            @sealed class FlusterDbImpl extends RustOpaque implements FlusterDb {
-                // Not to be used by end users
-                FlusterDbImpl.frbInternalDcoDecode(List<dynamic> wire):
-                    super.frbInternalDcoDecode(wire, _kStaticData);
-
-                // Not to be used by end users
-                FlusterDbImpl.frbInternalSseDecode(BigInt ptr, int externalSizeOnNative):
-                    super.frbInternalSseDecode(ptr, externalSizeOnNative, _kStaticData);
-
-                static final _kStaticData = RustArcStaticData(
-                    rustArcIncrementStrongCount: RustLib.instance.api.rust_arc_increment_strong_count_FlusterDb,
-                    rustArcDecrementStrongCount: RustLib.instance.api.rust_arc_decrement_strong_count_FlusterDb,
-                    rustArcDecrementStrongCountPtr: RustLib.instance.api.rust_arc_decrement_strong_count_FlusterDbPtr,
-                );
-
-                
-            }
-            @sealed class MdxNoteSummaryImpl extends RustOpaque implements MdxNoteSummary {
-                // Not to be used by end users
-                MdxNoteSummaryImpl.frbInternalDcoDecode(List<dynamic> wire):
-                    super.frbInternalDcoDecode(wire, _kStaticData);
-
-                // Not to be used by end users
-                MdxNoteSummaryImpl.frbInternalSseDecode(BigInt ptr, int externalSizeOnNative):
-                    super.frbInternalSseDecode(ptr, externalSizeOnNative, _kStaticData);
-
-                static final _kStaticData = RustArcStaticData(
-                    rustArcIncrementStrongCount: RustLib.instance.api.rust_arc_increment_strong_count_MdxNoteSummary,
-                    rustArcDecrementStrongCount: RustLib.instance.api.rust_arc_decrement_strong_count_MdxNoteSummary,
-                    rustArcDecrementStrongCountPtr: RustLib.instance.api.rust_arc_decrement_strong_count_MdxNoteSummaryPtr,
-                );
-
-                 Thing get id=>RustLib.instance.api.crateApiGlobalActionsGetSummaryListSummaryTypesMdxNoteSummaryMdxNoteSummaryAutoAccessorGetId(that: this, );
-
-
- String? get summary=>RustLib.instance.api.crateApiGlobalActionsGetSummaryListSummaryTypesMdxNoteSummaryMdxNoteSummaryAutoAccessorGetSummary(that: this, );
-
-
- String get title=>RustLib.instance.api.crateApiGlobalActionsGetSummaryListSummaryTypesMdxNoteSummaryMdxNoteSummaryAutoAccessorGetTitle(that: this, );
-
-
-  set id(Thing id)=>RustLib.instance.api.crateApiGlobalActionsGetSummaryListSummaryTypesMdxNoteSummaryMdxNoteSummaryAutoAccessorSetId(that: this, id: id);
-
-
-  set summary(String? summary)=>RustLib.instance.api.crateApiGlobalActionsGetSummaryListSummaryTypesMdxNoteSummaryMdxNoteSummaryAutoAccessorSetSummary(that: this, summary: summary);
-
-
-  set title(String title)=>RustLib.instance.api.crateApiGlobalActionsGetSummaryListSummaryTypesMdxNoteSummaryMdxNoteSummaryAutoAccessorSetTitle(that: this, title: title);
-
-
-            }
-            @sealed class ThingImpl extends RustOpaque implements Thing {
-                // Not to be used by end users
-                ThingImpl.frbInternalDcoDecode(List<dynamic> wire):
-                    super.frbInternalDcoDecode(wire, _kStaticData);
-
-                // Not to be used by end users
-                ThingImpl.frbInternalSseDecode(BigInt ptr, int externalSizeOnNative):
-                    super.frbInternalSseDecode(ptr, externalSizeOnNative, _kStaticData);
-
-                static final _kStaticData = RustArcStaticData(
-                    rustArcIncrementStrongCount: RustLib.instance.api.rust_arc_increment_strong_count_Thing,
-                    rustArcDecrementStrongCount: RustLib.instance.api.rust_arc_decrement_strong_count_Thing,
-                    rustArcDecrementStrongCountPtr: RustLib.instance.api.rust_arc_decrement_strong_count_ThingPtr,
-                );
-
-                
-            }
+    return SummaryListResults(mdxNotes: var_mdxNotes);
+  }
+
+  @protected
+  int sse_decode_u_8(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    return deserializer.buffer.getUint8();
+  }
+
+  @protected
+  void sse_decode_unit(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+  }
+
+  @protected
+  BigInt sse_decode_usize(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    return deserializer.buffer.getBigUint64();
+  }
+
+  @protected
+  void
+  sse_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerDatabaseError(
+    DatabaseError self,
+    SseSerializer serializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_usize(
+      (self as DatabaseErrorImpl).frbInternalSseEncode(move: true),
+      serializer,
+    );
+  }
+
+  @protected
+  void
+  sse_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFileSystemError(
+    FileSystemError self,
+    SseSerializer serializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_usize(
+      (self as FileSystemErrorImpl).frbInternalSseEncode(move: true),
+      serializer,
+    );
+  }
+
+  @protected
+  void
+  sse_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerMdxNoteSummary(
+    MdxNoteSummary self,
+    SseSerializer serializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_usize(
+      (self as MdxNoteSummaryImpl).frbInternalSseEncode(move: true),
+      serializer,
+    );
+  }
+
+  @protected
+  void
+  sse_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerThing(
+    Thing self,
+    SseSerializer serializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_usize(
+      (self as ThingImpl).frbInternalSseEncode(move: true),
+      serializer,
+    );
+  }
+
+  @protected
+  void
+  sse_encode_Auto_RefMut_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerMdxNoteSummary(
+    MdxNoteSummary self,
+    SseSerializer serializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_usize(
+      (self as MdxNoteSummaryImpl).frbInternalSseEncode(move: false),
+      serializer,
+    );
+  }
+
+  @protected
+  void
+  sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerMdxNoteSummary(
+    MdxNoteSummary self,
+    SseSerializer serializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_usize(
+      (self as MdxNoteSummaryImpl).frbInternalSseEncode(move: false),
+      serializer,
+    );
+  }
+
+  @protected
+  void
+  sse_encode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerDatabaseError(
+    DatabaseError self,
+    SseSerializer serializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_usize(
+      (self as DatabaseErrorImpl).frbInternalSseEncode(move: null),
+      serializer,
+    );
+  }
+
+  @protected
+  void
+  sse_encode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFileSystemError(
+    FileSystemError self,
+    SseSerializer serializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_usize(
+      (self as FileSystemErrorImpl).frbInternalSseEncode(move: null),
+      serializer,
+    );
+  }
+
+  @protected
+  void
+  sse_encode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerMdxNoteSummary(
+    MdxNoteSummary self,
+    SseSerializer serializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_usize(
+      (self as MdxNoteSummaryImpl).frbInternalSseEncode(move: null),
+      serializer,
+    );
+  }
+
+  @protected
+  void
+  sse_encode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerThing(
+    Thing self,
+    SseSerializer serializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_usize(
+      (self as ThingImpl).frbInternalSseEncode(move: null),
+      serializer,
+    );
+  }
+
+  @protected
+  void sse_encode_String(String self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_list_prim_u_8_strict(utf8.encoder.convert(self), serializer);
+  }
+
+  @protected
+  void sse_encode_bool(bool self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    serializer.buffer.putUint8(self ? 1 : 0);
+  }
+
+  @protected
+  void
+  sse_encode_box_autoadd_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFileSystemError(
+    FileSystemError self,
+    SseSerializer serializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFileSystemError(
+      self,
+      serializer,
+    );
+  }
+
+  @protected
+  void sse_encode_box_autoadd_summary_list_query(
+    SummaryListQuery self,
+    SseSerializer serializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_summary_list_query(self, serializer);
+  }
+
+  @protected
+  void sse_encode_f_64(double self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    serializer.buffer.putFloat64(self);
+  }
+
+  @protected
+  void sse_encode_fluster_database_status(
+    FlusterDatabaseStatus self,
+    SseSerializer serializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_i_32(self.index, serializer);
+  }
+
+  @protected
+  void sse_encode_i_32(int self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    serializer.buffer.putInt32(self);
+  }
+
+  @protected
+  void
+  sse_encode_list_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerDatabaseError(
+    List<DatabaseError> self,
+    SseSerializer serializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_i_32(self.length, serializer);
+    for (final item in self) {
+      sse_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerDatabaseError(
+        item,
+        serializer,
+      );
+    }
+  }
+
+  @protected
+  void
+  sse_encode_list_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerMdxNoteSummary(
+    List<MdxNoteSummary> self,
+    SseSerializer serializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_i_32(self.length, serializer);
+    for (final item in self) {
+      sse_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerMdxNoteSummary(
+        item,
+        serializer,
+      );
+    }
+  }
+
+  @protected
+  void sse_encode_list_prim_u_8_strict(
+    Uint8List self,
+    SseSerializer serializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_i_32(self.length, serializer);
+    serializer.buffer.putUint8List(self);
+  }
+
+  @protected
+  void sse_encode_opt_String(String? self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+
+    sse_encode_bool(self != null, serializer);
+    if (self != null) {
+      sse_encode_String(self, serializer);
+    }
+  }
+
+  @protected
+  void
+  sse_encode_opt_box_autoadd_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFileSystemError(
+    FileSystemError? self,
+    SseSerializer serializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+
+    sse_encode_bool(self != null, serializer);
+    if (self != null) {
+      sse_encode_box_autoadd_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFileSystemError(
+        self,
+        serializer,
+      );
+    }
+  }
+
+  @protected
+  void
+  sse_encode_opt_list_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerDatabaseError(
+    List<DatabaseError>? self,
+    SseSerializer serializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+
+    sse_encode_bool(self != null, serializer);
+    if (self != null) {
+      sse_encode_list_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerDatabaseError(
+        self,
+        serializer,
+      );
+    }
+  }
+
+  @protected
+  void sse_encode_summary_list_query(
+    SummaryListQuery self,
+    SseSerializer serializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+  }
+
+  @protected
+  void sse_encode_summary_list_results(
+    SummaryListResults self,
+    SseSerializer serializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_list_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerMdxNoteSummary(
+      self.mdxNotes,
+      serializer,
+    );
+  }
+
+  @protected
+  void sse_encode_u_8(int self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    serializer.buffer.putUint8(self);
+  }
+
+  @protected
+  void sse_encode_unit(void self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+  }
+
+  @protected
+  void sse_encode_usize(BigInt self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    serializer.buffer.putBigUint64(self);
+  }
+}
+
+@sealed
+class DatabaseErrorImpl extends RustOpaque implements DatabaseError {
+  // Not to be used by end users
+  DatabaseErrorImpl.frbInternalDcoDecode(List<dynamic> wire)
+    : super.frbInternalDcoDecode(wire, _kStaticData);
+
+  // Not to be used by end users
+  DatabaseErrorImpl.frbInternalSseDecode(BigInt ptr, int externalSizeOnNative)
+    : super.frbInternalSseDecode(ptr, externalSizeOnNative, _kStaticData);
+
+  static final _kStaticData = RustArcStaticData(
+    rustArcIncrementStrongCount:
+        RustLib.instance.api.rust_arc_increment_strong_count_DatabaseError,
+    rustArcDecrementStrongCount:
+        RustLib.instance.api.rust_arc_decrement_strong_count_DatabaseError,
+    rustArcDecrementStrongCountPtr:
+        RustLib.instance.api.rust_arc_decrement_strong_count_DatabaseErrorPtr,
+  );
+}
+
+@sealed
+class FileSystemErrorImpl extends RustOpaque implements FileSystemError {
+  // Not to be used by end users
+  FileSystemErrorImpl.frbInternalDcoDecode(List<dynamic> wire)
+    : super.frbInternalDcoDecode(wire, _kStaticData);
+
+  // Not to be used by end users
+  FileSystemErrorImpl.frbInternalSseDecode(BigInt ptr, int externalSizeOnNative)
+    : super.frbInternalSseDecode(ptr, externalSizeOnNative, _kStaticData);
+
+  static final _kStaticData = RustArcStaticData(
+    rustArcIncrementStrongCount:
+        RustLib.instance.api.rust_arc_increment_strong_count_FileSystemError,
+    rustArcDecrementStrongCount:
+        RustLib.instance.api.rust_arc_decrement_strong_count_FileSystemError,
+    rustArcDecrementStrongCountPtr:
+        RustLib.instance.api.rust_arc_decrement_strong_count_FileSystemErrorPtr,
+  );
+}
+
+@sealed
+class MdxNoteSummaryImpl extends RustOpaque implements MdxNoteSummary {
+  // Not to be used by end users
+  MdxNoteSummaryImpl.frbInternalDcoDecode(List<dynamic> wire)
+    : super.frbInternalDcoDecode(wire, _kStaticData);
+
+  // Not to be used by end users
+  MdxNoteSummaryImpl.frbInternalSseDecode(BigInt ptr, int externalSizeOnNative)
+    : super.frbInternalSseDecode(ptr, externalSizeOnNative, _kStaticData);
+
+  static final _kStaticData = RustArcStaticData(
+    rustArcIncrementStrongCount:
+        RustLib.instance.api.rust_arc_increment_strong_count_MdxNoteSummary,
+    rustArcDecrementStrongCount:
+        RustLib.instance.api.rust_arc_decrement_strong_count_MdxNoteSummary,
+    rustArcDecrementStrongCountPtr:
+        RustLib.instance.api.rust_arc_decrement_strong_count_MdxNoteSummaryPtr,
+  );
+
+  Thing get id => RustLib.instance.api
+      .crateApiGlobalActionsGetSummaryListSummaryTypesMdxNoteSummaryMdxNoteSummaryAutoAccessorGetId(
+        that: this,
+      );
+
+  String? get summary => RustLib.instance.api
+      .crateApiGlobalActionsGetSummaryListSummaryTypesMdxNoteSummaryMdxNoteSummaryAutoAccessorGetSummary(
+        that: this,
+      );
+
+  String get title => RustLib.instance.api
+      .crateApiGlobalActionsGetSummaryListSummaryTypesMdxNoteSummaryMdxNoteSummaryAutoAccessorGetTitle(
+        that: this,
+      );
+
+  set id(Thing id) => RustLib.instance.api
+      .crateApiGlobalActionsGetSummaryListSummaryTypesMdxNoteSummaryMdxNoteSummaryAutoAccessorSetId(
+        that: this,
+        id: id,
+      );
+
+  set summary(String? summary) => RustLib.instance.api
+      .crateApiGlobalActionsGetSummaryListSummaryTypesMdxNoteSummaryMdxNoteSummaryAutoAccessorSetSummary(
+        that: this,
+        summary: summary,
+      );
+
+  set title(String title) => RustLib.instance.api
+      .crateApiGlobalActionsGetSummaryListSummaryTypesMdxNoteSummaryMdxNoteSummaryAutoAccessorSetTitle(
+        that: this,
+        title: title,
+      );
+}
+
+@sealed
+class ThingImpl extends RustOpaque implements Thing {
+  // Not to be used by end users
+  ThingImpl.frbInternalDcoDecode(List<dynamic> wire)
+    : super.frbInternalDcoDecode(wire, _kStaticData);
+
+  // Not to be used by end users
+  ThingImpl.frbInternalSseDecode(BigInt ptr, int externalSizeOnNative)
+    : super.frbInternalSseDecode(ptr, externalSizeOnNative, _kStaticData);
+
+  static final _kStaticData = RustArcStaticData(
+    rustArcIncrementStrongCount:
+        RustLib.instance.api.rust_arc_increment_strong_count_Thing,
+    rustArcDecrementStrongCount:
+        RustLib.instance.api.rust_arc_decrement_strong_count_Thing,
+    rustArcDecrementStrongCountPtr:
+        RustLib.instance.api.rust_arc_decrement_strong_count_ThingPtr,
+  );
+}
