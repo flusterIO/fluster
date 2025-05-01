@@ -3,15 +3,15 @@ use std::{env::temp_dir, path::PathBuf};
 pub use fluster_types::errors::file_system_errors::FileSystemError;
 
 fn make_dir_or_fail_to_create(p: PathBuf) -> Option<FileSystemError> {
-    if (!p.exists()) {
+    if !p.exists() {
         let dir_err = std::fs::create_dir_all(p);
-        if (dir_err.is_err()) {
-            return Some(FileSystemError::FailToCreatePath);
+        if dir_err.is_err() {
+            Some(FileSystemError::FailToCreatePath)
         } else {
-            return None;
+            None
         }
     } else {
-        return None;
+        None
     }
 }
 

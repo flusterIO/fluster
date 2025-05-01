@@ -26,7 +26,7 @@
 // Section: imports
 
 use crate::api::fs::fs_setup::*;
-use crate::api::global_actions::get_summary_list::get_summary_list::*;
+use crate::api::global_actions::get_summary_list::get_summary_list_data::*;
 use crate::api::global_actions::get_summary_list::summary_types::mdx_note_summary::*;
 use flutter_rust_bridge::for_generated::byteorder::{NativeEndian, ReadBytesExt, WriteBytesExt};
 use flutter_rust_bridge::for_generated::{transform_result_dco, Lifetimeable, Lockable};
@@ -40,7 +40,7 @@ flutter_rust_bridge::frb_generated_boilerplate!(
     default_rust_auto_opaque = RustAutoOpaqueMoi,
 );
 pub(crate) const FLUTTER_RUST_BRIDGE_CODEGEN_VERSION: &str = "2.9.0";
-pub(crate) const FLUTTER_RUST_BRIDGE_CODEGEN_CONTENT_HASH: i32 = -482189345;
+pub(crate) const FLUTTER_RUST_BRIDGE_CODEGEN_CONTENT_HASH: i32 = -1930347246;
 
 // Section: executor
 
@@ -338,7 +338,7 @@ fn wire__crate__api__data_interface__get_database_status__get_database_status_im
         },
     )
 }
-fn wire__crate__api__global_actions__get_summary_list__get_summary_list__get_summary_list_impl(
+fn wire__crate__api__global_actions__get_summary_list__get_summary_list_data__get_summary_list_impl(
     port_: flutter_rust_bridge::for_generated::MessagePort,
     ptr_: flutter_rust_bridge::for_generated::PlatformGeneralizedUint8ListPtr,
     rust_vec_len_: i32,
@@ -349,7 +349,7 @@ fn wire__crate__api__global_actions__get_summary_list__get_summary_list__get_sum
             let mut deserializer = flutter_rust_bridge::for_generated::SseDeserializer::new(message);
             let api_query = <crate::api::global_actions::get_summary_list::summary_list_query::SummaryListQuery>::sse_decode(&mut deserializer);deserializer.end(); move |context| async move {
                     transform_result_sse::<_, DatabaseError>((move || async move {
-                         let output_ok = crate::api::global_actions::get_summary_list::get_summary_list::get_summary_list(api_query).await?;   Ok(output_ok)
+                         let output_ok = crate::api::global_actions::get_summary_list::get_summary_list_data::get_summary_list(api_query).await?;   Ok(output_ok)
                     })().await)
                 } })
 }
@@ -769,7 +769,7 @@ fn pde_ffi_dispatcher_primary_impl(
     // Codec=Pde (Serialization + dispatch), see doc to use other codecs
     match func_id {
                         7 => wire__crate__api__data_interface__get_database_status__get_database_status_impl(port, ptr, rust_vec_len, data_len),
-8 => wire__crate__api__global_actions__get_summary_list__get_summary_list__get_summary_list_impl(port, ptr, rust_vec_len, data_len),
+8 => wire__crate__api__global_actions__get_summary_list__get_summary_list_data__get_summary_list_impl(port, ptr, rust_vec_len, data_len),
 10 => wire__crate__api__initialize__on_desktop_init__on_desktop_init_impl(port, ptr, rust_vec_len, data_len),
 12 => wire__crate__api__fs__fs_setup__setup_file_system_for_data_impl(port, ptr, rust_vec_len, data_len),
 13 => wire__crate__api__global_actions__parse_directory__sync_fs_directory__sync_filesystem_directory__sync_directory_impl(port, ptr, rust_vec_len, data_len),
@@ -1179,7 +1179,7 @@ mod io {
 
     use super::*;
     use crate::api::fs::fs_setup::*;
-    use crate::api::global_actions::get_summary_list::get_summary_list::*;
+    use crate::api::global_actions::get_summary_list::get_summary_list_data::*;
     use crate::api::global_actions::get_summary_list::summary_types::mdx_note_summary::*;
     use flutter_rust_bridge::for_generated::byteorder::{
         NativeEndian, ReadBytesExt, WriteBytesExt,
@@ -1274,7 +1274,7 @@ mod web {
 
     use super::*;
     use crate::api::fs::fs_setup::*;
-    use crate::api::global_actions::get_summary_list::get_summary_list::*;
+    use crate::api::global_actions::get_summary_list::get_summary_list_data::*;
     use crate::api::global_actions::get_summary_list::summary_types::mdx_note_summary::*;
     use flutter_rust_bridge::for_generated::byteorder::{
         NativeEndian, ReadBytesExt, WriteBytesExt,

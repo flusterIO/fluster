@@ -64,7 +64,7 @@ impl MdxNoteRust {
     ) -> Result<MdxNoteRust, parsing_errors::ParsingError> {
         let raw_file_content = fs::read_to_string(file_path);
         let file_meta = fs::metadata(file_path);
-        if (file_meta.is_err()) {
+        if file_meta.is_err() {
             return Err(parsing_errors::ParsingError::MdxParsingError(
                 file_path.to_owned(),
             ));

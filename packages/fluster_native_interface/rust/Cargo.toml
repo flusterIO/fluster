@@ -38,6 +38,7 @@ lazy_static = "1.5.0"
 surrealdb.workspace = true
 console-subscriber = "0.4.1"
 filetime = "0.2.25"
+typeshare.workspace = true
 
 [build-dependencies]
 flutter_rust_bridge_codegen = "2.9.0"

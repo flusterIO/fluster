@@ -7,6 +7,8 @@ class NoteSummaryItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    return Card(child: Text(item.title, style: theme.textTheme.titleMedium));
+    return Card(
+      child: Text(item.frontMatter.title, style: theme.textTheme.titleMedium),
+    );
   }
 }

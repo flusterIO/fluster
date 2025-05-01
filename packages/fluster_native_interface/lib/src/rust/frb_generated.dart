@@ -6,7 +6,7 @@
 import 'api/data_interface/get_database_status.dart';
 import 'api/fs/fs_setup.dart';
 import 'api/fs/fs_utils.dart';
-import 'api/global_actions/get_summary_list/get_summary_list.dart';
+import 'api/global_actions/get_summary_list/get_summary_list_data.dart';
 import 'api/global_actions/get_summary_list/summary_list_query.dart';
 import 'api/global_actions/get_summary_list/summary_list_result.dart';
 import 'api/global_actions/get_summary_list/summary_types/mdx_note_summary.dart';
@@ -71,7 +71,7 @@ class RustLib extends BaseEntrypoint<RustLibApi, RustLibApiImpl, RustLibWire> {
   String get codegenVersion => '2.9.0';
 
   @override
-  int get rustContentHash => -482189345;
+  int get rustContentHash => -1930347246;
 
   static const kDefaultExternalLibraryLoaderConfig =
       ExternalLibraryLoaderConfig(
@@ -112,7 +112,7 @@ abstract class RustLibApi extends BaseApi {
   crateApiDataInterfaceGetDatabaseStatusGetDatabaseStatus();
 
   Future<SummaryListResults>
-  crateApiGlobalActionsGetSummaryListGetSummaryListGetSummaryList({
+  crateApiGlobalActionsGetSummaryListGetSummaryListDataGetSummaryList({
     required SummaryListQuery query,
   });
 
@@ -408,7 +408,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
 
   @override
   Future<SummaryListResults>
-  crateApiGlobalActionsGetSummaryListGetSummaryListGetSummaryList({
+  crateApiGlobalActionsGetSummaryListGetSummaryListDataGetSummaryList({
     required SummaryListQuery query,
   }) {
     return handler.executeNormal(
@@ -429,7 +429,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
               sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerDatabaseError,
         ),
         constMeta:
-            kCrateApiGlobalActionsGetSummaryListGetSummaryListGetSummaryListConstMeta,
+            kCrateApiGlobalActionsGetSummaryListGetSummaryListDataGetSummaryListConstMeta,
         argValues: [query],
         apiImpl: this,
       ),
@@ -437,7 +437,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   TaskConstMeta
-  get kCrateApiGlobalActionsGetSummaryListGetSummaryListGetSummaryListConstMeta =>
+  get kCrateApiGlobalActionsGetSummaryListGetSummaryListDataGetSummaryListConstMeta =>
       const TaskConstMeta(debugName: "get_summary_list", argNames: ["query"]);
 
   @override

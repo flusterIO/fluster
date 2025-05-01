@@ -3,7 +3,7 @@ use serde::{Deserialize, Serialize};
 
 use crate::models::taggable::tag_model::Tag;
 
-#[derive(Serialize, Deserialize, Debug, Clone)]
+#[derive(Serialize, Deserialize, Debug, Clone, Default)]
 pub struct FrontMatter {
     pub title: Option<String>,
     pub summary: Option<String>,
@@ -11,17 +11,6 @@ pub struct FrontMatter {
     /// This is the `id` field in the user's frontmatter. This is called `note_id` to distinguish
     /// it from the `id` field produced by surrealdb.
     pub note_id: Option<String>,
-}
-
-impl Default for FrontMatter {
-    fn default() -> Self {
-        Self {
-            title: Default::default(),
-            summary: Default::default(),
-            tags: Default::default(),
-            note_id: Default::default(),
-        }
-    }
 }
 
 impl FrontMatter {

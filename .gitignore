@@ -19,6 +19,81 @@ packages/godum/example
 *.iws
 .idea/
 
+
+/target
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+.pytest_cache/
+*.py[cod]
+
+# C extensions
+packages/fluster_py03/**.so
+
+# Distribution / packaging
+.Python
+packages/fluster_py03/.venv/
+packages/fluster_py03/env/
+packages/fluster_py03/bin/
+packages/fluster_py03/build/
+packages/fluster_py03/develop-eggs/
+packages/fluster_py03/dist/
+packages/fluster_py03/eggs/
+packages/fluster_py03/lib/
+packages/fluster_py03/lib64/
+packages/fluster_py03/parts/
+packages/fluster_py03/sdist/
+packages/fluster_py03/var/
+packages/fluster_py03/include/
+packages/fluster_py03/man/
+packages/fluster_py03/venv/
+packages/fluster_py03/*.egg-info/
+.installed.cfg
+*.egg
+
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt
+pip-selfcheck.json
+
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.coverage
+.cache
+nosetests.xml
+coverage.xml
+
+# Translations
+*.mo
+
+# Mr Developer
+.mr.developer.cfg
+.project
+.pydevproject
+
+# Rope
+.ropeproject
+
+# Django stuff:
+*.log
+*.pot
+
+.DS_Store
+
+# Sphinx documentation
+docs/_build/
+
+# PyCharm
+.idea/
+
+# VSCode
+.vscode/
+
+# Pyenv
+.python-version
+
+
 # The .vscode folder contains launch configuration and tasks you configure in
 # VS Code which you may wish to be included in version control, so this line
 # is commented out by default.
