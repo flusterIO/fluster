@@ -6,6 +6,8 @@
 - [ ] Rust installed and with all available cargo commands available on the `Path`.
 - [ ] [dotenvx](https://dotenvx.com/) installed. Available through Homebrew and a simple curl command.
 - [ ] The dart package `test_cov_console` is used in some scripts as a globally available package to create a decent cli output while running tests.
+- [ ] [Tsx](https://www.npmjs.com/package/tsx) is used during part of the build script to execute typescript files. It needs to be available on your path, as any globally installed npm package likely already is.
+- [ ] Use pnpm as your node package manager. This isn't really a strict requriement, but pnpm is referenced explictly in a few shebangs and package.json files, so it'll likely save you a headache.
 
 ## Environment Variables
 

@@ -17,6 +17,9 @@ pub struct TagFromContentResult {
 }
 
 impl Tag {
+    pub fn from_string(val: String) -> Tag {
+        Tag { value: val }
+    }
     pub fn from_mdx_content(raw_content: &str) -> TagFromContentResult {
         let mut items: Vec<Tag> = Vec::new();
         let r = get_tag_regular_expression();

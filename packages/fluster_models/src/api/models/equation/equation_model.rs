@@ -1,0 +1,11 @@
+use serde::{Deserialize, Serialize};
+
+use crate::models::snippet::snippet_model::Snippet;
+
+#[derive(Serialize, Deserialize, Debug, Clone, Default)]
+pub struct Equation {
+    pub id: Option<String>,
+    pub label: String,
+    pub body: String,
+    pub code: Vec<Snippet>,
+}

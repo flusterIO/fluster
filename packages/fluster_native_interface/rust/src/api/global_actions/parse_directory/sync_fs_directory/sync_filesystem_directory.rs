@@ -4,7 +4,7 @@ use fluster_models::models::notes::mdx::mdx_note::MdxNoteRust;
 pub use fluster_types::{
     errors::database_errors::DatabaseError, traits::db_entity::FlusterDatabaseEntity,
 };
-use ignore::{WalkBuilder, WalkState};
+use ignore::{DirEntry, WalkBuilder, WalkState};
 use std::path;
 
 pub async fn sync_directory(dir_name: String) -> Option<Vec<DatabaseError>> {
@@ -28,7 +28,7 @@ pub async fn sync_directory(dir_name: String) -> Option<Vec<DatabaseError>> {
         .build_parallel()
         .run(|| {
             let sender = sender.clone();
-            Box::new(move |either_entry| {
+            Box::new(move |either_entry: Result<DirEntry, ignore::Error>| {
                 if either_entry.is_ok() {
                     let entry = either_entry.unwrap();
                     let path = entry.path();

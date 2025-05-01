@@ -35,8 +35,7 @@ func CreateCleanFeature() {
 	handleError(os.MkdirAll(path.Join(featureDir, "presentation", "widgets", "phone"), 0777))
 	handleError(os.MkdirAll(path.Join(featureDir, "presentation", "widgets", "tablet"), 0777))
 	handleError(os.MkdirAll(path.Join(featureDir, "presentation", "widgets", "responsive"), 0777))
-	handleError(os.MkdirAll(path.Join(featureDir, "presentation", "state", "actions"), 0777))
-	handleError(os.MkdirAll(path.Join(featureDir, "use_cases"), 0777))
+	handleError(os.MkdirAll(path.Join(featureDir, "state", "actions"), 0777))
 	log.SetReportTimestamp(false)
 	log.Infof("✅ - Successfully created the %s feature in %s", featureName, featureDir)
 }

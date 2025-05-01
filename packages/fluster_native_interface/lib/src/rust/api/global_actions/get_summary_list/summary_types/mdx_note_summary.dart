@@ -9,15 +9,11 @@ import 'package:flutter_rust_bridge/flutter_rust_bridge_for_generated.dart';
 
 // Rust type: RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<MdxNoteSummary>>
 abstract class MdxNoteSummary implements RustOpaqueInterface {
+  FrontMatter get frontMatter;
+
   Thing get id;
 
-  String? get summary;
-
-  String get title;
+  set frontMatter(FrontMatter frontMatter);
 
   set id(Thing id);
-
-  set summary(String? summary);
-
-  set title(String title);
 }

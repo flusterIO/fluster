@@ -71,7 +71,7 @@ class RustLib extends BaseEntrypoint<RustLibApi, RustLibApiImpl, RustLibWire> {
   String get codegenVersion => '2.9.0';
 
   @override
-  int get rustContentHash => -1938105847;
+  int get rustContentHash => -482189345;
 
   static const kDefaultExternalLibraryLoaderConfig =
       ExternalLibraryLoaderConfig(
@@ -82,37 +82,26 @@ class RustLib extends BaseEntrypoint<RustLibApi, RustLibApiImpl, RustLibWire> {
 }
 
 abstract class RustLibApi extends BaseApi {
+  FrontMatter
+  crateApiGlobalActionsGetSummaryListSummaryTypesMdxNoteSummaryMdxNoteSummaryAutoAccessorGetFrontMatter({
+    required MdxNoteSummary that,
+  });
+
   Thing
   crateApiGlobalActionsGetSummaryListSummaryTypesMdxNoteSummaryMdxNoteSummaryAutoAccessorGetId({
     required MdxNoteSummary that,
   });
 
-  String?
-  crateApiGlobalActionsGetSummaryListSummaryTypesMdxNoteSummaryMdxNoteSummaryAutoAccessorGetSummary({
+  void
+  crateApiGlobalActionsGetSummaryListSummaryTypesMdxNoteSummaryMdxNoteSummaryAutoAccessorSetFrontMatter({
     required MdxNoteSummary that,
-  });
-
-  String
-  crateApiGlobalActionsGetSummaryListSummaryTypesMdxNoteSummaryMdxNoteSummaryAutoAccessorGetTitle({
-    required MdxNoteSummary that,
+    required FrontMatter frontMatter,
   });
 
   void
   crateApiGlobalActionsGetSummaryListSummaryTypesMdxNoteSummaryMdxNoteSummaryAutoAccessorSetId({
     required MdxNoteSummary that,
     required Thing id,
-  });
-
-  void
-  crateApiGlobalActionsGetSummaryListSummaryTypesMdxNoteSummaryMdxNoteSummaryAutoAccessorSetSummary({
-    required MdxNoteSummary that,
-    String? summary,
-  });
-
-  void
-  crateApiGlobalActionsGetSummaryListSummaryTypesMdxNoteSummaryMdxNoteSummaryAutoAccessorSetTitle({
-    required MdxNoteSummary that,
-    required String title,
   });
 
   String crateApiFsFsUtilsGetAppConfigDir();
@@ -162,6 +151,14 @@ abstract class RustLibApi extends BaseApi {
   get rust_arc_decrement_strong_count_FileSystemErrorPtr;
 
   RustArcIncrementStrongCountFnType
+  get rust_arc_increment_strong_count_FrontMatter;
+
+  RustArcDecrementStrongCountFnType
+  get rust_arc_decrement_strong_count_FrontMatter;
+
+  CrossPlatformFinalizerArg get rust_arc_decrement_strong_count_FrontMatterPtr;
+
+  RustArcIncrementStrongCountFnType
   get rust_arc_increment_strong_count_MdxNoteSummary;
 
   RustArcDecrementStrongCountFnType
@@ -186,6 +183,41 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   });
 
   @override
+  FrontMatter
+  crateApiGlobalActionsGetSummaryListSummaryTypesMdxNoteSummaryMdxNoteSummaryAutoAccessorGetFrontMatter({
+    required MdxNoteSummary that,
+  }) {
+    return handler.executeSync(
+      SyncTask(
+        callFfi: () {
+          final serializer = SseSerializer(generalizedFrbRustBinding);
+          sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerMdxNoteSummary(
+            that,
+            serializer,
+          );
+          return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 1)!;
+        },
+        codec: SseCodec(
+          decodeSuccessData:
+              sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFrontMatter,
+          decodeErrorData: null,
+        ),
+        constMeta:
+            kCrateApiGlobalActionsGetSummaryListSummaryTypesMdxNoteSummaryMdxNoteSummaryAutoAccessorGetFrontMatterConstMeta,
+        argValues: [that],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta
+  get kCrateApiGlobalActionsGetSummaryListSummaryTypesMdxNoteSummaryMdxNoteSummaryAutoAccessorGetFrontMatterConstMeta =>
+      const TaskConstMeta(
+        debugName: "MdxNoteSummary_auto_accessor_get_front_matter",
+        argNames: ["that"],
+      );
+
+  @override
   Thing
   crateApiGlobalActionsGetSummaryListSummaryTypesMdxNoteSummaryMdxNoteSummaryAutoAccessorGetId({
     required MdxNoteSummary that,
@@ -198,7 +230,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
             that,
             serializer,
           );
-          return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 1)!;
+          return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 2)!;
         },
         codec: SseCodec(
           decodeSuccessData:
@@ -221,71 +253,42 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
       );
 
   @override
-  String?
-  crateApiGlobalActionsGetSummaryListSummaryTypesMdxNoteSummaryMdxNoteSummaryAutoAccessorGetSummary({
+  void
+  crateApiGlobalActionsGetSummaryListSummaryTypesMdxNoteSummaryMdxNoteSummaryAutoAccessorSetFrontMatter({
     required MdxNoteSummary that,
+    required FrontMatter frontMatter,
   }) {
     return handler.executeSync(
       SyncTask(
         callFfi: () {
           final serializer = SseSerializer(generalizedFrbRustBinding);
-          sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerMdxNoteSummary(
+          sse_encode_Auto_RefMut_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerMdxNoteSummary(
             that,
             serializer,
           );
-          return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 2)!;
-        },
-        codec: SseCodec(
-          decodeSuccessData: sse_decode_opt_String,
-          decodeErrorData: null,
-        ),
-        constMeta:
-            kCrateApiGlobalActionsGetSummaryListSummaryTypesMdxNoteSummaryMdxNoteSummaryAutoAccessorGetSummaryConstMeta,
-        argValues: [that],
-        apiImpl: this,
-      ),
-    );
-  }
-
-  TaskConstMeta
-  get kCrateApiGlobalActionsGetSummaryListSummaryTypesMdxNoteSummaryMdxNoteSummaryAutoAccessorGetSummaryConstMeta =>
-      const TaskConstMeta(
-        debugName: "MdxNoteSummary_auto_accessor_get_summary",
-        argNames: ["that"],
-      );
-
-  @override
-  String
-  crateApiGlobalActionsGetSummaryListSummaryTypesMdxNoteSummaryMdxNoteSummaryAutoAccessorGetTitle({
-    required MdxNoteSummary that,
-  }) {
-    return handler.executeSync(
-      SyncTask(
-        callFfi: () {
-          final serializer = SseSerializer(generalizedFrbRustBinding);
-          sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerMdxNoteSummary(
-            that,
+          sse_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFrontMatter(
+            frontMatter,
             serializer,
           );
           return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 3)!;
         },
         codec: SseCodec(
-          decodeSuccessData: sse_decode_String,
+          decodeSuccessData: sse_decode_unit,
           decodeErrorData: null,
         ),
         constMeta:
-            kCrateApiGlobalActionsGetSummaryListSummaryTypesMdxNoteSummaryMdxNoteSummaryAutoAccessorGetTitleConstMeta,
-        argValues: [that],
+            kCrateApiGlobalActionsGetSummaryListSummaryTypesMdxNoteSummaryMdxNoteSummaryAutoAccessorSetFrontMatterConstMeta,
+        argValues: [that, frontMatter],
         apiImpl: this,
       ),
     );
   }
 
   TaskConstMeta
-  get kCrateApiGlobalActionsGetSummaryListSummaryTypesMdxNoteSummaryMdxNoteSummaryAutoAccessorGetTitleConstMeta =>
+  get kCrateApiGlobalActionsGetSummaryListSummaryTypesMdxNoteSummaryMdxNoteSummaryAutoAccessorSetFrontMatterConstMeta =>
       const TaskConstMeta(
-        debugName: "MdxNoteSummary_auto_accessor_get_title",
-        argNames: ["that"],
+        debugName: "MdxNoteSummary_auto_accessor_set_front_matter",
+        argNames: ["that", "frontMatter"],
       );
 
   @override
@@ -328,84 +331,12 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
       );
 
   @override
-  void
-  crateApiGlobalActionsGetSummaryListSummaryTypesMdxNoteSummaryMdxNoteSummaryAutoAccessorSetSummary({
-    required MdxNoteSummary that,
-    String? summary,
-  }) {
-    return handler.executeSync(
-      SyncTask(
-        callFfi: () {
-          final serializer = SseSerializer(generalizedFrbRustBinding);
-          sse_encode_Auto_RefMut_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerMdxNoteSummary(
-            that,
-            serializer,
-          );
-          sse_encode_opt_String(summary, serializer);
-          return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 5)!;
-        },
-        codec: SseCodec(
-          decodeSuccessData: sse_decode_unit,
-          decodeErrorData: null,
-        ),
-        constMeta:
-            kCrateApiGlobalActionsGetSummaryListSummaryTypesMdxNoteSummaryMdxNoteSummaryAutoAccessorSetSummaryConstMeta,
-        argValues: [that, summary],
-        apiImpl: this,
-      ),
-    );
-  }
-
-  TaskConstMeta
-  get kCrateApiGlobalActionsGetSummaryListSummaryTypesMdxNoteSummaryMdxNoteSummaryAutoAccessorSetSummaryConstMeta =>
-      const TaskConstMeta(
-        debugName: "MdxNoteSummary_auto_accessor_set_summary",
-        argNames: ["that", "summary"],
-      );
-
-  @override
-  void
-  crateApiGlobalActionsGetSummaryListSummaryTypesMdxNoteSummaryMdxNoteSummaryAutoAccessorSetTitle({
-    required MdxNoteSummary that,
-    required String title,
-  }) {
-    return handler.executeSync(
-      SyncTask(
-        callFfi: () {
-          final serializer = SseSerializer(generalizedFrbRustBinding);
-          sse_encode_Auto_RefMut_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerMdxNoteSummary(
-            that,
-            serializer,
-          );
-          sse_encode_String(title, serializer);
-          return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 6)!;
-        },
-        codec: SseCodec(
-          decodeSuccessData: sse_decode_unit,
-          decodeErrorData: null,
-        ),
-        constMeta:
-            kCrateApiGlobalActionsGetSummaryListSummaryTypesMdxNoteSummaryMdxNoteSummaryAutoAccessorSetTitleConstMeta,
-        argValues: [that, title],
-        apiImpl: this,
-      ),
-    );
-  }
-
-  TaskConstMeta
-  get kCrateApiGlobalActionsGetSummaryListSummaryTypesMdxNoteSummaryMdxNoteSummaryAutoAccessorSetTitleConstMeta =>
-      const TaskConstMeta(
-        debugName: "MdxNoteSummary_auto_accessor_set_title",
-        argNames: ["that", "title"],
-      );
-
-  @override
   String crateApiFsFsUtilsGetAppConfigDir() {
     return handler.executeSync(
       SyncTask(
         callFfi: () {
           final serializer = SseSerializer(generalizedFrbRustBinding);
-          return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 7)!;
+          return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 5)!;
         },
         codec: SseCodec(
           decodeSuccessData: sse_decode_String,
@@ -428,7 +359,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
       SyncTask(
         callFfi: () {
           final serializer = SseSerializer(generalizedFrbRustBinding);
-          return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 8)!;
+          return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 6)!;
         },
         codec: SseCodec(
           decodeSuccessData: sse_decode_String,
@@ -455,7 +386,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
           pdeCallFfi(
             generalizedFrbRustBinding,
             serializer,
-            funcId: 9,
+            funcId: 7,
             port: port_,
           );
         },
@@ -488,7 +419,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
           pdeCallFfi(
             generalizedFrbRustBinding,
             serializer,
-            funcId: 10,
+            funcId: 8,
             port: port_,
           );
         },
@@ -520,7 +451,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
           final serializer = SseSerializer(generalizedFrbRustBinding);
           sse_encode_String(a, serializer);
           sse_encode_String(b, serializer);
-          return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 11)!;
+          return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 9)!;
         },
         codec: SseCodec(
           decodeSuccessData: sse_decode_f_64,
@@ -549,7 +480,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
           pdeCallFfi(
             generalizedFrbRustBinding,
             serializer,
-            funcId: 12,
+            funcId: 10,
             port: port_,
           );
         },
@@ -574,7 +505,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
         callFfi: () {
           final serializer = SseSerializer(generalizedFrbRustBinding);
           sse_encode_String(filePath, serializer);
-          return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 13)!;
+          return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 11)!;
         },
         codec: SseCodec(
           decodeSuccessData: sse_decode_bool,
@@ -599,7 +530,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
           pdeCallFfi(
             generalizedFrbRustBinding,
             serializer,
-            funcId: 14,
+            funcId: 12,
             port: port_,
           );
         },
@@ -634,7 +565,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
           pdeCallFfi(
             generalizedFrbRustBinding,
             serializer,
-            funcId: 15,
+            funcId: 13,
             port: port_,
           );
         },
@@ -672,6 +603,14 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
       .rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFileSystemError;
 
   RustArcIncrementStrongCountFnType
+  get rust_arc_increment_strong_count_FrontMatter => wire
+      .rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFrontMatter;
+
+  RustArcDecrementStrongCountFnType
+  get rust_arc_decrement_strong_count_FrontMatter => wire
+      .rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFrontMatter;
+
+  RustArcIncrementStrongCountFnType
   get rust_arc_increment_strong_count_MdxNoteSummary => wire
       .rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerMdxNoteSummary;
 
@@ -703,6 +642,15 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   ) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
     return FileSystemErrorImpl.frbInternalDcoDecode(raw as List<dynamic>);
+  }
+
+  @protected
+  FrontMatter
+  dco_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFrontMatter(
+    dynamic raw,
+  ) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return FrontMatterImpl.frbInternalDcoDecode(raw as List<dynamic>);
   }
 
   @protected
@@ -757,6 +705,15 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   ) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
     return FileSystemErrorImpl.frbInternalDcoDecode(raw as List<dynamic>);
+  }
+
+  @protected
+  FrontMatter
+  dco_decode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFrontMatter(
+    dynamic raw,
+  ) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return FrontMatterImpl.frbInternalDcoDecode(raw as List<dynamic>);
   }
 
   @protected
@@ -857,12 +814,6 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
-  String? dco_decode_opt_String(dynamic raw) {
-    // Codec=Dco (DartCObject based), see doc to use other codecs
-    return raw == null ? null : dco_decode_String(raw);
-  }
-
-  @protected
   FileSystemError?
   dco_decode_opt_box_autoadd_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFileSystemError(
     dynamic raw,
@@ -954,6 +905,18 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
+  FrontMatter
+  sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFrontMatter(
+    SseDeserializer deserializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    return FrontMatterImpl.frbInternalSseDecode(
+      sse_decode_usize(deserializer),
+      sse_decode_i_32(deserializer),
+    );
+  }
+
+  @protected
   MdxNoteSummary
   sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerMdxNoteSummary(
     SseDeserializer deserializer,
@@ -1020,6 +983,18 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   ) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     return FileSystemErrorImpl.frbInternalSseDecode(
+      sse_decode_usize(deserializer),
+      sse_decode_i_32(deserializer),
+    );
+  }
+
+  @protected
+  FrontMatter
+  sse_decode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFrontMatter(
+    SseDeserializer deserializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    return FrontMatterImpl.frbInternalSseDecode(
       sse_decode_usize(deserializer),
       sse_decode_i_32(deserializer),
     );
@@ -1148,17 +1123,6 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
-  String? sse_decode_opt_String(SseDeserializer deserializer) {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-
-    if (sse_decode_bool(deserializer)) {
-      return (sse_decode_String(deserializer));
-    } else {
-      return null;
-    }
-  }
-
-  @protected
   FileSystemError?
   sse_decode_opt_box_autoadd_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFileSystemError(
     SseDeserializer deserializer,
@@ -1253,6 +1217,19 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
 
   @protected
   void
+  sse_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFrontMatter(
+    FrontMatter self,
+    SseSerializer serializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_usize(
+      (self as FrontMatterImpl).frbInternalSseEncode(move: true),
+      serializer,
+    );
+  }
+
+  @protected
+  void
   sse_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerMdxNoteSummary(
     MdxNoteSummary self,
     SseSerializer serializer,
@@ -1325,6 +1302,19 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
     // Codec=Sse (Serialization based), see doc to use other codecs
     sse_encode_usize(
       (self as FileSystemErrorImpl).frbInternalSseEncode(move: null),
+      serializer,
+    );
+  }
+
+  @protected
+  void
+  sse_encode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFrontMatter(
+    FrontMatter self,
+    SseSerializer serializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_usize(
+      (self as FrontMatterImpl).frbInternalSseEncode(move: null),
       serializer,
     );
   }
@@ -1453,16 +1443,6 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
-  void sse_encode_opt_String(String? self, SseSerializer serializer) {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-
-    sse_encode_bool(self != null, serializer);
-    if (self != null) {
-      sse_encode_String(self, serializer);
-    }
-  }
-
-  @protected
   void
   sse_encode_opt_box_autoadd_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFileSystemError(
     FileSystemError? self,
@@ -1575,6 +1555,26 @@ class FileSystemErrorImpl extends RustOpaque implements FileSystemError {
 }
 
 @sealed
+class FrontMatterImpl extends RustOpaque implements FrontMatter {
+  // Not to be used by end users
+  FrontMatterImpl.frbInternalDcoDecode(List<dynamic> wire)
+    : super.frbInternalDcoDecode(wire, _kStaticData);
+
+  // Not to be used by end users
+  FrontMatterImpl.frbInternalSseDecode(BigInt ptr, int externalSizeOnNative)
+    : super.frbInternalSseDecode(ptr, externalSizeOnNative, _kStaticData);
+
+  static final _kStaticData = RustArcStaticData(
+    rustArcIncrementStrongCount:
+        RustLib.instance.api.rust_arc_increment_strong_count_FrontMatter,
+    rustArcDecrementStrongCount:
+        RustLib.instance.api.rust_arc_decrement_strong_count_FrontMatter,
+    rustArcDecrementStrongCountPtr:
+        RustLib.instance.api.rust_arc_decrement_strong_count_FrontMatterPtr,
+  );
+}
+
+@sealed
 class MdxNoteSummaryImpl extends RustOpaque implements MdxNoteSummary {
   // Not to be used by end users
   MdxNoteSummaryImpl.frbInternalDcoDecode(List<dynamic> wire)
@@ -1593,37 +1593,26 @@ class MdxNoteSummaryImpl extends RustOpaque implements MdxNoteSummary {
         RustLib.instance.api.rust_arc_decrement_strong_count_MdxNoteSummaryPtr,
   );
 
+  FrontMatter get frontMatter => RustLib.instance.api
+      .crateApiGlobalActionsGetSummaryListSummaryTypesMdxNoteSummaryMdxNoteSummaryAutoAccessorGetFrontMatter(
+        that: this,
+      );
+
   Thing get id => RustLib.instance.api
       .crateApiGlobalActionsGetSummaryListSummaryTypesMdxNoteSummaryMdxNoteSummaryAutoAccessorGetId(
         that: this,
       );
 
-  String? get summary => RustLib.instance.api
-      .crateApiGlobalActionsGetSummaryListSummaryTypesMdxNoteSummaryMdxNoteSummaryAutoAccessorGetSummary(
+  set frontMatter(FrontMatter frontMatter) => RustLib.instance.api
+      .crateApiGlobalActionsGetSummaryListSummaryTypesMdxNoteSummaryMdxNoteSummaryAutoAccessorSetFrontMatter(
         that: this,
-      );
-
-  String get title => RustLib.instance.api
-      .crateApiGlobalActionsGetSummaryListSummaryTypesMdxNoteSummaryMdxNoteSummaryAutoAccessorGetTitle(
-        that: this,
+        frontMatter: frontMatter,
       );
 
   set id(Thing id) => RustLib.instance.api
       .crateApiGlobalActionsGetSummaryListSummaryTypesMdxNoteSummaryMdxNoteSummaryAutoAccessorSetId(
         that: this,
         id: id,
-      );
-
-  set summary(String? summary) => RustLib.instance.api
-      .crateApiGlobalActionsGetSummaryListSummaryTypesMdxNoteSummaryMdxNoteSummaryAutoAccessorSetSummary(
-        that: this,
-        summary: summary,
-      );
-
-  set title(String title) => RustLib.instance.api
-      .crateApiGlobalActionsGetSummaryListSummaryTypesMdxNoteSummaryMdxNoteSummaryAutoAccessorSetTitle(
-        that: this,
-        title: title,
       );
 }
 

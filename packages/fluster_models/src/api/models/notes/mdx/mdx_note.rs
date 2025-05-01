@@ -10,8 +10,8 @@ use fluster_types::{
 // use fluster_models::database_errors;
 use gray_matter::{engine::YAML, Matter};
 use serde::{Deserialize, Serialize};
+use std::fs;
 use surrealdb::Uuid;
-use tokio::fs;
 
 use crate::models::{
     nested_models::fluster_datetime::fluster_time::FlusterTime,
@@ -38,7 +38,7 @@ pub struct MdxNoteRust {
 }
 
 impl MdxNoteRust {
-    pub async fn from_raw_mdx_string(
+    pub fn from_raw_mdx_string(
         raw_file_content: String,
         file_path: Option<&str>,
     ) -> Result<MdxNoteRust, parsing_errors::ParsingError> {
@@ -59,18 +59,18 @@ impl MdxNoteRust {
     }
     /// All paths must be validated to ensure that they exist **before** pasing them into this
     /// function.
-    pub async fn from_file_system_path(
+    pub fn from_file_system_path(
         file_path: &str,
     ) -> Result<MdxNoteRust, parsing_errors::ParsingError> {
-        let raw_file_content = fs::read_to_string(file_path).await;
-        let file_meta = fs::metadata(file_path).await;
+        let raw_file_content = fs::read_to_string(file_path);
+        let file_meta = fs::metadata(file_path);
         if (file_meta.is_err()) {
             return Err(parsing_errors::ParsingError::MdxParsingError(
                 file_path.to_owned(),
             ));
         }
         if let Ok(content) = raw_file_content {
-            let note = MdxNoteRust::from_raw_mdx_string(content, Some(file_path)).await;
+            let note = MdxNoteRust::from_raw_mdx_string(content, Some(file_path));
             if let Ok(mut note_data) = note {
                 note_data.accessed_at = FlusterTime::from_file_time(Some(
                     FileTime::from_last_access_time(file_meta.as_ref().unwrap()),
@@ -151,7 +151,7 @@ mod tests {
 
     async fn get_test_note() -> Result<MdxNoteRust, parsing_errors::ParsingError> {
         let test_content_path = fluster_test_utils::test_utils::get_test_mdx_path();
-        MdxNoteRust::from_file_system_path(test_content_path.to_str().unwrap()).await
+        MdxNoteRust::from_file_system_path(test_content_path.to_str().unwrap())
     }
 
     #[tokio::test]

@@ -1,13 +1,13 @@
 use gray_matter::Pod;
 use serde::{Deserialize, Serialize};
 
-use crate::models::notes::taggable::taggable_model::Taggable;
+use crate::models::taggable::tag_model::Tag;
 
 #[derive(Serialize, Deserialize, Debug, Clone)]
 pub struct FrontMatter {
     pub title: Option<String>,
     pub summary: Option<String>,
-    pub tags: Vec<Taggable>,
+    pub tags: Vec<Tag>,
     /// This is the `id` field in the user's frontmatter. This is called `note_id` to distinguish
     /// it from the `id` field produced by surrealdb.
     pub note_id: Option<String>,
@@ -52,11 +52,11 @@ impl FrontMatter {
                 // Set tags
                 if d.contains_key("tags") {
                     let mut tags = d["tags"].clone();
-                    let mut tag_items: Vec<Taggable> = Vec::new();
+                    let mut tag_items: Vec<Tag> = Vec::new();
                     for _ in 0..tags.len() {
                         let tag_item = tags.pop().as_string();
                         if let Ok(item) = tag_item {
-                            tag_items.push(Taggable::from_string(item));
+                            tag_items.push(Tag::from_string(item));
                         }
                     }
                 }

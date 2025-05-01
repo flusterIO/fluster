@@ -2,9 +2,6 @@ use regex::Regex;
 
 // RESUME: Come back here and make sure all regular expressions are working, and add these to the
 // parsing script.
-pub fn get_tag_regular_expression() -> Regex {
-    Regex::new(r"\[\[#(?<body>[^#]+)\]\]").unwrap()
-}
 
 pub fn get_equation_tag_regular_expression() -> Regex {
     Regex::new(r"\[\[eq:(?<body>[^\]]+)\]\]").unwrap()

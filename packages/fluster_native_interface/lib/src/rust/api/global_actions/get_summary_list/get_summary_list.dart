@@ -18,5 +18,8 @@ Future<SummaryListResults> getSummaryList({required SummaryListQuery query}) =>
 // Rust type: RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<DatabaseError>>
 abstract class DatabaseError implements RustOpaqueInterface {}
 
+// Rust type: RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<FrontMatter>>
+abstract class FrontMatter implements RustOpaqueInterface {}
+
 // Rust type: RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<Thing>>
 abstract class Thing implements RustOpaqueInterface {}
