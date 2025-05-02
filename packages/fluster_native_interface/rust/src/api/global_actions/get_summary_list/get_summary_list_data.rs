@@ -1,6 +1,6 @@
 use anyhow::Ok;
 use fluster_db::api::db::get_database;
-pub use fluster_models::models::notes::front_matter::front_matter_model::FrontMatter;
+pub use fluster_models::models::notes::front_matter::front_matter_model::FrontMatterEntity;
 use fluster_types::constants::database_constants::{FLUSTER_NAMESPACE, NOTES_DATABASE_NAME};
 pub use fluster_types::errors::database_errors::DatabaseError;
 pub use fluster_types::typedefs::note_type_utils::FlusterDb;
@@ -13,7 +13,7 @@ pub async fn get_summary_list(
     query: SummaryListQuery,
 ) -> Result<SummaryListResults, anyhow::Error> {
     let notes_sql = r#"
-LET $notes = (SELECT front_matter, id from mdx_notes);
+LET $notes = (SELECT front_matter, id, accessed_at from mdx_notes ORDER BY accessed_at DESC LIMIT $per_page START $start_index);
 LET $summary_notes = $notes.map(|$mdx_note| {
     {
        id:  $mdx_note["id"],
@@ -25,15 +25,14 @@ RETURN {
 };"#;
     let db = get_database().await?;
     let results = SummaryListResults::default();
-
-    // if db.is_err() {
-    //     return Err(surrealdb::Error::Api(Error));
-    //     // return Err(DatabaseError::FailToConnect);
-    // }
     db.use_ns(FLUSTER_NAMESPACE)
         .use_db(NOTES_DATABASE_NAME)
         .await?;
-    let mut result = db.query(notes_sql).await?;
+    let mut result = db
+        .query(notes_sql)
+        .bind(("per_page", query.mdx_per_page))
+        .bind(("start_index", query.mdx_per_page * (query.mdx_page - 1)))
+        .await?;
     let parsed_results: Vec<SummaryListResults> = result.take(2)?;
     if !&parsed_results.is_empty() {
         let item = parsed_results.first().unwrap();

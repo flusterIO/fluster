@@ -1,6 +1,6 @@
 use crossbeam_channel::unbounded;
 use fluster_db::api::db::get_database;
-use fluster_models::models::notes::mdx::mdx_note::MdxNoteRust;
+use fluster_models::models::notes::mdx::mdx_note::MdxNoteEntity;
 pub use fluster_types::{
     errors::database_errors::DatabaseError, traits::db_entity::FlusterDatabaseEntity,
 };
@@ -9,7 +9,7 @@ use std::path;
 
 pub async fn sync_directory(dir_name: String) -> Option<Vec<DatabaseError>> {
     let (sender, receiver) =
-        unbounded::<Result<MdxNoteRust, fluster_types::errors::parsing_errors::ParsingError>>();
+        unbounded::<Result<MdxNoteEntity, fluster_types::errors::parsing_errors::ParsingError>>();
     let notes_path = path::Path::new(&dir_name);
     let mut errors: Vec<DatabaseError> = Vec::new();
 
@@ -33,7 +33,7 @@ pub async fn sync_directory(dir_name: String) -> Option<Vec<DatabaseError>> {
                     let entry = either_entry.unwrap();
                     let path = entry.path();
                     if path.is_file() && path.extension() == Some("mdx".as_ref()) {
-                        let note = MdxNoteRust::from_file_system_path(path.to_str().unwrap());
+                        let note = MdxNoteEntity::from_file_system_path(path.to_str().unwrap());
                         sender.send(note).unwrap();
                     }
                 }

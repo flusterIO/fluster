@@ -71,7 +71,7 @@ class RustLib extends BaseEntrypoint<RustLibApi, RustLibApiImpl, RustLibWire> {
   String get codegenVersion => '2.9.0';
 
   @override
-  int get rustContentHash => -1930347246;
+  int get rustContentHash => -293915330;
 
   static const kDefaultExternalLibraryLoaderConfig =
       ExternalLibraryLoaderConfig(
@@ -82,7 +82,7 @@ class RustLib extends BaseEntrypoint<RustLibApi, RustLibApiImpl, RustLibWire> {
 }
 
 abstract class RustLibApi extends BaseApi {
-  FrontMatter
+  FrontMatterEntity
   crateApiGlobalActionsGetSummaryListSummaryTypesMdxNoteSummaryMdxNoteSummaryAutoAccessorGetFrontMatter({
     required MdxNoteSummary that,
   });
@@ -95,7 +95,7 @@ abstract class RustLibApi extends BaseApi {
   void
   crateApiGlobalActionsGetSummaryListSummaryTypesMdxNoteSummaryMdxNoteSummaryAutoAccessorSetFrontMatter({
     required MdxNoteSummary that,
-    required FrontMatter frontMatter,
+    required FrontMatterEntity frontMatter,
   });
 
   void
@@ -127,6 +127,9 @@ abstract class RustLibApi extends BaseApi {
 
   Future<FileSystemError?> crateApiFsFsSetupSetupFileSystemForData();
 
+  Future<SummaryListQuery>
+  crateApiGlobalActionsGetSummaryListSummaryListQuerySummaryListQueryDefault();
+
   Future<List<DatabaseError>?>
   crateApiGlobalActionsParseDirectorySyncFsDirectorySyncFilesystemDirectorySyncDirectory({
     required String dirName,
@@ -151,12 +154,13 @@ abstract class RustLibApi extends BaseApi {
   get rust_arc_decrement_strong_count_FileSystemErrorPtr;
 
   RustArcIncrementStrongCountFnType
-  get rust_arc_increment_strong_count_FrontMatter;
+  get rust_arc_increment_strong_count_FrontMatterEntity;
 
   RustArcDecrementStrongCountFnType
-  get rust_arc_decrement_strong_count_FrontMatter;
+  get rust_arc_decrement_strong_count_FrontMatterEntity;
 
-  CrossPlatformFinalizerArg get rust_arc_decrement_strong_count_FrontMatterPtr;
+  CrossPlatformFinalizerArg
+  get rust_arc_decrement_strong_count_FrontMatterEntityPtr;
 
   RustArcIncrementStrongCountFnType
   get rust_arc_increment_strong_count_MdxNoteSummary;
@@ -183,7 +187,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   });
 
   @override
-  FrontMatter
+  FrontMatterEntity
   crateApiGlobalActionsGetSummaryListSummaryTypesMdxNoteSummaryMdxNoteSummaryAutoAccessorGetFrontMatter({
     required MdxNoteSummary that,
   }) {
@@ -199,7 +203,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
         },
         codec: SseCodec(
           decodeSuccessData:
-              sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFrontMatter,
+              sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFrontMatterEntity,
           decodeErrorData: null,
         ),
         constMeta:
@@ -256,7 +260,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   void
   crateApiGlobalActionsGetSummaryListSummaryTypesMdxNoteSummaryMdxNoteSummaryAutoAccessorSetFrontMatter({
     required MdxNoteSummary that,
-    required FrontMatter frontMatter,
+    required FrontMatterEntity frontMatter,
   }) {
     return handler.executeSync(
       SyncTask(
@@ -266,7 +270,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
             that,
             serializer,
           );
-          sse_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFrontMatter(
+          sse_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFrontMatterEntity(
             frontMatter,
             serializer,
           );
@@ -552,6 +556,39 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
       );
 
   @override
+  Future<SummaryListQuery>
+  crateApiGlobalActionsGetSummaryListSummaryListQuerySummaryListQueryDefault() {
+    return handler.executeNormal(
+      NormalTask(
+        callFfi: (port_) {
+          final serializer = SseSerializer(generalizedFrbRustBinding);
+          pdeCallFfi(
+            generalizedFrbRustBinding,
+            serializer,
+            funcId: 13,
+            port: port_,
+          );
+        },
+        codec: SseCodec(
+          decodeSuccessData: sse_decode_summary_list_query,
+          decodeErrorData: null,
+        ),
+        constMeta:
+            kCrateApiGlobalActionsGetSummaryListSummaryListQuerySummaryListQueryDefaultConstMeta,
+        argValues: [],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta
+  get kCrateApiGlobalActionsGetSummaryListSummaryListQuerySummaryListQueryDefaultConstMeta =>
+      const TaskConstMeta(
+        debugName: "summary_list_query_default",
+        argNames: [],
+      );
+
+  @override
   Future<List<DatabaseError>?>
   crateApiGlobalActionsParseDirectorySyncFsDirectorySyncFilesystemDirectorySyncDirectory({
     required String dirName,
@@ -564,7 +601,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
           pdeCallFfi(
             generalizedFrbRustBinding,
             serializer,
-            funcId: 13,
+            funcId: 14,
             port: port_,
           );
         },
@@ -602,12 +639,12 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
       .rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFileSystemError;
 
   RustArcIncrementStrongCountFnType
-  get rust_arc_increment_strong_count_FrontMatter => wire
-      .rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFrontMatter;
+  get rust_arc_increment_strong_count_FrontMatterEntity => wire
+      .rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFrontMatterEntity;
 
   RustArcDecrementStrongCountFnType
-  get rust_arc_decrement_strong_count_FrontMatter => wire
-      .rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFrontMatter;
+  get rust_arc_decrement_strong_count_FrontMatterEntity => wire
+      .rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFrontMatterEntity;
 
   RustArcIncrementStrongCountFnType
   get rust_arc_increment_strong_count_MdxNoteSummary => wire
@@ -650,12 +687,12 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
-  FrontMatter
-  dco_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFrontMatter(
+  FrontMatterEntity
+  dco_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFrontMatterEntity(
     dynamic raw,
   ) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
-    return FrontMatterImpl.frbInternalDcoDecode(raw as List<dynamic>);
+    return FrontMatterEntityImpl.frbInternalDcoDecode(raw as List<dynamic>);
   }
 
   @protected
@@ -713,12 +750,12 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
-  FrontMatter
-  dco_decode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFrontMatter(
+  FrontMatterEntity
+  dco_decode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFrontMatterEntity(
     dynamic raw,
   ) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
-    return FrontMatterImpl.frbInternalDcoDecode(raw as List<dynamic>);
+    return FrontMatterEntityImpl.frbInternalDcoDecode(raw as List<dynamic>);
   }
 
   @protected
@@ -848,9 +885,12 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   SummaryListQuery dco_decode_summary_list_query(dynamic raw) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
     final arr = raw as List<dynamic>;
-    if (arr.isNotEmpty)
-      throw Exception('unexpected arr length: expect 0 but see ${arr.length}');
-    return SummaryListQuery();
+    if (arr.length != 2)
+      throw Exception('unexpected arr length: expect 2 but see ${arr.length}');
+    return SummaryListQuery(
+      mdxPerPage: dco_decode_u_16(arr[0]),
+      mdxPage: dco_decode_u_16(arr[1]),
+    );
   }
 
   @protected
@@ -865,6 +905,12 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
             arr[0],
           ),
     );
+  }
+
+  @protected
+  int dco_decode_u_16(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return raw as int;
   }
 
   @protected
@@ -917,12 +963,12 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
-  FrontMatter
-  sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFrontMatter(
+  FrontMatterEntity
+  sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFrontMatterEntity(
     SseDeserializer deserializer,
   ) {
     // Codec=Sse (Serialization based), see doc to use other codecs
-    return FrontMatterImpl.frbInternalSseDecode(
+    return FrontMatterEntityImpl.frbInternalSseDecode(
       sse_decode_usize(deserializer),
       sse_decode_i_32(deserializer),
     );
@@ -1001,12 +1047,12 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
-  FrontMatter
-  sse_decode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFrontMatter(
+  FrontMatterEntity
+  sse_decode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFrontMatterEntity(
     SseDeserializer deserializer,
   ) {
     // Codec=Sse (Serialization based), see doc to use other codecs
-    return FrontMatterImpl.frbInternalSseDecode(
+    return FrontMatterEntityImpl.frbInternalSseDecode(
       sse_decode_usize(deserializer),
       sse_decode_i_32(deserializer),
     );
@@ -1169,7 +1215,9 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   @protected
   SummaryListQuery sse_decode_summary_list_query(SseDeserializer deserializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
-    return SummaryListQuery();
+    var var_mdxPerPage = sse_decode_u_16(deserializer);
+    var var_mdxPage = sse_decode_u_16(deserializer);
+    return SummaryListQuery(mdxPerPage: var_mdxPerPage, mdxPage: var_mdxPage);
   }
 
   @protected
@@ -1182,6 +1230,12 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
           deserializer,
         );
     return SummaryListResults(mdxNotes: var_mdxNotes);
+  }
+
+  @protected
+  int sse_decode_u_16(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    return deserializer.buffer.getUint16();
   }
 
   @protected
@@ -1238,13 +1292,13 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
 
   @protected
   void
-  sse_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFrontMatter(
-    FrontMatter self,
+  sse_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFrontMatterEntity(
+    FrontMatterEntity self,
     SseSerializer serializer,
   ) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     sse_encode_usize(
-      (self as FrontMatterImpl).frbInternalSseEncode(move: true),
+      (self as FrontMatterEntityImpl).frbInternalSseEncode(move: true),
       serializer,
     );
   }
@@ -1329,13 +1383,13 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
 
   @protected
   void
-  sse_encode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFrontMatter(
-    FrontMatter self,
+  sse_encode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFrontMatterEntity(
+    FrontMatterEntity self,
     SseSerializer serializer,
   ) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     sse_encode_usize(
-      (self as FrontMatterImpl).frbInternalSseEncode(move: null),
+      (self as FrontMatterEntityImpl).frbInternalSseEncode(move: null),
       serializer,
     );
   }
@@ -1503,6 +1557,8 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
     SseSerializer serializer,
   ) {
     // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_u_16(self.mdxPerPage, serializer);
+    sse_encode_u_16(self.mdxPage, serializer);
   }
 
   @protected
@@ -1515,6 +1571,12 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
       self.mdxNotes,
       serializer,
     );
+  }
+
+  @protected
+  void sse_encode_u_16(int self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    serializer.buffer.putUint16(self);
   }
 
   @protected
@@ -1576,22 +1638,26 @@ class FileSystemErrorImpl extends RustOpaque implements FileSystemError {
 }
 
 @sealed
-class FrontMatterImpl extends RustOpaque implements FrontMatter {
+class FrontMatterEntityImpl extends RustOpaque implements FrontMatterEntity {
   // Not to be used by end users
-  FrontMatterImpl.frbInternalDcoDecode(List<dynamic> wire)
+  FrontMatterEntityImpl.frbInternalDcoDecode(List<dynamic> wire)
     : super.frbInternalDcoDecode(wire, _kStaticData);
 
   // Not to be used by end users
-  FrontMatterImpl.frbInternalSseDecode(BigInt ptr, int externalSizeOnNative)
-    : super.frbInternalSseDecode(ptr, externalSizeOnNative, _kStaticData);
+  FrontMatterEntityImpl.frbInternalSseDecode(
+    BigInt ptr,
+    int externalSizeOnNative,
+  ) : super.frbInternalSseDecode(ptr, externalSizeOnNative, _kStaticData);
 
   static final _kStaticData = RustArcStaticData(
     rustArcIncrementStrongCount:
-        RustLib.instance.api.rust_arc_increment_strong_count_FrontMatter,
+        RustLib.instance.api.rust_arc_increment_strong_count_FrontMatterEntity,
     rustArcDecrementStrongCount:
-        RustLib.instance.api.rust_arc_decrement_strong_count_FrontMatter,
-    rustArcDecrementStrongCountPtr:
-        RustLib.instance.api.rust_arc_decrement_strong_count_FrontMatterPtr,
+        RustLib.instance.api.rust_arc_decrement_strong_count_FrontMatterEntity,
+    rustArcDecrementStrongCountPtr: RustLib
+        .instance
+        .api
+        .rust_arc_decrement_strong_count_FrontMatterEntityPtr,
   );
 }
 
@@ -1614,7 +1680,7 @@ class MdxNoteSummaryImpl extends RustOpaque implements MdxNoteSummary {
         RustLib.instance.api.rust_arc_decrement_strong_count_MdxNoteSummaryPtr,
   );
 
-  FrontMatter get frontMatter => RustLib.instance.api
+  FrontMatterEntity get frontMatter => RustLib.instance.api
       .crateApiGlobalActionsGetSummaryListSummaryTypesMdxNoteSummaryMdxNoteSummaryAutoAccessorGetFrontMatter(
         that: this,
       );
@@ -1624,7 +1690,7 @@ class MdxNoteSummaryImpl extends RustOpaque implements MdxNoteSummary {
         that: this,
       );
 
-  set frontMatter(FrontMatter frontMatter) => RustLib.instance.api
+  set frontMatter(FrontMatterEntity frontMatter) => RustLib.instance.api
       .crateApiGlobalActionsGetSummaryListSummaryTypesMdxNoteSummaryMdxNoteSummaryAutoAccessorSetFrontMatter(
         that: this,
         frontMatter: frontMatter,

@@ -4,7 +4,7 @@ use serde::{Deserialize, Serialize};
 use crate::models::taggable::tag_model::Tag;
 
 #[derive(Serialize, Deserialize, Debug, Clone, Default)]
-pub struct FrontMatter {
+pub struct FrontMatterEntity {
     pub title: Option<String>,
     pub summary: Option<String>,
     pub tags: Vec<Tag>,
@@ -13,16 +13,16 @@ pub struct FrontMatter {
     pub note_id: Option<String>,
 }
 
-impl FrontMatter {
-    pub fn from_gray_matter(pod: Option<Pod>) -> FrontMatter {
+impl FrontMatterEntity {
+    pub fn from_gray_matter(pod: Option<Pod>) -> FrontMatterEntity {
         match pod {
-            None => FrontMatter::default(),
+            None => FrontMatterEntity::default(),
             Some(p) => {
-                let mut x = FrontMatter::default();
+                let mut x = FrontMatterEntity::default();
                 // Set title
                 let data = p.as_hashmap();
                 if data.is_err() {
-                    return FrontMatter::default();
+                    return FrontMatterEntity::default();
                 }
                 let d = data.unwrap();
                 if d.contains_key("title") {

@@ -3,3 +3,4 @@ pub mod fs;
 pub mod global_actions;
 pub mod initialize;
 pub mod search;
+pub mod utils;

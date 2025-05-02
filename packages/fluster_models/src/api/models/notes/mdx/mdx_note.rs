@@ -1,5 +1,3 @@
-use std::{fs::FileTimes, ptr::null};
-
 use filetime::FileTime;
 use fluster_types::{
     constants::database_constants::{FLUSTER_NAMESPACE, MDX_NOTE_TABLE_NAME, NOTES_DATABASE_NAME},
@@ -15,13 +13,13 @@ use surrealdb::Uuid;
 
 use crate::models::{
     nested_models::fluster_datetime::fluster_time::FlusterTime,
-    notes::front_matter::front_matter_model::FrontMatter, taggable::tag_model::Tag,
+    notes::front_matter::front_matter_model::FrontMatterEntity, taggable::tag_model::Tag,
 };
 
 #[derive(Serialize, Deserialize, Debug, Clone)]
-pub struct MdxNoteRust {
+pub struct MdxNoteEntity {
     pub id: Option<surrealdb::sql::Thing>,
-    pub front_matter: FrontMatter,
+    pub front_matter: FrontMatterEntity,
     /// raw_body is equivalent to the raw file content with the front matter removed.
     pub raw_body: String,
     /// File path relative to the user's root notes directory.
@@ -32,22 +30,21 @@ pub struct MdxNoteRust {
     pub updated_at: Option<FlusterTime>,
     /// Time that the file was last accessed.
     pub accessed_at: Option<FlusterTime>,
-
     /// Tags embedded within the note.
     pub tags: Vec<Tag>,
 }
 
-impl MdxNoteRust {
+impl MdxNoteEntity {
     pub fn from_raw_mdx_string(
         raw_file_content: String,
         file_path: Option<&str>,
-    ) -> Result<MdxNoteRust, parsing_errors::ParsingError> {
+    ) -> Result<MdxNoteEntity, parsing_errors::ParsingError> {
         let matter = Matter::<YAML>::new();
         let result = matter.parse(&raw_file_content);
         let fp = file_path.unwrap_or("Unknown");
         let post_tag_parse = Tag::from_mdx_content(&result.content);
-        Ok(MdxNoteRust {
-            front_matter: FrontMatter::from_gray_matter(result.data),
+        Ok(MdxNoteEntity {
+            front_matter: FrontMatterEntity::from_gray_matter(result.data),
             raw_body: result.content,
             file_path: fp.to_owned(),
             id: None,
@@ -61,7 +58,7 @@ impl MdxNoteRust {
     /// function.
     pub fn from_file_system_path(
         file_path: &str,
-    ) -> Result<MdxNoteRust, parsing_errors::ParsingError> {
+    ) -> Result<MdxNoteEntity, parsing_errors::ParsingError> {
         let raw_file_content = fs::read_to_string(file_path);
         let file_meta = fs::metadata(file_path);
         if file_meta.is_err() {
@@ -70,7 +67,7 @@ impl MdxNoteRust {
             ));
         }
         if let Ok(content) = raw_file_content {
-            let note = MdxNoteRust::from_raw_mdx_string(content, Some(file_path));
+            let note = MdxNoteEntity::from_raw_mdx_string(content, Some(file_path));
             if let Ok(mut note_data) = note {
                 note_data.accessed_at = FlusterTime::from_file_time(Some(
                     FileTime::from_last_access_time(file_meta.as_ref().unwrap()),
@@ -96,14 +93,14 @@ impl MdxNoteRust {
 }
 
 #[allow(clippy::comparison_to_empty)]
-impl FlusterDatabaseEntity<MdxNoteRust> for MdxNoteRust {
+impl FlusterDatabaseEntity<MdxNoteEntity> for MdxNoteEntity {
     async fn save(&self, db: &FlusterDb) -> Option<DatabaseError> {
         let err = db
             .use_ns(FLUSTER_NAMESPACE)
             .use_db(NOTES_DATABASE_NAME)
             .await;
         if err.is_ok() {
-            let res: Result<Option<MdxNoteRust>, surrealdb::Error> = db
+            let res: Result<Option<MdxNoteEntity>, surrealdb::Error> = db
                 .upsert((MDX_NOTE_TABLE_NAME, &self.get_id()))
                 .content(self.to_owned())
                 .await;
@@ -127,8 +124,8 @@ impl FlusterDatabaseEntity<MdxNoteRust> for MdxNoteRust {
         }
     }
 
-    async fn from_id_string(id: &str, db: &FlusterDb) -> Result<MdxNoteRust, DatabaseError> {
-        let item: Result<Option<MdxNoteRust>, surrealdb::Error> =
+    async fn from_id_string(id: &str, db: &FlusterDb) -> Result<MdxNoteEntity, DatabaseError> {
+        let item: Result<Option<MdxNoteEntity>, surrealdb::Error> =
             db.select((MDX_NOTE_TABLE_NAME, id)).await;
         if item.is_err() {
             return Err(DatabaseError::FailToFindById);
@@ -149,9 +146,9 @@ mod tests {
 
     use super::*;
 
-    async fn get_test_note() -> Result<MdxNoteRust, parsing_errors::ParsingError> {
+    async fn get_test_note() -> Result<MdxNoteEntity, parsing_errors::ParsingError> {
         let test_content_path = fluster_test_utils::test_utils::get_test_mdx_path();
-        MdxNoteRust::from_file_system_path(test_content_path.to_str().unwrap())
+        MdxNoteEntity::from_file_system_path(test_content_path.to_str().unwrap())
     }
 
     #[tokio::test]
@@ -194,7 +191,7 @@ mod tests {
             "Mdx note was saved without throwing an error."
         );
         let id = note.get_id();
-        let found_item = MdxNoteRust::from_id_string(&id, db.as_ref().unwrap());
+        let found_item = MdxNoteEntity::from_id_string(&id, db.as_ref().unwrap());
         assert!(
             found_item.await.is_ok(),
             "Mdx note found by id after inserting item successfully"

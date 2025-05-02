@@ -7,13 +7,22 @@ import '../../../frb_generated.dart';
 import 'package:flutter_rust_bridge/flutter_rust_bridge_for_generated.dart';
 
 class SummaryListQuery {
-  const SummaryListQuery();
+  final int mdxPerPage;
+  final int mdxPage;
+
+  const SummaryListQuery({required this.mdxPerPage, required this.mdxPage});
+
+  static Future<SummaryListQuery> default_() => RustLib.instance.api
+      .crateApiGlobalActionsGetSummaryListSummaryListQuerySummaryListQueryDefault();
 
   @override
-  int get hashCode => 0;
+  int get hashCode => mdxPerPage.hashCode ^ mdxPage.hashCode;
 
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is SummaryListQuery && runtimeType == other.runtimeType;
+      other is SummaryListQuery &&
+          runtimeType == other.runtimeType &&
+          mdxPerPage == other.mdxPerPage &&
+          mdxPage == other.mdxPage;
 }

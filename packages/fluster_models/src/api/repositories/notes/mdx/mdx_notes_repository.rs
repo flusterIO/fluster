@@ -1,4 +1,4 @@
-use crate::models::notes::mdx::mdx_note::MdxNoteRust;
+use crate::models::notes::mdx::mdx_note::MdxNoteEntity;
 
 use fluster_types::{
     traits::db_entity_repository::FlusterDbEntityRepository, typedefs::note_type_utils::FlusterDb,
@@ -19,10 +19,10 @@ impl<'a> MdxNotesRepository {
     }
 }
 
-impl FlusterDbEntityRepository<MdxNoteRust> for MdxNotesRepository {
+impl FlusterDbEntityRepository<MdxNoteEntity> for MdxNotesRepository {
     fn save_many(
         &self,
-        items: Vec<MdxNoteRust>,
+        items: Vec<MdxNoteEntity>,
     ) -> Option<fluster_types::errors::database_errors::DatabaseError> {
         todo!()
     }
