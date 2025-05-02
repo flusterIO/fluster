@@ -31,3 +31,4 @@ time = { version = "0.3.41", features = [
 filetime = "0.2.25"
 rayon = "1.10.0"
 typeshare.workspace = true
+tsify = "0.5.5"

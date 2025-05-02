@@ -8,6 +8,12 @@ pub struct FlusterTime {
     pub value: OffsetDateTime,
 }
 
+impl Default for FlusterTime {
+    fn default() -> Self {
+        FlusterTime::now()
+    }
+}
+
 impl FlusterTime {
     pub fn now() -> FlusterTime {
         FlusterTime {
@@ -18,7 +24,7 @@ impl FlusterTime {
     pub fn from_file_time(ft: Option<FileTime>) -> Option<FlusterTime> {
         match ft {
             Some(x) => Some(FlusterTime {
-                value: time::OffsetDateTime::from_unix_timestamp(x.unix_seconds() * 1000).unwrap(),
+                value: time::OffsetDateTime::from_unix_timestamp(x.unix_seconds()).unwrap(),
             }),
             None => None,
         }

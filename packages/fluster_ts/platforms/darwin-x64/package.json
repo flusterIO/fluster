@@ -1,0 +1,41 @@
+{
+  "name": "@flusterio/flusterdarwin-x64",
+  "description": "Prebuilt binary package for `fluster_ts` on `darwin-x64`.",
+  "version": "0.0.1",
+  "os": [
+    "darwin"
+  ],
+  "cpu": [
+    "x64"
+  ],
+  "main": "index.node",
+  "files": [
+    "index.node"
+  ],
+  "neon": {
+    "type": "binary",
+    "rust": "x86_64-apple-darwin",
+    "node": "darwin-x64",
+    "os": "darwin",
+    "arch": "x64",
+    "abi": null
+  },
+  "author": "Andrew Mueller",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/flusterIO/fluster.git"
+  },
+  "keywords": [
+    "academic",
+    "note",
+    "taking",
+    "jupyter",
+    "markdown",
+    "mdx"
+  ],
+  "bugs": {
+    "url": "https://github.com/flusterIO/fluster/issues"
+  },
+  "homepage": "https://github.com/flusterIO/fluster#readme",
+  "license": "ISC"
+}

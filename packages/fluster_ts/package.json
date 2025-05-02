@@ -7,6 +7,7 @@
         "access": "public"
     },
     "dependencies": {
+        "@tsconfig/node20": "^20.1.5",
         "google-protobuf": "^3.21.4",
         "ts-protoc-gen": "^0.15.0"
     },
@@ -27,8 +28,32 @@
     "main": "dist/index.js",
     "module": "dist/index.mjs",
     "scripts": {
-        "build": "tsup",
-        "lint": "tsc --no-emit"
+        "build_rust": "wireit",
+        "build_typescript": "wireit",
+        "lint": "tsc --no-emit",
+        "test": "tsc &&cargo test",
+        "cargo-build": "tsc &&cargo build --message-format=json-render-diagnostics > cargo.log",
+        "cross-build": "tsc &&cross build --message-format=json-render-diagnostics > cross.log",
+        "postcargo-build": "neon dist < cargo.log",
+        "postcross-build": "neon dist -m /target < cross.log",
+        "debug": "npm run cargo-build --",
+        "cross": "npm run cross-build -- --release",
+        "prepack": "tsc &&neon update",
+        "version": "neon bump --binaries platforms && git add .",
+        "release": "gh workflow run release.yml -f dryrun=false -f version=patch",
+        "dryrun": "gh workflow run publish.yml -f dryrun=true"
+    },
+    "wireit": {
+        "build_typescript": {
+            "command": "tsup",
+            "dependencies": [
+                "build_rust"
+            ]
+        },
+        "build_rust": {
+            "command": "npm run cargo-build -- --release",
+            "dependencies": []
+        }
     },
     "type": "module",
     "types": "dist/index.d.ts"

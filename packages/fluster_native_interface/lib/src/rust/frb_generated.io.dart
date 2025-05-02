@@ -19,667 +19,338 @@ import 'dart:ffi' as ffi;
 import 'frb_generated.dart';
 import 'package:flutter_rust_bridge/flutter_rust_bridge_for_generated_io.dart';
 
-abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
-  RustLibApiImplPlatform({
-    required super.handler,
-    required super.wire,
-    required super.generalizedFrbRustBinding,
-    required super.portManager,
-  });
-
-  CrossPlatformFinalizerArg
-  get rust_arc_decrement_strong_count_DatabaseErrorPtr => wire
-      ._rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerDatabaseErrorPtr;
-
-  CrossPlatformFinalizerArg
-  get rust_arc_decrement_strong_count_FileSystemErrorPtr => wire
-      ._rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFileSystemErrorPtr;
-
-  CrossPlatformFinalizerArg
-  get rust_arc_decrement_strong_count_FrontMatterPtr => wire
-      ._rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFrontMatterPtr;
-
-  CrossPlatformFinalizerArg
-  get rust_arc_decrement_strong_count_MdxNoteSummaryPtr => wire
-      ._rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerMdxNoteSummaryPtr;
-
-  CrossPlatformFinalizerArg get rust_arc_decrement_strong_count_ThingPtr => wire
-      ._rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerThingPtr;
-
-  @protected
-  DatabaseError
-  dco_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerDatabaseError(
-    dynamic raw,
-  );
-
-  @protected
-  FileSystemError
-  dco_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFileSystemError(
-    dynamic raw,
-  );
-
-  @protected
-  FrontMatter
-  dco_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFrontMatter(
-    dynamic raw,
-  );
-
-  @protected
-  MdxNoteSummary
-  dco_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerMdxNoteSummary(
-    dynamic raw,
-  );
-
-  @protected
-  Thing
-  dco_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerThing(
-    dynamic raw,
-  );
-
-  @protected
-  MdxNoteSummary
-  dco_decode_Auto_RefMut_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerMdxNoteSummary(
-    dynamic raw,
-  );
-
-  @protected
-  MdxNoteSummary
-  dco_decode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerMdxNoteSummary(
-    dynamic raw,
-  );
-
-  @protected
-  DatabaseError
-  dco_decode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerDatabaseError(
-    dynamic raw,
-  );
-
-  @protected
-  FileSystemError
-  dco_decode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFileSystemError(
-    dynamic raw,
-  );
-
-  @protected
-  FrontMatter
-  dco_decode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFrontMatter(
-    dynamic raw,
-  );
-
-  @protected
-  MdxNoteSummary
-  dco_decode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerMdxNoteSummary(
-    dynamic raw,
-  );
-
-  @protected
-  Thing
-  dco_decode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerThing(
-    dynamic raw,
-  );
-
-  @protected
-  String dco_decode_String(dynamic raw);
-
-  @protected
-  bool dco_decode_bool(dynamic raw);
-
-  @protected
-  FileSystemError
-  dco_decode_box_autoadd_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFileSystemError(
-    dynamic raw,
-  );
-
-  @protected
-  SummaryListQuery dco_decode_box_autoadd_summary_list_query(dynamic raw);
-
-  @protected
-  double dco_decode_f_64(dynamic raw);
-
-  @protected
-  FlusterDatabaseStatus dco_decode_fluster_database_status(dynamic raw);
-
-  @protected
-  int dco_decode_i_32(dynamic raw);
-
-  @protected
-  List<DatabaseError>
-  dco_decode_list_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerDatabaseError(
-    dynamic raw,
-  );
-
-  @protected
-  List<MdxNoteSummary>
-  dco_decode_list_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerMdxNoteSummary(
-    dynamic raw,
-  );
-
-  @protected
-  Uint8List dco_decode_list_prim_u_8_strict(dynamic raw);
-
-  @protected
-  FileSystemError?
-  dco_decode_opt_box_autoadd_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFileSystemError(
-    dynamic raw,
-  );
-
-  @protected
-  List<DatabaseError>?
-  dco_decode_opt_list_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerDatabaseError(
-    dynamic raw,
-  );
-
-  @protected
-  SummaryListQuery dco_decode_summary_list_query(dynamic raw);
-
-  @protected
-  SummaryListResults dco_decode_summary_list_results(dynamic raw);
-
-  @protected
-  int dco_decode_u_8(dynamic raw);
-
-  @protected
-  void dco_decode_unit(dynamic raw);
-
-  @protected
-  BigInt dco_decode_usize(dynamic raw);
-
-  @protected
-  DatabaseError
-  sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerDatabaseError(
-    SseDeserializer deserializer,
-  );
-
-  @protected
-  FileSystemError
-  sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFileSystemError(
-    SseDeserializer deserializer,
-  );
-
-  @protected
-  FrontMatter
-  sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFrontMatter(
-    SseDeserializer deserializer,
-  );
-
-  @protected
-  MdxNoteSummary
-  sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerMdxNoteSummary(
-    SseDeserializer deserializer,
-  );
-
-  @protected
-  Thing
-  sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerThing(
-    SseDeserializer deserializer,
-  );
-
-  @protected
-  MdxNoteSummary
-  sse_decode_Auto_RefMut_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerMdxNoteSummary(
-    SseDeserializer deserializer,
-  );
-
-  @protected
-  MdxNoteSummary
-  sse_decode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerMdxNoteSummary(
-    SseDeserializer deserializer,
-  );
-
-  @protected
-  DatabaseError
-  sse_decode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerDatabaseError(
-    SseDeserializer deserializer,
-  );
-
-  @protected
-  FileSystemError
-  sse_decode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFileSystemError(
-    SseDeserializer deserializer,
-  );
-
-  @protected
-  FrontMatter
-  sse_decode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFrontMatter(
-    SseDeserializer deserializer,
-  );
-
-  @protected
-  MdxNoteSummary
-  sse_decode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerMdxNoteSummary(
-    SseDeserializer deserializer,
-  );
-
-  @protected
-  Thing
-  sse_decode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerThing(
-    SseDeserializer deserializer,
-  );
-
-  @protected
-  String sse_decode_String(SseDeserializer deserializer);
-
-  @protected
-  bool sse_decode_bool(SseDeserializer deserializer);
-
-  @protected
-  FileSystemError
-  sse_decode_box_autoadd_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFileSystemError(
-    SseDeserializer deserializer,
-  );
-
-  @protected
-  SummaryListQuery sse_decode_box_autoadd_summary_list_query(
-    SseDeserializer deserializer,
-  );
-
-  @protected
-  double sse_decode_f_64(SseDeserializer deserializer);
-
-  @protected
-  FlusterDatabaseStatus sse_decode_fluster_database_status(
-    SseDeserializer deserializer,
-  );
-
-  @protected
-  int sse_decode_i_32(SseDeserializer deserializer);
-
-  @protected
-  List<DatabaseError>
-  sse_decode_list_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerDatabaseError(
-    SseDeserializer deserializer,
-  );
-
-  @protected
-  List<MdxNoteSummary>
-  sse_decode_list_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerMdxNoteSummary(
-    SseDeserializer deserializer,
-  );
-
-  @protected
-  Uint8List sse_decode_list_prim_u_8_strict(SseDeserializer deserializer);
-
-  @protected
-  FileSystemError?
-  sse_decode_opt_box_autoadd_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFileSystemError(
-    SseDeserializer deserializer,
-  );
-
-  @protected
-  List<DatabaseError>?
-  sse_decode_opt_list_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerDatabaseError(
-    SseDeserializer deserializer,
-  );
-
-  @protected
-  SummaryListQuery sse_decode_summary_list_query(SseDeserializer deserializer);
-
-  @protected
-  SummaryListResults sse_decode_summary_list_results(
-    SseDeserializer deserializer,
-  );
-
-  @protected
-  int sse_decode_u_8(SseDeserializer deserializer);
-
-  @protected
-  void sse_decode_unit(SseDeserializer deserializer);
-
-  @protected
-  BigInt sse_decode_usize(SseDeserializer deserializer);
-
-  @protected
-  void
-  sse_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerDatabaseError(
-    DatabaseError self,
-    SseSerializer serializer,
-  );
-
-  @protected
-  void
-  sse_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFileSystemError(
-    FileSystemError self,
-    SseSerializer serializer,
-  );
-
-  @protected
-  void
-  sse_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFrontMatter(
-    FrontMatter self,
-    SseSerializer serializer,
-  );
-
-  @protected
-  void
-  sse_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerMdxNoteSummary(
-    MdxNoteSummary self,
-    SseSerializer serializer,
-  );
-
-  @protected
-  void
-  sse_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerThing(
-    Thing self,
-    SseSerializer serializer,
-  );
-
-  @protected
-  void
-  sse_encode_Auto_RefMut_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerMdxNoteSummary(
-    MdxNoteSummary self,
-    SseSerializer serializer,
-  );
-
-  @protected
-  void
-  sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerMdxNoteSummary(
-    MdxNoteSummary self,
-    SseSerializer serializer,
-  );
-
-  @protected
-  void
-  sse_encode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerDatabaseError(
-    DatabaseError self,
-    SseSerializer serializer,
-  );
-
-  @protected
-  void
-  sse_encode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFileSystemError(
-    FileSystemError self,
-    SseSerializer serializer,
-  );
-
-  @protected
-  void
-  sse_encode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFrontMatter(
-    FrontMatter self,
-    SseSerializer serializer,
-  );
-
-  @protected
-  void
-  sse_encode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerMdxNoteSummary(
-    MdxNoteSummary self,
-    SseSerializer serializer,
-  );
-
-  @protected
-  void
-  sse_encode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerThing(
-    Thing self,
-    SseSerializer serializer,
-  );
-
-  @protected
-  void sse_encode_String(String self, SseSerializer serializer);
-
-  @protected
-  void sse_encode_bool(bool self, SseSerializer serializer);
-
-  @protected
-  void
-  sse_encode_box_autoadd_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFileSystemError(
-    FileSystemError self,
-    SseSerializer serializer,
-  );
-
-  @protected
-  void sse_encode_box_autoadd_summary_list_query(
-    SummaryListQuery self,
-    SseSerializer serializer,
-  );
-
-  @protected
-  void sse_encode_f_64(double self, SseSerializer serializer);
-
-  @protected
-  void sse_encode_fluster_database_status(
-    FlusterDatabaseStatus self,
-    SseSerializer serializer,
-  );
-
-  @protected
-  void sse_encode_i_32(int self, SseSerializer serializer);
-
-  @protected
-  void
-  sse_encode_list_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerDatabaseError(
-    List<DatabaseError> self,
-    SseSerializer serializer,
-  );
-
-  @protected
-  void
-  sse_encode_list_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerMdxNoteSummary(
-    List<MdxNoteSummary> self,
-    SseSerializer serializer,
-  );
-
-  @protected
-  void sse_encode_list_prim_u_8_strict(
-    Uint8List self,
-    SseSerializer serializer,
-  );
-
-  @protected
-  void
-  sse_encode_opt_box_autoadd_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFileSystemError(
-    FileSystemError? self,
-    SseSerializer serializer,
-  );
-
-  @protected
-  void
-  sse_encode_opt_list_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerDatabaseError(
-    List<DatabaseError>? self,
-    SseSerializer serializer,
-  );
-
-  @protected
-  void sse_encode_summary_list_query(
-    SummaryListQuery self,
-    SseSerializer serializer,
-  );
-
-  @protected
-  void sse_encode_summary_list_results(
-    SummaryListResults self,
-    SseSerializer serializer,
-  );
-
-  @protected
-  void sse_encode_u_8(int self, SseSerializer serializer);
-
-  @protected
-  void sse_encode_unit(void self, SseSerializer serializer);
-
-  @protected
-  void sse_encode_usize(BigInt self, SseSerializer serializer);
-}
+
+
+
+                abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
+                  RustLibApiImplPlatform({
+                    required super.handler,
+                    required super.wire,
+                    required super.generalizedFrbRustBinding,
+                    required super.portManager,
+                  });
+
+                  CrossPlatformFinalizerArg get rust_arc_decrement_strong_count_DatabaseErrorPtr => wire._rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerDatabaseErrorPtr;
+
+CrossPlatformFinalizerArg get rust_arc_decrement_strong_count_FileSystemErrorPtr => wire._rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFileSystemErrorPtr;
+
+CrossPlatformFinalizerArg get rust_arc_decrement_strong_count_FrontMatterPtr => wire._rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFrontMatterPtr;
+
+CrossPlatformFinalizerArg get rust_arc_decrement_strong_count_MdxNoteSummaryPtr => wire._rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerMdxNoteSummaryPtr;
+
+CrossPlatformFinalizerArg get rust_arc_decrement_strong_count_ThingPtr => wire._rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerThingPtr;
+
+
+
+                  @protected AnyhowException dco_decode_AnyhowException(dynamic raw);
+
+@protected DatabaseError dco_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerDatabaseError(dynamic raw);
+
+@protected FileSystemError dco_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFileSystemError(dynamic raw);
+
+@protected FrontMatter dco_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFrontMatter(dynamic raw);
+
+@protected MdxNoteSummary dco_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerMdxNoteSummary(dynamic raw);
+
+@protected Thing dco_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerThing(dynamic raw);
+
+@protected MdxNoteSummary dco_decode_Auto_RefMut_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerMdxNoteSummary(dynamic raw);
+
+@protected MdxNoteSummary dco_decode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerMdxNoteSummary(dynamic raw);
+
+@protected DatabaseError dco_decode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerDatabaseError(dynamic raw);
+
+@protected FileSystemError dco_decode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFileSystemError(dynamic raw);
+
+@protected FrontMatter dco_decode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFrontMatter(dynamic raw);
+
+@protected MdxNoteSummary dco_decode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerMdxNoteSummary(dynamic raw);
+
+@protected Thing dco_decode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerThing(dynamic raw);
+
+@protected String dco_decode_String(dynamic raw);
+
+@protected bool dco_decode_bool(dynamic raw);
+
+@protected FileSystemError dco_decode_box_autoadd_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFileSystemError(dynamic raw);
+
+@protected SummaryListQuery dco_decode_box_autoadd_summary_list_query(dynamic raw);
+
+@protected double dco_decode_f_64(dynamic raw);
+
+@protected FlusterDatabaseStatus dco_decode_fluster_database_status(dynamic raw);
+
+@protected int dco_decode_i_32(dynamic raw);
+
+@protected List<DatabaseError> dco_decode_list_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerDatabaseError(dynamic raw);
+
+@protected List<MdxNoteSummary> dco_decode_list_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerMdxNoteSummary(dynamic raw);
+
+@protected Uint8List dco_decode_list_prim_u_8_strict(dynamic raw);
+
+@protected FileSystemError? dco_decode_opt_box_autoadd_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFileSystemError(dynamic raw);
+
+@protected List<DatabaseError>? dco_decode_opt_list_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerDatabaseError(dynamic raw);
+
+@protected SummaryListQuery dco_decode_summary_list_query(dynamic raw);
+
+@protected SummaryListResults dco_decode_summary_list_results(dynamic raw);
+
+@protected int dco_decode_u_8(dynamic raw);
+
+@protected void dco_decode_unit(dynamic raw);
+
+@protected BigInt dco_decode_usize(dynamic raw);
+
+@protected AnyhowException sse_decode_AnyhowException(SseDeserializer deserializer);
+
+@protected DatabaseError sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerDatabaseError(SseDeserializer deserializer);
+
+@protected FileSystemError sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFileSystemError(SseDeserializer deserializer);
+
+@protected FrontMatter sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFrontMatter(SseDeserializer deserializer);
+
+@protected MdxNoteSummary sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerMdxNoteSummary(SseDeserializer deserializer);
+
+@protected Thing sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerThing(SseDeserializer deserializer);
+
+@protected MdxNoteSummary sse_decode_Auto_RefMut_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerMdxNoteSummary(SseDeserializer deserializer);
+
+@protected MdxNoteSummary sse_decode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerMdxNoteSummary(SseDeserializer deserializer);
+
+@protected DatabaseError sse_decode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerDatabaseError(SseDeserializer deserializer);
+
+@protected FileSystemError sse_decode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFileSystemError(SseDeserializer deserializer);
+
+@protected FrontMatter sse_decode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFrontMatter(SseDeserializer deserializer);
+
+@protected MdxNoteSummary sse_decode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerMdxNoteSummary(SseDeserializer deserializer);
+
+@protected Thing sse_decode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerThing(SseDeserializer deserializer);
+
+@protected String sse_decode_String(SseDeserializer deserializer);
+
+@protected bool sse_decode_bool(SseDeserializer deserializer);
+
+@protected FileSystemError sse_decode_box_autoadd_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFileSystemError(SseDeserializer deserializer);
+
+@protected SummaryListQuery sse_decode_box_autoadd_summary_list_query(SseDeserializer deserializer);
+
+@protected double sse_decode_f_64(SseDeserializer deserializer);
+
+@protected FlusterDatabaseStatus sse_decode_fluster_database_status(SseDeserializer deserializer);
+
+@protected int sse_decode_i_32(SseDeserializer deserializer);
+
+@protected List<DatabaseError> sse_decode_list_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerDatabaseError(SseDeserializer deserializer);
+
+@protected List<MdxNoteSummary> sse_decode_list_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerMdxNoteSummary(SseDeserializer deserializer);
+
+@protected Uint8List sse_decode_list_prim_u_8_strict(SseDeserializer deserializer);
+
+@protected FileSystemError? sse_decode_opt_box_autoadd_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFileSystemError(SseDeserializer deserializer);
+
+@protected List<DatabaseError>? sse_decode_opt_list_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerDatabaseError(SseDeserializer deserializer);
+
+@protected SummaryListQuery sse_decode_summary_list_query(SseDeserializer deserializer);
+
+@protected SummaryListResults sse_decode_summary_list_results(SseDeserializer deserializer);
+
+@protected int sse_decode_u_8(SseDeserializer deserializer);
+
+@protected void sse_decode_unit(SseDeserializer deserializer);
+
+@protected BigInt sse_decode_usize(SseDeserializer deserializer);
+
+@protected void sse_encode_AnyhowException(AnyhowException self, SseSerializer serializer);
+
+@protected void sse_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerDatabaseError(DatabaseError self, SseSerializer serializer);
+
+@protected void sse_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFileSystemError(FileSystemError self, SseSerializer serializer);
+
+@protected void sse_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFrontMatter(FrontMatter self, SseSerializer serializer);
+
+@protected void sse_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerMdxNoteSummary(MdxNoteSummary self, SseSerializer serializer);
+
+@protected void sse_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerThing(Thing self, SseSerializer serializer);
+
+@protected void sse_encode_Auto_RefMut_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerMdxNoteSummary(MdxNoteSummary self, SseSerializer serializer);
+
+@protected void sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerMdxNoteSummary(MdxNoteSummary self, SseSerializer serializer);
+
+@protected void sse_encode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerDatabaseError(DatabaseError self, SseSerializer serializer);
+
+@protected void sse_encode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFileSystemError(FileSystemError self, SseSerializer serializer);
+
+@protected void sse_encode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFrontMatter(FrontMatter self, SseSerializer serializer);
+
+@protected void sse_encode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerMdxNoteSummary(MdxNoteSummary self, SseSerializer serializer);
+
+@protected void sse_encode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerThing(Thing self, SseSerializer serializer);
+
+@protected void sse_encode_String(String self, SseSerializer serializer);
+
+@protected void sse_encode_bool(bool self, SseSerializer serializer);
+
+@protected void sse_encode_box_autoadd_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFileSystemError(FileSystemError self, SseSerializer serializer);
+
+@protected void sse_encode_box_autoadd_summary_list_query(SummaryListQuery self, SseSerializer serializer);
+
+@protected void sse_encode_f_64(double self, SseSerializer serializer);
+
+@protected void sse_encode_fluster_database_status(FlusterDatabaseStatus self, SseSerializer serializer);
+
+@protected void sse_encode_i_32(int self, SseSerializer serializer);
+
+@protected void sse_encode_list_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerDatabaseError(List<DatabaseError> self, SseSerializer serializer);
+
+@protected void sse_encode_list_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerMdxNoteSummary(List<MdxNoteSummary> self, SseSerializer serializer);
+
+@protected void sse_encode_list_prim_u_8_strict(Uint8List self, SseSerializer serializer);
+
+@protected void sse_encode_opt_box_autoadd_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFileSystemError(FileSystemError? self, SseSerializer serializer);
+
+@protected void sse_encode_opt_list_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerDatabaseError(List<DatabaseError>? self, SseSerializer serializer);
+
+@protected void sse_encode_summary_list_query(SummaryListQuery self, SseSerializer serializer);
+
+@protected void sse_encode_summary_list_results(SummaryListResults self, SseSerializer serializer);
+
+@protected void sse_encode_u_8(int self, SseSerializer serializer);
+
+@protected void sse_encode_unit(void self, SseSerializer serializer);
+
+@protected void sse_encode_usize(BigInt self, SseSerializer serializer);
+                }
+                
+
 
 // Section: wire_class
 
-class RustLibWire implements BaseWire {
-  factory RustLibWire.fromExternalLibrary(ExternalLibrary lib) =>
-      RustLibWire(lib.ffiDynamicLibrary);
 
-  /// Holds the symbol lookup function.
-  final ffi.Pointer<T> Function<T extends ffi.NativeType>(String symbolName)
-  _lookup;
+        class RustLibWire implements BaseWire {
 
-  /// The symbols are looked up in [dynamicLibrary].
-  RustLibWire(ffi.DynamicLibrary dynamicLibrary)
-    : _lookup = dynamicLibrary.lookup;
+            factory RustLibWire.fromExternalLibrary(ExternalLibrary lib) =>
+              RustLibWire(lib.ffiDynamicLibrary);
+        
+            /// Holds the symbol lookup function.
+            final ffi.Pointer<T> Function<T extends ffi.NativeType>(String symbolName)
+                _lookup;
+  
+            /// The symbols are looked up in [dynamicLibrary].
+            RustLibWire(ffi.DynamicLibrary dynamicLibrary)
+                : _lookup = dynamicLibrary.lookup;
 
-  void
-  rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerDatabaseError(
-    ffi.Pointer<ffi.Void> ptr,
-  ) {
-    return _rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerDatabaseError(
-      ptr,
-    );
-  }
+            
+            void rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerDatabaseError(
+              ffi.Pointer<ffi.Void> ptr,
+            ) {
+              return _rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerDatabaseError(
+                ptr,
+              );
+            }
 
-  late final _rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerDatabaseErrorPtr =
-      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Void>)>>(
-        'frbgen_fluster_native_interface_rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerDatabaseError',
-      );
-  late final _rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerDatabaseError =
-      _rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerDatabaseErrorPtr
-          .asFunction<void Function(ffi.Pointer<ffi.Void>)>();
+            late final _rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerDatabaseErrorPtr = _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Void>)>>('frbgen_fluster_native_interface_rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerDatabaseError');
+            late final _rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerDatabaseError = _rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerDatabaseErrorPtr.asFunction<void Function(ffi.Pointer<ffi.Void>)>();
+            
+            void rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerDatabaseError(
+              ffi.Pointer<ffi.Void> ptr,
+            ) {
+              return _rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerDatabaseError(
+                ptr,
+              );
+            }
 
-  void
-  rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerDatabaseError(
-    ffi.Pointer<ffi.Void> ptr,
-  ) {
-    return _rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerDatabaseError(
-      ptr,
-    );
-  }
+            late final _rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerDatabaseErrorPtr = _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Void>)>>('frbgen_fluster_native_interface_rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerDatabaseError');
+            late final _rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerDatabaseError = _rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerDatabaseErrorPtr.asFunction<void Function(ffi.Pointer<ffi.Void>)>();
+            
+            void rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFileSystemError(
+              ffi.Pointer<ffi.Void> ptr,
+            ) {
+              return _rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFileSystemError(
+                ptr,
+              );
+            }
 
-  late final _rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerDatabaseErrorPtr =
-      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Void>)>>(
-        'frbgen_fluster_native_interface_rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerDatabaseError',
-      );
-  late final _rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerDatabaseError =
-      _rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerDatabaseErrorPtr
-          .asFunction<void Function(ffi.Pointer<ffi.Void>)>();
+            late final _rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFileSystemErrorPtr = _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Void>)>>('frbgen_fluster_native_interface_rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFileSystemError');
+            late final _rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFileSystemError = _rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFileSystemErrorPtr.asFunction<void Function(ffi.Pointer<ffi.Void>)>();
+            
+            void rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFileSystemError(
+              ffi.Pointer<ffi.Void> ptr,
+            ) {
+              return _rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFileSystemError(
+                ptr,
+              );
+            }
 
-  void
-  rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFileSystemError(
-    ffi.Pointer<ffi.Void> ptr,
-  ) {
-    return _rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFileSystemError(
-      ptr,
-    );
-  }
+            late final _rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFileSystemErrorPtr = _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Void>)>>('frbgen_fluster_native_interface_rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFileSystemError');
+            late final _rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFileSystemError = _rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFileSystemErrorPtr.asFunction<void Function(ffi.Pointer<ffi.Void>)>();
+            
+            void rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFrontMatter(
+              ffi.Pointer<ffi.Void> ptr,
+            ) {
+              return _rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFrontMatter(
+                ptr,
+              );
+            }
 
-  late final _rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFileSystemErrorPtr =
-      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Void>)>>(
-        'frbgen_fluster_native_interface_rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFileSystemError',
-      );
-  late final _rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFileSystemError =
-      _rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFileSystemErrorPtr
-          .asFunction<void Function(ffi.Pointer<ffi.Void>)>();
+            late final _rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFrontMatterPtr = _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Void>)>>('frbgen_fluster_native_interface_rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFrontMatter');
+            late final _rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFrontMatter = _rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFrontMatterPtr.asFunction<void Function(ffi.Pointer<ffi.Void>)>();
+            
+            void rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFrontMatter(
+              ffi.Pointer<ffi.Void> ptr,
+            ) {
+              return _rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFrontMatter(
+                ptr,
+              );
+            }
 
-  void
-  rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFileSystemError(
-    ffi.Pointer<ffi.Void> ptr,
-  ) {
-    return _rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFileSystemError(
-      ptr,
-    );
-  }
+            late final _rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFrontMatterPtr = _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Void>)>>('frbgen_fluster_native_interface_rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFrontMatter');
+            late final _rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFrontMatter = _rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFrontMatterPtr.asFunction<void Function(ffi.Pointer<ffi.Void>)>();
+            
+            void rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerMdxNoteSummary(
+              ffi.Pointer<ffi.Void> ptr,
+            ) {
+              return _rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerMdxNoteSummary(
+                ptr,
+              );
+            }
 
-  late final _rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFileSystemErrorPtr =
-      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Void>)>>(
-        'frbgen_fluster_native_interface_rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFileSystemError',
-      );
-  late final _rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFileSystemError =
-      _rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFileSystemErrorPtr
-          .asFunction<void Function(ffi.Pointer<ffi.Void>)>();
+            late final _rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerMdxNoteSummaryPtr = _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Void>)>>('frbgen_fluster_native_interface_rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerMdxNoteSummary');
+            late final _rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerMdxNoteSummary = _rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerMdxNoteSummaryPtr.asFunction<void Function(ffi.Pointer<ffi.Void>)>();
+            
+            void rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerMdxNoteSummary(
+              ffi.Pointer<ffi.Void> ptr,
+            ) {
+              return _rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerMdxNoteSummary(
+                ptr,
+              );
+            }
 
-  void
-  rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFrontMatter(
-    ffi.Pointer<ffi.Void> ptr,
-  ) {
-    return _rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFrontMatter(
-      ptr,
-    );
-  }
+            late final _rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerMdxNoteSummaryPtr = _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Void>)>>('frbgen_fluster_native_interface_rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerMdxNoteSummary');
+            late final _rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerMdxNoteSummary = _rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerMdxNoteSummaryPtr.asFunction<void Function(ffi.Pointer<ffi.Void>)>();
+            
+            void rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerThing(
+              ffi.Pointer<ffi.Void> ptr,
+            ) {
+              return _rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerThing(
+                ptr,
+              );
+            }
 
-  late final _rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFrontMatterPtr =
-      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Void>)>>(
-        'frbgen_fluster_native_interface_rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFrontMatter',
-      );
-  late final _rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFrontMatter =
-      _rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFrontMatterPtr
-          .asFunction<void Function(ffi.Pointer<ffi.Void>)>();
+            late final _rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerThingPtr = _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Void>)>>('frbgen_fluster_native_interface_rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerThing');
+            late final _rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerThing = _rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerThingPtr.asFunction<void Function(ffi.Pointer<ffi.Void>)>();
+            
+            void rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerThing(
+              ffi.Pointer<ffi.Void> ptr,
+            ) {
+              return _rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerThing(
+                ptr,
+              );
+            }
 
-  void
-  rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFrontMatter(
-    ffi.Pointer<ffi.Void> ptr,
-  ) {
-    return _rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFrontMatter(
-      ptr,
-    );
-  }
-
-  late final _rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFrontMatterPtr =
-      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Void>)>>(
-        'frbgen_fluster_native_interface_rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFrontMatter',
-      );
-  late final _rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFrontMatter =
-      _rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFrontMatterPtr
-          .asFunction<void Function(ffi.Pointer<ffi.Void>)>();
-
-  void
-  rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerMdxNoteSummary(
-    ffi.Pointer<ffi.Void> ptr,
-  ) {
-    return _rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerMdxNoteSummary(
-      ptr,
-    );
-  }
-
-  late final _rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerMdxNoteSummaryPtr =
-      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Void>)>>(
-        'frbgen_fluster_native_interface_rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerMdxNoteSummary',
-      );
-  late final _rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerMdxNoteSummary =
-      _rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerMdxNoteSummaryPtr
-          .asFunction<void Function(ffi.Pointer<ffi.Void>)>();
-
-  void
-  rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerMdxNoteSummary(
-    ffi.Pointer<ffi.Void> ptr,
-  ) {
-    return _rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerMdxNoteSummary(
-      ptr,
-    );
-  }
-
-  late final _rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerMdxNoteSummaryPtr =
-      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Void>)>>(
-        'frbgen_fluster_native_interface_rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerMdxNoteSummary',
-      );
-  late final _rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerMdxNoteSummary =
-      _rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerMdxNoteSummaryPtr
-          .asFunction<void Function(ffi.Pointer<ffi.Void>)>();
-
-  void
-  rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerThing(
-    ffi.Pointer<ffi.Void> ptr,
-  ) {
-    return _rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerThing(
-      ptr,
-    );
-  }
-
-  late final _rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerThingPtr =
-      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Void>)>>(
-        'frbgen_fluster_native_interface_rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerThing',
-      );
-  late final _rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerThing =
-      _rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerThingPtr
-          .asFunction<void Function(ffi.Pointer<ffi.Void>)>();
-
-  void
-  rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerThing(
-    ffi.Pointer<ffi.Void> ptr,
-  ) {
-    return _rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerThing(
-      ptr,
-    );
-  }
-
-  late final _rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerThingPtr =
-      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Void>)>>(
-        'frbgen_fluster_native_interface_rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerThing',
-      );
-  late final _rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerThing =
-      _rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerThingPtr
-          .asFunction<void Function(ffi.Pointer<ffi.Void>)>();
-}
+            late final _rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerThingPtr = _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Void>)>>('frbgen_fluster_native_interface_rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerThing');
+            late final _rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerThing = _rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerThingPtr.asFunction<void Function(ffi.Pointer<ffi.Void>)>();
+            
+        }
+        

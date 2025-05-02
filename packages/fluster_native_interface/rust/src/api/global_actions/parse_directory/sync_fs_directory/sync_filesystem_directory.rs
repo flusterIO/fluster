@@ -65,18 +65,11 @@ mod tests {
     use super::*;
 
     #[tokio::test]
-    async fn locates_files() {
-        let f = sync_directory("/Users/bigsexy/Desktop/notes/content/".to_owned()).await;
-        assert!(true == true, "True does indeed equal true.");
-        // assert_eq!(result, 4);
-    }
-
-    #[tokio::test]
     async fn sync_returns_no_errors() {
         let f = sync_directory("/Users/bigsexy/Desktop/notes/content/".to_owned()).await;
         assert!(
             f.is_none_or(|x| x.is_empty()),
-            "True does indeed equal true."
+            "Is not none or empty."
         );
         // assert_eq!(result, 4);
     }

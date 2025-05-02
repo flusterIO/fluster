@@ -19,10 +19,10 @@ build_protos:
 build_rust:
 	trash ${FLUSTER_NATIVE_ROOT}/packages/fluster_native_interface/lib/src/rust/**
 	cd ${FLUSTER_NATIVE_ROOT}/packages/fluster_native_interface; flutter_rust_bridge_codegen generate
+test_rust:
+	cargo llvm-cov nextest --html
 test_flutter:
 	cd ${FLUSTER_NATIVE_ROOT}/apps/fluster; flutter test ${FLUSTER_NATIVE_ROOT}/apps/fluster --coverage --no-pub --coverage-path $FLUSTER_NATIVE_ROOT/apps/fluster/.coverage/lcov.info && flutter pub global run test_cov_console --file=$FLUSTER_NATIVE_ROOT/apps/fluster/.coverage/lcov.info
-test_rust:
-	cargo llvm-cov --html
 build_go:
 	cd ${FLUSTER_NATIVE_ROOT}/packages/fluster_go/; go build
 	cd ${FLUSTER_NATIVE_ROOT}/packages/fluster_internal_workspace/; go build
@@ -42,7 +42,7 @@ cross_language_pre_build: run_builders
 	zsh ${FLUSTER_NATIVE_ROOT}/packages/fluster_ts/scripts/pre_build.zsh
 build_workspace_tools:
 	cd ${FLUSTER_NATIVE_ROOT}/packages/fluster_internal_workspace; go build
-generate_docs:
+generate_docs: generate_icons
 	cargo doc --workspace --no-deps
 generate_docs_with_dependencies:
 	cargo doc --workspace

@@ -8,6 +8,9 @@ importers:
 
   packages/fluster_ts:
     dependencies:
+      '@tsconfig/node20':
+        specifier: ^20.1.5
+        version: 20.1.5
       google-protobuf:
         specifier: ^3.21.4
         version: 3.21.4
@@ -28,7 +31,7 @@ importers:
         specifier: ^9.1.7
         version: 9.1.7
       shiki:
-        specifier: ^3.3.0
+        specifier: 3.3.0
         version: 3.3.0
       syncpack:
         specifier: ^13.0.3
@@ -377,6 +380,9 @@ packages:
 
   '@standard-schema/spec@1.0.0':
     resolution: {integrity: sha512-m2bOd0f2RT9k8QJx1JN85cZYyH1RqFBdlwtkSlf4tBDYLCiiZnv1fIIwacK6cqwXavOydf0NPToMQgpKq+dVlA==}
+
+  '@tsconfig/node20@20.1.5':
+    resolution: {integrity: sha512-Vm8e3WxDTqMGPU4GATF9keQAIy1Drd7bPwlgzKJnZtoOsTm1tduUTbDjg0W5qERvGuxPI2h9RbMufH0YdfBylA==}
 
   '@types/estree@1.0.7':
     resolution: {integrity: sha512-w28IoSUCJpidD/TGviZwwMJckNESJZXFu7NBZ5YJ4mEUnNraUn9Pm8HSZm/jDF1pDWYKspWE7oVphigUPRakIQ==}
@@ -1403,6 +1409,8 @@ snapshots:
   '@sindresorhus/merge-streams@2.3.0': {}
 
   '@standard-schema/spec@1.0.0': {}
+
+  '@tsconfig/node20@20.1.5': {}
 
   '@types/estree@1.0.7': {}
 

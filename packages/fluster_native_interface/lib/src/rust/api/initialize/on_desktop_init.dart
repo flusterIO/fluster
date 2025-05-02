@@ -6,5 +6,10 @@
 import '../../frb_generated.dart';
 import 'package:flutter_rust_bridge/flutter_rust_bridge_for_generated.dart';
 
-Future<void> onDesktopInit() =>
-    RustLib.instance.api.crateApiInitializeOnDesktopInitOnDesktopInit();
+
+            
+
+            Future<void>  onDesktopInit() => RustLib.instance.api.crateApiInitializeOnDesktopInitOnDesktopInit();
+
+            
+            

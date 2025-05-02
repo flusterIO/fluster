@@ -7,18 +7,31 @@ import '../../../frb_generated.dart';
 import 'package:flutter_rust_bridge/flutter_rust_bridge_for_generated.dart';
 import 'summary_types/mdx_note_summary.dart';
 
-class SummaryListResults {
-  final List<MdxNoteSummary> mdxNotes;
 
-  const SummaryListResults({required this.mdxNotes});
+            
 
-  @override
-  int get hashCode => mdxNotes.hashCode;
+            
 
-  @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      other is SummaryListResults &&
-          runtimeType == other.runtimeType &&
-          mdxNotes == other.mdxNotes;
-}
+            class SummaryListResults  {
+                final List<MdxNoteSummary> mdxNotes;
+
+                const SummaryListResults({required this.mdxNotes ,});
+
+                
+                
+
+                
+        @override
+        int get hashCode => mdxNotes.hashCode;
+        
+
+                
+        @override
+        bool operator ==(Object other) =>
+            identical(this, other) ||
+            other is SummaryListResults &&
+                runtimeType == other.runtimeType
+                && mdxNotes == other.mdxNotes;
+        
+            }
+            

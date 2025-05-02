@@ -18,3 +18,7 @@ clear
 help
 h
 $notes;
+LET $notes = SELECT front_matter, id from mdx_notes;\n    LET $summary_notes = $notes.map(|$mdx_note| {\n    {\n       id:  $mdx_note["id"],\n       front_matter: $mdx_note["front_matter"],\n    }\n    });\n    RETURN {\n    mdx_notes: $summary_notes\n    };
+LET $notes = SELECT front_matter, id from mdx_notes;\n    RETURN {\n    mdx_notes: $notes\n    };
+LET $notes = (SELECT front_matter, id from mdx_notes);\n    RETURN {\n    mdx_notes: $notes\n    };
+select front_matter, id from mdx_notes;

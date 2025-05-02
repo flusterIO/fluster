@@ -1,3 +1,4 @@
+use anyhow::Ok;
 use fluster_db::api::db::get_database;
 pub use fluster_models::models::notes::front_matter::front_matter_model::FrontMatter;
 use fluster_types::constants::database_constants::{FLUSTER_NAMESPACE, NOTES_DATABASE_NAME};
@@ -10,67 +11,34 @@ use super::{summary_list_query::SummaryListQuery, summary_list_result::SummaryLi
 
 pub async fn get_summary_list(
     query: SummaryListQuery,
-) -> Result<SummaryListResults, DatabaseError> {
+) -> Result<SummaryListResults, anyhow::Error> {
     let notes_sql = r#"
-LET $notes = SELECT front_matter, id from mdx_notes;
-    LET $summary_notes = $notes.map(|$mdx_note| {
+LET $notes = (SELECT front_matter, id from mdx_notes);
+LET $summary_notes = $notes.map(|$mdx_note| {
     {
        id:  $mdx_note["id"],
        front_matter: $mdx_note["front_matter"],
     }
-    }
-    RETURN {
-    mdx_notes: $summary_notes
     });
-        "#;
-    let db = get_database().await;
-    if db.is_err() {
-        return Err(DatabaseError::FailToConnect);
-    }
+RETURN {
+    mdx_notes: $summary_notes,
+};"#;
+    let db = get_database().await?;
     let results = SummaryListResults::default();
-    let db_err = db
-        .as_ref()
-        .unwrap()
-        .use_ns(FLUSTER_NAMESPACE)
+
+    // if db.is_err() {
+    //     return Err(surrealdb::Error::Api(Error));
+    //     // return Err(DatabaseError::FailToConnect);
+    // }
+    db.use_ns(FLUSTER_NAMESPACE)
         .use_db(NOTES_DATABASE_NAME)
-        .await;
-    if db_err.is_err() {
-        return Err(DatabaseError::FailToFind);
+        .await?;
+    let mut result = db.query(notes_sql).await?;
+    let parsed_results: Vec<SummaryListResults> = result.take(2)?;
+    if !&parsed_results.is_empty() {
+        return Ok(parsed_results[0]);
     }
-    let result: Result<surrealdb::Response, surrealdb::Error> =
-        db.as_ref().unwrap().query(notes_sql).await;
-    if result.is_err() {
-        return Err(DatabaseError::FailToFind);
-    } else {
-        let mut res_items = result.unwrap();
-        println!("res_items: {:?}", res_items);
-        let data: Result<Option<SummaryListResults>, surrealdb::Error> = res_items.take(0);
-        println!("Data: {:?}", data);
-        if data.is_ok() {
-            dbg!(&data);
-            if let Some(parsed_data) = data.as_ref().unwrap() {
-                println!("Parsed!!!")
-                // results = *parsed_data;
-            }
-        }
-        // if let Ok(notes) = res_items.take::<Vec<MdxNoteSummary>>(20) {
-        //     println!("Notes: {:?}", notes);
-        //     results.mdx_notes = notes;
-        // }
-        // if let Ok(mut items) = res_items.check() {
-        //     // FIXME: Add pagination here. The take param works as an index *from* when specified
-        //     let mdx_note_summaries: surrealdb::Result<Vec<MdxNoteSummary>> = items.take(5);
-        //     println!("Notes: {:?}", &mdx_note_summaries);
-        //     if mdx_note_summaries.is_ok() {
-        //         results.mdx_notes = mdx_note_summaries.unwrap();
-        //     } else {
-        //         dbg!("Error: {:?}", mdx_note_summaries);
-        //         return Err(DatabaseError::FailToFind);
-        //     }
-        // } else {
-        //     return Err(DatabaseError::FailToFind);
-        // }
-    }
+
     Ok(results)
 }
 

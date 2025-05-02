@@ -1,8 +1,13 @@
 {
+    "extends": "@tsconfig/node20/tsconfig.json",
     "compilerOptions": {
         "target": "ES2022",
         "module": "NodeNext",
         "moduleResolution": "nodenext",
-        "esModuleInterop": true
-    }
+        "esModuleInterop": true,
+        "outDir": "lib"
+    },
+    "exclude": [
+        "lib"
+    ]
 }
