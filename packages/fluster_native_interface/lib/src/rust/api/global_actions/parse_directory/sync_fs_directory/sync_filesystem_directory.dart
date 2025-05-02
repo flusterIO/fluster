@@ -6,17 +6,12 @@
 import '../../../../frb_generated.dart';
 import 'package:flutter_rust_bridge/flutter_rust_bridge_for_generated.dart';
 
+Future<List<DatabaseError>?> syncDirectory({required String dirName}) => RustLib
+    .instance
+    .api
+    .crateApiGlobalActionsParseDirectorySyncFsDirectorySyncFilesystemDirectorySyncDirectory(
+      dirName: dirName,
+    );
 
-            
-
-            Future<List<DatabaseError>?>  syncDirectory({required String dirName }) => RustLib.instance.api.crateApiGlobalActionsParseDirectorySyncFsDirectorySyncFilesystemDirectorySyncDirectory(dirName: dirName);
-
-            
-                // Rust type: RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<DatabaseError>>
-                abstract class DatabaseError implements RustOpaqueInterface {
-                    
-
-                    
-                }
-                
-            
+// Rust type: RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<DatabaseError>>
+abstract class DatabaseError implements RustOpaqueInterface {}

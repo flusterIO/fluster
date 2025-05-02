@@ -36,7 +36,8 @@ RETURN {
     let mut result = db.query(notes_sql).await?;
     let parsed_results: Vec<SummaryListResults> = result.take(2)?;
     if !&parsed_results.is_empty() {
-        return Ok(parsed_results[0]);
+        let item = parsed_results.first().unwrap();
+        return Ok(item.to_owned());
     }
 
     Ok(results)
