@@ -148,3 +148,9 @@ app.*.map.json
 /target
 **/node_modules
 codecov.*
+docs/internal
+packages/fluster_embedded_typescript/examples/**
+packages/fluster_embedded_typescript/documents/**
+packages/fluster_embedded_typescript/apps/**
+packages/fluster_embedded_typescript/packages/**
+**/.wireit/

@@ -8,8 +8,8 @@ import 'package:flutter_rust_bridge/flutter_rust_bridge_for_generated.dart';
 
 // These functions are ignored because they are not marked as `pub`: `make_dir_or_fail_to_create`
 
-Future<FileSystemError?> setupFileSystemForData() =>
+Future<FlusterError?> setupFileSystemForData() =>
     RustLib.instance.api.crateApiFsFsSetupSetupFileSystemForData();
 
-// Rust type: RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<FileSystemError>>
-abstract class FileSystemError implements RustOpaqueInterface {}
+// Rust type: RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<FlusterError>>
+abstract class FlusterError implements RustOpaqueInterface {}

@@ -1,0 +1,194 @@
+---
+title: Manual Installation
+description: Add Fumadocs to existing projects.
+---
+
+Before continuing, make sure:
+
+- Next.js 15 and Tailwind CSS 4 are configured.
+
+## Getting Started
+
+```package-install
+fumadocs-ui fumadocs-core
+```
+
+### 1. MDX Components
+
+<include cwd meta='title="mdx-components.tsx"'>
+  ../../examples/next-mdx/mdx-components.tsx
+</include>
+
+### 2. Content Source
+
+Fumadocs supports different content sources, including Fumadocs MDX and [Content Collections](/docs/headless/content-collections).
+
+Fumadocs MDX is our official content source, you can configure it with:
+
+```package-install
+fumadocs-mdx @types/mdx
+```
+
+```js title="next.config.mjs"
+import { createMDX } from 'fumadocs-mdx/next';
+
+const withMDX = createMDX();
+
+/** @type {import('next').NextConfig} */
+const config = {
+  reactStrictMode: true,
+};
+
+export default withMDX(config);
+```
+
+```ts title="source.config.ts"
+import { defineDocs } from 'fumadocs-mdx/config';
+
+export const docs = defineDocs({
+  dir: 'content/docs',
+});
+```
+
+Add a `postinstall` script to generate types:
+
+```json title="package.json"
+{
+  "scripts": {
+    "postinstall": "fumadocs-mdx"
+  }
+}
+```
+
+Finally, to access your content:
+
+```ts title="lib/source.ts"
+// .source folder will be generated when you run `next dev`
+import { docs } from '@/.source';
+import { loader } from 'fumadocs-core/source';
+
+export const source = loader({
+  baseUrl: '/docs',
+  source: docs.toFumadocsSource(),
+});
+```
+
+### 3. Root Layout
+
+Wrap the entire application inside [Root Provider](/docs/ui/layouts/root-provider), and add required styles to `body`.
+
+```tsx
+import { RootProvider } from 'fumadocs-ui/provider';
+import type { ReactNode } from 'react';
+
+export default function Layout({ children }: { children: ReactNode }) {
+  return (
+    <html lang="en" suppressHydrationWarning>
+      <body
+        // you can use Tailwind CSS too
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          minHeight: '100vh',
+        }}
+      >
+        <RootProvider>{children}</RootProvider>
+      </body>
+    </html>
+  );
+}
+```
+
+### 4. Styles
+
+Add the following to `global.css`.
+
+```css title="Tailwind CSS"
+@import 'tailwindcss';
+@import 'fumadocs-ui/css/neutral.css';
+@import 'fumadocs-ui/css/preset.css';
+```
+
+> It doesn't come with a default font, you may choose one from `next/font`.
+
+### 5. Layout
+
+Create a `app/layout.config.tsx` file to put the shared options for our layouts.
+
+```json doc-gen:file
+{
+  "file": "../../examples/next-mdx/app/layout.config.tsx",
+  "codeblock": {
+    "meta": "title=\"app/layout.config.tsx\""
+  }
+}
+```
+
+Create a folder `/app/docs` for our docs, and give it a proper layout.
+
+```json doc-gen:file
+{
+  "file": "../../examples/next-mdx/app/docs/layout.tsx",
+  "codeblock": {
+    "meta": "title=\"app/docs/layout.tsx\""
+  }
+}
+```
+
+> `pageTree` refers to Page Tree, it should be provided by your content source.
+
+### 6. Page
+
+Create a catch-all route `/app/docs/[[...slug]]` for docs pages.
+
+In the page, wrap your content in the [Page](/docs/ui/layouts/page) component.
+
+<Tabs groupId='content-source' items={['Fumadocs MDX', 'Content Collections']}>
+
+    <include cwd meta='title="app/docs/[[...slug]]/page.tsx" tab="Fumadocs MDX"'>../../examples/next-mdx/app/docs/[[...slug]]/page.tsx</include>
+
+    <include cwd meta='title="app/docs/[[...slug]]/page.tsx" tab="Content Collections"'>../../examples/content-collections/app/docs/[[...slug]]/page.tsx</include>
+
+</Tabs>
+
+### 7. Search
+
+Use the default document search based on Orama.
+
+<include cwd meta='title="app/api/search/route.ts"'>
+  ../../examples/next-mdx/app/api/search/route.ts
+</include>
+
+Learn more about [Document Search](/docs/headless/search).
+
+### 8. Done
+
+You can start the dev server and create MDX files.
+
+```mdx title="content/docs/index.mdx"
+---
+title: Hello World
+---
+
+## Introduction
+
+I love Anime.
+```
+
+## Deploying
+
+It should work out-of-the-box with Vercel & Netlify.
+
+### Docker Deployment
+
+If you want to deploy your Fumadocs app using Docker with **Fumadocs MDX configured**, make sure to add the `source.config.ts` file to the `WORKDIR` in the Dockerfile.
+The following snippet is taken from the official [Next.js Dockerfile Example](https://github.com/vercel/next.js/blob/canary/examples/with-docker/Dockerfile):
+
+```zsh title="Dockerfile"
+WORKDIR /app
+
+# Install dependencies based on the preferred package manager
+COPY package.json yarn.lock* package-lock.json* pnpm-lock.yaml* .npmrc* source.config.ts ./
+```
+
+This ensures Fumadocs MDX can access your configuration file during builds.

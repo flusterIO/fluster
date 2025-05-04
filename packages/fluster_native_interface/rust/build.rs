@@ -9,9 +9,16 @@ fn main() -> Result<(), ()> {
     if r.is_err() {
         println!("Cannot continue with build without the FLUSTER_NATIVE_ROOT env variable.");
     }
+
     let root_path = path::Path::new(&r.unwrap())
         .join("packages")
         .join("fluster_native_interface");
+
+    // Transpiles typescript before building.
+    let c = std::process::Command::new("tsup")
+        .current_dir(root_path.join("embedded_typescript"))
+        .output();
+
     // Uncomment the line below, if you only want to generate bindings on api directory change.
     //
     // NOTE: This accelerates the build process, but you will need to manually trigger binding

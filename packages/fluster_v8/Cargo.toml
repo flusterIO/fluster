@@ -1,0 +1,10 @@
+[package]
+name = "fluster_v8"
+version.workspace = true
+authors.workspace = true
+description.workspace = true
+documentation.workspace = true
+edition.workspace = true
+
+[dependencies]
+v8 = "136.0.0"

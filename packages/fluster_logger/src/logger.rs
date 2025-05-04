@@ -27,6 +27,7 @@ const ARCHIVE_PATTERN: &str = "/tmp/archive/fluster.{}.log";
 
 use std::{path::PathBuf, time::Duration};
 
+use fluster_types::errors::errors::FlusterError;
 use log::LevelFilter;
 use log4rs::{
     append::{
@@ -41,8 +42,7 @@ use log4rs::{
     Handle,
 };
 
-fn get_output_root() -> Result<PathBuf, fluster_types::errors::file_system_errors::FileSystemError>
-{
+fn get_output_root() -> Result<PathBuf, FlusterError> {
     // let output_root = dirs::data_dir().unwrap_or(dirs::data_local_dir().unwrap_or(dirs::config_dir()));
     let mut d = dirs::data_dir();
     if d.is_some() {
@@ -56,13 +56,13 @@ fn get_output_root() -> Result<PathBuf, fluster_types::errors::file_system_error
             if d.is_some() {
                 Ok(d.unwrap())
             } else {
-                Err(fluster_types::errors::file_system_errors::FileSystemError::DataDirNotFound())
+                Err(FlusterError::DataDirNotFound())
             }
         }
     }
 }
 
-pub fn get_logger() -> Result<Handle, fluster_types::errors::file_system_errors::FileSystemError> {
+pub fn get_logger() -> Result<Handle, FlusterError> {
     let output_root = get_output_root()?;
     let level = log::LevelFilter::Info;
 
@@ -107,7 +107,7 @@ pub fn get_logger() -> Result<Handle, fluster_types::errors::file_system_errors:
     // once you are done.
     let _handle = log4rs::init_config(config);
     if (_handle.is_err()) {
-        return Err(fluster_types::errors::file_system_errors::FileSystemError::DataDirNotFound());
+        return Err(FlusterError::DataDirNotFound());
     }
 
     Ok(_handle.unwrap())

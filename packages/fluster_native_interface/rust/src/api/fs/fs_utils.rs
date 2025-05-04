@@ -1,4 +1,4 @@
-pub use fluster_types::errors::file_system_errors::FileSystemError;
+use fluster_types::errors::errors::FlusterError;
 
 #[flutter_rust_bridge::frb(sync)]
 pub fn path_exists(file_path: &str) -> bool {
@@ -6,7 +6,7 @@ pub fn path_exists(file_path: &str) -> bool {
 }
 
 #[flutter_rust_bridge::frb(sync)]
-pub fn get_app_config_dir() -> Result<String, FileSystemError> {
+pub fn get_app_config_dir() -> Result<String, FlusterError> {
     let dir = dirs::config_dir().or(dirs::config_local_dir());
     if (dir.is_some()) {
         return Ok(dir.unwrap().join("fluster").to_str().unwrap().to_owned());
@@ -15,7 +15,7 @@ pub fn get_app_config_dir() -> Result<String, FileSystemError> {
 }
 
 #[flutter_rust_bridge::frb(sync)]
-pub fn get_app_data_dir() -> Result<String, FileSystemError> {
+pub fn get_app_data_dir() -> Result<String, FlusterError> {
     let dir = dirs::data_dir().or(dirs::data_local_dir());
     if (dir.is_some()) {
         return Ok(dir.unwrap().join("fluster").to_str().unwrap().to_owned());

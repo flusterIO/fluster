@@ -1,4 +1,4 @@
-use fluster_types::typedefs::note_type_utils::FlusterDb;
+use fluster_types::{errors::errors::FlusterError, typedefs::note_type_utils::FlusterDb};
 use std::path::PathBuf;
 use surrealdb::{
     engine::local::{Db, RocksDb},
@@ -43,8 +43,7 @@ impl Default for DatabaseOptions<'_> {
 
 /// This should be used as the only way to read get access to the database. This desperately need
 /// to be set to a constructor, but it's early, I'm tired, I'm new to rust, and rust is hard...
-pub async fn get_database(
-) -> Result<&'static FlusterDb, fluster_types::errors::database_errors::DatabaseError> {
+pub async fn get_database() -> Result<&'static FlusterDb, FlusterError> {
     let db = DB
         .get_or_init(|| async {
             let d = get_database_path().unwrap();

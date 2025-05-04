@@ -3,13 +3,22 @@
     "description": "Fluster types, grpc client and api for developers.",
     "version": "0.0.1",
     "author": "Andrew Mueller <fluster.eyeoh@gmail.com",
+    "license": "GPL-3.0-or-later",
     "publishConfig": {
         "access": "public"
     },
     "dependencies": {
+        "@mdx-js/mdx": "^3.1.0",
+        "@shikijs/rehype": "^3.3.0",
         "@tsconfig/node20": "^20.1.5",
+        "bibtex": "^0.9.0",
         "google-protobuf": "^3.21.4",
-        "ts-protoc-gen": "^0.15.0"
+        "rehype-mathjax": "^7.1.0",
+        "remark-gfm": "^4.0.1",
+        "remark-math": "^6.0.0",
+        "ts-protoc-gen": "^0.15.0",
+        "typedoc": "^0.28.3",
+        "typedoc-plugin-markdown": "^4.6.3"
     },
     "devDependencies": {
         "@types/node": "^22.14.1",
@@ -24,7 +33,6 @@
         "wireit": "^0.14.12"
     },
     "homepage": "https://ulld.vercel.app",
-    "license": "ISC",
     "main": "dist/index.js",
     "module": "dist/index.mjs",
     "scripts": {

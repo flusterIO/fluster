@@ -9,9 +9,9 @@ format_everything:
 	dart fix
 	pnpm syncpack format
 generate_icons:
-	cd ${FLUSTER_NATIVE_ROOT}/apps/fluster/; flutter pub run flutter_launcher_icons -f ${FLUSTER_NATIVE_ROOT}/apps/fluster/flutter_launcher_icons.yaml
+	cd ${FLUSTER_NATIVE_ROOT}/apps/fluster/; flutter pub run flutter_launcher_icons -f flutter_launcher_icons.yaml
 run_builders:
-	cd ${FLUSTER_NATIVE_ROOT}; flutter pub run build_runner build --delete-conflicting-outputs
+	cd ${FLUSTER_NATIVE_ROOT}; dart run build_runner build --delete-conflicting-outputs
 build_protos:
 	${FLUSTER_NATIVE_ROOT}/packages/fluster_internal_workspace/fluster_internal_workspace generate_grpc_script
 	${FLUSTER_NATIVE_ROOT}/packages/fluster_grpc/scripts/clean.sh
@@ -27,11 +27,10 @@ build_go:
 	cd ${FLUSTER_NATIVE_ROOT}/packages/fluster_go/; go build
 	cd ${FLUSTER_NATIVE_ROOT}/packages/fluster_internal_workspace/; go build
 test_go:
-	cd ${FLUSTER_NATIVE_ROOT}/packages/fluster_cli; go test -cover -coverprofile $FLUSTER_NATIVE_ROOT/packages/fluster_cli/.coverage/coverage.out
-build_ts:
-	typeshare ${FLUSTER_NATIVE_ROOT}/packages/fluster_models --lang=typescript --output-file=${FLUSTER_NATIVE_ROOT}/packages/fluster_ts/src/generated/fluster_models/fluster_models.ts
-	typeshare ${FLUSTER_NATIVE_ROOT}/packages/fluster_native_interface --lang=typescript --output-file=${FLUSTER_NATIVE_ROOT}/packages/fluster_ts/src/generated/fluster_native_interface/fluster_native_interface.ts
-build_node:
+	cd ${FLUSTER_NATIVE_ROOT}/packages/fluster_cli; go test -cover -coverprofile $FLUSTER_NATIVE_ROOT/packages/fluster_cli/.coverage/coverage.outj
+build_embedded_ts:
+	cd ${FLUSTER_NATIVE_ROOT}/packages/fluster_embedded_typescript; pnpm build
+build_node: build_embedded_ts
 	pnpm syncpack format
 	cd ${FLUSTER_NATIVE_ROOT}/packages/fluster_ts; pnpm build
 build_python:
@@ -44,13 +43,21 @@ build_workspace_tools:
 	cd ${FLUSTER_NATIVE_ROOT}/packages/fluster_internal_workspace; go build
 generate_docs: generate_icons
 	cargo doc --workspace --no-deps
+	cd ${FLUSTER_NATIVE_ROOT}/packages/fluster_ts; pnpm dlx typedoc --plugin typedoc-plugin-markdown --out ${FLUSTER_NATIVE_ROOT}/docs/api/packages/fluster_ts/
+	lazydocs ${FLUSTER_NATIVE_ROOT}/packages/fluster_py --output-path ${FLUSTER_NATIVE_ROOT}/docs/api/packages/fluster_py --output-format=mdx
+	lazydocs ${FLUSTER_NATIVE_ROOT}/packages/fluster_py03 --output-path ${FLUSTER_NATIVE_ROOT}/docs/api/packages/fluster_py03 --output-format=mdx
 generate_docs_with_dependencies:
 	cargo doc --workspace
 clean_build:
 	tsx ${FLUSTER_NATIVE_ROOT}/scripts/clean.ts
 	cargo clean
 	cd ${FLUSTER_NATIVE_ROOT}/apps/fluster; flutter clean
+typeshare:
+	typeshare ${FLUSTER_NATIVE_ROOT}/packages/fluster_models --lang=typescript --output-folder=${FLUSTER_NATIVE_ROOT}/packages/fluster_ts/src/generated/fluster_models
+	typeshare ${FLUSTER_NATIVE_ROOT}/packages/fluster_native_interface --lang=typescript --output-folder=${FLUSTER_NATIVE_ROOT}/packages/fluster_ts/src/generated/fluster_native_interface
+	typeshare ${FLUSTER_NATIVE_ROOT}/packages/fluster_native_interface --lang=typescript --output-folder=${FLUSTER_NATIVE_ROOT}/packages/fluster_embedded_typescript/src/generated
+cross_language_sync: typeshare cross_language_pre_build build_embedded_ts build_go
 distribute_node: build_node
-    cd ${FLUSTER_NATIVE_ROOT}/packages/fluster_ts; npm publish
+	cd ${FLUSTER_NATIVE_ROOT}/packages/fluster_ts; npm publish
 build_desktop: cross_language_pre_build build_protos build_node build_go build_rust
 	@echo "building..." 

@@ -1,11 +1,10 @@
 use filetime::FileTime;
 use fluster_types::{
     constants::database_constants::{FLUSTER_NAMESPACE, MDX_NOTE_TABLE_NAME, NOTES_DATABASE_NAME},
-    errors::{database_errors::DatabaseError, parsing_errors},
+    errors::errors::FlusterError,
     traits::db_entity::FlusterDatabaseEntity,
     typedefs::note_type_utils::FlusterDb,
 };
-// use fluster_models::database_errors;
 use gray_matter::{engine::YAML, Matter};
 use serde::{Deserialize, Serialize};
 use std::fs;
@@ -25,20 +24,21 @@ pub struct MdxNoteEntity {
     /// File path relative to the user's root notes directory.
     pub file_path: String,
     /// Time that the file was created.
-    pub created_at: Option<FlusterTime>,
+    pub ctime: Option<FlusterTime>,
     /// Time that the file was last modified.
-    pub updated_at: Option<FlusterTime>,
+    pub mtime: Option<FlusterTime>,
     /// Time that the file was last accessed.
-    pub accessed_at: Option<FlusterTime>,
+    pub atime: Option<FlusterTime>,
     /// Tags embedded within the note.
     pub tags: Vec<Tag>,
+    // pub equations: Vec<EquationEntity>,
 }
 
 impl MdxNoteEntity {
     pub fn from_raw_mdx_string(
         raw_file_content: String,
         file_path: Option<&str>,
-    ) -> Result<MdxNoteEntity, parsing_errors::ParsingError> {
+    ) -> Result<MdxNoteEntity, FlusterError> {
         let matter = Matter::<YAML>::new();
         let result = matter.parse(&raw_file_content);
         let fp = file_path.unwrap_or("Unknown");
@@ -48,53 +48,45 @@ impl MdxNoteEntity {
             raw_body: result.content,
             file_path: fp.to_owned(),
             id: None,
-            created_at: None,
-            updated_at: None,
-            accessed_at: None, // updated_at:
+            ctime: None,
+            mtime: None,
+            atime: None, // updated_at:
             tags: post_tag_parse.tags,
         })
     }
     /// All paths must be validated to ensure that they exist **before** pasing them into this
     /// function.
-    pub fn from_file_system_path(
-        file_path: &str,
-    ) -> Result<MdxNoteEntity, parsing_errors::ParsingError> {
+    pub fn from_file_system_path(file_path: &str) -> Result<MdxNoteEntity, FlusterError> {
         let raw_file_content = fs::read_to_string(file_path);
         let file_meta = fs::metadata(file_path);
         if file_meta.is_err() {
-            return Err(parsing_errors::ParsingError::MdxParsingError(
-                file_path.to_owned(),
-            ));
+            return Err(FlusterError::MdxParsingError(file_path.to_owned()));
         }
         if let Ok(content) = raw_file_content {
             let note = MdxNoteEntity::from_raw_mdx_string(content, Some(file_path));
             if let Ok(mut note_data) = note {
-                note_data.accessed_at = FlusterTime::from_file_time(Some(
+                note_data.atime = FlusterTime::from_file_time(Some(
                     FileTime::from_last_access_time(file_meta.as_ref().unwrap()),
                 ));
-                note_data.created_at = FlusterTime::from_file_time(FileTime::from_creation_time(
+                note_data.ctime = FlusterTime::from_file_time(FileTime::from_creation_time(
                     file_meta.as_ref().unwrap(),
                 ));
-                note_data.updated_at = FlusterTime::from_file_time(Some(
+                note_data.mtime = FlusterTime::from_file_time(Some(
                     FileTime::from_last_modification_time(file_meta.as_ref().unwrap()),
                 ));
                 Ok(note_data)
             } else {
-                Err(parsing_errors::ParsingError::MdxParsingError(
-                    file_path.to_owned(),
-                ))
+                Err(FlusterError::MdxParsingError(file_path.to_owned()))
             }
         } else {
-            Err(parsing_errors::ParsingError::MdxParsingError(
-                file_path.to_owned(),
-            ))
+            Err(FlusterError::MdxParsingError(file_path.to_owned()))
         }
     }
 }
 
 #[allow(clippy::comparison_to_empty)]
 impl FlusterDatabaseEntity<MdxNoteEntity> for MdxNoteEntity {
-    async fn save(&self, db: &FlusterDb) -> Option<DatabaseError> {
+    async fn save(&self, db: &FlusterDb) -> Option<FlusterError> {
         let err = db
             .use_ns(FLUSTER_NAMESPACE)
             .use_db(NOTES_DATABASE_NAME)
@@ -107,10 +99,10 @@ impl FlusterDatabaseEntity<MdxNoteEntity> for MdxNoteEntity {
             if res.is_ok() {
                 None
             } else {
-                Some(DatabaseError::FailToCreateEntity)
+                Some(FlusterError::FailToCreateEntity)
             }
         } else {
-            Some(DatabaseError::FailToCreateEntity)
+            Some(FlusterError::FailToCreateEntity)
         }
     }
 
@@ -124,16 +116,16 @@ impl FlusterDatabaseEntity<MdxNoteEntity> for MdxNoteEntity {
         }
     }
 
-    async fn from_id_string(id: &str, db: &FlusterDb) -> Result<MdxNoteEntity, DatabaseError> {
+    async fn from_id_string(id: &str, db: &FlusterDb) -> Result<MdxNoteEntity, FlusterError> {
         let item: Result<Option<MdxNoteEntity>, surrealdb::Error> =
             db.select((MDX_NOTE_TABLE_NAME, id)).await;
         if item.is_err() {
-            return Err(DatabaseError::FailToFindById);
+            return Err(FlusterError::FailToFindById);
         }
         if let Some(unwrapped) = item.unwrap() {
             Ok(unwrapped)
         } else {
-            Err(DatabaseError::FailToFindById)
+            Err(FlusterError::FailToFindById)
         }
     }
 }
@@ -142,11 +134,11 @@ impl FlusterDatabaseEntity<MdxNoteEntity> for MdxNoteEntity {
 mod tests {
 
     use fluster_db::api::db::get_database;
-    use fluster_types::errors::parsing_errors;
+    use fluster_types::errors::errors;
 
     use super::*;
 
-    async fn get_test_note() -> Result<MdxNoteEntity, parsing_errors::ParsingError> {
+    async fn get_test_note() -> Result<MdxNoteEntity, FlusterError> {
         let test_content_path = fluster_test_utils::test_utils::get_test_mdx_path();
         MdxNoteEntity::from_file_system_path(test_content_path.to_str().unwrap())
     }

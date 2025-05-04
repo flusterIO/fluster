@@ -1,0 +1,99 @@
+---
+title: Page Tree
+description: The structure of page tree.
+---
+
+Page tree is a tree structure that describes all navigation links, with other items like separator and folders.
+
+It will be sent to the client and being referenced in navigation elements including the sidebar and breadcrumb.
+Hence, you shouldn't store any sensitive or large data in page tree.
+
+<Callout title="Note">
+
+By design, page tree only contains necessary information of all pages and folders.
+
+Unserializable data such as functions can't be passed to page tree.
+
+</Callout>
+
+## Conventions
+
+This is the definitions of Page Tree, you may refer to Page Conventions to learn how to structure your folders/pages.
+
+Certain nodes contain a `$ref` property to link to its original page/meta file, they are optional when hardcoding it.
+
+### Root
+
+The initial root of page trees.
+
+<AutoTypeTable path="./content/docs/headless/props.ts" name="PageTreeRoot" />
+
+### Page
+
+```json
+{
+  "type": "page",
+  "name": "Quick Start",
+  "url": "/docs"
+}
+```
+
+> External urls are also supported
+
+<AutoTypeTable path="./content/docs/headless/props.ts" name="PageTreeItem" />
+
+### Folder
+
+```json
+{
+    "type": "folder",
+    "name": "Guide",
+    "index": {
+        "type": "page",
+        ...
+    }
+    "children": [
+        ...
+    ]
+}
+```
+
+<AutoTypeTable path="./content/docs/headless/props.ts" name="PageTreeFolder" />
+
+#### As Root
+
+To implement multiple page trees, you can add a `root` property to the folder node.
+This will mark the folder as a root folder, and the nearest root folder of current page will be used as the root of page tree.
+Instead of showing the entire page tree, navigation elements will be restricted within the current root.
+
+### Separator
+
+A label between items.
+
+```json
+{
+  "type": "separator",
+  "name": "Components"
+}
+```
+
+<AutoTypeTable
+  path="./content/docs/headless/props.ts"
+  name="PageTreeSeparator"
+/>
+
+## Icons
+
+Icon is a `ReactElement`, supported by pages and folders.
+
+## Type Bindings
+
+You can import the type from server package.
+
+```ts
+import type { PageTree } from 'fumadocs-core/server';
+
+const tree: PageTree.Root = {
+  // props
+};
+```

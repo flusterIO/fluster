@@ -1,0 +1,70 @@
+{
+  "name": "fumadocs-twoslash",
+  "version": "3.1.1",
+  "description": "Typescript Twoslash Integration for Fumadocs",
+  "keywords": [
+    "NextJs",
+    "fumadocs",
+    "Docs"
+  ],
+  "homepage": "https://fumadocs.vercel.app",
+  "repository": "github:fuma-nama/fumadocs",
+  "license": "MIT",
+  "author": "Fuma Nama",
+  "type": "module",
+  "exports": {
+    "./twoslash.css": "./styles/twoslash.css",
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    },
+    "./ui": {
+      "import": "./dist/ui/index.js",
+      "types": "./dist/ui/index.d.ts"
+    },
+    "./cache-fs": {
+      "import": "./dist/cache-fs.js",
+      "types": "./dist/cache-fs.d.ts"
+    }
+  },
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist/*",
+    "styles/*"
+  ],
+  "scripts": {
+    "build": "tsup",
+    "clean": "rimraf dist",
+    "dev": "tsup --watch",
+    "lint": "eslint .",
+    "types:check": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@radix-ui/react-popover": "^1.1.11",
+    "@shikijs/twoslash": "^3.3.0",
+    "mdast-util-from-markdown": "^2.0.2",
+    "mdast-util-gfm": "^3.1.0",
+    "mdast-util-to-hast": "^13.2.0",
+    "tailwind-merge": "^3.2.0",
+    "twoslash": "^0.3.1"
+  },
+  "devDependencies": {
+    "@types/hast": "^3.0.4",
+    "@types/mdast": "^4.0.3",
+    "@types/node": "22.15.3",
+    "@types/react": "^19.1.2",
+    "eslint-config-custom": "workspace:*",
+    "fumadocs-ui": "workspace:*",
+    "shiki": "^3.3.0",
+    "tsconfig": "workspace:*"
+  },
+  "peerDependencies": {
+    "fumadocs-ui": "^15.0.0",
+    "react": "18.x.x || 19.x.x",
+    "shiki": "1.x.x || 2.x.x || 3.x.x"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

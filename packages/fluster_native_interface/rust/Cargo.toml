@@ -40,6 +40,11 @@ console-subscriber = "0.4.1"
 filetime = "0.2.25"
 typeshare.workspace = true
 anyhow = "1.0.98"
+biblatex = "0.10.0"
+node-workers = "0.8.0"
+ssr_rs = "0.8.2"
+rust-embed = "8.7.0"
+v8 = "136.0.0"
 
 [build-dependencies]
 flutter_rust_bridge_codegen = "2.9.0"

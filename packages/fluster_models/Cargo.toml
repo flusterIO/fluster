@@ -32,3 +32,6 @@ filetime = "0.2.25"
 rayon = "1.10.0"
 typeshare.workspace = true
 tsify = "0.5.5"
+biblatex = "0.10.0"
+rust-embed = { workspace = true, features = ["compression", "interpolate-folder-path"] }
+ssr_rs.workspace = true

@@ -1,12 +1,12 @@
 use std::{env::temp_dir, path::PathBuf};
 
-pub use fluster_types::errors::file_system_errors::FileSystemError;
+use fluster_types::errors::errors::FlusterError;
 
-fn make_dir_or_fail_to_create(p: PathBuf) -> Option<FileSystemError> {
+fn make_dir_or_fail_to_create(p: PathBuf) -> Option<FlusterError> {
     if !p.exists() {
         let dir_err = std::fs::create_dir_all(p);
         if dir_err.is_err() {
-            Some(FileSystemError::FailToCreatePath)
+            Some(FlusterError::FailToCreatePath)
         } else {
             None
         }
@@ -15,7 +15,7 @@ fn make_dir_or_fail_to_create(p: PathBuf) -> Option<FileSystemError> {
     }
 }
 
-pub fn setup_file_system_for_data() -> Option<FileSystemError> {
+pub fn setup_file_system_for_data() -> Option<FlusterError> {
     let data_dir = dirs::data_dir().or(dirs::data_local_dir());
     if let Some(dir_name) = data_dir {
         make_dir_or_fail_to_create(dir_name.join("Fluster").join("data").join("database"))?;
@@ -23,7 +23,7 @@ pub fn setup_file_system_for_data() -> Option<FileSystemError> {
         make_dir_or_fail_to_create(dir_name.join("Fluster").join("tmp"))?;
         None
     } else {
-        Some(FileSystemError::DataDirNotFound())
+        Some(FlusterError::DataDirNotFound())
     }
 }
 

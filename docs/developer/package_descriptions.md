@@ -49,3 +49,21 @@ Enabling this interface with rust means Fluster can pass user Numpy packages por
 `fluster_py03`
 
 This package is used by the `fluster_native_interface` package to implement various AI and machine learning related tasks, given the industry's inexplicable preference for Python. In time it will also grow to be accessible to developers as an interface to their own Fluster data.
+
+## Fluster Ts
+
+`fluster_ts`
+
+This package is the user facing typescript package. This should not be confused with `fluster_embedded_typescript` which is used internally by Fluser to embed React components where applicable.
+
+## Fluster Embedded Typescript
+
+`fluster_embedded_typescript`
+
+This app is used internally by Fluster to render React components in a webview where applicable. The parsing of mdx is actually passed off to node, as there is currently no mdx parser written in rust that will work with the remark and rehype ecosystem, which is crucial for the capabilities of Fluster.
+
+## Fluster Embedded Components
+
+`fluster_embedded_components`
+
+These are Fluster's native embeddable React components. These are embedded in the rendered mdx, _not_ the Rust binary like `fluster_embedded_typescript` is.

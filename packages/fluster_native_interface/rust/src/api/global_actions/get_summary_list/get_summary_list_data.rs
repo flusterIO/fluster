@@ -2,7 +2,6 @@ use anyhow::Ok;
 use fluster_db::api::db::get_database;
 pub use fluster_models::models::notes::front_matter::front_matter_model::FrontMatterEntity;
 use fluster_types::constants::database_constants::{FLUSTER_NAMESPACE, NOTES_DATABASE_NAME};
-pub use fluster_types::errors::database_errors::DatabaseError;
 pub use fluster_types::typedefs::note_type_utils::FlusterDb;
 
 pub use crate::api::global_actions::get_summary_list::summary_types::mdx_note_summary::MdxNoteSummary;
