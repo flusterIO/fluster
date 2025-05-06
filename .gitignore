@@ -154,3 +154,7 @@ packages/fluster_embedded_typescript/documents/**
 packages/fluster_embedded_typescript/apps/**
 packages/fluster_embedded_typescript/packages/**
 **/.wireit/
+history.txt
+
+.wireit/
+.env**

@@ -2,13 +2,15 @@
 resolver = "2"
 members = [
     "packages/fluster_native_interface/rust",
+    "packages/fluster_models/rust",
     "packages/fluster_grpc",
     "packages/fluster_db",
     "packages/fluster_test_utils",
     "packages/fluster_types",
-    "packages/fluster_models",
     "packages/fluster_logger",
-    "packages/fluster_lua", "packages/fluster_v8",
+    "packages/fluster_lua",
+    "packages/fluster_wasm",
+    "packages/fluster_py03",
 ]
 
 
@@ -46,7 +48,6 @@ log4rs = { version = "1.3.0", features = [
     "threshold_filter",
 ] }
 thiserror = "2.0.12"
-ssr_rs = "0.8.2"
 
 # TODO: Remove this and the reliance on console_subscriber when actually building for production.
 [build]

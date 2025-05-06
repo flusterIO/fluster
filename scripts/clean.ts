@@ -11,11 +11,13 @@ const cleanDirectories = [
     "/docs/api/packages/fluster_ts",
     "/docs/api/packages/fluster_py",
     "/docs/api/packages/fluster_py03",
+    "/packages/fluster_embedded_typescript/dist/",
 ];
 
 const cleanFiles = [
     "/packages/fluster_native_interface/rust/src/frb_generated.rs",
     "/packages/fluster_grpc/src/frb_generated.rs",
+    "Cargo.lock",
 ];
 
 // NOTE: Don't touch this bit.
@@ -39,7 +41,8 @@ for (const dir of cleanDirectories) {
 }
 
 for (const filePath of cleanFiles) {
-    if (fs.existsSync(filePath)) {
-        fs.rmSync(path.join(root, filePath));
+    let fp = path.join(root, filePath);
+    if (fs.existsSync(fp)) {
+        fs.rmSync(fp);
     }
 }

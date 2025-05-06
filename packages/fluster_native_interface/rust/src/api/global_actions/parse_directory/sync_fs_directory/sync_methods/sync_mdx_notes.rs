@@ -1,14 +1,20 @@
-use crossbeam_channel::Sender;
+use crossbeam_channel::unbounded;
+pub use crossbeam_channel::Sender;
 use fluster_models::models::notes::mdx::mdx_note::MdxNoteEntity;
-use fluster_types::errors::errors::FlusterError;
+pub use fluster_types::errors::errors::FlusterError;
+use fluster_types::traits::db_entity::FlusterDatabaseEntity;
+use fluster_types::typedefs::note_type_utils::FlusterDb;
+use flutter_rust_bridge::frb;
 use ignore::WalkBuilder;
-use ignore::{DirEntry, WalkBuilder, WalkState};
+use ignore::{DirEntry, WalkState};
 
+#[frb(opaque)]
 pub async fn sync_mdx_filesystem_notes(
     notes_path: &str,
-    mdx_sender: Sender<Result<MdxNoteEntity, FlusterError>>,
-    error_sender: Sender<FlusterError>,
+    error_sender: &Sender<FlusterError>,
+    db: &FlusterDb,
 ) {
+    let (mdx_sender, mdx_receiver) = unbounded::<Result<MdxNoteEntity, FlusterError>>();
     WalkBuilder::new(notes_path)
         .threads(32)
         .add_custom_ignore_filename(".flusterIgnore")
@@ -30,7 +36,7 @@ pub async fn sync_mdx_filesystem_notes(
         });
 
     drop(mdx_sender);
-    for x in receiver.iter() {
+    for x in mdx_receiver.iter() {
         if let Ok(note) = x {
             let save_res = note.save(db).await;
             if let Some(save_res_error) = save_res {

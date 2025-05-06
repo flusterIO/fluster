@@ -3,7 +3,6 @@ import 'package:fluster/features/settings/data/models/setting_abstract.dart';
 
 enum KeymapEntryType { global, commandPaletteInput }
 
-// RESUME: Come back here and implement the toString and fromString methods to properly parse and store each keymap as a string. Check the keys and format in the main.dart/app.dart file and adjust accordingly.
 class KeymapSetting extends SettingAbstract<String> {
   final GlobalAction action;
   final KeymapEntryType keymapType;

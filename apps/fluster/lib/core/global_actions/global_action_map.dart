@@ -64,8 +64,13 @@ final globalActionMap = <GlobalActionId, FutureOr<void> Function(BuildContext)>{
     // if(finalValue){
     // // TEMP: Show a dialog here that the directory can't sync until the user sets their directory path.
     // }
-    print("Syncing directory");
-    native.syncDirectory(dirName: finalValue);
+    native.syncDirectory(
+      opts: native.SyncFilesystemDirectoryOptions(
+        dirPath: finalValue,
+        nThreads: 8,
+        // bibPath: njV
+      ),
+    );
   },
   GlobalActionId.toggleDarkMode: (_) {
     toggleDarkMode(null, null);

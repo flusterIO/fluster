@@ -8,18 +8,17 @@ import 'package:flutter_rust_bridge/flutter_rust_bridge_for_generated.dart';
 
 Future<void> syncMdxFilesystemNotes({
   required String notesPath,
-  required SenderResultMdxNoteEntityFlusterError mdxSender,
   required SenderFlusterError errorSender,
+  required FlusterDb db,
 }) => RustLib.instance.api
     .crateApiGlobalActionsParseDirectorySyncFsDirectorySyncMethodsSyncMdxNotesSyncMdxFilesystemNotes(
       notesPath: notesPath,
-      mdxSender: mdxSender,
       errorSender: errorSender,
+      db: db,
     );
+
+// Rust type: RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<FlusterDb>>
+abstract class FlusterDb implements RustOpaqueInterface {}
 
 // Rust type: RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<Sender < FlusterError >>>
 abstract class SenderFlusterError implements RustOpaqueInterface {}
-
-// Rust type: RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<Sender < Result < MdxNoteEntity , FlusterError > >>>
-abstract class SenderResultMdxNoteEntityFlusterError
-    implements RustOpaqueInterface {}

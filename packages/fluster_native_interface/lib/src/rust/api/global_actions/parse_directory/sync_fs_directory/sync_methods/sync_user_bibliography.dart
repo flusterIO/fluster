@@ -11,12 +11,11 @@ Future<void> syncUserBibliography({
   required String bibPath,
   required SenderFlusterError errorSender,
   required FlusterDb db,
+  required int nThreads,
 }) => RustLib.instance.api
     .crateApiGlobalActionsParseDirectorySyncFsDirectorySyncMethodsSyncUserBibliographySyncUserBibliography(
       bibPath: bibPath,
       errorSender: errorSender,
       db: db,
+      nThreads: nThreads,
     );
-
-// Rust type: RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<FlusterDb>>
-abstract class FlusterDb implements RustOpaqueInterface {}

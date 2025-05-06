@@ -10,6 +10,8 @@ import 'api/global_actions/get_summary_list/get_summary_list_data.dart';
 import 'api/global_actions/get_summary_list/summary_list_query.dart';
 import 'api/global_actions/get_summary_list/summary_list_result.dart';
 import 'api/global_actions/get_summary_list/summary_types/mdx_note_summary.dart';
+import 'api/global_actions/parse_directory/sync_fs_directory/models/sync_filesystem_options.dart';
+import 'api/global_actions/parse_directory/sync_fs_directory/sync_filesystem_directory.dart';
 import 'api/global_actions/parse_directory/sync_fs_directory/sync_methods/sync_mdx_notes.dart';
 import 'api/global_actions/parse_directory/sync_fs_directory/sync_methods/sync_user_bibliography.dart';
 import 'api/initialize/on_desktop_init.dart';
@@ -72,7 +74,7 @@ class RustLib extends BaseEntrypoint<RustLibApi, RustLibApiImpl, RustLibWire> {
   String get codegenVersion => '2.9.0';
 
   @override
-  int get rustContentHash => 1985754696;
+  int get rustContentHash => 1096559135;
 
   static const kDefaultExternalLibraryLoaderConfig =
       ExternalLibraryLoaderConfig(
@@ -131,11 +133,19 @@ abstract class RustLibApi extends BaseApi {
   Future<SummaryListQuery>
   crateApiGlobalActionsGetSummaryListSummaryListQuerySummaryListQueryDefault();
 
+  Future<List<FlusterError>?>
+  crateApiGlobalActionsParseDirectorySyncFsDirectorySyncFilesystemDirectorySyncDirectory({
+    required SyncFilesystemDirectoryOptions opts,
+  });
+
+  Future<SyncFilesystemDirectoryOptions>
+  crateApiGlobalActionsParseDirectorySyncFsDirectoryModelsSyncFilesystemOptionsSyncFilesystemDirectoryOptionsDefault();
+
   Future<void>
   crateApiGlobalActionsParseDirectorySyncFsDirectorySyncMethodsSyncMdxNotesSyncMdxFilesystemNotes({
     required String notesPath,
-    required SenderResultMdxNoteEntityFlusterError mdxSender,
     required SenderFlusterError errorSender,
+    required FlusterDb db,
   });
 
   Future<void>
@@ -143,6 +153,7 @@ abstract class RustLibApi extends BaseApi {
     required String bibPath,
     required SenderFlusterError errorSender,
     required FlusterDb db,
+    required int nThreads,
   });
 
   RustArcIncrementStrongCountFnType
@@ -187,15 +198,6 @@ abstract class RustLibApi extends BaseApi {
 
   CrossPlatformFinalizerArg
   get rust_arc_decrement_strong_count_SenderFlusterErrorPtr;
-
-  RustArcIncrementStrongCountFnType
-  get rust_arc_increment_strong_count_SenderResultMdxNoteEntityFlusterError;
-
-  RustArcDecrementStrongCountFnType
-  get rust_arc_decrement_strong_count_SenderResultMdxNoteEntityFlusterError;
-
-  CrossPlatformFinalizerArg
-  get rust_arc_decrement_strong_count_SenderResultMdxNoteEntityFlusterErrorPtr;
 
   RustArcIncrementStrongCountFnType get rust_arc_increment_strong_count_Thing;
 
@@ -615,23 +617,16 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
       );
 
   @override
-  Future<void>
-  crateApiGlobalActionsParseDirectorySyncFsDirectorySyncMethodsSyncMdxNotesSyncMdxFilesystemNotes({
-    required String notesPath,
-    required SenderResultMdxNoteEntityFlusterError mdxSender,
-    required SenderFlusterError errorSender,
+  Future<List<FlusterError>?>
+  crateApiGlobalActionsParseDirectorySyncFsDirectorySyncFilesystemDirectorySyncDirectory({
+    required SyncFilesystemDirectoryOptions opts,
   }) {
     return handler.executeNormal(
       NormalTask(
         callFfi: (port_) {
           final serializer = SseSerializer(generalizedFrbRustBinding);
-          sse_encode_String(notesPath, serializer);
-          sse_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerSenderResultMdxNoteEntityFlusterError(
-            mdxSender,
-            serializer,
-          );
-          sse_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerSenderFlusterError(
-            errorSender,
+          sse_encode_box_autoadd_sync_filesystem_directory_options(
+            opts,
             serializer,
           );
           pdeCallFfi(
@@ -642,28 +637,59 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
           );
         },
         codec: SseCodec(
-          decodeSuccessData: sse_decode_unit,
+          decodeSuccessData:
+              sse_decode_opt_list_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFlusterError,
           decodeErrorData: null,
         ),
         constMeta:
-            kCrateApiGlobalActionsParseDirectorySyncFsDirectorySyncMethodsSyncMdxNotesSyncMdxFilesystemNotesConstMeta,
-        argValues: [notesPath, mdxSender, errorSender],
+            kCrateApiGlobalActionsParseDirectorySyncFsDirectorySyncFilesystemDirectorySyncDirectoryConstMeta,
+        argValues: [opts],
         apiImpl: this,
       ),
     );
   }
 
   TaskConstMeta
-  get kCrateApiGlobalActionsParseDirectorySyncFsDirectorySyncMethodsSyncMdxNotesSyncMdxFilesystemNotesConstMeta =>
+  get kCrateApiGlobalActionsParseDirectorySyncFsDirectorySyncFilesystemDirectorySyncDirectoryConstMeta =>
+      const TaskConstMeta(debugName: "sync_directory", argNames: ["opts"]);
+
+  @override
+  Future<SyncFilesystemDirectoryOptions>
+  crateApiGlobalActionsParseDirectorySyncFsDirectoryModelsSyncFilesystemOptionsSyncFilesystemDirectoryOptionsDefault() {
+    return handler.executeNormal(
+      NormalTask(
+        callFfi: (port_) {
+          final serializer = SseSerializer(generalizedFrbRustBinding);
+          pdeCallFfi(
+            generalizedFrbRustBinding,
+            serializer,
+            funcId: 15,
+            port: port_,
+          );
+        },
+        codec: SseCodec(
+          decodeSuccessData: sse_decode_sync_filesystem_directory_options,
+          decodeErrorData: null,
+        ),
+        constMeta:
+            kCrateApiGlobalActionsParseDirectorySyncFsDirectoryModelsSyncFilesystemOptionsSyncFilesystemDirectoryOptionsDefaultConstMeta,
+        argValues: [],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta
+  get kCrateApiGlobalActionsParseDirectorySyncFsDirectoryModelsSyncFilesystemOptionsSyncFilesystemDirectoryOptionsDefaultConstMeta =>
       const TaskConstMeta(
-        debugName: "sync_mdx_filesystem_notes",
-        argNames: ["notesPath", "mdxSender", "errorSender"],
+        debugName: "sync_filesystem_directory_options_default",
+        argNames: [],
       );
 
   @override
   Future<void>
-  crateApiGlobalActionsParseDirectorySyncFsDirectorySyncMethodsSyncUserBibliographySyncUserBibliography({
-    required String bibPath,
+  crateApiGlobalActionsParseDirectorySyncFsDirectorySyncMethodsSyncMdxNotesSyncMdxFilesystemNotes({
+    required String notesPath,
     required SenderFlusterError errorSender,
     required FlusterDb db,
   }) {
@@ -671,8 +697,8 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
       NormalTask(
         callFfi: (port_) {
           final serializer = SseSerializer(generalizedFrbRustBinding);
-          sse_encode_String(bibPath, serializer);
-          sse_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerSenderFlusterError(
+          sse_encode_String(notesPath, serializer);
+          sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerSenderFlusterError(
             errorSender,
             serializer,
           );
@@ -683,7 +709,55 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
           pdeCallFfi(
             generalizedFrbRustBinding,
             serializer,
-            funcId: 15,
+            funcId: 16,
+            port: port_,
+          );
+        },
+        codec: SseCodec(
+          decodeSuccessData: sse_decode_unit,
+          decodeErrorData: null,
+        ),
+        constMeta:
+            kCrateApiGlobalActionsParseDirectorySyncFsDirectorySyncMethodsSyncMdxNotesSyncMdxFilesystemNotesConstMeta,
+        argValues: [notesPath, errorSender, db],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta
+  get kCrateApiGlobalActionsParseDirectorySyncFsDirectorySyncMethodsSyncMdxNotesSyncMdxFilesystemNotesConstMeta =>
+      const TaskConstMeta(
+        debugName: "sync_mdx_filesystem_notes",
+        argNames: ["notesPath", "errorSender", "db"],
+      );
+
+  @override
+  Future<void>
+  crateApiGlobalActionsParseDirectorySyncFsDirectorySyncMethodsSyncUserBibliographySyncUserBibliography({
+    required String bibPath,
+    required SenderFlusterError errorSender,
+    required FlusterDb db,
+    required int nThreads,
+  }) {
+    return handler.executeNormal(
+      NormalTask(
+        callFfi: (port_) {
+          final serializer = SseSerializer(generalizedFrbRustBinding);
+          sse_encode_String(bibPath, serializer);
+          sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerSenderFlusterError(
+            errorSender,
+            serializer,
+          );
+          sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFlusterDb(
+            db,
+            serializer,
+          );
+          sse_encode_u_32(nThreads, serializer);
+          pdeCallFfi(
+            generalizedFrbRustBinding,
+            serializer,
+            funcId: 17,
             port: port_,
           );
         },
@@ -693,7 +767,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
         ),
         constMeta:
             kCrateApiGlobalActionsParseDirectorySyncFsDirectorySyncMethodsSyncUserBibliographySyncUserBibliographyConstMeta,
-        argValues: [bibPath, errorSender, db],
+        argValues: [bibPath, errorSender, db, nThreads],
         apiImpl: this,
       ),
     );
@@ -703,7 +777,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   get kCrateApiGlobalActionsParseDirectorySyncFsDirectorySyncMethodsSyncUserBibliographySyncUserBibliographyConstMeta =>
       const TaskConstMeta(
         debugName: "sync_user_bibliography",
-        argNames: ["bibPath", "errorSender", "db"],
+        argNames: ["bibPath", "errorSender", "db", "nThreads"],
       );
 
   RustArcIncrementStrongCountFnType
@@ -747,14 +821,6 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
       .rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerSenderFlusterError;
 
   RustArcIncrementStrongCountFnType
-  get rust_arc_increment_strong_count_SenderResultMdxNoteEntityFlusterError => wire
-      .rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerSenderResultMdxNoteEntityFlusterError;
-
-  RustArcDecrementStrongCountFnType
-  get rust_arc_decrement_strong_count_SenderResultMdxNoteEntityFlusterError => wire
-      .rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerSenderResultMdxNoteEntityFlusterError;
-
-  RustArcIncrementStrongCountFnType
   get rust_arc_increment_strong_count_Thing => wire
       .rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerThing;
 
@@ -796,26 +862,6 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
-  SenderFlusterError
-  dco_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerSenderFlusterError(
-    dynamic raw,
-  ) {
-    // Codec=Dco (DartCObject based), see doc to use other codecs
-    return SenderFlusterErrorImpl.frbInternalDcoDecode(raw as List<dynamic>);
-  }
-
-  @protected
-  SenderResultMdxNoteEntityFlusterError
-  dco_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerSenderResultMdxNoteEntityFlusterError(
-    dynamic raw,
-  ) {
-    // Codec=Dco (DartCObject based), see doc to use other codecs
-    return SenderResultMdxNoteEntityFlusterErrorImpl.frbInternalDcoDecode(
-      raw as List<dynamic>,
-    );
-  }
-
-  @protected
   Thing
   dco_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerThing(
     dynamic raw,
@@ -849,6 +895,15 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   ) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
     return MdxNoteSummaryImpl.frbInternalDcoDecode(raw as List<dynamic>);
+  }
+
+  @protected
+  SenderFlusterError
+  dco_decode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerSenderFlusterError(
+    dynamic raw,
+  ) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return SenderFlusterErrorImpl.frbInternalDcoDecode(raw as List<dynamic>);
   }
 
   @protected
@@ -897,17 +952,6 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
-  SenderResultMdxNoteEntityFlusterError
-  dco_decode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerSenderResultMdxNoteEntityFlusterError(
-    dynamic raw,
-  ) {
-    // Codec=Dco (DartCObject based), see doc to use other codecs
-    return SenderResultMdxNoteEntityFlusterErrorImpl.frbInternalDcoDecode(
-      raw as List<dynamic>,
-    );
-  }
-
-  @protected
   Thing
   dco_decode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerThing(
     dynamic raw,
@@ -946,6 +990,13 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
+  SyncFilesystemDirectoryOptions
+  dco_decode_box_autoadd_sync_filesystem_directory_options(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return dco_decode_sync_filesystem_directory_options(raw);
+  }
+
+  @protected
   double dco_decode_f_64(dynamic raw) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
     return raw as double;
@@ -961,6 +1012,19 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   int dco_decode_i_32(dynamic raw) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
     return raw as int;
+  }
+
+  @protected
+  List<FlusterError>
+  dco_decode_list_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFlusterError(
+    dynamic raw,
+  ) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return (raw as List<dynamic>)
+        .map(
+          dco_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFlusterError,
+        )
+        .toList();
   }
 
   @protected
@@ -983,6 +1047,12 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
+  String? dco_decode_opt_String(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return raw == null ? null : dco_decode_String(raw);
+  }
+
+  @protected
   FlusterError?
   dco_decode_opt_box_autoadd_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFlusterError(
     dynamic raw,
@@ -991,6 +1061,19 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
     return raw == null
         ? null
         : dco_decode_box_autoadd_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFlusterError(
+            raw,
+          );
+  }
+
+  @protected
+  List<FlusterError>?
+  dco_decode_opt_list_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFlusterError(
+    dynamic raw,
+  ) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return raw == null
+        ? null
+        : dco_decode_list_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFlusterError(
             raw,
           );
   }
@@ -1022,7 +1105,28 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
+  SyncFilesystemDirectoryOptions dco_decode_sync_filesystem_directory_options(
+    dynamic raw,
+  ) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    final arr = raw as List<dynamic>;
+    if (arr.length != 3)
+      throw Exception('unexpected arr length: expect 3 but see ${arr.length}');
+    return SyncFilesystemDirectoryOptions(
+      dirPath: dco_decode_String(arr[0]),
+      bibPath: dco_decode_opt_String(arr[1]),
+      nThreads: dco_decode_u_32(arr[2]),
+    );
+  }
+
+  @protected
   int dco_decode_u_16(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return raw as int;
+  }
+
+  @protected
+  int dco_decode_u_32(dynamic raw) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
     return raw as int;
   }
@@ -1089,30 +1193,6 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
-  SenderFlusterError
-  sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerSenderFlusterError(
-    SseDeserializer deserializer,
-  ) {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    return SenderFlusterErrorImpl.frbInternalSseDecode(
-      sse_decode_usize(deserializer),
-      sse_decode_i_32(deserializer),
-    );
-  }
-
-  @protected
-  SenderResultMdxNoteEntityFlusterError
-  sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerSenderResultMdxNoteEntityFlusterError(
-    SseDeserializer deserializer,
-  ) {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    return SenderResultMdxNoteEntityFlusterErrorImpl.frbInternalSseDecode(
-      sse_decode_usize(deserializer),
-      sse_decode_i_32(deserializer),
-    );
-  }
-
-  @protected
   Thing
   sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerThing(
     SseDeserializer deserializer,
@@ -1155,6 +1235,18 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   ) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     return MdxNoteSummaryImpl.frbInternalSseDecode(
+      sse_decode_usize(deserializer),
+      sse_decode_i_32(deserializer),
+    );
+  }
+
+  @protected
+  SenderFlusterError
+  sse_decode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerSenderFlusterError(
+    SseDeserializer deserializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    return SenderFlusterErrorImpl.frbInternalSseDecode(
       sse_decode_usize(deserializer),
       sse_decode_i_32(deserializer),
     );
@@ -1221,18 +1313,6 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
-  SenderResultMdxNoteEntityFlusterError
-  sse_decode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerSenderResultMdxNoteEntityFlusterError(
-    SseDeserializer deserializer,
-  ) {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    return SenderResultMdxNoteEntityFlusterErrorImpl.frbInternalSseDecode(
-      sse_decode_usize(deserializer),
-      sse_decode_i_32(deserializer),
-    );
-  }
-
-  @protected
   Thing
   sse_decode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerThing(
     SseDeserializer deserializer,
@@ -1277,6 +1357,15 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
+  SyncFilesystemDirectoryOptions
+  sse_decode_box_autoadd_sync_filesystem_directory_options(
+    SseDeserializer deserializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    return (sse_decode_sync_filesystem_directory_options(deserializer));
+  }
+
+  @protected
   double sse_decode_f_64(SseDeserializer deserializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     return deserializer.buffer.getFloat64();
@@ -1295,6 +1384,25 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   int sse_decode_i_32(SseDeserializer deserializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     return deserializer.buffer.getInt32();
+  }
+
+  @protected
+  List<FlusterError>
+  sse_decode_list_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFlusterError(
+    SseDeserializer deserializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+
+    var len_ = sse_decode_i_32(deserializer);
+    var ans_ = <FlusterError>[];
+    for (var idx_ = 0; idx_ < len_; ++idx_) {
+      ans_.add(
+        sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFlusterError(
+          deserializer,
+        ),
+      );
+    }
+    return ans_;
   }
 
   @protected
@@ -1324,6 +1432,17 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
+  String? sse_decode_opt_String(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+
+    if (sse_decode_bool(deserializer)) {
+      return (sse_decode_String(deserializer));
+    } else {
+      return null;
+    }
+  }
+
+  @protected
   FlusterError?
   sse_decode_opt_box_autoadd_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFlusterError(
     SseDeserializer deserializer,
@@ -1332,6 +1451,22 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
 
     if (sse_decode_bool(deserializer)) {
       return (sse_decode_box_autoadd_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFlusterError(
+        deserializer,
+      ));
+    } else {
+      return null;
+    }
+  }
+
+  @protected
+  List<FlusterError>?
+  sse_decode_opt_list_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFlusterError(
+    SseDeserializer deserializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+
+    if (sse_decode_bool(deserializer)) {
+      return (sse_decode_list_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFlusterError(
         deserializer,
       ));
     } else {
@@ -1360,9 +1495,30 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
+  SyncFilesystemDirectoryOptions sse_decode_sync_filesystem_directory_options(
+    SseDeserializer deserializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    var var_dirPath = sse_decode_String(deserializer);
+    var var_bibPath = sse_decode_opt_String(deserializer);
+    var var_nThreads = sse_decode_u_32(deserializer);
+    return SyncFilesystemDirectoryOptions(
+      dirPath: var_dirPath,
+      bibPath: var_bibPath,
+      nThreads: var_nThreads,
+    );
+  }
+
+  @protected
   int sse_decode_u_16(SseDeserializer deserializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     return deserializer.buffer.getUint16();
+  }
+
+  @protected
+  int sse_decode_u_32(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    return deserializer.buffer.getUint32();
   }
 
   @protected
@@ -1432,34 +1588,6 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
 
   @protected
   void
-  sse_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerSenderFlusterError(
-    SenderFlusterError self,
-    SseSerializer serializer,
-  ) {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    sse_encode_usize(
-      (self as SenderFlusterErrorImpl).frbInternalSseEncode(move: true),
-      serializer,
-    );
-  }
-
-  @protected
-  void
-  sse_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerSenderResultMdxNoteEntityFlusterError(
-    SenderResultMdxNoteEntityFlusterError self,
-    SseSerializer serializer,
-  ) {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    sse_encode_usize(
-      (self as SenderResultMdxNoteEntityFlusterErrorImpl).frbInternalSseEncode(
-        move: true,
-      ),
-      serializer,
-    );
-  }
-
-  @protected
-  void
   sse_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerThing(
     Thing self,
     SseSerializer serializer,
@@ -1506,6 +1634,19 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
     // Codec=Sse (Serialization based), see doc to use other codecs
     sse_encode_usize(
       (self as MdxNoteSummaryImpl).frbInternalSseEncode(move: false),
+      serializer,
+    );
+  }
+
+  @protected
+  void
+  sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerSenderFlusterError(
+    SenderFlusterError self,
+    SseSerializer serializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_usize(
+      (self as SenderFlusterErrorImpl).frbInternalSseEncode(move: false),
       serializer,
     );
   }
@@ -1577,21 +1718,6 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
 
   @protected
   void
-  sse_encode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerSenderResultMdxNoteEntityFlusterError(
-    SenderResultMdxNoteEntityFlusterError self,
-    SseSerializer serializer,
-  ) {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    sse_encode_usize(
-      (self as SenderResultMdxNoteEntityFlusterErrorImpl).frbInternalSseEncode(
-        move: null,
-      ),
-      serializer,
-    );
-  }
-
-  @protected
-  void
   sse_encode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerThing(
     Thing self,
     SseSerializer serializer,
@@ -1638,6 +1764,15 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
+  void sse_encode_box_autoadd_sync_filesystem_directory_options(
+    SyncFilesystemDirectoryOptions self,
+    SseSerializer serializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_sync_filesystem_directory_options(self, serializer);
+  }
+
+  @protected
   void sse_encode_f_64(double self, SseSerializer serializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     serializer.buffer.putFloat64(self);
@@ -1656,6 +1791,22 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   void sse_encode_i_32(int self, SseSerializer serializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     serializer.buffer.putInt32(self);
+  }
+
+  @protected
+  void
+  sse_encode_list_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFlusterError(
+    List<FlusterError> self,
+    SseSerializer serializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_i_32(self.length, serializer);
+    for (final item in self) {
+      sse_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFlusterError(
+        item,
+        serializer,
+      );
+    }
   }
 
   @protected
@@ -1685,6 +1836,16 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
+  void sse_encode_opt_String(String? self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+
+    sse_encode_bool(self != null, serializer);
+    if (self != null) {
+      sse_encode_String(self, serializer);
+    }
+  }
+
+  @protected
   void
   sse_encode_opt_box_autoadd_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFlusterError(
     FlusterError? self,
@@ -1695,6 +1856,23 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
     sse_encode_bool(self != null, serializer);
     if (self != null) {
       sse_encode_box_autoadd_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFlusterError(
+        self,
+        serializer,
+      );
+    }
+  }
+
+  @protected
+  void
+  sse_encode_opt_list_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFlusterError(
+    List<FlusterError>? self,
+    SseSerializer serializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+
+    sse_encode_bool(self != null, serializer);
+    if (self != null) {
+      sse_encode_list_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFlusterError(
         self,
         serializer,
       );
@@ -1724,9 +1902,26 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
+  void sse_encode_sync_filesystem_directory_options(
+    SyncFilesystemDirectoryOptions self,
+    SseSerializer serializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_String(self.dirPath, serializer);
+    sse_encode_opt_String(self.bibPath, serializer);
+    sse_encode_u_32(self.nThreads, serializer);
+  }
+
+  @protected
   void sse_encode_u_16(int self, SseSerializer serializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     serializer.buffer.putUint16(self);
+  }
+
+  @protected
+  void sse_encode_u_32(int self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    serializer.buffer.putUint32(self);
   }
 
   @protected
@@ -1874,36 +2069,6 @@ class SenderFlusterErrorImpl extends RustOpaque implements SenderFlusterError {
         .instance
         .api
         .rust_arc_decrement_strong_count_SenderFlusterErrorPtr,
-  );
-}
-
-@sealed
-class SenderResultMdxNoteEntityFlusterErrorImpl extends RustOpaque
-    implements SenderResultMdxNoteEntityFlusterError {
-  // Not to be used by end users
-  SenderResultMdxNoteEntityFlusterErrorImpl.frbInternalDcoDecode(
-    List<dynamic> wire,
-  ) : super.frbInternalDcoDecode(wire, _kStaticData);
-
-  // Not to be used by end users
-  SenderResultMdxNoteEntityFlusterErrorImpl.frbInternalSseDecode(
-    BigInt ptr,
-    int externalSizeOnNative,
-  ) : super.frbInternalSseDecode(ptr, externalSizeOnNative, _kStaticData);
-
-  static final _kStaticData = RustArcStaticData(
-    rustArcIncrementStrongCount: RustLib
-        .instance
-        .api
-        .rust_arc_increment_strong_count_SenderResultMdxNoteEntityFlusterError,
-    rustArcDecrementStrongCount: RustLib
-        .instance
-        .api
-        .rust_arc_decrement_strong_count_SenderResultMdxNoteEntityFlusterError,
-    rustArcDecrementStrongCountPtr: RustLib
-        .instance
-        .api
-        .rust_arc_decrement_strong_count_SenderResultMdxNoteEntityFlusterErrorPtr,
   );
 }
 

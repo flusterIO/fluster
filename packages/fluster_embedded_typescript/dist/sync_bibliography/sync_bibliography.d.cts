@@ -1,2 +1,3 @@
+declare const syncBibliography: () => void;
 
-export {  }
+export { syncBibliography };

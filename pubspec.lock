@@ -9,6 +9,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "82.0.0"
+  abutil:
+    dependency: transitive
+    description:
+      name: abutil
+      sha256: db3c333aa2a2387e82777c456cf2829ab9d359a6b40540b338d1a9e20b8cb65f
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.1.2"
   analyzer:
     dependency: transitive
     description:
@@ -297,6 +305,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.0.6"
+  cupertino_icons:
+    dependency: transitive
+    description:
+      name: cupertino_icons
+      sha256: ba631d1c7f7bef6b729a622b7b752645a2d076dba9976925b8f25725a30e1ee6
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.8"
   dart_style:
     dependency: transitive
     description:
@@ -433,6 +449,13 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.1.273"
+  fluster_models:
+    dependency: transitive
+    description:
+      path: "packages/fluster_models"
+      relative: true
+    source: path
+    version: "1.0.0+1"
   fluster_ui:
     dependency: transitive
     description:
@@ -1139,6 +1162,13 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.9.0"
+  rust_lib_fluster_models:
+    dependency: transitive
+    description:
+      path: "packages/fluster_models/rust_builder"
+      relative: true
+    source: path
+    version: "0.0.1"
   scroll_pos:
     dependency: transitive
     description:
@@ -1464,6 +1494,70 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.1.0"
+  webview_all:
+    dependency: transitive
+    description:
+      name: webview_all
+      sha256: eed3a6150ec662d6e02b231cbc387309f7caed77943752b63d463daafae51734
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.5.2"
+  webview_all_cef:
+    dependency: transitive
+    description:
+      name: webview_all_cef
+      sha256: "51b46dae969a771711ec1944a28c86d2f894ef78314b805a90e1d71571f96cdc"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.5.1"
+  webview_flutter:
+    dependency: transitive
+    description:
+      name: webview_flutter
+      sha256: caf0f5a1012aa3c2d33c4215adc72dc1194bb59a2d3ed901f457965626805e66
+      url: "https://pub.dev"
+    source: hosted
+    version: "4.11.0"
+  webview_flutter_android:
+    dependency: transitive
+    description:
+      name: webview_flutter_android
+      sha256: "6b0eae02b7604954b80ee9a29507ac38f5de74b712faa6fee33abc1cdedc1b21"
+      url: "https://pub.dev"
+    source: hosted
+    version: "4.4.2"
+  webview_flutter_platform_interface:
+    dependency: transitive
+    description:
+      name: webview_flutter_platform_interface
+      sha256: "18b1640839cf6546784a524c72aded5b6e86b23e7167dc2311cc96f7658b64bd"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.11.0"
+  webview_flutter_web:
+    dependency: transitive
+    description:
+      name: webview_flutter_web
+      sha256: "18a7ccc1c31dd9a5c759a1b7217a2a1e04bd8f65712714a4070bfac19a23ca9e"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.2.3+4"
+  webview_flutter_wkwebview:
+    dependency: transitive
+    description:
+      name: webview_flutter_wkwebview
+      sha256: c9f9be526fa0d3347374ceaa05c4b3acb85f4f112abd62f7d74b7d301fa515ff
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.20.0"
+  webview_windows:
+    dependency: transitive
+    description:
+      name: webview_windows
+      sha256: "47fcad5875a45db29dbb5c9e6709bf5c88dcc429049872701343f91ed7255730"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.4.0"
   win32:
     dependency: transitive
     description:
@@ -1513,5 +1607,5 @@ packages:
     source: hosted
     version: "2.2.2"
 sdks:
-  dart: ">=3.8.0 <4.0.0"
+  dart: ">=3.9.0-32.0.dev <4.0.0"
   flutter: ">=3.32.0-1.0.pre.180"

@@ -1,13 +1,7 @@
-use crossbeam::thread;
+pub use crate::api::forced_imports::*;
 use crossbeam_channel::unbounded;
 use fluster_db::api::db::get_database;
-use fluster_models::models::{
-    bibliography::bib_file::BibtexFile, notes::mdx::mdx_note::MdxNoteEntity,
-};
-use fluster_types::errors::{any_error::AnyFlusterError, errors::FlusterError};
-pub use fluster_types::traits::db_entity::FlusterDatabaseEntity;
-use ignore::{DirEntry, WalkBuilder, WalkState};
-use std::path;
+use std::{cmp::max, path};
 
 use super::{
     models::sync_filesystem_options::SyncFilesystemDirectoryOptions,
@@ -16,12 +10,8 @@ use super::{
     },
 };
 
-pub async fn sync_directory(
-    opts: SyncFilesystemDirectoryOptions,
-) -> Option<Vec<impl AnyFlusterError>> {
-    let (mdx_note_sender, mdx_note_receiver) =
-        unbounded::<Result<MdxNoteEntity, fluster_types::errors::parsing_errors::ParsingError>>();
-    let (error_sender, error_receiver) = unbounded::<Box<dyn AnyFlusterError>>();
+pub async fn sync_directory(opts: SyncFilesystemDirectoryOptions) -> Option<Vec<FlusterError>> {
+    let (error_sender, error_receiver) = unbounded::<FlusterError>();
     let notes_path = path::Path::new(&opts.dir_path);
     let mut errors: Vec<FlusterError> = Vec::new();
 
@@ -34,11 +24,19 @@ pub async fn sync_directory(
 
     let db = database.unwrap();
 
-    /// Check if user provided bib path, and if so spawn a new thread and sync that bib.
+    let n_threads = opts.n_threads.clone();
+    let bib_error_sender = error_sender.clone();
+    // Check if user provided bib path, and if so spawn a new thread and sync that bib.
     // let handle: Option<>
-    let bib_thread_handle = std::thread::spawn(async || {
+    let bib_thread_handle = std::thread::spawn(async move || {
         if opts.bib_path.is_some() {
-            sync_user_bibliography(opts.bib_path, error_sender, db).await;
+            sync_user_bibliography(
+                &opts.bib_path.unwrap(),
+                &bib_error_sender,
+                db,
+                max(n_threads - 1, 1),
+            )
+            .await;
         }
     });
 
@@ -48,7 +46,7 @@ pub async fn sync_directory(
     }
 
     // No need to thread here, as ignore is taking care of the threading.
-    sync_mdx_filesystem_notes(&opts.dir_path, mdx_note_sender, error_sender).await;
+    sync_mdx_filesystem_notes(&opts.dir_path, &error_sender, db).await;
     bib_thread_handle.join();
 
     // drop(sender);
@@ -68,6 +66,7 @@ mod tests {
         let f = sync_directory(SyncFilesystemDirectoryOptions {
             dir_path: "/Users/bigsexy/Desktop/notes/content/".to_owned(),
             bib_path: None,
+            n_threads: 8,
         })
         .await;
         assert!(f.is_none_or(|x| x.is_empty()), "Is not none or empty.");

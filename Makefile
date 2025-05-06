@@ -5,7 +5,9 @@ BUILD_DATE := $(shell date -u +"%Y-%m-%d%H:%M:%SZ")
 VERSION := $(shell git describe --tags --abbrev=0)
 
 
-format_everything:
+set_version:
+	FLUSTER_VERSION=${VERSION} tsx ${FLUSTER_NATIVE_ROOT}/scripts/set_package_version.ts
+format_everything: set_version
 	dart fix
 	pnpm syncpack format
 generate_icons:
@@ -16,9 +18,15 @@ build_protos:
 	${FLUSTER_NATIVE_ROOT}/packages/fluster_internal_workspace/fluster_internal_workspace generate_grpc_script
 	${FLUSTER_NATIVE_ROOT}/packages/fluster_grpc/scripts/clean.sh
 	cd ${FLUSTER_NATIVE_ROOT}/packages/fluster_grpc; ${FLUSTER_NATIVE_ROOT}/packages/fluster_grpc/scripts/distribute_proto.sh
-build_rust:
-	trash ${FLUSTER_NATIVE_ROOT}/packages/fluster_native_interface/lib/src/rust/**
+build_embedded_ts:
+	cd ${FLUSTER_NATIVE_ROOT}/packages/fluster_embedded_typescript; pnpm build
+build_node: build_embedded_ts
+	pnpm syncpack format
+	cd ${FLUSTER_NATIVE_ROOT}/packages/fluster_ts; pnpm build
+build_rust: build_embedded_ts
+	rm -rf ${FLUSTER_NATIVE_ROOT}/packages/fluster_native_interface/lib/src/rust/**
 	cd ${FLUSTER_NATIVE_ROOT}/packages/fluster_native_interface; flutter_rust_bridge_codegen generate
+	cd ${FLUSTER_NATIVE_ROOT}/packages/fluster_models; flutter_rust_bridge_codegen generate
 test_rust:
 	cargo llvm-cov nextest --html
 test_flutter:
@@ -28,13 +36,8 @@ build_go:
 	cd ${FLUSTER_NATIVE_ROOT}/packages/fluster_internal_workspace/; go build
 test_go:
 	cd ${FLUSTER_NATIVE_ROOT}/packages/fluster_cli; go test -cover -coverprofile $FLUSTER_NATIVE_ROOT/packages/fluster_cli/.coverage/coverage.outj
-build_embedded_ts:
-	cd ${FLUSTER_NATIVE_ROOT}/packages/fluster_embedded_typescript; pnpm build
-build_node: build_embedded_ts
-	pnpm syncpack format
-	cd ${FLUSTER_NATIVE_ROOT}/packages/fluster_ts; pnpm build
 build_python:
-	cd ${FLUSTER_NATIVE_ROOT}/packages/fluster_py; python -m build
+	cd ${FLUSTER_NATIVE_ROOT}/packages/fluster_py; python -m nuitka --follow-imports fluster_py
 distribute_python: build_python
 	twine upload ${FLUSTER_NATIVE_ROOT}/packages/fluster_py/dist/
 cross_language_pre_build: run_builders
@@ -46,6 +49,7 @@ generate_docs: generate_icons
 	cd ${FLUSTER_NATIVE_ROOT}/packages/fluster_ts; pnpm dlx typedoc --plugin typedoc-plugin-markdown --out ${FLUSTER_NATIVE_ROOT}/docs/api/packages/fluster_ts/
 	lazydocs ${FLUSTER_NATIVE_ROOT}/packages/fluster_py --output-path ${FLUSTER_NATIVE_ROOT}/docs/api/packages/fluster_py --output-format=mdx
 	lazydocs ${FLUSTER_NATIVE_ROOT}/packages/fluster_py03 --output-path ${FLUSTER_NATIVE_ROOT}/docs/api/packages/fluster_py03 --output-format=mdx
+	cd ${FLUSTER_NATIVE_ROOT}/packages/fluster_go; gomarkdoc -o ${FLUSTER_NATIVE_ROOT}/docs/api/packages/fluster_go/
 generate_docs_with_dependencies:
 	cargo doc --workspace
 clean_build:

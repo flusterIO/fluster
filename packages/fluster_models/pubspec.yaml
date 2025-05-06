@@ -1,0 +1,21 @@
+name: fluster_models
+description: A new Flutter project.
+publish_to: none
+version: 0.0.1
+environment:
+  sdk: ^3.9.0-32.0.dev
+dependencies:
+  flutter:
+    sdk: flutter
+  cupertino_icons: ^1.0.8
+  rust_lib_fluster_models:
+    path: rust_builder
+  flutter_rust_bridge: 2.9.0
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^5.0.0
+  integration_test:
+    sdk: flutter
+flutter:
+  uses-material-design: true

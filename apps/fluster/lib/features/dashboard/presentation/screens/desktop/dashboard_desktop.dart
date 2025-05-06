@@ -18,7 +18,8 @@ class DashbboardDesktop extends StatefulWidget {
 class _DashbboardDesktopState extends State<DashbboardDesktop> {
   SummaryListResults summaryData = SummaryListResults(mdxNotes: []);
   void getDashboardData() async {
-    final data = await native.getSummaryList(query: SummaryListQuery());
+    final x = await SummaryListQuery.default_();
+    final data = await native.getSummaryList(query: x);
     setState(() {
       summaryData = data;
     });

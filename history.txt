@@ -1,2 +1,0 @@
-#V2
-LET $notes = (SELECT front_matter, id from mdx_notes);\nLET $summary_notes = $notes.map(|$mdx_note| {\n    {\n       id:  $mdx_note["id"],\n       front_matter: $mdx_note["front_matter"],\n    }\n    });\nRETURN [{\n    mdx_notes: $summary_notes,\n}];

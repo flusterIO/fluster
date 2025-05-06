@@ -1,49 +1,69 @@
 {
-  "name": "fluster_embedded_typescript",
-  "version": "1.0.0",
-  "description": "",
-  "license": "ISC",
-  "author": "Andrew Mueller <aiglinski414@gmail.com>",
-  "type": "module",
-  "main": "dist/index.js",
-  "scripts": {
-    "build": "wireit"
-  },
-  "wireit": {
-    "build_sync_bibtex": {
-      "command": "tsup",
-      "env": {
-        "FLUSTER_TS_IN": "packages/fluster_embedded_typescript/src/actions/sync_bibliography/sync_bibliography.ts",
-        "FLUSTER_TS_OUT": "packages/fluster_embedded_typescript/dist/sync_bibliography"
-      }
+    "name": "fluster_embedded_typescript",
+    "version": "1.0.0",
+    "description": "",
+    "license": "ISC",
+    "author": "Andrew Mueller <aiglinski414@gmail.com>",
+    "type": "module",
+    "main": "dist/index.js",
+    "scripts": {
+        "build": "wireit"
     },
-    "build": {
-      "dependencies": [
-        "build_sync_bibtex"
-      ],
-      "clean": true
-    }
-  },
-  "files": [
-    "dist"
-  ],
-  "devDependencies": {
-    "@types/node": "^22.14.1",
-    "@types/react": "^19.1.2",
-    "@types/react-dom": "^19.1.3",
-    "eslint-plugin-react": "^7.37.5",
-    "eslint-plugin-react-hooks": "^5.2.0",
-    "eslint-plugin-tailwindcss": "^3.18.0",
-    "glob": "^11.0.1",
-    "tsup": "^8.4.0",
-    "tsx": "^4.19.4",
-    "typescript": "^5.8.3",
-    "typescript-eslint": "^8.31.1",
-    "vitest": "^3.1.2",
-    "wireit": "^0.14.12"
-  },
-  "dependencies": {
-    "@tsconfig/node20": "^20.1.5"
-  },
-  "packageManager": "pnpm@9.7.1"
+    "wireit": {
+        "build_sync_bibtex": {
+            "command": "tsup",
+            "env": {
+                "FLUSTER_TS_IN": "packages/fluster_embedded_typescript/src/actions/sync_bibliography/sync_bibliography.ts",
+                "FLUSTER_TS_OUT": "packages/fluster_embedded_typescript/dist/sync_bibliography"
+            }
+        },
+        "build_render_mdx_to_jsx": {
+            "command": "tsup",
+            "env": {
+                "FLUSTER_TS_IN": "packages/fluster_embedded_typescript/src/actions/render_mdx/render_mdx_to_jsx.ts",
+                "FLUSTER_TS_OUT": "packages/fluster_embedded_typescript/dist/render_mdx_to_jsx"
+            }
+        },
+        "build": {
+            "dependencies": [
+                "build_sync_bibtex",
+                "build_render_mdx_to_jsx"
+            ],
+            "clean": true
+        }
+    },
+    "files": [
+        "dist"
+    ],
+    "devDependencies": {
+        "@types/node": "^22.14.1",
+        "@types/react": "^19.1.2",
+        "@types/react-dom": "^19.1.3",
+        "eslint-plugin-react": "^7.37.5",
+        "eslint-plugin-react-hooks": "^5.2.0",
+        "eslint-plugin-tailwindcss": "^3.18.0",
+        "glob": "^11.0.1",
+        "tsup": "^8.4.0",
+        "tsx": "^4.19.4",
+        "typescript": "^5.8.3",
+        "typescript-eslint": "^8.31.1",
+        "vitest": "^3.1.2",
+        "wireit": "^0.14.12"
+    },
+    "dependencies": {
+        "@mdx-js/mdx": "^3.1.0",
+        "@shikijs/transformers": "^3.3.0",
+        "@tsconfig/node20": "^20.1.5",
+        "fumadocs-core": "^15.2.15",
+        "rehype-autolink-headings": "^7.1.0",
+        "rehype-img-size": "^1.0.1",
+        "rehype-mathjax": "^7.1.0",
+        "rehype-pretty-code": "^0.14.1",
+        "rehype-slug": "^6.0.0",
+        "rehype-video": "^2.3.0",
+        "remark-emoji": "^5.0.1",
+        "remark-math": "^6.0.0",
+        "shiki": "3.3.0"
+    },
+    "packageManager": "pnpm@9.7.1"
 }

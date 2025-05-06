@@ -3,7 +3,7 @@
     "description": "Fluster types, grpc client and api for developers.",
     "version": "0.0.1",
     "author": "Andrew Mueller <fluster.eyeoh@gmail.com",
-    "license": "GPL-3.0-or-later",
+    "license": "LicenseRef-license.md",
     "publishConfig": {
         "access": "public"
     },

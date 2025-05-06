@@ -5,11 +5,13 @@
 list(APPEND FLUTTER_PLUGIN_LIST
   bitsdojo_window_windows
   connectivity_plus
+  webview_windows
   window_size
 )
 
 list(APPEND FLUTTER_FFI_PLUGIN_LIST
   fluster_native_interface
+  rust_lib_fluster_models
 )
 
 set(PLUGIN_BUNDLED_LIBRARIES)

@@ -1,5 +1,0 @@
-out
-content/docs/openapi/**/*.mdx
-!content/docs/openapi/index.mdx
-
-public/registry

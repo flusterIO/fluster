@@ -1,4 +1,5 @@
-use fluster_types::{errors::errors::FlusterError, typedefs::note_type_utils::FlusterDb};
+pub use fluster_types::errors::errors::FlusterError;
+use fluster_types::typedefs::note_type_utils::FlusterDb;
 use std::path::PathBuf;
 use surrealdb::{
     engine::local::{Db, RocksDb},

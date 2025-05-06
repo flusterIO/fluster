@@ -25,13 +25,13 @@
 
 // Section: imports
 
-use crate::api::global_actions::parse_directory::sync_fs_directory::sync_methods::sync_mdx_notes::*;
-use crate::api::global_actions::get_summary_list::get_summary_list_data::*;
-use crate::api::global_actions::parse_directory::sync_fs_directory::sync_methods::sync_user_bibliography::*;
 use crate::api::fs::fs_setup::*;
-use crate::api::global_actions::get_summary_list::summary_types::mdx_note_summary::*;use flutter_rust_bridge::{Handler, IntoIntoDart};
-use flutter_rust_bridge::for_generated::{Lockable, transform_result_dco, Lifetimeable};
-use flutter_rust_bridge::for_generated::byteorder::{NativeEndian, WriteBytesExt, ReadBytesExt};
+use crate::api::global_actions::get_summary_list::get_summary_list_data::*;
+use crate::api::global_actions::get_summary_list::summary_types::mdx_note_summary::*;
+use crate::api::global_actions::parse_directory::sync_fs_directory::sync_methods::sync_mdx_notes::*;
+use flutter_rust_bridge::for_generated::byteorder::{NativeEndian, ReadBytesExt, WriteBytesExt};
+use flutter_rust_bridge::for_generated::{transform_result_dco, Lifetimeable, Lockable};
+use flutter_rust_bridge::{Handler, IntoIntoDart};
 
 // Section: boilerplate
 
@@ -41,7 +41,7 @@ flutter_rust_bridge::frb_generated_boilerplate!(
     default_rust_auto_opaque = RustAutoOpaqueMoi,
 );
 pub(crate) const FLUTTER_RUST_BRIDGE_CODEGEN_VERSION: &str = "2.9.0";
-pub(crate) const FLUTTER_RUST_BRIDGE_CODEGEN_CONTENT_HASH: i32 = 1985754696;
+pub(crate) const FLUTTER_RUST_BRIDGE_CODEGEN_CONTENT_HASH: i32 = 1096559135;
 
 // Section: executor
 
@@ -501,6 +501,36 @@ fn wire__crate__api__global_actions__get_summary_list__summary_list_query__summa
                     })())
                 } })
 }
+fn wire__crate__api__global_actions__parse_directory__sync_fs_directory__sync_filesystem_directory__sync_directory_impl(
+    port_: flutter_rust_bridge::for_generated::MessagePort,
+    ptr_: flutter_rust_bridge::for_generated::PlatformGeneralizedUint8ListPtr,
+    rust_vec_len_: i32,
+    data_len_: i32,
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_async::<flutter_rust_bridge::for_generated::SseCodec,_,_,_>(flutter_rust_bridge::for_generated::TaskInfo{ debug_name: "sync_directory", port: Some(port_), mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal }, move || { 
+            let message = unsafe { flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(ptr_, rust_vec_len_, data_len_) };
+            let mut deserializer = flutter_rust_bridge::for_generated::SseDeserializer::new(message);
+            let api_opts = <crate::api::global_actions::parse_directory::sync_fs_directory::models::sync_filesystem_options::SyncFilesystemDirectoryOptions>::sse_decode(&mut deserializer);deserializer.end(); move |context| async move {
+                    transform_result_sse::<_, ()>((move || async move {
+                         let output_ok = Result::<_,()>::Ok(crate::api::global_actions::parse_directory::sync_fs_directory::sync_filesystem_directory::sync_directory(api_opts).await)?;   Ok(output_ok)
+                    })().await)
+                } })
+}
+fn wire__crate__api__global_actions__parse_directory__sync_fs_directory__models__sync_filesystem_options__sync_filesystem_directory_options_default_impl(
+    port_: flutter_rust_bridge::for_generated::MessagePort,
+    ptr_: flutter_rust_bridge::for_generated::PlatformGeneralizedUint8ListPtr,
+    rust_vec_len_: i32,
+    data_len_: i32,
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::SseCodec,_,_>(flutter_rust_bridge::for_generated::TaskInfo{ debug_name: "sync_filesystem_directory_options_default", port: Some(port_), mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal }, move || { 
+            let message = unsafe { flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(ptr_, rust_vec_len_, data_len_) };
+            let mut deserializer = flutter_rust_bridge::for_generated::SseDeserializer::new(message);
+            deserializer.end(); move |context|  {
+                    transform_result_sse::<_, ()>((move ||  {
+                         let output_ok = Result::<_,()>::Ok(crate::api::global_actions::parse_directory::sync_fs_directory::models::sync_filesystem_options::SyncFilesystemDirectoryOptions::default())?;   Ok(output_ok)
+                    })())
+                } })
+}
 fn wire__crate__api__global_actions__parse_directory__sync_fs_directory__sync_methods__sync_mdx_notes__sync_mdx_filesystem_notes_impl(
     port_: flutter_rust_bridge::for_generated::MessagePort,
     ptr_: flutter_rust_bridge::for_generated::PlatformGeneralizedUint8ListPtr,
@@ -511,10 +541,22 @@ fn wire__crate__api__global_actions__parse_directory__sync_fs_directory__sync_me
             let message = unsafe { flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(ptr_, rust_vec_len_, data_len_) };
             let mut deserializer = flutter_rust_bridge::for_generated::SseDeserializer::new(message);
             let api_notes_path = <String>::sse_decode(&mut deserializer);
-let api_mdx_sender = <Sender < Result < MdxNoteEntity , FlusterError > >>::sse_decode(&mut deserializer);
-let api_error_sender = <Sender < FlusterError >>::sse_decode(&mut deserializer);deserializer.end(); move |context| async move {
+let api_error_sender = <RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<Sender < FlusterError >>>>::sse_decode(&mut deserializer);
+let api_db = <RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<FlusterDb>>>::sse_decode(&mut deserializer);deserializer.end(); move |context| async move {
                     transform_result_sse::<_, ()>((move || async move {
-                         let output_ok = Result::<_,()>::Ok({ crate::api::global_actions::parse_directory::sync_fs_directory::sync_methods::sync_mdx_notes::sync_mdx_filesystem_notes(&api_notes_path, api_mdx_sender, api_error_sender).await; })?;   Ok(output_ok)
+                        let mut api_error_sender_guard = None;
+let mut api_db_guard = None;
+let decode_indices_ = flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![flutter_rust_bridge::for_generated::LockableOrderInfo::new(&api_error_sender, 0, false), flutter_rust_bridge::for_generated::LockableOrderInfo::new(&api_db, 1, false)]);
+        for i in decode_indices_ {
+            match i {
+                0 => api_error_sender_guard = Some(api_error_sender.lockable_decode_async_ref().await),
+1 => api_db_guard = Some(api_db.lockable_decode_async_ref().await),
+                _ => unreachable!(),
+            }
+        }
+        let api_error_sender_guard = api_error_sender_guard.unwrap();
+let api_db_guard = api_db_guard.unwrap();
+ let output_ok = Result::<_,()>::Ok({ crate::api::global_actions::parse_directory::sync_fs_directory::sync_methods::sync_mdx_notes::sync_mdx_filesystem_notes(&api_notes_path, &*api_error_sender_guard, &*api_db_guard).await; })?;   Ok(output_ok)
                     })().await)
                 } })
 }
@@ -528,19 +570,23 @@ fn wire__crate__api__global_actions__parse_directory__sync_fs_directory__sync_me
             let message = unsafe { flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(ptr_, rust_vec_len_, data_len_) };
             let mut deserializer = flutter_rust_bridge::for_generated::SseDeserializer::new(message);
             let api_bib_path = <String>::sse_decode(&mut deserializer);
-let api_error_sender = <Sender < FlusterError >>::sse_decode(&mut deserializer);
-let api_db = <RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<FlusterDb>>>::sse_decode(&mut deserializer);deserializer.end(); move |context| async move {
+let api_error_sender = <RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<Sender < FlusterError >>>>::sse_decode(&mut deserializer);
+let api_db = <RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<FlusterDb>>>::sse_decode(&mut deserializer);
+let api_n_threads = <u32>::sse_decode(&mut deserializer);deserializer.end(); move |context| async move {
                     transform_result_sse::<_, ()>((move || async move {
-                        let mut api_db_guard = None;
-let decode_indices_ = flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![flutter_rust_bridge::for_generated::LockableOrderInfo::new(&api_db, 0, false)]);
+                        let mut api_error_sender_guard = None;
+let mut api_db_guard = None;
+let decode_indices_ = flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![flutter_rust_bridge::for_generated::LockableOrderInfo::new(&api_error_sender, 0, false), flutter_rust_bridge::for_generated::LockableOrderInfo::new(&api_db, 1, false)]);
         for i in decode_indices_ {
             match i {
-                0 => api_db_guard = Some(api_db.lockable_decode_async_ref().await),
+                0 => api_error_sender_guard = Some(api_error_sender.lockable_decode_async_ref().await),
+1 => api_db_guard = Some(api_db.lockable_decode_async_ref().await),
                 _ => unreachable!(),
             }
         }
-        let api_db_guard = api_db_guard.unwrap();
- let output_ok = Result::<_,()>::Ok({ crate::api::global_actions::parse_directory::sync_fs_directory::sync_methods::sync_user_bibliography::sync_user_bibliography(&api_bib_path, api_error_sender, &*api_db_guard).await; })?;   Ok(output_ok)
+        let api_error_sender_guard = api_error_sender_guard.unwrap();
+let api_db_guard = api_db_guard.unwrap();
+ let output_ok = Result::<_,()>::Ok({ crate::api::global_actions::parse_directory::sync_fs_directory::sync_methods::sync_user_bibliography::sync_user_bibliography(&api_bib_path, &*api_error_sender_guard, &*api_db_guard, api_n_threads).await; })?;   Ok(output_ok)
                     })().await)
                 } })
 }
@@ -561,11 +607,6 @@ flutter_rust_bridge::frb_generated_moi_arc_impl_value!(
 );
 flutter_rust_bridge::frb_generated_moi_arc_impl_value!(
     flutter_rust_bridge::for_generated::RustAutoOpaqueInner<Sender<FlusterError>>
-);
-flutter_rust_bridge::frb_generated_moi_arc_impl_value!(
-    flutter_rust_bridge::for_generated::RustAutoOpaqueInner<
-        Sender<Result<MdxNoteEntity, FlusterError>>,
-    >
 );
 flutter_rust_bridge::frb_generated_moi_arc_impl_value!(
     flutter_rust_bridge::for_generated::RustAutoOpaqueInner<Thing>
@@ -606,28 +647,6 @@ impl SseDecode for MdxNoteSummary {
     fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
         let mut inner = <RustOpaqueMoi<
             flutter_rust_bridge::for_generated::RustAutoOpaqueInner<MdxNoteSummary>,
-        >>::sse_decode(deserializer);
-        return flutter_rust_bridge::for_generated::rust_auto_opaque_decode_owned(inner);
-    }
-}
-
-impl SseDecode for Sender<FlusterError> {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
-        let mut inner = <RustOpaqueMoi<
-            flutter_rust_bridge::for_generated::RustAutoOpaqueInner<Sender<FlusterError>>,
-        >>::sse_decode(deserializer);
-        return flutter_rust_bridge::for_generated::rust_auto_opaque_decode_owned(inner);
-    }
-}
-
-impl SseDecode for Sender<Result<MdxNoteEntity, FlusterError>> {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
-        let mut inner = <RustOpaqueMoi<
-            flutter_rust_bridge::for_generated::RustAutoOpaqueInner<
-                Sender<Result<MdxNoteEntity, FlusterError>>,
-            >,
         >>::sse_decode(deserializer);
         return flutter_rust_bridge::for_generated::rust_auto_opaque_decode_owned(inner);
     }
@@ -693,20 +712,6 @@ impl SseDecode
     }
 }
 
-impl SseDecode
-    for RustOpaqueMoi<
-        flutter_rust_bridge::for_generated::RustAutoOpaqueInner<
-            Sender<Result<MdxNoteEntity, FlusterError>>,
-        >,
-    >
-{
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
-        let mut inner = <usize>::sse_decode(deserializer);
-        return decode_rust_opaque_moi(inner);
-    }
-}
-
 impl SseDecode for RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<Thing>> {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
@@ -759,6 +764,18 @@ impl SseDecode for i32 {
     }
 }
 
+impl SseDecode for Vec<FlusterError> {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut len_ = <i32>::sse_decode(deserializer);
+        let mut ans_ = vec![];
+        for idx_ in 0..len_ {
+            ans_.push(<FlusterError>::sse_decode(deserializer));
+        }
+        return ans_;
+    }
+}
+
 impl SseDecode for Vec<MdxNoteSummary> {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
@@ -783,11 +800,33 @@ impl SseDecode for Vec<u8> {
     }
 }
 
+impl SseDecode for Option<String> {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        if (<bool>::sse_decode(deserializer)) {
+            return Some(<String>::sse_decode(deserializer));
+        } else {
+            return None;
+        }
+    }
+}
+
 impl SseDecode for Option<FlusterError> {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
         if (<bool>::sse_decode(deserializer)) {
             return Some(<FlusterError>::sse_decode(deserializer));
+        } else {
+            return None;
+        }
+    }
+}
+
+impl SseDecode for Option<Vec<FlusterError>> {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        if (<bool>::sse_decode(deserializer)) {
+            return Some(<Vec<FlusterError>>::sse_decode(deserializer));
         } else {
             return None;
         }
@@ -815,10 +854,25 @@ impl SseDecode
     }
 }
 
+impl SseDecode for crate::api::global_actions::parse_directory::sync_fs_directory::models::sync_filesystem_options::SyncFilesystemDirectoryOptions {
+                    // Codec=Sse (Serialization based), see doc to use other codecs
+                    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {let mut var_dirPath = <String>::sse_decode(deserializer);
+let mut var_bibPath = <Option<String>>::sse_decode(deserializer);
+let mut var_nThreads = <u32>::sse_decode(deserializer);
+return crate::api::global_actions::parse_directory::sync_fs_directory::models::sync_filesystem_options::SyncFilesystemDirectoryOptions{dir_path: var_dirPath, bib_path: var_bibPath, n_threads: var_nThreads};}
+                }
+
 impl SseDecode for u16 {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
         deserializer.cursor.read_u16::<NativeEndian>().unwrap()
+    }
+}
+
+impl SseDecode for u32 {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        deserializer.cursor.read_u32::<NativeEndian>().unwrap()
     }
 }
 
@@ -855,8 +909,10 @@ fn pde_ffi_dispatcher_primary_impl(
 10 => wire__crate__api__initialize__on_desktop_init__on_desktop_init_impl(port, ptr, rust_vec_len, data_len),
 12 => wire__crate__api__fs__fs_setup__setup_file_system_for_data_impl(port, ptr, rust_vec_len, data_len),
 13 => wire__crate__api__global_actions__get_summary_list__summary_list_query__summary_list_query_default_impl(port, ptr, rust_vec_len, data_len),
-14 => wire__crate__api__global_actions__parse_directory__sync_fs_directory__sync_methods__sync_mdx_notes__sync_mdx_filesystem_notes_impl(port, ptr, rust_vec_len, data_len),
-15 => wire__crate__api__global_actions__parse_directory__sync_fs_directory__sync_methods__sync_user_bibliography__sync_user_bibliography_impl(port, ptr, rust_vec_len, data_len),
+14 => wire__crate__api__global_actions__parse_directory__sync_fs_directory__sync_filesystem_directory__sync_directory_impl(port, ptr, rust_vec_len, data_len),
+15 => wire__crate__api__global_actions__parse_directory__sync_fs_directory__models__sync_filesystem_options__sync_filesystem_directory_options_default_impl(port, ptr, rust_vec_len, data_len),
+16 => wire__crate__api__global_actions__parse_directory__sync_fs_directory__sync_methods__sync_mdx_notes__sync_mdx_filesystem_notes_impl(port, ptr, rust_vec_len, data_len),
+17 => wire__crate__api__global_actions__parse_directory__sync_fs_directory__sync_methods__sync_user_bibliography__sync_user_bibliography_impl(port, ptr, rust_vec_len, data_len),
                         _ => unreachable!(),
                     }
 }
@@ -924,44 +980,6 @@ impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive for FrbWrapper<
 
 impl flutter_rust_bridge::IntoIntoDart<FrbWrapper<MdxNoteSummary>> for MdxNoteSummary {
     fn into_into_dart(self) -> FrbWrapper<MdxNoteSummary> {
-        self.into()
-    }
-}
-
-// Codec=Dco (DartCObject based), see doc to use other codecs
-impl flutter_rust_bridge::IntoDart for FrbWrapper<Sender<FlusterError>> {
-    fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
-        flutter_rust_bridge::for_generated::rust_auto_opaque_encode::<_, MoiArc<_>>(self.0)
-            .into_dart()
-    }
-}
-impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive
-    for FrbWrapper<Sender<FlusterError>>
-{
-}
-
-impl flutter_rust_bridge::IntoIntoDart<FrbWrapper<Sender<FlusterError>>> for Sender<FlusterError> {
-    fn into_into_dart(self) -> FrbWrapper<Sender<FlusterError>> {
-        self.into()
-    }
-}
-
-// Codec=Dco (DartCObject based), see doc to use other codecs
-impl flutter_rust_bridge::IntoDart for FrbWrapper<Sender<Result<MdxNoteEntity, FlusterError>>> {
-    fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
-        flutter_rust_bridge::for_generated::rust_auto_opaque_encode::<_, MoiArc<_>>(self.0)
-            .into_dart()
-    }
-}
-impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive
-    for FrbWrapper<Sender<Result<MdxNoteEntity, FlusterError>>>
-{
-}
-
-impl flutter_rust_bridge::IntoIntoDart<FrbWrapper<Sender<Result<MdxNoteEntity, FlusterError>>>>
-    for Sender<Result<MdxNoteEntity, FlusterError>>
-{
-    fn into_into_dart(self) -> FrbWrapper<Sender<Result<MdxNoteEntity, FlusterError>>> {
         self.into()
     }
 }
@@ -1061,6 +1079,22 @@ impl
         self
     }
 }
+// Codec=Dco (DartCObject based), see doc to use other codecs
+impl flutter_rust_bridge::IntoDart for crate::api::global_actions::parse_directory::sync_fs_directory::models::sync_filesystem_options::SyncFilesystemDirectoryOptions {
+                fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
+                    [
+                    self.dir_path.into_into_dart().into_dart(),
+self.bib_path.into_into_dart().into_dart(),
+self.n_threads.into_into_dart().into_dart()
+                ].into_dart()
+                }
+            }
+impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive for crate::api::global_actions::parse_directory::sync_fs_directory::models::sync_filesystem_options::SyncFilesystemDirectoryOptions {}
+impl flutter_rust_bridge::IntoIntoDart<crate::api::global_actions::parse_directory::sync_fs_directory::models::sync_filesystem_options::SyncFilesystemDirectoryOptions> for crate::api::global_actions::parse_directory::sync_fs_directory::models::sync_filesystem_options::SyncFilesystemDirectoryOptions {
+            fn into_into_dart(self) -> crate::api::global_actions::parse_directory::sync_fs_directory::models::sync_filesystem_options::SyncFilesystemDirectoryOptions {
+                self
+            }
+        }
 
 impl SseEncode for flutter_rust_bridge::for_generated::anyhow::Error {
     // Codec=Sse (Serialization based), see doc to use other codecs
@@ -1087,32 +1121,6 @@ impl SseEncode for MdxNoteSummary {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
         <RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<MdxNoteSummary>>>::sse_encode(flutter_rust_bridge::for_generated::rust_auto_opaque_encode::<_, MoiArc<_>>(self), serializer);
-    }
-}
-
-impl SseEncode for Sender<FlusterError> {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
-        <RustOpaqueMoi<
-            flutter_rust_bridge::for_generated::RustAutoOpaqueInner<Sender<FlusterError>>,
-        >>::sse_encode(
-            flutter_rust_bridge::for_generated::rust_auto_opaque_encode::<_, MoiArc<_>>(self),
-            serializer,
-        );
-    }
-}
-
-impl SseEncode for Sender<Result<MdxNoteEntity, FlusterError>> {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
-        <RustOpaqueMoi<
-            flutter_rust_bridge::for_generated::RustAutoOpaqueInner<
-                Sender<Result<MdxNoteEntity, FlusterError>>,
-            >,
-        >>::sse_encode(
-            flutter_rust_bridge::for_generated::rust_auto_opaque_encode::<_, MoiArc<_>>(self),
-            serializer,
-        );
     }
 }
 
@@ -1181,21 +1189,6 @@ impl SseEncode
     }
 }
 
-impl SseEncode
-    for RustOpaqueMoi<
-        flutter_rust_bridge::for_generated::RustAutoOpaqueInner<
-            Sender<Result<MdxNoteEntity, FlusterError>>,
-        >,
-    >
-{
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
-        let (ptr, size) = self.sse_encode_raw();
-        <usize>::sse_encode(ptr, serializer);
-        <i32>::sse_encode(size, serializer);
-    }
-}
-
 impl SseEncode for RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<Thing>> {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
@@ -1245,6 +1238,16 @@ impl SseEncode for i32 {
     }
 }
 
+impl SseEncode for Vec<FlusterError> {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <i32>::sse_encode(self.len() as _, serializer);
+        for item in self {
+            <FlusterError>::sse_encode(item, serializer);
+        }
+    }
+}
+
 impl SseEncode for Vec<MdxNoteSummary> {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
@@ -1265,12 +1268,32 @@ impl SseEncode for Vec<u8> {
     }
 }
 
+impl SseEncode for Option<String> {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <bool>::sse_encode(self.is_some(), serializer);
+        if let Some(value) = self {
+            <String>::sse_encode(value, serializer);
+        }
+    }
+}
+
 impl SseEncode for Option<FlusterError> {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
         <bool>::sse_encode(self.is_some(), serializer);
         if let Some(value) = self {
             <FlusterError>::sse_encode(value, serializer);
+        }
+    }
+}
+
+impl SseEncode for Option<Vec<FlusterError>> {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <bool>::sse_encode(self.is_some(), serializer);
+        if let Some(value) = self {
+            <Vec<FlusterError>>::sse_encode(value, serializer);
         }
     }
 }
@@ -1294,10 +1317,24 @@ impl SseEncode
     }
 }
 
+impl SseEncode for crate::api::global_actions::parse_directory::sync_fs_directory::models::sync_filesystem_options::SyncFilesystemDirectoryOptions {
+                    // Codec=Sse (Serialization based), see doc to use other codecs
+                    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {<String>::sse_encode(self.dir_path, serializer);
+<Option<String>>::sse_encode(self.bib_path, serializer);
+<u32>::sse_encode(self.n_threads, serializer);}
+                }
+
 impl SseEncode for u16 {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
         serializer.cursor.write_u16::<NativeEndian>(self).unwrap();
+    }
+}
+
+impl SseEncode for u32 {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        serializer.cursor.write_u32::<NativeEndian>(self).unwrap();
     }
 }
 
@@ -1331,10 +1368,9 @@ mod io {
     // Section: imports
 
     use crate::api::global_actions::parse_directory::sync_fs_directory::sync_methods::sync_mdx_notes::*;
-use crate::api::global_actions::get_summary_list::get_summary_list_data::*;
-use crate::api::global_actions::parse_directory::sync_fs_directory::sync_methods::sync_user_bibliography::*;
+use crate::api::global_actions::get_summary_list::summary_types::mdx_note_summary::*;
 use crate::api::fs::fs_setup::*;
-use crate::api::global_actions::get_summary_list::summary_types::mdx_note_summary::*;use flutter_rust_bridge::{Handler, IntoIntoDart};
+use crate::api::global_actions::get_summary_list::get_summary_list_data::*;use flutter_rust_bridge::{Handler, IntoIntoDart};
 use flutter_rust_bridge::for_generated::{Lockable, transform_result_dco, Lifetimeable};
 use flutter_rust_bridge::for_generated::byteorder::{NativeEndian, WriteBytesExt, ReadBytesExt};use super::*;
 
@@ -1413,28 +1449,6 @@ use flutter_rust_bridge::for_generated::byteorder::{NativeEndian, WriteBytesExt,
     }
 
     #[unsafe(no_mangle)]
-    pub extern "C" fn frbgen_fluster_native_interface_rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerSenderResultMdxNoteEntityFlusterError(
-        ptr: *const std::ffi::c_void,
-    ) {
-        MoiArc::<
-            flutter_rust_bridge::for_generated::RustAutoOpaqueInner<
-                Sender<Result<MdxNoteEntity, FlusterError>>,
-            >,
-        >::increment_strong_count(ptr as _);
-    }
-
-    #[unsafe(no_mangle)]
-    pub extern "C" fn frbgen_fluster_native_interface_rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerSenderResultMdxNoteEntityFlusterError(
-        ptr: *const std::ffi::c_void,
-    ) {
-        MoiArc::<
-            flutter_rust_bridge::for_generated::RustAutoOpaqueInner<
-                Sender<Result<MdxNoteEntity, FlusterError>>,
-            >,
-        >::decrement_strong_count(ptr as _);
-    }
-
-    #[unsafe(no_mangle)]
     pub extern "C" fn frbgen_fluster_native_interface_rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerThing(
         ptr: *const std::ffi::c_void,
     ) {
@@ -1460,10 +1474,9 @@ mod web {
     // Section: imports
 
     use crate::api::global_actions::parse_directory::sync_fs_directory::sync_methods::sync_mdx_notes::*;
-use crate::api::global_actions::get_summary_list::get_summary_list_data::*;
-use crate::api::global_actions::parse_directory::sync_fs_directory::sync_methods::sync_user_bibliography::*;
+use crate::api::global_actions::get_summary_list::summary_types::mdx_note_summary::*;
 use crate::api::fs::fs_setup::*;
-use crate::api::global_actions::get_summary_list::summary_types::mdx_note_summary::*;use flutter_rust_bridge::{Handler, IntoIntoDart};
+use crate::api::global_actions::get_summary_list::get_summary_list_data::*;use flutter_rust_bridge::{Handler, IntoIntoDart};
 use flutter_rust_bridge::for_generated::{Lockable, transform_result_dco, Lifetimeable};
 use flutter_rust_bridge::for_generated::byteorder::{NativeEndian, WriteBytesExt, ReadBytesExt};use super::*;
                 use flutter_rust_bridge::for_generated::wasm_bindgen;
@@ -1541,28 +1554,6 @@ use flutter_rust_bridge::for_generated::byteorder::{NativeEndian, WriteBytesExt,
         ptr: *const std::ffi::c_void,
     ) {
         MoiArc::<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<Sender < FlusterError >>>::decrement_strong_count(ptr as _);
-    }
-
-    #[wasm_bindgen]
-    pub fn rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerSenderResultMdxNoteEntityFlusterError(
-        ptr: *const std::ffi::c_void,
-    ) {
-        MoiArc::<
-            flutter_rust_bridge::for_generated::RustAutoOpaqueInner<
-                Sender<Result<MdxNoteEntity, FlusterError>>,
-            >,
-        >::increment_strong_count(ptr as _);
-    }
-
-    #[wasm_bindgen]
-    pub fn rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerSenderResultMdxNoteEntityFlusterError(
-        ptr: *const std::ffi::c_void,
-    ) {
-        MoiArc::<
-            flutter_rust_bridge::for_generated::RustAutoOpaqueInner<
-                Sender<Result<MdxNoteEntity, FlusterError>>,
-            >,
-        >::decrement_strong_count(ptr as _);
     }
 
     #[wasm_bindgen]

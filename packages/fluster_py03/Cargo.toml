@@ -9,4 +9,11 @@ name = "fluster_py03"
 crate-type = ["cdylib"]
 
 [dependencies]
+ollama-rs = { version = "0.3.1", features = ["tool-implementations", "ollama-rs-macros", "macros", "tokio", "tokio-stream"] }
 pyo3 = "0.24.0"
+reqwest = "0.12.15"
+rig-core = { version = "0.12.0", features = ["pdf", "mcp", "rayon", "derive", "epub", "image"] }
+rig-surrealdb = "0.1.5"
+schemars = { version = "0.8.22", features = ["preserve_order"] }
+serde = { workspace = true, features = ["derive"] }
+tokio = { version = "1.44.2", features = ["full"] }
