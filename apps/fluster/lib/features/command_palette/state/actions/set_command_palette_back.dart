@@ -8,7 +8,7 @@ class CommandPaletteBackAction extends FlusterAction {
   CommandPaletteBackAction();
 
   @override
-  GlobalAppState reduce() {
+  Future<GlobalAppState> reduce() async {
     final hasStack = state.commandPaletteState.navigationStack.length >= 2;
     final newStack = hasStack
         ? state.commandPaletteState.navigationStack.sublist(
@@ -17,9 +17,10 @@ class CommandPaletteBackAction extends FlusterAction {
           )
         : <CommandPaletteCategory>[];
     final newFilteredItems = newStack.isNotEmpty
-        ? newStack[newStack.length - 1].items
+        ? await (newStack[newStack.length - 1] as CommandPaletteCategory)
+              .getItemsOnEnter()
         : <CommandPaletteEntry>[];
-    if(newStack.isEmpty) {
+    if (newStack.isEmpty) {
       closeCommandPalette();
     }
     return state.copyWith(
@@ -27,7 +28,7 @@ class CommandPaletteBackAction extends FlusterAction {
         navigationStack: newStack,
         open: newStack.isNotEmpty,
         filteredItems: newFilteredItems,
-        selectedIndex: 0
+        selectedIndex: 0,
       ),
     );
   }

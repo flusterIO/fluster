@@ -6,6 +6,7 @@ import 'package:fluster/core/models/string_similarity_result.dart';
 import 'package:fluster/core/state/store.dart';
 import 'package:fluster/core/static/constants/static_constants.dart';
 import 'package:fluster/core/static/global_keys.dart';
+import 'package:fluster/features/command_palette/data/command_palette_tree/command_palette_root.dart';
 import 'package:fluster/features/command_palette/data/models/command_palette_category.dart';
 import 'package:fluster/features/command_palette/data/models/command_palette_entry.dart';
 import 'package:fluster/features/command_palette/presentation/widgets/command_palette/command_palette_no_results.dart';
@@ -96,9 +97,10 @@ class CommandPaletteWidget extends HookWidget {
 
   void handleQueryChange(
     String queryValue,
-    List<CommandPaletteEntry> items,
+    CommandPaletteCategory category,
     BuildContext context,
-  ) {
+  ) async {
+    final items = await category.getItemsOnQueryChange(queryValue);
     final similarityResults =
         StringSimilarityResult.fromArray<CommandPaletteEntry>(
           items,
@@ -106,9 +108,11 @@ class CommandPaletteWidget extends HookWidget {
           (x) => "${x.label} ${x.desc ?? ''}",
           // threshold: 0.1,
         );
-    context.dispatch(
-      SetCommandPaletteFilteredItems(similarityResults.toList()),
-    );
+    if (context.mounted) {
+      context.dispatch(
+        SetCommandPaletteFilteredItems(similarityResults.toList()),
+      );
+    }
   }
 
   @override
@@ -125,7 +129,9 @@ class CommandPaletteWidget extends HookWidget {
     editController.addListener(
       () => handleQueryChange(
         editController.text,
-        navStack.isNotEmpty ? navStack[navStack.length - 1].items : [],
+        navStack.isNotEmpty
+            ? navStack[navStack.length - 1] as CommandPaletteCategory
+            : CommandPaletteRoot(),
         context,
       ),
     );
@@ -204,7 +210,7 @@ class CommandPaletteWidget extends HookWidget {
                           controller: editController,
                           width: width,
                         ),
-                        activeStackItem.items.isEmpty
+                        context.state.commandPaletteState.filteredItems.isEmpty
                             ? CommandPaletteNoResults(width: width)
                             : ConstrainedBox(
                                 constraints: BoxConstraints(

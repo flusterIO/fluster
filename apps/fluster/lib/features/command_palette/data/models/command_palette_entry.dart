@@ -5,11 +5,9 @@ abstract class CommandPaletteEntry {
   final String label;
   final String? desc;
   final CommandPaletteCategoryId category;
-  final List<CommandPaletteEntry> items;
   const CommandPaletteEntry({
     required this.label,
     required this.category,
-    required this.items,
     required this.desc,
   });
   void callAction(BuildContext context);

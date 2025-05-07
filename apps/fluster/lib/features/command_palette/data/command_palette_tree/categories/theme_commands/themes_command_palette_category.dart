@@ -1,7 +1,6 @@
-import 'package:async_redux/async_redux.dart';
 import 'package:flex_color_scheme/flex_color_scheme.dart';
-import 'package:fluster/core/state/global_state.dart';
 import 'package:fluster/core/state/nested_state/ui_state/actions/ui_actions.dart';
+import 'package:fluster/core/state/store.dart';
 import 'package:fluster/features/command_palette/data/models/command_palette_category.dart';
 import 'package:fluster/features/command_palette/data/models/command_palette_category_enum.dart';
 import 'package:fluster/features/command_palette/data/models/command_palette_entry.dart';
@@ -16,31 +15,17 @@ class ThemeCommandPaletteEntry extends CommandPaletteItem {
     required super.label,
     required super.action,
     required super.category,
-    required super.items,
     required super.desc,
   });
 }
 
 class ThemesNavigationCommandPaletteCategory extends CommandPaletteCategory {
+  var items = <CommandPaletteEntry>[];
   ThemesNavigationCommandPaletteCategory()
     : super(
         label: "Themes",
         desc: "Quickly toggle themes throughout the application",
         category: CommandPaletteCategoryId.themes,
-        items: FlexScheme.values.map((s) {
-          return ThemeCommandPaletteEntry(
-            label: getFlexColorSchemeFormattedName(s),
-            desc: "",
-            items: [],
-            category: CommandPaletteCategoryId.themes,
-            action: (context) {
-              context.dispatchAll(<ReduxAction<GlobalAppState>>[
-                SetColorSchemeAction(s),
-                SetCommandPaletteOpenAction(false, initialCategory: null),
-              ]);
-            },
-          );
-        }).toList(),
       );
 
   @override
@@ -49,12 +34,44 @@ class ThemesNavigationCommandPaletteCategory extends CommandPaletteCategory {
   }
 
   @override
-  CommandPaletteEntry getItem(int idx) {
-    return items[idx];
+  Future<List<CommandPaletteEntry>> getItemsOnEnter() async {
+    final newItems = items.isNotEmpty
+        ? items
+        : FlexScheme.values.map((s) {
+            return ThemeCommandPaletteEntry(
+              label: getFlexColorSchemeFormattedName(s),
+              desc: "",
+              category: CommandPaletteCategoryId.themes,
+              action: (_) {
+                globalReduxStore.dispatchAll([SetColorSchemeAction(s)]);
+                globalReduxStore.dispatch(
+                  SetCommandPaletteOpenAction(false, initialCategory: null),
+                );
+              },
+            );
+          }).toList();
+    items = newItems;
+    return newItems;
   }
 
   @override
-  int length() {
-    return items.length;
+  Future<List<CommandPaletteEntry>> getItemsOnQueryChange(String query) async {
+    final newItems = items.isNotEmpty
+        ? items
+        : FlexScheme.values.map((s) {
+            return ThemeCommandPaletteEntry(
+              label: getFlexColorSchemeFormattedName(s),
+              desc: "",
+              category: CommandPaletteCategoryId.themes,
+              action: (_) {
+                globalReduxStore.dispatchAll([SetColorSchemeAction(s)]);
+                globalReduxStore.dispatch(
+                  SetCommandPaletteOpenAction(false, initialCategory: null),
+                );
+              },
+            );
+          }).toList();
+    items = newItems;
+    return newItems;
   }
 }

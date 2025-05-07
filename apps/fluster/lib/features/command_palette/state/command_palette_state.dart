@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:fluster/features/command_palette/data/models/command_palette_category.dart';
 import 'package:fluster/features/command_palette/data/models/command_palette_entry.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
@@ -13,7 +14,7 @@ class CommandPaletteState with _$CommandPaletteState {
   const factory CommandPaletteState({
     @Default(true) bool open,
     @Default([]) List<CommandPaletteEntry> filteredItems,
-    @Default([]) List<CommandPaletteEntry> navigationStack,
+    @Default([]) List<CommandPaletteCategory> navigationStack,
     @Default(0) int selectedIndex,
     @Default(CommandPaletteView.list) CommandPaletteView view,
   }) = _CommandPaletteState;

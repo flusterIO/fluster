@@ -6,14 +6,12 @@ abstract class CommandPaletteItem extends CommandPaletteEntry {
   const CommandPaletteItem({
     required super.label,
     required super.category,
-    required super.items,
     required super.desc,
     required this.action,
   });
 
-
   @override
-    void callAction(context) {
-        action(context);
-    }
+  void callAction(context) {
+    action(context);
+  }
 }

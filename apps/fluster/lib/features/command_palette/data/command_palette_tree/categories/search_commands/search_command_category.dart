@@ -6,35 +6,33 @@ import 'package:fluster/features/navigation/business/entities/router/routes.dart
 import 'package:flutter/widgets.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-class NavigationCommandPaletteCategory extends CommandPaletteCategory {
-  NavigationCommandPaletteCategory()
+class SearchCommandPaletteCategory extends CommandPaletteCategory {
+  SearchCommandPaletteCategory()
     : super(
         label: "Search",
         desc: "Quickly search through all of your notes and related content.",
         category: CommandPaletteCategoryId.search,
-        items: <CommandPaletteEntry>[
-          GoRouteCommandPaletteOption(
-            label: "Home",
-            desc: "",
-            url: HomeScreenRoute().location.toString(),
-            items: [],
-            category: CommandPaletteCategoryId.navigation,
-          ),
-        ],
       );
 
   @override
   IconData getIcon() {
-    return FontAwesomeIcons.road;
+    return FontAwesomeIcons.binoculars;
   }
 
   @override
-  CommandPaletteEntry getItem(int idx) {
-    return items[idx];
+  Future<List<CommandPaletteEntry>> getItemsOnEnter() async {
+    return <CommandPaletteEntry>[
+      GoRouteCommandPaletteOption(
+        label: "Home",
+        desc: "",
+        url: HomeScreenRoute().location.toString(),
+        category: CommandPaletteCategoryId.navigation,
+      ),
+    ];
   }
 
   @override
-  int length() {
-    return items.length;
+  Future<List<CommandPaletteEntry>> getItemsOnQueryChange(String query) async {
+    return <CommandPaletteEntry>[];
   }
 }

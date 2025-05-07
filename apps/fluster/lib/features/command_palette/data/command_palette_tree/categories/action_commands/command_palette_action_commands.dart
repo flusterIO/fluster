@@ -8,23 +8,22 @@ import 'package:flutter/widgets.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class CommandPaletteActionCommands extends CommandPaletteCategory {
+  final items = <CommandPaletteEntry>[
+    CommandPaletteGlobalActionCommand(
+      label: "Sync Database",
+      desc:
+          "Populate your database with the content of your notes from your local file system.",
+      category: CommandPaletteCategoryId.globalActions,
+      actionId: GlobalActionId.syncDirectoryWithDatabase,
+    ),
+    ToggleDarkModeCommand(),
+  ];
   CommandPaletteActionCommands()
     : super(
         label: "Actions",
         desc:
             "Quickly run functions, synchronize your database and interact with your data.",
         category: CommandPaletteCategoryId.globalActions,
-        items: <CommandPaletteEntry>[
-          CommandPaletteGlobalActionCommand(
-            label: "Sync Database",
-            desc:
-                "Populate your database with the content of your notes from your local file system.",
-            category: CommandPaletteCategoryId.globalActions,
-            items: [],
-            actionId: GlobalActionId.syncDirectoryWithDatabase,
-          ),
-          ToggleDarkModeCommand(),
-        ],
       );
 
   @override
@@ -32,14 +31,13 @@ class CommandPaletteActionCommands extends CommandPaletteCategory {
     return FontAwesomeIcons.gamepad;
   }
 
-  // TODO: Remove this getItem and and length field from all of these child classes. That approach was abandonded a while ago.
   @override
-  CommandPaletteEntry getItem(int idx) {
-    return items[idx];
+  Future<List<CommandPaletteEntry>> getItemsOnEnter() async {
+    return items;
   }
 
   @override
-  int length() {
-    return items.length;
+  Future<List<CommandPaletteEntry>> getItemsOnQueryChange(String query) async {
+    return items;
   }
 }

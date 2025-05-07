@@ -7,11 +7,13 @@ class AppendCommandPaletteCategoryAction extends FlusterAction {
   AppendCommandPaletteCategoryAction(this.cat);
 
   @override
-  GlobalAppState reduce() {
+  Future<GlobalAppState> reduce() async {
+    await cat.onEnter();
+    final items = await cat.getItemsOnEnter();
     return state.copyWith(
       commandPaletteState: state.commandPaletteState.copyWith(
         navigationStack: [...state.commandPaletteState.navigationStack, cat],
-        filteredItems: cat.items,
+        filteredItems: items,
         open: true,
         selectedIndex: 0,
       ),

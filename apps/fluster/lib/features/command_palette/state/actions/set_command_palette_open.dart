@@ -10,7 +10,7 @@ class SetCommandPaletteOpenAction extends FlusterAction {
   SetCommandPaletteOpenAction(this.open, {required this.initialCategory});
 
   @override
-  GlobalAppState reduce() {
+  Future<GlobalAppState> reduce() async {
     assert(
       !(open && initialCategory == null),
       "Received a SetCommandPaletteOpenAction request without an initial category.",
@@ -19,15 +19,14 @@ class SetCommandPaletteOpenAction extends FlusterAction {
       closeCommandPalette();
       // desktopScaffoldKey.currentContext?.pop();
     }
+    final items = await initialCategory?.getItemsOnEnter() ?? [];
     return state.copyWith(
       commandPaletteState: state.commandPaletteState.copyWith(
         open: open,
         navigationStack: initialCategory != null
             ? <CommandPaletteCategory>[initialCategory!]
             : [],
-        filteredItems: initialCategory != null
-            ? initialCategory!.items
-            : <CommandPaletteEntry>[],
+        filteredItems: items,
         selectedIndex: open ? state.commandPaletteState.selectedIndex : 0,
       ),
     );

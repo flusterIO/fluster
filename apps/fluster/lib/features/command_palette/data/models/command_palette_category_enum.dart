@@ -4,4 +4,5 @@ enum CommandPaletteCategoryId {
   root,
   globalActions,
   search,
+  noteTextSearch,
 }

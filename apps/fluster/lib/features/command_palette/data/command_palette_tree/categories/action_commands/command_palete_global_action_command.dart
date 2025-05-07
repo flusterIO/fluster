@@ -11,7 +11,6 @@ class CommandPaletteGlobalActionCommand extends CommandPaletteEntry {
   const CommandPaletteGlobalActionCommand({
     required super.label,
     required super.category,
-    required super.items,
     required super.desc,
     required this.actionId,
   });
@@ -22,6 +21,5 @@ class CommandPaletteGlobalActionCommand extends CommandPaletteEntry {
     if (f != null) {
       await f(context);
     }
-
   }
 }
