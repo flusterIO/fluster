@@ -4,9 +4,13 @@
 // ignore_for_file: invalid_use_of_internal_member, unused_import, unnecessary_import
 
 import '../../../../frb_generated.dart';
+import '../../../../lib.dart';
+import '../../../models/nested_models/fluster_datetime/fluster_time.dart';
+import '../../../models/notes/front_matter/front_matter_model.dart';
+import '../../../models/notes/mdx/mdx_note.dart';
+import '../../../models/taggable/tag_model.dart';
 import 'package:flutter_rust_bridge/flutter_rust_bridge_for_generated.dart';
-
-// These functions are ignored because they are not marked as `pub`: `search`
+import 'query_params.dart';
 
 class MdxNotesRepository {
   final String tableName;
@@ -19,6 +23,14 @@ class MdxNotesRepository {
   // HINT: Make it `#[frb(sync)]` to let it become the default constructor of Dart class.
   static Future<MdxNotesRepository> newInstance() => RustLib.instance.api
       .crateApiRepositoriesNotesMdxMdxNotesRepositoryMdxNotesRepositoryNew();
+
+  Future<List<MdxNoteEntity>> search({
+    required MdxNoteQueryParams query,
+  }) => RustLib.instance.api
+      .crateApiRepositoriesNotesMdxMdxNotesRepositoryMdxNotesRepositorySearch(
+        that: this,
+        query: query,
+      );
 
   @override
   int get hashCode => tableName.hashCode;

@@ -6,7 +6,6 @@
 import '../../../../frb_generated.dart';
 import 'package:flutter_rust_bridge/flutter_rust_bridge_for_generated.dart';
 
-// These types are ignored because they are neither used by any `pub` functions nor (for structs and enums) marked `#[frb(unignore)]`: `MdxNoteQueryParams`
 // These function are ignored because they are on traits that is not defined in current crate (put an empty `#[frb]` on it to unignore): `clone`, `clone`
 
 enum DbTokenizerLanguage {
@@ -30,4 +29,22 @@ enum DbTokenizerLanguage {
 
   static Future<DbTokenizerLanguage> default_() => RustLib.instance.api
       .crateApiRepositoriesNotesMdxQueryParamsDbTokenizerLanguageDefault();
+}
+
+class MdxNoteQueryParams {
+  final String query;
+  final DbTokenizerLanguage language;
+
+  const MdxNoteQueryParams({required this.query, required this.language});
+
+  @override
+  int get hashCode => query.hashCode ^ language.hashCode;
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is MdxNoteQueryParams &&
+          runtimeType == other.runtimeType &&
+          query == other.query &&
+          language == other.language;
 }

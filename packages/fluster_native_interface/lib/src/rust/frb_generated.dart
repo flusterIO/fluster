@@ -95,7 +95,7 @@ class RustLib extends BaseEntrypoint<RustLibApi, RustLibApiImpl, RustLibWire> {
   String get codegenVersion => '2.9.0';
 
   @override
-  int get rustContentHash => -1811660218;
+  int get rustContentHash => 445113743;
 
   static const kDefaultExternalLibraryLoaderConfig =
       ExternalLibraryLoaderConfig(
@@ -292,6 +292,12 @@ abstract class RustLibApi extends BaseApi {
 
   Future<MdxNotesRepository>
   crateApiRepositoriesNotesMdxMdxNotesRepositoryMdxNotesRepositoryNew();
+
+  Future<List<MdxNoteEntity>>
+  crateApiRepositoriesNotesMdxMdxNotesRepositoryMdxNotesRepositorySearch({
+    required MdxNotesRepository that,
+    required MdxNoteQueryParams query,
+  });
 
   Future<NoteType> crateApiModelsEnumsParsableFileExtensionNoteTypeDefault();
 
@@ -1971,6 +1977,45 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
       const TaskConstMeta(debugName: "mdx_notes_repository_new", argNames: []);
 
   @override
+  Future<List<MdxNoteEntity>>
+  crateApiRepositoriesNotesMdxMdxNotesRepositoryMdxNotesRepositorySearch({
+    required MdxNotesRepository that,
+    required MdxNoteQueryParams query,
+  }) {
+    return handler.executeNormal(
+      NormalTask(
+        callFfi: (port_) {
+          final serializer = SseSerializer(generalizedFrbRustBinding);
+          sse_encode_box_autoadd_mdx_notes_repository(that, serializer);
+          sse_encode_box_autoadd_mdx_note_query_params(query, serializer);
+          pdeCallFfi(
+            generalizedFrbRustBinding,
+            serializer,
+            funcId: 45,
+            port: port_,
+          );
+        },
+        codec: SseCodec(
+          decodeSuccessData: sse_decode_list_mdx_note_entity,
+          decodeErrorData:
+              sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFlusterError,
+        ),
+        constMeta:
+            kCrateApiRepositoriesNotesMdxMdxNotesRepositoryMdxNotesRepositorySearchConstMeta,
+        argValues: [that, query],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta
+  get kCrateApiRepositoriesNotesMdxMdxNotesRepositoryMdxNotesRepositorySearchConstMeta =>
+      const TaskConstMeta(
+        debugName: "mdx_notes_repository_search(dart_style=search)",
+        argNames: ["that", "query"],
+      );
+
+  @override
   Future<NoteType> crateApiModelsEnumsParsableFileExtensionNoteTypeDefault() {
     return handler.executeNormal(
       NormalTask(
@@ -1979,7 +2024,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
           pdeCallFfi(
             generalizedFrbRustBinding,
             serializer,
-            funcId: 45,
+            funcId: 46,
             port: port_,
           );
         },
@@ -2008,7 +2053,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
           pdeCallFfi(
             generalizedFrbRustBinding,
             serializer,
-            funcId: 46,
+            funcId: 47,
             port: port_,
           );
         },
@@ -2033,7 +2078,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
         callFfi: () {
           final serializer = SseSerializer(generalizedFrbRustBinding);
           sse_encode_String(filePath, serializer);
-          return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 47)!;
+          return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 48)!;
         },
         codec: SseCodec(
           decodeSuccessData: sse_decode_bool,
@@ -2059,7 +2104,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
           pdeCallFfi(
             generalizedFrbRustBinding,
             serializer,
-            funcId: 48,
+            funcId: 49,
             port: port_,
           );
         },
@@ -2088,7 +2133,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
           pdeCallFfi(
             generalizedFrbRustBinding,
             serializer,
-            funcId: 49,
+            funcId: 50,
             port: port_,
           );
         },
@@ -2119,7 +2164,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
           pdeCallFfi(
             generalizedFrbRustBinding,
             serializer,
-            funcId: 50,
+            funcId: 51,
             port: port_,
           );
         },
@@ -2147,7 +2192,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
           pdeCallFfi(
             generalizedFrbRustBinding,
             serializer,
-            funcId: 51,
+            funcId: 52,
             port: port_,
           );
         },
@@ -2180,7 +2225,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
           pdeCallFfi(
             generalizedFrbRustBinding,
             serializer,
-            funcId: 52,
+            funcId: 53,
             port: port_,
           );
         },
@@ -2213,7 +2258,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
           pdeCallFfi(
             generalizedFrbRustBinding,
             serializer,
-            funcId: 53,
+            funcId: 54,
             port: port_,
           );
         },
@@ -2246,7 +2291,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
           pdeCallFfi(
             generalizedFrbRustBinding,
             serializer,
-            funcId: 54,
+            funcId: 55,
             port: port_,
           );
         },
@@ -2285,7 +2330,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
           pdeCallFfi(
             generalizedFrbRustBinding,
             serializer,
-            funcId: 55,
+            funcId: 56,
             port: port_,
           );
         },
@@ -2316,7 +2361,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
           pdeCallFfi(
             generalizedFrbRustBinding,
             serializer,
-            funcId: 56,
+            funcId: 57,
             port: port_,
           );
         },
@@ -2362,7 +2407,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
           pdeCallFfi(
             generalizedFrbRustBinding,
             serializer,
-            funcId: 57,
+            funcId: 58,
             port: port_,
           );
         },
@@ -2410,7 +2455,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
           pdeCallFfi(
             generalizedFrbRustBinding,
             serializer,
-            funcId: 58,
+            funcId: 59,
             port: port_,
           );
         },
@@ -2445,7 +2490,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
           pdeCallFfi(
             generalizedFrbRustBinding,
             serializer,
-            funcId: 59,
+            funcId: 60,
             port: port_,
           );
         },
@@ -2478,7 +2523,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
           pdeCallFfi(
             generalizedFrbRustBinding,
             serializer,
-            funcId: 60,
+            funcId: 61,
             port: port_,
           );
         },
@@ -3059,6 +3104,18 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
+  MdxNoteQueryParams dco_decode_box_autoadd_mdx_note_query_params(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return dco_decode_mdx_note_query_params(raw);
+  }
+
+  @protected
+  MdxNotesRepository dco_decode_box_autoadd_mdx_notes_repository(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return dco_decode_mdx_notes_repository(raw);
+  }
+
+  @protected
   SummaryListQuery dco_decode_box_autoadd_summary_list_query(dynamic raw) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
     return dco_decode_summary_list_query(raw);
@@ -3177,6 +3234,12 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
+  List<MdxNoteEntity> dco_decode_list_mdx_note_entity(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return (raw as List<dynamic>).map(dco_decode_mdx_note_entity).toList();
+  }
+
+  @protected
   Uint8List dco_decode_list_prim_u_8_strict(dynamic raw) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
     return raw as Uint8List;
@@ -3226,6 +3289,18 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
             arr[6],
           ),
       tags: dco_decode_list_tag(arr[7]),
+    );
+  }
+
+  @protected
+  MdxNoteQueryParams dco_decode_mdx_note_query_params(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    final arr = raw as List<dynamic>;
+    if (arr.length != 2)
+      throw Exception('unexpected arr length: expect 2 but see ${arr.length}');
+    return MdxNoteQueryParams(
+      query: dco_decode_String(arr[0]),
+      language: dco_decode_db_tokenizer_language(arr[1]),
     );
   }
 
@@ -4021,6 +4096,22 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
+  MdxNoteQueryParams sse_decode_box_autoadd_mdx_note_query_params(
+    SseDeserializer deserializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    return (sse_decode_mdx_note_query_params(deserializer));
+  }
+
+  @protected
+  MdxNotesRepository sse_decode_box_autoadd_mdx_notes_repository(
+    SseDeserializer deserializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    return (sse_decode_mdx_notes_repository(deserializer));
+  }
+
+  @protected
   SummaryListQuery sse_decode_box_autoadd_summary_list_query(
     SseDeserializer deserializer,
   ) {
@@ -4174,6 +4265,20 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
+  List<MdxNoteEntity> sse_decode_list_mdx_note_entity(
+    SseDeserializer deserializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+
+    var len_ = sse_decode_i_32(deserializer);
+    var ans_ = <MdxNoteEntity>[];
+    for (var idx_ = 0; idx_ < len_; ++idx_) {
+      ans_.add(sse_decode_mdx_note_entity(deserializer));
+    }
+    return ans_;
+  }
+
+  @protected
   Uint8List sse_decode_list_prim_u_8_strict(SseDeserializer deserializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     var len_ = sse_decode_i_32(deserializer);
@@ -4244,6 +4349,16 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
       atime: var_atime,
       tags: var_tags,
     );
+  }
+
+  @protected
+  MdxNoteQueryParams sse_decode_mdx_note_query_params(
+    SseDeserializer deserializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    var var_query = sse_decode_String(deserializer);
+    var var_language = sse_decode_db_tokenizer_language(deserializer);
+    return MdxNoteQueryParams(query: var_query, language: var_language);
   }
 
   @protected
@@ -5114,6 +5229,24 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
+  void sse_encode_box_autoadd_mdx_note_query_params(
+    MdxNoteQueryParams self,
+    SseSerializer serializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_mdx_note_query_params(self, serializer);
+  }
+
+  @protected
+  void sse_encode_box_autoadd_mdx_notes_repository(
+    MdxNotesRepository self,
+    SseSerializer serializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_mdx_notes_repository(self, serializer);
+  }
+
+  @protected
   void sse_encode_box_autoadd_summary_list_query(
     SummaryListQuery self,
     SseSerializer serializer,
@@ -5253,6 +5386,18 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
+  void sse_encode_list_mdx_note_entity(
+    List<MdxNoteEntity> self,
+    SseSerializer serializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_i_32(self.length, serializer);
+    for (final item in self) {
+      sse_encode_mdx_note_entity(item, serializer);
+    }
+  }
+
+  @protected
   void sse_encode_list_prim_u_8_strict(
     Uint8List self,
     SseSerializer serializer,
@@ -5315,6 +5460,16 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
       serializer,
     );
     sse_encode_list_tag(self.tags, serializer);
+  }
+
+  @protected
+  void sse_encode_mdx_note_query_params(
+    MdxNoteQueryParams self,
+    SseSerializer serializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_String(self.query, serializer);
+    sse_encode_db_tokenizer_language(self.language, serializer);
   }
 
   @protected

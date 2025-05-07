@@ -8,8 +8,14 @@ import 'package:fluster_native_interface/fluster_native_interface.dart'
 class SetCommandPaletteSearchView extends FlusterAction {
   @override
   Future<GlobalAppState> reduce() async {
-    // final repo = await native.MdxNotesRepository.default_();
-    // final notes = repo.
+    final repo = await native.MdxNotesRepository.default_();
+    final notes = repo.search(
+      query: "",
+      // query: native.MdxNoteQueryParams(
+      //   query: "",
+      //   language: native.DbTokenizerLanguage.english,
+      // ),
+    );
     return state;
   }
 }

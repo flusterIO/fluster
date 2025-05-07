@@ -379,6 +379,12 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   MdxNoteEntity dco_decode_box_autoadd_mdx_note_entity(dynamic raw);
 
   @protected
+  MdxNoteQueryParams dco_decode_box_autoadd_mdx_note_query_params(dynamic raw);
+
+  @protected
+  MdxNotesRepository dco_decode_box_autoadd_mdx_notes_repository(dynamic raw);
+
+  @protected
   SummaryListQuery dco_decode_box_autoadd_summary_list_query(dynamic raw);
 
   @protected
@@ -425,6 +431,9 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   List<BibEntryEntity> dco_decode_list_bib_entry_entity(dynamic raw);
 
   @protected
+  List<MdxNoteEntity> dco_decode_list_mdx_note_entity(dynamic raw);
+
+  @protected
   Uint8List dco_decode_list_prim_u_8_strict(dynamic raw);
 
   @protected
@@ -438,6 +447,9 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
 
   @protected
   MdxNoteEntity dco_decode_mdx_note_entity(dynamic raw);
+
+  @protected
+  MdxNoteQueryParams dco_decode_mdx_note_query_params(dynamic raw);
 
   @protected
   MdxNotesRepository dco_decode_mdx_notes_repository(dynamic raw);
@@ -810,6 +822,16 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   );
 
   @protected
+  MdxNoteQueryParams sse_decode_box_autoadd_mdx_note_query_params(
+    SseDeserializer deserializer,
+  );
+
+  @protected
+  MdxNotesRepository sse_decode_box_autoadd_mdx_notes_repository(
+    SseDeserializer deserializer,
+  );
+
+  @protected
   SummaryListQuery sse_decode_box_autoadd_summary_list_query(
     SseDeserializer deserializer,
   );
@@ -870,6 +892,11 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   );
 
   @protected
+  List<MdxNoteEntity> sse_decode_list_mdx_note_entity(
+    SseDeserializer deserializer,
+  );
+
+  @protected
   Uint8List sse_decode_list_prim_u_8_strict(SseDeserializer deserializer);
 
   @protected
@@ -883,6 +910,11 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
 
   @protected
   MdxNoteEntity sse_decode_mdx_note_entity(SseDeserializer deserializer);
+
+  @protected
+  MdxNoteQueryParams sse_decode_mdx_note_query_params(
+    SseDeserializer deserializer,
+  );
 
   @protected
   MdxNotesRepository sse_decode_mdx_notes_repository(
@@ -1317,6 +1349,18 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   );
 
   @protected
+  void sse_encode_box_autoadd_mdx_note_query_params(
+    MdxNoteQueryParams self,
+    SseSerializer serializer,
+  );
+
+  @protected
+  void sse_encode_box_autoadd_mdx_notes_repository(
+    MdxNotesRepository self,
+    SseSerializer serializer,
+  );
+
+  @protected
   void sse_encode_box_autoadd_summary_list_query(
     SummaryListQuery self,
     SseSerializer serializer,
@@ -1391,6 +1435,12 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   );
 
   @protected
+  void sse_encode_list_mdx_note_entity(
+    List<MdxNoteEntity> self,
+    SseSerializer serializer,
+  );
+
+  @protected
   void sse_encode_list_prim_u_8_strict(
     Uint8List self,
     SseSerializer serializer,
@@ -1410,6 +1460,12 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
 
   @protected
   void sse_encode_mdx_note_entity(MdxNoteEntity self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_mdx_note_query_params(
+    MdxNoteQueryParams self,
+    SseSerializer serializer,
+  );
 
   @protected
   void sse_encode_mdx_notes_repository(

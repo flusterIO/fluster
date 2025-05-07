@@ -46,7 +46,7 @@ flutter_rust_bridge::frb_generated_boilerplate!(
     default_rust_auto_opaque = RustAutoOpaqueMoi,
 );
 pub(crate) const FLUTTER_RUST_BRIDGE_CODEGEN_VERSION: &str = "2.9.0";
-pub(crate) const FLUTTER_RUST_BRIDGE_CODEGEN_CONTENT_HASH: i32 = -1811660218;
+pub(crate) const FLUTTER_RUST_BRIDGE_CODEGEN_CONTENT_HASH: i32 = 445113743;
 
 // Section: executor
 
@@ -1515,6 +1515,22 @@ fn wire__crate__api__repositories__notes__mdx__mdx_notes_repository__mdx_notes_r
                     })())
                 } })
 }
+fn wire__crate__api__repositories__notes__mdx__mdx_notes_repository__mdx_notes_repository_search_impl(
+    port_: flutter_rust_bridge::for_generated::MessagePort,
+    ptr_: flutter_rust_bridge::for_generated::PlatformGeneralizedUint8ListPtr,
+    rust_vec_len_: i32,
+    data_len_: i32,
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_async::<flutter_rust_bridge::for_generated::SseCodec,_,_,_>(flutter_rust_bridge::for_generated::TaskInfo{ debug_name: "mdx_notes_repository_search(dart_style=search)", port: Some(port_), mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal }, move || { 
+            let message = unsafe { flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(ptr_, rust_vec_len_, data_len_) };
+            let mut deserializer = flutter_rust_bridge::for_generated::SseDeserializer::new(message);
+            let api_that = <crate::api::repositories::notes::mdx::mdx_notes_repository::MdxNotesRepository>::sse_decode(&mut deserializer);
+let api_query = <crate::api::repositories::notes::mdx::query_params::MdxNoteQueryParams>::sse_decode(&mut deserializer);deserializer.end(); move |context| async move {
+                    transform_result_sse::<_,  FlusterError>((move || async move {
+                         let output_ok = crate::api::repositories::notes::mdx::mdx_notes_repository::MdxNotesRepository::search(&api_that, api_query).await?;   Ok(output_ok)
+                    })().await)
+                } })
+}
 fn wire__crate__api__models__enums__parsable_file_extension__note_type_default_impl(
     port_: flutter_rust_bridge::for_generated::MessagePort,
     ptr_: flutter_rust_bridge::for_generated::PlatformGeneralizedUint8ListPtr,
@@ -2456,6 +2472,20 @@ impl SseDecode for Vec<crate::api::models::bibliography::citation::BibEntryEntit
     }
 }
 
+impl SseDecode for Vec<crate::api::models::notes::mdx::mdx_note::MdxNoteEntity> {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut len_ = <i32>::sse_decode(deserializer);
+        let mut ans_ = vec![];
+        for idx_ in 0..len_ {
+            ans_.push(
+                <crate::api::models::notes::mdx::mdx_note::MdxNoteEntity>::sse_decode(deserializer),
+            );
+        }
+        return ans_;
+    }
+}
+
 impl SseDecode for Vec<u8> {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
@@ -2530,6 +2560,21 @@ impl SseDecode for crate::api::models::notes::mdx::mdx_note::MdxNoteEntity {
             mtime: var_mtime,
             atime: var_atime,
             tags: var_tags,
+        };
+    }
+}
+
+impl SseDecode for crate::api::repositories::notes::mdx::query_params::MdxNoteQueryParams {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut var_query = <String>::sse_decode(deserializer);
+        let mut var_language =
+            <crate::api::repositories::notes::mdx::query_params::DbTokenizerLanguage>::sse_decode(
+                deserializer,
+            );
+        return crate::api::repositories::notes::mdx::query_params::MdxNoteQueryParams {
+            query: var_query,
+            language: var_language,
         };
     }
 }
@@ -3185,21 +3230,22 @@ fn pde_ffi_dispatcher_primary_impl(
 42 => wire__crate__api__models__notes__mdx__mdx_note__mdx_note_entity_save_impl(port, ptr, rust_vec_len, data_len),
 43 => wire__crate__api__repositories__notes__mdx__mdx_notes_repository__mdx_notes_repository_default_impl(port, ptr, rust_vec_len, data_len),
 44 => wire__crate__api__repositories__notes__mdx__mdx_notes_repository__mdx_notes_repository_new_impl(port, ptr, rust_vec_len, data_len),
-45 => wire__crate__api__models__enums__parsable_file_extension__note_type_default_impl(port, ptr, rust_vec_len, data_len),
-46 => wire__crate__api__initialize__on_desktop_init__on_desktop_init_impl(port, ptr, rust_vec_len, data_len),
-48 => wire__crate__api__models__settings__setting_page_id__setting_page_id_default_impl(port, ptr, rust_vec_len, data_len),
-49 => wire__crate__api__fs__fs_setup__setup_file_system_for_data_impl(port, ptr, rust_vec_len, data_len),
-50 => wire__crate__api__models__snippet__snippet_model__snippet_default_impl(port, ptr, rust_vec_len, data_len),
-51 => wire__crate__api__global_actions__get_summary_list__summary_list_query__summary_list_query_default_impl(port, ptr, rust_vec_len, data_len),
-52 => wire__crate__api__global_actions__get_summary_list__summary_list_result__summary_list_results_default_impl(port, ptr, rust_vec_len, data_len),
-53 => wire__crate__api__models__nested_models__code__supported_syntax_language__supported_syntax_language_default_impl(port, ptr, rust_vec_len, data_len),
-54 => wire__crate__api__models__nested_models__code__supported_syntax_theme__supported_syntax_theme_default_impl(port, ptr, rust_vec_len, data_len),
-55 => wire__crate__api__global_actions__parse_directory__sync_fs_directory__sync_filesystem_directory__sync_directory_impl(port, ptr, rust_vec_len, data_len),
-56 => wire__crate__api__global_actions__parse_directory__sync_fs_directory__models__sync_filesystem_options__sync_filesystem_directory_options_default_impl(port, ptr, rust_vec_len, data_len),
-57 => wire__crate__api__global_actions__parse_directory__sync_fs_directory__sync_methods__sync_mdx_notes__sync_mdx_filesystem_notes_impl(port, ptr, rust_vec_len, data_len),
-58 => wire__crate__api__global_actions__parse_directory__sync_fs_directory__sync_methods__sync_user_bibliography__sync_user_bibliography_impl(port, ptr, rust_vec_len, data_len),
-59 => wire__crate__api__models__taggable__tag_model__tag_from_mdx_content_impl(port, ptr, rust_vec_len, data_len),
-60 => wire__crate__api__models__taggable__tag_model__tag_from_string_impl(port, ptr, rust_vec_len, data_len),
+45 => wire__crate__api__repositories__notes__mdx__mdx_notes_repository__mdx_notes_repository_search_impl(port, ptr, rust_vec_len, data_len),
+46 => wire__crate__api__models__enums__parsable_file_extension__note_type_default_impl(port, ptr, rust_vec_len, data_len),
+47 => wire__crate__api__initialize__on_desktop_init__on_desktop_init_impl(port, ptr, rust_vec_len, data_len),
+49 => wire__crate__api__models__settings__setting_page_id__setting_page_id_default_impl(port, ptr, rust_vec_len, data_len),
+50 => wire__crate__api__fs__fs_setup__setup_file_system_for_data_impl(port, ptr, rust_vec_len, data_len),
+51 => wire__crate__api__models__snippet__snippet_model__snippet_default_impl(port, ptr, rust_vec_len, data_len),
+52 => wire__crate__api__global_actions__get_summary_list__summary_list_query__summary_list_query_default_impl(port, ptr, rust_vec_len, data_len),
+53 => wire__crate__api__global_actions__get_summary_list__summary_list_result__summary_list_results_default_impl(port, ptr, rust_vec_len, data_len),
+54 => wire__crate__api__models__nested_models__code__supported_syntax_language__supported_syntax_language_default_impl(port, ptr, rust_vec_len, data_len),
+55 => wire__crate__api__models__nested_models__code__supported_syntax_theme__supported_syntax_theme_default_impl(port, ptr, rust_vec_len, data_len),
+56 => wire__crate__api__global_actions__parse_directory__sync_fs_directory__sync_filesystem_directory__sync_directory_impl(port, ptr, rust_vec_len, data_len),
+57 => wire__crate__api__global_actions__parse_directory__sync_fs_directory__models__sync_filesystem_options__sync_filesystem_directory_options_default_impl(port, ptr, rust_vec_len, data_len),
+58 => wire__crate__api__global_actions__parse_directory__sync_fs_directory__sync_methods__sync_mdx_notes__sync_mdx_filesystem_notes_impl(port, ptr, rust_vec_len, data_len),
+59 => wire__crate__api__global_actions__parse_directory__sync_fs_directory__sync_methods__sync_user_bibliography__sync_user_bibliography_impl(port, ptr, rust_vec_len, data_len),
+60 => wire__crate__api__models__taggable__tag_model__tag_from_mdx_content_impl(port, ptr, rust_vec_len, data_len),
+61 => wire__crate__api__models__taggable__tag_model__tag_from_string_impl(port, ptr, rust_vec_len, data_len),
                         _ => unreachable!(),
                     }
 }
@@ -3231,7 +3277,7 @@ fn pde_ffi_dispatcher_sync_impl(
 31 => wire__crate__api__fs__fs_utils__get_app_config_dir_impl(ptr, rust_vec_len, data_len),
 32 => wire__crate__api__fs__fs_utils__get_app_data_dir_impl(ptr, rust_vec_len, data_len),
 35 => wire__crate__api__search__get_text_similarity__get_text_similarity_impl(ptr, rust_vec_len, data_len),
-47 => wire__crate__api__fs__fs_utils__path_exists_impl(ptr, rust_vec_len, data_len),
+48 => wire__crate__api__fs__fs_utils__path_exists_impl(ptr, rust_vec_len, data_len),
                         _ => unreachable!(),
                     }
 }
@@ -3696,6 +3742,33 @@ impl flutter_rust_bridge::IntoIntoDart<crate::api::models::notes::mdx::mdx_note:
     for crate::api::models::notes::mdx::mdx_note::MdxNoteEntity
 {
     fn into_into_dart(self) -> crate::api::models::notes::mdx::mdx_note::MdxNoteEntity {
+        self
+    }
+}
+// Codec=Dco (DartCObject based), see doc to use other codecs
+impl flutter_rust_bridge::IntoDart
+    for crate::api::repositories::notes::mdx::query_params::MdxNoteQueryParams
+{
+    fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
+        [
+            self.query.into_into_dart().into_dart(),
+            self.language.into_into_dart().into_dart(),
+        ]
+        .into_dart()
+    }
+}
+impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive
+    for crate::api::repositories::notes::mdx::query_params::MdxNoteQueryParams
+{
+}
+impl
+    flutter_rust_bridge::IntoIntoDart<
+        crate::api::repositories::notes::mdx::query_params::MdxNoteQueryParams,
+    > for crate::api::repositories::notes::mdx::query_params::MdxNoteQueryParams
+{
+    fn into_into_dart(
+        self,
+    ) -> crate::api::repositories::notes::mdx::query_params::MdxNoteQueryParams {
         self
     }
 }
@@ -4741,6 +4814,16 @@ impl SseEncode for Vec<crate::api::models::bibliography::citation::BibEntryEntit
     }
 }
 
+impl SseEncode for Vec<crate::api::models::notes::mdx::mdx_note::MdxNoteEntity> {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <i32>::sse_encode(self.len() as _, serializer);
+        for item in self {
+            <crate::api::models::notes::mdx::mdx_note::MdxNoteEntity>::sse_encode(item, serializer);
+        }
+    }
+}
+
 impl SseEncode for Vec<u8> {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
@@ -4799,6 +4882,17 @@ impl SseEncode for crate::api::models::notes::mdx::mdx_note::MdxNoteEntity {
         <Option<FlusterTime>>::sse_encode(self.mtime, serializer);
         <Option<FlusterTime>>::sse_encode(self.atime, serializer);
         <Vec<crate::api::models::taggable::tag_model::Tag>>::sse_encode(self.tags, serializer);
+    }
+}
+
+impl SseEncode for crate::api::repositories::notes::mdx::query_params::MdxNoteQueryParams {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <String>::sse_encode(self.query, serializer);
+        <crate::api::repositories::notes::mdx::query_params::DbTokenizerLanguage>::sse_encode(
+            self.language,
+            serializer,
+        );
     }
 }
 
@@ -5395,15 +5489,15 @@ mod io {
 
     // Section: imports
 
-    use crate::api::models::nested_models::fluster_datetime::fluster_time::*;
-use crate::api::typedefs::note_type_utils::*;
-use crate::api::embedded_ts::*;
-use crate::*;
-use crate::api::models::bibliography::bib_file::*;
-use crate::api::models::notes::front_matter::front_matter_model::*;
+    use crate::*;
 use crate::api::global_actions::get_summary_list::summary_types::mdx_note_summary::*;
 use crate::api::models::bibliography::reading_list::*;
-use crate::api::global_actions::parse_directory::sync_fs_directory::sync_methods::sync_mdx_notes::*;use flutter_rust_bridge::{Handler, IntoIntoDart};
+use crate::api::models::notes::front_matter::front_matter_model::*;
+use crate::api::models::nested_models::fluster_datetime::fluster_time::*;
+use crate::api::embedded_ts::*;
+use crate::api::typedefs::note_type_utils::*;
+use crate::api::global_actions::parse_directory::sync_fs_directory::sync_methods::sync_mdx_notes::*;
+use crate::api::models::bibliography::bib_file::*;use flutter_rust_bridge::{Handler, IntoIntoDart};
 use flutter_rust_bridge::for_generated::{Lockable, transform_result_dco, Lifetimeable};
 use flutter_rust_bridge::for_generated::byteorder::{NativeEndian, WriteBytesExt, ReadBytesExt};use super::*;
 
@@ -5618,15 +5712,15 @@ mod web {
 
     // Section: imports
 
-    use crate::api::models::nested_models::fluster_datetime::fluster_time::*;
-use crate::api::typedefs::note_type_utils::*;
-use crate::api::embedded_ts::*;
-use crate::*;
-use crate::api::models::bibliography::bib_file::*;
-use crate::api::models::notes::front_matter::front_matter_model::*;
+    use crate::*;
 use crate::api::global_actions::get_summary_list::summary_types::mdx_note_summary::*;
 use crate::api::models::bibliography::reading_list::*;
-use crate::api::global_actions::parse_directory::sync_fs_directory::sync_methods::sync_mdx_notes::*;use flutter_rust_bridge::{Handler, IntoIntoDart};
+use crate::api::models::notes::front_matter::front_matter_model::*;
+use crate::api::models::nested_models::fluster_datetime::fluster_time::*;
+use crate::api::embedded_ts::*;
+use crate::api::typedefs::note_type_utils::*;
+use crate::api::global_actions::parse_directory::sync_fs_directory::sync_methods::sync_mdx_notes::*;
+use crate::api::models::bibliography::bib_file::*;use flutter_rust_bridge::{Handler, IntoIntoDart};
 use flutter_rust_bridge::for_generated::{Lockable, transform_result_dco, Lifetimeable};
 use flutter_rust_bridge::for_generated::byteorder::{NativeEndian, WriteBytesExt, ReadBytesExt};use super::*;
                 use flutter_rust_bridge::for_generated::wasm_bindgen;

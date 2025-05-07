@@ -4,7 +4,7 @@ use flutter_rust_bridge::frb;
 
 use crate::api::embedded_ts::MdxNoteEntity;
 
-use super::query_params::MdxNoteQueryParams;
+pub use super::query_params::MdxNoteQueryParams;
 
 pub struct MdxNotesRepository {
     pub table_name: String,
@@ -18,7 +18,7 @@ impl MdxNotesRepository {
     }
 
     #[frb(name = "search")]
-    async fn search(
+    pub async fn search(
         &self,
         query: MdxNoteQueryParams,
     ) -> Result<Vec<MdxNoteEntity>, fluster_db::api::db::FlusterError> {
