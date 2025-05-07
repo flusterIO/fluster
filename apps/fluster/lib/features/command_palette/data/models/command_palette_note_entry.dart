@@ -9,7 +9,6 @@ class CommandPaletteNoteEntry extends CommandPaletteItem {
     : super(
         desc: "",
         label: title,
-        items: [],
         category: CommandPaletteCategoryId.noteTextSearch,
         action: (_) {
           print("Here");
