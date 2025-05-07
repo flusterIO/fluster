@@ -1,6 +1,5 @@
-use crate::api::embedded_js::EmbededJsFiles;
+use crate::api::models::bibliography::bib_file::BibtexFile;
 pub use crossbeam_channel::Sender;
-use fluster_models::models::bibliography::bib_file::BibtexFile;
 pub use fluster_types::errors::errors::FlusterError;
 use fluster_types::typedefs::note_type_utils::FlusterDb;
 use flutter_rust_bridge::frb;

@@ -152,19 +152,14 @@ export const getRemarkPlugins = (): CompileOptions["remarkPlugins"] => {
 
 // RESUME: Come back here tomorrow when on power and decent wifi.
 // Pass the remark and rehype plugins in as parameters to avoid generating them multiple times when parsing multiple files. Create 2 wrapper functions, 1 that parses a single file and 1 that accepts an array of paths.
-export const parseMdxString = async ({
-    content,
-    opts = {},
-}: ParseMdxStringParams) => {
-    let _rehypePlugins = await rehypePlugins(appConfig, opts);
+export const parseMdxString = async (content: string) => {
+    let _rehypePlugins = await rehypePlugins();
     let res = await compile(content, {
         outputFormat: "function-body",
-        remarkPlugins: remarkPlugins(),
+        remarkPlugins: getRemarkPlugins(),
         rehypePlugins: _rehypePlugins,
         development: process.env.NODE_ENV === "development",
         /* baseUrl: import.meta.url */
     });
     return String(res).replaceAll(/classname/g, "className");
 };
-
-export type { ParseMdxStringOptions, ParseMdxStringParams };

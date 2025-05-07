@@ -19,6 +19,7 @@ build_protos:
 	${FLUSTER_NATIVE_ROOT}/packages/fluster_grpc/scripts/clean.sh
 	cd ${FLUSTER_NATIVE_ROOT}/packages/fluster_grpc; ${FLUSTER_NATIVE_ROOT}/packages/fluster_grpc/scripts/distribute_proto.sh
 build_embedded_ts:
+	cd ${FLUSTER_NATIVE_ROOT}/packages/fluster_embedded_typescript; pnpm install
 	cd ${FLUSTER_NATIVE_ROOT}/packages/fluster_embedded_typescript; pnpm build
 build_node: build_embedded_ts
 	pnpm syncpack format
@@ -26,7 +27,6 @@ build_node: build_embedded_ts
 build_rust: build_embedded_ts
 	rm -rf ${FLUSTER_NATIVE_ROOT}/packages/fluster_native_interface/lib/src/rust/**
 	cd ${FLUSTER_NATIVE_ROOT}/packages/fluster_native_interface; flutter_rust_bridge_codegen generate
-	cd ${FLUSTER_NATIVE_ROOT}/packages/fluster_models; flutter_rust_bridge_codegen generate
 test_rust:
 	cargo llvm-cov nextest --html
 test_flutter:

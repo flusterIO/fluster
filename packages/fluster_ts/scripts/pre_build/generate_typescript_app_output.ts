@@ -70,8 +70,10 @@ for (const theme in bundledThemes) {
 }
 
 for (const lang in bundledLanguages) {
-    languageEnumString += `\n    #[serde(rename(serialize = "${lang}", deserialize = "${lang}"))]${getDefaultString(lang, SourceType.language)}
+    if (lang != "文言") {
+        languageEnumString += `\n    #[serde(rename(serialize = "${lang}", deserialize = "${lang}"))]${getDefaultString(lang, SourceType.language)}
     ${formatEnumString(lang)},`;
+    }
 }
 
 themeEnumString += "\n}";

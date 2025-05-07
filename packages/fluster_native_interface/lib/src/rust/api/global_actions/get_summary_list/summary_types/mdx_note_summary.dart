@@ -4,8 +4,12 @@
 // ignore_for_file: invalid_use_of_internal_member, unused_import, unnecessary_import
 
 import '../../../../frb_generated.dart';
-import '../get_summary_list_data.dart';
+import '../../../../lib.dart';
+import '../../../models/notes/front_matter/front_matter_model.dart';
+import '../../../models/taggable/tag_model.dart';
 import 'package:flutter_rust_bridge/flutter_rust_bridge_for_generated.dart';
+
+// These function are ignored because they are on traits that is not defined in current crate (put an empty `#[frb]` on it to unignore): `clone`, `fmt`
 
 // Rust type: RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<MdxNoteSummary>>
 abstract class MdxNoteSummary implements RustOpaqueInterface {

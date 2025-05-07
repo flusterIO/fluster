@@ -1,7 +1,7 @@
 use crossbeam_channel::unbounded;
-pub use crossbeam_channel::Sender;
-use fluster_models::models::notes::mdx::mdx_note::MdxNoteEntity;
-pub use fluster_types::errors::errors::FlusterError;
+use crossbeam_channel::Sender;
+use crate::api::models::notes::mdx::mdx_note::MdxNoteEntity;
+use fluster_types::errors::errors::FlusterError;
 use fluster_types::traits::db_entity::FlusterDatabaseEntity;
 use fluster_types::typedefs::note_type_utils::FlusterDb;
 use flutter_rust_bridge::frb;

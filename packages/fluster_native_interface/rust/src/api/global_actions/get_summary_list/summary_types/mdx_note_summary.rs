@@ -1,4 +1,4 @@
-pub use fluster_models::models::notes::front_matter::front_matter_model::FrontMatterEntity;
+pub use crate::api::models::notes::front_matter::front_matter_model::FrontMatterEntity;
 use serde::{Deserialize, Serialize};
 pub use surrealdb::sql::Thing;
 

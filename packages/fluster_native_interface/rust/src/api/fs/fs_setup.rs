@@ -1,7 +1,10 @@
-use std::{env::temp_dir, path::PathBuf};
+use std::path::PathBuf;
 
-use fluster_types::errors::errors::FlusterError;
+pub use crate::api::forced_imports::*;
+pub use fluster_types::errors::errors::FlusterError;
+use flutter_rust_bridge::frb;
 
+#[frb(ignore)]
 fn make_dir_or_fail_to_create(p: PathBuf) -> Option<FlusterError> {
     if !p.exists() {
         let dir_err = std::fs::create_dir_all(p);

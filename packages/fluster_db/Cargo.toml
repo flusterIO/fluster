@@ -1,7 +1,10 @@
 [package]
 name = "fluster_db"
-version = "0.1.0"
-edition = "2021"
+version.workspace = true
+authors.workspace = true
+description.workspace = true
+documentation.workspace = true
+edition.workspace = true
 
 # NOTE: Had to turn this off to allow this package to be imported. Cargo was throwing an error that it was unable to find it with this set, but it was recommended to be set this way to embed a rust database. I'm not sure if this applies to embedding the surreal server and using the file system, but if this is required, turn this back on.
 # [lib]

@@ -7,10 +7,15 @@ import '../../../frb_generated.dart';
 import 'package:flutter_rust_bridge/flutter_rust_bridge_for_generated.dart';
 import 'summary_types/mdx_note_summary.dart';
 
+// These function are ignored because they are on traits that is not defined in current crate (put an empty `#[frb]` on it to unignore): `clone`, `fmt`
+
 class SummaryListResults {
   final List<MdxNoteSummary> mdxNotes;
 
   const SummaryListResults({required this.mdxNotes});
+
+  static Future<SummaryListResults> default_() => RustLib.instance.api
+      .crateApiGlobalActionsGetSummaryListSummaryListResultSummaryListResultsDefault();
 
   @override
   int get hashCode => mdxNotes.hashCode;

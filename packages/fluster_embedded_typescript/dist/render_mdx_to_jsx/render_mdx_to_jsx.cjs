@@ -73,7 +73,7 @@ var mermaidConfig = {
     theme: "base"
   }
 };
-var rehypePlugins = async (opts) => {
+var rehypePlugins = async () => {
   return [
     /* TODO: Add an embeded video component for this rehypeVideo that then utilizes the existing video element. */
     // [
@@ -148,14 +148,11 @@ var getRemarkPlugins = () => {
     // emoji as any,
   ];
 };
-var parseMdxString = async ({
-  content,
-  opts = {}
-}) => {
-  let _rehypePlugins = await rehypePlugins(appConfig, opts);
+var parseMdxString = async (content) => {
+  let _rehypePlugins = await rehypePlugins();
   let res = await (0, import_mdx.compile)(content, {
     outputFormat: "function-body",
-    remarkPlugins: remarkPlugins(),
+    remarkPlugins: getRemarkPlugins(),
     rehypePlugins: _rehypePlugins,
     development: process.env.NODE_ENV === "development"
     /* baseUrl: import.meta.url */

@@ -14,9 +14,3 @@ Future<SummaryListResults> getSummaryList({required SummaryListQuery query}) =>
         .crateApiGlobalActionsGetSummaryListGetSummaryListDataGetSummaryList(
           query: query,
         );
-
-// Rust type: RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<FrontMatterEntity>>
-abstract class FrontMatterEntity implements RustOpaqueInterface {}
-
-// Rust type: RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<Thing>>
-abstract class Thing implements RustOpaqueInterface {}

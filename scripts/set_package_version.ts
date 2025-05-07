@@ -22,6 +22,23 @@ class PubspecFile {
     }
 }
 
+class PackageJsonFile {
+    p: string;
+    version: String;
+    constructor(p: string, version: string) {
+        this.p = p;
+        this.version = version;
+    }
+    getData(): string {
+        const fileContent = fs.readFileSync(this.p as PathOrFileDescriptor, {
+            encoding: "utf-8",
+        });
+        let data = JSON.parse(fileContent);
+        data.version = this.version;
+        return JSON.stringify(data);
+    }
+}
+
 class CargoTomlFile {
     p: string;
     version: string;
@@ -40,6 +57,18 @@ class CargoTomlFile {
     }
 }
 
+class PythonVersionInitFile {
+    p: string;
+    version: String;
+    constructor(p: string, version: string) {
+        this.p = p;
+        this.version = version;
+    }
+    getData() {
+        return `__version__ = "${this.version}"`;
+    }
+}
+
 let root = process.env.FLUSTER_NATIVE_ROOT;
 
 if (!root) {
@@ -53,18 +82,26 @@ if (!root) {
 
 const setPackageVersion = (version: string): void => {
     let items: Array<CargoTomlFile | PubspecFile> = [
-        new CargoTomlFile(path.join(root, "cargo.toml"), version),
-        new PubspecFile(path.join(root, "apps/fluster/pubspec.yaml"), version),
+        new CargoTomlFile(path.join(root!, "cargo.toml"), version),
+        new PubspecFile(path.join(root!, "apps/fluster/pubspec.yaml"), version),
         new PubspecFile(
-            path.join(root, "packages/fluster_models/pubspec.yaml"),
+            path.join(root!, "packages/fluster_native_interface/pubspec.yaml"),
             version,
         ),
         new PubspecFile(
-            path.join(root, "packages/fluster_native_interface/pubspec.yaml"),
+            path.join(root!, "packages/fluster_ui/pubspec.yaml"),
             version,
         ),
-        new PubspecFile(
-            path.join(root, "packages/fluster_ui/pubspec.yaml"),
+        new PackageJsonFile(
+            path.join(root!, "packages/fluster_ts/package.json"),
+            version,
+        ),
+        new PackageJsonFile(
+            path.join(root!, "packages/fluster_embedded_components/package.json"),
+            version,
+        ),
+        new PythonVersionInitFile(
+            path.join(root!, "packages/fluster_py/src/__init__.py"),
             version,
         ),
     ];

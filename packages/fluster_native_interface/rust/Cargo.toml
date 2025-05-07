@@ -18,7 +18,7 @@ tracing = { workspace = true }
 tracing-subscriber = { workspace = true }
 thiserror = { workspace = true }
 fluster_types = { path = "../../fluster_types/" }
-fluster_models = { path = "../../fluster_models/rust" }
+# fluster_models = { path = "../../fluster_models/" }
 fluster_db = { path = "../../fluster_db/" }
 fluster_logger = { path = "../../fluster_logger/" }
 fluster_wasm = { path = "../../fluster_wasm/" }
@@ -43,9 +43,13 @@ anyhow = "1.0.98"
 biblatex = "0.10.0"
 rust-embed = "8.7.0"
 langchain-rust = "4.6.0"
-rig-core = { version = "0.12.0", features = ["all"] }
-rig-surrealdb = "0.1.5"
-meilisearch-sdk = "0.28.0"
+time = { version = "0.3.41", features = ["macros", "serde", "serde-human-readable", "serde-well-known"] }
+wasm-bindgen = "0.2.100"
+tsify = "0.5.5"
+enum-iterator = "2.1.0"
+# rig-core = { version = "0.12.0", features = ["all"] }
+# rig-surrealdb = "0.1.5"
+# meilisearch-sdk = "0.28.0"
 
 [build-dependencies]
 flutter_rust_bridge_codegen = "2.9.0"

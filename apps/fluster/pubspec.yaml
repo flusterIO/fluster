@@ -33,8 +33,6 @@ dependencies:
     path: ../../packages/fluster_native_interface
   fluster_ui:
     path: ../../packages/fluster_ui
-  fluster_models:
-    path: ../../packages/fluster_models
   async_redux: ^23.1.1
   flutter_hooks_async_redux: ^2.0.0
   flex_color_scheme: ^8.2.0

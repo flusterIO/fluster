@@ -2,7 +2,6 @@
 resolver = "2"
 members = [
     "packages/fluster_native_interface/rust",
-    "packages/fluster_models/rust",
     "packages/fluster_grpc",
     "packages/fluster_db",
     "packages/fluster_test_utils",
