@@ -10,7 +10,7 @@ import 'package:flutter_rust_bridge/flutter_rust_bridge_for_generated.dart';
 Future<void> syncMdxFilesystemNotes({
   required String notesPath,
   required SenderFlusterError errorSender,
-  required FlusterDb db,
+  required SurrealDb db,
 }) => RustLib.instance.api
     .crateApiGlobalActionsParseDirectorySyncFsDirectorySyncMethodsSyncMdxNotesSyncMdxFilesystemNotes(
       notesPath: notesPath,

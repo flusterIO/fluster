@@ -1,5 +1,5 @@
+use surrealdb::Surreal;
+
+pub type FlusterDb = Surreal<surrealdb::engine::local::Db>;
 pub mod constants;
 pub mod errors;
-pub mod traits;
-pub mod typedefs;
-

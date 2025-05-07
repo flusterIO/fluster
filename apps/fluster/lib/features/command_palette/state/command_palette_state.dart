@@ -15,6 +15,7 @@ class CommandPaletteState with _$CommandPaletteState {
     @Default([]) List<CommandPaletteEntry> filteredItems,
     @Default([]) List<CommandPaletteEntry> navigationStack,
     @Default(0) int selectedIndex,
+    @Default(CommandPaletteView.list) CommandPaletteView view,
   }) = _CommandPaletteState;
   static CommandPaletteState initialState() => CommandPaletteState(open: false);
 

@@ -32,6 +32,7 @@ use crate::api::models::bibliography::bib_file::*;
 use crate::api::models::bibliography::reading_list::*;
 use crate::api::models::nested_models::fluster_datetime::fluster_time::*;
 use crate::api::models::notes::front_matter::front_matter_model::*;
+use crate::api::typedefs::note_type_utils::*;
 use crate::*;
 use flutter_rust_bridge::for_generated::byteorder::{NativeEndian, ReadBytesExt, WriteBytesExt};
 use flutter_rust_bridge::for_generated::{transform_result_dco, Lifetimeable, Lockable};
@@ -45,7 +46,7 @@ flutter_rust_bridge::frb_generated_boilerplate!(
     default_rust_auto_opaque = RustAutoOpaqueMoi,
 );
 pub(crate) const FLUTTER_RUST_BRIDGE_CODEGEN_VERSION: &str = "2.9.0";
-pub(crate) const FLUTTER_RUST_BRIDGE_CODEGEN_CONTENT_HASH: i32 = 1994307973;
+pub(crate) const FLUTTER_RUST_BRIDGE_CODEGEN_CONTENT_HASH: i32 = -1811660218;
 
 // Section: executor
 
@@ -53,6 +54,103 @@ flutter_rust_bridge::frb_generated_default_handler!();
 
 // Section: wire_funcs
 
+fn wire__crate__api__typedefs__note_type_utils__DbRecord_auto_accessor_get_id_impl(
+    ptr_: flutter_rust_bridge::for_generated::PlatformGeneralizedUint8ListPtr,
+    rust_vec_len_: i32,
+    data_len_: i32,
+) -> flutter_rust_bridge::for_generated::WireSyncRust2DartSse {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_sync::<flutter_rust_bridge::for_generated::SseCodec, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "DbRecord_auto_accessor_get_id",
+            port: None,
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Sync,
+        },
+        move || {
+            let message = unsafe {
+                flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(
+                    ptr_,
+                    rust_vec_len_,
+                    data_len_,
+                )
+            };
+            let mut deserializer =
+                flutter_rust_bridge::for_generated::SseDeserializer::new(message);
+            let api_that = <RustOpaqueMoi<
+                flutter_rust_bridge::for_generated::RustAutoOpaqueInner<DbRecord>,
+            >>::sse_decode(&mut deserializer);
+            deserializer.end();
+            transform_result_sse::<_, ()>((move || {
+                let mut api_that_guard = None;
+                let decode_indices_ =
+                    flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![
+                        flutter_rust_bridge::for_generated::LockableOrderInfo::new(
+                            &api_that, 0, false,
+                        ),
+                    ]);
+                for i in decode_indices_ {
+                    match i {
+                        0 => api_that_guard = Some(api_that.lockable_decode_sync_ref()),
+                        _ => unreachable!(),
+                    }
+                }
+                let api_that_guard = api_that_guard.unwrap();
+                let output_ok = Result::<_, ()>::Ok(api_that_guard.id.clone())?;
+                Ok(output_ok)
+            })())
+        },
+    )
+}
+fn wire__crate__api__typedefs__note_type_utils__DbRecord_auto_accessor_set_id_impl(
+    ptr_: flutter_rust_bridge::for_generated::PlatformGeneralizedUint8ListPtr,
+    rust_vec_len_: i32,
+    data_len_: i32,
+) -> flutter_rust_bridge::for_generated::WireSyncRust2DartSse {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_sync::<flutter_rust_bridge::for_generated::SseCodec, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "DbRecord_auto_accessor_set_id",
+            port: None,
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Sync,
+        },
+        move || {
+            let message = unsafe {
+                flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(
+                    ptr_,
+                    rust_vec_len_,
+                    data_len_,
+                )
+            };
+            let mut deserializer =
+                flutter_rust_bridge::for_generated::SseDeserializer::new(message);
+            let api_that = <RustOpaqueMoi<
+                flutter_rust_bridge::for_generated::RustAutoOpaqueInner<DbRecord>,
+            >>::sse_decode(&mut deserializer);
+            let api_id = <RecordId>::sse_decode(&mut deserializer);
+            deserializer.end();
+            transform_result_sse::<_, ()>((move || {
+                let mut api_that_guard = None;
+                let decode_indices_ =
+                    flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![
+                        flutter_rust_bridge::for_generated::LockableOrderInfo::new(
+                            &api_that, 0, true,
+                        ),
+                    ]);
+                for i in decode_indices_ {
+                    match i {
+                        0 => api_that_guard = Some(api_that.lockable_decode_sync_ref_mut()),
+                        _ => unreachable!(),
+                    }
+                }
+                let mut api_that_guard = api_that_guard.unwrap();
+                let output_ok = Result::<_, ()>::Ok({
+                    {
+                        api_that_guard.id = api_id;
+                    };
+                })?;
+                Ok(output_ok)
+            })())
+        },
+    )
+}
 fn wire__crate__api__embedded_ts__EmbeddedTypescriptFiles_get_impl(
     port_: flutter_rust_bridge::for_generated::MessagePort,
     ptr_: flutter_rust_bridge::for_generated::PlatformGeneralizedUint8ListPtr,
@@ -911,7 +1009,7 @@ fn wire__crate__api__models__bibliography__bib_file__bibtex_file_save_entries_im
                 &mut deserializer,
             );
             let api_db = <RustOpaqueMoi<
-                flutter_rust_bridge::for_generated::RustAutoOpaqueInner<FlusterDb>,
+                flutter_rust_bridge::for_generated::RustAutoOpaqueInner<Surreal<Db>>,
             >>::sse_decode(&mut deserializer);
             deserializer.end();
             move |context| async move {
@@ -958,6 +1056,21 @@ fn wire__crate__api__models__params__cross_language_file_object__cross_language_
             deserializer.end(); move |context|  {
                     transform_result_sse::<_, ()>((move ||  {
                          let output_ok = Result::<_,()>::Ok(crate::api::models::params::cross_language_file_object::CrossLanguageFile::default())?;   Ok(output_ok)
+                    })())
+                } })
+}
+fn wire__crate__api__repositories__notes__mdx__query_params__db_tokenizer_language_default_impl(
+    port_: flutter_rust_bridge::for_generated::MessagePort,
+    ptr_: flutter_rust_bridge::for_generated::PlatformGeneralizedUint8ListPtr,
+    rust_vec_len_: i32,
+    data_len_: i32,
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::SseCodec,_,_>(flutter_rust_bridge::for_generated::TaskInfo{ debug_name: "db_tokenizer_language_default", port: Some(port_), mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal }, move || { 
+            let message = unsafe { flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(ptr_, rust_vec_len_, data_len_) };
+            let mut deserializer = flutter_rust_bridge::for_generated::SseDeserializer::new(message);
+            deserializer.end(); move |context|  {
+                    transform_result_sse::<_, ()>((move ||  {
+                         let output_ok = Result::<_,()>::Ok(crate::api::repositories::notes::mdx::query_params::DbTokenizerLanguage::default())?;   Ok(output_ok)
                     })())
                 } })
 }
@@ -1233,6 +1346,31 @@ fn wire__crate__api__models__notes__mdx__mdx_note__mdx_note_entity_from_file_sys
                     })())
                 } })
 }
+fn wire__crate__api__models__notes__mdx__mdx_note__mdx_note_entity_from_id_string_impl(
+    port_: flutter_rust_bridge::for_generated::MessagePort,
+    ptr_: flutter_rust_bridge::for_generated::PlatformGeneralizedUint8ListPtr,
+    rust_vec_len_: i32,
+    data_len_: i32,
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_async::<flutter_rust_bridge::for_generated::SseCodec,_,_,_>(flutter_rust_bridge::for_generated::TaskInfo{ debug_name: "mdx_note_entity_from_id_string", port: Some(port_), mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal }, move || { 
+            let message = unsafe { flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(ptr_, rust_vec_len_, data_len_) };
+            let mut deserializer = flutter_rust_bridge::for_generated::SseDeserializer::new(message);
+            let api_id = <String>::sse_decode(&mut deserializer);
+let api_db = <RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<Surreal < Db >>>>::sse_decode(&mut deserializer);deserializer.end(); move |context| async move {
+                    transform_result_sse::<_, FlusterError>((move || async move {
+                        let mut api_db_guard = None;
+let decode_indices_ = flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![flutter_rust_bridge::for_generated::LockableOrderInfo::new(&api_db, 0, false)]);
+        for i in decode_indices_ {
+            match i {
+                0 => api_db_guard = Some(api_db.lockable_decode_async_ref().await),
+                _ => unreachable!(),
+            }
+        }
+        let api_db_guard = api_db_guard.unwrap();
+ let output_ok = crate::api::models::notes::mdx::mdx_note::MdxNoteEntity::from_id_string(&api_id, &*api_db_guard).await?;   Ok(output_ok)
+                    })().await)
+                } })
+}
 fn wire__crate__api__models__notes__mdx__mdx_note__mdx_note_entity_from_raw_mdx_string_impl(
     port_: flutter_rust_bridge::for_generated::MessagePort,
     ptr_: flutter_rust_bridge::for_generated::PlatformGeneralizedUint8ListPtr,
@@ -1246,6 +1384,134 @@ fn wire__crate__api__models__notes__mdx__mdx_note__mdx_note_entity_from_raw_mdx_
 let api_file_path = <Option<String>>::sse_decode(&mut deserializer);deserializer.end(); move |context|  {
                     transform_result_sse::<_, FlusterError>((move ||  {
                          let output_ok = crate::api::models::notes::mdx::mdx_note::MdxNoteEntity::from_raw_mdx_string(api_raw_file_content, api_file_path)?;   Ok(output_ok)
+                    })())
+                } })
+}
+fn wire__crate__api__models__notes__mdx__mdx_note__mdx_note_entity_get_id_impl(
+    port_: flutter_rust_bridge::for_generated::MessagePort,
+    ptr_: flutter_rust_bridge::for_generated::PlatformGeneralizedUint8ListPtr,
+    rust_vec_len_: i32,
+    data_len_: i32,
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::SseCodec, _, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "mdx_note_entity_get_id",
+            port: Some(port_),
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
+        },
+        move || {
+            let message = unsafe {
+                flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(
+                    ptr_,
+                    rust_vec_len_,
+                    data_len_,
+                )
+            };
+            let mut deserializer =
+                flutter_rust_bridge::for_generated::SseDeserializer::new(message);
+            let api_that = <crate::api::models::notes::mdx::mdx_note::MdxNoteEntity>::sse_decode(
+                &mut deserializer,
+            );
+            deserializer.end();
+            move |context| {
+                transform_result_sse::<_, ()>((move || {
+                    let output_ok = Result::<_, ()>::Ok(
+                        crate::api::models::notes::mdx::mdx_note::MdxNoteEntity::get_id(&api_that),
+                    )?;
+                    Ok(output_ok)
+                })())
+            }
+        },
+    )
+}
+fn wire__crate__api__models__notes__mdx__mdx_note__mdx_note_entity_save_impl(
+    port_: flutter_rust_bridge::for_generated::MessagePort,
+    ptr_: flutter_rust_bridge::for_generated::PlatformGeneralizedUint8ListPtr,
+    rust_vec_len_: i32,
+    data_len_: i32,
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_async::<flutter_rust_bridge::for_generated::SseCodec, _, _, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "mdx_note_entity_save(dart_style=save)",
+            port: Some(port_),
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
+        },
+        move || {
+            let message = unsafe {
+                flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(
+                    ptr_,
+                    rust_vec_len_,
+                    data_len_,
+                )
+            };
+            let mut deserializer =
+                flutter_rust_bridge::for_generated::SseDeserializer::new(message);
+            let api_that = <crate::api::models::notes::mdx::mdx_note::MdxNoteEntity>::sse_decode(
+                &mut deserializer,
+            );
+            let api_db = <RustOpaqueMoi<
+                flutter_rust_bridge::for_generated::RustAutoOpaqueInner<Surreal<Db>>,
+            >>::sse_decode(&mut deserializer);
+            deserializer.end();
+            move |context| async move {
+                transform_result_sse::<_, ()>(
+                    (move || async move {
+                        let mut api_db_guard = None;
+                        let decode_indices_ =
+                            flutter_rust_bridge::for_generated::lockable_compute_decode_order(
+                                vec![flutter_rust_bridge::for_generated::LockableOrderInfo::new(
+                                    &api_db, 0, false,
+                                )],
+                            );
+                        for i in decode_indices_ {
+                            match i {
+                                0 => api_db_guard = Some(api_db.lockable_decode_async_ref().await),
+                                _ => unreachable!(),
+                            }
+                        }
+                        let api_db_guard = api_db_guard.unwrap();
+                        let output_ok = Result::<_, ()>::Ok(
+                            crate::api::models::notes::mdx::mdx_note::MdxNoteEntity::save(
+                                &api_that,
+                                &*api_db_guard,
+                            )
+                            .await,
+                        )?;
+                        Ok(output_ok)
+                    })()
+                    .await,
+                )
+            }
+        },
+    )
+}
+fn wire__crate__api__repositories__notes__mdx__mdx_notes_repository__mdx_notes_repository_default_impl(
+    port_: flutter_rust_bridge::for_generated::MessagePort,
+    ptr_: flutter_rust_bridge::for_generated::PlatformGeneralizedUint8ListPtr,
+    rust_vec_len_: i32,
+    data_len_: i32,
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::SseCodec,_,_>(flutter_rust_bridge::for_generated::TaskInfo{ debug_name: "mdx_notes_repository_default", port: Some(port_), mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal }, move || { 
+            let message = unsafe { flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(ptr_, rust_vec_len_, data_len_) };
+            let mut deserializer = flutter_rust_bridge::for_generated::SseDeserializer::new(message);
+            deserializer.end(); move |context|  {
+                    transform_result_sse::<_, ()>((move ||  {
+                         let output_ok = Result::<_,()>::Ok(crate::api::repositories::notes::mdx::mdx_notes_repository::MdxNotesRepository::default())?;   Ok(output_ok)
+                    })())
+                } })
+}
+fn wire__crate__api__repositories__notes__mdx__mdx_notes_repository__mdx_notes_repository_new_impl(
+    port_: flutter_rust_bridge::for_generated::MessagePort,
+    ptr_: flutter_rust_bridge::for_generated::PlatformGeneralizedUint8ListPtr,
+    rust_vec_len_: i32,
+    data_len_: i32,
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::SseCodec,_,_>(flutter_rust_bridge::for_generated::TaskInfo{ debug_name: "mdx_notes_repository_new", port: Some(port_), mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal }, move || { 
+            let message = unsafe { flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(ptr_, rust_vec_len_, data_len_) };
+            let mut deserializer = flutter_rust_bridge::for_generated::SseDeserializer::new(message);
+            deserializer.end(); move |context|  {
+                    transform_result_sse::<_, ()>((move ||  {
+                         let output_ok = Result::<_,()>::Ok(crate::api::repositories::notes::mdx::mdx_notes_repository::MdxNotesRepository::new())?;   Ok(output_ok)
                     })())
                 } })
 }
@@ -1551,7 +1817,7 @@ fn wire__crate__api__global_actions__parse_directory__sync_fs_directory__sync_me
             let mut deserializer = flutter_rust_bridge::for_generated::SseDeserializer::new(message);
             let api_notes_path = <String>::sse_decode(&mut deserializer);
 let api_error_sender = <RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<Sender < FlusterError >>>>::sse_decode(&mut deserializer);
-let api_db = <RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<FlusterDb>>>::sse_decode(&mut deserializer);deserializer.end(); move |context| async move {
+let api_db = <RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<Surreal < Db >>>>::sse_decode(&mut deserializer);deserializer.end(); move |context| async move {
                     transform_result_sse::<_, ()>((move || async move {
                         let mut api_error_sender_guard = None;
 let mut api_db_guard = None;
@@ -1580,7 +1846,7 @@ fn wire__crate__api__global_actions__parse_directory__sync_fs_directory__sync_me
             let mut deserializer = flutter_rust_bridge::for_generated::SseDeserializer::new(message);
             let api_bib_path = <String>::sse_decode(&mut deserializer);
 let api_error_sender = <RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<Sender < FlusterError >>>>::sse_decode(&mut deserializer);
-let api_db = <RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<FlusterDb>>>::sse_decode(&mut deserializer);
+let api_db = <RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<Surreal < Db >>>>::sse_decode(&mut deserializer);
 let api_n_threads = <u32>::sse_decode(&mut deserializer);deserializer.end(); move |context| async move {
                     transform_result_sse::<_, ()>((move || async move {
                         let mut api_error_sender_guard = None;
@@ -1675,6 +1941,9 @@ fn wire__crate__api__models__taggable__tag_model__tag_from_string_impl(
 // Section: related_funcs
 
 flutter_rust_bridge::frb_generated_moi_arc_impl_value!(
+    flutter_rust_bridge::for_generated::RustAutoOpaqueInner<DbRecord>
+);
+flutter_rust_bridge::frb_generated_moi_arc_impl_value!(
     flutter_rust_bridge::for_generated::RustAutoOpaqueInner<EmbeddedFile>
 );
 flutter_rust_bridge::frb_generated_moi_arc_impl_value!(
@@ -1682,9 +1951,6 @@ flutter_rust_bridge::frb_generated_moi_arc_impl_value!(
 );
 flutter_rust_bridge::frb_generated_moi_arc_impl_value!(
     flutter_rust_bridge::for_generated::RustAutoOpaqueInner<FileTime>
-);
-flutter_rust_bridge::frb_generated_moi_arc_impl_value!(
-    flutter_rust_bridge::for_generated::RustAutoOpaqueInner<FlusterDb>
 );
 flutter_rust_bridge::frb_generated_moi_arc_impl_value!(
     flutter_rust_bridge::for_generated::RustAutoOpaqueInner<FlusterError>
@@ -1705,7 +1971,13 @@ flutter_rust_bridge::frb_generated_moi_arc_impl_value!(
     flutter_rust_bridge::for_generated::RustAutoOpaqueInner<ReadingList>
 );
 flutter_rust_bridge::frb_generated_moi_arc_impl_value!(
+    flutter_rust_bridge::for_generated::RustAutoOpaqueInner<RecordId>
+);
+flutter_rust_bridge::frb_generated_moi_arc_impl_value!(
     flutter_rust_bridge::for_generated::RustAutoOpaqueInner<Sender<FlusterError>>
+);
+flutter_rust_bridge::frb_generated_moi_arc_impl_value!(
+    flutter_rust_bridge::for_generated::RustAutoOpaqueInner<Surreal<Db>>
 );
 flutter_rust_bridge::frb_generated_moi_arc_impl_value!(
     flutter_rust_bridge::for_generated::RustAutoOpaqueInner<Thing>
@@ -1718,6 +1990,16 @@ impl SseDecode for flutter_rust_bridge::for_generated::anyhow::Error {
     fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
         let mut inner = <String>::sse_decode(deserializer);
         return flutter_rust_bridge::for_generated::anyhow::anyhow!("{}", inner);
+    }
+}
+
+impl SseDecode for DbRecord {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut inner = <RustOpaqueMoi<
+            flutter_rust_bridge::for_generated::RustAutoOpaqueInner<DbRecord>,
+        >>::sse_decode(deserializer);
+        return flutter_rust_bridge::for_generated::rust_auto_opaque_decode_owned(inner);
     }
 }
 
@@ -1809,6 +2091,16 @@ impl SseDecode for ReadingList {
     }
 }
 
+impl SseDecode for RecordId {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut inner = <RustOpaqueMoi<
+            flutter_rust_bridge::for_generated::RustAutoOpaqueInner<RecordId>,
+        >>::sse_decode(deserializer);
+        return flutter_rust_bridge::for_generated::rust_auto_opaque_decode_owned(inner);
+    }
+}
+
 impl SseDecode for Thing {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
@@ -1816,6 +2108,16 @@ impl SseDecode for Thing {
             flutter_rust_bridge::for_generated::RustAutoOpaqueInner<Thing>,
         >>::sse_decode(deserializer);
         return flutter_rust_bridge::for_generated::rust_auto_opaque_decode_owned(inner);
+    }
+}
+
+impl SseDecode
+    for RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<DbRecord>>
+{
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut inner = <usize>::sse_decode(deserializer);
+        return decode_rust_opaque_moi(inner);
     }
 }
 
@@ -1843,16 +2145,6 @@ impl SseDecode
 
 impl SseDecode
     for RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<FileTime>>
-{
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
-        let mut inner = <usize>::sse_decode(deserializer);
-        return decode_rust_opaque_moi(inner);
-    }
-}
-
-impl SseDecode
-    for RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<FlusterDb>>
 {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
@@ -1920,7 +2212,27 @@ impl SseDecode
 }
 
 impl SseDecode
+    for RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<RecordId>>
+{
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut inner = <usize>::sse_decode(deserializer);
+        return decode_rust_opaque_moi(inner);
+    }
+}
+
+impl SseDecode
     for RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<Sender<FlusterError>>>
+{
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut inner = <usize>::sse_decode(deserializer);
+        return decode_rust_opaque_moi(inner);
+    }
+}
+
+impl SseDecode
+    for RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<Surreal<Db>>>
 {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
@@ -1994,6 +2306,35 @@ impl SseDecode for crate::api::models::params::cross_language_file_object::Cross
         return crate::api::models::params::cross_language_file_object::CrossLanguageFile {
             path: var_path,
             note_type: var_noteType,
+        };
+    }
+}
+
+impl SseDecode for crate::api::repositories::notes::mdx::query_params::DbTokenizerLanguage {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut inner = <i32>::sse_decode(deserializer);
+        return match inner {
+            0 => crate::api::repositories::notes::mdx::query_params::DbTokenizerLanguage::Arabic,
+            1 => crate::api::repositories::notes::mdx::query_params::DbTokenizerLanguage::Danish,
+            2 => crate::api::repositories::notes::mdx::query_params::DbTokenizerLanguage::Dutch,
+            3 => crate::api::repositories::notes::mdx::query_params::DbTokenizerLanguage::English,
+            4 => crate::api::repositories::notes::mdx::query_params::DbTokenizerLanguage::French,
+            5 => crate::api::repositories::notes::mdx::query_params::DbTokenizerLanguage::German,
+            6 => crate::api::repositories::notes::mdx::query_params::DbTokenizerLanguage::Greek,
+            7 => crate::api::repositories::notes::mdx::query_params::DbTokenizerLanguage::Hungarian,
+            8 => crate::api::repositories::notes::mdx::query_params::DbTokenizerLanguage::Italian,
+            9 => crate::api::repositories::notes::mdx::query_params::DbTokenizerLanguage::Norwegian,
+            10 => {
+                crate::api::repositories::notes::mdx::query_params::DbTokenizerLanguage::Portuguese
+            }
+            11 => crate::api::repositories::notes::mdx::query_params::DbTokenizerLanguage::Romanian,
+            12 => crate::api::repositories::notes::mdx::query_params::DbTokenizerLanguage::Russian,
+            13 => crate::api::repositories::notes::mdx::query_params::DbTokenizerLanguage::Spanish,
+            14 => crate::api::repositories::notes::mdx::query_params::DbTokenizerLanguage::Swedish,
+            15 => crate::api::repositories::notes::mdx::query_params::DbTokenizerLanguage::Tamil,
+            16 => crate::api::repositories::notes::mdx::query_params::DbTokenizerLanguage::Turkish,
+            _ => unreachable!("Invalid variant for DbTokenizerLanguage: {}", inner),
         };
     }
 }
@@ -2189,6 +2530,16 @@ impl SseDecode for crate::api::models::notes::mdx::mdx_note::MdxNoteEntity {
             mtime: var_mtime,
             atime: var_atime,
             tags: var_tags,
+        };
+    }
+}
+
+impl SseDecode for crate::api::repositories::notes::mdx::mdx_notes_repository::MdxNotesRepository {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut var_tableName = <String>::sse_decode(deserializer);
+        return crate::api::repositories::notes::mdx::mdx_notes_repository::MdxNotesRepository {
+            table_name: var_tableName,
         };
     }
 }
@@ -2809,40 +3160,46 @@ fn pde_ffi_dispatcher_primary_impl(
 ) {
     // Codec=Pde (Serialization + dispatch), see doc to use other codecs
     match func_id {
-                        1 => wire__crate__api__embedded_ts__EmbeddedTypescriptFiles_get_impl(port, ptr, rust_vec_len, data_len),
-4 => wire__crate__api__models__nested_models__fluster_datetime__fluster_time__FlusterTime_default_impl(port, ptr, rust_vec_len, data_len),
-5 => wire__crate__api__models__nested_models__fluster_datetime__fluster_time__FlusterTime_from_file_time_impl(port, ptr, rust_vec_len, data_len),
-6 => wire__crate__api__models__nested_models__fluster_datetime__fluster_time__FlusterTime_now_impl(port, ptr, rust_vec_len, data_len),
-19 => wire__crate__api__models__bibliography__reading_list__ReadingList_default_impl(port, ptr, rust_vec_len, data_len),
-20 => wire__crate__api__models__bibliography__citation__bib_entry_entity_default_impl(port, ptr, rust_vec_len, data_len),
-21 => wire__crate__api__models__bibliography__bib_file__bibtex_file_from_filesystem_path_impl(port, ptr, rust_vec_len, data_len),
-22 => wire__crate__api__models__bibliography__bib_file__bibtex_file_from_raw_file_content_impl(port, ptr, rust_vec_len, data_len),
-23 => wire__crate__api__models__bibliography__bib_file__bibtex_file_save_entries_impl(port, ptr, rust_vec_len, data_len),
-24 => wire__crate__api__models__params__cross_language_file_object__cross_language_file_default_impl(port, ptr, rust_vec_len, data_len),
-25 => wire__crate__api__models__equation__equation_model__equation_entity_default_impl(port, ptr, rust_vec_len, data_len),
-26 => wire__crate__api__models__notes__front_matter__front_matter_model__front_matter_entity_default_impl(port, ptr, rust_vec_len, data_len),
-27 => wire__crate__api__models__notes__front_matter__front_matter_model__front_matter_entity_from_gray_matter_impl(port, ptr, rust_vec_len, data_len),
-30 => wire__crate__api__data_interface__get_database_status__get_database_status_impl(port, ptr, rust_vec_len, data_len),
-31 => wire__crate__api__global_actions__get_summary_list__get_summary_list_data__get_summary_list_impl(port, ptr, rust_vec_len, data_len),
-33 => wire__crate__api__models__enums__setting_page_ids__keymap_section_id_default_impl(port, ptr, rust_vec_len, data_len),
-34 => wire__crate__api__models__params__sync_mdx_typescript_params__math_label_option_default_impl(port, ptr, rust_vec_len, data_len),
-35 => wire__crate__api__models__notes__mdx__mdx_note__mdx_note_entity_from_file_system_path_impl(port, ptr, rust_vec_len, data_len),
-36 => wire__crate__api__models__notes__mdx__mdx_note__mdx_note_entity_from_raw_mdx_string_impl(port, ptr, rust_vec_len, data_len),
-37 => wire__crate__api__models__enums__parsable_file_extension__note_type_default_impl(port, ptr, rust_vec_len, data_len),
-38 => wire__crate__api__initialize__on_desktop_init__on_desktop_init_impl(port, ptr, rust_vec_len, data_len),
-40 => wire__crate__api__models__settings__setting_page_id__setting_page_id_default_impl(port, ptr, rust_vec_len, data_len),
-41 => wire__crate__api__fs__fs_setup__setup_file_system_for_data_impl(port, ptr, rust_vec_len, data_len),
-42 => wire__crate__api__models__snippet__snippet_model__snippet_default_impl(port, ptr, rust_vec_len, data_len),
-43 => wire__crate__api__global_actions__get_summary_list__summary_list_query__summary_list_query_default_impl(port, ptr, rust_vec_len, data_len),
-44 => wire__crate__api__global_actions__get_summary_list__summary_list_result__summary_list_results_default_impl(port, ptr, rust_vec_len, data_len),
-45 => wire__crate__api__models__nested_models__code__supported_syntax_language__supported_syntax_language_default_impl(port, ptr, rust_vec_len, data_len),
-46 => wire__crate__api__models__nested_models__code__supported_syntax_theme__supported_syntax_theme_default_impl(port, ptr, rust_vec_len, data_len),
-47 => wire__crate__api__global_actions__parse_directory__sync_fs_directory__sync_filesystem_directory__sync_directory_impl(port, ptr, rust_vec_len, data_len),
-48 => wire__crate__api__global_actions__parse_directory__sync_fs_directory__models__sync_filesystem_options__sync_filesystem_directory_options_default_impl(port, ptr, rust_vec_len, data_len),
-49 => wire__crate__api__global_actions__parse_directory__sync_fs_directory__sync_methods__sync_mdx_notes__sync_mdx_filesystem_notes_impl(port, ptr, rust_vec_len, data_len),
-50 => wire__crate__api__global_actions__parse_directory__sync_fs_directory__sync_methods__sync_user_bibliography__sync_user_bibliography_impl(port, ptr, rust_vec_len, data_len),
-51 => wire__crate__api__models__taggable__tag_model__tag_from_mdx_content_impl(port, ptr, rust_vec_len, data_len),
-52 => wire__crate__api__models__taggable__tag_model__tag_from_string_impl(port, ptr, rust_vec_len, data_len),
+                        3 => wire__crate__api__embedded_ts__EmbeddedTypescriptFiles_get_impl(port, ptr, rust_vec_len, data_len),
+6 => wire__crate__api__models__nested_models__fluster_datetime__fluster_time__FlusterTime_default_impl(port, ptr, rust_vec_len, data_len),
+7 => wire__crate__api__models__nested_models__fluster_datetime__fluster_time__FlusterTime_from_file_time_impl(port, ptr, rust_vec_len, data_len),
+8 => wire__crate__api__models__nested_models__fluster_datetime__fluster_time__FlusterTime_now_impl(port, ptr, rust_vec_len, data_len),
+21 => wire__crate__api__models__bibliography__reading_list__ReadingList_default_impl(port, ptr, rust_vec_len, data_len),
+22 => wire__crate__api__models__bibliography__citation__bib_entry_entity_default_impl(port, ptr, rust_vec_len, data_len),
+23 => wire__crate__api__models__bibliography__bib_file__bibtex_file_from_filesystem_path_impl(port, ptr, rust_vec_len, data_len),
+24 => wire__crate__api__models__bibliography__bib_file__bibtex_file_from_raw_file_content_impl(port, ptr, rust_vec_len, data_len),
+25 => wire__crate__api__models__bibliography__bib_file__bibtex_file_save_entries_impl(port, ptr, rust_vec_len, data_len),
+26 => wire__crate__api__models__params__cross_language_file_object__cross_language_file_default_impl(port, ptr, rust_vec_len, data_len),
+27 => wire__crate__api__repositories__notes__mdx__query_params__db_tokenizer_language_default_impl(port, ptr, rust_vec_len, data_len),
+28 => wire__crate__api__models__equation__equation_model__equation_entity_default_impl(port, ptr, rust_vec_len, data_len),
+29 => wire__crate__api__models__notes__front_matter__front_matter_model__front_matter_entity_default_impl(port, ptr, rust_vec_len, data_len),
+30 => wire__crate__api__models__notes__front_matter__front_matter_model__front_matter_entity_from_gray_matter_impl(port, ptr, rust_vec_len, data_len),
+33 => wire__crate__api__data_interface__get_database_status__get_database_status_impl(port, ptr, rust_vec_len, data_len),
+34 => wire__crate__api__global_actions__get_summary_list__get_summary_list_data__get_summary_list_impl(port, ptr, rust_vec_len, data_len),
+36 => wire__crate__api__models__enums__setting_page_ids__keymap_section_id_default_impl(port, ptr, rust_vec_len, data_len),
+37 => wire__crate__api__models__params__sync_mdx_typescript_params__math_label_option_default_impl(port, ptr, rust_vec_len, data_len),
+38 => wire__crate__api__models__notes__mdx__mdx_note__mdx_note_entity_from_file_system_path_impl(port, ptr, rust_vec_len, data_len),
+39 => wire__crate__api__models__notes__mdx__mdx_note__mdx_note_entity_from_id_string_impl(port, ptr, rust_vec_len, data_len),
+40 => wire__crate__api__models__notes__mdx__mdx_note__mdx_note_entity_from_raw_mdx_string_impl(port, ptr, rust_vec_len, data_len),
+41 => wire__crate__api__models__notes__mdx__mdx_note__mdx_note_entity_get_id_impl(port, ptr, rust_vec_len, data_len),
+42 => wire__crate__api__models__notes__mdx__mdx_note__mdx_note_entity_save_impl(port, ptr, rust_vec_len, data_len),
+43 => wire__crate__api__repositories__notes__mdx__mdx_notes_repository__mdx_notes_repository_default_impl(port, ptr, rust_vec_len, data_len),
+44 => wire__crate__api__repositories__notes__mdx__mdx_notes_repository__mdx_notes_repository_new_impl(port, ptr, rust_vec_len, data_len),
+45 => wire__crate__api__models__enums__parsable_file_extension__note_type_default_impl(port, ptr, rust_vec_len, data_len),
+46 => wire__crate__api__initialize__on_desktop_init__on_desktop_init_impl(port, ptr, rust_vec_len, data_len),
+48 => wire__crate__api__models__settings__setting_page_id__setting_page_id_default_impl(port, ptr, rust_vec_len, data_len),
+49 => wire__crate__api__fs__fs_setup__setup_file_system_for_data_impl(port, ptr, rust_vec_len, data_len),
+50 => wire__crate__api__models__snippet__snippet_model__snippet_default_impl(port, ptr, rust_vec_len, data_len),
+51 => wire__crate__api__global_actions__get_summary_list__summary_list_query__summary_list_query_default_impl(port, ptr, rust_vec_len, data_len),
+52 => wire__crate__api__global_actions__get_summary_list__summary_list_result__summary_list_results_default_impl(port, ptr, rust_vec_len, data_len),
+53 => wire__crate__api__models__nested_models__code__supported_syntax_language__supported_syntax_language_default_impl(port, ptr, rust_vec_len, data_len),
+54 => wire__crate__api__models__nested_models__code__supported_syntax_theme__supported_syntax_theme_default_impl(port, ptr, rust_vec_len, data_len),
+55 => wire__crate__api__global_actions__parse_directory__sync_fs_directory__sync_filesystem_directory__sync_directory_impl(port, ptr, rust_vec_len, data_len),
+56 => wire__crate__api__global_actions__parse_directory__sync_fs_directory__models__sync_filesystem_options__sync_filesystem_directory_options_default_impl(port, ptr, rust_vec_len, data_len),
+57 => wire__crate__api__global_actions__parse_directory__sync_fs_directory__sync_methods__sync_mdx_notes__sync_mdx_filesystem_notes_impl(port, ptr, rust_vec_len, data_len),
+58 => wire__crate__api__global_actions__parse_directory__sync_fs_directory__sync_methods__sync_user_bibliography__sync_user_bibliography_impl(port, ptr, rust_vec_len, data_len),
+59 => wire__crate__api__models__taggable__tag_model__tag_from_mdx_content_impl(port, ptr, rust_vec_len, data_len),
+60 => wire__crate__api__models__taggable__tag_model__tag_from_string_impl(port, ptr, rust_vec_len, data_len),
                         _ => unreachable!(),
                     }
 }
@@ -2855,29 +3212,46 @@ fn pde_ffi_dispatcher_sync_impl(
 ) -> flutter_rust_bridge::for_generated::WireSyncRust2DartSse {
     // Codec=Pde (Serialization + dispatch), see doc to use other codecs
     match func_id {
-                        2 => wire__crate__api__models__nested_models__fluster_datetime__fluster_time__FlusterTime_auto_accessor_get_value_impl(ptr, rust_vec_len, data_len),
-3 => wire__crate__api__models__nested_models__fluster_datetime__fluster_time__FlusterTime_auto_accessor_set_value_impl(ptr, rust_vec_len, data_len),
-7 => wire__crate__api__global_actions__get_summary_list__summary_types__mdx_note_summary__MdxNoteSummary_auto_accessor_get_front_matter_impl(ptr, rust_vec_len, data_len),
-8 => wire__crate__api__global_actions__get_summary_list__summary_types__mdx_note_summary__MdxNoteSummary_auto_accessor_get_id_impl(ptr, rust_vec_len, data_len),
-9 => wire__crate__api__global_actions__get_summary_list__summary_types__mdx_note_summary__MdxNoteSummary_auto_accessor_set_front_matter_impl(ptr, rust_vec_len, data_len),
-10 => wire__crate__api__global_actions__get_summary_list__summary_types__mdx_note_summary__MdxNoteSummary_auto_accessor_set_id_impl(ptr, rust_vec_len, data_len),
-11 => wire__crate__api__models__bibliography__reading_list__ReadingList_auto_accessor_get_created_at_impl(ptr, rust_vec_len, data_len),
-12 => wire__crate__api__models__bibliography__reading_list__ReadingList_auto_accessor_get_id_impl(ptr, rust_vec_len, data_len),
-13 => wire__crate__api__models__bibliography__reading_list__ReadingList_auto_accessor_get_label_impl(ptr, rust_vec_len, data_len),
-14 => wire__crate__api__models__bibliography__reading_list__ReadingList_auto_accessor_get_papers_impl(ptr, rust_vec_len, data_len),
-15 => wire__crate__api__models__bibliography__reading_list__ReadingList_auto_accessor_set_created_at_impl(ptr, rust_vec_len, data_len),
-16 => wire__crate__api__models__bibliography__reading_list__ReadingList_auto_accessor_set_id_impl(ptr, rust_vec_len, data_len),
-17 => wire__crate__api__models__bibliography__reading_list__ReadingList_auto_accessor_set_label_impl(ptr, rust_vec_len, data_len),
-18 => wire__crate__api__models__bibliography__reading_list__ReadingList_auto_accessor_set_papers_impl(ptr, rust_vec_len, data_len),
-28 => wire__crate__api__fs__fs_utils__get_app_config_dir_impl(ptr, rust_vec_len, data_len),
-29 => wire__crate__api__fs__fs_utils__get_app_data_dir_impl(ptr, rust_vec_len, data_len),
-32 => wire__crate__api__search__get_text_similarity__get_text_similarity_impl(ptr, rust_vec_len, data_len),
-39 => wire__crate__api__fs__fs_utils__path_exists_impl(ptr, rust_vec_len, data_len),
+                        1 => wire__crate__api__typedefs__note_type_utils__DbRecord_auto_accessor_get_id_impl(ptr, rust_vec_len, data_len),
+2 => wire__crate__api__typedefs__note_type_utils__DbRecord_auto_accessor_set_id_impl(ptr, rust_vec_len, data_len),
+4 => wire__crate__api__models__nested_models__fluster_datetime__fluster_time__FlusterTime_auto_accessor_get_value_impl(ptr, rust_vec_len, data_len),
+5 => wire__crate__api__models__nested_models__fluster_datetime__fluster_time__FlusterTime_auto_accessor_set_value_impl(ptr, rust_vec_len, data_len),
+9 => wire__crate__api__global_actions__get_summary_list__summary_types__mdx_note_summary__MdxNoteSummary_auto_accessor_get_front_matter_impl(ptr, rust_vec_len, data_len),
+10 => wire__crate__api__global_actions__get_summary_list__summary_types__mdx_note_summary__MdxNoteSummary_auto_accessor_get_id_impl(ptr, rust_vec_len, data_len),
+11 => wire__crate__api__global_actions__get_summary_list__summary_types__mdx_note_summary__MdxNoteSummary_auto_accessor_set_front_matter_impl(ptr, rust_vec_len, data_len),
+12 => wire__crate__api__global_actions__get_summary_list__summary_types__mdx_note_summary__MdxNoteSummary_auto_accessor_set_id_impl(ptr, rust_vec_len, data_len),
+13 => wire__crate__api__models__bibliography__reading_list__ReadingList_auto_accessor_get_created_at_impl(ptr, rust_vec_len, data_len),
+14 => wire__crate__api__models__bibliography__reading_list__ReadingList_auto_accessor_get_id_impl(ptr, rust_vec_len, data_len),
+15 => wire__crate__api__models__bibliography__reading_list__ReadingList_auto_accessor_get_label_impl(ptr, rust_vec_len, data_len),
+16 => wire__crate__api__models__bibliography__reading_list__ReadingList_auto_accessor_get_papers_impl(ptr, rust_vec_len, data_len),
+17 => wire__crate__api__models__bibliography__reading_list__ReadingList_auto_accessor_set_created_at_impl(ptr, rust_vec_len, data_len),
+18 => wire__crate__api__models__bibliography__reading_list__ReadingList_auto_accessor_set_id_impl(ptr, rust_vec_len, data_len),
+19 => wire__crate__api__models__bibliography__reading_list__ReadingList_auto_accessor_set_label_impl(ptr, rust_vec_len, data_len),
+20 => wire__crate__api__models__bibliography__reading_list__ReadingList_auto_accessor_set_papers_impl(ptr, rust_vec_len, data_len),
+31 => wire__crate__api__fs__fs_utils__get_app_config_dir_impl(ptr, rust_vec_len, data_len),
+32 => wire__crate__api__fs__fs_utils__get_app_data_dir_impl(ptr, rust_vec_len, data_len),
+35 => wire__crate__api__search__get_text_similarity__get_text_similarity_impl(ptr, rust_vec_len, data_len),
+47 => wire__crate__api__fs__fs_utils__path_exists_impl(ptr, rust_vec_len, data_len),
                         _ => unreachable!(),
                     }
 }
 
 // Section: rust2dart
+
+// Codec=Dco (DartCObject based), see doc to use other codecs
+impl flutter_rust_bridge::IntoDart for FrbWrapper<DbRecord> {
+    fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
+        flutter_rust_bridge::for_generated::rust_auto_opaque_encode::<_, MoiArc<_>>(self.0)
+            .into_dart()
+    }
+}
+impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive for FrbWrapper<DbRecord> {}
+
+impl flutter_rust_bridge::IntoIntoDart<FrbWrapper<DbRecord>> for DbRecord {
+    fn into_into_dart(self) -> FrbWrapper<DbRecord> {
+        self.into()
+    }
+}
 
 // Codec=Dco (DartCObject based), see doc to use other codecs
 impl flutter_rust_bridge::IntoDart for FrbWrapper<EmbeddedFile> {
@@ -3020,6 +3394,21 @@ impl flutter_rust_bridge::IntoIntoDart<FrbWrapper<ReadingList>> for ReadingList 
 }
 
 // Codec=Dco (DartCObject based), see doc to use other codecs
+impl flutter_rust_bridge::IntoDart for FrbWrapper<RecordId> {
+    fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
+        flutter_rust_bridge::for_generated::rust_auto_opaque_encode::<_, MoiArc<_>>(self.0)
+            .into_dart()
+    }
+}
+impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive for FrbWrapper<RecordId> {}
+
+impl flutter_rust_bridge::IntoIntoDart<FrbWrapper<RecordId>> for RecordId {
+    fn into_into_dart(self) -> FrbWrapper<RecordId> {
+        self.into()
+    }
+}
+
+// Codec=Dco (DartCObject based), see doc to use other codecs
 impl flutter_rust_bridge::IntoDart for FrbWrapper<Thing> {
     fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
         flutter_rust_bridge::for_generated::rust_auto_opaque_encode::<_, MoiArc<_>>(self.0)
@@ -3102,6 +3491,48 @@ impl
     fn into_into_dart(
         self,
     ) -> crate::api::models::params::cross_language_file_object::CrossLanguageFile {
+        self
+    }
+}
+// Codec=Dco (DartCObject based), see doc to use other codecs
+impl flutter_rust_bridge::IntoDart
+    for crate::api::repositories::notes::mdx::query_params::DbTokenizerLanguage
+{
+    fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
+        match self {
+            Self::Arabic => 0.into_dart(),
+            Self::Danish => 1.into_dart(),
+            Self::Dutch => 2.into_dart(),
+            Self::English => 3.into_dart(),
+            Self::French => 4.into_dart(),
+            Self::German => 5.into_dart(),
+            Self::Greek => 6.into_dart(),
+            Self::Hungarian => 7.into_dart(),
+            Self::Italian => 8.into_dart(),
+            Self::Norwegian => 9.into_dart(),
+            Self::Portuguese => 10.into_dart(),
+            Self::Romanian => 11.into_dart(),
+            Self::Russian => 12.into_dart(),
+            Self::Spanish => 13.into_dart(),
+            Self::Swedish => 14.into_dart(),
+            Self::Tamil => 15.into_dart(),
+            Self::Turkish => 16.into_dart(),
+            _ => unreachable!(),
+        }
+    }
+}
+impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive
+    for crate::api::repositories::notes::mdx::query_params::DbTokenizerLanguage
+{
+}
+impl
+    flutter_rust_bridge::IntoIntoDart<
+        crate::api::repositories::notes::mdx::query_params::DbTokenizerLanguage,
+    > for crate::api::repositories::notes::mdx::query_params::DbTokenizerLanguage
+{
+    fn into_into_dart(
+        self,
+    ) -> crate::api::repositories::notes::mdx::query_params::DbTokenizerLanguage {
         self
     }
 }
@@ -3265,6 +3696,29 @@ impl flutter_rust_bridge::IntoIntoDart<crate::api::models::notes::mdx::mdx_note:
     for crate::api::models::notes::mdx::mdx_note::MdxNoteEntity
 {
     fn into_into_dart(self) -> crate::api::models::notes::mdx::mdx_note::MdxNoteEntity {
+        self
+    }
+}
+// Codec=Dco (DartCObject based), see doc to use other codecs
+impl flutter_rust_bridge::IntoDart
+    for crate::api::repositories::notes::mdx::mdx_notes_repository::MdxNotesRepository
+{
+    fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
+        [self.table_name.into_into_dart().into_dart()].into_dart()
+    }
+}
+impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive
+    for crate::api::repositories::notes::mdx::mdx_notes_repository::MdxNotesRepository
+{
+}
+impl
+    flutter_rust_bridge::IntoIntoDart<
+        crate::api::repositories::notes::mdx::mdx_notes_repository::MdxNotesRepository,
+    > for crate::api::repositories::notes::mdx::mdx_notes_repository::MdxNotesRepository
+{
+    fn into_into_dart(
+        self,
+    ) -> crate::api::repositories::notes::mdx::mdx_notes_repository::MdxNotesRepository {
         self
     }
 }
@@ -3873,6 +4327,13 @@ impl SseEncode for flutter_rust_bridge::for_generated::anyhow::Error {
     }
 }
 
+impl SseEncode for DbRecord {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<DbRecord>>>::sse_encode(flutter_rust_bridge::for_generated::rust_auto_opaque_encode::<_, MoiArc<_>>(self), serializer);
+    }
+}
+
 impl SseEncode for EmbeddedFile {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
@@ -3944,6 +4405,13 @@ impl SseEncode for ReadingList {
     }
 }
 
+impl SseEncode for RecordId {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<RecordId>>>::sse_encode(flutter_rust_bridge::for_generated::rust_auto_opaque_encode::<_, MoiArc<_>>(self), serializer);
+    }
+}
+
 impl SseEncode for Thing {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
@@ -3951,6 +4419,17 @@ impl SseEncode for Thing {
             flutter_rust_bridge::for_generated::rust_auto_opaque_encode::<_, MoiArc<_>>(self),
             serializer,
         );
+    }
+}
+
+impl SseEncode
+    for RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<DbRecord>>
+{
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        let (ptr, size) = self.sse_encode_raw();
+        <usize>::sse_encode(ptr, serializer);
+        <i32>::sse_encode(size, serializer);
     }
 }
 
@@ -3980,17 +4459,6 @@ impl SseEncode
 
 impl SseEncode
     for RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<FileTime>>
-{
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
-        let (ptr, size) = self.sse_encode_raw();
-        <usize>::sse_encode(ptr, serializer);
-        <i32>::sse_encode(size, serializer);
-    }
-}
-
-impl SseEncode
-    for RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<FlusterDb>>
 {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
@@ -4065,7 +4533,29 @@ impl SseEncode
 }
 
 impl SseEncode
+    for RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<RecordId>>
+{
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        let (ptr, size) = self.sse_encode_raw();
+        <usize>::sse_encode(ptr, serializer);
+        <i32>::sse_encode(size, serializer);
+    }
+}
+
+impl SseEncode
     for RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<Sender<FlusterError>>>
+{
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        let (ptr, size) = self.sse_encode_raw();
+        <usize>::sse_encode(ptr, serializer);
+        <i32>::sse_encode(size, serializer);
+    }
+}
+
+impl SseEncode
+    for RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<Surreal<Db>>>
 {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
@@ -4127,6 +4617,30 @@ impl SseEncode for crate::api::models::params::cross_language_file_object::Cross
             self.note_type,
             serializer,
         );
+    }
+}
+
+impl SseEncode for crate::api::repositories::notes::mdx::query_params::DbTokenizerLanguage {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <i32>::sse_encode(match self {crate::api::repositories::notes::mdx::query_params::DbTokenizerLanguage::Arabic => { 0 }
+crate::api::repositories::notes::mdx::query_params::DbTokenizerLanguage::Danish => { 1 }
+crate::api::repositories::notes::mdx::query_params::DbTokenizerLanguage::Dutch => { 2 }
+crate::api::repositories::notes::mdx::query_params::DbTokenizerLanguage::English => { 3 }
+crate::api::repositories::notes::mdx::query_params::DbTokenizerLanguage::French => { 4 }
+crate::api::repositories::notes::mdx::query_params::DbTokenizerLanguage::German => { 5 }
+crate::api::repositories::notes::mdx::query_params::DbTokenizerLanguage::Greek => { 6 }
+crate::api::repositories::notes::mdx::query_params::DbTokenizerLanguage::Hungarian => { 7 }
+crate::api::repositories::notes::mdx::query_params::DbTokenizerLanguage::Italian => { 8 }
+crate::api::repositories::notes::mdx::query_params::DbTokenizerLanguage::Norwegian => { 9 }
+crate::api::repositories::notes::mdx::query_params::DbTokenizerLanguage::Portuguese => { 10 }
+crate::api::repositories::notes::mdx::query_params::DbTokenizerLanguage::Romanian => { 11 }
+crate::api::repositories::notes::mdx::query_params::DbTokenizerLanguage::Russian => { 12 }
+crate::api::repositories::notes::mdx::query_params::DbTokenizerLanguage::Spanish => { 13 }
+crate::api::repositories::notes::mdx::query_params::DbTokenizerLanguage::Swedish => { 14 }
+crate::api::repositories::notes::mdx::query_params::DbTokenizerLanguage::Tamil => { 15 }
+crate::api::repositories::notes::mdx::query_params::DbTokenizerLanguage::Turkish => { 16 }
+ _ => { unimplemented!(""); }}, serializer);
     }
 }
 
@@ -4285,6 +4799,13 @@ impl SseEncode for crate::api::models::notes::mdx::mdx_note::MdxNoteEntity {
         <Option<FlusterTime>>::sse_encode(self.mtime, serializer);
         <Option<FlusterTime>>::sse_encode(self.atime, serializer);
         <Vec<crate::api::models::taggable::tag_model::Tag>>::sse_encode(self.tags, serializer);
+    }
+}
+
+impl SseEncode for crate::api::repositories::notes::mdx::mdx_notes_repository::MdxNotesRepository {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <String>::sse_encode(self.table_name, serializer);
     }
 }
 
@@ -4874,20 +5395,35 @@ mod io {
 
     // Section: imports
 
-    use crate::api::models::bibliography::bib_file::*;
-use crate::*;
-use crate::api::global_actions::get_summary_list::summary_types::mdx_note_summary::*;
+    use crate::api::models::nested_models::fluster_datetime::fluster_time::*;
+use crate::api::typedefs::note_type_utils::*;
 use crate::api::embedded_ts::*;
-use crate::api::models::bibliography::reading_list::*;
-use crate::api::global_actions::parse_directory::sync_fs_directory::sync_methods::sync_mdx_notes::*;
+use crate::*;
+use crate::api::models::bibliography::bib_file::*;
 use crate::api::models::notes::front_matter::front_matter_model::*;
-use crate::api::models::nested_models::fluster_datetime::fluster_time::*;use flutter_rust_bridge::{Handler, IntoIntoDart};
+use crate::api::global_actions::get_summary_list::summary_types::mdx_note_summary::*;
+use crate::api::models::bibliography::reading_list::*;
+use crate::api::global_actions::parse_directory::sync_fs_directory::sync_methods::sync_mdx_notes::*;use flutter_rust_bridge::{Handler, IntoIntoDart};
 use flutter_rust_bridge::for_generated::{Lockable, transform_result_dco, Lifetimeable};
 use flutter_rust_bridge::for_generated::byteorder::{NativeEndian, WriteBytesExt, ReadBytesExt};use super::*;
 
     // Section: boilerplate
 
     flutter_rust_bridge::frb_generated_boilerplate_io!();
+
+    #[unsafe(no_mangle)]
+    pub extern "C" fn frbgen_fluster_native_interface_rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerDbRecord(
+        ptr: *const std::ffi::c_void,
+    ) {
+        MoiArc::<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<DbRecord>>::increment_strong_count(ptr as _);
+    }
+
+    #[unsafe(no_mangle)]
+    pub extern "C" fn frbgen_fluster_native_interface_rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerDbRecord(
+        ptr: *const std::ffi::c_void,
+    ) {
+        MoiArc::<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<DbRecord>>::decrement_strong_count(ptr as _);
+    }
 
     #[unsafe(no_mangle)]
     pub extern "C" fn frbgen_fluster_native_interface_rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerEmbeddedFile(
@@ -4929,20 +5465,6 @@ use flutter_rust_bridge::for_generated::byteorder::{NativeEndian, WriteBytesExt,
         ptr: *const std::ffi::c_void,
     ) {
         MoiArc::<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<FileTime>>::decrement_strong_count(ptr as _);
-    }
-
-    #[unsafe(no_mangle)]
-    pub extern "C" fn frbgen_fluster_native_interface_rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFlusterDb(
-        ptr: *const std::ffi::c_void,
-    ) {
-        MoiArc::<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<FlusterDb>>::increment_strong_count(ptr as _);
-    }
-
-    #[unsafe(no_mangle)]
-    pub extern "C" fn frbgen_fluster_native_interface_rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFlusterDb(
-        ptr: *const std::ffi::c_void,
-    ) {
-        MoiArc::<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<FlusterDb>>::decrement_strong_count(ptr as _);
     }
 
     #[unsafe(no_mangle)]
@@ -5030,6 +5552,20 @@ use flutter_rust_bridge::for_generated::byteorder::{NativeEndian, WriteBytesExt,
     }
 
     #[unsafe(no_mangle)]
+    pub extern "C" fn frbgen_fluster_native_interface_rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRecordId(
+        ptr: *const std::ffi::c_void,
+    ) {
+        MoiArc::<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<RecordId>>::increment_strong_count(ptr as _);
+    }
+
+    #[unsafe(no_mangle)]
+    pub extern "C" fn frbgen_fluster_native_interface_rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRecordId(
+        ptr: *const std::ffi::c_void,
+    ) {
+        MoiArc::<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<RecordId>>::decrement_strong_count(ptr as _);
+    }
+
+    #[unsafe(no_mangle)]
     pub extern "C" fn frbgen_fluster_native_interface_rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerSenderFlusterError(
         ptr: *const std::ffi::c_void,
     ) {
@@ -5041,6 +5577,20 @@ use flutter_rust_bridge::for_generated::byteorder::{NativeEndian, WriteBytesExt,
         ptr: *const std::ffi::c_void,
     ) {
         MoiArc::<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<Sender < FlusterError >>>::decrement_strong_count(ptr as _);
+    }
+
+    #[unsafe(no_mangle)]
+    pub extern "C" fn frbgen_fluster_native_interface_rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerSurrealDb(
+        ptr: *const std::ffi::c_void,
+    ) {
+        MoiArc::<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<Surreal < Db >>>::increment_strong_count(ptr as _);
+    }
+
+    #[unsafe(no_mangle)]
+    pub extern "C" fn frbgen_fluster_native_interface_rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerSurrealDb(
+        ptr: *const std::ffi::c_void,
+    ) {
+        MoiArc::<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<Surreal < Db >>>::decrement_strong_count(ptr as _);
     }
 
     #[unsafe(no_mangle)]
@@ -5068,14 +5618,15 @@ mod web {
 
     // Section: imports
 
-    use crate::api::models::bibliography::bib_file::*;
-use crate::*;
-use crate::api::global_actions::get_summary_list::summary_types::mdx_note_summary::*;
+    use crate::api::models::nested_models::fluster_datetime::fluster_time::*;
+use crate::api::typedefs::note_type_utils::*;
 use crate::api::embedded_ts::*;
-use crate::api::models::bibliography::reading_list::*;
-use crate::api::global_actions::parse_directory::sync_fs_directory::sync_methods::sync_mdx_notes::*;
+use crate::*;
+use crate::api::models::bibliography::bib_file::*;
 use crate::api::models::notes::front_matter::front_matter_model::*;
-use crate::api::models::nested_models::fluster_datetime::fluster_time::*;use flutter_rust_bridge::{Handler, IntoIntoDart};
+use crate::api::global_actions::get_summary_list::summary_types::mdx_note_summary::*;
+use crate::api::models::bibliography::reading_list::*;
+use crate::api::global_actions::parse_directory::sync_fs_directory::sync_methods::sync_mdx_notes::*;use flutter_rust_bridge::{Handler, IntoIntoDart};
 use flutter_rust_bridge::for_generated::{Lockable, transform_result_dco, Lifetimeable};
 use flutter_rust_bridge::for_generated::byteorder::{NativeEndian, WriteBytesExt, ReadBytesExt};use super::*;
                 use flutter_rust_bridge::for_generated::wasm_bindgen;
@@ -5084,6 +5635,20 @@ use flutter_rust_bridge::for_generated::byteorder::{NativeEndian, WriteBytesExt,
     // Section: boilerplate
 
     flutter_rust_bridge::frb_generated_boilerplate_web!();
+
+    #[wasm_bindgen]
+    pub fn rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerDbRecord(
+        ptr: *const std::ffi::c_void,
+    ) {
+        MoiArc::<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<DbRecord>>::increment_strong_count(ptr as _);
+    }
+
+    #[wasm_bindgen]
+    pub fn rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerDbRecord(
+        ptr: *const std::ffi::c_void,
+    ) {
+        MoiArc::<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<DbRecord>>::decrement_strong_count(ptr as _);
+    }
 
     #[wasm_bindgen]
     pub fn rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerEmbeddedFile(
@@ -5125,20 +5690,6 @@ use flutter_rust_bridge::for_generated::byteorder::{NativeEndian, WriteBytesExt,
         ptr: *const std::ffi::c_void,
     ) {
         MoiArc::<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<FileTime>>::decrement_strong_count(ptr as _);
-    }
-
-    #[wasm_bindgen]
-    pub fn rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFlusterDb(
-        ptr: *const std::ffi::c_void,
-    ) {
-        MoiArc::<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<FlusterDb>>::increment_strong_count(ptr as _);
-    }
-
-    #[wasm_bindgen]
-    pub fn rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFlusterDb(
-        ptr: *const std::ffi::c_void,
-    ) {
-        MoiArc::<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<FlusterDb>>::decrement_strong_count(ptr as _);
     }
 
     #[wasm_bindgen]
@@ -5226,6 +5777,20 @@ use flutter_rust_bridge::for_generated::byteorder::{NativeEndian, WriteBytesExt,
     }
 
     #[wasm_bindgen]
+    pub fn rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRecordId(
+        ptr: *const std::ffi::c_void,
+    ) {
+        MoiArc::<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<RecordId>>::increment_strong_count(ptr as _);
+    }
+
+    #[wasm_bindgen]
+    pub fn rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRecordId(
+        ptr: *const std::ffi::c_void,
+    ) {
+        MoiArc::<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<RecordId>>::decrement_strong_count(ptr as _);
+    }
+
+    #[wasm_bindgen]
     pub fn rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerSenderFlusterError(
         ptr: *const std::ffi::c_void,
     ) {
@@ -5237,6 +5802,20 @@ use flutter_rust_bridge::for_generated::byteorder::{NativeEndian, WriteBytesExt,
         ptr: *const std::ffi::c_void,
     ) {
         MoiArc::<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<Sender < FlusterError >>>::decrement_strong_count(ptr as _);
+    }
+
+    #[wasm_bindgen]
+    pub fn rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerSurrealDb(
+        ptr: *const std::ffi::c_void,
+    ) {
+        MoiArc::<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<Surreal < Db >>>::increment_strong_count(ptr as _);
+    }
+
+    #[wasm_bindgen]
+    pub fn rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerSurrealDb(
+        ptr: *const std::ffi::c_void,
+    ) {
+        MoiArc::<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<Surreal < Db >>>::decrement_strong_count(ptr as _);
     }
 
     #[wasm_bindgen]

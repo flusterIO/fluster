@@ -2,9 +2,9 @@ use filetime::FileTime;
 use fluster_types::{
     constants::database_constants::{FLUSTER_NAMESPACE, MDX_NOTE_TABLE_NAME, NOTES_DATABASE_NAME},
     errors::errors::FlusterError,
-    traits::db_entity::FlusterDatabaseEntity,
-    typedefs::note_type_utils::FlusterDb,
+    FlusterDb,
 };
+use flutter_rust_bridge::frb;
 use gray_matter::{engine::YAML, Matter};
 use serde::{Deserialize, Serialize};
 use std::fs;
@@ -87,8 +87,9 @@ impl MdxNoteEntity {
 }
 
 #[allow(clippy::comparison_to_empty)]
-impl FlusterDatabaseEntity<MdxNoteEntity> for MdxNoteEntity {
-    async fn save(&self, db: &FlusterDb) -> Option<FlusterError> {
+impl MdxNoteEntity {
+    #[frb(name = "save")]
+    pub async fn save(&self, db: &FlusterDb) -> Option<FlusterError> {
         let err = db
             .use_ns(FLUSTER_NAMESPACE)
             .use_db(NOTES_DATABASE_NAME)
@@ -108,7 +109,7 @@ impl FlusterDatabaseEntity<MdxNoteEntity> for MdxNoteEntity {
         }
     }
 
-    fn get_id(&self) -> String {
+    pub fn get_id(&self) -> String {
         if self.id.is_some() {
             self.id.clone().unwrap().to_raw()
         } else if self.file_path != "" {
@@ -118,7 +119,7 @@ impl FlusterDatabaseEntity<MdxNoteEntity> for MdxNoteEntity {
         }
     }
 
-    async fn from_id_string(id: &str, db: &FlusterDb) -> Result<MdxNoteEntity, FlusterError> {
+    pub async fn from_id_string(id: &str, db: &FlusterDb) -> Result<MdxNoteEntity, FlusterError> {
         let item: Result<Option<MdxNoteEntity>, surrealdb::Error> =
             db.select((MDX_NOTE_TABLE_NAME, id)).await;
         if item.is_err() {

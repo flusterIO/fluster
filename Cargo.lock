@@ -2160,6 +2160,7 @@ dependencies = [
  "filetime",
  "fluster_db",
  "fluster_logger",
+ "fluster_test_utils",
  "fluster_types",
  "fluster_wasm",
  "flutter_rust_bridge",

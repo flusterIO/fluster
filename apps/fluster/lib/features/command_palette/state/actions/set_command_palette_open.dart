@@ -3,7 +3,6 @@ import 'package:fluster/core/state/global_state.dart';
 import 'package:fluster/core/types/state_types.dart';
 import 'package:fluster/features/command_palette/data/models/command_palette_category.dart';
 import 'package:fluster/features/command_palette/data/models/command_palette_entry.dart';
-import 'package:go_router/go_router.dart';
 
 class SetCommandPaletteOpenAction extends FlusterAction {
   final bool open;

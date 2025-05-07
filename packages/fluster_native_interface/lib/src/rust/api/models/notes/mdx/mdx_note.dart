@@ -11,7 +11,7 @@ import '../../taggable/tag_model.dart';
 import '../front_matter/front_matter_model.dart';
 import 'package:flutter_rust_bridge/flutter_rust_bridge_for_generated.dart';
 
-// These function are ignored because they are on traits that is not defined in current crate (put an empty `#[frb]` on it to unignore): `clone`, `fmt`, `from_id_string`, `get_id`, `save`
+// These function are ignored because they are on traits that is not defined in current crate (put an empty `#[frb]` on it to unignore): `clone`, `fmt`
 
 class MdxNoteEntity {
   final Thing? id;
@@ -54,6 +54,12 @@ class MdxNoteEntity {
             filePath: filePath,
           );
 
+  static Future<MdxNoteEntity> fromIdString({
+    required String id,
+    required SurrealDb db,
+  }) => RustLib.instance.api
+      .crateApiModelsNotesMdxMdxNoteMdxNoteEntityFromIdString(id: id, db: db);
+
   static Future<MdxNoteEntity> fromRawMdxString({
     required String rawFileContent,
     String? filePath,
@@ -62,6 +68,12 @@ class MdxNoteEntity {
         rawFileContent: rawFileContent,
         filePath: filePath,
       );
+
+  Future<String> getId() => RustLib.instance.api
+      .crateApiModelsNotesMdxMdxNoteMdxNoteEntityGetId(that: this);
+
+  Future<FlusterError?> save({required SurrealDb db}) => RustLib.instance.api
+      .crateApiModelsNotesMdxMdxNoteMdxNoteEntitySave(that: this, db: db);
 
   @override
   int get hashCode =>

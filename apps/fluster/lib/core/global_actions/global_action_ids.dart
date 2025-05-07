@@ -7,6 +7,7 @@ enum GlobalActionId {
   selectItemLeft,
   selectItemUp,
   selectItemDown,
-syncDirectoryWithDatabase,
-toggleDarkMode
+  syncDirectoryWithDatabase,
+  toggleDarkMode,
+  searchNotesViaCommandPalette,
 }

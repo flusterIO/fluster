@@ -1,10 +1,10 @@
 use std::{path::PathBuf, str::FromStr};
 
 use biblatex::{Bibliography, Entry};
-use fluster_types::{errors::errors::FlusterError, typedefs::note_type_utils::FlusterDb};
+use fluster_types::errors::errors::FlusterError;
 use tokio::fs;
 
-use crate::api::embedded_ts::EmbeddedTypescriptFiles;
+use crate::api::embedded_ts::{EmbeddedTypescriptFiles, FlusterDb};
 
 pub use super::citation::BibEntryEntity;
 

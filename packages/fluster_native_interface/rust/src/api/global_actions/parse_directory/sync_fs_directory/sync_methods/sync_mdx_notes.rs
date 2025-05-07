@@ -1,9 +1,9 @@
+use crate::api::models::notes::mdx::mdx_note::MdxNoteEntity;
+// use crate::api::traits::db_entity::FlusterDatabaseEntity;
+use crate::api::typedefs::note_type_utils::FlusterDb;
 use crossbeam_channel::unbounded;
 use crossbeam_channel::Sender;
-use crate::api::models::notes::mdx::mdx_note::MdxNoteEntity;
 use fluster_types::errors::errors::FlusterError;
-use fluster_types::traits::db_entity::FlusterDatabaseEntity;
-use fluster_types::typedefs::note_type_utils::FlusterDb;
 use flutter_rust_bridge::frb;
 use ignore::WalkBuilder;
 use ignore::{DirEntry, WalkState};
