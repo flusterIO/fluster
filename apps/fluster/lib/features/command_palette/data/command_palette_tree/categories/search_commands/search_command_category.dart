@@ -22,7 +22,10 @@ class SearchCommandPaletteCategory extends CommandPaletteCategory {
   @override
   Future<List<CommandPaletteEntry>> getItemsOnEnter() async {
     final repo = await native.MdxNotesRepository.default_();
-   final notes = await repo.search(query: native.MdxNoteQueryParams(query: "", language: native.DbTokenizerLanguage.english)); 
+
+   final notes = await repo.search(query: native.MdxNoteQueryParams(query: "test", language: native.DbTokenizerLanguage.english)); 
+    print("Notes: $notes");
+    // final notes = [];
     return notes.map((x) => CommandPaletteNoteEntry.fromNoteEntity(x)).toList();
   }
 

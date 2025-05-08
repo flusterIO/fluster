@@ -9,5 +9,5 @@ import 'package:flutter_rust_bridge/flutter_rust_bridge_for_generated.dart';
 
 // These functions are ignored because they are not marked as `pub`: `make_dir_or_fail_to_create`
 
-Future<FlusterError?> setupFileSystemForData() =>
+Future<List<FlusterError>> setupFileSystemForData() =>
     RustLib.instance.api.crateApiFsFsSetupSetupFileSystemForData();

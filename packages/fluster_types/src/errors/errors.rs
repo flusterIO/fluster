@@ -43,3 +43,5 @@ pub enum FlusterError {
     #[error("Failed to find the note at `{0}`.")]
     AttemptedToParseFileWasntFound(String),
 }
+
+// impl flutter_rust_bridge::

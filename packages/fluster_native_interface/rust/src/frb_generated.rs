@@ -1670,7 +1670,7 @@ fn wire__crate__api__fs__fs_setup__setup_file_system_for_data_impl(
     rust_vec_len_: i32,
     data_len_: i32,
 ) {
-    FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::SseCodec, _, _>(
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_async::<flutter_rust_bridge::for_generated::SseCodec, _, _, _>(
         flutter_rust_bridge::for_generated::TaskInfo {
             debug_name: "setup_file_system_for_data",
             port: Some(port_),
@@ -1687,13 +1687,16 @@ fn wire__crate__api__fs__fs_setup__setup_file_system_for_data_impl(
             let mut deserializer =
                 flutter_rust_bridge::for_generated::SseDeserializer::new(message);
             deserializer.end();
-            move |context| {
-                transform_result_sse::<_, ()>((move || {
-                    let output_ok = Result::<_, ()>::Ok(
-                        crate::api::fs::fs_setup::setup_file_system_for_data(),
-                    )?;
-                    Ok(output_ok)
-                })())
+            move |context| async move {
+                transform_result_sse::<_, ()>(
+                    (move || async move {
+                        let output_ok = Result::<_, ()>::Ok(
+                            crate::api::fs::fs_setup::setup_file_system_for_data().await,
+                        )?;
+                        Ok(output_ok)
+                    })()
+                    .await,
+                )
             }
         },
     )
@@ -5489,14 +5492,14 @@ mod io {
 
     // Section: imports
 
-    use crate::api::typedefs::note_type_utils::*;
-use crate::api::models::notes::front_matter::front_matter_model::*;
+    use crate::api::models::bibliography::bib_file::*;
 use crate::api::embedded_ts::*;
 use crate::api::models::nested_models::fluster_datetime::fluster_time::*;
-use crate::api::global_actions::get_summary_list::summary_types::mdx_note_summary::*;
+use crate::api::models::notes::front_matter::front_matter_model::*;
 use crate::*;
-use crate::api::models::bibliography::bib_file::*;
 use crate::api::global_actions::parse_directory::sync_fs_directory::sync_methods::sync_mdx_notes::*;
+use crate::api::typedefs::note_type_utils::*;
+use crate::api::global_actions::get_summary_list::summary_types::mdx_note_summary::*;
 use crate::api::models::bibliography::reading_list::*;use flutter_rust_bridge::{Handler, IntoIntoDart};
 use flutter_rust_bridge::for_generated::{Lockable, transform_result_dco, Lifetimeable};
 use flutter_rust_bridge::for_generated::byteorder::{NativeEndian, WriteBytesExt, ReadBytesExt};use super::*;
@@ -5712,14 +5715,14 @@ mod web {
 
     // Section: imports
 
-    use crate::api::typedefs::note_type_utils::*;
-use crate::api::models::notes::front_matter::front_matter_model::*;
+    use crate::api::models::bibliography::bib_file::*;
 use crate::api::embedded_ts::*;
 use crate::api::models::nested_models::fluster_datetime::fluster_time::*;
-use crate::api::global_actions::get_summary_list::summary_types::mdx_note_summary::*;
+use crate::api::models::notes::front_matter::front_matter_model::*;
 use crate::*;
-use crate::api::models::bibliography::bib_file::*;
 use crate::api::global_actions::parse_directory::sync_fs_directory::sync_methods::sync_mdx_notes::*;
+use crate::api::typedefs::note_type_utils::*;
+use crate::api::global_actions::get_summary_list::summary_types::mdx_note_summary::*;
 use crate::api::models::bibliography::reading_list::*;use flutter_rust_bridge::{Handler, IntoIntoDart};
 use flutter_rust_bridge::for_generated::{Lockable, transform_result_dco, Lifetimeable};
 use flutter_rust_bridge::for_generated::byteorder::{NativeEndian, WriteBytesExt, ReadBytesExt};use super::*;

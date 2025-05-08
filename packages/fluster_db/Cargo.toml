@@ -25,6 +25,8 @@ validator = "0.20.0"
 fluster_types = { path = "../fluster_types/" }
 dirs.workspace = true
 log = "0.4.27"
+rust-embed.workspace = true
+sea-orm = { version = "1.1.11", features = ["sqlx-mysql", "runtime-async-std-native-tls", "macros"] }
 
 [dev-dependencies]
 fluster_test_utils = { path = "../fluster_test_utils" }

@@ -52,6 +52,9 @@ generate_docs: generate_icons
 	cd ${FLUSTER_NATIVE_ROOT}/packages/fluster_go; gomarkdoc -o ${FLUSTER_NATIVE_ROOT}/docs/api/packages/fluster_go/
 generate_docs_with_dependencies:
 	cargo doc --workspace
+clean_database:
+	trash /Users/bigsexy/Library/Application Support/Fluster/data/
+	mkdir /Users/bigsexy/Library/Application Support/Fluster/data/
 clean_build:
 	tsx ${FLUSTER_NATIVE_ROOT}/scripts/clean.ts
 	cargo clean

@@ -1,6 +1,6 @@
 use crossbeam_channel::unbounded;
 use fluster_db::api::db::{get_database, FlusterError};
-use std::{cmp::max, path};
+use std::cmp::max;
 
 use super::{
     models::sync_filesystem_options::SyncFilesystemDirectoryOptions,
@@ -11,7 +11,7 @@ use super::{
 
 pub async fn sync_directory(opts: SyncFilesystemDirectoryOptions) -> Option<Vec<FlusterError>> {
     let (error_sender, error_receiver) = unbounded::<FlusterError>();
-    let notes_path = path::Path::new(&opts.dir_path);
+    // let notes_path = path::Path::new(&opts.dir_path);
     let mut errors: Vec<FlusterError> = Vec::new();
 
     let database = get_database().await;

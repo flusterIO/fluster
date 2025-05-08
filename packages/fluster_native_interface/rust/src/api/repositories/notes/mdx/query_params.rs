@@ -1,6 +1,6 @@
 use serde::{Deserialize, Serialize};
 
-#[derive(Default, Serialize, Deserialize, Clone)]
+#[derive(Default, Serialize, Deserialize, Clone, Debug)]
 pub enum DbTokenizerLanguage {
     Arabic,
     Danish,
@@ -22,7 +22,7 @@ pub enum DbTokenizerLanguage {
     Turkish,
 }
 
-#[derive(Serialize, Deserialize, Clone)]
+#[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct MdxNoteQueryParams {
     pub query: String,
     pub language: DbTokenizerLanguage,

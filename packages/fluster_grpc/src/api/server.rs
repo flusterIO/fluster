@@ -1,5 +1,3 @@
-use tonic::{transport::Server, Request, Response, Status};
-
 pub mod proto {
     tonic::include_proto!("mdx.v1");
 }
@@ -18,7 +16,7 @@ pub mod proto {
 // }
 
 #[tokio::main]
-async fn main() -> Result<(), Box<dyn std::error::Error>> {
+pub async fn main() -> Result<(), Box<dyn std::error::Error>> {
     // let addr = "[::1]:50051".parse().unwrap();
     // Server::builder()
     //     .add_service()

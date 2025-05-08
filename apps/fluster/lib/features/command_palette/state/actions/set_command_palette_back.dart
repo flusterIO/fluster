@@ -3,6 +3,7 @@ import 'package:fluster/core/state/global_state.dart';
 import 'package:fluster/core/types/state_types.dart';
 import 'package:fluster/features/command_palette/data/models/command_palette_category.dart';
 import 'package:fluster/features/command_palette/data/models/command_palette_entry.dart';
+import 'package:fluster/features/command_palette/state/command_palette_state.dart';
 
 class CommandPaletteBackAction extends FlusterAction {
   CommandPaletteBackAction();
@@ -29,6 +30,7 @@ class CommandPaletteBackAction extends FlusterAction {
         open: newStack.isNotEmpty,
         filteredItems: newFilteredItems,
         selectedIndex: 0,
+        view: (newStack[newStack.length - 1] as CommandPaletteCategory?)?.layout ?? CommandPaletteView.list
       ),
     );
   }

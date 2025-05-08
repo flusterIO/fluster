@@ -10,3 +10,4 @@ edition.workspace = true
 serde.workspace = true
 surrealdb = { workspace = true, features = ["kv-rocksdb"] }
 thiserror.workspace = true
+flutter_rust_bridge = { workspace = true }

@@ -308,7 +308,7 @@ abstract class RustLibApi extends BaseApi {
   Future<SettingPageId>
   crateApiModelsSettingsSettingPageIdSettingPageIdDefault();
 
-  Future<FlusterError?> crateApiFsFsSetupSetupFileSystemForData();
+  Future<List<FlusterError>> crateApiFsFsSetupSetupFileSystemForData();
 
   Future<Snippet> crateApiModelsSnippetSnippetModelSnippetDefault();
 
@@ -2125,7 +2125,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
       const TaskConstMeta(debugName: "setting_page_id_default", argNames: []);
 
   @override
-  Future<FlusterError?> crateApiFsFsSetupSetupFileSystemForData() {
+  Future<List<FlusterError>> crateApiFsFsSetupSetupFileSystemForData() {
     return handler.executeNormal(
       NormalTask(
         callFfi: (port_) {
@@ -2139,7 +2139,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
         },
         codec: SseCodec(
           decodeSuccessData:
-              sse_decode_opt_box_autoadd_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFlusterError,
+              sse_decode_list_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFlusterError,
           decodeErrorData: null,
         ),
         constMeta: kCrateApiFsFsSetupSetupFileSystemForDataConstMeta,

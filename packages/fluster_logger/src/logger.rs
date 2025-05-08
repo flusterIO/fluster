@@ -1,21 +1,9 @@
-//! Example showing how to use logging with a rolling trigger based on size
-//!
-//! NB: The size used in the example is intentionally small so multiple file
-//! will be created in the 2 seconds that the example is set to run and is not
-//! intended for practical for usage
-
 /// This is the size at which a new file should be created. For the demo it is
 /// set to 2KB which is very small and only for demo purposes
 const TRIGGER_FILE_SIZE: u64 = 2 * 1024;
 
-/// Delay between log messages for demo purposes
-const TIME_BETWEEN_LOG_MESSAGES: Duration = Duration::from_millis(10);
-
 /// Number of archive log files to keep
 const LOG_FILE_COUNT: u32 = 3;
-
-/// Time demo is set to run for (Set to be long enough for multiple files to be created)
-const RUN_TIME: Duration = Duration::from_secs(2);
 
 /// Location where logs will be written to
 const FILE_PATH: &str = "/logs/fluster.log";
@@ -25,7 +13,7 @@ const FILE_PATH: &str = "/logs/fluster.log";
 ///     https://docs.rs/log4rs/*/log4rs/append/rolling_file/policy/compound/roll/fixed_window/struct.FixedWindowRollerBuilder.html#method.build
 const ARCHIVE_PATTERN: &str = "/tmp/archive/fluster.{}.log";
 
-use std::{path::PathBuf, time::Duration};
+use std::path::PathBuf;
 
 use fluster_types::errors::errors::FlusterError;
 use log::LevelFilter;
@@ -45,16 +33,16 @@ use log4rs::{
 fn get_output_root() -> Result<PathBuf, FlusterError> {
     // let output_root = dirs::data_dir().unwrap_or(dirs::data_local_dir().unwrap_or(dirs::config_dir()));
     let mut d = dirs::data_dir();
-    if d.is_some() {
-        Ok(d.unwrap())
+    if let Some(d1) = d {
+        Ok(d1)
     } else {
         d = dirs::data_local_dir();
-        if d.is_some() {
-            Ok(d.unwrap())
+        if let Some(d2) = d {
+            Ok(d2)
         } else {
             d = dirs::config_dir();
-            if d.is_some() {
-                Ok(d.unwrap())
+            if let Some(d3) = d {
+                Ok(d3)
             } else {
                 Err(FlusterError::DataDirNotFound())
             }
@@ -106,7 +94,7 @@ pub fn get_logger() -> Result<Handle, FlusterError> {
     // if you are trying to debug an issue and need more logs on then turn it off
     // once you are done.
     let _handle = log4rs::init_config(config);
-    if (_handle.is_err()) {
+    if _handle.is_err() {
         return Err(FlusterError::DataDirNotFound());
     }
 

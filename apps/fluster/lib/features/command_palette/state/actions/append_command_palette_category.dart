@@ -16,6 +16,7 @@ class AppendCommandPaletteCategoryAction extends FlusterAction {
         filteredItems: items,
         open: true,
         selectedIndex: 0,
+        view: cat.layout
       ),
     );
   }

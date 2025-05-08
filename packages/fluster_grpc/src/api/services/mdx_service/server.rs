@@ -5,4 +5,6 @@ mod proto {
 }
 
 #[derive(Debug, Default)]
-struct MdxServiceStruct {}
+pub struct MdxServiceStruct {}
+
+impl MdxService for MdxServiceStruct {}

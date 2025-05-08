@@ -1,5 +1,4 @@
 use crate::api::models::notes::mdx::mdx_note::MdxNoteEntity;
-// use crate::api::traits::db_entity::FlusterDatabaseEntity;
 use crate::api::typedefs::note_type_utils::FlusterDb;
 use crossbeam_channel::unbounded;
 use crossbeam_channel::Sender;

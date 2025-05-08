@@ -16,6 +16,15 @@ use crate::api::models::{
     notes::front_matter::front_matter_model::FrontMatterEntity, taggable::tag_model::Tag,
 };
 
+pub struct MdxEntityBase {
+    pub id: Option<surrealdb::sql::Thing>,
+    pub raw_body: String,
+    pub file_path: String,
+    pub ctime: Option<FlusterTime>,
+    pub mtime: Option<FlusterTime>,
+    pub atime: Option<FlusterTime>,
+}
+
 #[derive(Serialize, Deserialize, Debug, Clone, Tsify)]
 #[tsify(into_wasm_abi, from_wasm_abi)]
 pub struct MdxNoteEntity {
@@ -37,6 +46,16 @@ pub struct MdxNoteEntity {
 }
 
 impl MdxNoteEntity {
+    pub fn to_entity(&self) -> MdxEntityBase {
+        MdxEntityBase {
+            id: self.id.clone(),
+            raw_body: self.raw_body.clone(),
+            file_path: self.file_path.clone(),
+            ctime: self.ctime.clone(),
+            mtime: self.mtime.clone(),
+            atime: self.atime.clone(),
+        }
+    }
     pub fn from_raw_mdx_string(
         raw_file_content: String,
         file_path: Option<String>,
@@ -95,9 +114,9 @@ impl MdxNoteEntity {
             .use_db(NOTES_DATABASE_NAME)
             .await;
         if err.is_ok() {
-            let res: Result<Option<MdxNoteEntity>, surrealdb::Error> = db
+            let res: Result<Option<MdxEntityBase>, surrealdb::Error> = db
                 .upsert((MDX_NOTE_TABLE_NAME, &self.get_id()))
-                .content(self.to_owned())
+                .content(self.to_entity())
                 .await;
             if res.is_ok() {
                 None
@@ -148,7 +167,6 @@ mod tests {
     #[tokio::test]
     async fn parses_note_from_fs_successfully() {
         let note = get_test_note().await;
-        println!("Parsed Note: {:?}", note);
         assert!(note.is_ok(), "Note did not return errors.");
         assert_eq!(
             note.as_ref().unwrap().front_matter.title,
@@ -180,6 +198,7 @@ mod tests {
         let db = get_database().await;
         assert!(db.is_ok(), "Database is returned without error.");
         let res = note.save(db.as_ref().unwrap()).await;
+        println!("{:?}", &res);
         assert!(
             res.is_none(),
             "Mdx note was saved without throwing an error."

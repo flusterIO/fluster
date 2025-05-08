@@ -1,2 +1,1 @@
 
-enum CommandPaletteLayout { list, sideBySideMdx }
