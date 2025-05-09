@@ -1,5 +1,6 @@
-use fluster_db::api::db::{get_database, get_database_path};
+use fluster_db::api::{db::get_database, utils::get_database_path};
 
+#[derive(PartialEq, Eq)]
 pub enum FlusterDatabaseStatus {
     /// NotInitialized is true when the database directory doesn't exist.
     NotInitialized,

@@ -1,11 +1,13 @@
-use fluster_types::FlusterDb;
 use log::error;
+
+use super::{db::get_database, utils::get_database_path};
 
 #[derive(rust_embed::Embed)]
 #[folder = "src/api/schema"]
 pub struct EmbeddedSchema;
 
-pub async fn seed_schema(db: &FlusterDb) {
+pub async fn seed_schema() {
+    let db = get_database().await.expect("Failed to get database.");
     let schema_data = EmbeddedSchema::get("schema.surql")
         .expect("Failed to load database schema")
         .data;
@@ -16,5 +18,7 @@ pub async fn seed_schema(db: &FlusterDb) {
         if res.is_err() {
             error!("Failed to seed database schema.");
         }
+    } else {
+        println!("Failed to convert schema to a string.");
     }
 }

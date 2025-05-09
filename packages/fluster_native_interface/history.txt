@@ -22,3 +22,8 @@ LET $notes = SELECT front_matter, id from mdx_notes;\n    LET $summary_notes = $
 LET $notes = SELECT front_matter, id from mdx_notes;\n    RETURN {\n    mdx_notes: $notes\n    };
 LET $notes = (SELECT front_matter, id from mdx_notes);\n    RETURN {\n    mdx_notes: $notes\n    };
 select front_matter, id from mdx_notes;
+select * from mdx_notes;
+select front_matter from mdx_notes;
+INFO for ROOT;
+INFO for NS;
+INFO for DB;

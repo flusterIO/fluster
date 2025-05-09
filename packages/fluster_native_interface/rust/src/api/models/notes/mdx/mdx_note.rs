@@ -16,6 +16,7 @@ use crate::api::models::{
     notes::front_matter::front_matter_model::FrontMatterEntity, taggable::tag_model::Tag,
 };
 
+#[derive(Debug, Deserialize, Serialize, Clone)]
 pub struct MdxEntityBase {
     pub id: Option<surrealdb::sql::Thing>,
     pub raw_body: String,
@@ -114,9 +115,9 @@ impl MdxNoteEntity {
             .use_db(NOTES_DATABASE_NAME)
             .await;
         if err.is_ok() {
-            let res: Result<Option<MdxEntityBase>, surrealdb::Error> = db
+            let res: Result<Option<MdxNoteEntity>, surrealdb::Error> = db
                 .upsert((MDX_NOTE_TABLE_NAME, &self.get_id()))
-                .content(self.to_entity())
+                .content(self.clone())
                 .await;
             if res.is_ok() {
                 None
@@ -198,7 +199,6 @@ mod tests {
         let db = get_database().await;
         assert!(db.is_ok(), "Database is returned without error.");
         let res = note.save(db.as_ref().unwrap()).await;
-        println!("{:?}", &res);
         assert!(
             res.is_none(),
             "Mdx note was saved without throwing an error."

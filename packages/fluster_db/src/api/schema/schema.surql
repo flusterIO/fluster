@@ -49,7 +49,7 @@ DEFINE FIELD out ON front_matter_note_relationship TYPE record<front_matter> PER
 -- TABLE: mdx_notes
 -- ------------------------------
 
-DEFINE TABLE mdx_notes TYPE NORMAL SCHEMALESS PERMISSIONS NONE;
+DEFINE TABLE mdx_notes TYPE NORMAL SCHEMAFULL PERMISSIONS NONE;
 
 DEFINE FIELD body ON mdx_notes TYPE string PERMISSIONS FULL;
 DEFINE FIELD file_path ON mdx_notes TYPE string PERMISSIONS FULL;

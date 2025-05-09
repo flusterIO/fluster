@@ -9,7 +9,6 @@ members = [
     "packages/fluster_logger",
     "packages/fluster_lua",
     "packages/fluster_wasm",
-    "packages/fluster_py03",
 ]
 
 
