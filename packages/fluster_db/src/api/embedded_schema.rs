@@ -14,6 +14,10 @@ pub async fn seed_schema() {
 
     let q = schema_data.to_vec();
     if let Ok(schema) = std::str::from_utf8(&q) {
+        let res = db.use_db("notes").await;
+        if res.is_err() {
+            error!("Failed to seed database schema.");
+        }
         let res = db.query(schema).await;
         if res.is_err() {
             error!("Failed to seed database schema.");

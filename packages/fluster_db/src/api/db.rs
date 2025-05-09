@@ -1,6 +1,6 @@
 pub use fluster_types::errors::errors::FlusterError;
 use fluster_types::FlusterDb;
-use std::path::PathBuf;
+use std::process::exit;
 use surrealdb::{
     engine::local::{Db, RocksDb},
     opt::auth::Root,
@@ -38,11 +38,20 @@ pub async fn get_database() -> Result<&'static FlusterDb, FlusterError> {
     let db = DB
         .get_or_init(|| async {
             let d = get_database_path().unwrap();
-            let res = surrealdb::Surreal::new::<RocksDb>(d.to_str().unwrap()).await;
-            if res.is_err() {
-                println!("Instanciating surrealdb returned an error. {:?}", res);
+            if let Ok(res) = surrealdb::Surreal::new::<RocksDb>(d.to_str().unwrap()).await {
+                let mut res2 = res.use_ns("fluster").await;
+                if res2.is_err() {
+                    log::error!("Instanciating surrealdb returned an error. {:?}", res);
+                }
+                res2 = res.use_db("notes").await;
+                if res2.is_err() {
+                    log::error!("Instanciating surrealdb returned an error. {:?}", res);
+                }
+                res
+            } else {
+                log::error!("Instanciating surrealdb returned an error.");
+                exit(1);
             }
-            res.unwrap()
         })
         .await;
     Ok(db)

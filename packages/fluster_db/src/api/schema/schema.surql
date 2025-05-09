@@ -1,8 +1,5 @@
--- ------------------------------
--- OPTION
--- ------------------------------
-
-OPTION IMPORT;
+USE NS fluster;
+DEFINE DATABASE notes;
 
 -- ------------------------------
 -- TABLE: equations
@@ -15,7 +12,13 @@ DEFINE FIELD code ON equations TYPE string PERMISSIONS FULL;
 DEFINE FIELD desc ON equations TYPE string PERMISSIONS FULL;
 DEFINE FIELD eq_id ON equations TYPE string PERMISSIONS FULL;
 DEFINE FIELD label ON equations TYPE string PERMISSIONS FULL;
-
+DEFINE FIELD ctime ON equations TYPE datetime 
+    VALUE $before OR time::now()
+    DEFAULT time::now();
+DEFINE FIELD utime ON equations TYPE datetime 
+    VALUE time::now()
+    DEFAULT time::now();
+DEFINE FIELD mtime ON mdx_notes TYPE datetime PERMISSIONS FULL DEFAULT time::now() ;
 DEFINE INDEX label_index ON equations FIELDS label SEARCH ANALYZER simple BM25(1.2,0.75);
 DEFINE INDEX desc_index ON equations FIELDS desc SEARCH ANALYZER simple BM25(1.2,0.75);
 
@@ -24,10 +27,10 @@ DEFINE INDEX desc_index ON equations FIELDS desc SEARCH ANALYZER simple BM25(1.2
 -- TABLE: front_matter
 -- ------------------------------
 
-DEFINE TABLE front_matter TYPE NORMAL SCHEMALESS PERMISSIONS NONE;
+DEFINE TABLE front_matter TYPE NORMAL SCHEMAFULL;
 
 DEFINE FIELD note_id ON front_matter TYPE string PERMISSIONS FULL;
-DEFINE FIELD summary ON front_matter TYPE string PERMISSIONS FULL;
+DEFINE FIELD summary ON front_matter TYPE string PERMISSIONS FULL DEFAULT "summarize-with-sophie";
 DEFINE FIELD title ON front_matter TYPE string PERMISSIONS FULL;
 
 DEFINE INDEX title_index ON front_matter FIELDS title SEARCH ANALYZER simple BM25(1.2,0.75);
@@ -53,9 +56,11 @@ DEFINE TABLE mdx_notes TYPE NORMAL SCHEMAFULL PERMISSIONS NONE;
 
 DEFINE FIELD body ON mdx_notes TYPE string PERMISSIONS FULL;
 DEFINE FIELD file_path ON mdx_notes TYPE string PERMISSIONS FULL;
-DEFINE FIELD ctime ON mdx_notes TYPE datetime PERMISSIONS FULL;
-DEFINE FIELD mtime ON mdx_notes TYPE datetime PERMISSIONS FULL;
-DEFINE FIELD atime ON mdx_notes TYPE datetime PERMISSIONS FULL;
+DEFINE FIELD ctime ON mdx_notes TYPE datetime 
+    VALUE $before OR time::now()
+    DEFAULT time::now();
+DEFINE FIELD mtime ON mdx_notes TYPE datetime PERMISSIONS FULL DEFAULT time::now() ;
+DEFINE FIELD atime ON mdx_notes TYPE datetime PERMISSIONS FUll  DEFAULT time::now();
 
 DEFINE INDEX body_index ON mdx_notes FIELDS body SEARCH ANALYZER simple BM25(1.2,0.75);
 DEFINE INDEX unique_file_path ON mdx_notes FIELDS file_path UNIQUE;
@@ -91,7 +96,9 @@ DEFINE FIELD out ON note_tags TYPE record<tags> PERMISSIONS FULL;
 DEFINE TABLE tags TYPE NORMAL SCHEMAFULL PERMISSIONS NONE;
 
 DEFINE FIELD `value` ON tags TYPE string PERMISSIONS FULL;
-DEFINE FIELD ctime ON tags TYPE datetime PERMISSIONS FULL;
+DEFINE FIELD ctime ON tags TYPE datetime 
+    VALUE $before OR time::now()
+    DEFAULT time::now();
 
 DEFINE INDEX unique_value ON tags FIELDS value UNIQUE;
 
@@ -103,7 +110,9 @@ DEFINE INDEX unique_value ON tags FIELDS value UNIQUE;
 DEFINE TABLE subjects TYPE NORMAL SCHEMAFULL PERMISSIONS NONE;
 
 DEFINE FIELD `value` ON subjects TYPE string PERMISSIONS FULL;
-DEFINE FIELD ctime ON subjects TYPE datetime PERMISSIONS FULL;
+DEFINE FIELD ctime ON subjects TYPE datetime 
+    VALUE $before OR time::now()
+    DEFAULT time::now();
 
 DEFINE INDEX unique_value ON subjects FIELDS value UNIQUE;
 
@@ -116,6 +125,18 @@ DEFINE INDEX unique_value ON subjects FIELDS value UNIQUE;
 DEFINE TABLE topics TYPE NORMAL SCHEMAFULL PERMISSIONS NONE;
 
 DEFINE FIELD `value` ON topics TYPE string PERMISSIONS FULL;
-DEFINE FIELD ctime ON topics TYPE datetime PERMISSIONS FULL;
-
 DEFINE INDEX unique_value ON topics FIELDS value UNIQUE;
+
+DEFINE FIELD ctime ON topics TYPE datetime 
+    VALUE $before OR time::now()
+    DEFAULT time::now();
+
+
+-- ------------------------------
+-- TABLE: users
+-- ------------------------------
+
+DEFINE TABLE users TYPE NORMAL SCHEMAFULL PERMISSIONS NONE;
+
+DEFINE FIELD username ON users TYPE string ASSERT string::len($value) >= 2 VALUE string::lowercase($value);
+DEFINE FIELD password ON users TYPE string PERMISSIONS FOR select NONE;

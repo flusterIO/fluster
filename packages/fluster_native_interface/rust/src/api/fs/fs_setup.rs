@@ -70,7 +70,7 @@ mod tests {
             .await
             .expect("Returns database without throwing an error.");
         let q: Vec<surrealdb::Value> = db
-            .query("SELECT * from mdx_notes LIMIT 1;")
+            .query("SELECT * from mdx_notes;")
             .await
             .expect("Query runs without throwing an error")
             .take(0)
