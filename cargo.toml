@@ -58,6 +58,7 @@ diesel = { version = "2.2.10", features = [
     "postgres_backend",
     "serde_json",
 ] }
+dotenvy = "0.15"
 
 # TODO: Remove this and the reliance on console_subscriber when actually building for production.
 [build]

@@ -3,13 +3,10 @@ pub use fluster_types::errors::errors::FlusterError;
 use fluster_types::FlusterDb;
 use std::process::exit;
 use surrealdb::{
-    engine::local::{Db, RocksDb},
     opt::auth::Root,
-    Surreal,
 };
 use tokio::sync::OnceCell;
 
-use super::utils::get_database_path;
 
 // static DB: LazyLock<Surreal<Db>> = LazyLock::new(Surreal::init);
 static DB: OnceCell<FlusterDb> = OnceCell::const_new();

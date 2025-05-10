@@ -18,7 +18,9 @@ CREATE TABLE mdx_note (
 );
 
 
-
+CREATE TABLE test_table (
+    id SERIAL PRIMARY KEY
+);
 --
 -- Bibliography 
 --

@@ -6,5 +6,16 @@ diesel::table! {
         ctime -> Timestamp,
         atime -> Timestamp,
         mtime -> Timestamp,
+        last_sync -> Timestamp,
+    }
+}
+
+diesel::table! {
+    settings (id) {
+        id -> Int4,
+        raw_body -> Text,
+        file_path -> Text,
+        ctime -> Timestamp,
+        last_sync -> Timestamp,
     }
 }
