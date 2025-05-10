@@ -1,3 +1,5 @@
+pub mod actions;
 pub mod db;
-pub mod embedded_schema;
+pub mod entities;
+pub mod schema;
 pub mod utils;

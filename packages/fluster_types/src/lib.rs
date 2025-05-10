@@ -1,5 +1,6 @@
+use diesel_async::{AsyncConnection, AsyncPgConnection, RunQueryDsl};
 use surrealdb::Surreal;
 
-pub type FlusterDb = Surreal<surrealdb::engine::local::Db>;
+pub type FlusterDb = AsyncPgConnection;
 pub mod constants;
 pub mod errors;

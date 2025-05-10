@@ -46,6 +46,18 @@ log4rs = { version = "1.3.0", features = [
     "threshold_filter",
 ] }
 thiserror = "2.0.12"
+diesel-async = { version = "0.5.2", features = ["tokio-postgres", "postgres"] }
+diesel_codegen = { version = "0.16.1", features = [
+    "clippy",
+    "dotenv",
+    "diesel_infer_schema",
+    "postgres",
+] }
+diesel = { version = "2.2.10", features = [
+    "postgres",
+    "postgres_backend",
+    "serde_json",
+] }
 
 # TODO: Remove this and the reliance on console_subscriber when actually building for production.
 [build]

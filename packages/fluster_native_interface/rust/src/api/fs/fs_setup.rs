@@ -1,6 +1,6 @@
 use std::path::PathBuf;
 
-use crate::api::data_interface::get_database_status::{get_database_status, FlusterDatabaseStatus};
+use crate::api::data_interface::get_database_status::get_database_status;
 pub use crate::api::forced_imports::*;
 pub use fluster_types::errors::errors::FlusterError;
 use flutter_rust_bridge::frb;
@@ -19,6 +19,7 @@ fn make_dir_or_fail_to_create(p: PathBuf) -> Option<FlusterError> {
     }
 }
 
+// FIX: Remove all references to surrealdb. Fuck that place... that was way more complicated than it needed to be.
 pub async fn setup_file_system_for_data() -> Vec<FlusterError> {
     let data_dir = dirs::data_dir().or(dirs::data_local_dir());
     let status = get_database_status().await;
@@ -35,9 +36,9 @@ pub async fn setup_file_system_for_data() -> Vec<FlusterError> {
         if let Some(res) = make_dir_or_fail_to_create(dir_name.join("Fluster").join("tmp")) {
             errors.push(res);
         }
-        if status == FlusterDatabaseStatus::NotInitialized {
-            fluster_db::api::embedded_schema::seed_schema().await;
-        }
+        // if status == FlusterDatabaseStatus::NotInitialized {
+        //     fluster_db::api::embedded_schema::seed_schema().await;
+        // }
     } else {
         errors.push(FlusterError::DataDirNotFound())
     }

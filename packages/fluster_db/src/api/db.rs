@@ -1,3 +1,4 @@
+use diesel_async::{AsyncConnection, AsyncPgConnection, RunQueryDsl};
 pub use fluster_types::errors::errors::FlusterError;
 use fluster_types::FlusterDb;
 use std::process::exit;
@@ -11,7 +12,7 @@ use tokio::sync::OnceCell;
 use super::utils::get_database_path;
 
 // static DB: LazyLock<Surreal<Db>> = LazyLock::new(Surreal::init);
-static DB: OnceCell<Surreal<Db>> = OnceCell::const_new();
+static DB: OnceCell<FlusterDb> = OnceCell::const_new();
 
 pub struct DatabaseOptions<'a> {
     pub database_name: String,
@@ -37,20 +38,17 @@ impl Default for DatabaseOptions<'_> {
 pub async fn get_database() -> Result<&'static FlusterDb, FlusterError> {
     let db = DB
         .get_or_init(|| async {
-            let d = get_database_path().unwrap();
-            if let Ok(res) = surrealdb::Surreal::new::<RocksDb>(d.to_str().unwrap()).await {
-                let mut res2 = res.use_ns("fluster").await;
-                if res2.is_err() {
-                    log::error!("Instanciating surrealdb returned an error. {:?}", res);
-                }
-                res2 = res.use_db("notes").await;
-                if res2.is_err() {
-                    log::error!("Instanciating surrealdb returned an error. {:?}", res);
-                }
-                res
+            if let Ok(env_var) = &std::env::var("FLUSTER_DB_URI") {
+            let connection = AsyncPgConnection::establish(env_var).await;
+            if connection.is_ok() {
+            return connection.unwrap();
             } else {
-                log::error!("Instanciating surrealdb returned an error.");
+                log::error!("Failed to connecto the database. Make sure the URI is properly formed.");
                 exit(1);
+            }
+            } else {
+                log::error!("Failed to load database. There was no FLUSTER_DB_URI environment variable found.");
+               exit(1);
             }
         })
         .await;

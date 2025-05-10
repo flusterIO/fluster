@@ -1,0 +1,4 @@
+[print_schema]
+file = "src/api/schema/notes_schema.rs"
+with_docs = true
+schema = "src/api/schema/schema.sql"

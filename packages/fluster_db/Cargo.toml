@@ -26,7 +26,23 @@ fluster_types = { path = "../fluster_types/" }
 dirs.workspace = true
 log = "0.4.27"
 rust-embed.workspace = true
-sea-orm = { version = "1.1.11", features = ["sqlx-mysql", "runtime-async-std-native-tls", "macros"] }
+# diesel = { workspace = true, features = [
+#     "postgres",
+#     "postgres_backend",
+#     "serde_json",
+# ] }
+# diesel_codegen = { workspace = true, features = [
+#     "clippy",
+#     "dotenv",
+#     "diesel_infer_schema",
+#     "postgres",
+# ] }
+diesel = { workspace = true, features = [
+    "postgres",
+    "postgres_backend",
+    "serde_json",
+] }
+diesel-async = { workspace = true, features = ["tokio-postgres", "postgres"] }
 
 [dev-dependencies]
 fluster_test_utils = { path = "../fluster_test_utils" }
