@@ -2166,6 +2166,7 @@ dependencies = [
 name = "fluster_types"
 version = "0.0.1"
 dependencies = [
+ "diesel",
  "diesel-async",
  "flutter_rust_bridge",
  "serde",

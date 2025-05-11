@@ -1,7 +1,8 @@
 use crate::api::schema::generated::main_schema::reading_list;
 use diesel::prelude::*;
 use serde::{Deserialize, Serialize};
-use Tsify::tsify;
+use tsify::Tsify;
+use wasm_bindgen::prelude::*;
 
 #[derive(
     Debug,
@@ -10,6 +11,7 @@ use Tsify::tsify;
     Clone,
     PartialEq,
     Eq,
+    Tsify,
     Queryable,
     Selectable,
     Insertable,

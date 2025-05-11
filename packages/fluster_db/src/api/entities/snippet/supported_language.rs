@@ -1,8 +1,10 @@
-use diesel::Expression;
 use serde::{Deserialize, Serialize};
 
-/** Languages generated from shiki. */
-#[derive(Debug, Serialize, Deserialize, Clone, Default, PartialEq, Eq)]
+#[derive(diesel_derive_enum::DbEnum, Debug)]
+#[db_enum(
+    existing_type_path = "crate::api::schema::generated::main_schema::sql_types::SupportedLanguage"
+)]
+#[derive(Serialize, Deserialize, Clone, Default, PartialEq, Eq)]
 pub enum SupportedSyntaxLanguage {
     #[serde(rename(serialize = "abap", deserialize = "abap"))]
     Abap,

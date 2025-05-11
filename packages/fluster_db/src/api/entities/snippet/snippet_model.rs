@@ -1,7 +1,8 @@
 use crate::api::schema::generated::main_schema::snippet;
 use diesel::prelude::*;
-use fluster_types::constants::supported_syntax_language::SupportedSyntaxLanguage;
 use serde::{Deserialize, Serialize};
+
+use super::supported_language::SupportedSyntaxLanguage;
 
 #[derive(
     Debug,
@@ -18,7 +19,9 @@ use serde::{Deserialize, Serialize};
 )]
 #[diesel(table_name = snippet, check_for_backend(diesel::pg::Pg))]
 pub struct Snippet {
+    pub id: i32,
     pub label: String,
-    pub language: SupportedSyntaxLanguage,
+    pub desc: String,
+    pub lang: SupportedSyntaxLanguage,
     pub body: String,
 }

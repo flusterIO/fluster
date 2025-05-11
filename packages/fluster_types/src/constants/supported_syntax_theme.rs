@@ -1,6 +1,8 @@
 use serde::{Deserialize, Serialize};
 
-/** Themes generated from shiki. */
+/** Themes generated from shiki. This will not be implemented by the datbaase package as this is
+ * only used as part of the settings object which is serialized as json before being saved tothe
+ * DB*/
 #[derive(Debug, Serialize, Deserialize, Clone, Default)]
 pub enum SupportedSyntaxTheme {
     #[serde(rename(serialize = "andromeeda", deserialize = "andromeeda"))]
@@ -13,7 +15,10 @@ pub enum SupportedSyntaxTheme {
     CatppuccinFrappe,
     #[serde(rename(serialize = "catppuccin-latte", deserialize = "catppuccin-latte"))]
     CatppuccinLatte,
-    #[serde(rename(serialize = "catppuccin-macchiato", deserialize = "catppuccin-macchiato"))]
+    #[serde(rename(
+        serialize = "catppuccin-macchiato",
+        deserialize = "catppuccin-macchiato"
+    ))]
     CatppuccinMacchiato,
     #[serde(rename(serialize = "catppuccin-mocha", deserialize = "catppuccin-mocha"))]
     CatppuccinMocha,
@@ -34,13 +39,22 @@ pub enum SupportedSyntaxTheme {
     GithubDarkDefault,
     #[serde(rename(serialize = "github-dark-dimmed", deserialize = "github-dark-dimmed"))]
     GithubDarkDimmed,
-    #[serde(rename(serialize = "github-dark-high-contrast", deserialize = "github-dark-high-contrast"))]
+    #[serde(rename(
+        serialize = "github-dark-high-contrast",
+        deserialize = "github-dark-high-contrast"
+    ))]
     GithubDarkHighContrast,
     #[serde(rename(serialize = "github-light", deserialize = "github-light"))]
     GithubLight,
-    #[serde(rename(serialize = "github-light-default", deserialize = "github-light-default"))]
+    #[serde(rename(
+        serialize = "github-light-default",
+        deserialize = "github-light-default"
+    ))]
     GithubLightDefault,
-    #[serde(rename(serialize = "github-light-high-contrast", deserialize = "github-light-high-contrast"))]
+    #[serde(rename(
+        serialize = "github-light-high-contrast",
+        deserialize = "github-light-high-contrast"
+    ))]
     GithubLightHighContrast,
     #[serde(rename(serialize = "gruvbox-dark-hard", deserialize = "gruvbox-dark-hard"))]
     GruvboxDarkHard,
@@ -50,7 +64,10 @@ pub enum SupportedSyntaxTheme {
     GruvboxDarkSoft,
     #[serde(rename(serialize = "gruvbox-light-hard", deserialize = "gruvbox-light-hard"))]
     GruvboxLightHard,
-    #[serde(rename(serialize = "gruvbox-light-medium", deserialize = "gruvbox-light-medium"))]
+    #[serde(rename(
+        serialize = "gruvbox-light-medium",
+        deserialize = "gruvbox-light-medium"
+    ))]
     GruvboxLightMedium,
     #[serde(rename(serialize = "gruvbox-light-soft", deserialize = "gruvbox-light-soft"))]
     GruvboxLightSoft,
@@ -68,13 +85,25 @@ pub enum SupportedSyntaxTheme {
     LightPlus,
     #[serde(rename(serialize = "material-theme", deserialize = "material-theme"))]
     MaterialTheme,
-    #[serde(rename(serialize = "material-theme-darker", deserialize = "material-theme-darker"))]
+    #[serde(rename(
+        serialize = "material-theme-darker",
+        deserialize = "material-theme-darker"
+    ))]
     MaterialThemeDarker,
-    #[serde(rename(serialize = "material-theme-lighter", deserialize = "material-theme-lighter"))]
+    #[serde(rename(
+        serialize = "material-theme-lighter",
+        deserialize = "material-theme-lighter"
+    ))]
     MaterialThemeLighter,
-    #[serde(rename(serialize = "material-theme-ocean", deserialize = "material-theme-ocean"))]
+    #[serde(rename(
+        serialize = "material-theme-ocean",
+        deserialize = "material-theme-ocean"
+    ))]
     MaterialThemeOcean,
-    #[serde(rename(serialize = "material-theme-palenight", deserialize = "material-theme-palenight"))]
+    #[serde(rename(
+        serialize = "material-theme-palenight",
+        deserialize = "material-theme-palenight"
+    ))]
     MaterialThemePalenight,
     #[serde(rename(serialize = "min-dark", deserialize = "min-dark"))]
     MinDark,
@@ -125,3 +154,4 @@ pub enum SupportedSyntaxTheme {
     #[serde(rename(serialize = "vitesse-light", deserialize = "vitesse-light"))]
     VitesseLight,
 }
+

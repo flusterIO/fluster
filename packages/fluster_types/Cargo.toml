@@ -12,3 +12,4 @@ surrealdb = { workspace = true, features = ["kv-rocksdb"] }
 thiserror.workspace = true
 flutter_rust_bridge = { workspace = true }
 diesel-async = "0.5.2"
+diesel = { workspace = true, features = ["postgres", "postgres_backend", "serde_json", "chrono", "r2d2"] }
