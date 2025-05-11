@@ -1,4 +1,4 @@
-use crate::api::schema::generated::main_schema::tag;
+use crate::api::schema::generated::main_schema::subject;
 use diesel::prelude::*;
 use regex::Regex;
 use serde::{Deserialize, Serialize};
@@ -21,13 +21,8 @@ pub fn get_tag_regular_expression() -> Regex {
     Identifiable,
     QueryableByName,
 )]
-#[diesel(table_name = tag, check_for_backend(diesel::pg::Pg))]
-pub struct TagEntity {
+#[diesel(table_name = subject, check_for_backend(diesel::pg::Pg))]
+pub struct SubjectEntity {
     pub id: i32,
     pub value: String,
-}
-
-pub struct TagFromContentResult {
-    pub tags: Vec<TagEntity>,
-    pub parsed_content: String,
 }

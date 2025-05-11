@@ -2062,6 +2062,7 @@ dependencies = [
  "gray_matter",
  "log",
  "rayon",
+ "regex",
  "rust-embed",
  "serde",
  "serde_json",

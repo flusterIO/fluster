@@ -40,6 +40,7 @@ dotenvy = { workspace = true }
 biblatex = "0.10.0"
 tsify = "0.5.5"
 serde_json.workspace = true
+regex = "1.11.1"
 
 [dev-dependencies]
 fluster_test_utils = { path = "../fluster_test_utils" }
