@@ -21,15 +21,25 @@ surrealdb = { workspace = true, features = [
     "rustls",
 ] }
 tokio = { version = "1.44.2", features = ["macros", "rt-multi-thread"] }
+rayon = { workspace = true }
 validator = "0.20.0"
 fluster_types = { path = "../fluster_types/" }
 dirs.workspace = true
 log = "0.4.27"
 rust-embed.workspace = true
-diesel = { workspace = true, features = ["chrono", "postgres", "r2d2", "serde_json"] }
+diesel = { workspace = true, features = [
+    "chrono",
+    "postgres",
+    "r2d2",
+    "serde_json",
+] }
+wasm-bindgen = { workspace = true }
 diesel-async = { workspace = true, features = ["tokio-postgres", "postgres"] }
-diesel-derive-enum = "2.1.0"
-dotenvy = {workspace = true}
+diesel-derive-enum = { version = "3.0.0-beta.1", features = ["postgres"] }
+dotenvy = { workspace = true }
+biblatex = "0.10.0"
+tsify = "0.5.5"
+serde_json.workspace = true
 
 [dev-dependencies]
 fluster_test_utils = { path = "../fluster_test_utils" }

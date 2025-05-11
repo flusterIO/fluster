@@ -1,1 +1,1 @@
-pub mod notes_schema;
+pub mod main_schema;

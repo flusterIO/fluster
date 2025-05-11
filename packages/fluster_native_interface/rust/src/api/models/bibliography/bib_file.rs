@@ -6,8 +6,6 @@ use tokio::fs;
 
 use crate::api::embedded_ts::{EmbeddedTypescriptFiles, FlusterDb};
 
-pub use super::citation::BibEntryEntity;
-
 pub struct BibtexFile {
     pub path: Option<String>,
     pub entries: Vec<BibEntryEntity>,

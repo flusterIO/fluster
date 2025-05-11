@@ -1,4 +1,4 @@
 [print_schema]
-file = "src/api/schema/generated/notes_schema.rs"
+file = "src/api/schema/generated/main_schema.rs"
 with_docs = true
 filter = { except_tables = ["settings"] }

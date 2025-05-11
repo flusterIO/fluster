@@ -3,7 +3,7 @@ pub use fluster_types::constants::database_constants::MDX_NOTE_TABLE_NAME;
 use flutter_rust_bridge::frb;
 use serde::{Deserialize, Serialize};
 
-use crate::api::embedded_ts::MdxNoteEntity;
+use crate::api::embedded_ts::MdxNote;
 
 pub use super::query_params::MdxNoteQueryParams;
 
@@ -22,7 +22,7 @@ impl MdxNotesRepository {
     pub async fn search(
         &self,
         query: MdxNoteQueryParams,
-    ) -> Result<Vec<MdxNoteEntity>, fluster_db::api::db::FlusterError> {
+    ) -> Result<Vec<MdxNote>, fluster_db::api::db::FlusterError> {
         let db = get_database().await;
         if db.is_err() {
             log::error!("Failed to load database");
@@ -53,7 +53,7 @@ impl MdxNotesRepository {
             if notes.is_err() {
                 Err(FlusterError::FailToFind)
             } else {
-                let n: Result<Vec<MdxNoteEntity>, surrealdb::Error> = notes.unwrap().take(1);
+                let n: Result<Vec<MdxNote>, surrealdb::Error> = notes.unwrap().take(1);
                 if let Ok(data) = n {
                     Ok(data)
                 } else {

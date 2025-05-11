@@ -1,3 +1,5 @@
+use crate::api::schema::generated::main_schema::mdx_note;
+use diesel::prelude::*;
 use rayon::prelude::*;
 use regex::Regex;
 use serde::{Deserialize, Serialize};
@@ -7,8 +9,27 @@ pub fn get_tag_regular_expression() -> Regex {
     Regex::new(r"\[\[#(?<body>[^#]+)\]\]").unwrap()
 }
 
-#[derive(Serialize, Deserialize, Debug, Clone)]
-pub struct Tag {
+pub enum TaggableType {
+    Tag,
+    Subject,
+    Topic,
+}
+
+#[derive(
+    Debug,
+    Deserialize,
+    Serialize,
+    Clone,
+    PartialEq,
+    Eq,
+    Queryable,
+    Selectable,
+    Insertable,
+    Identifiable,
+    QueryableByName,
+)]
+#[diesel(table_name = mdx_note, check_for_backend(diesel::pg::Pg))]
+pub struct TaggableEntity {
     pub value: String,
 }
 
@@ -17,7 +38,7 @@ pub struct TagFromContentResult {
     pub parsed_content: String,
 }
 
-impl Tag {
+impl TaggableEntity {
     pub fn from_string(val: String) -> Tag {
         Tag { value: val }
     }

@@ -44,4 +44,6 @@ pub enum FlusterError {
     AttemptedToParseFileWasntFound(String),
 }
 
+pub type FlusterResult<T> = Result<T, FlusterError>;
+
 // impl flutter_rust_bridge::

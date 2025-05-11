@@ -429,7 +429,7 @@ fn wire__crate__api__global_actions__get_summary_list__summary_types__mdx_note_s
             let message = unsafe { flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(ptr_, rust_vec_len_, data_len_) };
             let mut deserializer = flutter_rust_bridge::for_generated::SseDeserializer::new(message);
             let api_that = <RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<MdxNoteSummary>>>::sse_decode(&mut deserializer);
-let api_front_matter = <crate::api::models::notes::front_matter::front_matter_model::FrontMatterEntity>::sse_decode(&mut deserializer);deserializer.end();
+let api_front_matter = <crate::api::models::notes::front_matter::front_matter_model::FrontMatter>::sse_decode(&mut deserializer);deserializer.end();
                 transform_result_sse::<_, ()>((move || {
                     let mut api_that_guard = None;
 let decode_indices_ = flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![flutter_rust_bridge::for_generated::LockableOrderInfo::new(&api_that, 0, true)]);
@@ -1119,7 +1119,7 @@ fn wire__crate__api__models__notes__front_matter__front_matter_model__front_matt
             let mut deserializer = flutter_rust_bridge::for_generated::SseDeserializer::new(message);
             deserializer.end(); move |context|  {
                     transform_result_sse::<_, ()>((move ||  {
-                         let output_ok = Result::<_,()>::Ok(crate::api::models::notes::front_matter::front_matter_model::FrontMatterEntity::default())?;   Ok(output_ok)
+                         let output_ok = Result::<_,()>::Ok(crate::api::models::notes::front_matter::front_matter_model::FrontMatter::default())?;   Ok(output_ok)
                     })())
                 } })
 }
@@ -1134,7 +1134,7 @@ fn wire__crate__api__models__notes__front_matter__front_matter_model__front_matt
             let mut deserializer = flutter_rust_bridge::for_generated::SseDeserializer::new(message);
             let api_pod = <Option<Pod>>::sse_decode(&mut deserializer);deserializer.end(); move |context|  {
                     transform_result_sse::<_, ()>((move ||  {
-                         let output_ok = Result::<_,()>::Ok(crate::api::models::notes::front_matter::front_matter_model::FrontMatterEntity::from_gray_matter(api_pod))?;   Ok(output_ok)
+                         let output_ok = Result::<_,()>::Ok(crate::api::models::notes::front_matter::front_matter_model::FrontMatter::from_gray_matter(api_pod))?;   Ok(output_ok)
                     })())
                 } })
 }
@@ -1342,7 +1342,7 @@ fn wire__crate__api__models__notes__mdx__mdx_note__mdx_note_entity_from_file_sys
             let mut deserializer = flutter_rust_bridge::for_generated::SseDeserializer::new(message);
             let api_file_path = <String>::sse_decode(&mut deserializer);deserializer.end(); move |context|  {
                     transform_result_sse::<_, FlusterError>((move ||  {
-                         let output_ok = crate::api::models::notes::mdx::mdx_note::MdxNoteEntity::from_file_system_path(&api_file_path)?;   Ok(output_ok)
+                         let output_ok = crate::api::models::notes::mdx::mdx_note::MdxNote::from_file_system_path(&api_file_path)?;   Ok(output_ok)
                     })())
                 } })
 }
@@ -1367,7 +1367,7 @@ let decode_indices_ = flutter_rust_bridge::for_generated::lockable_compute_decod
             }
         }
         let api_db_guard = api_db_guard.unwrap();
- let output_ok = crate::api::models::notes::mdx::mdx_note::MdxNoteEntity::from_id_string(&api_id, &*api_db_guard).await?;   Ok(output_ok)
+ let output_ok = crate::api::models::notes::mdx::mdx_note::MdxNote::from_id_string(&api_id, &*api_db_guard).await?;   Ok(output_ok)
                     })().await)
                 } })
 }
@@ -1383,7 +1383,7 @@ fn wire__crate__api__models__notes__mdx__mdx_note__mdx_note_entity_from_raw_mdx_
             let api_raw_file_content = <String>::sse_decode(&mut deserializer);
 let api_file_path = <Option<String>>::sse_decode(&mut deserializer);deserializer.end(); move |context|  {
                     transform_result_sse::<_, FlusterError>((move ||  {
-                         let output_ok = crate::api::models::notes::mdx::mdx_note::MdxNoteEntity::from_raw_mdx_string(api_raw_file_content, api_file_path)?;   Ok(output_ok)
+                         let output_ok = crate::api::models::notes::mdx::mdx_note::MdxNote::from_raw_mdx_string(api_raw_file_content, api_file_path)?;   Ok(output_ok)
                     })())
                 } })
 }
@@ -1409,14 +1409,14 @@ fn wire__crate__api__models__notes__mdx__mdx_note__mdx_note_entity_get_id_impl(
             };
             let mut deserializer =
                 flutter_rust_bridge::for_generated::SseDeserializer::new(message);
-            let api_that = <crate::api::models::notes::mdx::mdx_note::MdxNoteEntity>::sse_decode(
+            let api_that = <crate::api::models::notes::mdx::mdx_note::MdxNote>::sse_decode(
                 &mut deserializer,
             );
             deserializer.end();
             move |context| {
                 transform_result_sse::<_, ()>((move || {
                     let output_ok = Result::<_, ()>::Ok(
-                        crate::api::models::notes::mdx::mdx_note::MdxNoteEntity::get_id(&api_that),
+                        crate::api::models::notes::mdx::mdx_note::MdxNote::get_id(&api_that),
                     )?;
                     Ok(output_ok)
                 })())
@@ -1446,7 +1446,7 @@ fn wire__crate__api__models__notes__mdx__mdx_note__mdx_note_entity_save_impl(
             };
             let mut deserializer =
                 flutter_rust_bridge::for_generated::SseDeserializer::new(message);
-            let api_that = <crate::api::models::notes::mdx::mdx_note::MdxNoteEntity>::sse_decode(
+            let api_that = <crate::api::models::notes::mdx::mdx_note::MdxNote>::sse_decode(
                 &mut deserializer,
             );
             let api_db = <RustOpaqueMoi<
@@ -1471,7 +1471,7 @@ fn wire__crate__api__models__notes__mdx__mdx_note__mdx_note_entity_save_impl(
                         }
                         let api_db_guard = api_db_guard.unwrap();
                         let output_ok = Result::<_, ()>::Ok(
-                            crate::api::models::notes::mdx::mdx_note::MdxNoteEntity::save(
+                            crate::api::models::notes::mdx::mdx_note::MdxNote::save(
                                 &api_that,
                                 &*api_db_guard,
                             )
@@ -2397,7 +2397,7 @@ impl SseDecode for crate::api::data_interface::get_database_status::FlusterDatab
     }
 }
 
-impl SseDecode for crate::api::models::notes::front_matter::front_matter_model::FrontMatterEntity {
+impl SseDecode for crate::api::models::notes::front_matter::front_matter_model::FrontMatter {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
         let mut var_id = <Option<Thing>>::sse_decode(deserializer);
@@ -2406,7 +2406,7 @@ impl SseDecode for crate::api::models::notes::front_matter::front_matter_model::
         let mut var_tags =
             <Vec<crate::api::models::taggable::tag_model::Tag>>::sse_decode(deserializer);
         let mut var_noteId = <Option<String>>::sse_decode(deserializer);
-        return crate::api::models::notes::front_matter::front_matter_model::FrontMatterEntity {
+        return crate::api::models::notes::front_matter::front_matter_model::FrontMatter {
             id: var_id,
             title: var_title,
             summary: var_summary,
@@ -2475,14 +2475,14 @@ impl SseDecode for Vec<crate::api::models::bibliography::citation::BibEntryEntit
     }
 }
 
-impl SseDecode for Vec<crate::api::models::notes::mdx::mdx_note::MdxNoteEntity> {
+impl SseDecode for Vec<crate::api::models::notes::mdx::mdx_note::MdxNote> {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
         let mut len_ = <i32>::sse_decode(deserializer);
         let mut ans_ = vec![];
         for idx_ in 0..len_ {
             ans_.push(
-                <crate::api::models::notes::mdx::mdx_note::MdxNoteEntity>::sse_decode(deserializer),
+                <crate::api::models::notes::mdx::mdx_note::MdxNote>::sse_decode(deserializer),
             );
         }
         return ans_;
@@ -2542,11 +2542,11 @@ impl SseDecode for crate::api::models::params::sync_mdx_typescript_params::MathL
     }
 }
 
-impl SseDecode for crate::api::models::notes::mdx::mdx_note::MdxNoteEntity {
+impl SseDecode for crate::api::models::notes::mdx::mdx_note::MdxNote {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
         let mut var_id = <Option<Thing>>::sse_decode(deserializer);
-        let mut var_frontMatter = <crate::api::models::notes::front_matter::front_matter_model::FrontMatterEntity>::sse_decode(deserializer);
+        let mut var_frontMatter = <crate::api::models::notes::front_matter::front_matter_model::FrontMatter>::sse_decode(deserializer);
         let mut var_rawBody = <String>::sse_decode(deserializer);
         let mut var_filePath = <String>::sse_decode(deserializer);
         let mut var_ctime = <Option<FlusterTime>>::sse_decode(deserializer);
@@ -2554,7 +2554,7 @@ impl SseDecode for crate::api::models::notes::mdx::mdx_note::MdxNoteEntity {
         let mut var_atime = <Option<FlusterTime>>::sse_decode(deserializer);
         let mut var_tags =
             <Vec<crate::api::models::taggable::tag_model::Tag>>::sse_decode(deserializer);
-        return crate::api::models::notes::mdx::mdx_note::MdxNoteEntity {
+        return crate::api::models::notes::mdx::mdx_note::MdxNote {
             id: var_id,
             front_matter: var_frontMatter,
             raw_body: var_rawBody,
@@ -3642,7 +3642,7 @@ impl
 }
 // Codec=Dco (DartCObject based), see doc to use other codecs
 impl flutter_rust_bridge::IntoDart
-    for crate::api::models::notes::front_matter::front_matter_model::FrontMatterEntity
+    for crate::api::models::notes::front_matter::front_matter_model::FrontMatter
 {
     fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
         [
@@ -3656,17 +3656,17 @@ impl flutter_rust_bridge::IntoDart
     }
 }
 impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive
-    for crate::api::models::notes::front_matter::front_matter_model::FrontMatterEntity
+    for crate::api::models::notes::front_matter::front_matter_model::FrontMatter
 {
 }
 impl
     flutter_rust_bridge::IntoIntoDart<
-        crate::api::models::notes::front_matter::front_matter_model::FrontMatterEntity,
-    > for crate::api::models::notes::front_matter::front_matter_model::FrontMatterEntity
+        crate::api::models::notes::front_matter::front_matter_model::FrontMatter,
+    > for crate::api::models::notes::front_matter::front_matter_model::FrontMatter
 {
     fn into_into_dart(
         self,
-    ) -> crate::api::models::notes::front_matter::front_matter_model::FrontMatterEntity {
+    ) -> crate::api::models::notes::front_matter::front_matter_model::FrontMatter {
         self
     }
 }
@@ -3722,7 +3722,7 @@ impl
     }
 }
 // Codec=Dco (DartCObject based), see doc to use other codecs
-impl flutter_rust_bridge::IntoDart for crate::api::models::notes::mdx::mdx_note::MdxNoteEntity {
+impl flutter_rust_bridge::IntoDart for crate::api::models::notes::mdx::mdx_note::MdxNote {
     fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
         [
             self.id.into_into_dart().into_dart(),
@@ -3738,13 +3738,13 @@ impl flutter_rust_bridge::IntoDart for crate::api::models::notes::mdx::mdx_note:
     }
 }
 impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive
-    for crate::api::models::notes::mdx::mdx_note::MdxNoteEntity
+    for crate::api::models::notes::mdx::mdx_note::MdxNote
 {
 }
-impl flutter_rust_bridge::IntoIntoDart<crate::api::models::notes::mdx::mdx_note::MdxNoteEntity>
-    for crate::api::models::notes::mdx::mdx_note::MdxNoteEntity
+impl flutter_rust_bridge::IntoIntoDart<crate::api::models::notes::mdx::mdx_note::MdxNote>
+    for crate::api::models::notes::mdx::mdx_note::MdxNote
 {
-    fn into_into_dart(self) -> crate::api::models::notes::mdx::mdx_note::MdxNoteEntity {
+    fn into_into_dart(self) -> crate::api::models::notes::mdx::mdx_note::MdxNote {
         self
     }
 }
@@ -4751,7 +4751,7 @@ crate::api::data_interface::get_database_status::FlusterDatabaseStatus::Awaiting
     }
 }
 
-impl SseEncode for crate::api::models::notes::front_matter::front_matter_model::FrontMatterEntity {
+impl SseEncode for crate::api::models::notes::front_matter::front_matter_model::FrontMatter {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
         <Option<Thing>>::sse_encode(self.id, serializer);
@@ -4817,12 +4817,12 @@ impl SseEncode for Vec<crate::api::models::bibliography::citation::BibEntryEntit
     }
 }
 
-impl SseEncode for Vec<crate::api::models::notes::mdx::mdx_note::MdxNoteEntity> {
+impl SseEncode for Vec<crate::api::models::notes::mdx::mdx_note::MdxNote> {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
         <i32>::sse_encode(self.len() as _, serializer);
         for item in self {
-            <crate::api::models::notes::mdx::mdx_note::MdxNoteEntity>::sse_encode(item, serializer);
+            <crate::api::models::notes::mdx::mdx_note::MdxNote>::sse_encode(item, serializer);
         }
     }
 }
@@ -4874,11 +4874,11 @@ impl SseEncode for crate::api::models::params::sync_mdx_typescript_params::MathL
     }
 }
 
-impl SseEncode for crate::api::models::notes::mdx::mdx_note::MdxNoteEntity {
+impl SseEncode for crate::api::models::notes::mdx::mdx_note::MdxNote {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
         <Option<Thing>>::sse_encode(self.id, serializer);
-        <crate::api::models::notes::front_matter::front_matter_model::FrontMatterEntity>::sse_encode(self.front_matter, serializer);
+        <crate::api::models::notes::front_matter::front_matter_model::FrontMatter>::sse_encode(self.front_matter, serializer);
         <String>::sse_encode(self.raw_body, serializer);
         <String>::sse_encode(self.file_path, serializer);
         <Option<FlusterTime>>::sse_encode(self.ctime, serializer);
