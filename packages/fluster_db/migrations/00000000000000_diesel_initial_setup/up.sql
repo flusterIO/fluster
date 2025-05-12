@@ -240,7 +240,6 @@ AS ENUM (
     'wasm',
     'wenyan',
     'wgsl',
-
     'wikitext',
     'wit',
     'wolfram',
@@ -376,15 +375,16 @@ CREATE TABLE mdx_note (
     last_sync TIMESTAMP NOT NULL
 );
 
+
 CREATE TABLE mdx_note_taggable_join (
     id SERIAL PRIMARY KEY,
     mdx_note_id INT NOT NULL,
-    taggable_id INT NOT NULL,
+    tag_id INT NOT NULL,
     CONSTRAINT fk_mdx_note_id
         FOREIGN KEY(mdx_note_id)
             REFERENCES mdx_note(id),
     CONSTRAINT fk_taggable_id
-        FOREIGN KEY(taggable_id)
+        FOREIGN KEY(tag_id)
            REFERENCES taggable(id)
 );
 
@@ -397,6 +397,7 @@ CREATE TABLE snippet (
     body TEXT NOT NULL
 );
 
+
 CREATE TABLE equation ( 
     id SERIAL PRIMARY KEY,
     content TEXT NOT NULL,
@@ -404,6 +405,7 @@ CREATE TABLE equation (
     "desc" TEXT NOT NULL,
     eq_id VARCHAR(100)
 );
+
 
 CREATE TABLE equation_mdx_note_join (
     id SERIAL PRIMARY KEY,
@@ -416,6 +418,7 @@ CREATE TABLE equation_mdx_note_join (
         FOREIGN KEY(equation_id)
            REFERENCES equation(id)
 );
+
 
 CREATE TABLE equation_snippet_join (
     id SERIAL PRIMARY KEY,

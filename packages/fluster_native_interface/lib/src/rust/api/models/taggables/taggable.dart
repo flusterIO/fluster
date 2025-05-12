@@ -4,11 +4,12 @@
 // ignore_for_file: invalid_use_of_internal_member, unused_import, unnecessary_import
 
 import '../../../frb_generated.dart';
+import '../../../lib.dart';
 import 'package:flutter_rust_bridge/flutter_rust_bridge_for_generated.dart';
 
 // These functions are ignored because they are not marked as `pub`: `handle_arr_data`
 // These types are ignored because they are neither used by any `pub` functions nor (for structs and enums) marked `#[frb(unignore)]`: `TagFromPodResult`
-// These function are ignored because they are on traits that is not defined in current crate (put an empty `#[frb]` on it to unignore): `clone`, `clone`, `fmt`, `fmt`
+// These function are ignored because they are on traits that is not defined in current crate (put an empty `#[frb]` on it to unignore): `clone`, `fmt`
 
 Future<Regex> getTagRegularExpression() => RustLib.instance.api
     .crateApiModelsTaggablesTaggableGetTagRegularExpression();
@@ -18,6 +19,27 @@ abstract class ParsedEntity implements RustOpaqueInterface {}
 
 // Rust type: RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<Regex>>
 abstract class Regex implements RustOpaqueInterface {}
+
+// Rust type: RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<Taggable>>
+abstract class Taggable implements RustOpaqueInterface {
+  TaggableType get tagType;
+
+  String get value;
+
+  set tagType(TaggableType tagType);
+
+  set value(String value);
+
+  static Future<TagFromContentResult> fromMdxContent({
+    required ParsedEntity data,
+  }) => RustLib.instance.api
+      .crateApiModelsTaggablesTaggableTaggableFromMdxContent(data: data);
+
+  static Future<List<Taggable>> fromPodData({required ParsedEntity data}) =>
+      RustLib.instance.api.crateApiModelsTaggablesTaggableTaggableFromPodData(
+        data: data,
+      );
+}
 
 class TagFromContentResult {
   final List<Taggable> tags;
@@ -36,33 +58,3 @@ class TagFromContentResult {
           tags == other.tags &&
           parsedContent == other.parsedContent;
 }
-
-class Taggable {
-  final String value;
-  final TaggableType tagType;
-
-  const Taggable({required this.value, required this.tagType});
-
-  static Future<TagFromContentResult> fromMdxContent({
-    required ParsedEntity data,
-  }) => RustLib.instance.api
-      .crateApiModelsTaggablesTaggableTaggableFromMdxContent(data: data);
-
-  static Future<List<Taggable>> fromPodData({required ParsedEntity data}) =>
-      RustLib.instance.api.crateApiModelsTaggablesTaggableTaggableFromPodData(
-        data: data,
-      );
-
-  @override
-  int get hashCode => value.hashCode ^ tagType.hashCode;
-
-  @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      other is Taggable &&
-          runtimeType == other.runtimeType &&
-          value == other.value &&
-          tagType == other.tagType;
-}
-
-enum TaggableType { tag, subject, topic }

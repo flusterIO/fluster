@@ -4,35 +4,32 @@
 // ignore_for_file: invalid_use_of_internal_member, unused_import, unnecessary_import
 
 import '../../frb_generated.dart';
+import '../../lib.dart';
 import 'package:flutter_rust_bridge/flutter_rust_bridge_for_generated.dart';
-import 'taggables/taggable.dart';
+
+// These function are ignored because they are on traits that is not defined in current crate (put an empty `#[frb]` on it to unignore): `clone`, `fmt`
 
 // Rust type: RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<FrontMatter>>
 abstract class FrontMatter implements RustOpaqueInterface {
   FrontMatterEntity get data;
 
-  List<Taggable> get subjects;
+  List<TagCreatable> get subjects;
 
-  List<Taggable> get tags;
+  List<TagCreatable> get tags;
 
-  List<Taggable> get topics;
+  List<TagCreatable> get topics;
 
   set data(FrontMatterEntity data);
 
-  set subjects(List<Taggable> subjects);
+  set subjects(List<TagCreatable> subjects);
 
-  set tags(List<Taggable> tags);
+  set tags(List<TagCreatable> tags);
 
-  set topics(List<Taggable> topics);
+  set topics(List<TagCreatable> topics);
 
-  static Future<FrontMatterEntity> fromGrayMatter({Pod? pod}) => RustLib
-      .instance
-      .api
+  static Future<FrontMatter> fromGrayMatter({Pod? pod}) => RustLib.instance.api
       .crateApiModelsFrontMatterFrontMatterFromGrayMatter(pod: pod);
 }
-
-// Rust type: RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<FrontMatterEntity>>
-abstract class FrontMatterEntity implements RustOpaqueInterface {}
 
 // Rust type: RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<Pod>>
 abstract class Pod implements RustOpaqueInterface {}

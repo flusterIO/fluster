@@ -5,8 +5,6 @@ use fluster_db::entities::{
 use gray_matter::Pod;
 use serde::{Deserialize, Serialize};
 
-use super::taggables::taggable::Taggable;
-
 /// This model mirrors the structure of the front matter as it appears in a user's note, where the
 /// nested entities represent the data as it is stored in the database. This model should handle
 /// all parsing and saving of all nested models.
