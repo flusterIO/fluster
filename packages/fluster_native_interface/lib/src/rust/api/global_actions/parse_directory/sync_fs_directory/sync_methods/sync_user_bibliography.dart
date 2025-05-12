@@ -11,7 +11,7 @@ import 'sync_mdx_notes.dart';
 Future<void> syncUserBibliography({
   required String bibPath,
   required SenderFlusterError errorSender,
-  required SurrealDb db,
+  required FlusterDb db,
   required int nThreads,
 }) => RustLib.instance.api
     .crateApiGlobalActionsParseDirectorySyncFsDirectorySyncMethodsSyncUserBibliographySyncUserBibliography(

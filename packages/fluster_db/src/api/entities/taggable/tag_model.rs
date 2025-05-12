@@ -21,7 +21,7 @@ pub struct TagEntity {
     pub value: String,
 }
 
-pub struct TagFromContentResult {
-    pub tags: Vec<TagEntity>,
-    pub parsed_content: String,
+pub struct TagCreatable {
+    pub id: Option<i32>,
+    pub value: String,
 }

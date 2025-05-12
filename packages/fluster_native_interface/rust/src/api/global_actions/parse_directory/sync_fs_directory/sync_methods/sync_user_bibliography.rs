@@ -1,7 +1,7 @@
 use crate::api::models::bibliography::bib_file::BibtexFile;
-use crate::api::typedefs::note_type_utils::FlusterDb;
 pub use crossbeam_channel::Sender;
 pub use fluster_types::errors::errors::FlusterError;
+use fluster_types::FlusterDb;
 use flutter_rust_bridge::frb;
 
 #[frb(opaque)]
@@ -28,20 +28,20 @@ pub async fn sync_user_bibliography(
 #[cfg(test)]
 mod tests {
     use crossbeam_channel::unbounded;
-    use fluster_db::api::db::get_database;
+    use fluster_db::api::db::get_database_connection;
 
     use super::*;
 
     #[tokio::test]
     async fn sync_bib_throw_no_errors() {
         let (error_sender, error_receiver) = unbounded::<FlusterError>();
-        let db = get_database()
+        let db = get_database_connection()
             .await
             .expect("Retrieved database without errors.");
         let x = sync_user_bibliography(
             "/Users/bigsexy/Desktop/notes/content/citations.bib",
             &error_sender,
-            db,
+            &db,
             8,
         );
         for k in error_receiver.iter() {

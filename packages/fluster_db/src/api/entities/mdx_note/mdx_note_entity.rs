@@ -20,7 +20,8 @@ pub struct MdxNoteEntity {
     pub id: i32,
     pub file_path: Option<String>,
     pub raw_body: String,
-    pub ctime: chrono::NaiveDateTime,
-    pub mtime: chrono::NaiveDateTime,
-    pub atime: chrono::NaiveDateTime,
+    pub ctime: Option<chrono::NaiveDateTime>,
+    pub mtime: Option<chrono::NaiveDateTime>,
+    pub atime: Option<chrono::NaiveDateTime>,
+    pub last_sync: chrono::NaiveDateTime,
 }

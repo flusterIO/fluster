@@ -1,6 +1,8 @@
 pub mod actions;
 pub mod bibliography;
 pub mod enums;
+pub mod mdx_note_group;
 pub mod nested_models;
 pub mod params;
 pub mod settings;
+pub mod taggables;

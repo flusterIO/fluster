@@ -1,9 +1,11 @@
 use diesel_async::RunQueryDsl;
 use fluster_types::errors::errors::FlusterError;
 
-use crate::api::{db::get_database_connection, entities::mdx_note::mdx_note_entity::MdxNoteEntity};
+use crate::{
+    api::db::get_database_connection, entities::mdx_note::mdx_note_creatable::MdxNoteCreatable,
+};
 
-pub async fn create_mdx_note(new_note: MdxNoteEntity) -> Option<FlusterError> {
+pub async fn create_mdx_note(new_note: MdxNoteCreatable) -> Option<FlusterError> {
     use crate::api::schema::generated::main_schema::mdx_note::dsl::*;
     if let Ok(mut c) = get_database_connection().await {
         match diesel::insert_into(mdx_note)
@@ -31,11 +33,13 @@ pub async fn create_mdx_note(new_note: MdxNoteEntity) -> Option<FlusterError> {
 mod tests {
     use super::*;
 
+    #[allow(deprecated)]
     #[tokio::test]
     async fn create_mdx_note_saves_successfully() {
-        let t = chrono::NaiveDateTime::from_timestamp(0, 0);
-        let note = MdxNoteEntity {
-            id: 0,
+        let t = chrono::NaiveDateTime::from_timestamp_nanos(chrono::Utc::now().timestamp_nanos())
+            .expect("Parsed time successfully");
+        let note = MdxNoteCreatable {
+            id: None,
             raw_body: "This is a test from create_mdx_note_saves_successfully.".to_string(),
             file_path: Some("/some/fake/path".to_string()),
             ctime: t,

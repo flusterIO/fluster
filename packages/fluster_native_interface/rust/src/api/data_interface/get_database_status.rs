@@ -1,4 +1,4 @@
-use fluster_db::api::utils::get_database_path;
+use fluster_db::api::{db::get_database_connection, utils::get_database_path};
 
 #[derive(PartialEq, Eq)]
 pub enum FlusterDatabaseStatus {
@@ -25,7 +25,7 @@ pub async fn get_database_status() -> FlusterDatabaseStatus {
     if !exists.is_ok_and(|x| x) {
         return FlusterDatabaseStatus::NotInitialized;
     }
-    let db_health = get_database().await;
+    let db_health = get_database_connection().await;
     if db_health.is_err() {
         return FlusterDatabaseStatus::ErrorEncountered;
     }

@@ -25,19 +25,6 @@ pub async fn sync_directory(opts: SyncFilesystemDirectoryOptions) -> Option<Vec<
 
     let n_threads = opts.n_threads.clone();
     let bib_error_sender = error_sender.clone();
-    // Check if user provided bib path, and if so spawn a new thread and sync that bib.
-    // let handle: Option<>
-    let bib_thread_handle = std::thread::spawn(async move || {
-        if opts.bib_path.is_some() {
-            sync_user_bibliography(
-                &opts.bib_path.unwrap(),
-                &bib_error_sender,
-                db,
-                max(n_threads - 1, 1),
-            )
-            .await;
-        }
-    });
 
     // This needs to go before joining threads, but after all of the thread initialization
     for err in error_receiver.iter() {
@@ -45,7 +32,21 @@ pub async fn sync_directory(opts: SyncFilesystemDirectoryOptions) -> Option<Vec<
     }
 
     // No need to thread here, as ignore is taking care of the threading.
-    sync_mdx_filesystem_notes(&opts.dir_path, &error_sender, db).await;
+    sync_mdx_filesystem_notes(&opts.dir_path, &error_sender, &db).await;
+
+    // Check if user provided bib path, and if so spawn a new thread and sync that bib.
+    // let handle: Option<>
+    let bib_thread_handle = std::thread::spawn(async move || {
+        if opts.bib_path.is_some() {
+            sync_user_bibliography(
+                &opts.bib_path.unwrap(),
+                &bib_error_sender,
+                &db,
+                max(n_threads - 1, 1),
+            )
+            .await;
+        }
+    });
     bib_thread_handle.join();
 
     // drop(sender);

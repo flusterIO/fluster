@@ -11,11 +11,11 @@ import 'package:flutter_rust_bridge/flutter_rust_bridge_for_generated.dart';
 // Rust type: RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<BibEntryEntity>>
 abstract class BibEntryEntity implements RustOpaqueInterface {}
 
+// Rust type: RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<FlusterDb>>
+abstract class FlusterDb implements RustOpaqueInterface {}
+
 // Rust type: RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<FlusterError>>
 abstract class FlusterError implements RustOpaqueInterface {}
-
-// Rust type: RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<Surreal < Db >>>
-abstract class SurrealDb implements RustOpaqueInterface {}
 
 class BibtexFile {
   final String? path;
@@ -35,7 +35,7 @@ class BibtexFile {
             fileContent: fileContent,
           );
 
-  Future<void> saveEntries({required SurrealDb db}) => RustLib.instance.api
+  Future<void> saveEntries({required FlusterDb db}) => RustLib.instance.api
       .crateApiModelsBibliographyBibFileBibtexFileSaveEntries(
         that: this,
         db: db,

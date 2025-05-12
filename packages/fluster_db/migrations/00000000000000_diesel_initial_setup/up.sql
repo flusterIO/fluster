@@ -347,21 +347,18 @@ CREATE TABLE log (
 
 
 CREATE TABLE tag ( 
-    id SERIAL PRIMARY KEY,
-    value VARCHAR(40) NOT NULL UNIQUE
+    value VARCHAR(40) PRIMARY KEY
 );
 
 
 
 CREATE TABLE subject ( 
-    id SERIAL PRIMARY KEY,
-    value VARCHAR(40) NOT NULL UNIQUE
+    value VARCHAR(40) PRIMARY KEY
 );
 
 
 CREATE TABLE topic ( 
-    id SERIAL PRIMARY KEY,
-    value VARCHAR(40) NOT NULL UNIQUE
+    value VARCHAR(40) PRIMARY KEY
 );
 
 
@@ -372,11 +369,13 @@ CREATE TABLE mdx_note (
 -- The notes raw mdx content with the front matter removed.
     raw_body TEXT NOT NULL,
 -- The time the file was created.
-    ctime TIMESTAMP NOT NULL,
+    ctime TIMESTAMP,
 -- The time the file was last modified.
-    mtime TIMESTAMP NOT NULL,
+    mtime TIMESTAMP,
 -- The time of last access. This might be unreliable if the file is being accessed as part of the sync script.
-    atime TIMESTAMP NOT NULL
+    atime TIMESTAMP,
+-- Updated each time the note is syncrhonized. This can be useful for more optimized syncing in the future.
+    last_sync TIMESTAMP NOT NULL
 );
 
 
@@ -410,12 +409,13 @@ CREATE TABLE equation_snippet_join (
 );
 
 
-
 CREATE TABLE front_matter ( 
     id SERIAL PRIMARY KEY,
     title TEXT NOT NULL,
     summary TEXT,
-    mdx_note_id INT NOT NULL REFERENCES mdx_note(id)
+    mdx_note_id INT NOT NULL REFERENCES mdx_note(id),
+-- This is the id field in the user's front matter.
+    user_provided_id VARCHAR(50)
 );
 
 

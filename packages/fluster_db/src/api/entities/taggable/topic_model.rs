@@ -1,6 +1,5 @@
 use crate::api::schema::generated::main_schema::topic;
 use diesel::prelude::*;
-use regex::Regex;
 use serde::{Deserialize, Serialize};
 
 #[derive(

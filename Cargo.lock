@@ -2113,6 +2113,7 @@ version = "0.0.1"
 dependencies = [
  "anyhow",
  "biblatex",
+ "chrono",
  "console-subscriber",
  "crossbeam",
  "crossbeam-channel",

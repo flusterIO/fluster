@@ -8,8 +8,11 @@ title: Front Matter
 Mdx incorporates the notion of _front matter_, a section of _usually_ arbitrary [yaml](https://docs.ansible.com/ansible/latest/reference_appendices/YAMLSyntax.html). Fluster defines a specific set of front matter fields that you can use to customize the way Fluster handles your notes.
 
 
-| Field | Description |
-| ----- | ----------- |
-| title | This is used inside of search results. If none is found, Fluster will attempt to derive one from your file's content. |
-| summary | A brief summary of the note that is displayed among search results and utilized by Fluster's AI. |
-| id | Any unique string, so long as it doesn't have any white space that identifies this note. This can be used to link to this note using the `[](noteId:xyz` syntax. |
+| Field | Description | Type |
+| ----- | ----------- | ---- |
+| title | This is used inside of search results. If none is found, Fluster will attempt to derive one from your file's content. | `String?` |
+| summary | A brief summary of the note that is displayed among search results and utilized by Fluster's AI. | `String?` |
+| id | Any unique string, so long as it doesn't have any white space that identifies this note. This can be used to link to this note using the `[](noteId:xyz` syntax. | `String?` | 
+| tags | Add tags to your front matter as well as inside of your note. How you apply them is up to you. You can use the `FrontMatterTags` component to show these tags inside of your note, but the navigation will work regardless of whether or not they are visible. | `[]String?` |
+| subjects | Set subjects in your front matter as well as through smart filters. |  `[]String?` |
+| topics | Set topics in your front matter as well as through smart filters. | `[]String?` |

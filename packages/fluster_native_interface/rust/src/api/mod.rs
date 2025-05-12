@@ -6,6 +6,5 @@ pub mod global_actions;
 pub mod initialize;
 pub mod models;
 pub mod search;
-pub mod traits;
 pub mod typedefs;
 pub mod utils;
