@@ -21,7 +21,7 @@ pub async fn sync_directory(opts: SyncFilesystemDirectoryOptions) -> Option<Vec<
         return Some(errors);
     }
 
-    let db = database.unwrap();
+    let mut db = database.unwrap();
 
     let n_threads = opts.n_threads.clone();
     let bib_error_sender = error_sender.clone();
@@ -32,7 +32,7 @@ pub async fn sync_directory(opts: SyncFilesystemDirectoryOptions) -> Option<Vec<
     }
 
     // No need to thread here, as ignore is taking care of the threading.
-    sync_mdx_filesystem_notes(&opts.dir_path, &error_sender, &db).await;
+    sync_mdx_filesystem_notes(&opts.dir_path, &error_sender, &mut db).await;
 
     // Check if user provided bib path, and if so spawn a new thread and sync that bib.
     // let handle: Option<>

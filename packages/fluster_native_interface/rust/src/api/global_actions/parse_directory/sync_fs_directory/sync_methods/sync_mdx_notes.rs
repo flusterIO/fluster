@@ -1,7 +1,7 @@
 use crossbeam_channel::unbounded;
 use crossbeam_channel::Sender;
-use fluster_db::api::actions::mdx_note::create::create_mdx_note;
 use fluster_db::api::actions::mdx_note::create_many::create_many_mdx_notes;
+use fluster_db::api::db::get_database_connection;
 use fluster_db::entities::mdx_note::mdx_note_creatable::MdxNoteCreatable;
 use fluster_types::errors::errors::FlusterError;
 use fluster_types::FlusterDb;
@@ -15,9 +15,12 @@ use crate::api::models::mdx_note_group::mdx_note_group::MdxNoteGroup;
 pub async fn sync_mdx_filesystem_notes(
     notes_path: &str,
     error_sender: &Sender<FlusterError>,
-    db: &FlusterDb,
-) {
+    c: &mut FlusterDb,
+) -> Result<(), FlusterError> {
     let (mdx_sender, mdx_receiver) = unbounded::<Result<MdxNoteGroup, FlusterError>>();
+    // let mut c = get_database_connection()
+    //     .await
+    //     .or_else(|_| Err(FlusterError::FailToConnect))?;
     WalkBuilder::new(notes_path)
         .threads(32)
         .add_custom_ignore_filename(".flusterIgnore")
@@ -25,14 +28,13 @@ pub async fn sync_mdx_filesystem_notes(
         .build_parallel()
         .run(|| {
             let sender = mdx_sender.clone();
-            Box::new(async move |either_entry: Result<DirEntry, ignore::Error>| {
+            Box::new(move |either_entry: Result<DirEntry, ignore::Error>| {
                 if either_entry.is_ok() {
                     let entry = either_entry.unwrap();
                     let path = entry.path();
                     if path.is_file() && path.extension() == Some("mdx".as_ref()) {
                         let note_group =
-                            MdxNoteGroup::from_file_system_path(path.to_str().unwrap().to_string())
-                                .await;
+                            MdxNoteGroup::from_file_system_path(path.to_str().unwrap().to_string());
                         sender.send(note_group).unwrap();
                     }
                 }
@@ -42,6 +44,9 @@ pub async fn sync_mdx_filesystem_notes(
 
     drop(mdx_sender);
     let mut mdx_notes: Vec<MdxNoteCreatable> = Vec::new();
+    // RESUME: Come back here in the AM and handle the rest of this method. Taggable's should be saved here as well, while the bibliography flow is likely best left as a seperate function since it's derived from a unique set of data.
+    // Make sure to look up the pooled connection syntax to implement these writes as fast as
+    // possible.
     let mut tags: Vec<MdxNoteCreatable> = Vec::new();
     for x in mdx_receiver.iter() {
         if let Ok(note) = x {
@@ -50,5 +55,6 @@ pub async fn sync_mdx_filesystem_notes(
             error_sender.send(FlusterError::FailToCreateEntity).unwrap();
         }
     }
-    create_many_mdx_notes(mdx_notes);
+    create_many_mdx_notes(c, mdx_notes);
+    Ok(())
 }
