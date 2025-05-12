@@ -1,10 +1,8 @@
+use diesel_derive_enum::DbEnum;
 use serde::{Deserialize, Serialize};
 
-#[derive(diesel_derive_enum::DbEnum, Debug)]
-#[db_enum(
-    existing_type_path = "crate::api::schema::generated::main_schema::sql_types::SupportedLanguage"
-)]
-#[derive(Serialize, Deserialize, Clone, Default, PartialEq, Eq)]
+#[derive(Debug, Deserialize, Serialize, Clone, PartialEq, Eq, DbEnum, Default)]
+#[ExistingTypePath = "crate::api::schema::generated::main_schema::sql_types::SupportedLanguage"]
 pub enum SupportedSyntaxLanguage {
     #[serde(rename(serialize = "abap", deserialize = "abap"))]
     Abap,

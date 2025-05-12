@@ -44,6 +44,9 @@ cross_language_pre_build: run_builders
 	zsh ${FLUSTER_NATIVE_ROOT}/packages/fluster_ts/scripts/pre_build.zsh
 build_workspace_tools:
 	cd ${FLUSTER_NATIVE_ROOT}/packages/fluster_internal_workspace; go build
+generate_mermaid_db_diagram:
+	pg-mermaid --username postgres --password password --dbname fluster --output-path ${FLUSTER_NATIVE_ROOT}/docs/doc_assets/db.mermaid
+	mmdc -i ${FLUSTER_NATIVE_ROOT}/docs/doc_assets/db.mermaid -o ${FLUSTER_NATIVE_ROOT}/docs/doc_assets/db.png
 generate_docs: generate_icons
 	cargo doc --workspace --no-deps
 	cd ${FLUSTER_NATIVE_ROOT}/packages/fluster_ts; pnpm dlx typedoc --plugin typedoc-plugin-markdown --out ${FLUSTER_NATIVE_ROOT}/docs/api/packages/fluster_ts/

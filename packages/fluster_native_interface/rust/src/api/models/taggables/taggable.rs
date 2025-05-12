@@ -1,14 +1,8 @@
+use fluster_db::entities::taggable::tag_model::TaggableType;
 use gray_matter::{ParsedEntity, Pod};
 use rayon::prelude::*;
 use regex::Regex;
 use serde::{Deserialize, Serialize};
-
-#[derive(Clone, Deserialize, Serialize, Debug, Copy)]
-pub enum TaggableType {
-    Tag,
-    Subject,
-    Topic,
-}
 
 #[derive(Clone, Deserialize, Serialize, Debug)]
 pub struct Taggable {
@@ -33,7 +27,7 @@ impl Taggable {
     fn handle_arr_data<'a>(
         d: &Pod,
         taggables: &Vec<Taggable>,
-        taggable_type: TaggableType,
+        tag_type: &TaggableType,
     ) -> Vec<Taggable> {
         let mut tags = taggables.clone();
         if !d.is_empty() {
@@ -46,7 +40,7 @@ impl Taggable {
                         if s.is_ok() {
                             tags.push(Taggable {
                                 value: s.unwrap(),
-                                tag_type: taggable_type,
+                                tag_type: tag_type.clone(),
                             })
                         }
                     })
@@ -59,9 +53,9 @@ impl Taggable {
         let mut tags: Vec<Taggable> = Vec::new();
         if let Some(parsed_data) = &data.data {
             if let Ok(h) = parsed_data.as_hashmap() {
-                tags = Taggable::handle_arr_data(&h["tags"], &tags, TaggableType::Tag);
-                tags = Taggable::handle_arr_data(&h["topics"], &tags, TaggableType::Topic);
-                tags = Taggable::handle_arr_data(&h["subjects"], &tags, TaggableType::Subject);
+                tags = Taggable::handle_arr_data(&h["tags"], &tags, &TaggableType::Tag);
+                tags = Taggable::handle_arr_data(&h["topics"], &tags, &TaggableType::Topic);
+                tags = Taggable::handle_arr_data(&h["subjects"], &tags, &TaggableType::Subject);
             }
         }
         tags

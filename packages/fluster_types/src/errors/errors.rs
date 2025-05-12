@@ -31,12 +31,11 @@ pub enum FlusterError {
     #[error("We could not create the necessary paths. Unfortunately, we cannot continue.")]
     FailToCreatePath,
 
-    #[error("We could not save the mdx file{0}. If this occurs to many files at once it is likely an issue on our end. If that is the case, please submit an issue on Github so it can be fixed ASAP.")]
-    FailToSaveMdxNote(String),
-
     #[error("Fluster failed to locate a valid locate to store the necessary data. Please submit an issue on Github at {}", crate::constants::fluster_constants::GITHUB_ISSUE_PAGE_URL)]
     FailToLocateStorageDir,
 
+    #[error("Failed to read file system path at {0}.")]
+    FailToReadFileSystemPath(String),
     // Parsing Errors
     #[error("Failed to parse the mdx content at `{0}`.")]
     MdxParsingError(String),
@@ -45,6 +44,17 @@ pub enum FlusterError {
 
     #[error("Failed to find the note at `{0}`.")]
     AttemptedToParseFileWasntFound(String),
+
+    // Mdx Note
+    #[error("We could not save the mdx file{0}. If this occurs to many files at once it is likely an issue on our end. If that is the case, please submit an issue on Github so it can be fixed ASAP.")]
+    FailToSaveMdxNote(String),
+
+    /// Taggables
+    ///
+    #[error(
+        "We couldn't save some tags. If this occurs frequently, please file an issue on Github."
+    )]
+    FailToUpsertTags,
 }
 
 pub type FlusterResult<T> = Result<T, FlusterError>;

@@ -1,7 +1,5 @@
 use crate::api::schema::generated::main_schema::mdx_note;
 use diesel::prelude::*;
-use fluster_types::errors::errors::{FlusterError, FlusterResult};
-use gray_matter::{engine::YAML, Matter};
 use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Deserialize, Serialize, Clone, PartialEq, Eq, Insertable)]

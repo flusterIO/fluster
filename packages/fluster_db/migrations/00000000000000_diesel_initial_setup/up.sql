@@ -341,24 +341,22 @@ CREATE TABLE log (
 );
 
 
+CREATE TYPE taggable_type
+AS ENUM (
+    'Tag',
+    'Topic',
+    'Subject'
+);
+
 -- This needs to be handled as part of the log or init function. The init function will likely be more performant as it will only run once when the app starts. 
 -- DELETE FROM log 
 -- WHERE ctime < NOW() - INTERVAL '7 days'
 
 
-CREATE TABLE tag ( 
-    value VARCHAR(40) PRIMARY KEY
-);
-
-
-
-CREATE TABLE subject ( 
-    value VARCHAR(40) PRIMARY KEY
-);
-
-
-CREATE TABLE topic ( 
-    value VARCHAR(40) PRIMARY KEY
+CREATE TABLE taggable ( 
+    id SERIAL PRIMARY KEY,
+    value VARCHAR(50) NOT NULL,
+    tag_type taggable_type NOT NULL 
 );
 
 
@@ -378,6 +376,18 @@ CREATE TABLE mdx_note (
     last_sync TIMESTAMP NOT NULL
 );
 
+CREATE TABLE mdx_note_taggable_join (
+    id SERIAL PRIMARY KEY,
+    mdx_note_id INT NOT NULL,
+    taggable_id INT NOT NULL,
+    CONSTRAINT fk_mdx_note_id
+        FOREIGN KEY(mdx_note_id)
+            REFERENCES mdx_note(id),
+    CONSTRAINT fk_taggable_id
+        FOREIGN KEY(taggable_id)
+           REFERENCES taggable(id)
+);
+
 
 CREATE TABLE snippet (
     id SERIAL PRIMARY KEY,
@@ -395,6 +405,17 @@ CREATE TABLE equation (
     eq_id VARCHAR(100)
 );
 
+CREATE TABLE equation_mdx_note_join (
+    id SERIAL PRIMARY KEY,
+    mdx_note_id INT NOT NULL,
+    equation_id INT NOT NULL,
+    CONSTRAINT fk_mdx_note_id
+        FOREIGN KEY(mdx_note_id)
+            REFERENCES mdx_note(id),
+    CONSTRAINT fk_equation_id
+        FOREIGN KEY(equation_id)
+           REFERENCES equation(id)
+);
 
 CREATE TABLE equation_snippet_join (
     id SERIAL PRIMARY KEY,
@@ -419,13 +440,13 @@ CREATE TABLE front_matter (
 );
 
 
-CREATE TABLE front_matter_tag_join (
+CREATE TABLE front_matter_taggable_join (
     id SERIAL PRIMARY KEY,
     tag_id INT NOT NULL,
     front_matter_id INT NOT NULL,
     CONSTRAINT fk_tag_id 
         FOREIGN KEY(tag_id)
-            REFERENCES tag(id),
+            REFERENCES taggable(id),
     CONSTRAINT fk_front_matter_id
         FOREIGN KEY(front_matter_id)
            REFERENCES front_matter(id)

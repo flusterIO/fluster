@@ -34,6 +34,7 @@ tracing = "0.1"
 tracing-subscriber = "0.3.0"
 mlua = { version = "0.10", features = ["lua54", "vendored"] }
 rust-embed = { version = "8.7.0", features = ["tokio"] }
+diesel-derive-enum = { version = "2.1.0", features = ["postgres"] }
 surrealdb = { version = "=2.2.1", features = [
     # "kv-surrealkv",
     "kv-rocksdb",
@@ -63,8 +64,9 @@ diesel = { version = "2.2.10", features = [
 dotenvy = "0.15"
 
 # TODO: Remove this and the reliance on console_subscriber when actually building for production.
-[build]
-rustflags = ["--cfg", "tokio_unstable"]
+# TEMP: Move this to each nested project if necessary
+# [build]
+# rustflags = ["--cfg", "tokio_unstable"]
 
 [profile.release]
 lto = true

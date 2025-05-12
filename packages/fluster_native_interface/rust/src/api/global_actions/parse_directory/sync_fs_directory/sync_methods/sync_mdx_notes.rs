@@ -10,6 +10,7 @@ use ignore::WalkBuilder;
 use ignore::{DirEntry, WalkState};
 
 use crate::api::models::mdx_note_group::mdx_note_group::MdxNoteGroup;
+use crate::api::models::taggables::taggable::Taggable;
 
 #[frb(opaque)]
 pub async fn sync_mdx_filesystem_notes(
@@ -44,13 +45,11 @@ pub async fn sync_mdx_filesystem_notes(
 
     drop(mdx_sender);
     let mut mdx_notes: Vec<MdxNoteCreatable> = Vec::new();
-    // RESUME: Come back here in the AM and handle the rest of this method. Taggable's should be saved here as well, while the bibliography flow is likely best left as a seperate function since it's derived from a unique set of data.
-    // Make sure to look up the pooled connection syntax to implement these writes as fast as
-    // possible.
-    let mut tags: Vec<MdxNoteCreatable> = Vec::new();
+    let mut tags: Vec<Taggable> = Vec::new();
     for x in mdx_receiver.iter() {
-        if let Ok(note) = x {
+        if let Ok(mut note) = x {
             mdx_notes.push(note.mdx);
+            tags.append(&mut note.tags);
         } else {
             error_sender.send(FlusterError::FailToCreateEntity).unwrap();
         }

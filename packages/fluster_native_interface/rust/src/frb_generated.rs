@@ -28,6 +28,7 @@
 use crate::api::embedded_ts::*;
 use crate::api::global_actions::parse_directory::sync_fs_directory::sync_methods::sync_mdx_notes::*;
 use crate::api::models::bibliography::bib_file::*;
+use crate::api::models::front_matter::*;
 use crate::api::models::mdx_note_group::mdx_note_group::*;
 use crate::api::models::nested_models::fluster_datetime::fluster_time::*;
 use crate::api::models::taggables::taggable::*;
@@ -45,7 +46,7 @@ flutter_rust_bridge::frb_generated_boilerplate!(
     default_rust_auto_opaque = RustAutoOpaqueMoi,
 );
 pub(crate) const FLUTTER_RUST_BRIDGE_CODEGEN_VERSION: &str = "2.9.0";
-pub(crate) const FLUTTER_RUST_BRIDGE_CODEGEN_CONTENT_HASH: i32 = -1949973709;
+pub(crate) const FLUTTER_RUST_BRIDGE_CODEGEN_CONTENT_HASH: i32 = 378603263;
 
 // Section: executor
 
@@ -327,6 +328,435 @@ fn wire__crate__api__models__nested_models__fluster_datetime__fluster_time__Flus
                     })())
                 } })
 }
+fn wire__crate__api__models__front_matter__FrontMatter_auto_accessor_get_data_impl(
+    ptr_: flutter_rust_bridge::for_generated::PlatformGeneralizedUint8ListPtr,
+    rust_vec_len_: i32,
+    data_len_: i32,
+) -> flutter_rust_bridge::for_generated::WireSyncRust2DartSse {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_sync::<flutter_rust_bridge::for_generated::SseCodec, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "FrontMatter_auto_accessor_get_data",
+            port: None,
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Sync,
+        },
+        move || {
+            let message = unsafe {
+                flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(
+                    ptr_,
+                    rust_vec_len_,
+                    data_len_,
+                )
+            };
+            let mut deserializer =
+                flutter_rust_bridge::for_generated::SseDeserializer::new(message);
+            let api_that = <RustOpaqueMoi<
+                flutter_rust_bridge::for_generated::RustAutoOpaqueInner<FrontMatter>,
+            >>::sse_decode(&mut deserializer);
+            deserializer.end();
+            transform_result_sse::<_, ()>((move || {
+                let mut api_that_guard = None;
+                let decode_indices_ =
+                    flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![
+                        flutter_rust_bridge::for_generated::LockableOrderInfo::new(
+                            &api_that, 0, false,
+                        ),
+                    ]);
+                for i in decode_indices_ {
+                    match i {
+                        0 => api_that_guard = Some(api_that.lockable_decode_sync_ref()),
+                        _ => unreachable!(),
+                    }
+                }
+                let api_that_guard = api_that_guard.unwrap();
+                let output_ok = Result::<_, ()>::Ok(api_that_guard.data.clone())?;
+                Ok(output_ok)
+            })())
+        },
+    )
+}
+fn wire__crate__api__models__front_matter__FrontMatter_auto_accessor_get_subjects_impl(
+    ptr_: flutter_rust_bridge::for_generated::PlatformGeneralizedUint8ListPtr,
+    rust_vec_len_: i32,
+    data_len_: i32,
+) -> flutter_rust_bridge::for_generated::WireSyncRust2DartSse {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_sync::<flutter_rust_bridge::for_generated::SseCodec, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "FrontMatter_auto_accessor_get_subjects",
+            port: None,
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Sync,
+        },
+        move || {
+            let message = unsafe {
+                flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(
+                    ptr_,
+                    rust_vec_len_,
+                    data_len_,
+                )
+            };
+            let mut deserializer =
+                flutter_rust_bridge::for_generated::SseDeserializer::new(message);
+            let api_that = <RustOpaqueMoi<
+                flutter_rust_bridge::for_generated::RustAutoOpaqueInner<FrontMatter>,
+            >>::sse_decode(&mut deserializer);
+            deserializer.end();
+            transform_result_sse::<_, ()>((move || {
+                let mut api_that_guard = None;
+                let decode_indices_ =
+                    flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![
+                        flutter_rust_bridge::for_generated::LockableOrderInfo::new(
+                            &api_that, 0, false,
+                        ),
+                    ]);
+                for i in decode_indices_ {
+                    match i {
+                        0 => api_that_guard = Some(api_that.lockable_decode_sync_ref()),
+                        _ => unreachable!(),
+                    }
+                }
+                let api_that_guard = api_that_guard.unwrap();
+                let output_ok = Result::<_, ()>::Ok(api_that_guard.subjects.clone())?;
+                Ok(output_ok)
+            })())
+        },
+    )
+}
+fn wire__crate__api__models__front_matter__FrontMatter_auto_accessor_get_tags_impl(
+    ptr_: flutter_rust_bridge::for_generated::PlatformGeneralizedUint8ListPtr,
+    rust_vec_len_: i32,
+    data_len_: i32,
+) -> flutter_rust_bridge::for_generated::WireSyncRust2DartSse {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_sync::<flutter_rust_bridge::for_generated::SseCodec, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "FrontMatter_auto_accessor_get_tags",
+            port: None,
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Sync,
+        },
+        move || {
+            let message = unsafe {
+                flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(
+                    ptr_,
+                    rust_vec_len_,
+                    data_len_,
+                )
+            };
+            let mut deserializer =
+                flutter_rust_bridge::for_generated::SseDeserializer::new(message);
+            let api_that = <RustOpaqueMoi<
+                flutter_rust_bridge::for_generated::RustAutoOpaqueInner<FrontMatter>,
+            >>::sse_decode(&mut deserializer);
+            deserializer.end();
+            transform_result_sse::<_, ()>((move || {
+                let mut api_that_guard = None;
+                let decode_indices_ =
+                    flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![
+                        flutter_rust_bridge::for_generated::LockableOrderInfo::new(
+                            &api_that, 0, false,
+                        ),
+                    ]);
+                for i in decode_indices_ {
+                    match i {
+                        0 => api_that_guard = Some(api_that.lockable_decode_sync_ref()),
+                        _ => unreachable!(),
+                    }
+                }
+                let api_that_guard = api_that_guard.unwrap();
+                let output_ok = Result::<_, ()>::Ok(api_that_guard.tags.clone())?;
+                Ok(output_ok)
+            })())
+        },
+    )
+}
+fn wire__crate__api__models__front_matter__FrontMatter_auto_accessor_get_topics_impl(
+    ptr_: flutter_rust_bridge::for_generated::PlatformGeneralizedUint8ListPtr,
+    rust_vec_len_: i32,
+    data_len_: i32,
+) -> flutter_rust_bridge::for_generated::WireSyncRust2DartSse {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_sync::<flutter_rust_bridge::for_generated::SseCodec, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "FrontMatter_auto_accessor_get_topics",
+            port: None,
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Sync,
+        },
+        move || {
+            let message = unsafe {
+                flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(
+                    ptr_,
+                    rust_vec_len_,
+                    data_len_,
+                )
+            };
+            let mut deserializer =
+                flutter_rust_bridge::for_generated::SseDeserializer::new(message);
+            let api_that = <RustOpaqueMoi<
+                flutter_rust_bridge::for_generated::RustAutoOpaqueInner<FrontMatter>,
+            >>::sse_decode(&mut deserializer);
+            deserializer.end();
+            transform_result_sse::<_, ()>((move || {
+                let mut api_that_guard = None;
+                let decode_indices_ =
+                    flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![
+                        flutter_rust_bridge::for_generated::LockableOrderInfo::new(
+                            &api_that, 0, false,
+                        ),
+                    ]);
+                for i in decode_indices_ {
+                    match i {
+                        0 => api_that_guard = Some(api_that.lockable_decode_sync_ref()),
+                        _ => unreachable!(),
+                    }
+                }
+                let api_that_guard = api_that_guard.unwrap();
+                let output_ok = Result::<_, ()>::Ok(api_that_guard.topics.clone())?;
+                Ok(output_ok)
+            })())
+        },
+    )
+}
+fn wire__crate__api__models__front_matter__FrontMatter_auto_accessor_set_data_impl(
+    ptr_: flutter_rust_bridge::for_generated::PlatformGeneralizedUint8ListPtr,
+    rust_vec_len_: i32,
+    data_len_: i32,
+) -> flutter_rust_bridge::for_generated::WireSyncRust2DartSse {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_sync::<flutter_rust_bridge::for_generated::SseCodec, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "FrontMatter_auto_accessor_set_data",
+            port: None,
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Sync,
+        },
+        move || {
+            let message = unsafe {
+                flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(
+                    ptr_,
+                    rust_vec_len_,
+                    data_len_,
+                )
+            };
+            let mut deserializer =
+                flutter_rust_bridge::for_generated::SseDeserializer::new(message);
+            let api_that = <RustOpaqueMoi<
+                flutter_rust_bridge::for_generated::RustAutoOpaqueInner<FrontMatter>,
+            >>::sse_decode(&mut deserializer);
+            let api_data = <FrontMatterEntity>::sse_decode(&mut deserializer);
+            deserializer.end();
+            transform_result_sse::<_, ()>((move || {
+                let mut api_that_guard = None;
+                let decode_indices_ =
+                    flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![
+                        flutter_rust_bridge::for_generated::LockableOrderInfo::new(
+                            &api_that, 0, true,
+                        ),
+                    ]);
+                for i in decode_indices_ {
+                    match i {
+                        0 => api_that_guard = Some(api_that.lockable_decode_sync_ref_mut()),
+                        _ => unreachable!(),
+                    }
+                }
+                let mut api_that_guard = api_that_guard.unwrap();
+                let output_ok = Result::<_, ()>::Ok({
+                    {
+                        api_that_guard.data = api_data;
+                    };
+                })?;
+                Ok(output_ok)
+            })())
+        },
+    )
+}
+fn wire__crate__api__models__front_matter__FrontMatter_auto_accessor_set_subjects_impl(
+    ptr_: flutter_rust_bridge::for_generated::PlatformGeneralizedUint8ListPtr,
+    rust_vec_len_: i32,
+    data_len_: i32,
+) -> flutter_rust_bridge::for_generated::WireSyncRust2DartSse {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_sync::<flutter_rust_bridge::for_generated::SseCodec, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "FrontMatter_auto_accessor_set_subjects",
+            port: None,
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Sync,
+        },
+        move || {
+            let message = unsafe {
+                flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(
+                    ptr_,
+                    rust_vec_len_,
+                    data_len_,
+                )
+            };
+            let mut deserializer =
+                flutter_rust_bridge::for_generated::SseDeserializer::new(message);
+            let api_that = <RustOpaqueMoi<
+                flutter_rust_bridge::for_generated::RustAutoOpaqueInner<FrontMatter>,
+            >>::sse_decode(&mut deserializer);
+            let api_subjects = <Vec<crate::api::models::taggables::taggable::Taggable>>::sse_decode(
+                &mut deserializer,
+            );
+            deserializer.end();
+            transform_result_sse::<_, ()>((move || {
+                let mut api_that_guard = None;
+                let decode_indices_ =
+                    flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![
+                        flutter_rust_bridge::for_generated::LockableOrderInfo::new(
+                            &api_that, 0, true,
+                        ),
+                    ]);
+                for i in decode_indices_ {
+                    match i {
+                        0 => api_that_guard = Some(api_that.lockable_decode_sync_ref_mut()),
+                        _ => unreachable!(),
+                    }
+                }
+                let mut api_that_guard = api_that_guard.unwrap();
+                let output_ok = Result::<_, ()>::Ok({
+                    {
+                        api_that_guard.subjects = api_subjects;
+                    };
+                })?;
+                Ok(output_ok)
+            })())
+        },
+    )
+}
+fn wire__crate__api__models__front_matter__FrontMatter_auto_accessor_set_tags_impl(
+    ptr_: flutter_rust_bridge::for_generated::PlatformGeneralizedUint8ListPtr,
+    rust_vec_len_: i32,
+    data_len_: i32,
+) -> flutter_rust_bridge::for_generated::WireSyncRust2DartSse {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_sync::<flutter_rust_bridge::for_generated::SseCodec, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "FrontMatter_auto_accessor_set_tags",
+            port: None,
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Sync,
+        },
+        move || {
+            let message = unsafe {
+                flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(
+                    ptr_,
+                    rust_vec_len_,
+                    data_len_,
+                )
+            };
+            let mut deserializer =
+                flutter_rust_bridge::for_generated::SseDeserializer::new(message);
+            let api_that = <RustOpaqueMoi<
+                flutter_rust_bridge::for_generated::RustAutoOpaqueInner<FrontMatter>,
+            >>::sse_decode(&mut deserializer);
+            let api_tags = <Vec<crate::api::models::taggables::taggable::Taggable>>::sse_decode(
+                &mut deserializer,
+            );
+            deserializer.end();
+            transform_result_sse::<_, ()>((move || {
+                let mut api_that_guard = None;
+                let decode_indices_ =
+                    flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![
+                        flutter_rust_bridge::for_generated::LockableOrderInfo::new(
+                            &api_that, 0, true,
+                        ),
+                    ]);
+                for i in decode_indices_ {
+                    match i {
+                        0 => api_that_guard = Some(api_that.lockable_decode_sync_ref_mut()),
+                        _ => unreachable!(),
+                    }
+                }
+                let mut api_that_guard = api_that_guard.unwrap();
+                let output_ok = Result::<_, ()>::Ok({
+                    {
+                        api_that_guard.tags = api_tags;
+                    };
+                })?;
+                Ok(output_ok)
+            })())
+        },
+    )
+}
+fn wire__crate__api__models__front_matter__FrontMatter_auto_accessor_set_topics_impl(
+    ptr_: flutter_rust_bridge::for_generated::PlatformGeneralizedUint8ListPtr,
+    rust_vec_len_: i32,
+    data_len_: i32,
+) -> flutter_rust_bridge::for_generated::WireSyncRust2DartSse {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_sync::<flutter_rust_bridge::for_generated::SseCodec, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "FrontMatter_auto_accessor_set_topics",
+            port: None,
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Sync,
+        },
+        move || {
+            let message = unsafe {
+                flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(
+                    ptr_,
+                    rust_vec_len_,
+                    data_len_,
+                )
+            };
+            let mut deserializer =
+                flutter_rust_bridge::for_generated::SseDeserializer::new(message);
+            let api_that = <RustOpaqueMoi<
+                flutter_rust_bridge::for_generated::RustAutoOpaqueInner<FrontMatter>,
+            >>::sse_decode(&mut deserializer);
+            let api_topics = <Vec<crate::api::models::taggables::taggable::Taggable>>::sse_decode(
+                &mut deserializer,
+            );
+            deserializer.end();
+            transform_result_sse::<_, ()>((move || {
+                let mut api_that_guard = None;
+                let decode_indices_ =
+                    flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![
+                        flutter_rust_bridge::for_generated::LockableOrderInfo::new(
+                            &api_that, 0, true,
+                        ),
+                    ]);
+                for i in decode_indices_ {
+                    match i {
+                        0 => api_that_guard = Some(api_that.lockable_decode_sync_ref_mut()),
+                        _ => unreachable!(),
+                    }
+                }
+                let mut api_that_guard = api_that_guard.unwrap();
+                let output_ok = Result::<_, ()>::Ok({
+                    {
+                        api_that_guard.topics = api_topics;
+                    };
+                })?;
+                Ok(output_ok)
+            })())
+        },
+    )
+}
+fn wire__crate__api__models__front_matter__FrontMatter_from_gray_matter_impl(
+    port_: flutter_rust_bridge::for_generated::MessagePort,
+    ptr_: flutter_rust_bridge::for_generated::PlatformGeneralizedUint8ListPtr,
+    rust_vec_len_: i32,
+    data_len_: i32,
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::SseCodec, _, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "FrontMatter_from_gray_matter",
+            port: Some(port_),
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
+        },
+        move || {
+            let message = unsafe {
+                flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(
+                    ptr_,
+                    rust_vec_len_,
+                    data_len_,
+                )
+            };
+            let mut deserializer =
+                flutter_rust_bridge::for_generated::SseDeserializer::new(message);
+            let api_pod = <Option<Pod>>::sse_decode(&mut deserializer);
+            deserializer.end();
+            move |context| {
+                transform_result_sse::<_, ()>((move || {
+                    let output_ok = Result::<_, ()>::Ok(
+                        crate::api::models::front_matter::FrontMatter::from_gray_matter(api_pod),
+                    )?;
+                    Ok(output_ok)
+                })())
+            }
+        },
+    )
+}
 fn wire__crate__api__models__mdx_note_group__mdx_note_group__MdxNoteGroup_auto_accessor_get_front_matter_impl(
     ptr_: flutter_rust_bridge::for_generated::PlatformGeneralizedUint8ListPtr,
     rust_vec_len_: i32,
@@ -489,7 +919,7 @@ fn wire__crate__api__models__mdx_note_group__mdx_note_group__MdxNoteGroup_auto_a
             let api_that = <RustOpaqueMoi<
                 flutter_rust_bridge::for_generated::RustAutoOpaqueInner<MdxNoteGroup>,
             >>::sse_decode(&mut deserializer);
-            let api_front_matter = <FrontMatterEntity>::sse_decode(&mut deserializer);
+            let api_front_matter = <FrontMatter>::sse_decode(&mut deserializer);
             deserializer.end();
             transform_result_sse::<_, ()>((move || {
                 let mut api_that_guard = None;
@@ -626,12 +1056,27 @@ fn wire__crate__api__models__mdx_note_group__mdx_note_group__MdxNoteGroup_from_f
     rust_vec_len_: i32,
     data_len_: i32,
 ) {
-    FLUTTER_RUST_BRIDGE_HANDLER.wrap_async::<flutter_rust_bridge::for_generated::SseCodec,_,_,_>(flutter_rust_bridge::for_generated::TaskInfo{ debug_name: "MdxNoteGroup_from_file_system_path", port: Some(port_), mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal }, move || { 
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::SseCodec,_,_>(flutter_rust_bridge::for_generated::TaskInfo{ debug_name: "MdxNoteGroup_from_file_system_path", port: Some(port_), mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal }, move || { 
+            let message = unsafe { flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(ptr_, rust_vec_len_, data_len_) };
+            let mut deserializer = flutter_rust_bridge::for_generated::SseDeserializer::new(message);
+            let api_file_path = <String>::sse_decode(&mut deserializer);deserializer.end(); move |context|  {
+                    transform_result_sse::<_, ()>((move ||  {
+                         let output_ok = Result::<_,()>::Ok(crate::api::models::mdx_note_group::mdx_note_group::MdxNoteGroup::from_file_system_path(api_file_path))?;   Ok(output_ok)
+                    })())
+                } })
+}
+fn wire__crate__api__models__mdx_note_group__mdx_note_group__MdxNoteGroup_from_file_system_path_async_impl(
+    port_: flutter_rust_bridge::for_generated::MessagePort,
+    ptr_: flutter_rust_bridge::for_generated::PlatformGeneralizedUint8ListPtr,
+    rust_vec_len_: i32,
+    data_len_: i32,
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_async::<flutter_rust_bridge::for_generated::SseCodec,_,_,_>(flutter_rust_bridge::for_generated::TaskInfo{ debug_name: "MdxNoteGroup_from_file_system_path_async", port: Some(port_), mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal }, move || { 
             let message = unsafe { flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(ptr_, rust_vec_len_, data_len_) };
             let mut deserializer = flutter_rust_bridge::for_generated::SseDeserializer::new(message);
             let api_file_path = <String>::sse_decode(&mut deserializer);deserializer.end(); move |context| async move {
                     transform_result_sse::<_, ()>((move || async move {
-                         let output_ok = Result::<_,()>::Ok(crate::api::models::mdx_note_group::mdx_note_group::MdxNoteGroup::from_file_system_path(api_file_path).await)?;   Ok(output_ok)
+                         let output_ok = Result::<_,()>::Ok(crate::api::models::mdx_note_group::mdx_note_group::MdxNoteGroup::from_file_system_path_async(api_file_path).await)?;   Ok(output_ok)
                     })().await)
                 } })
 }
@@ -1173,21 +1618,21 @@ fn wire__crate__api__global_actions__parse_directory__sync_fs_directory__sync_me
             let mut deserializer = flutter_rust_bridge::for_generated::SseDeserializer::new(message);
             let api_notes_path = <String>::sse_decode(&mut deserializer);
 let api_error_sender = <RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<Sender < FlusterError >>>>::sse_decode(&mut deserializer);
-let api_db = <RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<FlusterDb>>>::sse_decode(&mut deserializer);deserializer.end(); move |context| async move {
-                    transform_result_sse::<_, ()>((move || async move {
+let api_c = <RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<FlusterDb>>>::sse_decode(&mut deserializer);deserializer.end(); move |context| async move {
+                    transform_result_sse::<_, FlusterError>((move || async move {
                         let mut api_error_sender_guard = None;
-let mut api_db_guard = None;
-let decode_indices_ = flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![flutter_rust_bridge::for_generated::LockableOrderInfo::new(&api_error_sender, 0, false), flutter_rust_bridge::for_generated::LockableOrderInfo::new(&api_db, 1, false)]);
+let mut api_c_guard = None;
+let decode_indices_ = flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![flutter_rust_bridge::for_generated::LockableOrderInfo::new(&api_error_sender, 0, false), flutter_rust_bridge::for_generated::LockableOrderInfo::new(&api_c, 1, true)]);
         for i in decode_indices_ {
             match i {
                 0 => api_error_sender_guard = Some(api_error_sender.lockable_decode_async_ref().await),
-1 => api_db_guard = Some(api_db.lockable_decode_async_ref().await),
+1 => api_c_guard = Some(api_c.lockable_decode_async_ref_mut().await),
                 _ => unreachable!(),
             }
         }
         let api_error_sender_guard = api_error_sender_guard.unwrap();
-let api_db_guard = api_db_guard.unwrap();
- let output_ok = Result::<_,()>::Ok({ crate::api::global_actions::parse_directory::sync_fs_directory::sync_methods::sync_mdx_notes::sync_mdx_filesystem_notes(&api_notes_path, &*api_error_sender_guard, &*api_db_guard).await; })?;   Ok(output_ok)
+let mut api_c_guard = api_c_guard.unwrap();
+ let output_ok = crate::api::global_actions::parse_directory::sync_fs_directory::sync_methods::sync_mdx_notes::sync_mdx_filesystem_notes(&api_notes_path, &*api_error_sender_guard, &mut *api_c_guard).await?;   Ok(output_ok)
                     })().await)
                 } })
 }
@@ -1358,6 +1803,9 @@ flutter_rust_bridge::frb_generated_moi_arc_impl_value!(
     flutter_rust_bridge::for_generated::RustAutoOpaqueInner<FlusterTime>
 );
 flutter_rust_bridge::frb_generated_moi_arc_impl_value!(
+    flutter_rust_bridge::for_generated::RustAutoOpaqueInner<FrontMatter>
+);
+flutter_rust_bridge::frb_generated_moi_arc_impl_value!(
     flutter_rust_bridge::for_generated::RustAutoOpaqueInner<FrontMatterEntity>
 );
 flutter_rust_bridge::frb_generated_moi_arc_impl_value!(
@@ -1374,6 +1822,9 @@ flutter_rust_bridge::frb_generated_moi_arc_impl_value!(
 );
 flutter_rust_bridge::frb_generated_moi_arc_impl_value!(
     flutter_rust_bridge::for_generated::RustAutoOpaqueInner<ParsedEntity>
+);
+flutter_rust_bridge::frb_generated_moi_arc_impl_value!(
+    flutter_rust_bridge::for_generated::RustAutoOpaqueInner<Pod>
 );
 flutter_rust_bridge::frb_generated_moi_arc_impl_value!(
     flutter_rust_bridge::for_generated::RustAutoOpaqueInner<RecordId>
@@ -1467,6 +1918,16 @@ impl SseDecode for FlusterTime {
     }
 }
 
+impl SseDecode for FrontMatter {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut inner = <RustOpaqueMoi<
+            flutter_rust_bridge::for_generated::RustAutoOpaqueInner<FrontMatter>,
+        >>::sse_decode(deserializer);
+        return flutter_rust_bridge::for_generated::rust_auto_opaque_decode_owned(inner);
+    }
+}
+
 impl SseDecode for FrontMatterEntity {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
@@ -1513,6 +1974,14 @@ impl SseDecode for OffsetDateTime {
         let mut inner = <RustOpaqueMoi<
             flutter_rust_bridge::for_generated::RustAutoOpaqueInner<OffsetDateTime>,
         >>::sse_decode(deserializer);
+        return flutter_rust_bridge::for_generated::rust_auto_opaque_decode_owned(inner);
+    }
+}
+
+impl SseDecode for Pod {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut inner = <RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<Pod>>>::sse_decode(deserializer);
         return flutter_rust_bridge::for_generated::rust_auto_opaque_decode_owned(inner);
     }
 }
@@ -1632,6 +2101,16 @@ impl SseDecode
 }
 
 impl SseDecode
+    for RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<FrontMatter>>
+{
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut inner = <usize>::sse_decode(deserializer);
+        return decode_rust_opaque_moi(inner);
+    }
+}
+
+impl SseDecode
     for RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<FrontMatterEntity>>
 {
     // Codec=Sse (Serialization based), see doc to use other codecs
@@ -1684,6 +2163,14 @@ impl SseDecode
 impl SseDecode
     for RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<ParsedEntity>>
 {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut inner = <usize>::sse_decode(deserializer);
+        return decode_rust_opaque_moi(inner);
+    }
+}
+
+impl SseDecode for RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<Pod>> {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
         let mut inner = <usize>::sse_decode(deserializer);
@@ -1933,6 +2420,17 @@ impl SseDecode for Option<FlusterTime> {
     }
 }
 
+impl SseDecode for Option<Pod> {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        if (<bool>::sse_decode(deserializer)) {
+            return Some(<Pod>::sse_decode(deserializer));
+        } else {
+            return None;
+        }
+    }
+}
+
 impl SseDecode for Option<Vec<FlusterError>> {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
@@ -2077,27 +2575,29 @@ fn pde_ffi_dispatcher_primary_impl(
 6 => wire__crate__api__models__nested_models__fluster_datetime__fluster_time__FlusterTime_default_impl(port, ptr, rust_vec_len, data_len),
 7 => wire__crate__api__models__nested_models__fluster_datetime__fluster_time__FlusterTime_from_file_time_impl(port, ptr, rust_vec_len, data_len),
 8 => wire__crate__api__models__nested_models__fluster_datetime__fluster_time__FlusterTime_now_impl(port, ptr, rust_vec_len, data_len),
-15 => wire__crate__api__models__mdx_note_group__mdx_note_group__MdxNoteGroup_from_file_system_path_impl(port, ptr, rust_vec_len, data_len),
-16 => wire__crate__api__models__mdx_note_group__mdx_note_group__MdxNoteGroup_from_raw_mdx_string_impl(port, ptr, rust_vec_len, data_len),
-17 => wire__crate__api__models__bibliography__bib_file__bibtex_file_from_filesystem_path_impl(port, ptr, rust_vec_len, data_len),
-18 => wire__crate__api__models__bibliography__bib_file__bibtex_file_from_raw_file_content_impl(port, ptr, rust_vec_len, data_len),
-19 => wire__crate__api__models__bibliography__bib_file__bibtex_file_save_entries_impl(port, ptr, rust_vec_len, data_len),
-20 => wire__crate__api__models__params__cross_language_file_object__cross_language_file_default_impl(port, ptr, rust_vec_len, data_len),
-23 => wire__crate__api__data_interface__get_database_status__get_database_status_impl(port, ptr, rust_vec_len, data_len),
-24 => wire__crate__api__models__taggables__taggable__get_tag_regular_expression_impl(port, ptr, rust_vec_len, data_len),
-26 => wire__crate__api__models__enums__setting_page_ids__keymap_section_id_default_impl(port, ptr, rust_vec_len, data_len),
-27 => wire__crate__api__models__params__sync_mdx_typescript_params__math_label_option_default_impl(port, ptr, rust_vec_len, data_len),
-28 => wire__crate__api__models__enums__parsable_file_extension__note_type_default_impl(port, ptr, rust_vec_len, data_len),
-29 => wire__crate__api__initialize__on_desktop_init__on_desktop_init_impl(port, ptr, rust_vec_len, data_len),
-31 => wire__crate__api__models__settings__setting_page_id__setting_page_id_default_impl(port, ptr, rust_vec_len, data_len),
-32 => wire__crate__api__global_actions__get_summary_list__summary_list_query__summary_list_query_default_impl(port, ptr, rust_vec_len, data_len),
-33 => wire__crate__api__global_actions__get_summary_list__summary_list_result__summary_list_results_default_impl(port, ptr, rust_vec_len, data_len),
-34 => wire__crate__api__global_actions__parse_directory__sync_fs_directory__sync_filesystem_directory__sync_directory_impl(port, ptr, rust_vec_len, data_len),
-35 => wire__crate__api__global_actions__parse_directory__sync_fs_directory__models__sync_filesystem_options__sync_filesystem_directory_options_default_impl(port, ptr, rust_vec_len, data_len),
-36 => wire__crate__api__global_actions__parse_directory__sync_fs_directory__sync_methods__sync_mdx_notes__sync_mdx_filesystem_notes_impl(port, ptr, rust_vec_len, data_len),
-37 => wire__crate__api__global_actions__parse_directory__sync_fs_directory__sync_methods__sync_user_bibliography__sync_user_bibliography_impl(port, ptr, rust_vec_len, data_len),
-38 => wire__crate__api__models__taggables__taggable__taggable_from_mdx_content_impl(port, ptr, rust_vec_len, data_len),
-39 => wire__crate__api__models__taggables__taggable__taggable_from_pod_data_impl(port, ptr, rust_vec_len, data_len),
+17 => wire__crate__api__models__front_matter__FrontMatter_from_gray_matter_impl(port, ptr, rust_vec_len, data_len),
+24 => wire__crate__api__models__mdx_note_group__mdx_note_group__MdxNoteGroup_from_file_system_path_impl(port, ptr, rust_vec_len, data_len),
+25 => wire__crate__api__models__mdx_note_group__mdx_note_group__MdxNoteGroup_from_file_system_path_async_impl(port, ptr, rust_vec_len, data_len),
+26 => wire__crate__api__models__mdx_note_group__mdx_note_group__MdxNoteGroup_from_raw_mdx_string_impl(port, ptr, rust_vec_len, data_len),
+27 => wire__crate__api__models__bibliography__bib_file__bibtex_file_from_filesystem_path_impl(port, ptr, rust_vec_len, data_len),
+28 => wire__crate__api__models__bibliography__bib_file__bibtex_file_from_raw_file_content_impl(port, ptr, rust_vec_len, data_len),
+29 => wire__crate__api__models__bibliography__bib_file__bibtex_file_save_entries_impl(port, ptr, rust_vec_len, data_len),
+30 => wire__crate__api__models__params__cross_language_file_object__cross_language_file_default_impl(port, ptr, rust_vec_len, data_len),
+33 => wire__crate__api__data_interface__get_database_status__get_database_status_impl(port, ptr, rust_vec_len, data_len),
+34 => wire__crate__api__models__taggables__taggable__get_tag_regular_expression_impl(port, ptr, rust_vec_len, data_len),
+36 => wire__crate__api__models__enums__setting_page_ids__keymap_section_id_default_impl(port, ptr, rust_vec_len, data_len),
+37 => wire__crate__api__models__params__sync_mdx_typescript_params__math_label_option_default_impl(port, ptr, rust_vec_len, data_len),
+38 => wire__crate__api__models__enums__parsable_file_extension__note_type_default_impl(port, ptr, rust_vec_len, data_len),
+39 => wire__crate__api__initialize__on_desktop_init__on_desktop_init_impl(port, ptr, rust_vec_len, data_len),
+41 => wire__crate__api__models__settings__setting_page_id__setting_page_id_default_impl(port, ptr, rust_vec_len, data_len),
+42 => wire__crate__api__global_actions__get_summary_list__summary_list_query__summary_list_query_default_impl(port, ptr, rust_vec_len, data_len),
+43 => wire__crate__api__global_actions__get_summary_list__summary_list_result__summary_list_results_default_impl(port, ptr, rust_vec_len, data_len),
+44 => wire__crate__api__global_actions__parse_directory__sync_fs_directory__sync_filesystem_directory__sync_directory_impl(port, ptr, rust_vec_len, data_len),
+45 => wire__crate__api__global_actions__parse_directory__sync_fs_directory__models__sync_filesystem_options__sync_filesystem_directory_options_default_impl(port, ptr, rust_vec_len, data_len),
+46 => wire__crate__api__global_actions__parse_directory__sync_fs_directory__sync_methods__sync_mdx_notes__sync_mdx_filesystem_notes_impl(port, ptr, rust_vec_len, data_len),
+47 => wire__crate__api__global_actions__parse_directory__sync_fs_directory__sync_methods__sync_user_bibliography__sync_user_bibliography_impl(port, ptr, rust_vec_len, data_len),
+48 => wire__crate__api__models__taggables__taggable__taggable_from_mdx_content_impl(port, ptr, rust_vec_len, data_len),
+49 => wire__crate__api__models__taggables__taggable__taggable_from_pod_data_impl(port, ptr, rust_vec_len, data_len),
                         _ => unreachable!(),
                     }
 }
@@ -2114,16 +2614,24 @@ fn pde_ffi_dispatcher_sync_impl(
 2 => wire__crate__api__typedefs__note_type_utils__DbRecord_auto_accessor_set_id_impl(ptr, rust_vec_len, data_len),
 4 => wire__crate__api__models__nested_models__fluster_datetime__fluster_time__FlusterTime_auto_accessor_get_value_impl(ptr, rust_vec_len, data_len),
 5 => wire__crate__api__models__nested_models__fluster_datetime__fluster_time__FlusterTime_auto_accessor_set_value_impl(ptr, rust_vec_len, data_len),
-9 => wire__crate__api__models__mdx_note_group__mdx_note_group__MdxNoteGroup_auto_accessor_get_front_matter_impl(ptr, rust_vec_len, data_len),
-10 => wire__crate__api__models__mdx_note_group__mdx_note_group__MdxNoteGroup_auto_accessor_get_mdx_impl(ptr, rust_vec_len, data_len),
-11 => wire__crate__api__models__mdx_note_group__mdx_note_group__MdxNoteGroup_auto_accessor_get_tags_impl(ptr, rust_vec_len, data_len),
-12 => wire__crate__api__models__mdx_note_group__mdx_note_group__MdxNoteGroup_auto_accessor_set_front_matter_impl(ptr, rust_vec_len, data_len),
-13 => wire__crate__api__models__mdx_note_group__mdx_note_group__MdxNoteGroup_auto_accessor_set_mdx_impl(ptr, rust_vec_len, data_len),
-14 => wire__crate__api__models__mdx_note_group__mdx_note_group__MdxNoteGroup_auto_accessor_set_tags_impl(ptr, rust_vec_len, data_len),
-21 => wire__crate__api__fs__fs_utils__get_app_config_dir_impl(ptr, rust_vec_len, data_len),
-22 => wire__crate__api__fs__fs_utils__get_app_data_dir_impl(ptr, rust_vec_len, data_len),
-25 => wire__crate__api__search__get_text_similarity__get_text_similarity_impl(ptr, rust_vec_len, data_len),
-30 => wire__crate__api__fs__fs_utils__path_exists_impl(ptr, rust_vec_len, data_len),
+9 => wire__crate__api__models__front_matter__FrontMatter_auto_accessor_get_data_impl(ptr, rust_vec_len, data_len),
+10 => wire__crate__api__models__front_matter__FrontMatter_auto_accessor_get_subjects_impl(ptr, rust_vec_len, data_len),
+11 => wire__crate__api__models__front_matter__FrontMatter_auto_accessor_get_tags_impl(ptr, rust_vec_len, data_len),
+12 => wire__crate__api__models__front_matter__FrontMatter_auto_accessor_get_topics_impl(ptr, rust_vec_len, data_len),
+13 => wire__crate__api__models__front_matter__FrontMatter_auto_accessor_set_data_impl(ptr, rust_vec_len, data_len),
+14 => wire__crate__api__models__front_matter__FrontMatter_auto_accessor_set_subjects_impl(ptr, rust_vec_len, data_len),
+15 => wire__crate__api__models__front_matter__FrontMatter_auto_accessor_set_tags_impl(ptr, rust_vec_len, data_len),
+16 => wire__crate__api__models__front_matter__FrontMatter_auto_accessor_set_topics_impl(ptr, rust_vec_len, data_len),
+18 => wire__crate__api__models__mdx_note_group__mdx_note_group__MdxNoteGroup_auto_accessor_get_front_matter_impl(ptr, rust_vec_len, data_len),
+19 => wire__crate__api__models__mdx_note_group__mdx_note_group__MdxNoteGroup_auto_accessor_get_mdx_impl(ptr, rust_vec_len, data_len),
+20 => wire__crate__api__models__mdx_note_group__mdx_note_group__MdxNoteGroup_auto_accessor_get_tags_impl(ptr, rust_vec_len, data_len),
+21 => wire__crate__api__models__mdx_note_group__mdx_note_group__MdxNoteGroup_auto_accessor_set_front_matter_impl(ptr, rust_vec_len, data_len),
+22 => wire__crate__api__models__mdx_note_group__mdx_note_group__MdxNoteGroup_auto_accessor_set_mdx_impl(ptr, rust_vec_len, data_len),
+23 => wire__crate__api__models__mdx_note_group__mdx_note_group__MdxNoteGroup_auto_accessor_set_tags_impl(ptr, rust_vec_len, data_len),
+31 => wire__crate__api__fs__fs_utils__get_app_config_dir_impl(ptr, rust_vec_len, data_len),
+32 => wire__crate__api__fs__fs_utils__get_app_data_dir_impl(ptr, rust_vec_len, data_len),
+35 => wire__crate__api__search__get_text_similarity__get_text_similarity_impl(ptr, rust_vec_len, data_len),
+40 => wire__crate__api__fs__fs_utils__path_exists_impl(ptr, rust_vec_len, data_len),
                         _ => unreachable!(),
                     }
 }
@@ -2261,6 +2769,21 @@ impl flutter_rust_bridge::IntoIntoDart<FrbWrapper<FlusterTime>> for FlusterTime 
 }
 
 // Codec=Dco (DartCObject based), see doc to use other codecs
+impl flutter_rust_bridge::IntoDart for FrbWrapper<FrontMatter> {
+    fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
+        flutter_rust_bridge::for_generated::rust_auto_opaque_encode::<_, MoiArc<_>>(self.0)
+            .into_dart()
+    }
+}
+impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive for FrbWrapper<FrontMatter> {}
+
+impl flutter_rust_bridge::IntoIntoDart<FrbWrapper<FrontMatter>> for FrontMatter {
+    fn into_into_dart(self) -> FrbWrapper<FrontMatter> {
+        self.into()
+    }
+}
+
+// Codec=Dco (DartCObject based), see doc to use other codecs
 impl flutter_rust_bridge::IntoDart for FrbWrapper<FrontMatterEntity> {
     fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
         flutter_rust_bridge::for_generated::rust_auto_opaque_encode::<_, MoiArc<_>>(self.0)
@@ -2331,6 +2854,21 @@ impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive for FrbWrapper<
 
 impl flutter_rust_bridge::IntoIntoDart<FrbWrapper<OffsetDateTime>> for OffsetDateTime {
     fn into_into_dart(self) -> FrbWrapper<OffsetDateTime> {
+        self.into()
+    }
+}
+
+// Codec=Dco (DartCObject based), see doc to use other codecs
+impl flutter_rust_bridge::IntoDart for FrbWrapper<Pod> {
+    fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
+        flutter_rust_bridge::for_generated::rust_auto_opaque_encode::<_, MoiArc<_>>(self.0)
+            .into_dart()
+    }
+}
+impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive for FrbWrapper<Pod> {}
+
+impl flutter_rust_bridge::IntoIntoDart<FrbWrapper<Pod>> for Pod {
+    fn into_into_dart(self) -> FrbWrapper<Pod> {
         self.into()
     }
 }
@@ -2745,6 +3283,13 @@ impl SseEncode for FlusterTime {
     }
 }
 
+impl SseEncode for FrontMatter {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<FrontMatter>>>::sse_encode(flutter_rust_bridge::for_generated::rust_auto_opaque_encode::<_, MoiArc<_>>(self), serializer);
+    }
+}
+
 impl SseEncode for FrontMatterEntity {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
@@ -2777,6 +3322,16 @@ impl SseEncode for OffsetDateTime {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
         <RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<OffsetDateTime>>>::sse_encode(flutter_rust_bridge::for_generated::rust_auto_opaque_encode::<_, MoiArc<_>>(self), serializer);
+    }
+}
+
+impl SseEncode for Pod {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<Pod>>>::sse_encode(
+            flutter_rust_bridge::for_generated::rust_auto_opaque_encode::<_, MoiArc<_>>(self),
+            serializer,
+        );
     }
 }
 
@@ -2901,6 +3456,17 @@ impl SseEncode
 }
 
 impl SseEncode
+    for RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<FrontMatter>>
+{
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        let (ptr, size) = self.sse_encode_raw();
+        <usize>::sse_encode(ptr, serializer);
+        <i32>::sse_encode(size, serializer);
+    }
+}
+
+impl SseEncode
     for RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<FrontMatterEntity>>
 {
     // Codec=Sse (Serialization based), see doc to use other codecs
@@ -2958,6 +3524,15 @@ impl SseEncode
 impl SseEncode
     for RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<ParsedEntity>>
 {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        let (ptr, size) = self.sse_encode_raw();
+        <usize>::sse_encode(ptr, serializer);
+        <i32>::sse_encode(size, serializer);
+    }
+}
+
+impl SseEncode for RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<Pod>> {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
         let (ptr, size) = self.sse_encode_raw();
@@ -3195,6 +3770,16 @@ impl SseEncode for Option<FlusterTime> {
     }
 }
 
+impl SseEncode for Option<Pod> {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <bool>::sse_encode(self.is_some(), serializer);
+        if let Some(value) = self {
+            <Pod>::sse_encode(value, serializer);
+        }
+    }
+}
+
 impl SseEncode for Option<Vec<FlusterError>> {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
@@ -3324,14 +3909,15 @@ mod io {
 
     // Section: imports
 
-    use crate::api::embedded_ts::*;
-use crate::api::models::bibliography::bib_file::*;
-use crate::api::typedefs::note_type_utils::*;
-use crate::api::models::mdx_note_group::mdx_note_group::*;
+    use crate::api::typedefs::note_type_utils::*;
 use crate::api::models::nested_models::fluster_datetime::fluster_time::*;
+use crate::api::models::front_matter::*;
+use crate::api::embedded_ts::*;
+use crate::api::models::mdx_note_group::mdx_note_group::*;
+use crate::*;
 use crate::api::models::taggables::taggable::*;
 use crate::api::global_actions::parse_directory::sync_fs_directory::sync_methods::sync_mdx_notes::*;
-use crate::*;use flutter_rust_bridge::{Handler, IntoIntoDart};
+use crate::api::models::bibliography::bib_file::*;use flutter_rust_bridge::{Handler, IntoIntoDart};
 use flutter_rust_bridge::for_generated::{Lockable, transform_result_dco, Lifetimeable};
 use flutter_rust_bridge::for_generated::byteorder::{NativeEndian, WriteBytesExt, ReadBytesExt};use super::*;
 
@@ -3470,6 +4056,20 @@ use flutter_rust_bridge::for_generated::byteorder::{NativeEndian, WriteBytesExt,
     }
 
     #[unsafe(no_mangle)]
+    pub extern "C" fn frbgen_fluster_native_interface_rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFrontMatter(
+        ptr: *const std::ffi::c_void,
+    ) {
+        MoiArc::<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<FrontMatter>>::increment_strong_count(ptr as _);
+    }
+
+    #[unsafe(no_mangle)]
+    pub extern "C" fn frbgen_fluster_native_interface_rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFrontMatter(
+        ptr: *const std::ffi::c_void,
+    ) {
+        MoiArc::<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<FrontMatter>>::decrement_strong_count(ptr as _);
+    }
+
+    #[unsafe(no_mangle)]
     pub extern "C" fn frbgen_fluster_native_interface_rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFrontMatterEntity(
         ptr: *const std::ffi::c_void,
     ) {
@@ -3554,6 +4154,20 @@ use flutter_rust_bridge::for_generated::byteorder::{NativeEndian, WriteBytesExt,
     }
 
     #[unsafe(no_mangle)]
+    pub extern "C" fn frbgen_fluster_native_interface_rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerPod(
+        ptr: *const std::ffi::c_void,
+    ) {
+        MoiArc::<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<Pod>>::increment_strong_count(ptr as _);
+    }
+
+    #[unsafe(no_mangle)]
+    pub extern "C" fn frbgen_fluster_native_interface_rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerPod(
+        ptr: *const std::ffi::c_void,
+    ) {
+        MoiArc::<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<Pod>>::decrement_strong_count(ptr as _);
+    }
+
+    #[unsafe(no_mangle)]
     pub extern "C" fn frbgen_fluster_native_interface_rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRecordId(
         ptr: *const std::ffi::c_void,
     ) {
@@ -3606,14 +4220,15 @@ mod web {
 
     // Section: imports
 
-    use crate::api::embedded_ts::*;
-use crate::api::models::bibliography::bib_file::*;
-use crate::api::typedefs::note_type_utils::*;
-use crate::api::models::mdx_note_group::mdx_note_group::*;
+    use crate::api::typedefs::note_type_utils::*;
 use crate::api::models::nested_models::fluster_datetime::fluster_time::*;
+use crate::api::models::front_matter::*;
+use crate::api::embedded_ts::*;
+use crate::api::models::mdx_note_group::mdx_note_group::*;
+use crate::*;
 use crate::api::models::taggables::taggable::*;
 use crate::api::global_actions::parse_directory::sync_fs_directory::sync_methods::sync_mdx_notes::*;
-use crate::*;use flutter_rust_bridge::{Handler, IntoIntoDart};
+use crate::api::models::bibliography::bib_file::*;use flutter_rust_bridge::{Handler, IntoIntoDart};
 use flutter_rust_bridge::for_generated::{Lockable, transform_result_dco, Lifetimeable};
 use flutter_rust_bridge::for_generated::byteorder::{NativeEndian, WriteBytesExt, ReadBytesExt};use super::*;
                 use flutter_rust_bridge::for_generated::wasm_bindgen;
@@ -3754,6 +4369,20 @@ use flutter_rust_bridge::for_generated::byteorder::{NativeEndian, WriteBytesExt,
     }
 
     #[wasm_bindgen]
+    pub fn rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFrontMatter(
+        ptr: *const std::ffi::c_void,
+    ) {
+        MoiArc::<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<FrontMatter>>::increment_strong_count(ptr as _);
+    }
+
+    #[wasm_bindgen]
+    pub fn rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFrontMatter(
+        ptr: *const std::ffi::c_void,
+    ) {
+        MoiArc::<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<FrontMatter>>::decrement_strong_count(ptr as _);
+    }
+
+    #[wasm_bindgen]
     pub fn rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFrontMatterEntity(
         ptr: *const std::ffi::c_void,
     ) {
@@ -3835,6 +4464,20 @@ use flutter_rust_bridge::for_generated::byteorder::{NativeEndian, WriteBytesExt,
         ptr: *const std::ffi::c_void,
     ) {
         MoiArc::<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<ParsedEntity>>::decrement_strong_count(ptr as _);
+    }
+
+    #[wasm_bindgen]
+    pub fn rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerPod(
+        ptr: *const std::ffi::c_void,
+    ) {
+        MoiArc::<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<Pod>>::increment_strong_count(ptr as _);
+    }
+
+    #[wasm_bindgen]
+    pub fn rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerPod(
+        ptr: *const std::ffi::c_void,
+    ) {
+        MoiArc::<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<Pod>>::decrement_strong_count(ptr as _);
     }
 
     #[wasm_bindgen]

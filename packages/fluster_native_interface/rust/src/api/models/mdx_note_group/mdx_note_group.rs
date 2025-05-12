@@ -1,56 +1,60 @@
 use filetime::FileTime;
-use fluster_db::{
-    api::db::FlusterError,
-    entities::{
-        mdx_note::{front_matter::FrontMatterEntity, mdx_note_creatable::MdxNoteCreatable},
-        taggable::tag_model::TagEntity,
-    },
-};
+use fluster_db::{api::db::FlusterError, entities::mdx_note::mdx_note_creatable::MdxNoteCreatable};
 use fluster_types::errors::errors::FlusterResult;
 use gray_matter::{engine::YAML, Matter};
 use std::fs;
+use std::fs::Metadata;
 
-use crate::api::models::taggables::taggable::Taggable;
+use crate::api::models::{front_matter::FrontMatter, taggables::taggable::Taggable};
 
+#[derive(Debug, Clone)]
 pub struct MdxNoteGroup {
     pub mdx: MdxNoteCreatable,
-    pub front_matter: FrontMatterEntity,
+    pub front_matter: FrontMatter,
     pub tags: Vec<Taggable>,
 }
 
 impl MdxNoteGroup {
+    fn handle_fs_parse(
+        raw_file_content: String,
+        file_path: String,
+        file_meta: &Metadata,
+    ) -> FlusterResult<MdxNoteGroup> {
+        let mut note_data =
+            MdxNoteGroup::from_raw_mdx_string(raw_file_content, Some(file_path.to_string()))
+                .or_else(|_| Err(FlusterError::FailToUpsertTags))?;
+        note_data.mdx.atime = Some(chrono::NaiveDateTime::from_timestamp(
+            FileTime::from_last_access_time(file_meta).seconds(),
+            0,
+        ));
+        note_data.mdx.ctime = Some(chrono::NaiveDateTime::from_timestamp(
+            FileTime::from_creation_time(file_meta)
+                .or(Some(FileTime::now()))
+                .unwrap()
+                .seconds(),
+            0,
+        ));
+        note_data.mdx.mtime = Some(chrono::NaiveDateTime::from_timestamp(
+            FileTime::from_last_modification_time(file_meta).seconds(),
+            0,
+        ));
+        Ok(note_data)
+    }
     pub fn from_file_system_path(file_path: String) -> FlusterResult<MdxNoteGroup> {
-        let raw_file_content = fs::read_to_string(&file_path);
-        let file_meta = fs::metadata(&file_path);
-        if file_meta.is_err() {
-            return Err(FlusterError::MdxParsingError(file_path.to_owned()));
-        }
-        if let Ok(content) = raw_file_content {
-            if let Ok(mut note_data) =
-                MdxNoteGroup::from_raw_mdx_string(content, Some(file_path.to_string()))
-            {
-                note_data.mdx.atime = Some(chrono::NaiveDateTime::from_timestamp(
-                    FileTime::from_last_access_time(file_meta.as_ref().unwrap()).seconds(),
-                    0,
-                ));
-                note_data.mdx.ctime = Some(chrono::NaiveDateTime::from_timestamp(
-                    FileTime::from_creation_time(file_meta.as_ref().unwrap())
-                        .or(Some(FileTime::now()))
-                        .unwrap()
-                        .seconds(),
-                    0,
-                ));
-                note_data.mdx.mtime = Some(chrono::NaiveDateTime::from_timestamp(
-                    FileTime::from_last_modification_time(file_meta.as_ref().unwrap()).seconds(),
-                    0,
-                ));
-                Ok(note_data)
-            } else {
-                Err(FlusterError::MdxParsingError(file_path.to_owned()))
-            }
-        } else {
-            Err(FlusterError::MdxParsingError(file_path.to_owned()))
-        }
+        let raw_file_content = fs::read_to_string(&file_path)
+            .or_else(|_| Err(FlusterError::FailToReadFileSystemPath(file_path.clone())))?;
+        let file_meta = fs::metadata(&file_path)
+            .or_else(|_| Err(FlusterError::FailToReadFileSystemPath(file_path.clone())))?;
+        MdxNoteGroup::handle_fs_parse(raw_file_content, file_path, &file_meta)
+    }
+    pub async fn from_file_system_path_async(file_path: String) -> FlusterResult<MdxNoteGroup> {
+        let raw_file_content = tokio::fs::read_to_string(&file_path)
+            .await
+            .or_else(|_| Err(FlusterError::FailToReadFileSystemPath(file_path.clone())))?;
+        let file_meta = tokio::fs::metadata(&file_path)
+            .await
+            .or_else(|_| Err(FlusterError::FailToReadFileSystemPath(file_path.clone())))?;
+        MdxNoteGroup::handle_fs_parse(raw_file_content, file_path, &file_meta)
     }
     pub fn from_raw_mdx_string(
         raw_file_content: String,
@@ -61,7 +65,7 @@ impl MdxNoteGroup {
         let fp = file_path.unwrap_or("Unknown".to_string());
         let post_tag_parse = Taggable::from_mdx_content(&result);
         Ok(MdxNoteGroup {
-            front_matter: FrontMatterEntity::from_gray_matter(result.data),
+            front_matter: FrontMatter::from_gray_matter(result.data),
             mdx: MdxNoteCreatable {
                 id: None,
                 raw_body: post_tag_parse.parsed_content,
@@ -72,5 +76,53 @@ impl MdxNoteGroup {
             },
             tags: post_tag_parse.tags,
         })
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use fluster_db::entities::taggable::tag_model::TaggableType;
+    use fluster_test_utils::test_utils::get_test_mdx_path;
+
+    use super::*;
+
+    fn assert_front_matter_good(note_data: Result<MdxNoteGroup, FlusterError>) {
+        assert!(
+            note_data.is_ok(),
+            "Parses a file system mdx note without throwing an error."
+        );
+        let n = note_data.unwrap();
+        let tags = n.front_matter.tags;
+        let topics = n.front_matter.topics;
+        let subjects = n.front_matter.subjects;
+        assert!(
+            tags[0].value == "Tag 1" && tags[0].tag_type == TaggableType::Subject,
+            "Gathers tags properly."
+        );
+        assert!(
+            subjects[0].value == "Subject 1" && subjects[0].tag_type == TaggableType::Subject,
+            "Gathers subjects properly."
+        );
+        assert!(
+            topics[0].value == "Topic 1" && topics[0].tag_type == TaggableType::Topic,
+            "Gathers topics properly."
+        );
+    }
+
+    #[test]
+    fn from_file_system_path_parses_properly() {
+        let test_path = get_test_mdx_path();
+        let note_data =
+            MdxNoteGroup::from_file_system_path(test_path.to_str().unwrap().to_string());
+        assert_front_matter_good(note_data);
+    }
+
+    #[tokio::test]
+    async fn from_file_system_path_async_parses_properly() {
+        let test_path = get_test_mdx_path();
+        let note_data =
+            MdxNoteGroup::from_file_system_path_async(test_path.to_str().unwrap().to_string())
+                .await;
+        assert_front_matter_good(note_data);
     }
 }

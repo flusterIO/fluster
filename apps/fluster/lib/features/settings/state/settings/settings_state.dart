@@ -26,8 +26,6 @@ class SettingsState with _$SettingsState {
     );
     final t = Timer(Duration(seconds: 3), () => {});
     t.cancel();
-    // RESUME: Come back here immediately. This is where the seeding needs to happen.
-    // rust.
     globalReduxStore.dispatch(
       SetLoadingAction(false, LoadingSource.databaseSettings),
     );
