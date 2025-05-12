@@ -1,5 +1,5 @@
 use crossbeam_channel::unbounded;
-use fluster_db::api::db::{get_database, FlusterError};
+use fluster_db::api::db::{get_database_connection, FlusterError};
 use std::cmp::max;
 
 use super::{
@@ -14,7 +14,7 @@ pub async fn sync_directory(opts: SyncFilesystemDirectoryOptions) -> Option<Vec<
     // let notes_path = path::Path::new(&opts.dir_path);
     let mut errors: Vec<FlusterError> = Vec::new();
 
-    let database = get_database().await;
+    let database = get_database_connection().await;
 
     if database.is_err() {
         errors.push(FlusterError::FailToConnect);

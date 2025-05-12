@@ -1,7 +1,7 @@
-pub use crate::api::global_actions::get_summary_list::summary_types::mdx_note_summary::MdxNoteSummary;
-pub use crate::api::models::notes::front_matter::front_matter_model::FrontMatter;
-pub use crate::api::models::notes::mdx::mdx_note::MdxNote;
-pub use crate::api::repositories::notes::mdx::mdx_notes_repository::MdxNotesRepository;
+pub use fluster_db::entities::mdx_note::front_matter::FrontMatterEntity;
+// pub use fluster_db::entities::mdx_note::mdx_note_entity::MdxNoteEntity;
+pub use fluster_db::entities::bibliography::citation::BibEntryEntity;
+pub use fluster_db::entities::mdx_note::mdx_note_summary::MdxNoteSummary;
 // pub use crate::api::traits::db_entity::FlusterDatabaseEntity;
 pub use crate::api::typedefs::note_type_utils::FlusterDb;
 pub use crate::api::typedefs::note_type_utils::*;

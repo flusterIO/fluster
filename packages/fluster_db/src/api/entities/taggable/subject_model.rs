@@ -3,11 +3,6 @@ use diesel::prelude::*;
 use regex::Regex;
 use serde::{Deserialize, Serialize};
 
-#[flutter_rust_bridge::frb(ignore)]
-pub fn get_tag_regular_expression() -> Regex {
-    Regex::new(r"\[\[#(?<body>[^#]+)\]\]").unwrap()
-}
-
 #[derive(
     Debug,
     Deserialize,

@@ -1,7 +1,7 @@
-use crate::api::models::notes::mdx::mdx_note::MdxNote;
 use crate::api::typedefs::note_type_utils::FlusterDb;
 use crossbeam_channel::unbounded;
 use crossbeam_channel::Sender;
+use fluster_db::entities::mdx_note::mdx_note_entity::MdxNoteEntity;
 use fluster_types::errors::errors::FlusterError;
 use flutter_rust_bridge::frb;
 use ignore::WalkBuilder;
@@ -13,7 +13,7 @@ pub async fn sync_mdx_filesystem_notes(
     error_sender: &Sender<FlusterError>,
     db: &FlusterDb,
 ) {
-    let (mdx_sender, mdx_receiver) = unbounded::<Result<MdxNote, FlusterError>>();
+    let (mdx_sender, mdx_receiver) = unbounded::<Result<MdxNoteEntity, FlusterError>>();
     WalkBuilder::new(notes_path)
         .threads(32)
         .add_custom_ignore_filename(".flusterIgnore")
@@ -26,8 +26,9 @@ pub async fn sync_mdx_filesystem_notes(
                     let entry = either_entry.unwrap();
                     let path = entry.path();
                     if path.is_file() && path.extension() == Some("mdx".as_ref()) {
-                        let note = MdxNote::from_file_system_path(path.to_str().unwrap());
-                        sender.send(note).unwrap();
+                        // RESUME: Implement the MdxNoteGroup here that gathers both the front matter and the note data.
+                        // let note_group = MdxNoteGroup::from_file_system_path(path.to_str().unwrap());
+                        // sender.send(note).unwrap();
                     }
                 }
                 WalkState::Continue

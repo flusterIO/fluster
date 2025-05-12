@@ -1,4 +1,4 @@
-use fluster_db::api::{db::get_database, utils::get_database_path};
+use fluster_db::api::utils::get_database_path;
 
 #[derive(PartialEq, Eq)]
 pub enum FlusterDatabaseStatus {

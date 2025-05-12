@@ -3,6 +3,7 @@ use std::{path::PathBuf, str::FromStr};
 use biblatex::{Bibliography, Entry};
 use fluster_types::errors::errors::FlusterError;
 use tokio::fs;
+use fluster_db::entities::bibliography::citation::BibEntryEntity;
 
 use crate::api::embedded_ts::{EmbeddedTypescriptFiles, FlusterDb};
 

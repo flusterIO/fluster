@@ -14,7 +14,7 @@ generate_icons:
 	cd ${FLUSTER_NATIVE_ROOT}/apps/fluster/; flutter pub run flutter_launcher_icons -f flutter_launcher_icons.yaml
 run_builders:
 	cd ${FLUSTER_NATIVE_ROOT}; dart run build_runner build --delete-conflicting-outputs
-build_protos:
+build_protos: build_go
 	${FLUSTER_NATIVE_ROOT}/packages/fluster_internal_workspace/fluster_internal_workspace generate_grpc_script
 	${FLUSTER_NATIVE_ROOT}/packages/fluster_grpc/scripts/clean.sh
 	cd ${FLUSTER_NATIVE_ROOT}/packages/fluster_grpc; ${FLUSTER_NATIVE_ROOT}/packages/fluster_grpc/scripts/distribute_proto.sh

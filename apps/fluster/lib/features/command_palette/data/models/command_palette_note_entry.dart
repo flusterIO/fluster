@@ -15,6 +15,7 @@ class CommandPaletteNoteEntry extends CommandPaletteItem {
         },
       );
 
+  // FIXME: Come back and fix this immediately This is the bug causing issues... maybe.
   static CommandPaletteNoteEntry fromNoteEntity(MdxNoteEntity entity) {
     return CommandPaletteNoteEntry(
       noteId: entity.id.toString(),

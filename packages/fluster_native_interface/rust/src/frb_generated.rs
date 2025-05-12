@@ -26,12 +26,9 @@
 // Section: imports
 
 use crate::api::embedded_ts::*;
-use crate::api::global_actions::get_summary_list::summary_types::mdx_note_summary::*;
 use crate::api::global_actions::parse_directory::sync_fs_directory::sync_methods::sync_mdx_notes::*;
 use crate::api::models::bibliography::bib_file::*;
-use crate::api::models::bibliography::reading_list::*;
 use crate::api::models::nested_models::fluster_datetime::fluster_time::*;
-use crate::api::models::notes::front_matter::front_matter_model::*;
 use crate::api::typedefs::note_type_utils::*;
 use crate::*;
 use flutter_rust_bridge::for_generated::byteorder::{NativeEndian, ReadBytesExt, WriteBytesExt};
@@ -46,7 +43,7 @@ flutter_rust_bridge::frb_generated_boilerplate!(
     default_rust_auto_opaque = RustAutoOpaqueMoi,
 );
 pub(crate) const FLUTTER_RUST_BRIDGE_CODEGEN_VERSION: &str = "2.9.0";
-pub(crate) const FLUTTER_RUST_BRIDGE_CODEGEN_CONTENT_HASH: i32 = 445113743;
+pub(crate) const FLUTTER_RUST_BRIDGE_CODEGEN_CONTENT_HASH: i32 = 25227298;
 
 // Section: executor
 
@@ -328,631 +325,6 @@ fn wire__crate__api__models__nested_models__fluster_datetime__fluster_time__Flus
                     })())
                 } })
 }
-fn wire__crate__api__global_actions__get_summary_list__summary_types__mdx_note_summary__MdxNoteSummary_auto_accessor_get_front_matter_impl(
-    ptr_: flutter_rust_bridge::for_generated::PlatformGeneralizedUint8ListPtr,
-    rust_vec_len_: i32,
-    data_len_: i32,
-) -> flutter_rust_bridge::for_generated::WireSyncRust2DartSse {
-    FLUTTER_RUST_BRIDGE_HANDLER.wrap_sync::<flutter_rust_bridge::for_generated::SseCodec, _>(
-        flutter_rust_bridge::for_generated::TaskInfo {
-            debug_name: "MdxNoteSummary_auto_accessor_get_front_matter",
-            port: None,
-            mode: flutter_rust_bridge::for_generated::FfiCallMode::Sync,
-        },
-        move || {
-            let message = unsafe {
-                flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(
-                    ptr_,
-                    rust_vec_len_,
-                    data_len_,
-                )
-            };
-            let mut deserializer =
-                flutter_rust_bridge::for_generated::SseDeserializer::new(message);
-            let api_that = <RustOpaqueMoi<
-                flutter_rust_bridge::for_generated::RustAutoOpaqueInner<MdxNoteSummary>,
-            >>::sse_decode(&mut deserializer);
-            deserializer.end();
-            transform_result_sse::<_, ()>((move || {
-                let mut api_that_guard = None;
-                let decode_indices_ =
-                    flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![
-                        flutter_rust_bridge::for_generated::LockableOrderInfo::new(
-                            &api_that, 0, false,
-                        ),
-                    ]);
-                for i in decode_indices_ {
-                    match i {
-                        0 => api_that_guard = Some(api_that.lockable_decode_sync_ref()),
-                        _ => unreachable!(),
-                    }
-                }
-                let api_that_guard = api_that_guard.unwrap();
-                let output_ok = Result::<_, ()>::Ok(api_that_guard.front_matter.clone())?;
-                Ok(output_ok)
-            })())
-        },
-    )
-}
-fn wire__crate__api__global_actions__get_summary_list__summary_types__mdx_note_summary__MdxNoteSummary_auto_accessor_get_id_impl(
-    ptr_: flutter_rust_bridge::for_generated::PlatformGeneralizedUint8ListPtr,
-    rust_vec_len_: i32,
-    data_len_: i32,
-) -> flutter_rust_bridge::for_generated::WireSyncRust2DartSse {
-    FLUTTER_RUST_BRIDGE_HANDLER.wrap_sync::<flutter_rust_bridge::for_generated::SseCodec, _>(
-        flutter_rust_bridge::for_generated::TaskInfo {
-            debug_name: "MdxNoteSummary_auto_accessor_get_id",
-            port: None,
-            mode: flutter_rust_bridge::for_generated::FfiCallMode::Sync,
-        },
-        move || {
-            let message = unsafe {
-                flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(
-                    ptr_,
-                    rust_vec_len_,
-                    data_len_,
-                )
-            };
-            let mut deserializer =
-                flutter_rust_bridge::for_generated::SseDeserializer::new(message);
-            let api_that = <RustOpaqueMoi<
-                flutter_rust_bridge::for_generated::RustAutoOpaqueInner<MdxNoteSummary>,
-            >>::sse_decode(&mut deserializer);
-            deserializer.end();
-            transform_result_sse::<_, ()>((move || {
-                let mut api_that_guard = None;
-                let decode_indices_ =
-                    flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![
-                        flutter_rust_bridge::for_generated::LockableOrderInfo::new(
-                            &api_that, 0, false,
-                        ),
-                    ]);
-                for i in decode_indices_ {
-                    match i {
-                        0 => api_that_guard = Some(api_that.lockable_decode_sync_ref()),
-                        _ => unreachable!(),
-                    }
-                }
-                let api_that_guard = api_that_guard.unwrap();
-                let output_ok = Result::<_, ()>::Ok(api_that_guard.id.clone())?;
-                Ok(output_ok)
-            })())
-        },
-    )
-}
-fn wire__crate__api__global_actions__get_summary_list__summary_types__mdx_note_summary__MdxNoteSummary_auto_accessor_set_front_matter_impl(
-    ptr_: flutter_rust_bridge::for_generated::PlatformGeneralizedUint8ListPtr,
-    rust_vec_len_: i32,
-    data_len_: i32,
-) -> flutter_rust_bridge::for_generated::WireSyncRust2DartSse {
-    FLUTTER_RUST_BRIDGE_HANDLER.wrap_sync::<flutter_rust_bridge::for_generated::SseCodec,_>(flutter_rust_bridge::for_generated::TaskInfo{ debug_name: "MdxNoteSummary_auto_accessor_set_front_matter", port: None, mode: flutter_rust_bridge::for_generated::FfiCallMode::Sync }, move || { 
-            let message = unsafe { flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(ptr_, rust_vec_len_, data_len_) };
-            let mut deserializer = flutter_rust_bridge::for_generated::SseDeserializer::new(message);
-            let api_that = <RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<MdxNoteSummary>>>::sse_decode(&mut deserializer);
-let api_front_matter = <crate::api::models::notes::front_matter::front_matter_model::FrontMatter>::sse_decode(&mut deserializer);deserializer.end();
-                transform_result_sse::<_, ()>((move || {
-                    let mut api_that_guard = None;
-let decode_indices_ = flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![flutter_rust_bridge::for_generated::LockableOrderInfo::new(&api_that, 0, true)]);
-        for i in decode_indices_ {
-            match i {
-                0 => api_that_guard = Some(api_that.lockable_decode_sync_ref_mut()),
-                _ => unreachable!(),
-            }
-        }
-        let mut api_that_guard = api_that_guard.unwrap();
- let output_ok = Result::<_,()>::Ok({ { api_that_guard.front_matter = api_front_matter; }; })?;   Ok(output_ok)
-                })()) })
-}
-fn wire__crate__api__global_actions__get_summary_list__summary_types__mdx_note_summary__MdxNoteSummary_auto_accessor_set_id_impl(
-    ptr_: flutter_rust_bridge::for_generated::PlatformGeneralizedUint8ListPtr,
-    rust_vec_len_: i32,
-    data_len_: i32,
-) -> flutter_rust_bridge::for_generated::WireSyncRust2DartSse {
-    FLUTTER_RUST_BRIDGE_HANDLER.wrap_sync::<flutter_rust_bridge::for_generated::SseCodec, _>(
-        flutter_rust_bridge::for_generated::TaskInfo {
-            debug_name: "MdxNoteSummary_auto_accessor_set_id",
-            port: None,
-            mode: flutter_rust_bridge::for_generated::FfiCallMode::Sync,
-        },
-        move || {
-            let message = unsafe {
-                flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(
-                    ptr_,
-                    rust_vec_len_,
-                    data_len_,
-                )
-            };
-            let mut deserializer =
-                flutter_rust_bridge::for_generated::SseDeserializer::new(message);
-            let api_that = <RustOpaqueMoi<
-                flutter_rust_bridge::for_generated::RustAutoOpaqueInner<MdxNoteSummary>,
-            >>::sse_decode(&mut deserializer);
-            let api_id = <Thing>::sse_decode(&mut deserializer);
-            deserializer.end();
-            transform_result_sse::<_, ()>((move || {
-                let mut api_that_guard = None;
-                let decode_indices_ =
-                    flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![
-                        flutter_rust_bridge::for_generated::LockableOrderInfo::new(
-                            &api_that, 0, true,
-                        ),
-                    ]);
-                for i in decode_indices_ {
-                    match i {
-                        0 => api_that_guard = Some(api_that.lockable_decode_sync_ref_mut()),
-                        _ => unreachable!(),
-                    }
-                }
-                let mut api_that_guard = api_that_guard.unwrap();
-                let output_ok = Result::<_, ()>::Ok({
-                    {
-                        api_that_guard.id = api_id;
-                    };
-                })?;
-                Ok(output_ok)
-            })())
-        },
-    )
-}
-fn wire__crate__api__models__bibliography__reading_list__ReadingList_auto_accessor_get_created_at_impl(
-    ptr_: flutter_rust_bridge::for_generated::PlatformGeneralizedUint8ListPtr,
-    rust_vec_len_: i32,
-    data_len_: i32,
-) -> flutter_rust_bridge::for_generated::WireSyncRust2DartSse {
-    FLUTTER_RUST_BRIDGE_HANDLER.wrap_sync::<flutter_rust_bridge::for_generated::SseCodec, _>(
-        flutter_rust_bridge::for_generated::TaskInfo {
-            debug_name: "ReadingList_auto_accessor_get_created_at",
-            port: None,
-            mode: flutter_rust_bridge::for_generated::FfiCallMode::Sync,
-        },
-        move || {
-            let message = unsafe {
-                flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(
-                    ptr_,
-                    rust_vec_len_,
-                    data_len_,
-                )
-            };
-            let mut deserializer =
-                flutter_rust_bridge::for_generated::SseDeserializer::new(message);
-            let api_that = <RustOpaqueMoi<
-                flutter_rust_bridge::for_generated::RustAutoOpaqueInner<ReadingList>,
-            >>::sse_decode(&mut deserializer);
-            deserializer.end();
-            transform_result_sse::<_, ()>((move || {
-                let mut api_that_guard = None;
-                let decode_indices_ =
-                    flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![
-                        flutter_rust_bridge::for_generated::LockableOrderInfo::new(
-                            &api_that, 0, false,
-                        ),
-                    ]);
-                for i in decode_indices_ {
-                    match i {
-                        0 => api_that_guard = Some(api_that.lockable_decode_sync_ref()),
-                        _ => unreachable!(),
-                    }
-                }
-                let api_that_guard = api_that_guard.unwrap();
-                let output_ok = Result::<_, ()>::Ok(api_that_guard.created_at.clone())?;
-                Ok(output_ok)
-            })())
-        },
-    )
-}
-fn wire__crate__api__models__bibliography__reading_list__ReadingList_auto_accessor_get_id_impl(
-    ptr_: flutter_rust_bridge::for_generated::PlatformGeneralizedUint8ListPtr,
-    rust_vec_len_: i32,
-    data_len_: i32,
-) -> flutter_rust_bridge::for_generated::WireSyncRust2DartSse {
-    FLUTTER_RUST_BRIDGE_HANDLER.wrap_sync::<flutter_rust_bridge::for_generated::SseCodec, _>(
-        flutter_rust_bridge::for_generated::TaskInfo {
-            debug_name: "ReadingList_auto_accessor_get_id",
-            port: None,
-            mode: flutter_rust_bridge::for_generated::FfiCallMode::Sync,
-        },
-        move || {
-            let message = unsafe {
-                flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(
-                    ptr_,
-                    rust_vec_len_,
-                    data_len_,
-                )
-            };
-            let mut deserializer =
-                flutter_rust_bridge::for_generated::SseDeserializer::new(message);
-            let api_that = <RustOpaqueMoi<
-                flutter_rust_bridge::for_generated::RustAutoOpaqueInner<ReadingList>,
-            >>::sse_decode(&mut deserializer);
-            deserializer.end();
-            transform_result_sse::<_, ()>((move || {
-                let mut api_that_guard = None;
-                let decode_indices_ =
-                    flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![
-                        flutter_rust_bridge::for_generated::LockableOrderInfo::new(
-                            &api_that, 0, false,
-                        ),
-                    ]);
-                for i in decode_indices_ {
-                    match i {
-                        0 => api_that_guard = Some(api_that.lockable_decode_sync_ref()),
-                        _ => unreachable!(),
-                    }
-                }
-                let api_that_guard = api_that_guard.unwrap();
-                let output_ok = Result::<_, ()>::Ok(api_that_guard.id.clone())?;
-                Ok(output_ok)
-            })())
-        },
-    )
-}
-fn wire__crate__api__models__bibliography__reading_list__ReadingList_auto_accessor_get_label_impl(
-    ptr_: flutter_rust_bridge::for_generated::PlatformGeneralizedUint8ListPtr,
-    rust_vec_len_: i32,
-    data_len_: i32,
-) -> flutter_rust_bridge::for_generated::WireSyncRust2DartSse {
-    FLUTTER_RUST_BRIDGE_HANDLER.wrap_sync::<flutter_rust_bridge::for_generated::SseCodec, _>(
-        flutter_rust_bridge::for_generated::TaskInfo {
-            debug_name: "ReadingList_auto_accessor_get_label",
-            port: None,
-            mode: flutter_rust_bridge::for_generated::FfiCallMode::Sync,
-        },
-        move || {
-            let message = unsafe {
-                flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(
-                    ptr_,
-                    rust_vec_len_,
-                    data_len_,
-                )
-            };
-            let mut deserializer =
-                flutter_rust_bridge::for_generated::SseDeserializer::new(message);
-            let api_that = <RustOpaqueMoi<
-                flutter_rust_bridge::for_generated::RustAutoOpaqueInner<ReadingList>,
-            >>::sse_decode(&mut deserializer);
-            deserializer.end();
-            transform_result_sse::<_, ()>((move || {
-                let mut api_that_guard = None;
-                let decode_indices_ =
-                    flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![
-                        flutter_rust_bridge::for_generated::LockableOrderInfo::new(
-                            &api_that, 0, false,
-                        ),
-                    ]);
-                for i in decode_indices_ {
-                    match i {
-                        0 => api_that_guard = Some(api_that.lockable_decode_sync_ref()),
-                        _ => unreachable!(),
-                    }
-                }
-                let api_that_guard = api_that_guard.unwrap();
-                let output_ok = Result::<_, ()>::Ok(api_that_guard.label.clone())?;
-                Ok(output_ok)
-            })())
-        },
-    )
-}
-fn wire__crate__api__models__bibliography__reading_list__ReadingList_auto_accessor_get_papers_impl(
-    ptr_: flutter_rust_bridge::for_generated::PlatformGeneralizedUint8ListPtr,
-    rust_vec_len_: i32,
-    data_len_: i32,
-) -> flutter_rust_bridge::for_generated::WireSyncRust2DartSse {
-    FLUTTER_RUST_BRIDGE_HANDLER.wrap_sync::<flutter_rust_bridge::for_generated::SseCodec, _>(
-        flutter_rust_bridge::for_generated::TaskInfo {
-            debug_name: "ReadingList_auto_accessor_get_papers",
-            port: None,
-            mode: flutter_rust_bridge::for_generated::FfiCallMode::Sync,
-        },
-        move || {
-            let message = unsafe {
-                flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(
-                    ptr_,
-                    rust_vec_len_,
-                    data_len_,
-                )
-            };
-            let mut deserializer =
-                flutter_rust_bridge::for_generated::SseDeserializer::new(message);
-            let api_that = <RustOpaqueMoi<
-                flutter_rust_bridge::for_generated::RustAutoOpaqueInner<ReadingList>,
-            >>::sse_decode(&mut deserializer);
-            deserializer.end();
-            transform_result_sse::<_, ()>((move || {
-                let mut api_that_guard = None;
-                let decode_indices_ =
-                    flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![
-                        flutter_rust_bridge::for_generated::LockableOrderInfo::new(
-                            &api_that, 0, false,
-                        ),
-                    ]);
-                for i in decode_indices_ {
-                    match i {
-                        0 => api_that_guard = Some(api_that.lockable_decode_sync_ref()),
-                        _ => unreachable!(),
-                    }
-                }
-                let api_that_guard = api_that_guard.unwrap();
-                let output_ok = Result::<_, ()>::Ok(api_that_guard.papers.clone())?;
-                Ok(output_ok)
-            })())
-        },
-    )
-}
-fn wire__crate__api__models__bibliography__reading_list__ReadingList_auto_accessor_set_created_at_impl(
-    ptr_: flutter_rust_bridge::for_generated::PlatformGeneralizedUint8ListPtr,
-    rust_vec_len_: i32,
-    data_len_: i32,
-) -> flutter_rust_bridge::for_generated::WireSyncRust2DartSse {
-    FLUTTER_RUST_BRIDGE_HANDLER.wrap_sync::<flutter_rust_bridge::for_generated::SseCodec, _>(
-        flutter_rust_bridge::for_generated::TaskInfo {
-            debug_name: "ReadingList_auto_accessor_set_created_at",
-            port: None,
-            mode: flutter_rust_bridge::for_generated::FfiCallMode::Sync,
-        },
-        move || {
-            let message = unsafe {
-                flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(
-                    ptr_,
-                    rust_vec_len_,
-                    data_len_,
-                )
-            };
-            let mut deserializer =
-                flutter_rust_bridge::for_generated::SseDeserializer::new(message);
-            let api_that = <RustOpaqueMoi<
-                flutter_rust_bridge::for_generated::RustAutoOpaqueInner<ReadingList>,
-            >>::sse_decode(&mut deserializer);
-            let api_created_at = <FlusterTime>::sse_decode(&mut deserializer);
-            deserializer.end();
-            transform_result_sse::<_, ()>((move || {
-                let mut api_that_guard = None;
-                let decode_indices_ =
-                    flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![
-                        flutter_rust_bridge::for_generated::LockableOrderInfo::new(
-                            &api_that, 0, true,
-                        ),
-                    ]);
-                for i in decode_indices_ {
-                    match i {
-                        0 => api_that_guard = Some(api_that.lockable_decode_sync_ref_mut()),
-                        _ => unreachable!(),
-                    }
-                }
-                let mut api_that_guard = api_that_guard.unwrap();
-                let output_ok = Result::<_, ()>::Ok({
-                    {
-                        api_that_guard.created_at = api_created_at;
-                    };
-                })?;
-                Ok(output_ok)
-            })())
-        },
-    )
-}
-fn wire__crate__api__models__bibliography__reading_list__ReadingList_auto_accessor_set_id_impl(
-    ptr_: flutter_rust_bridge::for_generated::PlatformGeneralizedUint8ListPtr,
-    rust_vec_len_: i32,
-    data_len_: i32,
-) -> flutter_rust_bridge::for_generated::WireSyncRust2DartSse {
-    FLUTTER_RUST_BRIDGE_HANDLER.wrap_sync::<flutter_rust_bridge::for_generated::SseCodec, _>(
-        flutter_rust_bridge::for_generated::TaskInfo {
-            debug_name: "ReadingList_auto_accessor_set_id",
-            port: None,
-            mode: flutter_rust_bridge::for_generated::FfiCallMode::Sync,
-        },
-        move || {
-            let message = unsafe {
-                flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(
-                    ptr_,
-                    rust_vec_len_,
-                    data_len_,
-                )
-            };
-            let mut deserializer =
-                flutter_rust_bridge::for_generated::SseDeserializer::new(message);
-            let api_that = <RustOpaqueMoi<
-                flutter_rust_bridge::for_generated::RustAutoOpaqueInner<ReadingList>,
-            >>::sse_decode(&mut deserializer);
-            let api_id = <Option<String>>::sse_decode(&mut deserializer);
-            deserializer.end();
-            transform_result_sse::<_, ()>((move || {
-                let mut api_that_guard = None;
-                let decode_indices_ =
-                    flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![
-                        flutter_rust_bridge::for_generated::LockableOrderInfo::new(
-                            &api_that, 0, true,
-                        ),
-                    ]);
-                for i in decode_indices_ {
-                    match i {
-                        0 => api_that_guard = Some(api_that.lockable_decode_sync_ref_mut()),
-                        _ => unreachable!(),
-                    }
-                }
-                let mut api_that_guard = api_that_guard.unwrap();
-                let output_ok = Result::<_, ()>::Ok({
-                    {
-                        api_that_guard.id = api_id;
-                    };
-                })?;
-                Ok(output_ok)
-            })())
-        },
-    )
-}
-fn wire__crate__api__models__bibliography__reading_list__ReadingList_auto_accessor_set_label_impl(
-    ptr_: flutter_rust_bridge::for_generated::PlatformGeneralizedUint8ListPtr,
-    rust_vec_len_: i32,
-    data_len_: i32,
-) -> flutter_rust_bridge::for_generated::WireSyncRust2DartSse {
-    FLUTTER_RUST_BRIDGE_HANDLER.wrap_sync::<flutter_rust_bridge::for_generated::SseCodec, _>(
-        flutter_rust_bridge::for_generated::TaskInfo {
-            debug_name: "ReadingList_auto_accessor_set_label",
-            port: None,
-            mode: flutter_rust_bridge::for_generated::FfiCallMode::Sync,
-        },
-        move || {
-            let message = unsafe {
-                flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(
-                    ptr_,
-                    rust_vec_len_,
-                    data_len_,
-                )
-            };
-            let mut deserializer =
-                flutter_rust_bridge::for_generated::SseDeserializer::new(message);
-            let api_that = <RustOpaqueMoi<
-                flutter_rust_bridge::for_generated::RustAutoOpaqueInner<ReadingList>,
-            >>::sse_decode(&mut deserializer);
-            let api_label = <String>::sse_decode(&mut deserializer);
-            deserializer.end();
-            transform_result_sse::<_, ()>((move || {
-                let mut api_that_guard = None;
-                let decode_indices_ =
-                    flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![
-                        flutter_rust_bridge::for_generated::LockableOrderInfo::new(
-                            &api_that, 0, true,
-                        ),
-                    ]);
-                for i in decode_indices_ {
-                    match i {
-                        0 => api_that_guard = Some(api_that.lockable_decode_sync_ref_mut()),
-                        _ => unreachable!(),
-                    }
-                }
-                let mut api_that_guard = api_that_guard.unwrap();
-                let output_ok = Result::<_, ()>::Ok({
-                    {
-                        api_that_guard.label = api_label;
-                    };
-                })?;
-                Ok(output_ok)
-            })())
-        },
-    )
-}
-fn wire__crate__api__models__bibliography__reading_list__ReadingList_auto_accessor_set_papers_impl(
-    ptr_: flutter_rust_bridge::for_generated::PlatformGeneralizedUint8ListPtr,
-    rust_vec_len_: i32,
-    data_len_: i32,
-) -> flutter_rust_bridge::for_generated::WireSyncRust2DartSse {
-    FLUTTER_RUST_BRIDGE_HANDLER.wrap_sync::<flutter_rust_bridge::for_generated::SseCodec, _>(
-        flutter_rust_bridge::for_generated::TaskInfo {
-            debug_name: "ReadingList_auto_accessor_set_papers",
-            port: None,
-            mode: flutter_rust_bridge::for_generated::FfiCallMode::Sync,
-        },
-        move || {
-            let message = unsafe {
-                flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(
-                    ptr_,
-                    rust_vec_len_,
-                    data_len_,
-                )
-            };
-            let mut deserializer =
-                flutter_rust_bridge::for_generated::SseDeserializer::new(message);
-            let api_that = <RustOpaqueMoi<
-                flutter_rust_bridge::for_generated::RustAutoOpaqueInner<ReadingList>,
-            >>::sse_decode(&mut deserializer);
-            let api_papers =
-                <Vec<crate::api::models::bibliography::citation::BibEntryEntity>>::sse_decode(
-                    &mut deserializer,
-                );
-            deserializer.end();
-            transform_result_sse::<_, ()>((move || {
-                let mut api_that_guard = None;
-                let decode_indices_ =
-                    flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![
-                        flutter_rust_bridge::for_generated::LockableOrderInfo::new(
-                            &api_that, 0, true,
-                        ),
-                    ]);
-                for i in decode_indices_ {
-                    match i {
-                        0 => api_that_guard = Some(api_that.lockable_decode_sync_ref_mut()),
-                        _ => unreachable!(),
-                    }
-                }
-                let mut api_that_guard = api_that_guard.unwrap();
-                let output_ok = Result::<_, ()>::Ok({
-                    {
-                        api_that_guard.papers = api_papers;
-                    };
-                })?;
-                Ok(output_ok)
-            })())
-        },
-    )
-}
-fn wire__crate__api__models__bibliography__reading_list__ReadingList_default_impl(
-    port_: flutter_rust_bridge::for_generated::MessagePort,
-    ptr_: flutter_rust_bridge::for_generated::PlatformGeneralizedUint8ListPtr,
-    rust_vec_len_: i32,
-    data_len_: i32,
-) {
-    FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::SseCodec, _, _>(
-        flutter_rust_bridge::for_generated::TaskInfo {
-            debug_name: "ReadingList_default",
-            port: Some(port_),
-            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
-        },
-        move || {
-            let message = unsafe {
-                flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(
-                    ptr_,
-                    rust_vec_len_,
-                    data_len_,
-                )
-            };
-            let mut deserializer =
-                flutter_rust_bridge::for_generated::SseDeserializer::new(message);
-            deserializer.end();
-            move |context| {
-                transform_result_sse::<_, ()>((move || {
-                    let output_ok = Result::<_, ()>::Ok(
-                        crate::api::models::bibliography::reading_list::ReadingList::default(),
-                    )?;
-                    Ok(output_ok)
-                })())
-            }
-        },
-    )
-}
-fn wire__crate__api__models__bibliography__citation__bib_entry_entity_default_impl(
-    port_: flutter_rust_bridge::for_generated::MessagePort,
-    ptr_: flutter_rust_bridge::for_generated::PlatformGeneralizedUint8ListPtr,
-    rust_vec_len_: i32,
-    data_len_: i32,
-) {
-    FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::SseCodec, _, _>(
-        flutter_rust_bridge::for_generated::TaskInfo {
-            debug_name: "bib_entry_entity_default",
-            port: Some(port_),
-            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
-        },
-        move || {
-            let message = unsafe {
-                flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(
-                    ptr_,
-                    rust_vec_len_,
-                    data_len_,
-                )
-            };
-            let mut deserializer =
-                flutter_rust_bridge::for_generated::SseDeserializer::new(message);
-            deserializer.end();
-            move |context| {
-                transform_result_sse::<_, ()>((move || {
-                    let output_ok = Result::<_, ()>::Ok(
-                        crate::api::models::bibliography::citation::BibEntryEntity::default(),
-                    )?;
-                    Ok(output_ok)
-                })())
-            }
-        },
-    )
-}
 fn wire__crate__api__models__bibliography__bib_file__bibtex_file_from_filesystem_path_impl(
     port_: flutter_rust_bridge::for_generated::MessagePort,
     ptr_: flutter_rust_bridge::for_generated::PlatformGeneralizedUint8ListPtr,
@@ -1059,85 +431,6 @@ fn wire__crate__api__models__params__cross_language_file_object__cross_language_
                     })())
                 } })
 }
-fn wire__crate__api__repositories__notes__mdx__query_params__db_tokenizer_language_default_impl(
-    port_: flutter_rust_bridge::for_generated::MessagePort,
-    ptr_: flutter_rust_bridge::for_generated::PlatformGeneralizedUint8ListPtr,
-    rust_vec_len_: i32,
-    data_len_: i32,
-) {
-    FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::SseCodec,_,_>(flutter_rust_bridge::for_generated::TaskInfo{ debug_name: "db_tokenizer_language_default", port: Some(port_), mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal }, move || { 
-            let message = unsafe { flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(ptr_, rust_vec_len_, data_len_) };
-            let mut deserializer = flutter_rust_bridge::for_generated::SseDeserializer::new(message);
-            deserializer.end(); move |context|  {
-                    transform_result_sse::<_, ()>((move ||  {
-                         let output_ok = Result::<_,()>::Ok(crate::api::repositories::notes::mdx::query_params::DbTokenizerLanguage::default())?;   Ok(output_ok)
-                    })())
-                } })
-}
-fn wire__crate__api__models__equation__equation_model__equation_entity_default_impl(
-    port_: flutter_rust_bridge::for_generated::MessagePort,
-    ptr_: flutter_rust_bridge::for_generated::PlatformGeneralizedUint8ListPtr,
-    rust_vec_len_: i32,
-    data_len_: i32,
-) {
-    FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::SseCodec, _, _>(
-        flutter_rust_bridge::for_generated::TaskInfo {
-            debug_name: "equation_entity_default",
-            port: Some(port_),
-            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
-        },
-        move || {
-            let message = unsafe {
-                flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(
-                    ptr_,
-                    rust_vec_len_,
-                    data_len_,
-                )
-            };
-            let mut deserializer =
-                flutter_rust_bridge::for_generated::SseDeserializer::new(message);
-            deserializer.end();
-            move |context| {
-                transform_result_sse::<_, ()>((move || {
-                    let output_ok = Result::<_, ()>::Ok(
-                        crate::api::models::equation::equation_model::EquationEntity::default(),
-                    )?;
-                    Ok(output_ok)
-                })())
-            }
-        },
-    )
-}
-fn wire__crate__api__models__notes__front_matter__front_matter_model__front_matter_entity_default_impl(
-    port_: flutter_rust_bridge::for_generated::MessagePort,
-    ptr_: flutter_rust_bridge::for_generated::PlatformGeneralizedUint8ListPtr,
-    rust_vec_len_: i32,
-    data_len_: i32,
-) {
-    FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::SseCodec,_,_>(flutter_rust_bridge::for_generated::TaskInfo{ debug_name: "front_matter_entity_default", port: Some(port_), mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal }, move || { 
-            let message = unsafe { flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(ptr_, rust_vec_len_, data_len_) };
-            let mut deserializer = flutter_rust_bridge::for_generated::SseDeserializer::new(message);
-            deserializer.end(); move |context|  {
-                    transform_result_sse::<_, ()>((move ||  {
-                         let output_ok = Result::<_,()>::Ok(crate::api::models::notes::front_matter::front_matter_model::FrontMatter::default())?;   Ok(output_ok)
-                    })())
-                } })
-}
-fn wire__crate__api__models__notes__front_matter__front_matter_model__front_matter_entity_from_gray_matter_impl(
-    port_: flutter_rust_bridge::for_generated::MessagePort,
-    ptr_: flutter_rust_bridge::for_generated::PlatformGeneralizedUint8ListPtr,
-    rust_vec_len_: i32,
-    data_len_: i32,
-) {
-    FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::SseCodec,_,_>(flutter_rust_bridge::for_generated::TaskInfo{ debug_name: "front_matter_entity_from_gray_matter", port: Some(port_), mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal }, move || { 
-            let message = unsafe { flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(ptr_, rust_vec_len_, data_len_) };
-            let mut deserializer = flutter_rust_bridge::for_generated::SseDeserializer::new(message);
-            let api_pod = <Option<Pod>>::sse_decode(&mut deserializer);deserializer.end(); move |context|  {
-                    transform_result_sse::<_, ()>((move ||  {
-                         let output_ok = Result::<_,()>::Ok(crate::api::models::notes::front_matter::front_matter_model::FrontMatter::from_gray_matter(api_pod))?;   Ok(output_ok)
-                    })())
-                } })
-}
 fn wire__crate__api__fs__fs_utils__get_app_config_dir_impl(
     ptr_: flutter_rust_bridge::for_generated::PlatformGeneralizedUint8ListPtr,
     rust_vec_len_: i32,
@@ -1234,21 +527,6 @@ fn wire__crate__api__data_interface__get_database_status__get_database_status_im
         },
     )
 }
-fn wire__crate__api__global_actions__get_summary_list__get_summary_list_data__get_summary_list_impl(
-    port_: flutter_rust_bridge::for_generated::MessagePort,
-    ptr_: flutter_rust_bridge::for_generated::PlatformGeneralizedUint8ListPtr,
-    rust_vec_len_: i32,
-    data_len_: i32,
-) {
-    FLUTTER_RUST_BRIDGE_HANDLER.wrap_async::<flutter_rust_bridge::for_generated::SseCodec,_,_,_>(flutter_rust_bridge::for_generated::TaskInfo{ debug_name: "get_summary_list", port: Some(port_), mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal }, move || { 
-            let message = unsafe { flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(ptr_, rust_vec_len_, data_len_) };
-            let mut deserializer = flutter_rust_bridge::for_generated::SseDeserializer::new(message);
-            let api_query = <crate::api::global_actions::get_summary_list::summary_list_query::SummaryListQuery>::sse_decode(&mut deserializer);deserializer.end(); move |context| async move {
-                    transform_result_sse::<_, flutter_rust_bridge::for_generated::anyhow::Error>((move || async move {
-                         let output_ok = crate::api::global_actions::get_summary_list::get_summary_list_data::get_summary_list(api_query).await?;   Ok(output_ok)
-                    })().await)
-                } })
-}
 fn wire__crate__api__search__get_text_similarity__get_text_similarity_impl(
     ptr_: flutter_rust_bridge::for_generated::PlatformGeneralizedUint8ListPtr,
     rust_vec_len_: i32,
@@ -1331,206 +609,6 @@ fn wire__crate__api__models__params__sync_mdx_typescript_params__math_label_opti
                     })())
                 } })
 }
-fn wire__crate__api__models__notes__mdx__mdx_note__mdx_note_entity_from_file_system_path_impl(
-    port_: flutter_rust_bridge::for_generated::MessagePort,
-    ptr_: flutter_rust_bridge::for_generated::PlatformGeneralizedUint8ListPtr,
-    rust_vec_len_: i32,
-    data_len_: i32,
-) {
-    FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::SseCodec,_,_>(flutter_rust_bridge::for_generated::TaskInfo{ debug_name: "mdx_note_entity_from_file_system_path", port: Some(port_), mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal }, move || { 
-            let message = unsafe { flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(ptr_, rust_vec_len_, data_len_) };
-            let mut deserializer = flutter_rust_bridge::for_generated::SseDeserializer::new(message);
-            let api_file_path = <String>::sse_decode(&mut deserializer);deserializer.end(); move |context|  {
-                    transform_result_sse::<_, FlusterError>((move ||  {
-                         let output_ok = crate::api::models::notes::mdx::mdx_note::MdxNote::from_file_system_path(&api_file_path)?;   Ok(output_ok)
-                    })())
-                } })
-}
-fn wire__crate__api__models__notes__mdx__mdx_note__mdx_note_entity_from_id_string_impl(
-    port_: flutter_rust_bridge::for_generated::MessagePort,
-    ptr_: flutter_rust_bridge::for_generated::PlatformGeneralizedUint8ListPtr,
-    rust_vec_len_: i32,
-    data_len_: i32,
-) {
-    FLUTTER_RUST_BRIDGE_HANDLER.wrap_async::<flutter_rust_bridge::for_generated::SseCodec,_,_,_>(flutter_rust_bridge::for_generated::TaskInfo{ debug_name: "mdx_note_entity_from_id_string", port: Some(port_), mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal }, move || { 
-            let message = unsafe { flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(ptr_, rust_vec_len_, data_len_) };
-            let mut deserializer = flutter_rust_bridge::for_generated::SseDeserializer::new(message);
-            let api_id = <String>::sse_decode(&mut deserializer);
-let api_db = <RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<Surreal < Db >>>>::sse_decode(&mut deserializer);deserializer.end(); move |context| async move {
-                    transform_result_sse::<_, FlusterError>((move || async move {
-                        let mut api_db_guard = None;
-let decode_indices_ = flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![flutter_rust_bridge::for_generated::LockableOrderInfo::new(&api_db, 0, false)]);
-        for i in decode_indices_ {
-            match i {
-                0 => api_db_guard = Some(api_db.lockable_decode_async_ref().await),
-                _ => unreachable!(),
-            }
-        }
-        let api_db_guard = api_db_guard.unwrap();
- let output_ok = crate::api::models::notes::mdx::mdx_note::MdxNote::from_id_string(&api_id, &*api_db_guard).await?;   Ok(output_ok)
-                    })().await)
-                } })
-}
-fn wire__crate__api__models__notes__mdx__mdx_note__mdx_note_entity_from_raw_mdx_string_impl(
-    port_: flutter_rust_bridge::for_generated::MessagePort,
-    ptr_: flutter_rust_bridge::for_generated::PlatformGeneralizedUint8ListPtr,
-    rust_vec_len_: i32,
-    data_len_: i32,
-) {
-    FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::SseCodec,_,_>(flutter_rust_bridge::for_generated::TaskInfo{ debug_name: "mdx_note_entity_from_raw_mdx_string", port: Some(port_), mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal }, move || { 
-            let message = unsafe { flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(ptr_, rust_vec_len_, data_len_) };
-            let mut deserializer = flutter_rust_bridge::for_generated::SseDeserializer::new(message);
-            let api_raw_file_content = <String>::sse_decode(&mut deserializer);
-let api_file_path = <Option<String>>::sse_decode(&mut deserializer);deserializer.end(); move |context|  {
-                    transform_result_sse::<_, FlusterError>((move ||  {
-                         let output_ok = crate::api::models::notes::mdx::mdx_note::MdxNote::from_raw_mdx_string(api_raw_file_content, api_file_path)?;   Ok(output_ok)
-                    })())
-                } })
-}
-fn wire__crate__api__models__notes__mdx__mdx_note__mdx_note_entity_get_id_impl(
-    port_: flutter_rust_bridge::for_generated::MessagePort,
-    ptr_: flutter_rust_bridge::for_generated::PlatformGeneralizedUint8ListPtr,
-    rust_vec_len_: i32,
-    data_len_: i32,
-) {
-    FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::SseCodec, _, _>(
-        flutter_rust_bridge::for_generated::TaskInfo {
-            debug_name: "mdx_note_entity_get_id",
-            port: Some(port_),
-            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
-        },
-        move || {
-            let message = unsafe {
-                flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(
-                    ptr_,
-                    rust_vec_len_,
-                    data_len_,
-                )
-            };
-            let mut deserializer =
-                flutter_rust_bridge::for_generated::SseDeserializer::new(message);
-            let api_that = <crate::api::models::notes::mdx::mdx_note::MdxNote>::sse_decode(
-                &mut deserializer,
-            );
-            deserializer.end();
-            move |context| {
-                transform_result_sse::<_, ()>((move || {
-                    let output_ok = Result::<_, ()>::Ok(
-                        crate::api::models::notes::mdx::mdx_note::MdxNote::get_id(&api_that),
-                    )?;
-                    Ok(output_ok)
-                })())
-            }
-        },
-    )
-}
-fn wire__crate__api__models__notes__mdx__mdx_note__mdx_note_entity_save_impl(
-    port_: flutter_rust_bridge::for_generated::MessagePort,
-    ptr_: flutter_rust_bridge::for_generated::PlatformGeneralizedUint8ListPtr,
-    rust_vec_len_: i32,
-    data_len_: i32,
-) {
-    FLUTTER_RUST_BRIDGE_HANDLER.wrap_async::<flutter_rust_bridge::for_generated::SseCodec, _, _, _>(
-        flutter_rust_bridge::for_generated::TaskInfo {
-            debug_name: "mdx_note_entity_save(dart_style=save)",
-            port: Some(port_),
-            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
-        },
-        move || {
-            let message = unsafe {
-                flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(
-                    ptr_,
-                    rust_vec_len_,
-                    data_len_,
-                )
-            };
-            let mut deserializer =
-                flutter_rust_bridge::for_generated::SseDeserializer::new(message);
-            let api_that = <crate::api::models::notes::mdx::mdx_note::MdxNote>::sse_decode(
-                &mut deserializer,
-            );
-            let api_db = <RustOpaqueMoi<
-                flutter_rust_bridge::for_generated::RustAutoOpaqueInner<Surreal<Db>>,
-            >>::sse_decode(&mut deserializer);
-            deserializer.end();
-            move |context| async move {
-                transform_result_sse::<_, ()>(
-                    (move || async move {
-                        let mut api_db_guard = None;
-                        let decode_indices_ =
-                            flutter_rust_bridge::for_generated::lockable_compute_decode_order(
-                                vec![flutter_rust_bridge::for_generated::LockableOrderInfo::new(
-                                    &api_db, 0, false,
-                                )],
-                            );
-                        for i in decode_indices_ {
-                            match i {
-                                0 => api_db_guard = Some(api_db.lockable_decode_async_ref().await),
-                                _ => unreachable!(),
-                            }
-                        }
-                        let api_db_guard = api_db_guard.unwrap();
-                        let output_ok = Result::<_, ()>::Ok(
-                            crate::api::models::notes::mdx::mdx_note::MdxNote::save(
-                                &api_that,
-                                &*api_db_guard,
-                            )
-                            .await,
-                        )?;
-                        Ok(output_ok)
-                    })()
-                    .await,
-                )
-            }
-        },
-    )
-}
-fn wire__crate__api__repositories__notes__mdx__mdx_notes_repository__mdx_notes_repository_default_impl(
-    port_: flutter_rust_bridge::for_generated::MessagePort,
-    ptr_: flutter_rust_bridge::for_generated::PlatformGeneralizedUint8ListPtr,
-    rust_vec_len_: i32,
-    data_len_: i32,
-) {
-    FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::SseCodec,_,_>(flutter_rust_bridge::for_generated::TaskInfo{ debug_name: "mdx_notes_repository_default", port: Some(port_), mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal }, move || { 
-            let message = unsafe { flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(ptr_, rust_vec_len_, data_len_) };
-            let mut deserializer = flutter_rust_bridge::for_generated::SseDeserializer::new(message);
-            deserializer.end(); move |context|  {
-                    transform_result_sse::<_, ()>((move ||  {
-                         let output_ok = Result::<_,()>::Ok(crate::api::repositories::notes::mdx::mdx_notes_repository::MdxNotesRepository::default())?;   Ok(output_ok)
-                    })())
-                } })
-}
-fn wire__crate__api__repositories__notes__mdx__mdx_notes_repository__mdx_notes_repository_new_impl(
-    port_: flutter_rust_bridge::for_generated::MessagePort,
-    ptr_: flutter_rust_bridge::for_generated::PlatformGeneralizedUint8ListPtr,
-    rust_vec_len_: i32,
-    data_len_: i32,
-) {
-    FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::SseCodec,_,_>(flutter_rust_bridge::for_generated::TaskInfo{ debug_name: "mdx_notes_repository_new", port: Some(port_), mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal }, move || { 
-            let message = unsafe { flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(ptr_, rust_vec_len_, data_len_) };
-            let mut deserializer = flutter_rust_bridge::for_generated::SseDeserializer::new(message);
-            deserializer.end(); move |context|  {
-                    transform_result_sse::<_, ()>((move ||  {
-                         let output_ok = Result::<_,()>::Ok(crate::api::repositories::notes::mdx::mdx_notes_repository::MdxNotesRepository::new())?;   Ok(output_ok)
-                    })())
-                } })
-}
-fn wire__crate__api__repositories__notes__mdx__mdx_notes_repository__mdx_notes_repository_search_impl(
-    port_: flutter_rust_bridge::for_generated::MessagePort,
-    ptr_: flutter_rust_bridge::for_generated::PlatformGeneralizedUint8ListPtr,
-    rust_vec_len_: i32,
-    data_len_: i32,
-) {
-    FLUTTER_RUST_BRIDGE_HANDLER.wrap_async::<flutter_rust_bridge::for_generated::SseCodec,_,_,_>(flutter_rust_bridge::for_generated::TaskInfo{ debug_name: "mdx_notes_repository_search(dart_style=search)", port: Some(port_), mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal }, move || { 
-            let message = unsafe { flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(ptr_, rust_vec_len_, data_len_) };
-            let mut deserializer = flutter_rust_bridge::for_generated::SseDeserializer::new(message);
-            let api_that = <crate::api::repositories::notes::mdx::mdx_notes_repository::MdxNotesRepository>::sse_decode(&mut deserializer);
-let api_query = <crate::api::repositories::notes::mdx::query_params::MdxNoteQueryParams>::sse_decode(&mut deserializer);deserializer.end(); move |context| async move {
-                    transform_result_sse::<_,  FlusterError>((move || async move {
-                         let output_ok = crate::api::repositories::notes::mdx::mdx_notes_repository::MdxNotesRepository::search(&api_that, api_query).await?;   Ok(output_ok)
-                    })().await)
-                } })
-}
 fn wire__crate__api__models__enums__parsable_file_extension__note_type_default_impl(
     port_: flutter_rust_bridge::for_generated::MessagePort,
     ptr_: flutter_rust_bridge::for_generated::PlatformGeneralizedUint8ListPtr,
@@ -1571,7 +649,7 @@ fn wire__crate__api__initialize__on_desktop_init__on_desktop_init_impl(
     rust_vec_len_: i32,
     data_len_: i32,
 ) {
-    FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::SseCodec, _, _>(
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_async::<flutter_rust_bridge::for_generated::SseCodec, _, _, _>(
         flutter_rust_bridge::for_generated::TaskInfo {
             debug_name: "on_desktop_init",
             port: Some(port_),
@@ -1588,13 +666,16 @@ fn wire__crate__api__initialize__on_desktop_init__on_desktop_init_impl(
             let mut deserializer =
                 flutter_rust_bridge::for_generated::SseDeserializer::new(message);
             deserializer.end();
-            move |context| {
-                transform_result_sse::<_, ()>((move || {
-                    let output_ok = Result::<_, ()>::Ok({
-                        crate::api::initialize::on_desktop_init::on_desktop_init();
-                    })?;
-                    Ok(output_ok)
-                })())
+            move |context| async move {
+                transform_result_sse::<_, ()>(
+                    (move || async move {
+                        let output_ok = Result::<_, ()>::Ok({
+                            crate::api::initialize::on_desktop_init::on_desktop_init().await;
+                        })?;
+                        Ok(output_ok)
+                    })()
+                    .await,
+                )
             }
         },
     )
@@ -1701,40 +782,6 @@ fn wire__crate__api__fs__fs_setup__setup_file_system_for_data_impl(
         },
     )
 }
-fn wire__crate__api__models__snippet__snippet_model__snippet_default_impl(
-    port_: flutter_rust_bridge::for_generated::MessagePort,
-    ptr_: flutter_rust_bridge::for_generated::PlatformGeneralizedUint8ListPtr,
-    rust_vec_len_: i32,
-    data_len_: i32,
-) {
-    FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::SseCodec, _, _>(
-        flutter_rust_bridge::for_generated::TaskInfo {
-            debug_name: "snippet_default",
-            port: Some(port_),
-            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
-        },
-        move || {
-            let message = unsafe {
-                flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(
-                    ptr_,
-                    rust_vec_len_,
-                    data_len_,
-                )
-            };
-            let mut deserializer =
-                flutter_rust_bridge::for_generated::SseDeserializer::new(message);
-            deserializer.end();
-            move |context| {
-                transform_result_sse::<_, ()>((move || {
-                    let output_ok = Result::<_, ()>::Ok(
-                        crate::api::models::snippet::snippet_model::Snippet::default(),
-                    )?;
-                    Ok(output_ok)
-                })())
-            }
-        },
-    )
-}
 fn wire__crate__api__global_actions__get_summary_list__summary_list_query__summary_list_query_default_impl(
     port_: flutter_rust_bridge::for_generated::MessagePort,
     ptr_: flutter_rust_bridge::for_generated::PlatformGeneralizedUint8ListPtr,
@@ -1762,36 +809,6 @@ fn wire__crate__api__global_actions__get_summary_list__summary_list_result__summ
             deserializer.end(); move |context|  {
                     transform_result_sse::<_, ()>((move ||  {
                          let output_ok = Result::<_,()>::Ok(crate::api::global_actions::get_summary_list::summary_list_result::SummaryListResults::default())?;   Ok(output_ok)
-                    })())
-                } })
-}
-fn wire__crate__api__models__nested_models__code__supported_syntax_language__supported_syntax_language_default_impl(
-    port_: flutter_rust_bridge::for_generated::MessagePort,
-    ptr_: flutter_rust_bridge::for_generated::PlatformGeneralizedUint8ListPtr,
-    rust_vec_len_: i32,
-    data_len_: i32,
-) {
-    FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::SseCodec,_,_>(flutter_rust_bridge::for_generated::TaskInfo{ debug_name: "supported_syntax_language_default", port: Some(port_), mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal }, move || { 
-            let message = unsafe { flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(ptr_, rust_vec_len_, data_len_) };
-            let mut deserializer = flutter_rust_bridge::for_generated::SseDeserializer::new(message);
-            deserializer.end(); move |context|  {
-                    transform_result_sse::<_, ()>((move ||  {
-                         let output_ok = Result::<_,()>::Ok(crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::default())?;   Ok(output_ok)
-                    })())
-                } })
-}
-fn wire__crate__api__models__nested_models__code__supported_syntax_theme__supported_syntax_theme_default_impl(
-    port_: flutter_rust_bridge::for_generated::MessagePort,
-    ptr_: flutter_rust_bridge::for_generated::PlatformGeneralizedUint8ListPtr,
-    rust_vec_len_: i32,
-    data_len_: i32,
-) {
-    FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::SseCodec,_,_>(flutter_rust_bridge::for_generated::TaskInfo{ debug_name: "supported_syntax_theme_default", port: Some(port_), mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal }, move || { 
-            let message = unsafe { flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(ptr_, rust_vec_len_, data_len_) };
-            let mut deserializer = flutter_rust_bridge::for_generated::SseDeserializer::new(message);
-            deserializer.end(); move |context|  {
-                    transform_result_sse::<_, ()>((move ||  {
-                         let output_ok = Result::<_,()>::Ok(crate::api::models::nested_models::code::supported_syntax_theme::SupportedSyntaxTheme::default())?;   Ok(output_ok)
                     })())
                 } })
 }
@@ -1884,81 +901,12 @@ let api_db_guard = api_db_guard.unwrap();
                     })().await)
                 } })
 }
-fn wire__crate__api__models__taggable__tag_model__tag_from_mdx_content_impl(
-    port_: flutter_rust_bridge::for_generated::MessagePort,
-    ptr_: flutter_rust_bridge::for_generated::PlatformGeneralizedUint8ListPtr,
-    rust_vec_len_: i32,
-    data_len_: i32,
-) {
-    FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::SseCodec, _, _>(
-        flutter_rust_bridge::for_generated::TaskInfo {
-            debug_name: "tag_from_mdx_content",
-            port: Some(port_),
-            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
-        },
-        move || {
-            let message = unsafe {
-                flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(
-                    ptr_,
-                    rust_vec_len_,
-                    data_len_,
-                )
-            };
-            let mut deserializer =
-                flutter_rust_bridge::for_generated::SseDeserializer::new(message);
-            let api_raw_content = <String>::sse_decode(&mut deserializer);
-            deserializer.end();
-            move |context| {
-                transform_result_sse::<_, ()>((move || {
-                    let output_ok = Result::<_, ()>::Ok(
-                        crate::api::models::taggable::tag_model::Tag::from_mdx_content(
-                            &api_raw_content,
-                        ),
-                    )?;
-                    Ok(output_ok)
-                })())
-            }
-        },
-    )
-}
-fn wire__crate__api__models__taggable__tag_model__tag_from_string_impl(
-    port_: flutter_rust_bridge::for_generated::MessagePort,
-    ptr_: flutter_rust_bridge::for_generated::PlatformGeneralizedUint8ListPtr,
-    rust_vec_len_: i32,
-    data_len_: i32,
-) {
-    FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::SseCodec, _, _>(
-        flutter_rust_bridge::for_generated::TaskInfo {
-            debug_name: "tag_from_string",
-            port: Some(port_),
-            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
-        },
-        move || {
-            let message = unsafe {
-                flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(
-                    ptr_,
-                    rust_vec_len_,
-                    data_len_,
-                )
-            };
-            let mut deserializer =
-                flutter_rust_bridge::for_generated::SseDeserializer::new(message);
-            let api_val = <String>::sse_decode(&mut deserializer);
-            deserializer.end();
-            move |context| {
-                transform_result_sse::<_, ()>((move || {
-                    let output_ok = Result::<_, ()>::Ok(
-                        crate::api::models::taggable::tag_model::Tag::from_string(api_val),
-                    )?;
-                    Ok(output_ok)
-                })())
-            }
-        },
-    )
-}
 
 // Section: related_funcs
 
+flutter_rust_bridge::frb_generated_moi_arc_impl_value!(
+    flutter_rust_bridge::for_generated::RustAutoOpaqueInner<BibEntryEntity>
+);
 flutter_rust_bridge::frb_generated_moi_arc_impl_value!(
     flutter_rust_bridge::for_generated::RustAutoOpaqueInner<DbRecord>
 );
@@ -1984,12 +932,6 @@ flutter_rust_bridge::frb_generated_moi_arc_impl_value!(
     flutter_rust_bridge::for_generated::RustAutoOpaqueInner<OffsetDateTime>
 );
 flutter_rust_bridge::frb_generated_moi_arc_impl_value!(
-    flutter_rust_bridge::for_generated::RustAutoOpaqueInner<Pod>
-);
-flutter_rust_bridge::frb_generated_moi_arc_impl_value!(
-    flutter_rust_bridge::for_generated::RustAutoOpaqueInner<ReadingList>
-);
-flutter_rust_bridge::frb_generated_moi_arc_impl_value!(
     flutter_rust_bridge::for_generated::RustAutoOpaqueInner<RecordId>
 );
 flutter_rust_bridge::frb_generated_moi_arc_impl_value!(
@@ -1998,17 +940,16 @@ flutter_rust_bridge::frb_generated_moi_arc_impl_value!(
 flutter_rust_bridge::frb_generated_moi_arc_impl_value!(
     flutter_rust_bridge::for_generated::RustAutoOpaqueInner<Surreal<Db>>
 );
-flutter_rust_bridge::frb_generated_moi_arc_impl_value!(
-    flutter_rust_bridge::for_generated::RustAutoOpaqueInner<Thing>
-);
 
 // Section: dart2rust
 
-impl SseDecode for flutter_rust_bridge::for_generated::anyhow::Error {
+impl SseDecode for BibEntryEntity {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
-        let mut inner = <String>::sse_decode(deserializer);
-        return flutter_rust_bridge::for_generated::anyhow::anyhow!("{}", inner);
+        let mut inner = <RustOpaqueMoi<
+            flutter_rust_bridge::for_generated::RustAutoOpaqueInner<BibEntryEntity>,
+        >>::sse_decode(deserializer);
+        return flutter_rust_bridge::for_generated::rust_auto_opaque_decode_owned(inner);
     }
 }
 
@@ -2092,24 +1033,6 @@ impl SseDecode for OffsetDateTime {
     }
 }
 
-impl SseDecode for Pod {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
-        let mut inner = <RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<Pod>>>::sse_decode(deserializer);
-        return flutter_rust_bridge::for_generated::rust_auto_opaque_decode_owned(inner);
-    }
-}
-
-impl SseDecode for ReadingList {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
-        let mut inner = <RustOpaqueMoi<
-            flutter_rust_bridge::for_generated::RustAutoOpaqueInner<ReadingList>,
-        >>::sse_decode(deserializer);
-        return flutter_rust_bridge::for_generated::rust_auto_opaque_decode_owned(inner);
-    }
-}
-
 impl SseDecode for RecordId {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
@@ -2120,13 +1043,13 @@ impl SseDecode for RecordId {
     }
 }
 
-impl SseDecode for Thing {
+impl SseDecode
+    for RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<BibEntryEntity>>
+{
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
-        let mut inner = <RustOpaqueMoi<
-            flutter_rust_bridge::for_generated::RustAutoOpaqueInner<Thing>,
-        >>::sse_decode(deserializer);
-        return flutter_rust_bridge::for_generated::rust_auto_opaque_decode_owned(inner);
+        let mut inner = <usize>::sse_decode(deserializer);
+        return decode_rust_opaque_moi(inner);
     }
 }
 
@@ -2212,24 +1135,6 @@ impl SseDecode
     }
 }
 
-impl SseDecode for RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<Pod>> {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
-        let mut inner = <usize>::sse_decode(deserializer);
-        return decode_rust_opaque_moi(inner);
-    }
-}
-
-impl SseDecode
-    for RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<ReadingList>>
-{
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
-        let mut inner = <usize>::sse_decode(deserializer);
-        return decode_rust_opaque_moi(inner);
-    }
-}
-
 impl SseDecode
     for RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<RecordId>>
 {
@@ -2260,14 +1165,6 @@ impl SseDecode
     }
 }
 
-impl SseDecode for RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<Thing>> {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
-        let mut inner = <usize>::sse_decode(deserializer);
-        return decode_rust_opaque_moi(inner);
-    }
-}
-
 impl SseDecode for String {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
@@ -2276,30 +1173,11 @@ impl SseDecode for String {
     }
 }
 
-impl SseDecode for crate::api::models::bibliography::citation::BibEntryEntity {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
-        let mut var_id = <Option<String>>::sse_decode(deserializer);
-        let mut var_pdfPath = <Option<String>>::sse_decode(deserializer);
-        let mut var_read = <bool>::sse_decode(deserializer);
-        let mut var_fields = <String>::sse_decode(deserializer);
-        return crate::api::models::bibliography::citation::BibEntryEntity {
-            id: var_id,
-            pdf_path: var_pdfPath,
-            read: var_read,
-            fields: var_fields,
-        };
-    }
-}
-
 impl SseDecode for crate::api::models::bibliography::bib_file::BibtexFile {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
         let mut var_path = <Option<String>>::sse_decode(deserializer);
-        let mut var_entries =
-            <Vec<crate::api::models::bibliography::citation::BibEntryEntity>>::sse_decode(
-                deserializer,
-            );
+        let mut var_entries = <Vec<BibEntryEntity>>::sse_decode(deserializer);
         return crate::api::models::bibliography::bib_file::BibtexFile {
             path: var_path,
             entries: var_entries,
@@ -2329,52 +1207,6 @@ impl SseDecode for crate::api::models::params::cross_language_file_object::Cross
     }
 }
 
-impl SseDecode for crate::api::repositories::notes::mdx::query_params::DbTokenizerLanguage {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
-        let mut inner = <i32>::sse_decode(deserializer);
-        return match inner {
-            0 => crate::api::repositories::notes::mdx::query_params::DbTokenizerLanguage::Arabic,
-            1 => crate::api::repositories::notes::mdx::query_params::DbTokenizerLanguage::Danish,
-            2 => crate::api::repositories::notes::mdx::query_params::DbTokenizerLanguage::Dutch,
-            3 => crate::api::repositories::notes::mdx::query_params::DbTokenizerLanguage::English,
-            4 => crate::api::repositories::notes::mdx::query_params::DbTokenizerLanguage::French,
-            5 => crate::api::repositories::notes::mdx::query_params::DbTokenizerLanguage::German,
-            6 => crate::api::repositories::notes::mdx::query_params::DbTokenizerLanguage::Greek,
-            7 => crate::api::repositories::notes::mdx::query_params::DbTokenizerLanguage::Hungarian,
-            8 => crate::api::repositories::notes::mdx::query_params::DbTokenizerLanguage::Italian,
-            9 => crate::api::repositories::notes::mdx::query_params::DbTokenizerLanguage::Norwegian,
-            10 => {
-                crate::api::repositories::notes::mdx::query_params::DbTokenizerLanguage::Portuguese
-            }
-            11 => crate::api::repositories::notes::mdx::query_params::DbTokenizerLanguage::Romanian,
-            12 => crate::api::repositories::notes::mdx::query_params::DbTokenizerLanguage::Russian,
-            13 => crate::api::repositories::notes::mdx::query_params::DbTokenizerLanguage::Spanish,
-            14 => crate::api::repositories::notes::mdx::query_params::DbTokenizerLanguage::Swedish,
-            15 => crate::api::repositories::notes::mdx::query_params::DbTokenizerLanguage::Tamil,
-            16 => crate::api::repositories::notes::mdx::query_params::DbTokenizerLanguage::Turkish,
-            _ => unreachable!("Invalid variant for DbTokenizerLanguage: {}", inner),
-        };
-    }
-}
-
-impl SseDecode for crate::api::models::equation::equation_model::EquationEntity {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
-        let mut var_id = <Option<String>>::sse_decode(deserializer);
-        let mut var_label = <String>::sse_decode(deserializer);
-        let mut var_body = <String>::sse_decode(deserializer);
-        let mut var_code =
-            <Vec<crate::api::models::snippet::snippet_model::Snippet>>::sse_decode(deserializer);
-        return crate::api::models::equation::equation_model::EquationEntity {
-            id: var_id,
-            label: var_label,
-            body: var_body,
-            code: var_code,
-        };
-    }
-}
-
 impl SseDecode for f64 {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
@@ -2397,25 +1229,6 @@ impl SseDecode for crate::api::data_interface::get_database_status::FlusterDatab
     }
 }
 
-impl SseDecode for crate::api::models::notes::front_matter::front_matter_model::FrontMatter {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
-        let mut var_id = <Option<Thing>>::sse_decode(deserializer);
-        let mut var_title = <String>::sse_decode(deserializer);
-        let mut var_summary = <Option<String>>::sse_decode(deserializer);
-        let mut var_tags =
-            <Vec<crate::api::models::taggable::tag_model::Tag>>::sse_decode(deserializer);
-        let mut var_noteId = <Option<String>>::sse_decode(deserializer);
-        return crate::api::models::notes::front_matter::front_matter_model::FrontMatter {
-            id: var_id,
-            title: var_title,
-            summary: var_summary,
-            tags: var_tags,
-            note_id: var_noteId,
-        };
-    }
-}
-
 impl SseDecode for i32 {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
@@ -2432,6 +1245,18 @@ impl SseDecode for crate::api::models::enums::setting_page_ids::KeymapSectionId 
             1 => crate::api::models::enums::setting_page_ids::KeymapSectionId::UiAndLayout,
             _ => unreachable!("Invalid variant for KeymapSectionId: {}", inner),
         };
+    }
+}
+
+impl SseDecode for Vec<BibEntryEntity> {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut len_ = <i32>::sse_decode(deserializer);
+        let mut ans_ = vec![];
+        for idx_ in 0..len_ {
+            ans_.push(<BibEntryEntity>::sse_decode(deserializer));
+        }
+        return ans_;
     }
 }
 
@@ -2459,36 +1284,6 @@ impl SseDecode for Vec<MdxNoteSummary> {
     }
 }
 
-impl SseDecode for Vec<crate::api::models::bibliography::citation::BibEntryEntity> {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
-        let mut len_ = <i32>::sse_decode(deserializer);
-        let mut ans_ = vec![];
-        for idx_ in 0..len_ {
-            ans_.push(
-                <crate::api::models::bibliography::citation::BibEntryEntity>::sse_decode(
-                    deserializer,
-                ),
-            );
-        }
-        return ans_;
-    }
-}
-
-impl SseDecode for Vec<crate::api::models::notes::mdx::mdx_note::MdxNote> {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
-        let mut len_ = <i32>::sse_decode(deserializer);
-        let mut ans_ = vec![];
-        for idx_ in 0..len_ {
-            ans_.push(
-                <crate::api::models::notes::mdx::mdx_note::MdxNote>::sse_decode(deserializer),
-            );
-        }
-        return ans_;
-    }
-}
-
 impl SseDecode for Vec<u8> {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
@@ -2496,34 +1291,6 @@ impl SseDecode for Vec<u8> {
         let mut ans_ = vec![];
         for idx_ in 0..len_ {
             ans_.push(<u8>::sse_decode(deserializer));
-        }
-        return ans_;
-    }
-}
-
-impl SseDecode for Vec<crate::api::models::snippet::snippet_model::Snippet> {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
-        let mut len_ = <i32>::sse_decode(deserializer);
-        let mut ans_ = vec![];
-        for idx_ in 0..len_ {
-            ans_.push(
-                <crate::api::models::snippet::snippet_model::Snippet>::sse_decode(deserializer),
-            );
-        }
-        return ans_;
-    }
-}
-
-impl SseDecode for Vec<crate::api::models::taggable::tag_model::Tag> {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
-        let mut len_ = <i32>::sse_decode(deserializer);
-        let mut ans_ = vec![];
-        for idx_ in 0..len_ {
-            ans_.push(<crate::api::models::taggable::tag_model::Tag>::sse_decode(
-                deserializer,
-            ));
         }
         return ans_;
     }
@@ -2538,56 +1305,6 @@ impl SseDecode for crate::api::models::params::sync_mdx_typescript_params::MathL
             1 => crate::api::models::params::sync_mdx_typescript_params::MathLabelOption::All,
             2 => crate::api::models::params::sync_mdx_typescript_params::MathLabelOption::None,
             _ => unreachable!("Invalid variant for MathLabelOption: {}", inner),
-        };
-    }
-}
-
-impl SseDecode for crate::api::models::notes::mdx::mdx_note::MdxNote {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
-        let mut var_id = <Option<Thing>>::sse_decode(deserializer);
-        let mut var_frontMatter = <crate::api::models::notes::front_matter::front_matter_model::FrontMatter>::sse_decode(deserializer);
-        let mut var_rawBody = <String>::sse_decode(deserializer);
-        let mut var_filePath = <String>::sse_decode(deserializer);
-        let mut var_ctime = <Option<FlusterTime>>::sse_decode(deserializer);
-        let mut var_mtime = <Option<FlusterTime>>::sse_decode(deserializer);
-        let mut var_atime = <Option<FlusterTime>>::sse_decode(deserializer);
-        let mut var_tags =
-            <Vec<crate::api::models::taggable::tag_model::Tag>>::sse_decode(deserializer);
-        return crate::api::models::notes::mdx::mdx_note::MdxNote {
-            id: var_id,
-            front_matter: var_frontMatter,
-            raw_body: var_rawBody,
-            file_path: var_filePath,
-            ctime: var_ctime,
-            mtime: var_mtime,
-            atime: var_atime,
-            tags: var_tags,
-        };
-    }
-}
-
-impl SseDecode for crate::api::repositories::notes::mdx::query_params::MdxNoteQueryParams {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
-        let mut var_query = <String>::sse_decode(deserializer);
-        let mut var_language =
-            <crate::api::repositories::notes::mdx::query_params::DbTokenizerLanguage>::sse_decode(
-                deserializer,
-            );
-        return crate::api::repositories::notes::mdx::query_params::MdxNoteQueryParams {
-            query: var_query,
-            language: var_language,
-        };
-    }
-}
-
-impl SseDecode for crate::api::repositories::notes::mdx::mdx_notes_repository::MdxNotesRepository {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
-        let mut var_tableName = <String>::sse_decode(deserializer);
-        return crate::api::repositories::notes::mdx::mdx_notes_repository::MdxNotesRepository {
-            table_name: var_tableName,
         };
     }
 }
@@ -2637,44 +1354,11 @@ impl SseDecode for Option<FileTime> {
     }
 }
 
-impl SseDecode for Option<FlusterError> {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
-        if (<bool>::sse_decode(deserializer)) {
-            return Some(<FlusterError>::sse_decode(deserializer));
-        } else {
-            return None;
-        }
-    }
-}
-
 impl SseDecode for Option<FlusterTime> {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
         if (<bool>::sse_decode(deserializer)) {
             return Some(<FlusterTime>::sse_decode(deserializer));
-        } else {
-            return None;
-        }
-    }
-}
-
-impl SseDecode for Option<Pod> {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
-        if (<bool>::sse_decode(deserializer)) {
-            return Some(<Pod>::sse_decode(deserializer));
-        } else {
-            return None;
-        }
-    }
-}
-
-impl SseDecode for Option<Thing> {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
-        if (<bool>::sse_decode(deserializer)) {
-            return Some(<Thing>::sse_decode(deserializer));
         } else {
             return None;
         }
@@ -2711,23 +1395,6 @@ impl SseDecode for crate::api::models::settings::setting_page_id::SettingPageId 
     }
 }
 
-impl SseDecode for crate::api::models::snippet::snippet_model::Snippet {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
-        let mut var_label = <String>::sse_decode(deserializer);
-        let mut var_language = <crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage>::sse_decode(deserializer);
-        let mut var_body = <String>::sse_decode(deserializer);
-        let mut var_tags =
-            <Vec<crate::api::models::taggable::tag_model::Tag>>::sse_decode(deserializer);
-        return crate::api::models::snippet::snippet_model::Snippet {
-            label: var_label,
-            language: var_language,
-            body: var_body,
-            tags: var_tags,
-        };
-    }
-}
-
 impl SseDecode
     for crate::api::global_actions::get_summary_list::summary_list_query::SummaryListQuery
 {
@@ -2749,394 +1416,6 @@ impl SseDecode
     }
 }
 
-impl SseDecode
-    for crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage
-{
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
-        let mut inner = <i32>::sse_decode(deserializer);
-        return match inner {
-            0 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Abap,
-1 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Actionscript3,
-2 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Ada,
-3 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::AngularHtml,
-4 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::AngularTs,
-5 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Apache,
-6 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Apex,
-7 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Apl,
-8 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Applescript,
-9 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Ara,
-10 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Asciidoc,
-11 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Asm,
-12 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Astro,
-13 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Awk,
-14 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Ballerina,
-15 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Bat,
-16 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Beancount,
-17 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Berry,
-18 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Bibtex,
-19 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Bicep,
-20 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Blade,
-21 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Bsl,
-22 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::C,
-23 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Cadence,
-24 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Cairo,
-25 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Clarity,
-26 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Clojure,
-27 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Cmake,
-28 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Cobol,
-29 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Codeowners,
-30 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Codeql,
-31 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Coffee,
-32 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::CommonLisp,
-33 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Coq,
-34 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Cpp,
-35 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Crystal,
-36 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Csharp,
-37 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Css,
-38 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Csv,
-39 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Cue,
-40 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Cypher,
-41 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::D,
-42 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Dart,
-43 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Dax,
-44 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Desktop,
-45 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Diff,
-46 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Docker,
-47 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Dotenv,
-48 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::DreamMaker,
-49 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Edge,
-50 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Elixir,
-51 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Elm,
-52 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::EmacsLisp,
-53 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Erb,
-54 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Erlang,
-55 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Fennel,
-56 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Fish,
-57 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Fluent,
-58 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::FortranFixedForm,
-59 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::FortranFreeForm,
-60 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Fsharp,
-61 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Gdresource,
-62 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Gdscript,
-63 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Gdshader,
-64 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Genie,
-65 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Gherkin,
-66 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::GitCommit,
-67 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::GitRebase,
-68 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Gleam,
-69 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::GlimmerJs,
-70 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::GlimmerTs,
-71 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Glsl,
-72 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Gnuplot,
-73 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Go,
-74 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Graphql,
-75 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Groovy,
-76 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Hack,
-77 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Haml,
-78 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Handlebars,
-79 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Haskell,
-80 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Haxe,
-81 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Hcl,
-82 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Hjson,
-83 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Hlsl,
-84 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Html,
-85 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::HtmlDerivative,
-86 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Http,
-87 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Hxml,
-88 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Hy,
-89 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Imba,
-90 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Ini,
-91 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Java,
-92 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Javascript,
-93 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Jinja,
-94 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Jison,
-95 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Json,
-96 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Json5,
-97 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Jsonc,
-98 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Jsonl,
-99 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Jsonnet,
-100 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Jssm,
-101 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Jsx,
-102 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Julia,
-103 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Kotlin,
-104 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Kusto,
-105 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Latex,
-106 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Lean,
-107 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Less,
-108 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Liquid,
-109 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Llvm,
-110 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Log,
-111 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Logo,
-112 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Lua,
-113 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Luau,
-114 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Make,
-115 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Markdown,
-116 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Marko,
-117 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Matlab,
-118 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Mdc,
-119 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Mdx,
-120 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Mermaid,
-121 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Mipsasm,
-122 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Mojo,
-123 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Move,
-124 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Narrat,
-125 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Nextflow,
-126 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Nginx,
-127 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Nim,
-128 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Nix,
-129 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Nushell,
-130 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::ObjectiveC,
-131 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::ObjectiveCpp,
-132 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Ocaml,
-133 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Pascal,
-134 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Perl,
-135 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Php,
-136 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Plsql,
-137 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Po,
-138 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Polar,
-139 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Postcss,
-140 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Powerquery,
-141 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Powershell,
-142 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Prisma,
-143 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Prolog,
-144 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Proto,
-145 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Pug,
-146 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Puppet,
-147 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Purescript,
-148 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Python,
-149 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Qml,
-150 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Qmldir,
-151 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Qss,
-152 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::R,
-153 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Racket,
-154 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Raku,
-155 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Razor,
-156 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Reg,
-157 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Regexp,
-158 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Rel,
-159 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Riscv,
-160 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Rst,
-161 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Ruby,
-162 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Rust,
-163 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Sas,
-164 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Sass,
-165 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Scala,
-166 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Scheme,
-167 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Scss,
-168 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Sdbl,
-169 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Shaderlab,
-170 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Shellscript,
-171 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Shellsession,
-172 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Smalltalk,
-173 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Solidity,
-174 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Soy,
-175 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Sparql,
-176 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Splunk,
-177 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Sql,
-178 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::SshConfig,
-179 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Stata,
-180 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Stylus,
-181 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Svelte,
-182 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Swift,
-183 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::SystemVerilog,
-184 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Systemd,
-185 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Talonscript,
-186 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Tasl,
-187 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Tcl,
-188 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Templ,
-189 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Terraform,
-190 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Tex,
-191 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Toml,
-192 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::TsTags,
-193 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Tsv,
-194 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Tsx,
-195 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Turtle,
-196 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Twig,
-197 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Typescript,
-198 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Typespec,
-199 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Typst,
-200 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::V,
-201 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Vala,
-202 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Vb,
-203 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Verilog,
-204 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Vhdl,
-205 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Viml,
-206 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Vue,
-207 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::VueHtml,
-208 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Vyper,
-209 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Wasm,
-210 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Wenyan,
-211 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Wgsl,
-212 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Wikitext,
-213 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Wit,
-214 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Wolfram,
-215 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Xml,
-216 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Xsl,
-217 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Yaml,
-218 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Zenscript,
-219 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Zig,
-220 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Adoc,
-221 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Batch,
-222 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Be,
-223 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::OneC,
-224 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Cdc,
-225 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Clj,
-226 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Ql,
-227 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Coffeescript,
-228 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Lisp,
-229 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::CPlusPlus,
-230 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::CSharp,
-231 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Cs,
-232 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Cql,
-233 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Dockerfile,
-234 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Elisp,
-235 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Erl,
-236 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Ftl,
-237 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::F,
-238 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::For,
-239 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::F77,
-240 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::F90,
-241 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::F95,
-242 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::F03,
-243 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::F08,
-244 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::F18,
-245 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::FSharp,
-246 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Fs,
-247 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Gjs,
-248 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Gts,
-249 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Gql,
-250 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Hbs,
-251 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Hs,
-252 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Properties,
-253 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Js,
-254 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Fsl,
-255 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Jl,
-256 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Kt,
-257 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Kts,
-258 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Kql,
-259 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Lean4,
-260 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Makefile,
-261 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Md,
-262 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Mmd,
-263 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Mips,
-264 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Nar,
-265 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Nf,
-266 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Nu,
-267 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Objc,
-268 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Pot,
-269 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Potx,
-270 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Ps,
-271 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Ps1,
-272 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Protobuf,
-273 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Jade,
-274 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Py,
-275 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Perl6,
-276 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Regex,
-277 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Rb,
-278 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Rs,
-279 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::OneCQuery,
-280 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Shader,
-281 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Bash,
-282 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Sh,
-283 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Shell,
-284 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Zsh,
-285 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Console,
-286 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::ClosureTemplates,
-287 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Spl,
-288 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Styl,
-289 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Talon,
-290 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Tf,
-291 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Tfvars,
-292 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Lit,
-293 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Ts,
-294 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Tsp,
-295 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Typ,
-296 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Cmd,
-297 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Vim,
-298 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Vimscript,
-299 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Vy,
-300 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Mediawiki,
-301 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Wiki,
-302 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Wl,
-303 => crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Yml,
-            _ => unreachable!("Invalid variant for SupportedSyntaxLanguage: {}", inner),
-        };
-    }
-}
-
-impl SseDecode
-    for crate::api::models::nested_models::code::supported_syntax_theme::SupportedSyntaxTheme
-{
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
-        let mut inner = <i32>::sse_decode(deserializer);
-        return match inner {
-            0 => crate::api::models::nested_models::code::supported_syntax_theme::SupportedSyntaxTheme::Andromeeda,
-1 => crate::api::models::nested_models::code::supported_syntax_theme::SupportedSyntaxTheme::AuroraX,
-2 => crate::api::models::nested_models::code::supported_syntax_theme::SupportedSyntaxTheme::AyuDark,
-3 => crate::api::models::nested_models::code::supported_syntax_theme::SupportedSyntaxTheme::CatppuccinFrappe,
-4 => crate::api::models::nested_models::code::supported_syntax_theme::SupportedSyntaxTheme::CatppuccinLatte,
-5 => crate::api::models::nested_models::code::supported_syntax_theme::SupportedSyntaxTheme::CatppuccinMacchiato,
-6 => crate::api::models::nested_models::code::supported_syntax_theme::SupportedSyntaxTheme::CatppuccinMocha,
-7 => crate::api::models::nested_models::code::supported_syntax_theme::SupportedSyntaxTheme::DarkPlus,
-8 => crate::api::models::nested_models::code::supported_syntax_theme::SupportedSyntaxTheme::Dracula,
-9 => crate::api::models::nested_models::code::supported_syntax_theme::SupportedSyntaxTheme::DraculaSoft,
-10 => crate::api::models::nested_models::code::supported_syntax_theme::SupportedSyntaxTheme::EverforestDark,
-11 => crate::api::models::nested_models::code::supported_syntax_theme::SupportedSyntaxTheme::EverforestLight,
-12 => crate::api::models::nested_models::code::supported_syntax_theme::SupportedSyntaxTheme::GithubDark,
-13 => crate::api::models::nested_models::code::supported_syntax_theme::SupportedSyntaxTheme::GithubDarkDefault,
-14 => crate::api::models::nested_models::code::supported_syntax_theme::SupportedSyntaxTheme::GithubDarkDimmed,
-15 => crate::api::models::nested_models::code::supported_syntax_theme::SupportedSyntaxTheme::GithubDarkHighContrast,
-16 => crate::api::models::nested_models::code::supported_syntax_theme::SupportedSyntaxTheme::GithubLight,
-17 => crate::api::models::nested_models::code::supported_syntax_theme::SupportedSyntaxTheme::GithubLightDefault,
-18 => crate::api::models::nested_models::code::supported_syntax_theme::SupportedSyntaxTheme::GithubLightHighContrast,
-19 => crate::api::models::nested_models::code::supported_syntax_theme::SupportedSyntaxTheme::GruvboxDarkHard,
-20 => crate::api::models::nested_models::code::supported_syntax_theme::SupportedSyntaxTheme::GruvboxDarkMedium,
-21 => crate::api::models::nested_models::code::supported_syntax_theme::SupportedSyntaxTheme::GruvboxDarkSoft,
-22 => crate::api::models::nested_models::code::supported_syntax_theme::SupportedSyntaxTheme::GruvboxLightHard,
-23 => crate::api::models::nested_models::code::supported_syntax_theme::SupportedSyntaxTheme::GruvboxLightMedium,
-24 => crate::api::models::nested_models::code::supported_syntax_theme::SupportedSyntaxTheme::GruvboxLightSoft,
-25 => crate::api::models::nested_models::code::supported_syntax_theme::SupportedSyntaxTheme::Houston,
-26 => crate::api::models::nested_models::code::supported_syntax_theme::SupportedSyntaxTheme::KanagawaDragon,
-27 => crate::api::models::nested_models::code::supported_syntax_theme::SupportedSyntaxTheme::KanagawaLotus,
-28 => crate::api::models::nested_models::code::supported_syntax_theme::SupportedSyntaxTheme::KanagawaWave,
-29 => crate::api::models::nested_models::code::supported_syntax_theme::SupportedSyntaxTheme::Laserwave,
-30 => crate::api::models::nested_models::code::supported_syntax_theme::SupportedSyntaxTheme::LightPlus,
-31 => crate::api::models::nested_models::code::supported_syntax_theme::SupportedSyntaxTheme::MaterialTheme,
-32 => crate::api::models::nested_models::code::supported_syntax_theme::SupportedSyntaxTheme::MaterialThemeDarker,
-33 => crate::api::models::nested_models::code::supported_syntax_theme::SupportedSyntaxTheme::MaterialThemeLighter,
-34 => crate::api::models::nested_models::code::supported_syntax_theme::SupportedSyntaxTheme::MaterialThemeOcean,
-35 => crate::api::models::nested_models::code::supported_syntax_theme::SupportedSyntaxTheme::MaterialThemePalenight,
-36 => crate::api::models::nested_models::code::supported_syntax_theme::SupportedSyntaxTheme::MinDark,
-37 => crate::api::models::nested_models::code::supported_syntax_theme::SupportedSyntaxTheme::MinLight,
-38 => crate::api::models::nested_models::code::supported_syntax_theme::SupportedSyntaxTheme::Monokai,
-39 => crate::api::models::nested_models::code::supported_syntax_theme::SupportedSyntaxTheme::NightOwl,
-40 => crate::api::models::nested_models::code::supported_syntax_theme::SupportedSyntaxTheme::Nord,
-41 => crate::api::models::nested_models::code::supported_syntax_theme::SupportedSyntaxTheme::OneDarkPro,
-42 => crate::api::models::nested_models::code::supported_syntax_theme::SupportedSyntaxTheme::OneLight,
-43 => crate::api::models::nested_models::code::supported_syntax_theme::SupportedSyntaxTheme::Plastic,
-44 => crate::api::models::nested_models::code::supported_syntax_theme::SupportedSyntaxTheme::Poimandres,
-45 => crate::api::models::nested_models::code::supported_syntax_theme::SupportedSyntaxTheme::Red,
-46 => crate::api::models::nested_models::code::supported_syntax_theme::SupportedSyntaxTheme::RosePine,
-47 => crate::api::models::nested_models::code::supported_syntax_theme::SupportedSyntaxTheme::RosePineDawn,
-48 => crate::api::models::nested_models::code::supported_syntax_theme::SupportedSyntaxTheme::RosePineMoon,
-49 => crate::api::models::nested_models::code::supported_syntax_theme::SupportedSyntaxTheme::SlackDark,
-50 => crate::api::models::nested_models::code::supported_syntax_theme::SupportedSyntaxTheme::SlackOchin,
-51 => crate::api::models::nested_models::code::supported_syntax_theme::SupportedSyntaxTheme::SnazzyLight,
-52 => crate::api::models::nested_models::code::supported_syntax_theme::SupportedSyntaxTheme::SolarizedDark,
-53 => crate::api::models::nested_models::code::supported_syntax_theme::SupportedSyntaxTheme::SolarizedLight,
-54 => crate::api::models::nested_models::code::supported_syntax_theme::SupportedSyntaxTheme::Synthwave84,
-55 => crate::api::models::nested_models::code::supported_syntax_theme::SupportedSyntaxTheme::TokyoNight,
-56 => crate::api::models::nested_models::code::supported_syntax_theme::SupportedSyntaxTheme::Vesper,
-57 => crate::api::models::nested_models::code::supported_syntax_theme::SupportedSyntaxTheme::VitesseBlack,
-58 => crate::api::models::nested_models::code::supported_syntax_theme::SupportedSyntaxTheme::VitesseDark,
-59 => crate::api::models::nested_models::code::supported_syntax_theme::SupportedSyntaxTheme::VitesseLight,
-            _ => unreachable!("Invalid variant for SupportedSyntaxTheme: {}", inner),
-        };
-    }
-}
-
 impl SseDecode for crate::api::global_actions::parse_directory::sync_fs_directory::models::sync_filesystem_options::SyncFilesystemDirectoryOptions {
                     // Codec=Sse (Serialization based), see doc to use other codecs
                     fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {let mut var_dirPath = <String>::sse_decode(deserializer);
@@ -3144,27 +1423,6 @@ let mut var_bibPath = <Option<String>>::sse_decode(deserializer);
 let mut var_nThreads = <u32>::sse_decode(deserializer);
 return crate::api::global_actions::parse_directory::sync_fs_directory::models::sync_filesystem_options::SyncFilesystemDirectoryOptions{dir_path: var_dirPath, bib_path: var_bibPath, n_threads: var_nThreads};}
                 }
-
-impl SseDecode for crate::api::models::taggable::tag_model::Tag {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
-        let mut var_value = <String>::sse_decode(deserializer);
-        return crate::api::models::taggable::tag_model::Tag { value: var_value };
-    }
-}
-
-impl SseDecode for crate::api::models::taggable::tag_model::TagFromContentResult {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
-        let mut var_tags =
-            <Vec<crate::api::models::taggable::tag_model::Tag>>::sse_decode(deserializer);
-        let mut var_parsedContent = <String>::sse_decode(deserializer);
-        return crate::api::models::taggable::tag_model::TagFromContentResult {
-            tags: var_tags,
-            parsed_content: var_parsedContent,
-        };
-    }
-}
 
 impl SseDecode for u16 {
     // Codec=Sse (Serialization based), see doc to use other codecs
@@ -3212,43 +1470,23 @@ fn pde_ffi_dispatcher_primary_impl(
 6 => wire__crate__api__models__nested_models__fluster_datetime__fluster_time__FlusterTime_default_impl(port, ptr, rust_vec_len, data_len),
 7 => wire__crate__api__models__nested_models__fluster_datetime__fluster_time__FlusterTime_from_file_time_impl(port, ptr, rust_vec_len, data_len),
 8 => wire__crate__api__models__nested_models__fluster_datetime__fluster_time__FlusterTime_now_impl(port, ptr, rust_vec_len, data_len),
-21 => wire__crate__api__models__bibliography__reading_list__ReadingList_default_impl(port, ptr, rust_vec_len, data_len),
-22 => wire__crate__api__models__bibliography__citation__bib_entry_entity_default_impl(port, ptr, rust_vec_len, data_len),
-23 => wire__crate__api__models__bibliography__bib_file__bibtex_file_from_filesystem_path_impl(port, ptr, rust_vec_len, data_len),
-24 => wire__crate__api__models__bibliography__bib_file__bibtex_file_from_raw_file_content_impl(port, ptr, rust_vec_len, data_len),
-25 => wire__crate__api__models__bibliography__bib_file__bibtex_file_save_entries_impl(port, ptr, rust_vec_len, data_len),
-26 => wire__crate__api__models__params__cross_language_file_object__cross_language_file_default_impl(port, ptr, rust_vec_len, data_len),
-27 => wire__crate__api__repositories__notes__mdx__query_params__db_tokenizer_language_default_impl(port, ptr, rust_vec_len, data_len),
-28 => wire__crate__api__models__equation__equation_model__equation_entity_default_impl(port, ptr, rust_vec_len, data_len),
-29 => wire__crate__api__models__notes__front_matter__front_matter_model__front_matter_entity_default_impl(port, ptr, rust_vec_len, data_len),
-30 => wire__crate__api__models__notes__front_matter__front_matter_model__front_matter_entity_from_gray_matter_impl(port, ptr, rust_vec_len, data_len),
-33 => wire__crate__api__data_interface__get_database_status__get_database_status_impl(port, ptr, rust_vec_len, data_len),
-34 => wire__crate__api__global_actions__get_summary_list__get_summary_list_data__get_summary_list_impl(port, ptr, rust_vec_len, data_len),
-36 => wire__crate__api__models__enums__setting_page_ids__keymap_section_id_default_impl(port, ptr, rust_vec_len, data_len),
-37 => wire__crate__api__models__params__sync_mdx_typescript_params__math_label_option_default_impl(port, ptr, rust_vec_len, data_len),
-38 => wire__crate__api__models__notes__mdx__mdx_note__mdx_note_entity_from_file_system_path_impl(port, ptr, rust_vec_len, data_len),
-39 => wire__crate__api__models__notes__mdx__mdx_note__mdx_note_entity_from_id_string_impl(port, ptr, rust_vec_len, data_len),
-40 => wire__crate__api__models__notes__mdx__mdx_note__mdx_note_entity_from_raw_mdx_string_impl(port, ptr, rust_vec_len, data_len),
-41 => wire__crate__api__models__notes__mdx__mdx_note__mdx_note_entity_get_id_impl(port, ptr, rust_vec_len, data_len),
-42 => wire__crate__api__models__notes__mdx__mdx_note__mdx_note_entity_save_impl(port, ptr, rust_vec_len, data_len),
-43 => wire__crate__api__repositories__notes__mdx__mdx_notes_repository__mdx_notes_repository_default_impl(port, ptr, rust_vec_len, data_len),
-44 => wire__crate__api__repositories__notes__mdx__mdx_notes_repository__mdx_notes_repository_new_impl(port, ptr, rust_vec_len, data_len),
-45 => wire__crate__api__repositories__notes__mdx__mdx_notes_repository__mdx_notes_repository_search_impl(port, ptr, rust_vec_len, data_len),
-46 => wire__crate__api__models__enums__parsable_file_extension__note_type_default_impl(port, ptr, rust_vec_len, data_len),
-47 => wire__crate__api__initialize__on_desktop_init__on_desktop_init_impl(port, ptr, rust_vec_len, data_len),
-49 => wire__crate__api__models__settings__setting_page_id__setting_page_id_default_impl(port, ptr, rust_vec_len, data_len),
-50 => wire__crate__api__fs__fs_setup__setup_file_system_for_data_impl(port, ptr, rust_vec_len, data_len),
-51 => wire__crate__api__models__snippet__snippet_model__snippet_default_impl(port, ptr, rust_vec_len, data_len),
-52 => wire__crate__api__global_actions__get_summary_list__summary_list_query__summary_list_query_default_impl(port, ptr, rust_vec_len, data_len),
-53 => wire__crate__api__global_actions__get_summary_list__summary_list_result__summary_list_results_default_impl(port, ptr, rust_vec_len, data_len),
-54 => wire__crate__api__models__nested_models__code__supported_syntax_language__supported_syntax_language_default_impl(port, ptr, rust_vec_len, data_len),
-55 => wire__crate__api__models__nested_models__code__supported_syntax_theme__supported_syntax_theme_default_impl(port, ptr, rust_vec_len, data_len),
-56 => wire__crate__api__global_actions__parse_directory__sync_fs_directory__sync_filesystem_directory__sync_directory_impl(port, ptr, rust_vec_len, data_len),
-57 => wire__crate__api__global_actions__parse_directory__sync_fs_directory__models__sync_filesystem_options__sync_filesystem_directory_options_default_impl(port, ptr, rust_vec_len, data_len),
-58 => wire__crate__api__global_actions__parse_directory__sync_fs_directory__sync_methods__sync_mdx_notes__sync_mdx_filesystem_notes_impl(port, ptr, rust_vec_len, data_len),
-59 => wire__crate__api__global_actions__parse_directory__sync_fs_directory__sync_methods__sync_user_bibliography__sync_user_bibliography_impl(port, ptr, rust_vec_len, data_len),
-60 => wire__crate__api__models__taggable__tag_model__tag_from_mdx_content_impl(port, ptr, rust_vec_len, data_len),
-61 => wire__crate__api__models__taggable__tag_model__tag_from_string_impl(port, ptr, rust_vec_len, data_len),
+9 => wire__crate__api__models__bibliography__bib_file__bibtex_file_from_filesystem_path_impl(port, ptr, rust_vec_len, data_len),
+10 => wire__crate__api__models__bibliography__bib_file__bibtex_file_from_raw_file_content_impl(port, ptr, rust_vec_len, data_len),
+11 => wire__crate__api__models__bibliography__bib_file__bibtex_file_save_entries_impl(port, ptr, rust_vec_len, data_len),
+12 => wire__crate__api__models__params__cross_language_file_object__cross_language_file_default_impl(port, ptr, rust_vec_len, data_len),
+15 => wire__crate__api__data_interface__get_database_status__get_database_status_impl(port, ptr, rust_vec_len, data_len),
+17 => wire__crate__api__models__enums__setting_page_ids__keymap_section_id_default_impl(port, ptr, rust_vec_len, data_len),
+18 => wire__crate__api__models__params__sync_mdx_typescript_params__math_label_option_default_impl(port, ptr, rust_vec_len, data_len),
+19 => wire__crate__api__models__enums__parsable_file_extension__note_type_default_impl(port, ptr, rust_vec_len, data_len),
+20 => wire__crate__api__initialize__on_desktop_init__on_desktop_init_impl(port, ptr, rust_vec_len, data_len),
+22 => wire__crate__api__models__settings__setting_page_id__setting_page_id_default_impl(port, ptr, rust_vec_len, data_len),
+23 => wire__crate__api__fs__fs_setup__setup_file_system_for_data_impl(port, ptr, rust_vec_len, data_len),
+24 => wire__crate__api__global_actions__get_summary_list__summary_list_query__summary_list_query_default_impl(port, ptr, rust_vec_len, data_len),
+25 => wire__crate__api__global_actions__get_summary_list__summary_list_result__summary_list_results_default_impl(port, ptr, rust_vec_len, data_len),
+26 => wire__crate__api__global_actions__parse_directory__sync_fs_directory__sync_filesystem_directory__sync_directory_impl(port, ptr, rust_vec_len, data_len),
+27 => wire__crate__api__global_actions__parse_directory__sync_fs_directory__models__sync_filesystem_options__sync_filesystem_directory_options_default_impl(port, ptr, rust_vec_len, data_len),
+28 => wire__crate__api__global_actions__parse_directory__sync_fs_directory__sync_methods__sync_mdx_notes__sync_mdx_filesystem_notes_impl(port, ptr, rust_vec_len, data_len),
+29 => wire__crate__api__global_actions__parse_directory__sync_fs_directory__sync_methods__sync_user_bibliography__sync_user_bibliography_impl(port, ptr, rust_vec_len, data_len),
                         _ => unreachable!(),
                     }
 }
@@ -3265,27 +1503,30 @@ fn pde_ffi_dispatcher_sync_impl(
 2 => wire__crate__api__typedefs__note_type_utils__DbRecord_auto_accessor_set_id_impl(ptr, rust_vec_len, data_len),
 4 => wire__crate__api__models__nested_models__fluster_datetime__fluster_time__FlusterTime_auto_accessor_get_value_impl(ptr, rust_vec_len, data_len),
 5 => wire__crate__api__models__nested_models__fluster_datetime__fluster_time__FlusterTime_auto_accessor_set_value_impl(ptr, rust_vec_len, data_len),
-9 => wire__crate__api__global_actions__get_summary_list__summary_types__mdx_note_summary__MdxNoteSummary_auto_accessor_get_front_matter_impl(ptr, rust_vec_len, data_len),
-10 => wire__crate__api__global_actions__get_summary_list__summary_types__mdx_note_summary__MdxNoteSummary_auto_accessor_get_id_impl(ptr, rust_vec_len, data_len),
-11 => wire__crate__api__global_actions__get_summary_list__summary_types__mdx_note_summary__MdxNoteSummary_auto_accessor_set_front_matter_impl(ptr, rust_vec_len, data_len),
-12 => wire__crate__api__global_actions__get_summary_list__summary_types__mdx_note_summary__MdxNoteSummary_auto_accessor_set_id_impl(ptr, rust_vec_len, data_len),
-13 => wire__crate__api__models__bibliography__reading_list__ReadingList_auto_accessor_get_created_at_impl(ptr, rust_vec_len, data_len),
-14 => wire__crate__api__models__bibliography__reading_list__ReadingList_auto_accessor_get_id_impl(ptr, rust_vec_len, data_len),
-15 => wire__crate__api__models__bibliography__reading_list__ReadingList_auto_accessor_get_label_impl(ptr, rust_vec_len, data_len),
-16 => wire__crate__api__models__bibliography__reading_list__ReadingList_auto_accessor_get_papers_impl(ptr, rust_vec_len, data_len),
-17 => wire__crate__api__models__bibliography__reading_list__ReadingList_auto_accessor_set_created_at_impl(ptr, rust_vec_len, data_len),
-18 => wire__crate__api__models__bibliography__reading_list__ReadingList_auto_accessor_set_id_impl(ptr, rust_vec_len, data_len),
-19 => wire__crate__api__models__bibliography__reading_list__ReadingList_auto_accessor_set_label_impl(ptr, rust_vec_len, data_len),
-20 => wire__crate__api__models__bibliography__reading_list__ReadingList_auto_accessor_set_papers_impl(ptr, rust_vec_len, data_len),
-31 => wire__crate__api__fs__fs_utils__get_app_config_dir_impl(ptr, rust_vec_len, data_len),
-32 => wire__crate__api__fs__fs_utils__get_app_data_dir_impl(ptr, rust_vec_len, data_len),
-35 => wire__crate__api__search__get_text_similarity__get_text_similarity_impl(ptr, rust_vec_len, data_len),
-48 => wire__crate__api__fs__fs_utils__path_exists_impl(ptr, rust_vec_len, data_len),
+13 => wire__crate__api__fs__fs_utils__get_app_config_dir_impl(ptr, rust_vec_len, data_len),
+14 => wire__crate__api__fs__fs_utils__get_app_data_dir_impl(ptr, rust_vec_len, data_len),
+16 => wire__crate__api__search__get_text_similarity__get_text_similarity_impl(ptr, rust_vec_len, data_len),
+21 => wire__crate__api__fs__fs_utils__path_exists_impl(ptr, rust_vec_len, data_len),
                         _ => unreachable!(),
                     }
 }
 
 // Section: rust2dart
+
+// Codec=Dco (DartCObject based), see doc to use other codecs
+impl flutter_rust_bridge::IntoDart for FrbWrapper<BibEntryEntity> {
+    fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
+        flutter_rust_bridge::for_generated::rust_auto_opaque_encode::<_, MoiArc<_>>(self.0)
+            .into_dart()
+    }
+}
+impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive for FrbWrapper<BibEntryEntity> {}
+
+impl flutter_rust_bridge::IntoIntoDart<FrbWrapper<BibEntryEntity>> for BibEntryEntity {
+    fn into_into_dart(self) -> FrbWrapper<BibEntryEntity> {
+        self.into()
+    }
+}
 
 // Codec=Dco (DartCObject based), see doc to use other codecs
 impl flutter_rust_bridge::IntoDart for FrbWrapper<DbRecord> {
@@ -3413,36 +1654,6 @@ impl flutter_rust_bridge::IntoIntoDart<FrbWrapper<OffsetDateTime>> for OffsetDat
 }
 
 // Codec=Dco (DartCObject based), see doc to use other codecs
-impl flutter_rust_bridge::IntoDart for FrbWrapper<Pod> {
-    fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
-        flutter_rust_bridge::for_generated::rust_auto_opaque_encode::<_, MoiArc<_>>(self.0)
-            .into_dart()
-    }
-}
-impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive for FrbWrapper<Pod> {}
-
-impl flutter_rust_bridge::IntoIntoDart<FrbWrapper<Pod>> for Pod {
-    fn into_into_dart(self) -> FrbWrapper<Pod> {
-        self.into()
-    }
-}
-
-// Codec=Dco (DartCObject based), see doc to use other codecs
-impl flutter_rust_bridge::IntoDart for FrbWrapper<ReadingList> {
-    fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
-        flutter_rust_bridge::for_generated::rust_auto_opaque_encode::<_, MoiArc<_>>(self.0)
-            .into_dart()
-    }
-}
-impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive for FrbWrapper<ReadingList> {}
-
-impl flutter_rust_bridge::IntoIntoDart<FrbWrapper<ReadingList>> for ReadingList {
-    fn into_into_dart(self) -> FrbWrapper<ReadingList> {
-        self.into()
-    }
-}
-
-// Codec=Dco (DartCObject based), see doc to use other codecs
 impl flutter_rust_bridge::IntoDart for FrbWrapper<RecordId> {
     fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
         flutter_rust_bridge::for_generated::rust_auto_opaque_encode::<_, MoiArc<_>>(self.0)
@@ -3457,44 +1668,6 @@ impl flutter_rust_bridge::IntoIntoDart<FrbWrapper<RecordId>> for RecordId {
     }
 }
 
-// Codec=Dco (DartCObject based), see doc to use other codecs
-impl flutter_rust_bridge::IntoDart for FrbWrapper<Thing> {
-    fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
-        flutter_rust_bridge::for_generated::rust_auto_opaque_encode::<_, MoiArc<_>>(self.0)
-            .into_dart()
-    }
-}
-impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive for FrbWrapper<Thing> {}
-
-impl flutter_rust_bridge::IntoIntoDart<FrbWrapper<Thing>> for Thing {
-    fn into_into_dart(self) -> FrbWrapper<Thing> {
-        self.into()
-    }
-}
-
-// Codec=Dco (DartCObject based), see doc to use other codecs
-impl flutter_rust_bridge::IntoDart for crate::api::models::bibliography::citation::BibEntryEntity {
-    fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
-        [
-            self.id.into_into_dart().into_dart(),
-            self.pdf_path.into_into_dart().into_dart(),
-            self.read.into_into_dart().into_dart(),
-            self.fields.into_into_dart().into_dart(),
-        ]
-        .into_dart()
-    }
-}
-impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive
-    for crate::api::models::bibliography::citation::BibEntryEntity
-{
-}
-impl flutter_rust_bridge::IntoIntoDart<crate::api::models::bibliography::citation::BibEntryEntity>
-    for crate::api::models::bibliography::citation::BibEntryEntity
-{
-    fn into_into_dart(self) -> crate::api::models::bibliography::citation::BibEntryEntity {
-        self
-    }
-}
 // Codec=Dco (DartCObject based), see doc to use other codecs
 impl flutter_rust_bridge::IntoDart for crate::api::models::bibliography::bib_file::BibtexFile {
     fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
@@ -3545,73 +1718,6 @@ impl
 }
 // Codec=Dco (DartCObject based), see doc to use other codecs
 impl flutter_rust_bridge::IntoDart
-    for crate::api::repositories::notes::mdx::query_params::DbTokenizerLanguage
-{
-    fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
-        match self {
-            Self::Arabic => 0.into_dart(),
-            Self::Danish => 1.into_dart(),
-            Self::Dutch => 2.into_dart(),
-            Self::English => 3.into_dart(),
-            Self::French => 4.into_dart(),
-            Self::German => 5.into_dart(),
-            Self::Greek => 6.into_dart(),
-            Self::Hungarian => 7.into_dart(),
-            Self::Italian => 8.into_dart(),
-            Self::Norwegian => 9.into_dart(),
-            Self::Portuguese => 10.into_dart(),
-            Self::Romanian => 11.into_dart(),
-            Self::Russian => 12.into_dart(),
-            Self::Spanish => 13.into_dart(),
-            Self::Swedish => 14.into_dart(),
-            Self::Tamil => 15.into_dart(),
-            Self::Turkish => 16.into_dart(),
-            _ => unreachable!(),
-        }
-    }
-}
-impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive
-    for crate::api::repositories::notes::mdx::query_params::DbTokenizerLanguage
-{
-}
-impl
-    flutter_rust_bridge::IntoIntoDart<
-        crate::api::repositories::notes::mdx::query_params::DbTokenizerLanguage,
-    > for crate::api::repositories::notes::mdx::query_params::DbTokenizerLanguage
-{
-    fn into_into_dart(
-        self,
-    ) -> crate::api::repositories::notes::mdx::query_params::DbTokenizerLanguage {
-        self
-    }
-}
-// Codec=Dco (DartCObject based), see doc to use other codecs
-impl flutter_rust_bridge::IntoDart
-    for crate::api::models::equation::equation_model::EquationEntity
-{
-    fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
-        [
-            self.id.into_into_dart().into_dart(),
-            self.label.into_into_dart().into_dart(),
-            self.body.into_into_dart().into_dart(),
-            self.code.into_into_dart().into_dart(),
-        ]
-        .into_dart()
-    }
-}
-impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive
-    for crate::api::models::equation::equation_model::EquationEntity
-{
-}
-impl flutter_rust_bridge::IntoIntoDart<crate::api::models::equation::equation_model::EquationEntity>
-    for crate::api::models::equation::equation_model::EquationEntity
-{
-    fn into_into_dart(self) -> crate::api::models::equation::equation_model::EquationEntity {
-        self
-    }
-}
-// Codec=Dco (DartCObject based), see doc to use other codecs
-impl flutter_rust_bridge::IntoDart
     for crate::api::data_interface::get_database_status::FlusterDatabaseStatus
 {
     fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
@@ -3637,36 +1743,6 @@ impl
     fn into_into_dart(
         self,
     ) -> crate::api::data_interface::get_database_status::FlusterDatabaseStatus {
-        self
-    }
-}
-// Codec=Dco (DartCObject based), see doc to use other codecs
-impl flutter_rust_bridge::IntoDart
-    for crate::api::models::notes::front_matter::front_matter_model::FrontMatter
-{
-    fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
-        [
-            self.id.into_into_dart().into_dart(),
-            self.title.into_into_dart().into_dart(),
-            self.summary.into_into_dart().into_dart(),
-            self.tags.into_into_dart().into_dart(),
-            self.note_id.into_into_dart().into_dart(),
-        ]
-        .into_dart()
-    }
-}
-impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive
-    for crate::api::models::notes::front_matter::front_matter_model::FrontMatter
-{
-}
-impl
-    flutter_rust_bridge::IntoIntoDart<
-        crate::api::models::notes::front_matter::front_matter_model::FrontMatter,
-    > for crate::api::models::notes::front_matter::front_matter_model::FrontMatter
-{
-    fn into_into_dart(
-        self,
-    ) -> crate::api::models::notes::front_matter::front_matter_model::FrontMatter {
         self
     }
 }
@@ -3722,83 +1798,6 @@ impl
     }
 }
 // Codec=Dco (DartCObject based), see doc to use other codecs
-impl flutter_rust_bridge::IntoDart for crate::api::models::notes::mdx::mdx_note::MdxNote {
-    fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
-        [
-            self.id.into_into_dart().into_dart(),
-            self.front_matter.into_into_dart().into_dart(),
-            self.raw_body.into_into_dart().into_dart(),
-            self.file_path.into_into_dart().into_dart(),
-            self.ctime.into_into_dart().into_dart(),
-            self.mtime.into_into_dart().into_dart(),
-            self.atime.into_into_dart().into_dart(),
-            self.tags.into_into_dart().into_dart(),
-        ]
-        .into_dart()
-    }
-}
-impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive
-    for crate::api::models::notes::mdx::mdx_note::MdxNote
-{
-}
-impl flutter_rust_bridge::IntoIntoDart<crate::api::models::notes::mdx::mdx_note::MdxNote>
-    for crate::api::models::notes::mdx::mdx_note::MdxNote
-{
-    fn into_into_dart(self) -> crate::api::models::notes::mdx::mdx_note::MdxNote {
-        self
-    }
-}
-// Codec=Dco (DartCObject based), see doc to use other codecs
-impl flutter_rust_bridge::IntoDart
-    for crate::api::repositories::notes::mdx::query_params::MdxNoteQueryParams
-{
-    fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
-        [
-            self.query.into_into_dart().into_dart(),
-            self.language.into_into_dart().into_dart(),
-        ]
-        .into_dart()
-    }
-}
-impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive
-    for crate::api::repositories::notes::mdx::query_params::MdxNoteQueryParams
-{
-}
-impl
-    flutter_rust_bridge::IntoIntoDart<
-        crate::api::repositories::notes::mdx::query_params::MdxNoteQueryParams,
-    > for crate::api::repositories::notes::mdx::query_params::MdxNoteQueryParams
-{
-    fn into_into_dart(
-        self,
-    ) -> crate::api::repositories::notes::mdx::query_params::MdxNoteQueryParams {
-        self
-    }
-}
-// Codec=Dco (DartCObject based), see doc to use other codecs
-impl flutter_rust_bridge::IntoDart
-    for crate::api::repositories::notes::mdx::mdx_notes_repository::MdxNotesRepository
-{
-    fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
-        [self.table_name.into_into_dart().into_dart()].into_dart()
-    }
-}
-impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive
-    for crate::api::repositories::notes::mdx::mdx_notes_repository::MdxNotesRepository
-{
-}
-impl
-    flutter_rust_bridge::IntoIntoDart<
-        crate::api::repositories::notes::mdx::mdx_notes_repository::MdxNotesRepository,
-    > for crate::api::repositories::notes::mdx::mdx_notes_repository::MdxNotesRepository
-{
-    fn into_into_dart(
-        self,
-    ) -> crate::api::repositories::notes::mdx::mdx_notes_repository::MdxNotesRepository {
-        self
-    }
-}
-// Codec=Dco (DartCObject based), see doc to use other codecs
 impl flutter_rust_bridge::IntoDart
     for crate::api::models::enums::parsable_file_extension::NoteType
 {
@@ -3846,29 +1845,6 @@ impl flutter_rust_bridge::IntoIntoDart<crate::api::models::settings::setting_pag
     for crate::api::models::settings::setting_page_id::SettingPageId
 {
     fn into_into_dart(self) -> crate::api::models::settings::setting_page_id::SettingPageId {
-        self
-    }
-}
-// Codec=Dco (DartCObject based), see doc to use other codecs
-impl flutter_rust_bridge::IntoDart for crate::api::models::snippet::snippet_model::Snippet {
-    fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
-        [
-            self.label.into_into_dart().into_dart(),
-            self.language.into_into_dart().into_dart(),
-            self.body.into_into_dart().into_dart(),
-            self.tags.into_into_dart().into_dart(),
-        ]
-        .into_dart()
-    }
-}
-impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive
-    for crate::api::models::snippet::snippet_model::Snippet
-{
-}
-impl flutter_rust_bridge::IntoIntoDart<crate::api::models::snippet::snippet_model::Snippet>
-    for crate::api::models::snippet::snippet_model::Snippet
-{
-    fn into_into_dart(self) -> crate::api::models::snippet::snippet_model::Snippet {
         self
     }
 }
@@ -3923,422 +1899,6 @@ impl
     }
 }
 // Codec=Dco (DartCObject based), see doc to use other codecs
-impl flutter_rust_bridge::IntoDart
-    for crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage
-{
-    fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
-        match self {
-            Self::Abap => 0.into_dart(),
-            Self::Actionscript3 => 1.into_dart(),
-            Self::Ada => 2.into_dart(),
-            Self::AngularHtml => 3.into_dart(),
-            Self::AngularTs => 4.into_dart(),
-            Self::Apache => 5.into_dart(),
-            Self::Apex => 6.into_dart(),
-            Self::Apl => 7.into_dart(),
-            Self::Applescript => 8.into_dart(),
-            Self::Ara => 9.into_dart(),
-            Self::Asciidoc => 10.into_dart(),
-            Self::Asm => 11.into_dart(),
-            Self::Astro => 12.into_dart(),
-            Self::Awk => 13.into_dart(),
-            Self::Ballerina => 14.into_dart(),
-            Self::Bat => 15.into_dart(),
-            Self::Beancount => 16.into_dart(),
-            Self::Berry => 17.into_dart(),
-            Self::Bibtex => 18.into_dart(),
-            Self::Bicep => 19.into_dart(),
-            Self::Blade => 20.into_dart(),
-            Self::Bsl => 21.into_dart(),
-            Self::C => 22.into_dart(),
-            Self::Cadence => 23.into_dart(),
-            Self::Cairo => 24.into_dart(),
-            Self::Clarity => 25.into_dart(),
-            Self::Clojure => 26.into_dart(),
-            Self::Cmake => 27.into_dart(),
-            Self::Cobol => 28.into_dart(),
-            Self::Codeowners => 29.into_dart(),
-            Self::Codeql => 30.into_dart(),
-            Self::Coffee => 31.into_dart(),
-            Self::CommonLisp => 32.into_dart(),
-            Self::Coq => 33.into_dart(),
-            Self::Cpp => 34.into_dart(),
-            Self::Crystal => 35.into_dart(),
-            Self::Csharp => 36.into_dart(),
-            Self::Css => 37.into_dart(),
-            Self::Csv => 38.into_dart(),
-            Self::Cue => 39.into_dart(),
-            Self::Cypher => 40.into_dart(),
-            Self::D => 41.into_dart(),
-            Self::Dart => 42.into_dart(),
-            Self::Dax => 43.into_dart(),
-            Self::Desktop => 44.into_dart(),
-            Self::Diff => 45.into_dart(),
-            Self::Docker => 46.into_dart(),
-            Self::Dotenv => 47.into_dart(),
-            Self::DreamMaker => 48.into_dart(),
-            Self::Edge => 49.into_dart(),
-            Self::Elixir => 50.into_dart(),
-            Self::Elm => 51.into_dart(),
-            Self::EmacsLisp => 52.into_dart(),
-            Self::Erb => 53.into_dart(),
-            Self::Erlang => 54.into_dart(),
-            Self::Fennel => 55.into_dart(),
-            Self::Fish => 56.into_dart(),
-            Self::Fluent => 57.into_dart(),
-            Self::FortranFixedForm => 58.into_dart(),
-            Self::FortranFreeForm => 59.into_dart(),
-            Self::Fsharp => 60.into_dart(),
-            Self::Gdresource => 61.into_dart(),
-            Self::Gdscript => 62.into_dart(),
-            Self::Gdshader => 63.into_dart(),
-            Self::Genie => 64.into_dart(),
-            Self::Gherkin => 65.into_dart(),
-            Self::GitCommit => 66.into_dart(),
-            Self::GitRebase => 67.into_dart(),
-            Self::Gleam => 68.into_dart(),
-            Self::GlimmerJs => 69.into_dart(),
-            Self::GlimmerTs => 70.into_dart(),
-            Self::Glsl => 71.into_dart(),
-            Self::Gnuplot => 72.into_dart(),
-            Self::Go => 73.into_dart(),
-            Self::Graphql => 74.into_dart(),
-            Self::Groovy => 75.into_dart(),
-            Self::Hack => 76.into_dart(),
-            Self::Haml => 77.into_dart(),
-            Self::Handlebars => 78.into_dart(),
-            Self::Haskell => 79.into_dart(),
-            Self::Haxe => 80.into_dart(),
-            Self::Hcl => 81.into_dart(),
-            Self::Hjson => 82.into_dart(),
-            Self::Hlsl => 83.into_dart(),
-            Self::Html => 84.into_dart(),
-            Self::HtmlDerivative => 85.into_dart(),
-            Self::Http => 86.into_dart(),
-            Self::Hxml => 87.into_dart(),
-            Self::Hy => 88.into_dart(),
-            Self::Imba => 89.into_dart(),
-            Self::Ini => 90.into_dart(),
-            Self::Java => 91.into_dart(),
-            Self::Javascript => 92.into_dart(),
-            Self::Jinja => 93.into_dart(),
-            Self::Jison => 94.into_dart(),
-            Self::Json => 95.into_dart(),
-            Self::Json5 => 96.into_dart(),
-            Self::Jsonc => 97.into_dart(),
-            Self::Jsonl => 98.into_dart(),
-            Self::Jsonnet => 99.into_dart(),
-            Self::Jssm => 100.into_dart(),
-            Self::Jsx => 101.into_dart(),
-            Self::Julia => 102.into_dart(),
-            Self::Kotlin => 103.into_dart(),
-            Self::Kusto => 104.into_dart(),
-            Self::Latex => 105.into_dart(),
-            Self::Lean => 106.into_dart(),
-            Self::Less => 107.into_dart(),
-            Self::Liquid => 108.into_dart(),
-            Self::Llvm => 109.into_dart(),
-            Self::Log => 110.into_dart(),
-            Self::Logo => 111.into_dart(),
-            Self::Lua => 112.into_dart(),
-            Self::Luau => 113.into_dart(),
-            Self::Make => 114.into_dart(),
-            Self::Markdown => 115.into_dart(),
-            Self::Marko => 116.into_dart(),
-            Self::Matlab => 117.into_dart(),
-            Self::Mdc => 118.into_dart(),
-            Self::Mdx => 119.into_dart(),
-            Self::Mermaid => 120.into_dart(),
-            Self::Mipsasm => 121.into_dart(),
-            Self::Mojo => 122.into_dart(),
-            Self::Move => 123.into_dart(),
-            Self::Narrat => 124.into_dart(),
-            Self::Nextflow => 125.into_dart(),
-            Self::Nginx => 126.into_dart(),
-            Self::Nim => 127.into_dart(),
-            Self::Nix => 128.into_dart(),
-            Self::Nushell => 129.into_dart(),
-            Self::ObjectiveC => 130.into_dart(),
-            Self::ObjectiveCpp => 131.into_dart(),
-            Self::Ocaml => 132.into_dart(),
-            Self::Pascal => 133.into_dart(),
-            Self::Perl => 134.into_dart(),
-            Self::Php => 135.into_dart(),
-            Self::Plsql => 136.into_dart(),
-            Self::Po => 137.into_dart(),
-            Self::Polar => 138.into_dart(),
-            Self::Postcss => 139.into_dart(),
-            Self::Powerquery => 140.into_dart(),
-            Self::Powershell => 141.into_dart(),
-            Self::Prisma => 142.into_dart(),
-            Self::Prolog => 143.into_dart(),
-            Self::Proto => 144.into_dart(),
-            Self::Pug => 145.into_dart(),
-            Self::Puppet => 146.into_dart(),
-            Self::Purescript => 147.into_dart(),
-            Self::Python => 148.into_dart(),
-            Self::Qml => 149.into_dart(),
-            Self::Qmldir => 150.into_dart(),
-            Self::Qss => 151.into_dart(),
-            Self::R => 152.into_dart(),
-            Self::Racket => 153.into_dart(),
-            Self::Raku => 154.into_dart(),
-            Self::Razor => 155.into_dart(),
-            Self::Reg => 156.into_dart(),
-            Self::Regexp => 157.into_dart(),
-            Self::Rel => 158.into_dart(),
-            Self::Riscv => 159.into_dart(),
-            Self::Rst => 160.into_dart(),
-            Self::Ruby => 161.into_dart(),
-            Self::Rust => 162.into_dart(),
-            Self::Sas => 163.into_dart(),
-            Self::Sass => 164.into_dart(),
-            Self::Scala => 165.into_dart(),
-            Self::Scheme => 166.into_dart(),
-            Self::Scss => 167.into_dart(),
-            Self::Sdbl => 168.into_dart(),
-            Self::Shaderlab => 169.into_dart(),
-            Self::Shellscript => 170.into_dart(),
-            Self::Shellsession => 171.into_dart(),
-            Self::Smalltalk => 172.into_dart(),
-            Self::Solidity => 173.into_dart(),
-            Self::Soy => 174.into_dart(),
-            Self::Sparql => 175.into_dart(),
-            Self::Splunk => 176.into_dart(),
-            Self::Sql => 177.into_dart(),
-            Self::SshConfig => 178.into_dart(),
-            Self::Stata => 179.into_dart(),
-            Self::Stylus => 180.into_dart(),
-            Self::Svelte => 181.into_dart(),
-            Self::Swift => 182.into_dart(),
-            Self::SystemVerilog => 183.into_dart(),
-            Self::Systemd => 184.into_dart(),
-            Self::Talonscript => 185.into_dart(),
-            Self::Tasl => 186.into_dart(),
-            Self::Tcl => 187.into_dart(),
-            Self::Templ => 188.into_dart(),
-            Self::Terraform => 189.into_dart(),
-            Self::Tex => 190.into_dart(),
-            Self::Toml => 191.into_dart(),
-            Self::TsTags => 192.into_dart(),
-            Self::Tsv => 193.into_dart(),
-            Self::Tsx => 194.into_dart(),
-            Self::Turtle => 195.into_dart(),
-            Self::Twig => 196.into_dart(),
-            Self::Typescript => 197.into_dart(),
-            Self::Typespec => 198.into_dart(),
-            Self::Typst => 199.into_dart(),
-            Self::V => 200.into_dart(),
-            Self::Vala => 201.into_dart(),
-            Self::Vb => 202.into_dart(),
-            Self::Verilog => 203.into_dart(),
-            Self::Vhdl => 204.into_dart(),
-            Self::Viml => 205.into_dart(),
-            Self::Vue => 206.into_dart(),
-            Self::VueHtml => 207.into_dart(),
-            Self::Vyper => 208.into_dart(),
-            Self::Wasm => 209.into_dart(),
-            Self::Wenyan => 210.into_dart(),
-            Self::Wgsl => 211.into_dart(),
-            Self::Wikitext => 212.into_dart(),
-            Self::Wit => 213.into_dart(),
-            Self::Wolfram => 214.into_dart(),
-            Self::Xml => 215.into_dart(),
-            Self::Xsl => 216.into_dart(),
-            Self::Yaml => 217.into_dart(),
-            Self::Zenscript => 218.into_dart(),
-            Self::Zig => 219.into_dart(),
-            Self::Adoc => 220.into_dart(),
-            Self::Batch => 221.into_dart(),
-            Self::Be => 222.into_dart(),
-            Self::OneC => 223.into_dart(),
-            Self::Cdc => 224.into_dart(),
-            Self::Clj => 225.into_dart(),
-            Self::Ql => 226.into_dart(),
-            Self::Coffeescript => 227.into_dart(),
-            Self::Lisp => 228.into_dart(),
-            Self::CPlusPlus => 229.into_dart(),
-            Self::CSharp => 230.into_dart(),
-            Self::Cs => 231.into_dart(),
-            Self::Cql => 232.into_dart(),
-            Self::Dockerfile => 233.into_dart(),
-            Self::Elisp => 234.into_dart(),
-            Self::Erl => 235.into_dart(),
-            Self::Ftl => 236.into_dart(),
-            Self::F => 237.into_dart(),
-            Self::For => 238.into_dart(),
-            Self::F77 => 239.into_dart(),
-            Self::F90 => 240.into_dart(),
-            Self::F95 => 241.into_dart(),
-            Self::F03 => 242.into_dart(),
-            Self::F08 => 243.into_dart(),
-            Self::F18 => 244.into_dart(),
-            Self::FSharp => 245.into_dart(),
-            Self::Fs => 246.into_dart(),
-            Self::Gjs => 247.into_dart(),
-            Self::Gts => 248.into_dart(),
-            Self::Gql => 249.into_dart(),
-            Self::Hbs => 250.into_dart(),
-            Self::Hs => 251.into_dart(),
-            Self::Properties => 252.into_dart(),
-            Self::Js => 253.into_dart(),
-            Self::Fsl => 254.into_dart(),
-            Self::Jl => 255.into_dart(),
-            Self::Kt => 256.into_dart(),
-            Self::Kts => 257.into_dart(),
-            Self::Kql => 258.into_dart(),
-            Self::Lean4 => 259.into_dart(),
-            Self::Makefile => 260.into_dart(),
-            Self::Md => 261.into_dart(),
-            Self::Mmd => 262.into_dart(),
-            Self::Mips => 263.into_dart(),
-            Self::Nar => 264.into_dart(),
-            Self::Nf => 265.into_dart(),
-            Self::Nu => 266.into_dart(),
-            Self::Objc => 267.into_dart(),
-            Self::Pot => 268.into_dart(),
-            Self::Potx => 269.into_dart(),
-            Self::Ps => 270.into_dart(),
-            Self::Ps1 => 271.into_dart(),
-            Self::Protobuf => 272.into_dart(),
-            Self::Jade => 273.into_dart(),
-            Self::Py => 274.into_dart(),
-            Self::Perl6 => 275.into_dart(),
-            Self::Regex => 276.into_dart(),
-            Self::Rb => 277.into_dart(),
-            Self::Rs => 278.into_dart(),
-            Self::OneCQuery => 279.into_dart(),
-            Self::Shader => 280.into_dart(),
-            Self::Bash => 281.into_dart(),
-            Self::Sh => 282.into_dart(),
-            Self::Shell => 283.into_dart(),
-            Self::Zsh => 284.into_dart(),
-            Self::Console => 285.into_dart(),
-            Self::ClosureTemplates => 286.into_dart(),
-            Self::Spl => 287.into_dart(),
-            Self::Styl => 288.into_dart(),
-            Self::Talon => 289.into_dart(),
-            Self::Tf => 290.into_dart(),
-            Self::Tfvars => 291.into_dart(),
-            Self::Lit => 292.into_dart(),
-            Self::Ts => 293.into_dart(),
-            Self::Tsp => 294.into_dart(),
-            Self::Typ => 295.into_dart(),
-            Self::Cmd => 296.into_dart(),
-            Self::Vim => 297.into_dart(),
-            Self::Vimscript => 298.into_dart(),
-            Self::Vy => 299.into_dart(),
-            Self::Mediawiki => 300.into_dart(),
-            Self::Wiki => 301.into_dart(),
-            Self::Wl => 302.into_dart(),
-            Self::Yml => 303.into_dart(),
-            _ => unreachable!(),
-        }
-    }
-}
-impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive
-    for crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage
-{
-}
-impl
-    flutter_rust_bridge::IntoIntoDart<
-        crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage,
-    >
-    for crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage
-{
-    fn into_into_dart(
-        self,
-    ) -> crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage
-    {
-        self
-    }
-}
-// Codec=Dco (DartCObject based), see doc to use other codecs
-impl flutter_rust_bridge::IntoDart
-    for crate::api::models::nested_models::code::supported_syntax_theme::SupportedSyntaxTheme
-{
-    fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
-        match self {
-            Self::Andromeeda => 0.into_dart(),
-            Self::AuroraX => 1.into_dart(),
-            Self::AyuDark => 2.into_dart(),
-            Self::CatppuccinFrappe => 3.into_dart(),
-            Self::CatppuccinLatte => 4.into_dart(),
-            Self::CatppuccinMacchiato => 5.into_dart(),
-            Self::CatppuccinMocha => 6.into_dart(),
-            Self::DarkPlus => 7.into_dart(),
-            Self::Dracula => 8.into_dart(),
-            Self::DraculaSoft => 9.into_dart(),
-            Self::EverforestDark => 10.into_dart(),
-            Self::EverforestLight => 11.into_dart(),
-            Self::GithubDark => 12.into_dart(),
-            Self::GithubDarkDefault => 13.into_dart(),
-            Self::GithubDarkDimmed => 14.into_dart(),
-            Self::GithubDarkHighContrast => 15.into_dart(),
-            Self::GithubLight => 16.into_dart(),
-            Self::GithubLightDefault => 17.into_dart(),
-            Self::GithubLightHighContrast => 18.into_dart(),
-            Self::GruvboxDarkHard => 19.into_dart(),
-            Self::GruvboxDarkMedium => 20.into_dart(),
-            Self::GruvboxDarkSoft => 21.into_dart(),
-            Self::GruvboxLightHard => 22.into_dart(),
-            Self::GruvboxLightMedium => 23.into_dart(),
-            Self::GruvboxLightSoft => 24.into_dart(),
-            Self::Houston => 25.into_dart(),
-            Self::KanagawaDragon => 26.into_dart(),
-            Self::KanagawaLotus => 27.into_dart(),
-            Self::KanagawaWave => 28.into_dart(),
-            Self::Laserwave => 29.into_dart(),
-            Self::LightPlus => 30.into_dart(),
-            Self::MaterialTheme => 31.into_dart(),
-            Self::MaterialThemeDarker => 32.into_dart(),
-            Self::MaterialThemeLighter => 33.into_dart(),
-            Self::MaterialThemeOcean => 34.into_dart(),
-            Self::MaterialThemePalenight => 35.into_dart(),
-            Self::MinDark => 36.into_dart(),
-            Self::MinLight => 37.into_dart(),
-            Self::Monokai => 38.into_dart(),
-            Self::NightOwl => 39.into_dart(),
-            Self::Nord => 40.into_dart(),
-            Self::OneDarkPro => 41.into_dart(),
-            Self::OneLight => 42.into_dart(),
-            Self::Plastic => 43.into_dart(),
-            Self::Poimandres => 44.into_dart(),
-            Self::Red => 45.into_dart(),
-            Self::RosePine => 46.into_dart(),
-            Self::RosePineDawn => 47.into_dart(),
-            Self::RosePineMoon => 48.into_dart(),
-            Self::SlackDark => 49.into_dart(),
-            Self::SlackOchin => 50.into_dart(),
-            Self::SnazzyLight => 51.into_dart(),
-            Self::SolarizedDark => 52.into_dart(),
-            Self::SolarizedLight => 53.into_dart(),
-            Self::Synthwave84 => 54.into_dart(),
-            Self::TokyoNight => 55.into_dart(),
-            Self::Vesper => 56.into_dart(),
-            Self::VitesseBlack => 57.into_dart(),
-            Self::VitesseDark => 58.into_dart(),
-            Self::VitesseLight => 59.into_dart(),
-            _ => unreachable!(),
-        }
-    }
-}
-impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive
-    for crate::api::models::nested_models::code::supported_syntax_theme::SupportedSyntaxTheme
-{
-}
-impl
-    flutter_rust_bridge::IntoIntoDart<
-        crate::api::models::nested_models::code::supported_syntax_theme::SupportedSyntaxTheme,
-    > for crate::api::models::nested_models::code::supported_syntax_theme::SupportedSyntaxTheme
-{
-    fn into_into_dart(
-        self,
-    ) -> crate::api::models::nested_models::code::supported_syntax_theme::SupportedSyntaxTheme {
-        self
-    }
-}
-// Codec=Dco (DartCObject based), see doc to use other codecs
 impl flutter_rust_bridge::IntoDart for crate::api::global_actions::parse_directory::sync_fs_directory::models::sync_filesystem_options::SyncFilesystemDirectoryOptions {
                 fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
                     [
@@ -4354,52 +1914,11 @@ impl flutter_rust_bridge::IntoIntoDart<crate::api::global_actions::parse_directo
                 self
             }
         }
-// Codec=Dco (DartCObject based), see doc to use other codecs
-impl flutter_rust_bridge::IntoDart for crate::api::models::taggable::tag_model::Tag {
-    fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
-        [self.value.into_into_dart().into_dart()].into_dart()
-    }
-}
-impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive
-    for crate::api::models::taggable::tag_model::Tag
-{
-}
-impl flutter_rust_bridge::IntoIntoDart<crate::api::models::taggable::tag_model::Tag>
-    for crate::api::models::taggable::tag_model::Tag
-{
-    fn into_into_dart(self) -> crate::api::models::taggable::tag_model::Tag {
-        self
-    }
-}
-// Codec=Dco (DartCObject based), see doc to use other codecs
-impl flutter_rust_bridge::IntoDart
-    for crate::api::models::taggable::tag_model::TagFromContentResult
-{
-    fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
-        [
-            self.tags.into_into_dart().into_dart(),
-            self.parsed_content.into_into_dart().into_dart(),
-        ]
-        .into_dart()
-    }
-}
-impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive
-    for crate::api::models::taggable::tag_model::TagFromContentResult
-{
-}
-impl
-    flutter_rust_bridge::IntoIntoDart<crate::api::models::taggable::tag_model::TagFromContentResult>
-    for crate::api::models::taggable::tag_model::TagFromContentResult
-{
-    fn into_into_dart(self) -> crate::api::models::taggable::tag_model::TagFromContentResult {
-        self
-    }
-}
 
-impl SseEncode for flutter_rust_bridge::for_generated::anyhow::Error {
+impl SseEncode for BibEntryEntity {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
-        <String>::sse_encode(format!("{:?}", self), serializer);
+        <RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<BibEntryEntity>>>::sse_encode(flutter_rust_bridge::for_generated::rust_auto_opaque_encode::<_, MoiArc<_>>(self), serializer);
     }
 }
 
@@ -4464,23 +1983,6 @@ impl SseEncode for OffsetDateTime {
     }
 }
 
-impl SseEncode for Pod {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
-        <RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<Pod>>>::sse_encode(
-            flutter_rust_bridge::for_generated::rust_auto_opaque_encode::<_, MoiArc<_>>(self),
-            serializer,
-        );
-    }
-}
-
-impl SseEncode for ReadingList {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
-        <RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<ReadingList>>>::sse_encode(flutter_rust_bridge::for_generated::rust_auto_opaque_encode::<_, MoiArc<_>>(self), serializer);
-    }
-}
-
 impl SseEncode for RecordId {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
@@ -4488,13 +1990,14 @@ impl SseEncode for RecordId {
     }
 }
 
-impl SseEncode for Thing {
+impl SseEncode
+    for RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<BibEntryEntity>>
+{
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
-        <RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<Thing>>>::sse_encode(
-            flutter_rust_bridge::for_generated::rust_auto_opaque_encode::<_, MoiArc<_>>(self),
-            serializer,
-        );
+        let (ptr, size) = self.sse_encode_raw();
+        <usize>::sse_encode(ptr, serializer);
+        <i32>::sse_encode(size, serializer);
     }
 }
 
@@ -4588,26 +2091,6 @@ impl SseEncode
     }
 }
 
-impl SseEncode for RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<Pod>> {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
-        let (ptr, size) = self.sse_encode_raw();
-        <usize>::sse_encode(ptr, serializer);
-        <i32>::sse_encode(size, serializer);
-    }
-}
-
-impl SseEncode
-    for RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<ReadingList>>
-{
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
-        let (ptr, size) = self.sse_encode_raw();
-        <usize>::sse_encode(ptr, serializer);
-        <i32>::sse_encode(size, serializer);
-    }
-}
-
 impl SseEncode
     for RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<RecordId>>
 {
@@ -4641,15 +2124,6 @@ impl SseEncode
     }
 }
 
-impl SseEncode for RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<Thing>> {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
-        let (ptr, size) = self.sse_encode_raw();
-        <usize>::sse_encode(ptr, serializer);
-        <i32>::sse_encode(size, serializer);
-    }
-}
-
 impl SseEncode for String {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
@@ -4657,24 +2131,11 @@ impl SseEncode for String {
     }
 }
 
-impl SseEncode for crate::api::models::bibliography::citation::BibEntryEntity {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
-        <Option<String>>::sse_encode(self.id, serializer);
-        <Option<String>>::sse_encode(self.pdf_path, serializer);
-        <bool>::sse_encode(self.read, serializer);
-        <String>::sse_encode(self.fields, serializer);
-    }
-}
-
 impl SseEncode for crate::api::models::bibliography::bib_file::BibtexFile {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
         <Option<String>>::sse_encode(self.path, serializer);
-        <Vec<crate::api::models::bibliography::citation::BibEntryEntity>>::sse_encode(
-            self.entries,
-            serializer,
-        );
+        <Vec<BibEntryEntity>>::sse_encode(self.entries, serializer);
     }
 }
 
@@ -4696,42 +2157,6 @@ impl SseEncode for crate::api::models::params::cross_language_file_object::Cross
     }
 }
 
-impl SseEncode for crate::api::repositories::notes::mdx::query_params::DbTokenizerLanguage {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
-        <i32>::sse_encode(match self {crate::api::repositories::notes::mdx::query_params::DbTokenizerLanguage::Arabic => { 0 }
-crate::api::repositories::notes::mdx::query_params::DbTokenizerLanguage::Danish => { 1 }
-crate::api::repositories::notes::mdx::query_params::DbTokenizerLanguage::Dutch => { 2 }
-crate::api::repositories::notes::mdx::query_params::DbTokenizerLanguage::English => { 3 }
-crate::api::repositories::notes::mdx::query_params::DbTokenizerLanguage::French => { 4 }
-crate::api::repositories::notes::mdx::query_params::DbTokenizerLanguage::German => { 5 }
-crate::api::repositories::notes::mdx::query_params::DbTokenizerLanguage::Greek => { 6 }
-crate::api::repositories::notes::mdx::query_params::DbTokenizerLanguage::Hungarian => { 7 }
-crate::api::repositories::notes::mdx::query_params::DbTokenizerLanguage::Italian => { 8 }
-crate::api::repositories::notes::mdx::query_params::DbTokenizerLanguage::Norwegian => { 9 }
-crate::api::repositories::notes::mdx::query_params::DbTokenizerLanguage::Portuguese => { 10 }
-crate::api::repositories::notes::mdx::query_params::DbTokenizerLanguage::Romanian => { 11 }
-crate::api::repositories::notes::mdx::query_params::DbTokenizerLanguage::Russian => { 12 }
-crate::api::repositories::notes::mdx::query_params::DbTokenizerLanguage::Spanish => { 13 }
-crate::api::repositories::notes::mdx::query_params::DbTokenizerLanguage::Swedish => { 14 }
-crate::api::repositories::notes::mdx::query_params::DbTokenizerLanguage::Tamil => { 15 }
-crate::api::repositories::notes::mdx::query_params::DbTokenizerLanguage::Turkish => { 16 }
- _ => { unimplemented!(""); }}, serializer);
-    }
-}
-
-impl SseEncode for crate::api::models::equation::equation_model::EquationEntity {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
-        <Option<String>>::sse_encode(self.id, serializer);
-        <String>::sse_encode(self.label, serializer);
-        <String>::sse_encode(self.body, serializer);
-        <Vec<crate::api::models::snippet::snippet_model::Snippet>>::sse_encode(
-            self.code, serializer,
-        );
-    }
-}
-
 impl SseEncode for f64 {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
@@ -4748,17 +2173,6 @@ crate::api::data_interface::get_database_status::FlusterDatabaseStatus::NotConne
 crate::api::data_interface::get_database_status::FlusterDatabaseStatus::Connected => { 3 }
 crate::api::data_interface::get_database_status::FlusterDatabaseStatus::AwaitingInitialPing => { 4 }
  _ => { unimplemented!(""); }}, serializer);
-    }
-}
-
-impl SseEncode for crate::api::models::notes::front_matter::front_matter_model::FrontMatter {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
-        <Option<Thing>>::sse_encode(self.id, serializer);
-        <String>::sse_encode(self.title, serializer);
-        <Option<String>>::sse_encode(self.summary, serializer);
-        <Vec<crate::api::models::taggable::tag_model::Tag>>::sse_encode(self.tags, serializer);
-        <Option<String>>::sse_encode(self.note_id, serializer);
     }
 }
 
@@ -4785,6 +2199,16 @@ impl SseEncode for crate::api::models::enums::setting_page_ids::KeymapSectionId 
     }
 }
 
+impl SseEncode for Vec<BibEntryEntity> {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <i32>::sse_encode(self.len() as _, serializer);
+        for item in self {
+            <BibEntryEntity>::sse_encode(item, serializer);
+        }
+    }
+}
+
 impl SseEncode for Vec<FlusterError> {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
@@ -4805,54 +2229,12 @@ impl SseEncode for Vec<MdxNoteSummary> {
     }
 }
 
-impl SseEncode for Vec<crate::api::models::bibliography::citation::BibEntryEntity> {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
-        <i32>::sse_encode(self.len() as _, serializer);
-        for item in self {
-            <crate::api::models::bibliography::citation::BibEntryEntity>::sse_encode(
-                item, serializer,
-            );
-        }
-    }
-}
-
-impl SseEncode for Vec<crate::api::models::notes::mdx::mdx_note::MdxNote> {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
-        <i32>::sse_encode(self.len() as _, serializer);
-        for item in self {
-            <crate::api::models::notes::mdx::mdx_note::MdxNote>::sse_encode(item, serializer);
-        }
-    }
-}
-
 impl SseEncode for Vec<u8> {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
         <i32>::sse_encode(self.len() as _, serializer);
         for item in self {
             <u8>::sse_encode(item, serializer);
-        }
-    }
-}
-
-impl SseEncode for Vec<crate::api::models::snippet::snippet_model::Snippet> {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
-        <i32>::sse_encode(self.len() as _, serializer);
-        for item in self {
-            <crate::api::models::snippet::snippet_model::Snippet>::sse_encode(item, serializer);
-        }
-    }
-}
-
-impl SseEncode for Vec<crate::api::models::taggable::tag_model::Tag> {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
-        <i32>::sse_encode(self.len() as _, serializer);
-        for item in self {
-            <crate::api::models::taggable::tag_model::Tag>::sse_encode(item, serializer);
         }
     }
 }
@@ -4871,38 +2253,6 @@ impl SseEncode for crate::api::models::params::sync_mdx_typescript_params::MathL
             },
             serializer,
         );
-    }
-}
-
-impl SseEncode for crate::api::models::notes::mdx::mdx_note::MdxNote {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
-        <Option<Thing>>::sse_encode(self.id, serializer);
-        <crate::api::models::notes::front_matter::front_matter_model::FrontMatter>::sse_encode(self.front_matter, serializer);
-        <String>::sse_encode(self.raw_body, serializer);
-        <String>::sse_encode(self.file_path, serializer);
-        <Option<FlusterTime>>::sse_encode(self.ctime, serializer);
-        <Option<FlusterTime>>::sse_encode(self.mtime, serializer);
-        <Option<FlusterTime>>::sse_encode(self.atime, serializer);
-        <Vec<crate::api::models::taggable::tag_model::Tag>>::sse_encode(self.tags, serializer);
-    }
-}
-
-impl SseEncode for crate::api::repositories::notes::mdx::query_params::MdxNoteQueryParams {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
-        <String>::sse_encode(self.query, serializer);
-        <crate::api::repositories::notes::mdx::query_params::DbTokenizerLanguage>::sse_encode(
-            self.language,
-            serializer,
-        );
-    }
-}
-
-impl SseEncode for crate::api::repositories::notes::mdx::mdx_notes_repository::MdxNotesRepository {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
-        <String>::sse_encode(self.table_name, serializer);
     }
 }
 
@@ -4952,42 +2302,12 @@ impl SseEncode for Option<FileTime> {
     }
 }
 
-impl SseEncode for Option<FlusterError> {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
-        <bool>::sse_encode(self.is_some(), serializer);
-        if let Some(value) = self {
-            <FlusterError>::sse_encode(value, serializer);
-        }
-    }
-}
-
 impl SseEncode for Option<FlusterTime> {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
         <bool>::sse_encode(self.is_some(), serializer);
         if let Some(value) = self {
             <FlusterTime>::sse_encode(value, serializer);
-        }
-    }
-}
-
-impl SseEncode for Option<Pod> {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
-        <bool>::sse_encode(self.is_some(), serializer);
-        if let Some(value) = self {
-            <Pod>::sse_encode(value, serializer);
-        }
-    }
-}
-
-impl SseEncode for Option<Thing> {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
-        <bool>::sse_encode(self.is_some(), serializer);
-        if let Some(value) = self {
-            <Thing>::sse_encode(value, serializer);
         }
     }
 }
@@ -5016,16 +2336,6 @@ crate::api::models::settings::setting_page_id::SettingPageId::SyncAndDatabase =>
     }
 }
 
-impl SseEncode for crate::api::models::snippet::snippet_model::Snippet {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
-        <String>::sse_encode(self.label, serializer);
-        <crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage>::sse_encode(self.language, serializer);
-        <String>::sse_encode(self.body, serializer);
-        <Vec<crate::api::models::taggable::tag_model::Tag>>::sse_encode(self.tags, serializer);
-    }
-}
-
 impl SseEncode
     for crate::api::global_actions::get_summary_list::summary_list_query::SummaryListQuery
 {
@@ -5045,409 +2355,12 @@ impl SseEncode
     }
 }
 
-impl SseEncode
-    for crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage
-{
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
-        <i32>::sse_encode(match self {crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Abap => { 0 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Actionscript3 => { 1 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Ada => { 2 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::AngularHtml => { 3 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::AngularTs => { 4 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Apache => { 5 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Apex => { 6 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Apl => { 7 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Applescript => { 8 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Ara => { 9 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Asciidoc => { 10 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Asm => { 11 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Astro => { 12 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Awk => { 13 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Ballerina => { 14 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Bat => { 15 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Beancount => { 16 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Berry => { 17 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Bibtex => { 18 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Bicep => { 19 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Blade => { 20 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Bsl => { 21 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::C => { 22 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Cadence => { 23 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Cairo => { 24 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Clarity => { 25 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Clojure => { 26 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Cmake => { 27 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Cobol => { 28 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Codeowners => { 29 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Codeql => { 30 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Coffee => { 31 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::CommonLisp => { 32 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Coq => { 33 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Cpp => { 34 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Crystal => { 35 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Csharp => { 36 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Css => { 37 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Csv => { 38 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Cue => { 39 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Cypher => { 40 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::D => { 41 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Dart => { 42 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Dax => { 43 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Desktop => { 44 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Diff => { 45 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Docker => { 46 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Dotenv => { 47 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::DreamMaker => { 48 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Edge => { 49 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Elixir => { 50 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Elm => { 51 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::EmacsLisp => { 52 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Erb => { 53 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Erlang => { 54 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Fennel => { 55 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Fish => { 56 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Fluent => { 57 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::FortranFixedForm => { 58 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::FortranFreeForm => { 59 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Fsharp => { 60 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Gdresource => { 61 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Gdscript => { 62 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Gdshader => { 63 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Genie => { 64 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Gherkin => { 65 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::GitCommit => { 66 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::GitRebase => { 67 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Gleam => { 68 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::GlimmerJs => { 69 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::GlimmerTs => { 70 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Glsl => { 71 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Gnuplot => { 72 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Go => { 73 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Graphql => { 74 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Groovy => { 75 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Hack => { 76 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Haml => { 77 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Handlebars => { 78 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Haskell => { 79 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Haxe => { 80 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Hcl => { 81 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Hjson => { 82 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Hlsl => { 83 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Html => { 84 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::HtmlDerivative => { 85 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Http => { 86 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Hxml => { 87 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Hy => { 88 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Imba => { 89 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Ini => { 90 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Java => { 91 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Javascript => { 92 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Jinja => { 93 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Jison => { 94 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Json => { 95 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Json5 => { 96 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Jsonc => { 97 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Jsonl => { 98 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Jsonnet => { 99 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Jssm => { 100 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Jsx => { 101 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Julia => { 102 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Kotlin => { 103 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Kusto => { 104 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Latex => { 105 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Lean => { 106 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Less => { 107 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Liquid => { 108 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Llvm => { 109 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Log => { 110 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Logo => { 111 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Lua => { 112 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Luau => { 113 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Make => { 114 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Markdown => { 115 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Marko => { 116 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Matlab => { 117 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Mdc => { 118 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Mdx => { 119 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Mermaid => { 120 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Mipsasm => { 121 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Mojo => { 122 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Move => { 123 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Narrat => { 124 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Nextflow => { 125 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Nginx => { 126 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Nim => { 127 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Nix => { 128 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Nushell => { 129 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::ObjectiveC => { 130 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::ObjectiveCpp => { 131 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Ocaml => { 132 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Pascal => { 133 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Perl => { 134 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Php => { 135 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Plsql => { 136 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Po => { 137 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Polar => { 138 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Postcss => { 139 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Powerquery => { 140 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Powershell => { 141 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Prisma => { 142 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Prolog => { 143 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Proto => { 144 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Pug => { 145 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Puppet => { 146 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Purescript => { 147 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Python => { 148 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Qml => { 149 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Qmldir => { 150 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Qss => { 151 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::R => { 152 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Racket => { 153 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Raku => { 154 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Razor => { 155 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Reg => { 156 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Regexp => { 157 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Rel => { 158 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Riscv => { 159 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Rst => { 160 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Ruby => { 161 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Rust => { 162 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Sas => { 163 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Sass => { 164 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Scala => { 165 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Scheme => { 166 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Scss => { 167 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Sdbl => { 168 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Shaderlab => { 169 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Shellscript => { 170 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Shellsession => { 171 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Smalltalk => { 172 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Solidity => { 173 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Soy => { 174 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Sparql => { 175 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Splunk => { 176 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Sql => { 177 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::SshConfig => { 178 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Stata => { 179 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Stylus => { 180 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Svelte => { 181 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Swift => { 182 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::SystemVerilog => { 183 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Systemd => { 184 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Talonscript => { 185 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Tasl => { 186 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Tcl => { 187 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Templ => { 188 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Terraform => { 189 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Tex => { 190 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Toml => { 191 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::TsTags => { 192 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Tsv => { 193 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Tsx => { 194 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Turtle => { 195 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Twig => { 196 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Typescript => { 197 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Typespec => { 198 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Typst => { 199 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::V => { 200 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Vala => { 201 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Vb => { 202 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Verilog => { 203 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Vhdl => { 204 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Viml => { 205 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Vue => { 206 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::VueHtml => { 207 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Vyper => { 208 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Wasm => { 209 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Wenyan => { 210 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Wgsl => { 211 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Wikitext => { 212 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Wit => { 213 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Wolfram => { 214 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Xml => { 215 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Xsl => { 216 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Yaml => { 217 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Zenscript => { 218 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Zig => { 219 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Adoc => { 220 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Batch => { 221 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Be => { 222 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::OneC => { 223 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Cdc => { 224 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Clj => { 225 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Ql => { 226 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Coffeescript => { 227 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Lisp => { 228 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::CPlusPlus => { 229 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::CSharp => { 230 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Cs => { 231 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Cql => { 232 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Dockerfile => { 233 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Elisp => { 234 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Erl => { 235 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Ftl => { 236 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::F => { 237 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::For => { 238 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::F77 => { 239 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::F90 => { 240 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::F95 => { 241 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::F03 => { 242 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::F08 => { 243 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::F18 => { 244 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::FSharp => { 245 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Fs => { 246 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Gjs => { 247 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Gts => { 248 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Gql => { 249 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Hbs => { 250 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Hs => { 251 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Properties => { 252 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Js => { 253 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Fsl => { 254 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Jl => { 255 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Kt => { 256 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Kts => { 257 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Kql => { 258 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Lean4 => { 259 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Makefile => { 260 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Md => { 261 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Mmd => { 262 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Mips => { 263 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Nar => { 264 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Nf => { 265 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Nu => { 266 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Objc => { 267 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Pot => { 268 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Potx => { 269 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Ps => { 270 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Ps1 => { 271 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Protobuf => { 272 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Jade => { 273 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Py => { 274 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Perl6 => { 275 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Regex => { 276 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Rb => { 277 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Rs => { 278 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::OneCQuery => { 279 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Shader => { 280 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Bash => { 281 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Sh => { 282 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Shell => { 283 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Zsh => { 284 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Console => { 285 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::ClosureTemplates => { 286 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Spl => { 287 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Styl => { 288 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Talon => { 289 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Tf => { 290 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Tfvars => { 291 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Lit => { 292 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Ts => { 293 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Tsp => { 294 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Typ => { 295 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Cmd => { 296 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Vim => { 297 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Vimscript => { 298 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Vy => { 299 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Mediawiki => { 300 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Wiki => { 301 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Wl => { 302 }
-crate::api::models::nested_models::code::supported_syntax_language::SupportedSyntaxLanguage::Yml => { 303 }
- _ => { unimplemented!(""); }}, serializer);
-    }
-}
-
-impl SseEncode
-    for crate::api::models::nested_models::code::supported_syntax_theme::SupportedSyntaxTheme
-{
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
-        <i32>::sse_encode(match self {crate::api::models::nested_models::code::supported_syntax_theme::SupportedSyntaxTheme::Andromeeda => { 0 }
-crate::api::models::nested_models::code::supported_syntax_theme::SupportedSyntaxTheme::AuroraX => { 1 }
-crate::api::models::nested_models::code::supported_syntax_theme::SupportedSyntaxTheme::AyuDark => { 2 }
-crate::api::models::nested_models::code::supported_syntax_theme::SupportedSyntaxTheme::CatppuccinFrappe => { 3 }
-crate::api::models::nested_models::code::supported_syntax_theme::SupportedSyntaxTheme::CatppuccinLatte => { 4 }
-crate::api::models::nested_models::code::supported_syntax_theme::SupportedSyntaxTheme::CatppuccinMacchiato => { 5 }
-crate::api::models::nested_models::code::supported_syntax_theme::SupportedSyntaxTheme::CatppuccinMocha => { 6 }
-crate::api::models::nested_models::code::supported_syntax_theme::SupportedSyntaxTheme::DarkPlus => { 7 }
-crate::api::models::nested_models::code::supported_syntax_theme::SupportedSyntaxTheme::Dracula => { 8 }
-crate::api::models::nested_models::code::supported_syntax_theme::SupportedSyntaxTheme::DraculaSoft => { 9 }
-crate::api::models::nested_models::code::supported_syntax_theme::SupportedSyntaxTheme::EverforestDark => { 10 }
-crate::api::models::nested_models::code::supported_syntax_theme::SupportedSyntaxTheme::EverforestLight => { 11 }
-crate::api::models::nested_models::code::supported_syntax_theme::SupportedSyntaxTheme::GithubDark => { 12 }
-crate::api::models::nested_models::code::supported_syntax_theme::SupportedSyntaxTheme::GithubDarkDefault => { 13 }
-crate::api::models::nested_models::code::supported_syntax_theme::SupportedSyntaxTheme::GithubDarkDimmed => { 14 }
-crate::api::models::nested_models::code::supported_syntax_theme::SupportedSyntaxTheme::GithubDarkHighContrast => { 15 }
-crate::api::models::nested_models::code::supported_syntax_theme::SupportedSyntaxTheme::GithubLight => { 16 }
-crate::api::models::nested_models::code::supported_syntax_theme::SupportedSyntaxTheme::GithubLightDefault => { 17 }
-crate::api::models::nested_models::code::supported_syntax_theme::SupportedSyntaxTheme::GithubLightHighContrast => { 18 }
-crate::api::models::nested_models::code::supported_syntax_theme::SupportedSyntaxTheme::GruvboxDarkHard => { 19 }
-crate::api::models::nested_models::code::supported_syntax_theme::SupportedSyntaxTheme::GruvboxDarkMedium => { 20 }
-crate::api::models::nested_models::code::supported_syntax_theme::SupportedSyntaxTheme::GruvboxDarkSoft => { 21 }
-crate::api::models::nested_models::code::supported_syntax_theme::SupportedSyntaxTheme::GruvboxLightHard => { 22 }
-crate::api::models::nested_models::code::supported_syntax_theme::SupportedSyntaxTheme::GruvboxLightMedium => { 23 }
-crate::api::models::nested_models::code::supported_syntax_theme::SupportedSyntaxTheme::GruvboxLightSoft => { 24 }
-crate::api::models::nested_models::code::supported_syntax_theme::SupportedSyntaxTheme::Houston => { 25 }
-crate::api::models::nested_models::code::supported_syntax_theme::SupportedSyntaxTheme::KanagawaDragon => { 26 }
-crate::api::models::nested_models::code::supported_syntax_theme::SupportedSyntaxTheme::KanagawaLotus => { 27 }
-crate::api::models::nested_models::code::supported_syntax_theme::SupportedSyntaxTheme::KanagawaWave => { 28 }
-crate::api::models::nested_models::code::supported_syntax_theme::SupportedSyntaxTheme::Laserwave => { 29 }
-crate::api::models::nested_models::code::supported_syntax_theme::SupportedSyntaxTheme::LightPlus => { 30 }
-crate::api::models::nested_models::code::supported_syntax_theme::SupportedSyntaxTheme::MaterialTheme => { 31 }
-crate::api::models::nested_models::code::supported_syntax_theme::SupportedSyntaxTheme::MaterialThemeDarker => { 32 }
-crate::api::models::nested_models::code::supported_syntax_theme::SupportedSyntaxTheme::MaterialThemeLighter => { 33 }
-crate::api::models::nested_models::code::supported_syntax_theme::SupportedSyntaxTheme::MaterialThemeOcean => { 34 }
-crate::api::models::nested_models::code::supported_syntax_theme::SupportedSyntaxTheme::MaterialThemePalenight => { 35 }
-crate::api::models::nested_models::code::supported_syntax_theme::SupportedSyntaxTheme::MinDark => { 36 }
-crate::api::models::nested_models::code::supported_syntax_theme::SupportedSyntaxTheme::MinLight => { 37 }
-crate::api::models::nested_models::code::supported_syntax_theme::SupportedSyntaxTheme::Monokai => { 38 }
-crate::api::models::nested_models::code::supported_syntax_theme::SupportedSyntaxTheme::NightOwl => { 39 }
-crate::api::models::nested_models::code::supported_syntax_theme::SupportedSyntaxTheme::Nord => { 40 }
-crate::api::models::nested_models::code::supported_syntax_theme::SupportedSyntaxTheme::OneDarkPro => { 41 }
-crate::api::models::nested_models::code::supported_syntax_theme::SupportedSyntaxTheme::OneLight => { 42 }
-crate::api::models::nested_models::code::supported_syntax_theme::SupportedSyntaxTheme::Plastic => { 43 }
-crate::api::models::nested_models::code::supported_syntax_theme::SupportedSyntaxTheme::Poimandres => { 44 }
-crate::api::models::nested_models::code::supported_syntax_theme::SupportedSyntaxTheme::Red => { 45 }
-crate::api::models::nested_models::code::supported_syntax_theme::SupportedSyntaxTheme::RosePine => { 46 }
-crate::api::models::nested_models::code::supported_syntax_theme::SupportedSyntaxTheme::RosePineDawn => { 47 }
-crate::api::models::nested_models::code::supported_syntax_theme::SupportedSyntaxTheme::RosePineMoon => { 48 }
-crate::api::models::nested_models::code::supported_syntax_theme::SupportedSyntaxTheme::SlackDark => { 49 }
-crate::api::models::nested_models::code::supported_syntax_theme::SupportedSyntaxTheme::SlackOchin => { 50 }
-crate::api::models::nested_models::code::supported_syntax_theme::SupportedSyntaxTheme::SnazzyLight => { 51 }
-crate::api::models::nested_models::code::supported_syntax_theme::SupportedSyntaxTheme::SolarizedDark => { 52 }
-crate::api::models::nested_models::code::supported_syntax_theme::SupportedSyntaxTheme::SolarizedLight => { 53 }
-crate::api::models::nested_models::code::supported_syntax_theme::SupportedSyntaxTheme::Synthwave84 => { 54 }
-crate::api::models::nested_models::code::supported_syntax_theme::SupportedSyntaxTheme::TokyoNight => { 55 }
-crate::api::models::nested_models::code::supported_syntax_theme::SupportedSyntaxTheme::Vesper => { 56 }
-crate::api::models::nested_models::code::supported_syntax_theme::SupportedSyntaxTheme::VitesseBlack => { 57 }
-crate::api::models::nested_models::code::supported_syntax_theme::SupportedSyntaxTheme::VitesseDark => { 58 }
-crate::api::models::nested_models::code::supported_syntax_theme::SupportedSyntaxTheme::VitesseLight => { 59 }
- _ => { unimplemented!(""); }}, serializer);
-    }
-}
-
 impl SseEncode for crate::api::global_actions::parse_directory::sync_fs_directory::models::sync_filesystem_options::SyncFilesystemDirectoryOptions {
                     // Codec=Sse (Serialization based), see doc to use other codecs
                     fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {<String>::sse_encode(self.dir_path, serializer);
 <Option<String>>::sse_encode(self.bib_path, serializer);
 <u32>::sse_encode(self.n_threads, serializer);}
                 }
-
-impl SseEncode for crate::api::models::taggable::tag_model::Tag {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
-        <String>::sse_encode(self.value, serializer);
-    }
-}
-
-impl SseEncode for crate::api::models::taggable::tag_model::TagFromContentResult {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
-        <Vec<crate::api::models::taggable::tag_model::Tag>>::sse_encode(self.tags, serializer);
-        <String>::sse_encode(self.parsed_content, serializer);
-    }
-}
 
 impl SseEncode for u16 {
     // Codec=Sse (Serialization based), see doc to use other codecs
@@ -5493,20 +2406,31 @@ mod io {
     // Section: imports
 
     use crate::api::models::bibliography::bib_file::*;
-use crate::api::embedded_ts::*;
-use crate::api::models::nested_models::fluster_datetime::fluster_time::*;
-use crate::api::models::notes::front_matter::front_matter_model::*;
 use crate::*;
 use crate::api::global_actions::parse_directory::sync_fs_directory::sync_methods::sync_mdx_notes::*;
 use crate::api::typedefs::note_type_utils::*;
-use crate::api::global_actions::get_summary_list::summary_types::mdx_note_summary::*;
-use crate::api::models::bibliography::reading_list::*;use flutter_rust_bridge::{Handler, IntoIntoDart};
+use crate::api::embedded_ts::*;
+use crate::api::models::nested_models::fluster_datetime::fluster_time::*;use flutter_rust_bridge::{Handler, IntoIntoDart};
 use flutter_rust_bridge::for_generated::{Lockable, transform_result_dco, Lifetimeable};
 use flutter_rust_bridge::for_generated::byteorder::{NativeEndian, WriteBytesExt, ReadBytesExt};use super::*;
 
     // Section: boilerplate
 
     flutter_rust_bridge::frb_generated_boilerplate_io!();
+
+    #[unsafe(no_mangle)]
+    pub extern "C" fn frbgen_fluster_native_interface_rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerBibEntryEntity(
+        ptr: *const std::ffi::c_void,
+    ) {
+        MoiArc::<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<BibEntryEntity>>::increment_strong_count(ptr as _);
+    }
+
+    #[unsafe(no_mangle)]
+    pub extern "C" fn frbgen_fluster_native_interface_rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerBibEntryEntity(
+        ptr: *const std::ffi::c_void,
+    ) {
+        MoiArc::<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<BibEntryEntity>>::decrement_strong_count(ptr as _);
+    }
 
     #[unsafe(no_mangle)]
     pub extern "C" fn frbgen_fluster_native_interface_rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerDbRecord(
@@ -5621,34 +2545,6 @@ use flutter_rust_bridge::for_generated::byteorder::{NativeEndian, WriteBytesExt,
     }
 
     #[unsafe(no_mangle)]
-    pub extern "C" fn frbgen_fluster_native_interface_rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerPod(
-        ptr: *const std::ffi::c_void,
-    ) {
-        MoiArc::<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<Pod>>::increment_strong_count(ptr as _);
-    }
-
-    #[unsafe(no_mangle)]
-    pub extern "C" fn frbgen_fluster_native_interface_rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerPod(
-        ptr: *const std::ffi::c_void,
-    ) {
-        MoiArc::<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<Pod>>::decrement_strong_count(ptr as _);
-    }
-
-    #[unsafe(no_mangle)]
-    pub extern "C" fn frbgen_fluster_native_interface_rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerReadingList(
-        ptr: *const std::ffi::c_void,
-    ) {
-        MoiArc::<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<ReadingList>>::increment_strong_count(ptr as _);
-    }
-
-    #[unsafe(no_mangle)]
-    pub extern "C" fn frbgen_fluster_native_interface_rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerReadingList(
-        ptr: *const std::ffi::c_void,
-    ) {
-        MoiArc::<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<ReadingList>>::decrement_strong_count(ptr as _);
-    }
-
-    #[unsafe(no_mangle)]
     pub extern "C" fn frbgen_fluster_native_interface_rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRecordId(
         ptr: *const std::ffi::c_void,
     ) {
@@ -5689,20 +2585,6 @@ use flutter_rust_bridge::for_generated::byteorder::{NativeEndian, WriteBytesExt,
     ) {
         MoiArc::<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<Surreal < Db >>>::decrement_strong_count(ptr as _);
     }
-
-    #[unsafe(no_mangle)]
-    pub extern "C" fn frbgen_fluster_native_interface_rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerThing(
-        ptr: *const std::ffi::c_void,
-    ) {
-        MoiArc::<flutter_rust_bridge::for_generated::RustAutoOpaqueInner< Thing>>::increment_strong_count(ptr as _);
-    }
-
-    #[unsafe(no_mangle)]
-    pub extern "C" fn frbgen_fluster_native_interface_rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerThing(
-        ptr: *const std::ffi::c_void,
-    ) {
-        MoiArc::<flutter_rust_bridge::for_generated::RustAutoOpaqueInner< Thing>>::decrement_strong_count(ptr as _);
-    }
 }
 #[cfg(not(target_family = "wasm"))]
 pub use io::*;
@@ -5716,14 +2598,11 @@ mod web {
     // Section: imports
 
     use crate::api::models::bibliography::bib_file::*;
-use crate::api::embedded_ts::*;
-use crate::api::models::nested_models::fluster_datetime::fluster_time::*;
-use crate::api::models::notes::front_matter::front_matter_model::*;
 use crate::*;
 use crate::api::global_actions::parse_directory::sync_fs_directory::sync_methods::sync_mdx_notes::*;
 use crate::api::typedefs::note_type_utils::*;
-use crate::api::global_actions::get_summary_list::summary_types::mdx_note_summary::*;
-use crate::api::models::bibliography::reading_list::*;use flutter_rust_bridge::{Handler, IntoIntoDart};
+use crate::api::embedded_ts::*;
+use crate::api::models::nested_models::fluster_datetime::fluster_time::*;use flutter_rust_bridge::{Handler, IntoIntoDart};
 use flutter_rust_bridge::for_generated::{Lockable, transform_result_dco, Lifetimeable};
 use flutter_rust_bridge::for_generated::byteorder::{NativeEndian, WriteBytesExt, ReadBytesExt};use super::*;
                 use flutter_rust_bridge::for_generated::wasm_bindgen;
@@ -5732,6 +2611,20 @@ use flutter_rust_bridge::for_generated::byteorder::{NativeEndian, WriteBytesExt,
     // Section: boilerplate
 
     flutter_rust_bridge::frb_generated_boilerplate_web!();
+
+    #[wasm_bindgen]
+    pub fn rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerBibEntryEntity(
+        ptr: *const std::ffi::c_void,
+    ) {
+        MoiArc::<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<BibEntryEntity>>::increment_strong_count(ptr as _);
+    }
+
+    #[wasm_bindgen]
+    pub fn rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerBibEntryEntity(
+        ptr: *const std::ffi::c_void,
+    ) {
+        MoiArc::<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<BibEntryEntity>>::decrement_strong_count(ptr as _);
+    }
 
     #[wasm_bindgen]
     pub fn rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerDbRecord(
@@ -5846,34 +2739,6 @@ use flutter_rust_bridge::for_generated::byteorder::{NativeEndian, WriteBytesExt,
     }
 
     #[wasm_bindgen]
-    pub fn rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerPod(
-        ptr: *const std::ffi::c_void,
-    ) {
-        MoiArc::<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<Pod>>::increment_strong_count(ptr as _);
-    }
-
-    #[wasm_bindgen]
-    pub fn rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerPod(
-        ptr: *const std::ffi::c_void,
-    ) {
-        MoiArc::<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<Pod>>::decrement_strong_count(ptr as _);
-    }
-
-    #[wasm_bindgen]
-    pub fn rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerReadingList(
-        ptr: *const std::ffi::c_void,
-    ) {
-        MoiArc::<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<ReadingList>>::increment_strong_count(ptr as _);
-    }
-
-    #[wasm_bindgen]
-    pub fn rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerReadingList(
-        ptr: *const std::ffi::c_void,
-    ) {
-        MoiArc::<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<ReadingList>>::decrement_strong_count(ptr as _);
-    }
-
-    #[wasm_bindgen]
     pub fn rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRecordId(
         ptr: *const std::ffi::c_void,
     ) {
@@ -5913,20 +2778,6 @@ use flutter_rust_bridge::for_generated::byteorder::{NativeEndian, WriteBytesExt,
         ptr: *const std::ffi::c_void,
     ) {
         MoiArc::<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<Surreal < Db >>>::decrement_strong_count(ptr as _);
-    }
-
-    #[wasm_bindgen]
-    pub fn rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerThing(
-        ptr: *const std::ffi::c_void,
-    ) {
-        MoiArc::<flutter_rust_bridge::for_generated::RustAutoOpaqueInner< Thing>>::increment_strong_count(ptr as _);
-    }
-
-    #[wasm_bindgen]
-    pub fn rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerThing(
-        ptr: *const std::ffi::c_void,
-    ) {
-        MoiArc::<flutter_rust_bridge::for_generated::RustAutoOpaqueInner< Thing>>::decrement_strong_count(ptr as _);
     }
 }
 #[cfg(target_family = "wasm")]
