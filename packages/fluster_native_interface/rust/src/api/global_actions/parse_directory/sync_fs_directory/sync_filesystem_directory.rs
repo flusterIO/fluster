@@ -1,5 +1,5 @@
 use crossbeam_channel::unbounded;
-use fluster_db::api::db::{get_database_connection, FlusterError};
+use crate::api::data_interface::database::db::{get_database_connection, FlusterError};
 use std::cmp::max;
 
 use super::{

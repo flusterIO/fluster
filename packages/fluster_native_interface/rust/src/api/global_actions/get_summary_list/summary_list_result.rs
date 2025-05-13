@@ -1,5 +1,6 @@
-use fluster_db::entities::mdx_note::mdx_note_summary::MdxNoteSummary;
 use serde::{Deserialize, Serialize};
+
+use crate::api::embedded_ts::MdxNoteSummary;
 
 #[derive(Debug, Default, Serialize, Deserialize, Clone)]
 pub struct SummaryListResults {

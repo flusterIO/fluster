@@ -4,6 +4,6 @@ pub use crate::api::forced_imports::*;
 pub use rust_embed::EmbeddedFile;
 
 #[derive(rust_embed::Embed)]
-#[folder = "../../fluster_embedded_typescript/dist"]
+#[folder = "../typescript/dist"]
 #[frb(opaque)]
 pub struct EmbeddedTypescriptFiles;

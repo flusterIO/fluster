@@ -1,16 +1,14 @@
+use crate::api::actions::mdx_note::create_many::create_many_mdx_notes;
+use crate::api::models::mdx_note::mdx_note_creatable::MdxNoteCreatable;
+use crate::api::models::mdx_note::mdx_note_group::mdx_note_group::MdxNoteGroup;
+use crate::api::models::taggable::taggable::Taggable;
 use crossbeam_channel::unbounded;
 use crossbeam_channel::Sender;
-use fluster_db::api::actions::mdx_note::create_many::create_many_mdx_notes;
-use fluster_db::api::db::get_database_connection;
-use fluster_db::entities::mdx_note::mdx_note_creatable::MdxNoteCreatable;
 use fluster_types::errors::errors::FlusterError;
 use fluster_types::FlusterDb;
 use flutter_rust_bridge::frb;
 use ignore::WalkBuilder;
 use ignore::{DirEntry, WalkState};
-
-use crate::api::models::mdx_note_group::mdx_note_group::MdxNoteGroup;
-use crate::api::models::taggables::taggable::Taggable;
 
 #[frb(opaque)]
 pub async fn sync_mdx_filesystem_notes(

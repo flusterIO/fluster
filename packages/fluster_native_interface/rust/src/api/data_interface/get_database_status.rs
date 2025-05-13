@@ -1,4 +1,6 @@
-use fluster_db::api::{db::get_database_connection, utils::get_database_path};
+use crate::api::data_interface::database::{utils::get_database_path};
+
+use super::database::db::get_database_connection;
 
 #[derive(PartialEq, Eq)]
 pub enum FlusterDatabaseStatus {

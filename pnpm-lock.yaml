@@ -6,7 +6,7 @@ settings:
 
 importers:
 
-  packages/fluster_embedded_typescript:
+  packages/fluster_native_interface/typescript:
     dependencies:
       '@mdx-js/mdx':
         specifier: ^3.1.0

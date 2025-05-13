@@ -58,7 +58,7 @@ generate_docs_with_dependencies:
 reset_database:
 	dropdb fluster
 	createdb fluster
-	cd ${FLUSTER_NATIVE_ROOT}/packages/fluster_db; diesel migration run --config-file=./diesel.toml
+	cd ${FLUSTER_NATIVE_ROOT}/packages/fluster_native_interface/rust; DATABASE_URL=${FLUSTER_DB_URI} diesel migration run --config-file=${FLUSTER_NATIVE_ROOT}/packages/fluster_native_interface/rust/diesel.toml
 clean_build:
 	tsx ${FLUSTER_NATIVE_ROOT}/scripts/clean.ts
 	cargo clean
@@ -66,7 +66,7 @@ clean_build:
 typeshare:
 	typeshare ${FLUSTER_NATIVE_ROOT}/packages/fluster_models --lang=typescript --output-folder=${FLUSTER_NATIVE_ROOT}/packages/fluster_ts/src/generated/fluster_models
 	typeshare ${FLUSTER_NATIVE_ROOT}/packages/fluster_native_interface --lang=typescript --output-folder=${FLUSTER_NATIVE_ROOT}/packages/fluster_ts/src/generated/fluster_native_interface
-	typeshare ${FLUSTER_NATIVE_ROOT}/packages/fluster_native_interface --lang=typescript --output-folder=${FLUSTER_NATIVE_ROOT}/packages/fluster_embedded_typescript/src/generated
+	typeshare ${FLUSTER_NATIVE_ROOT}/packages/fluster_native_interface --lang=typescript --output-folder=${FLUSTER_NATIVE_ROOT}/packages/fluster_native_interface/typescript/src/generated
 cross_language_sync: typeshare cross_language_pre_build build_embedded_ts build_go
 distribute_node: build_node
 	cd ${FLUSTER_NATIVE_ROOT}/packages/fluster_ts; npm publish

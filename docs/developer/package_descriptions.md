@@ -6,17 +6,11 @@
 
 A work in progress that will be a quick utility to access specific data from the command line.
 
-## Fluster Db
-
-`fluster_db`
-
-This is an embedded SurrealDb server that works in two distinct ways, depending on whether or not a user is saving their notes locally. When the user decides to host their notes locally, this package establishes a file system based RocksDB instance, preserving data in the user's data directory. In the future, this same instance will be deployable as part of a docker image, in which case it will work to communicate with the `fluster_native_interface` package through web sockets.
-
 ## Fluster Grpc
 
 `fluster_grpc`
 
-This is a placeholder for now, but will be the middle-man between the `fluster_db` and `fluster_native_interface` package when remote deployment is available.
+This is a placeholder for now, but will be the middle-man between the `crate::api::data_interface::database` and `fluster_native_interface` package when remote deployment is available.
 
 ## Fluster Internal Workspace
 

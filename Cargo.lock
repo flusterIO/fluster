@@ -2046,40 +2046,9 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "8bf7cc16383c4b8d58b9905a8509f02926ce3058053c056376248d958c9df1e8"
 
 [[package]]
-name = "fluster_db"
-version = "0.0.1"
-dependencies = [
- "biblatex",
- "chrono",
- "diesel",
- "diesel-async",
- "diesel-derive-enum",
- "dirs",
- "dotenvy",
- "fluster_test_utils",
- "fluster_types",
- "flutter_rust_bridge",
- "gray_matter",
- "log",
- "rayon",
- "regex",
- "rust-embed",
- "serde",
- "serde_json",
- "strum 0.27.1",
- "strum_macros 0.27.1",
- "surrealdb",
- "tokio",
- "tsify",
- "validator",
- "wasm-bindgen",
-]
-
-[[package]]
 name = "fluster_grpc"
 version = "0.0.1"
 dependencies = [
- "fluster_db",
  "listenfd",
  "prost",
  "prost-types",
@@ -2119,10 +2088,13 @@ dependencies = [
  "console-subscriber",
  "crossbeam",
  "crossbeam-channel",
+ "diesel",
+ "diesel-async",
+ "diesel-derive-enum",
  "dirs",
+ "dotenvy",
  "enum-iterator 2.1.0",
  "filetime",
- "fluster_db",
  "fluster_logger",
  "fluster_test_utils",
  "fluster_types",
@@ -2141,8 +2113,11 @@ dependencies = [
  "regex",
  "rust-embed",
  "serde",
+ "serde_json",
  "slicestring",
  "strsim",
+ "strum 0.27.1",
+ "strum_macros 0.27.1",
  "surrealdb",
  "thiserror 2.0.12",
  "time",
@@ -5457,7 +5432,6 @@ checksum = "60e425e204264b144d4c929d126d0de524b40a961686414bab5040f7465c71be"
 dependencies = [
  "rust-embed-impl",
  "rust-embed-utils",
- "tokio",
  "walkdir",
 ]
 
@@ -7407,21 +7381,6 @@ dependencies = [
  "js-sys",
  "serde",
  "wasm-bindgen",
-]
-
-[[package]]
-name = "validator"
-version = "0.20.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "43fb22e1a008ece370ce08a3e9e4447a910e92621bb49b85d6e48a45397e7cfa"
-dependencies = [
- "idna",
- "once_cell",
- "regex",
- "serde",
- "serde_derive",
- "serde_json",
- "url",
 ]
 
 [[package]]
