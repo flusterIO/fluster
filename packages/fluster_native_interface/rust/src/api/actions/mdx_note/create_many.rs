@@ -1,7 +1,6 @@
 use diesel_async::{AsyncPgConnection, RunQueryDsl};
+use fluster_db::entities::mdx_note::mdx_note_creatable::MdxNoteCreatable;
 use fluster_types::errors::errors::FlusterError;
-
-use crate::api::models::mdx_note::mdx_note_creatable::MdxNoteCreatable;
 
 /// flutter_rust_bridge:ignore
 pub async fn create_many_mdx_notes(

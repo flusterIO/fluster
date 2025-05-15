@@ -1,9 +1,7 @@
+use fluster_db::entities::front_matter::front_matter_entity::FrontMatterEntity;
 pub use fluster_types::errors::errors::{FlusterError, FlusterResult};
 
-use crate::api::{
-    data_interface::database::db::get_database_connection,
-    models::front_matter::front_matter_entity::FrontMatterEntity,
-};
+use crate::api::data_interface::database::db::get_database_connection;
 
 pub async fn get_front_matter_entities() -> FlusterResult<Vec<FrontMatterEntity>> {
     if let Ok(mut conn) = get_database_connection().await {

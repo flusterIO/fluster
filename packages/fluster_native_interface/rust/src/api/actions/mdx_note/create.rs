@@ -1,10 +1,8 @@
 use diesel_async::RunQueryDsl;
+use fluster_db::entities::mdx_note::mdx_note_creatable::MdxNoteCreatable;
 use fluster_types::errors::errors::FlusterError;
 
-use crate::api::{
-    data_interface::database::db::get_database_connection,
-    models::mdx_note::mdx_note_creatable::MdxNoteCreatable,
-};
+use crate::api::data_interface::database::db::get_database_connection;
 
 pub async fn create_mdx_note(new_note: MdxNoteCreatable) -> Option<FlusterError> {
     use fluster_db::generated::main_schema::mdx_note::dsl::*;

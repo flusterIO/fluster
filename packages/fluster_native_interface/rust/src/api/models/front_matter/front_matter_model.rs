@@ -1,11 +1,9 @@
+use fluster_db::entities::{
+    front_matter::front_matter_entity::FrontMatterEntity, taggable::tag_model::TagCreatable,
+};
+use fluster_types::enums::taggable_type::TaggableTypeEnum;
 use gray_matter::Pod;
 use serde::{Deserialize, Serialize};
-
-use crate::api::models::{
-    enums::taggable_type::TaggableTypeEnum, taggable::tag_model::TagCreatable,
-};
-
-use super::front_matter_entity::FrontMatterEntity;
 
 /// This model mirrors the structure of the front matter as it appears in a user's note, where the
 /// nested entities represent the data as it is stored in the database. This model should handle

@@ -1,8 +1,7 @@
-use serde::{Deserialize, Serialize};
+pub use fluster_types::enums::keymap_entry_type::KeymapEntryType;
+pub use serde::{Deserialize, Serialize};
 
-use crate::api::models::{
-    actions::global_action::GlobalAction, enums::keymap_entry_type::KeymapEntryType,
-};
+pub use crate::api::models::actions::global_action::GlobalAction;
 
 #[derive(Serialize, Deserialize, Clone)]
 pub struct KeymapSetting {

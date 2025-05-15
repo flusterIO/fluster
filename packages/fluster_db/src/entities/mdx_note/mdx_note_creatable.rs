@@ -1,11 +1,10 @@
 use diesel::prelude::*;
-use fluster_db::generated::main_schema::mdx_note;
-use flutter_rust_bridge::frb;
 use serde::{Deserialize, Serialize};
+
+use crate::generated::main_schema::mdx_note;
 
 #[derive(Debug, Deserialize, Serialize, Clone, PartialEq, Eq, Insertable)]
 #[diesel(table_name = mdx_note, check_for_backend(diesel::pg::Pg))]
-#[frb(ignore)]
 pub struct MdxNoteCreatable {
     pub id: Option<i32>,
     pub file_path: Option<String>,
@@ -14,6 +13,3 @@ pub struct MdxNoteCreatable {
     pub mtime: Option<chrono::NaiveDateTime>,
     pub atime: Option<chrono::NaiveDateTime>,
 }
-
-// impl MdxNoteCreatable {
-// }

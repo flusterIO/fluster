@@ -4,47 +4,34 @@
 // ignore_for_file: invalid_use_of_internal_member, unused_import, unnecessary_import
 
 import '../../../frb_generated.dart';
-import '../taggable/tag_model.dart';
-import 'front_matter_entity.dart';
+import '../../../lib.dart';
 import 'package:flutter_rust_bridge/flutter_rust_bridge_for_generated.dart';
 
 // These function are ignored because they are on traits that is not defined in current crate (put an empty `#[frb]` on it to unignore): `clone`, `fmt`
 
-// Rust type: RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<Pod>>
-abstract class Pod implements RustOpaqueInterface {}
+// Rust type: RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<FrontMatter>>
+abstract class FrontMatter implements RustOpaqueInterface {
+  FrontMatterEntity get data;
 
-/// This model mirrors the structure of the front matter as it appears in a user's note, where the
-/// nested entities represent the data as it is stored in the database. This model should handle
-/// all parsing and saving of all nested models.
-class FrontMatter {
-  final FrontMatterEntity data;
-  final List<TagCreatable> tags;
-  final List<TagCreatable> subjects;
-  final List<TagCreatable> topics;
+  List<TagCreatable> get subjects;
 
-  const FrontMatter({
-    required this.data,
-    required this.tags,
-    required this.subjects,
-    required this.topics,
-  });
+  List<TagCreatable> get tags;
+
+  List<TagCreatable> get topics;
+
+  set data(FrontMatterEntity data);
+
+  set subjects(List<TagCreatable> subjects);
+
+  set tags(List<TagCreatable> tags);
+
+  set topics(List<TagCreatable> topics);
 
   static Future<FrontMatter> fromGrayMatter({Pod? pod}) => RustLib.instance.api
       .crateApiModelsFrontMatterFrontMatterModelFrontMatterFromGrayMatter(
         pod: pod,
       );
-
-  @override
-  int get hashCode =>
-      data.hashCode ^ tags.hashCode ^ subjects.hashCode ^ topics.hashCode;
-
-  @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      other is FrontMatter &&
-          runtimeType == other.runtimeType &&
-          data == other.data &&
-          tags == other.tags &&
-          subjects == other.subjects &&
-          topics == other.topics;
 }
+
+// Rust type: RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<Pod>>
+abstract class Pod implements RustOpaqueInterface {}

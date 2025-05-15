@@ -1,4 +1,4 @@
-use crate::api::models::enums::setting_unique_key::SettingUniqueKey;
+pub use fluster_types::enums::setting_unique_key::SettingUniqueKey;
 
 pub struct IntSetting {
     pub value: Option<i32>,

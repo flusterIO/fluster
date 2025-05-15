@@ -27,8 +27,8 @@ pub async fn sync_user_bibliography(
 
 #[cfg(test)]
 mod tests {
-    use crossbeam_channel::unbounded;
     use crate::api::data_interface::database::db::get_database_connection;
+    use crossbeam_channel::unbounded;
 
     use super::*;
 

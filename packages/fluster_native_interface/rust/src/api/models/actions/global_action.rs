@@ -1,8 +1,7 @@
+use fluster_types::enums::global_action_id::GlobalActionId;
 use serde::{Deserialize, Serialize};
 
-use crate::api::models::{
-    enums::global_action_id::GlobalActionId, settings::setting_input_key::SettingPageInputId,
-};
+use crate::api::models::settings::setting_input_key::SettingPageInputId;
 
 #[derive(Serialize, Deserialize, Clone)]
 pub struct GlobalAction {

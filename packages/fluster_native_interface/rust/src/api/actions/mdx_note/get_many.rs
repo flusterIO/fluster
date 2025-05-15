@@ -1,9 +1,7 @@
+use fluster_db::entities::mdx_note::mdx_note_entity::MdxNoteEntity;
 pub use fluster_types::errors::errors::{FlusterError, FlusterResult};
 
-use crate::api::{
-    data_interface::database::db::get_database_connection,
-    models::mdx_note::mdx_note_entity::MdxNoteEntity,
-};
+use crate::api::data_interface::database::db::get_database_connection;
 
 // RESUME: Fix this error and the database workflow should be good to go!
 #[allow(clippy::bind_instead_of_map)]

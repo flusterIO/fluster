@@ -18,3 +18,9 @@ diesel = { workspace = true, features = [
     "chrono",
     "r2d2",
 ] }
+rayon.workspace = true
+tsify = "0.5.5"
+strum = "0.27.1"
+strum_macros = "0.27.1"
+wasm-bindgen.workspace = true
+enum-iterator = "2.1.0"

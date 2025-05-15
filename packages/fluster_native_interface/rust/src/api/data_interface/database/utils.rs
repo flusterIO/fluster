@@ -1,5 +1,6 @@
 use std::path::PathBuf;
 
+// TODO: Remove this. This is being handled by the fluster_db package now.
 pub fn get_database_path() -> Option<PathBuf> {
     let mut d = dirs::data_dir();
     if d.is_none() {

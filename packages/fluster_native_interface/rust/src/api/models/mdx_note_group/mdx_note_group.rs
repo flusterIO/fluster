@@ -4,9 +4,10 @@ use gray_matter::{engine::YAML, Matter};
 use std::fs;
 use std::fs::Metadata;
 
+use fluster_db::entities::mdx_note::mdx_note_creatable::MdxNoteCreatable;
+
 use crate::api::models::front_matter::front_matter_model::FrontMatter;
-use crate::api::models::mdx_note::mdx_note_creatable::MdxNoteCreatable;
-use crate::api::models::taggable::taggable::Taggable;
+use crate::api::models::taggable::taggable_model::Taggable;
 
 #[derive(Debug, Clone)]
 pub struct MdxNoteGroup {
@@ -83,8 +84,7 @@ impl MdxNoteGroup {
 #[cfg(test)]
 mod tests {
     use fluster_test_utils::test_utils::get_test_mdx_path;
-
-    use crate::api::models::enums::taggable_type::TaggableTypeEnum;
+    use fluster_types::enums::taggable_type::TaggableTypeEnum;
 
     use super::*;
 

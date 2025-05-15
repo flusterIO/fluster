@@ -1,6 +1,7 @@
 [workspace]
 resolver = "2"
 members = [
+    "apps/fluster/src-tauri",
     "packages/fluster_native_interface/rust",
     "packages/fluster_grpc",
     "packages/fluster_test_utils",

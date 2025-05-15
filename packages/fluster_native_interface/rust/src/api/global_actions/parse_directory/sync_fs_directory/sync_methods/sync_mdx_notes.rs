@@ -1,9 +1,9 @@
 use crate::api::actions::mdx_note::create_many::create_many_mdx_notes;
-use crate::api::models::mdx_note::mdx_note_creatable::MdxNoteCreatable;
-use crate::api::models::mdx_note::mdx_note_group::mdx_note_group::MdxNoteGroup;
-use crate::api::models::taggable::taggable::Taggable;
+use crate::api::models::mdx_note_group::mdx_note_group::MdxNoteGroup;
+use crate::api::models::taggable::taggable_model::Taggable;
 use crossbeam_channel::unbounded;
 use crossbeam_channel::Sender;
+use fluster_db::entities::mdx_note::mdx_note_creatable::MdxNoteCreatable;
 use fluster_types::errors::errors::FlusterError;
 use fluster_types::FlusterDb;
 use flutter_rust_bridge::frb;

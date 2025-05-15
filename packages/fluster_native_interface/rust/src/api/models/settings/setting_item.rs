@@ -1,4 +1,4 @@
-use crate::api::models::enums::setting_unique_key::SettingUniqueKey;
+use fluster_types::enums::setting_unique_key::SettingUniqueKey;
 
 use super::setting_input_key::SettingPageInputId;
 

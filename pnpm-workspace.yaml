@@ -1,4 +1,5 @@
 packages:
+  - "apps/fluster"
   - "packages/fluster_ts"
   - "packages/fluster_embedded_components"
   - "packages/fluster_native_interface/typescript"

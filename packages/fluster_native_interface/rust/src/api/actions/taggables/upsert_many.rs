@@ -1,8 +1,7 @@
 use diesel_async::AsyncPgConnection;
+use fluster_db::entities::taggable::tag_model::{TagCreatable, TagEntity};
 use fluster_types::errors::errors::{FlusterError, FlusterResult};
 use flutter_rust_bridge::frb;
-
-use crate::api::{embedded_ts::TagCreatable, models::taggable::tag_model::TagEntity};
 
 // PERFORMANCE: These writes can likely be grouped for a probably pretty significant performance boost. Come back and handle that when things are in good shape.
 
@@ -35,10 +34,9 @@ pub async fn upsert_many_tags(
 
 #[cfg(test)]
 mod tests {
-    use crate::api::{
-        data_interface::database::db::get_database_connection,
-        models::enums::taggable_type::TaggableTypeEnum,
-    };
+    use fluster_types::enums::taggable_type::TaggableTypeEnum;
+
+    use crate::api::data_interface::database::db::get_database_connection;
 
     use super::*;
 

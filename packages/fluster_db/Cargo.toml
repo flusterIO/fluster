@@ -7,4 +7,26 @@ documentation.workspace = true
 edition.workspace = true
 
 [dependencies]
-diesel = { workspace = true, features = ["postgres", "postgres_backend", "serde_json", "chrono", "r2d2"] }
+chrono = { workspace = true, features = ["serde"] }
+diesel = { workspace = true, features = [
+    "postgres",
+    "postgres_backend",
+    "serde_json",
+    "chrono",
+    "r2d2",
+] }
+gray_matter.workspace = true
+rayon.workspace = true
+regex = "1.11.1"
+serde.workspace = true
+serde_json.workspace = true
+strum = "0.27.1"
+strum_macros = "0.27.1"
+tsify = "0.5.5"
+fluster_types = { path = "../fluster_types/" }
+wasm-bindgen.workspace = true
+tokio = { version = "1.45.0", features = ["fs"] }
+pg-embed = { version = "0.7.1", default-features = false, features = ["rt_tokio"] }
+dirs.workspace = true
+logging = "0.1.0"
+log = "0.4.27"
