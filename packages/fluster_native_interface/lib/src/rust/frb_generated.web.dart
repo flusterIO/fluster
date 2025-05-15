@@ -7,11 +7,7 @@
 // ignore_for_file: argument_type_not_assignable
 
 import 'api/actions/front_matter/get_many.dart';
-import 'api/actions/mdx_note/create.dart';
-import 'api/actions/mdx_note/create_many.dart';
 import 'api/actions/mdx_note/get_many.dart';
-import 'api/actions/taggables/upsert_many.dart';
-import 'api/data_interface/database/db.dart';
 import 'api/data_interface/database/utils.dart';
 import 'api/data_interface/get_database_status.dart';
 import 'api/embedded_ts.dart';
@@ -36,16 +32,13 @@ import 'api/models/mdx_note/mdx_note_summary.dart';
 import 'api/models/params/cross_language_file_object.dart';
 import 'api/models/params/sync_mdx_typescript_params.dart';
 import 'api/models/settings/setting_page_id.dart';
-import 'api/models/snippet/snippet_model.dart';
-import 'api/models/taggable/tag_front_matter_join.dart';
-import 'api/models/taggable/tag_mdx_note_join.dart';
 import 'api/models/taggable/tag_model.dart';
 import 'api/models/taggable/taggable.dart';
-import 'api/typedefs/note_type_utils.dart';
+import 'api/utils/file_system/fs_utils.dart';
+import 'api/utils/search/get_text_similarity.dart';
 import 'dart:async';
 import 'dart:convert';
 import 'frb_generated.dart';
-import 'lib.dart';
 import 'package:flutter_rust_bridge/flutter_rust_bridge_for_generated_web.dart';
 
 abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
@@ -57,15 +50,8 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   });
 
   CrossPlatformFinalizerArg
-  get rust_arc_decrement_strong_count_AsyncPgConnectionPtr =>
-      wire.rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerAsyncPgConnection;
-
-  CrossPlatformFinalizerArg
   get rust_arc_decrement_strong_count_BibEntryEntityPtr =>
       wire.rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerBibEntryEntity;
-
-  CrossPlatformFinalizerArg get rust_arc_decrement_strong_count_DbRecordPtr =>
-      wire.rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerDbRecord;
 
   CrossPlatformFinalizerArg
   get rust_arc_decrement_strong_count_EmbeddedFilePtr =>
@@ -83,14 +69,6 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
       wire.rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFlusterError;
 
   CrossPlatformFinalizerArg
-  get rust_arc_decrement_strong_count_FlusterResultPtr =>
-      wire.rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFlusterResult;
-
-  CrossPlatformFinalizerArg
-  get rust_arc_decrement_strong_count_FlusterResultAsyncPgConnectionPtr =>
-      wire.rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFlusterResultAsyncPgConnection;
-
-  CrossPlatformFinalizerArg
   get rust_arc_decrement_strong_count_FlusterResultMdxNoteGroupPtr =>
       wire.rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFlusterResultMdxNoteGroup;
 
@@ -103,6 +81,10 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
       wire.rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFlusterResultVecMdxNoteEntity;
 
   CrossPlatformFinalizerArg
+  get rust_arc_decrement_strong_count_MdxNoteSummaryPtr =>
+      wire.rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerMdxNoteSummary;
+
+  CrossPlatformFinalizerArg
   get rust_arc_decrement_strong_count_ParsedEntityPtr =>
       wire.rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerParsedEntity;
 
@@ -112,9 +94,6 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   CrossPlatformFinalizerArg get rust_arc_decrement_strong_count_PodPtr =>
       wire.rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerPod;
 
-  CrossPlatformFinalizerArg get rust_arc_decrement_strong_count_RecordIdPtr =>
-      wire.rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRecordId;
-
   CrossPlatformFinalizerArg get rust_arc_decrement_strong_count_RegexPtr =>
       wire.rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRegex;
 
@@ -122,18 +101,9 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   get rust_arc_decrement_strong_count_SenderFlusterErrorPtr =>
       wire.rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerSenderFlusterError;
 
-  CrossPlatformFinalizerArg get rust_arc_decrement_strong_count_ValuePtr =>
-      wire.rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerValue;
-
   @protected
   BibEntryEntity
   dco_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerBibEntryEntity(
-    dynamic raw,
-  );
-
-  @protected
-  DbRecord
-  dco_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerDbRecord(
     dynamic raw,
   );
 
@@ -156,18 +126,6 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   );
 
   @protected
-  FlusterResult
-  dco_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFlusterResult(
-    dynamic raw,
-  );
-
-  @protected
-  FlusterResultAsyncPgConnection
-  dco_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFlusterResultAsyncPgConnection(
-    dynamic raw,
-  );
-
-  @protected
   FlusterResultMdxNoteGroup
   dco_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFlusterResultMdxNoteGroup(
     dynamic raw,
@@ -186,6 +144,12 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   );
 
   @protected
+  MdxNoteSummary
+  dco_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerMdxNoteSummary(
+    dynamic raw,
+  );
+
+  @protected
   PathBuf
   dco_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerPathBuf(
     dynamic raw,
@@ -198,38 +162,8 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   );
 
   @protected
-  RecordId
-  dco_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRecordId(
-    dynamic raw,
-  );
-
-  @protected
   Regex
   dco_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRegex(
-    dynamic raw,
-  );
-
-  @protected
-  Value
-  dco_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerValue(
-    dynamic raw,
-  );
-
-  @protected
-  AsyncPgConnection
-  dco_decode_Auto_RefMut_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerAsyncPgConnection(
-    dynamic raw,
-  );
-
-  @protected
-  BibEntryEntity
-  dco_decode_Auto_RefMut_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerBibEntryEntity(
-    dynamic raw,
-  );
-
-  @protected
-  DbRecord
-  dco_decode_Auto_RefMut_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerDbRecord(
     dynamic raw,
   );
 
@@ -240,20 +174,20 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   );
 
   @protected
-  BibEntryEntity
-  dco_decode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerBibEntryEntity(
-    dynamic raw,
-  );
-
-  @protected
-  DbRecord
-  dco_decode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerDbRecord(
+  MdxNoteSummary
+  dco_decode_Auto_RefMut_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerMdxNoteSummary(
     dynamic raw,
   );
 
   @protected
   FlusterDb
   dco_decode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFlusterDb(
+    dynamic raw,
+  );
+
+  @protected
+  MdxNoteSummary
+  dco_decode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerMdxNoteSummary(
     dynamic raw,
   );
 
@@ -273,20 +207,8 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   DateTime dco_decode_Chrono_Naive(dynamic raw);
 
   @protected
-  AsyncPgConnection
-  dco_decode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerAsyncPgConnection(
-    dynamic raw,
-  );
-
-  @protected
   BibEntryEntity
   dco_decode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerBibEntryEntity(
-    dynamic raw,
-  );
-
-  @protected
-  DbRecord
-  dco_decode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerDbRecord(
     dynamic raw,
   );
 
@@ -315,18 +237,6 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   );
 
   @protected
-  FlusterResult
-  dco_decode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFlusterResult(
-    dynamic raw,
-  );
-
-  @protected
-  FlusterResultAsyncPgConnection
-  dco_decode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFlusterResultAsyncPgConnection(
-    dynamic raw,
-  );
-
-  @protected
   FlusterResultMdxNoteGroup
   dco_decode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFlusterResultMdxNoteGroup(
     dynamic raw,
@@ -341,6 +251,12 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   @protected
   FlusterResultVecMdxNoteEntity
   dco_decode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFlusterResultVecMdxNoteEntity(
+    dynamic raw,
+  );
+
+  @protected
+  MdxNoteSummary
+  dco_decode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerMdxNoteSummary(
     dynamic raw,
   );
 
@@ -363,12 +279,6 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   );
 
   @protected
-  RecordId
-  dco_decode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRecordId(
-    dynamic raw,
-  );
-
-  @protected
   Regex
   dco_decode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRegex(
     dynamic raw,
@@ -377,12 +287,6 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   @protected
   SenderFlusterError
   dco_decode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerSenderFlusterError(
-    dynamic raw,
-  );
-
-  @protected
-  Value
-  dco_decode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerValue(
     dynamic raw,
   );
 
@@ -398,12 +302,6 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   @protected
   EmbeddedFile
   dco_decode_box_autoadd_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerEmbeddedFile(
-    dynamic raw,
-  );
-
-  @protected
-  FlusterError
-  dco_decode_box_autoadd_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFlusterError(
     dynamic raw,
   );
 
@@ -429,17 +327,14 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   int dco_decode_box_autoadd_i_32(dynamic raw);
 
   @protected
-  MdxNoteCreatable dco_decode_box_autoadd_mdx_note_creatable(dynamic raw);
-
-  @protected
   SyncFilesystemDirectoryOptions
   dco_decode_box_autoadd_sync_filesystem_directory_options(dynamic raw);
 
   @protected
-  TagEntity dco_decode_box_autoadd_tag_entity(dynamic raw);
+  CrossLanguageFile dco_decode_cross_language_file(dynamic raw);
 
   @protected
-  CrossLanguageFile dco_decode_cross_language_file(dynamic raw);
+  double dco_decode_f_64(dynamic raw);
 
   @protected
   FlusterDatabaseStatus dco_decode_fluster_database_status(dynamic raw);
@@ -472,10 +367,10 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   );
 
   @protected
-  List<MdxNoteCreatable> dco_decode_list_mdx_note_creatable(dynamic raw);
-
-  @protected
-  List<MdxNoteSummary> dco_decode_list_mdx_note_summary(dynamic raw);
+  List<MdxNoteSummary>
+  dco_decode_list_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerMdxNoteSummary(
+    dynamic raw,
+  );
 
   @protected
   Uint8List dco_decode_list_prim_u_8_strict(dynamic raw);
@@ -496,9 +391,6 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   MdxNoteGroup dco_decode_mdx_note_group(dynamic raw);
 
   @protected
-  MdxNoteSummary dco_decode_mdx_note_summary(dynamic raw);
-
-  @protected
   NoteType dco_decode_note_type(dynamic raw);
 
   @protected
@@ -507,12 +399,6 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   @protected
   EmbeddedFile?
   dco_decode_opt_box_autoadd_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerEmbeddedFile(
-    dynamic raw,
-  );
-
-  @protected
-  FlusterError?
-  dco_decode_opt_box_autoadd_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFlusterError(
     dynamic raw,
   );
 
@@ -544,9 +430,6 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   SettingPageId dco_decode_setting_page_id(dynamic raw);
 
   @protected
-  Snippet dco_decode_snippet(dynamic raw);
-
-  @protected
   SummaryListQuery dco_decode_summary_list_query(dynamic raw);
 
   @protected
@@ -564,9 +447,6 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   TagCreatable dco_decode_tag_creatable(dynamic raw);
 
   @protected
-  TagEntity dco_decode_tag_entity(dynamic raw);
-
-  @protected
   TagFromContentResult dco_decode_tag_from_content_result(dynamic raw);
 
   @protected
@@ -574,14 +454,6 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
 
   @protected
   TaggableTypeEnum dco_decode_taggable_type_enum(dynamic raw);
-
-  @protected
-  TaggableWithFrontMatterJoin dco_decode_taggable_with_front_matter_join(
-    dynamic raw,
-  );
-
-  @protected
-  TaggableWithMdxNoteJoin dco_decode_taggable_with_mdx_note_join(dynamic raw);
 
   @protected
   int dco_decode_u_16(dynamic raw);
@@ -605,12 +477,6 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   );
 
   @protected
-  DbRecord
-  sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerDbRecord(
-    SseDeserializer deserializer,
-  );
-
-  @protected
   EmbeddedFile
   sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerEmbeddedFile(
     SseDeserializer deserializer,
@@ -625,18 +491,6 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   @protected
   FlusterError
   sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFlusterError(
-    SseDeserializer deserializer,
-  );
-
-  @protected
-  FlusterResult
-  sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFlusterResult(
-    SseDeserializer deserializer,
-  );
-
-  @protected
-  FlusterResultAsyncPgConnection
-  sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFlusterResultAsyncPgConnection(
     SseDeserializer deserializer,
   );
 
@@ -659,6 +513,12 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   );
 
   @protected
+  MdxNoteSummary
+  sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerMdxNoteSummary(
+    SseDeserializer deserializer,
+  );
+
+  @protected
   PathBuf
   sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerPathBuf(
     SseDeserializer deserializer,
@@ -671,38 +531,8 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   );
 
   @protected
-  RecordId
-  sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRecordId(
-    SseDeserializer deserializer,
-  );
-
-  @protected
   Regex
   sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRegex(
-    SseDeserializer deserializer,
-  );
-
-  @protected
-  Value
-  sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerValue(
-    SseDeserializer deserializer,
-  );
-
-  @protected
-  AsyncPgConnection
-  sse_decode_Auto_RefMut_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerAsyncPgConnection(
-    SseDeserializer deserializer,
-  );
-
-  @protected
-  BibEntryEntity
-  sse_decode_Auto_RefMut_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerBibEntryEntity(
-    SseDeserializer deserializer,
-  );
-
-  @protected
-  DbRecord
-  sse_decode_Auto_RefMut_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerDbRecord(
     SseDeserializer deserializer,
   );
 
@@ -713,20 +543,20 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   );
 
   @protected
-  BibEntryEntity
-  sse_decode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerBibEntryEntity(
-    SseDeserializer deserializer,
-  );
-
-  @protected
-  DbRecord
-  sse_decode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerDbRecord(
+  MdxNoteSummary
+  sse_decode_Auto_RefMut_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerMdxNoteSummary(
     SseDeserializer deserializer,
   );
 
   @protected
   FlusterDb
   sse_decode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFlusterDb(
+    SseDeserializer deserializer,
+  );
+
+  @protected
+  MdxNoteSummary
+  sse_decode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerMdxNoteSummary(
     SseDeserializer deserializer,
   );
 
@@ -746,20 +576,8 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   DateTime sse_decode_Chrono_Naive(SseDeserializer deserializer);
 
   @protected
-  AsyncPgConnection
-  sse_decode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerAsyncPgConnection(
-    SseDeserializer deserializer,
-  );
-
-  @protected
   BibEntryEntity
   sse_decode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerBibEntryEntity(
-    SseDeserializer deserializer,
-  );
-
-  @protected
-  DbRecord
-  sse_decode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerDbRecord(
     SseDeserializer deserializer,
   );
 
@@ -788,18 +606,6 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   );
 
   @protected
-  FlusterResult
-  sse_decode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFlusterResult(
-    SseDeserializer deserializer,
-  );
-
-  @protected
-  FlusterResultAsyncPgConnection
-  sse_decode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFlusterResultAsyncPgConnection(
-    SseDeserializer deserializer,
-  );
-
-  @protected
   FlusterResultMdxNoteGroup
   sse_decode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFlusterResultMdxNoteGroup(
     SseDeserializer deserializer,
@@ -814,6 +620,12 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   @protected
   FlusterResultVecMdxNoteEntity
   sse_decode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFlusterResultVecMdxNoteEntity(
+    SseDeserializer deserializer,
+  );
+
+  @protected
+  MdxNoteSummary
+  sse_decode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerMdxNoteSummary(
     SseDeserializer deserializer,
   );
 
@@ -836,12 +648,6 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   );
 
   @protected
-  RecordId
-  sse_decode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRecordId(
-    SseDeserializer deserializer,
-  );
-
-  @protected
   Regex
   sse_decode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRegex(
     SseDeserializer deserializer,
@@ -850,12 +656,6 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   @protected
   SenderFlusterError
   sse_decode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerSenderFlusterError(
-    SseDeserializer deserializer,
-  );
-
-  @protected
-  Value
-  sse_decode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerValue(
     SseDeserializer deserializer,
   );
 
@@ -871,12 +671,6 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   @protected
   EmbeddedFile
   sse_decode_box_autoadd_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerEmbeddedFile(
-    SseDeserializer deserializer,
-  );
-
-  @protected
-  FlusterError
-  sse_decode_box_autoadd_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFlusterError(
     SseDeserializer deserializer,
   );
 
@@ -902,23 +696,18 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   int sse_decode_box_autoadd_i_32(SseDeserializer deserializer);
 
   @protected
-  MdxNoteCreatable sse_decode_box_autoadd_mdx_note_creatable(
-    SseDeserializer deserializer,
-  );
-
-  @protected
   SyncFilesystemDirectoryOptions
   sse_decode_box_autoadd_sync_filesystem_directory_options(
     SseDeserializer deserializer,
   );
 
   @protected
-  TagEntity sse_decode_box_autoadd_tag_entity(SseDeserializer deserializer);
-
-  @protected
   CrossLanguageFile sse_decode_cross_language_file(
     SseDeserializer deserializer,
   );
+
+  @protected
+  double sse_decode_f_64(SseDeserializer deserializer);
 
   @protected
   FlusterDatabaseStatus sse_decode_fluster_database_status(
@@ -955,12 +744,8 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   );
 
   @protected
-  List<MdxNoteCreatable> sse_decode_list_mdx_note_creatable(
-    SseDeserializer deserializer,
-  );
-
-  @protected
-  List<MdxNoteSummary> sse_decode_list_mdx_note_summary(
+  List<MdxNoteSummary>
+  sse_decode_list_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerMdxNoteSummary(
     SseDeserializer deserializer,
   );
 
@@ -985,9 +770,6 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   MdxNoteGroup sse_decode_mdx_note_group(SseDeserializer deserializer);
 
   @protected
-  MdxNoteSummary sse_decode_mdx_note_summary(SseDeserializer deserializer);
-
-  @protected
   NoteType sse_decode_note_type(SseDeserializer deserializer);
 
   @protected
@@ -996,12 +778,6 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   @protected
   EmbeddedFile?
   sse_decode_opt_box_autoadd_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerEmbeddedFile(
-    SseDeserializer deserializer,
-  );
-
-  @protected
-  FlusterError?
-  sse_decode_opt_box_autoadd_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFlusterError(
     SseDeserializer deserializer,
   );
 
@@ -1035,9 +811,6 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   SettingPageId sse_decode_setting_page_id(SseDeserializer deserializer);
 
   @protected
-  Snippet sse_decode_snippet(SseDeserializer deserializer);
-
-  @protected
   SummaryListQuery sse_decode_summary_list_query(SseDeserializer deserializer);
 
   @protected
@@ -1059,9 +832,6 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   TagCreatable sse_decode_tag_creatable(SseDeserializer deserializer);
 
   @protected
-  TagEntity sse_decode_tag_entity(SseDeserializer deserializer);
-
-  @protected
   TagFromContentResult sse_decode_tag_from_content_result(
     SseDeserializer deserializer,
   );
@@ -1071,16 +841,6 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
 
   @protected
   TaggableTypeEnum sse_decode_taggable_type_enum(SseDeserializer deserializer);
-
-  @protected
-  TaggableWithFrontMatterJoin sse_decode_taggable_with_front_matter_join(
-    SseDeserializer deserializer,
-  );
-
-  @protected
-  TaggableWithMdxNoteJoin sse_decode_taggable_with_mdx_note_join(
-    SseDeserializer deserializer,
-  );
 
   @protected
   int sse_decode_u_16(SseDeserializer deserializer);
@@ -1101,13 +861,6 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   void
   sse_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerBibEntryEntity(
     BibEntryEntity self,
-    SseSerializer serializer,
-  );
-
-  @protected
-  void
-  sse_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerDbRecord(
-    DbRecord self,
     SseSerializer serializer,
   );
 
@@ -1134,20 +887,6 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
 
   @protected
   void
-  sse_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFlusterResult(
-    FlusterResult self,
-    SseSerializer serializer,
-  );
-
-  @protected
-  void
-  sse_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFlusterResultAsyncPgConnection(
-    FlusterResultAsyncPgConnection self,
-    SseSerializer serializer,
-  );
-
-  @protected
-  void
   sse_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFlusterResultMdxNoteGroup(
     FlusterResultMdxNoteGroup self,
     SseSerializer serializer,
@@ -1169,6 +908,13 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
 
   @protected
   void
+  sse_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerMdxNoteSummary(
+    MdxNoteSummary self,
+    SseSerializer serializer,
+  );
+
+  @protected
+  void
   sse_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerPathBuf(
     PathBuf self,
     SseSerializer serializer,
@@ -1183,43 +929,8 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
 
   @protected
   void
-  sse_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRecordId(
-    RecordId self,
-    SseSerializer serializer,
-  );
-
-  @protected
-  void
   sse_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRegex(
     Regex self,
-    SseSerializer serializer,
-  );
-
-  @protected
-  void
-  sse_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerValue(
-    Value self,
-    SseSerializer serializer,
-  );
-
-  @protected
-  void
-  sse_encode_Auto_RefMut_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerAsyncPgConnection(
-    AsyncPgConnection self,
-    SseSerializer serializer,
-  );
-
-  @protected
-  void
-  sse_encode_Auto_RefMut_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerBibEntryEntity(
-    BibEntryEntity self,
-    SseSerializer serializer,
-  );
-
-  @protected
-  void
-  sse_encode_Auto_RefMut_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerDbRecord(
-    DbRecord self,
     SseSerializer serializer,
   );
 
@@ -1232,15 +943,8 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
 
   @protected
   void
-  sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerBibEntryEntity(
-    BibEntryEntity self,
-    SseSerializer serializer,
-  );
-
-  @protected
-  void
-  sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerDbRecord(
-    DbRecord self,
+  sse_encode_Auto_RefMut_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerMdxNoteSummary(
+    MdxNoteSummary self,
     SseSerializer serializer,
   );
 
@@ -1248,6 +952,13 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   void
   sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFlusterDb(
     FlusterDb self,
+    SseSerializer serializer,
+  );
+
+  @protected
+  void
+  sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerMdxNoteSummary(
+    MdxNoteSummary self,
     SseSerializer serializer,
   );
 
@@ -1270,22 +981,8 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
 
   @protected
   void
-  sse_encode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerAsyncPgConnection(
-    AsyncPgConnection self,
-    SseSerializer serializer,
-  );
-
-  @protected
-  void
   sse_encode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerBibEntryEntity(
     BibEntryEntity self,
-    SseSerializer serializer,
-  );
-
-  @protected
-  void
-  sse_encode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerDbRecord(
-    DbRecord self,
     SseSerializer serializer,
   );
 
@@ -1319,20 +1016,6 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
 
   @protected
   void
-  sse_encode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFlusterResult(
-    FlusterResult self,
-    SseSerializer serializer,
-  );
-
-  @protected
-  void
-  sse_encode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFlusterResultAsyncPgConnection(
-    FlusterResultAsyncPgConnection self,
-    SseSerializer serializer,
-  );
-
-  @protected
-  void
   sse_encode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFlusterResultMdxNoteGroup(
     FlusterResultMdxNoteGroup self,
     SseSerializer serializer,
@@ -1349,6 +1032,13 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   void
   sse_encode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFlusterResultVecMdxNoteEntity(
     FlusterResultVecMdxNoteEntity self,
+    SseSerializer serializer,
+  );
+
+  @protected
+  void
+  sse_encode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerMdxNoteSummary(
+    MdxNoteSummary self,
     SseSerializer serializer,
   );
 
@@ -1375,13 +1065,6 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
 
   @protected
   void
-  sse_encode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRecordId(
-    RecordId self,
-    SseSerializer serializer,
-  );
-
-  @protected
-  void
   sse_encode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRegex(
     Regex self,
     SseSerializer serializer,
@@ -1391,13 +1074,6 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   void
   sse_encode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerSenderFlusterError(
     SenderFlusterError self,
-    SseSerializer serializer,
-  );
-
-  @protected
-  void
-  sse_encode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerValue(
-    Value self,
     SseSerializer serializer,
   );
 
@@ -1414,13 +1090,6 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   void
   sse_encode_box_autoadd_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerEmbeddedFile(
     EmbeddedFile self,
-    SseSerializer serializer,
-  );
-
-  @protected
-  void
-  sse_encode_box_autoadd_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFlusterError(
-    FlusterError self,
     SseSerializer serializer,
   );
 
@@ -1454,20 +1123,8 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   void sse_encode_box_autoadd_i_32(int self, SseSerializer serializer);
 
   @protected
-  void sse_encode_box_autoadd_mdx_note_creatable(
-    MdxNoteCreatable self,
-    SseSerializer serializer,
-  );
-
-  @protected
   void sse_encode_box_autoadd_sync_filesystem_directory_options(
     SyncFilesystemDirectoryOptions self,
-    SseSerializer serializer,
-  );
-
-  @protected
-  void sse_encode_box_autoadd_tag_entity(
-    TagEntity self,
     SseSerializer serializer,
   );
 
@@ -1476,6 +1133,9 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
     CrossLanguageFile self,
     SseSerializer serializer,
   );
+
+  @protected
+  void sse_encode_f_64(double self, SseSerializer serializer);
 
   @protected
   void sse_encode_fluster_database_status(
@@ -1519,13 +1179,8 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   );
 
   @protected
-  void sse_encode_list_mdx_note_creatable(
-    List<MdxNoteCreatable> self,
-    SseSerializer serializer,
-  );
-
-  @protected
-  void sse_encode_list_mdx_note_summary(
+  void
+  sse_encode_list_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerMdxNoteSummary(
     List<MdxNoteSummary> self,
     SseSerializer serializer,
   );
@@ -1561,12 +1216,6 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   void sse_encode_mdx_note_group(MdxNoteGroup self, SseSerializer serializer);
 
   @protected
-  void sse_encode_mdx_note_summary(
-    MdxNoteSummary self,
-    SseSerializer serializer,
-  );
-
-  @protected
   void sse_encode_note_type(NoteType self, SseSerializer serializer);
 
   @protected
@@ -1576,13 +1225,6 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   void
   sse_encode_opt_box_autoadd_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerEmbeddedFile(
     EmbeddedFile? self,
-    SseSerializer serializer,
-  );
-
-  @protected
-  void
-  sse_encode_opt_box_autoadd_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFlusterError(
-    FlusterError? self,
     SseSerializer serializer,
   );
 
@@ -1620,9 +1262,6 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   void sse_encode_setting_page_id(SettingPageId self, SseSerializer serializer);
 
   @protected
-  void sse_encode_snippet(Snippet self, SseSerializer serializer);
-
-  @protected
   void sse_encode_summary_list_query(
     SummaryListQuery self,
     SseSerializer serializer,
@@ -1650,9 +1289,6 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   void sse_encode_tag_creatable(TagCreatable self, SseSerializer serializer);
 
   @protected
-  void sse_encode_tag_entity(TagEntity self, SseSerializer serializer);
-
-  @protected
   void sse_encode_tag_from_content_result(
     TagFromContentResult self,
     SseSerializer serializer,
@@ -1664,18 +1300,6 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   @protected
   void sse_encode_taggable_type_enum(
     TaggableTypeEnum self,
-    SseSerializer serializer,
-  );
-
-  @protected
-  void sse_encode_taggable_with_front_matter_join(
-    TaggableWithFrontMatterJoin self,
-    SseSerializer serializer,
-  );
-
-  @protected
-  void sse_encode_taggable_with_mdx_note_join(
-    TaggableWithMdxNoteJoin self,
     SseSerializer serializer,
   );
 
@@ -1701,22 +1325,6 @@ class RustLibWire implements BaseWire {
   RustLibWire.fromExternalLibrary(ExternalLibrary lib);
 
   void
-  rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerAsyncPgConnection(
-    int ptr,
-  ) => wasmModule
-      .rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerAsyncPgConnection(
-        ptr,
-      );
-
-  void
-  rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerAsyncPgConnection(
-    int ptr,
-  ) => wasmModule
-      .rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerAsyncPgConnection(
-        ptr,
-      );
-
-  void
   rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerBibEntryEntity(
     int ptr,
   ) => wasmModule
@@ -1729,22 +1337,6 @@ class RustLibWire implements BaseWire {
     int ptr,
   ) => wasmModule
       .rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerBibEntryEntity(
-        ptr,
-      );
-
-  void
-  rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerDbRecord(
-    int ptr,
-  ) => wasmModule
-      .rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerDbRecord(
-        ptr,
-      );
-
-  void
-  rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerDbRecord(
-    int ptr,
-  ) => wasmModule
-      .rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerDbRecord(
         ptr,
       );
 
@@ -1813,38 +1405,6 @@ class RustLibWire implements BaseWire {
       );
 
   void
-  rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFlusterResult(
-    int ptr,
-  ) => wasmModule
-      .rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFlusterResult(
-        ptr,
-      );
-
-  void
-  rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFlusterResult(
-    int ptr,
-  ) => wasmModule
-      .rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFlusterResult(
-        ptr,
-      );
-
-  void
-  rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFlusterResultAsyncPgConnection(
-    int ptr,
-  ) => wasmModule
-      .rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFlusterResultAsyncPgConnection(
-        ptr,
-      );
-
-  void
-  rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFlusterResultAsyncPgConnection(
-    int ptr,
-  ) => wasmModule
-      .rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFlusterResultAsyncPgConnection(
-        ptr,
-      );
-
-  void
   rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFlusterResultMdxNoteGroup(
     int ptr,
   ) => wasmModule
@@ -1889,6 +1449,22 @@ class RustLibWire implements BaseWire {
     int ptr,
   ) => wasmModule
       .rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFlusterResultVecMdxNoteEntity(
+        ptr,
+      );
+
+  void
+  rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerMdxNoteSummary(
+    int ptr,
+  ) => wasmModule
+      .rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerMdxNoteSummary(
+        ptr,
+      );
+
+  void
+  rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerMdxNoteSummary(
+    int ptr,
+  ) => wasmModule
+      .rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerMdxNoteSummary(
         ptr,
       );
 
@@ -1941,22 +1517,6 @@ class RustLibWire implements BaseWire {
       );
 
   void
-  rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRecordId(
-    int ptr,
-  ) => wasmModule
-      .rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRecordId(
-        ptr,
-      );
-
-  void
-  rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRecordId(
-    int ptr,
-  ) => wasmModule
-      .rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRecordId(
-        ptr,
-      );
-
-  void
   rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRegex(
     int ptr,
   ) => wasmModule
@@ -1987,22 +1547,6 @@ class RustLibWire implements BaseWire {
       .rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerSenderFlusterError(
         ptr,
       );
-
-  void
-  rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerValue(
-    int ptr,
-  ) => wasmModule
-      .rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerValue(
-        ptr,
-      );
-
-  void
-  rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerValue(
-    int ptr,
-  ) => wasmModule
-      .rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerValue(
-        ptr,
-      );
 }
 
 @JS('wasm_bindgen')
@@ -2012,32 +1556,12 @@ external RustLibWasmModule get wasmModule;
 @anonymous
 extension type RustLibWasmModule._(JSObject _) implements JSObject {
   external void
-  rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerAsyncPgConnection(
-    int ptr,
-  );
-
-  external void
-  rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerAsyncPgConnection(
-    int ptr,
-  );
-
-  external void
   rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerBibEntryEntity(
     int ptr,
   );
 
   external void
   rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerBibEntryEntity(
-    int ptr,
-  );
-
-  external void
-  rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerDbRecord(
-    int ptr,
-  );
-
-  external void
-  rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerDbRecord(
     int ptr,
   );
 
@@ -2082,26 +1606,6 @@ extension type RustLibWasmModule._(JSObject _) implements JSObject {
   );
 
   external void
-  rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFlusterResult(
-    int ptr,
-  );
-
-  external void
-  rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFlusterResult(
-    int ptr,
-  );
-
-  external void
-  rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFlusterResultAsyncPgConnection(
-    int ptr,
-  );
-
-  external void
-  rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFlusterResultAsyncPgConnection(
-    int ptr,
-  );
-
-  external void
   rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFlusterResultMdxNoteGroup(
     int ptr,
   );
@@ -2128,6 +1632,16 @@ extension type RustLibWasmModule._(JSObject _) implements JSObject {
 
   external void
   rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFlusterResultVecMdxNoteEntity(
+    int ptr,
+  );
+
+  external void
+  rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerMdxNoteSummary(
+    int ptr,
+  );
+
+  external void
+  rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerMdxNoteSummary(
     int ptr,
   );
 
@@ -2162,16 +1676,6 @@ extension type RustLibWasmModule._(JSObject _) implements JSObject {
   );
 
   external void
-  rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRecordId(
-    int ptr,
-  );
-
-  external void
-  rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRecordId(
-    int ptr,
-  );
-
-  external void
   rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRegex(
     int ptr,
   );
@@ -2188,16 +1692,6 @@ extension type RustLibWasmModule._(JSObject _) implements JSObject {
 
   external void
   rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerSenderFlusterError(
-    int ptr,
-  );
-
-  external void
-  rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerValue(
-    int ptr,
-  );
-
-  external void
-  rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerValue(
     int ptr,
   );
 }

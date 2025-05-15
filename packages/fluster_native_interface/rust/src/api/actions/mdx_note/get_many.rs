@@ -1,4 +1,4 @@
-use fluster_types::errors::errors::{FlusterError, FlusterResult};
+pub use fluster_types::errors::errors::{FlusterError, FlusterResult};
 
 use crate::api::{
     data_interface::database::db::get_database_connection,
@@ -8,7 +8,7 @@ use crate::api::{
 // RESUME: Fix this error and the database workflow should be good to go!
 #[allow(clippy::bind_instead_of_map)]
 pub async fn get_mdx_note_summaries() -> FlusterResult<Vec<MdxNoteEntity>> {
-    use crate::api::data_interface::database::schema::generated::main_schema::mdx_note::dsl::*;
+    use fluster_db::generated::main_schema::mdx_note::dsl::*;
     if let Ok(mut conn) = get_database_connection().await {
         use diesel_async::RunQueryDsl;
         let res = mdx_note

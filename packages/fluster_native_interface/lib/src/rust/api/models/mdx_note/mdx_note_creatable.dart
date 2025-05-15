@@ -14,6 +14,7 @@ class MdxNoteCreatable {
   final String rawBody;
   final DateTime? ctime;
   final DateTime? mtime;
+  final DateTime? atime;
 
   const MdxNoteCreatable({
     this.id,
@@ -21,6 +22,7 @@ class MdxNoteCreatable {
     required this.rawBody,
     this.ctime,
     this.mtime,
+    this.atime,
   });
 
   @override
@@ -29,7 +31,8 @@ class MdxNoteCreatable {
       filePath.hashCode ^
       rawBody.hashCode ^
       ctime.hashCode ^
-      mtime.hashCode;
+      mtime.hashCode ^
+      atime.hashCode;
 
   @override
   bool operator ==(Object other) =>
@@ -40,5 +43,6 @@ class MdxNoteCreatable {
           filePath == other.filePath &&
           rawBody == other.rawBody &&
           ctime == other.ctime &&
-          mtime == other.mtime;
+          mtime == other.mtime &&
+          atime == other.atime;
 }

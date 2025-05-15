@@ -27,9 +27,9 @@ void main() async {
   await native.RustLib.init();
   WidgetsFlutterBinding.ensureInitialized();
   final initialDbStatus = await native.getDatabaseStatus();
-  if (initialDbStatus == native.FlusterDatabaseStatus.notInitialized) {
-    native.setupFileSystemForData();
-  }
+  // if (initialDbStatus == native.FlusterDatabaseStatus.notInitialized) {
+  //   native.setupFileSystemForData();
+  // }
   runApp(
     // For widgets to be able to read providers, we need to wrap the entire
     // application in a "ProviderScope" widget.

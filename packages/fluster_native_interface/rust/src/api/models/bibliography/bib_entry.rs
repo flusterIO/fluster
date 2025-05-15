@@ -1,5 +1,6 @@
-use diesel::{prelude::*};
+use diesel::prelude::*;
 use fluster_db::generated::main_schema::bib_entry;
+use flutter_rust_bridge::frb;
 use serde::{Deserialize, Serialize};
 use tsify::Tsify;
 
@@ -19,6 +20,7 @@ use tsify::Tsify;
 )]
 #[diesel(table_name = bib_entry, check_for_backend(diesel::pg::Pg))]
 #[tsify(into_wasm_abi, from_wasm_abi)]
+#[frb(ignore)]
 pub struct BibEntryEntity {
     pub id: i32,
     pub pdf_path: Option<String>,

@@ -7,8 +7,8 @@ use crate::api::{
 
 pub async fn get_front_matter_entities() -> FlusterResult<Vec<FrontMatterEntity>> {
     if let Ok(mut conn) = get_database_connection().await {
-        use crate::api::data_interface::database::schema::generated::main_schema::front_matter::dsl::*;
         use diesel_async::RunQueryDsl;
+        use fluster_db::generated::main_schema::front_matter::dsl::*;
         if let Ok(res) = front_matter
             .get_results::<FrontMatterEntity>(&mut conn)
             .await

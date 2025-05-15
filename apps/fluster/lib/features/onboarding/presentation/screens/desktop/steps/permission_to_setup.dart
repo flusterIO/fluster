@@ -45,7 +45,7 @@ class PermissionToSetupStep extends StatelessWidget {
                     FilledButton(
                       onPressed: () async {
                         // FIXME: Add error handling here.
-                        final success = await native.setupFileSystemForData();
+                        // final success = await native.setupFileSystemForData();
                         globalReduxStore.dispatch(SetOnboardingIndex(1));
                       },
                       child: Text("Continue"),

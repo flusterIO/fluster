@@ -13,57 +13,55 @@ class DesktopResizeGroup extends StatelessWidget {
   Widget build(BuildContext context) {
     return ValueListenableBuilder(
       valueListenable: globalPanelRightOpen,
-      builder:
-          (
-            BuildContext panelRightContext,
-            bool panelRightOpen,
-            Widget? panelRightChild,
+      builder: (
+        BuildContext panelRightContext,
+        bool panelRightOpen,
+        Widget? panelRightChild,
+      ) {
+        return ValueListenableBuilder(
+          valueListenable: globalPanelLeftOpen,
+          builder: (
+            BuildContext panelLeftContext,
+            bool panelLeftOpen,
+            Widget? panelLeftChild,
           ) {
-            return ValueListenableBuilder(
-              valueListenable: globalPanelLeftOpen,
-              builder:
-                  (
-                    BuildContext panelLeftContext,
-                    bool panelLeftOpen,
-                    Widget? panelLeftChild,
-                  ) {
-                    final children = <ResizableChild>[];
-                    if (panelLeftOpen) {
-                      children.add(
-                        ResizableChild(
-                          divider: ResizableDivider(thickness: 2),
-                          size: ResizableSize.shrink(min: 160),
-                          child: DesktopPanelLeftSwitch(),
-                          // minSize: 120,
-                        ),
-                      );
-                    }
+            final children = <ResizableChild>[];
+            if (panelLeftOpen) {
+              children.add(
+                ResizableChild(
+                  // divider: ResizableDivider(thickness: 2),
+                  size: ResizableSize.shrink(),
+                  child: DesktopPanelLeftSwitch(),
+                  // minSize: 120,
+                ),
+              );
+            }
 
-                    children.add(
-                      ResizableChild(
-                        divider: ResizableDivider(thickness: 2),
-                        size: const ResizableSize.expand(flex: 6),
-                        child: child,
-                      ),
-                    );
+            children.add(
+              ResizableChild(
+                // divider: ResizableDivider(thickness: 2),
+                size: const ResizableSize.expand(flex: 6),
+                child: child,
+              ),
+            );
 
-                    if (globalPanelRightOpen.value) {
-                      children.add(
-                        ResizableChild(
-                          divider: ResizableDivider(thickness: 2),
-                          size: ResizableSize.expand(flex: 3),
-                          child: DesktopPanelRight(),
-                        ),
-                      );
-                    }
+            if (globalPanelRightOpen.value) {
+              children.add(
+                ResizableChild(
+                  // divider: ResizableDivider(thickness: 2),
+                  size: ResizableSize.expand(flex: 3),
+                  child: DesktopPanelRight(),
+                ),
+              );
+            }
 
-                    return ResizableContainer(
-                      children: children,
-                      direction: Axis.horizontal,
-                    );
-                  },
+            return ResizableContainer(
+              children: children,
+              direction: Axis.horizontal,
             );
           },
+        );
+      },
     );
   }
 }

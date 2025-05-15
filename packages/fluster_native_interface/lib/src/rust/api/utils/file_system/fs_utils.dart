@@ -5,10 +5,13 @@
 
 import '../../../frb_generated.dart';
 import '../../models/bibliography/bib_file.dart';
-import '../../models/mdx_note/mdx_note_creatable.dart';
 import 'package:flutter_rust_bridge/flutter_rust_bridge_for_generated.dart';
 
-Future<FlusterError?> createMdxNote({required MdxNoteCreatable newNote}) =>
-    RustLib.instance.api.crateApiActionsMdxNoteCreateCreateMdxNote(
-      newNote: newNote,
-    );
+bool pathExists({required String filePath}) => RustLib.instance.api
+    .crateApiUtilsFileSystemFsUtilsPathExists(filePath: filePath);
+
+String getAppConfigDir() =>
+    RustLib.instance.api.crateApiUtilsFileSystemFsUtilsGetAppConfigDir();
+
+String getAppDataDir() =>
+    RustLib.instance.api.crateApiUtilsFileSystemFsUtilsGetAppDataDir();

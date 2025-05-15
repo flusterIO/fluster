@@ -7,7 +7,7 @@ use crate::api::{
 };
 
 pub async fn create_mdx_note(new_note: MdxNoteCreatable) -> Option<FlusterError> {
-    use crate::api::data_interface::database::schema::generated::main_schema::mdx_note::dsl::*;
+    use fluster_db::generated::main_schema::mdx_note::dsl::*;
     if let Ok(mut c) = get_database_connection().await {
         match diesel::insert_into(mdx_note)
             .values(&new_note)

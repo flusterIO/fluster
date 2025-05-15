@@ -13,7 +13,7 @@ class MainPaneSwitch extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return switch (id) {
-      NavigationItemId.home => Dashboard(),
+      NavigationItemId.home => DashboardDesktop(),
       NavigationItemId.bookmarks => BookmarksScreen(),
       NavigationItemId.bibliography => BibliographyScreen(),
       NavigationItemId.connect => ConnectScreen(),

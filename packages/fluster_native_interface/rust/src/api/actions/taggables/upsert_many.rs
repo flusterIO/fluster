@@ -1,15 +1,18 @@
 use diesel_async::AsyncPgConnection;
 use fluster_types::errors::errors::{FlusterError, FlusterResult};
+use flutter_rust_bridge::frb;
 
 use crate::api::{embedded_ts::TagCreatable, models::taggable::tag_model::TagEntity};
 
 // PERFORMANCE: These writes can likely be grouped for a probably pretty significant performance boost. Come back and handle that when things are in good shape.
+
 #[allow(clippy::bind_instead_of_map)]
+#[frb(ignore)]
 pub async fn upsert_many_tags(
     c: &mut AsyncPgConnection,
     tags: Vec<TagCreatable>,
 ) -> FlusterResult<()> {
-    use crate::api::data_interface::database::schema::generated::main_schema::taggable::dsl::*;
+    use fluster_db::generated::main_schema::taggable::dsl::*;
 
     use diesel_async::RunQueryDsl;
     if let Ok(existing_tags) = taggable.load::<TagEntity>(c).await {
@@ -33,7 +36,8 @@ pub async fn upsert_many_tags(
 #[cfg(test)]
 mod tests {
     use crate::api::{
-        data_interface::database::db::get_database_connection, embedded_ts::TaggableType,
+        data_interface::database::db::get_database_connection,
+        models::enums::taggable_type::TaggableTypeEnum,
     };
 
     use super::*;
@@ -42,17 +46,17 @@ mod tests {
     async fn upserts_tags_successfully() {
         let tags = vec![
             TagCreatable {
-                tag_type: TaggableType::Tag,
+                tag_type: TaggableTypeEnum::Tag.to_string(),
                 value: "Test tag one".to_string(),
                 id: None,
             },
             TagCreatable {
-                tag_type: TaggableType::Topic,
+                tag_type: TaggableTypeEnum::Topic.to_string(),
                 value: "Test topic one".to_string(),
                 id: None,
             },
             TagCreatable {
-                tag_type: TaggableType::Subject,
+                tag_type: TaggableTypeEnum::Subject.to_string(),
                 value: "Test subject one".to_string(),
                 id: None,
             },

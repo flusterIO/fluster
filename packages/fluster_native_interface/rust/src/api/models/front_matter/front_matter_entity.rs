@@ -1,8 +1,7 @@
-use crate::api::{
-    models::mdx_note::mdx_note_entity::MdxNoteEntity,
-};
+use crate::api::models::mdx_note::mdx_note_entity::MdxNoteEntity;
 use diesel::prelude::*;
 use fluster_db::generated::main_schema::front_matter;
+use flutter_rust_bridge::frb;
 use serde::{Deserialize, Serialize};
 
 #[derive(
@@ -10,6 +9,7 @@ use serde::{Deserialize, Serialize};
 )]
 #[diesel(table_name = front_matter, check_for_backend(diesel::pg::Pg))]
 #[diesel(belongs_to(MdxNoteEntity, foreign_key = mdx_note_id))]
+#[frb(ignore)]
 pub struct FrontMatterEntity {
     pub id: i32,
     pub title: String,

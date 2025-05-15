@@ -8,26 +8,29 @@ import 'package:flutter_rust_bridge/flutter_rust_bridge_for_generated.dart';
 
 // These function are ignored because they are on traits that is not defined in current crate (put an empty `#[frb]` on it to unignore): `clone`, `fmt`
 
-class MdxNoteSummary {
-  final int id;
-  final String? filePath;
-  final String rawBody;
+// Rust type: RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<MdxNoteSummary>>
+abstract class MdxNoteSummary implements RustOpaqueInterface {
+  DateTime? get atime;
 
-  const MdxNoteSummary({
-    required this.id,
-    this.filePath,
-    required this.rawBody,
-  });
+  DateTime? get ctime;
 
-  @override
-  int get hashCode => id.hashCode ^ filePath.hashCode ^ rawBody.hashCode;
+  String? get filePath;
 
-  @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      other is MdxNoteSummary &&
-          runtimeType == other.runtimeType &&
-          id == other.id &&
-          filePath == other.filePath &&
-          rawBody == other.rawBody;
+  int get id;
+
+  DateTime? get mtime;
+
+  String get rawBody;
+
+  set atime(DateTime? atime);
+
+  set ctime(DateTime? ctime);
+
+  set filePath(String? filePath);
+
+  set id(int id);
+
+  set mtime(DateTime? mtime);
+
+  set rawBody(String rawBody);
 }

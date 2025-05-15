@@ -1,4 +1,3 @@
-
 use crate::api::models::enums::taggable_type::TaggableTypeEnum;
 
 use super::{
@@ -6,6 +5,7 @@ use super::{
 };
 use diesel::prelude::*;
 use fluster_db::generated::main_schema::taggable;
+use flutter_rust_bridge::frb;
 use serde::{Deserialize, Serialize};
 
 #[derive(
@@ -22,6 +22,7 @@ use serde::{Deserialize, Serialize};
     QueryableByName,
 )]
 #[diesel(table_name = taggable, check_for_backend(diesel::pg::Pg))]
+#[frb(ignore)]
 pub struct TagEntity {
     pub id: i32,
     pub value: String,
@@ -30,6 +31,7 @@ pub struct TagEntity {
 
 #[derive(Debug, Deserialize, Serialize, Clone, PartialEq, Eq, Insertable)]
 #[diesel(table_name = taggable, check_for_backend(diesel::pg::Pg))]
+#[frb(ignore)]
 pub struct TagCreatable {
     pub id: Option<i32>,
     pub value: String,

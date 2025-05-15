@@ -8,7 +8,7 @@ void toggleDarkMode(ThemeMode? providedThemeMode, BuildContext? context) {
     
   final themeMode =
       providedThemeMode ??
-      Theme.of(context ?? desktopScaffoldMessenegerKey.currentState!.context)).brightness;
+      Theme.of(context ?? desktopScaffoldMessenegerKey.currentState!.context).brightness;
   if (context != null) {
     context.dispatch(
       SetThemeModeAction(

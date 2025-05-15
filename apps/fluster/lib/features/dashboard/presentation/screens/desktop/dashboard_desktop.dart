@@ -8,21 +8,21 @@ import 'package:flutter/widgets.dart';
 import 'package:fluster_native_interface/fluster_native_interface.dart'
     as native;
 
-class DashbboardDesktop extends StatefulWidget {
+class DashboardDesktop extends StatefulWidget {
   final bool hasInitialized = false;
-  const DashbboardDesktop({super.key});
+  const DashboardDesktop({super.key});
   @override
-  State<DashbboardDesktop> createState() => _DashbboardDesktopState();
+  State<DashboardDesktop> createState() => _DashboardDesktopState();
 }
 
-class _DashbboardDesktopState extends State<DashbboardDesktop> {
+class _DashboardDesktopState extends State<DashboardDesktop> {
   SummaryListResults summaryData = SummaryListResults(mdxNotes: []);
   void getDashboardData() async {
-    final x = await SummaryListQuery.default_();
-    final data = await native.getSummaryList(query: x);
-    setState(() {
-      summaryData = data;
-    });
+    // final x = await SummaryListQuery.default_();
+    // final data = await native.getSummaryList(query: x);
+    // setState(() {
+    //   summaryData = data;
+    // });
   }
 
   @override

@@ -3,11 +3,12 @@ use fluster_types::errors::errors::FlusterError;
 
 use crate::api::models::mdx_note::mdx_note_creatable::MdxNoteCreatable;
 
+/// flutter_rust_bridge:ignore
 pub async fn create_many_mdx_notes(
     c: &mut AsyncPgConnection,
     new_notes: Vec<MdxNoteCreatable>,
 ) -> Option<Vec<FlusterError>> {
-    use crate::api::data_interface::database::schema::generated::main_schema::mdx_note::dsl::*;
+    use fluster_db::generated::main_schema::mdx_note::dsl::*;
     let mut errors: Vec<FlusterError> = Vec::new();
     for new_note in new_notes {
         let res = diesel::insert_into(mdx_note)

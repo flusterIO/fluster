@@ -4,12 +4,11 @@
 // ignore_for_file: invalid_use_of_internal_member, unused_import, unnecessary_import
 
 import '../../../frb_generated.dart';
-import '../enums/taggable_type.dart';
 import 'package:flutter_rust_bridge/flutter_rust_bridge_for_generated.dart';
-import 'tag_front_matter_join.dart';
-import 'tag_mdx_note_join.dart';
 
+// These types are ignored because they are neither used by any `pub` functions nor (for structs and enums) marked `#[frb(unignore)]`: `TagEntity`
 // These function are ignored because they are on traits that is not defined in current crate (put an empty `#[frb]` on it to unignore): `assert_receiver_is_total_eq`, `assert_receiver_is_total_eq`, `clone`, `clone`, `eq`, `eq`, `fmt`, `fmt`
+// These functions are ignored (category: IgnoreBecauseOwnerTyShouldIgnore): `get_mdx_note_join`, `new`, `new`, `to_front_matter_join`
 
 class TagCreatable {
   final int? id;
@@ -18,17 +17,6 @@ class TagCreatable {
 
   const TagCreatable({this.id, required this.value, required this.tagType});
 
-  // HINT: Make it `#[frb(sync)]` to let it become the default constructor of Dart class.
-  static Future<TagCreatable> newInstance({
-    required String value,
-    required TaggableTypeEnum tagType,
-    int? id,
-  }) => RustLib.instance.api.crateApiModelsTaggableTagModelTagCreatableNew(
-    value: value,
-    tagType: tagType,
-    id: id,
-  );
-
   @override
   int get hashCode => id.hashCode ^ value.hashCode ^ tagType.hashCode;
 
@@ -36,56 +24,6 @@ class TagCreatable {
   bool operator ==(Object other) =>
       identical(this, other) ||
       other is TagCreatable &&
-          runtimeType == other.runtimeType &&
-          id == other.id &&
-          value == other.value &&
-          tagType == other.tagType;
-}
-
-class TagEntity {
-  final int id;
-  final String value;
-  final String tagType;
-
-  const TagEntity({
-    required this.id,
-    required this.value,
-    required this.tagType,
-  });
-
-  Future<TaggableWithMdxNoteJoin> getMdxNoteJoin({required int mdxNoteId}) =>
-      RustLib.instance.api
-          .crateApiModelsTaggableTagModelTagEntityGetMdxNoteJoin(
-            that: this,
-            mdxNoteId: mdxNoteId,
-          );
-
-  // HINT: Make it `#[frb(sync)]` to let it become the default constructor of Dart class.
-  static Future<TagEntity> newInstance({
-    required String value,
-    required TaggableTypeEnum tagType,
-    required int id,
-  }) => RustLib.instance.api.crateApiModelsTaggableTagModelTagEntityNew(
-    value: value,
-    tagType: tagType,
-    id: id,
-  );
-
-  Future<TaggableWithFrontMatterJoin> toFrontMatterJoin({
-    required int frontMatterId,
-  }) => RustLib.instance.api
-      .crateApiModelsTaggableTagModelTagEntityToFrontMatterJoin(
-        that: this,
-        frontMatterId: frontMatterId,
-      );
-
-  @override
-  int get hashCode => id.hashCode ^ value.hashCode ^ tagType.hashCode;
-
-  @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      other is TagEntity &&
           runtimeType == other.runtimeType &&
           id == other.id &&
           value == other.value &&

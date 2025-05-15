@@ -24,10 +24,10 @@ impl MdxNoteGroup {
         let mut note_data =
             MdxNoteGroup::from_raw_mdx_string(raw_file_content, Some(file_path.to_string()))
                 .or_else(|_| Err(FlusterError::FailToUpsertTags))?;
-        // note_data.mdx.atime = Some(chrono::NaiveDateTime::from_timestamp(
-        //     FileTime::from_last_access_time(file_meta).seconds(),
-        //     0,
-        // ));
+        note_data.mdx.atime = Some(chrono::NaiveDateTime::from_timestamp(
+            FileTime::from_last_access_time(file_meta).seconds(),
+            0,
+        ));
         note_data.mdx.ctime = Some(chrono::NaiveDateTime::from_timestamp(
             FileTime::from_creation_time(file_meta)
                 .or(Some(FileTime::now()))
@@ -84,7 +84,7 @@ impl MdxNoteGroup {
 mod tests {
     use fluster_test_utils::test_utils::get_test_mdx_path;
 
-    use crate::api::embedded_ts::TaggableType;
+    use crate::api::models::enums::taggable_type::TaggableTypeEnum;
 
     use super::*;
 
@@ -98,15 +98,17 @@ mod tests {
         let topics = n.front_matter.topics;
         let subjects = n.front_matter.subjects;
         assert!(
-            tags[0].value == "Tag 1" && tags[0].tag_type == TaggableType::Subject,
+            tags[0].value == "Tag 1" && tags[0].tag_type == TaggableTypeEnum::Subject.to_string(),
             "Gathers tags properly."
         );
         assert!(
-            subjects[0].value == "Subject 1" && subjects[0].tag_type == TaggableType::Subject,
+            subjects[0].value == "Subject 1"
+                && subjects[0].tag_type == TaggableTypeEnum::Subject.to_string(),
             "Gathers subjects properly."
         );
         assert!(
-            topics[0].value == "Topic 1" && topics[0].tag_type == TaggableType::Topic,
+            topics[0].value == "Topic 1"
+                && topics[0].tag_type == TaggableTypeEnum::Topic.to_string(),
             "Gathers topics properly."
         );
     }
