@@ -57,12 +57,13 @@
         --chart-4: 280 65% 60%;
         --chart-5: 340 75% 55%;
     }
+}
 
-    /* * { */
-    /*     @apply border-border outline-ring/50; */
-    /* } */
+* {
+    border-color: hsl(var(--border));
+}
 
-    /* body { */
-    /*     @apply bg-background text-foreground; */
-    /* } */
+body {
+    background-color: hsl(var(--background));
+    color: hsl(var(--foreground));
 }
