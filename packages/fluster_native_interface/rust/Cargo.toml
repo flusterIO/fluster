@@ -12,7 +12,7 @@ crate-type = ["cdylib", "staticlib"]
 [dependencies]
 dirs = { workspace = true }
 serde.workspace = true
-flutter_rust_bridge = { workspace = true }
+flutter_rust_bridge = { workspace = true, features = ["chrono"] }
 log = "0.4.27"
 tracing = { workspace = true }
 tracing-subscriber = { workspace = true }
@@ -21,6 +21,7 @@ fluster_types = { path = "../../fluster_types/" }
 fluster_test_utils = { path = "../../fluster_test_utils/" }
 fluster_logger = { path = "../../fluster_logger/" }
 fluster_wasm = { path = "../../fluster_wasm/" }
+fluster_db = { path = "../../fluster_db/" }
 regex = "1.11.1"
 strsim = "0.11.1"
 ignore = "0.4.23"
@@ -54,12 +55,7 @@ enum-iterator = "2.1.0"
 chrono.workspace = true
 diesel-async.workspace = true
 diesel-derive-enum.workspace = true
-diesel = { workspace = true, features = [
-    "chrono",
-    "postgres",
-    "r2d2",
-    "serde_json",
-] }
+diesel = { workspace = true, features = ["chrono", "postgres", "postgres_backend", "r2d2", "serde_json"] }
 dotenvy.workspace = true
 serde_json.workspace = true
 strum = { version = "0.27.1", features = ["strum_macros"] }

@@ -3,11 +3,10 @@ use diesel::{
     Selectable,
 };
 
+use crate::api::models::front_matter::front_matter_entity::FrontMatterEntity;
+
 use super::tag_model::TagEntity;
-use crate::api::{
-    data_interface::database::schema::generated::main_schema::front_matter_taggable_join,
-    models::front_matter::front_matter_entity::FrontMatterEntity,
-};
+use fluster_db::generated::main_schema::front_matter_taggable_join;
 
 #[derive(Identifiable, Selectable, Queryable, Associations, Debug)]
 #[diesel(belongs_to(TagEntity, foreign_key = tag_id))]

@@ -13,6 +13,7 @@ enum KeymapSectionId {
   navigation,
   uiAndLayout;
 
-  static Future<KeymapSectionId> default_() => RustLib.instance.api
-      .crateApiModelsEnumsSettingPageIdsKeymapSectionIdDefault();
+  static Future<KeymapSectionId> default_() =>
+      RustLib.instance.api
+          .crateApiModelsEnumsSettingPageIdsKeymapSectionIdDefault();
 }

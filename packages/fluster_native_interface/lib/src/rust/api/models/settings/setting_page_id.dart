@@ -17,6 +17,7 @@ enum SettingPageId {
   searchAndAutoSettings,
   syncAndDatabase;
 
-  static Future<SettingPageId> default_() => RustLib.instance.api
-      .crateApiModelsSettingsSettingPageIdSettingPageIdDefault();
+  static Future<SettingPageId> default_() =>
+      RustLib.instance.api
+          .crateApiModelsSettingsSettingPageIdSettingPageIdDefault();
 }

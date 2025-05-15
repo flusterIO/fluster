@@ -1,5 +1,5 @@
 use diesel::prelude::*;
-use crate::api::data_interface::database::schema::generated::main_schema::reading_list;
+use fluster_db::generated::main_schema::reading_list;
 use serde::{Deserialize, Serialize};
 use tsify::Tsify;
 use wasm_bindgen::prelude::*;

@@ -14,6 +14,7 @@ enum MathLabelOption {
   all,
   none;
 
-  static Future<MathLabelOption> default_() => RustLib.instance.api
-      .crateApiModelsParamsSyncMdxTypescriptParamsMathLabelOptionDefault();
+  static Future<MathLabelOption> default_() =>
+      RustLib.instance.api
+          .crateApiModelsParamsSyncMdxTypescriptParamsMathLabelOptionDefault();
 }

@@ -1,8 +1,8 @@
 use crate::api::{
-    data_interface::database::schema::generated::main_schema::front_matter,
     models::mdx_note::mdx_note_entity::MdxNoteEntity,
 };
 use diesel::prelude::*;
+use fluster_db::generated::main_schema::front_matter;
 use serde::{Deserialize, Serialize};
 
 #[derive(

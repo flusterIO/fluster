@@ -1,11 +1,11 @@
+
+use crate::api::models::enums::taggable_type::TaggableTypeEnum;
+
 use super::{
     tag_front_matter_join::TaggableWithFrontMatterJoin, tag_mdx_note_join::TaggableWithMdxNoteJoin,
 };
-use crate::api::{
-    data_interface::database::schema::generated::main_schema::taggable,
-    models::enums::taggable_type::TaggableTypeEnum,
-};
 use diesel::prelude::*;
+use fluster_db::generated::main_schema::taggable;
 use serde::{Deserialize, Serialize};
 
 #[derive(

@@ -14,8 +14,9 @@ class SummaryListQuery {
 
   const SummaryListQuery({required this.mdxPerPage, required this.mdxPage});
 
-  static Future<SummaryListQuery> default_() => RustLib.instance.api
-      .crateApiGlobalActionsGetSummaryListSummaryListQuerySummaryListQueryDefault();
+  static Future<SummaryListQuery> default_() =>
+      RustLib.instance.api
+          .crateApiGlobalActionsGetSummaryListSummaryListQuerySummaryListQueryDefault();
 
   @override
   int get hashCode => mdxPerPage.hashCode ^ mdxPage.hashCode;

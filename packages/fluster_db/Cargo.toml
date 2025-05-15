@@ -1,0 +1,10 @@
+[package]
+name = "fluster_db"
+version.workspace = true
+authors.workspace = true
+description.workspace = true
+documentation.workspace = true
+edition.workspace = true
+
+[dependencies]
+diesel = { workspace = true, features = ["postgres", "postgres_backend", "serde_json", "chrono", "r2d2"] }

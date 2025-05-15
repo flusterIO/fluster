@@ -2,13 +2,12 @@ use diesel::{
     prelude::{Associations, Identifiable, Queryable},
     Selectable,
 };
+use fluster_db::generated::main_schema::mdx_note_taggable_join;
+
+use crate::api::models::mdx_note::mdx_note_entity::MdxNoteEntity;
 
 use super::tag_model::TagEntity;
 
-use crate::api::{
-    data_interface::database::schema::generated::main_schema::mdx_note_taggable_join,
-    models::mdx_note::mdx_note_entity::MdxNoteEntity,
-};
 
 #[derive(Identifiable, Selectable, Queryable, Associations, Debug)]
 #[diesel(belongs_to(TagEntity, foreign_key = tag_id))]

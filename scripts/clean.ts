@@ -11,8 +11,6 @@ const cleanDirectories = [
     "/docs/api/packages/fluster_ts",
     "/docs/api/packages/fluster_py",
     "/docs/api/packages/fluster_py03",
-    "/packages/fluster_embedded_typescript/dist/",
-    "/packages/fluster_embedded_typescript/node_modules/",
 ];
 
 const cleanFiles = [

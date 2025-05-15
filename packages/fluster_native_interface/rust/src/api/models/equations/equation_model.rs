@@ -1,6 +1,7 @@
 use diesel::prelude::*;
-use crate::api::data_interface::database::schema::generated::main_schema::equation;
+use fluster_db::generated::main_schema::equation;
 use serde::{Deserialize, Serialize};
+
 
 #[derive(
     Debug,

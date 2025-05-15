@@ -3,9 +3,15 @@
 
 // ignore_for_file: unused_import, unused_element, unnecessary_import, duplicate_ignore, invalid_use_of_internal_member, annotate_overrides, non_constant_identifier_names, curly_braces_in_flow_control_structures, prefer_const_literals_to_create_immutables, unused_field
 
+import 'api/actions/front_matter/get_many.dart';
+import 'api/actions/mdx_note/create.dart';
+import 'api/actions/mdx_note/create_many.dart';
+import 'api/actions/mdx_note/get_many.dart';
+import 'api/actions/taggables/upsert_many.dart';
+import 'api/data_interface/database/db.dart';
+import 'api/data_interface/database/utils.dart';
 import 'api/data_interface/get_database_status.dart';
 import 'api/embedded_ts.dart';
-import 'api/fs/fs_utils.dart';
 import 'api/global_actions/get_summary_list/summary_list_query.dart';
 import 'api/global_actions/get_summary_list/summary_list_result.dart';
 import 'api/global_actions/parse_directory/sync_fs_directory/models/sync_filesystem_options.dart';
@@ -13,17 +19,25 @@ import 'api/global_actions/parse_directory/sync_fs_directory/sync_filesystem_dir
 import 'api/global_actions/parse_directory/sync_fs_directory/sync_methods/sync_mdx_notes.dart';
 import 'api/global_actions/parse_directory/sync_fs_directory/sync_methods/sync_user_bibliography.dart';
 import 'api/initialize/on_desktop_init.dart';
+import 'api/models/bibliography/bib_entry.dart';
 import 'api/models/bibliography/bib_file.dart';
 import 'api/models/enums/parsable_file_extension.dart';
 import 'api/models/enums/setting_page_ids.dart';
-import 'api/models/front_matter.dart';
-import 'api/models/mdx_note_group/mdx_note_group.dart';
-import 'api/models/nested_models/fluster_datetime/fluster_time.dart';
+import 'api/models/enums/supported_language.dart';
+import 'api/models/enums/taggable_type.dart';
+import 'api/models/front_matter/front_matter_entity.dart';
+import 'api/models/front_matter/front_matter_model.dart';
+import 'api/models/mdx_note/mdx_note_creatable.dart';
+import 'api/models/mdx_note/mdx_note_group/mdx_note_group.dart';
+import 'api/models/mdx_note/mdx_note_summary.dart';
 import 'api/models/params/cross_language_file_object.dart';
 import 'api/models/params/sync_mdx_typescript_params.dart';
 import 'api/models/settings/setting_page_id.dart';
-import 'api/models/taggables/taggable.dart';
-import 'api/search/get_text_similarity.dart';
+import 'api/models/snippet/snippet_model.dart';
+import 'api/models/taggable/tag_front_matter_join.dart';
+import 'api/models/taggable/tag_mdx_note_join.dart';
+import 'api/models/taggable/tag_model.dart';
+import 'api/models/taggable/taggable.dart';
 import 'api/typedefs/note_type_utils.dart';
 import 'dart:async';
 import 'dart:convert';
@@ -84,7 +98,7 @@ class RustLib extends BaseEntrypoint<RustLibApi, RustLibApiImpl, RustLibWire> {
   String get codegenVersion => '2.9.0';
 
   @override
-  int get rustContentHash => 169496224;
+  int get rustContentHash => -1263165924;
 
   static const kDefaultExternalLibraryLoaderConfig =
       ExternalLibraryLoaderConfig(
@@ -95,6 +109,43 @@ class RustLib extends BaseEntrypoint<RustLibApi, RustLibApiImpl, RustLibWire> {
 }
 
 abstract class RustLibApi extends BaseApi {
+  Value crateApiModelsBibliographyBibEntryBibEntryEntityAutoAccessorGetData({
+    required BibEntryEntity that,
+  });
+
+  int crateApiModelsBibliographyBibEntryBibEntryEntityAutoAccessorGetId({
+    required BibEntryEntity that,
+  });
+
+  String?
+  crateApiModelsBibliographyBibEntryBibEntryEntityAutoAccessorGetPdfPath({
+    required BibEntryEntity that,
+  });
+
+  bool crateApiModelsBibliographyBibEntryBibEntryEntityAutoAccessorGetRead({
+    required BibEntryEntity that,
+  });
+
+  void crateApiModelsBibliographyBibEntryBibEntryEntityAutoAccessorSetData({
+    required BibEntryEntity that,
+    required Value data,
+  });
+
+  void crateApiModelsBibliographyBibEntryBibEntryEntityAutoAccessorSetId({
+    required BibEntryEntity that,
+    required int id,
+  });
+
+  void crateApiModelsBibliographyBibEntryBibEntryEntityAutoAccessorSetPdfPath({
+    required BibEntryEntity that,
+    String? pdfPath,
+  });
+
+  void crateApiModelsBibliographyBibEntryBibEntryEntityAutoAccessorSetRead({
+    required BibEntryEntity that,
+    required bool read,
+  });
+
   RecordId crateApiTypedefsNoteTypeUtilsDbRecordAutoAccessorGetId({
     required DbRecord that,
   });
@@ -106,143 +157,6 @@ abstract class RustLibApi extends BaseApi {
 
   Future<EmbeddedFile?> crateApiEmbeddedTsEmbeddedTypescriptFilesGet({
     required String filePath,
-  });
-
-  OffsetDateTime
-  crateApiModelsNestedModelsFlusterDatetimeFlusterTimeFlusterTimeAutoAccessorGetValue({
-    required FlusterTime that,
-  });
-
-  void
-  crateApiModelsNestedModelsFlusterDatetimeFlusterTimeFlusterTimeAutoAccessorSetValue({
-    required FlusterTime that,
-    required OffsetDateTime value,
-  });
-
-  Future<FlusterTime>
-  crateApiModelsNestedModelsFlusterDatetimeFlusterTimeFlusterTimeDefault();
-
-  Future<FlusterTime?>
-  crateApiModelsNestedModelsFlusterDatetimeFlusterTimeFlusterTimeFromFileTime({
-    FileTime? ft,
-  });
-
-  Future<FlusterTime>
-  crateApiModelsNestedModelsFlusterDatetimeFlusterTimeFlusterTimeNow();
-
-  FrontMatterEntity crateApiModelsFrontMatterFrontMatterAutoAccessorGetData({
-    required FrontMatter that,
-  });
-
-  List<TagCreatable>
-  crateApiModelsFrontMatterFrontMatterAutoAccessorGetSubjects({
-    required FrontMatter that,
-  });
-
-  List<TagCreatable> crateApiModelsFrontMatterFrontMatterAutoAccessorGetTags({
-    required FrontMatter that,
-  });
-
-  List<TagCreatable> crateApiModelsFrontMatterFrontMatterAutoAccessorGetTopics({
-    required FrontMatter that,
-  });
-
-  void crateApiModelsFrontMatterFrontMatterAutoAccessorSetData({
-    required FrontMatter that,
-    required FrontMatterEntity data,
-  });
-
-  void crateApiModelsFrontMatterFrontMatterAutoAccessorSetSubjects({
-    required FrontMatter that,
-    required List<TagCreatable> subjects,
-  });
-
-  void crateApiModelsFrontMatterFrontMatterAutoAccessorSetTags({
-    required FrontMatter that,
-    required List<TagCreatable> tags,
-  });
-
-  void crateApiModelsFrontMatterFrontMatterAutoAccessorSetTopics({
-    required FrontMatter that,
-    required List<TagCreatable> topics,
-  });
-
-  Future<FrontMatter> crateApiModelsFrontMatterFrontMatterFromGrayMatter({
-    Pod? pod,
-  });
-
-  FrontMatter
-  crateApiModelsMdxNoteGroupMdxNoteGroupMdxNoteGroupAutoAccessorGetFrontMatter({
-    required MdxNoteGroup that,
-  });
-
-  MdxNoteCreatable
-  crateApiModelsMdxNoteGroupMdxNoteGroupMdxNoteGroupAutoAccessorGetMdx({
-    required MdxNoteGroup that,
-  });
-
-  List<Taggable>
-  crateApiModelsMdxNoteGroupMdxNoteGroupMdxNoteGroupAutoAccessorGetTags({
-    required MdxNoteGroup that,
-  });
-
-  void
-  crateApiModelsMdxNoteGroupMdxNoteGroupMdxNoteGroupAutoAccessorSetFrontMatter({
-    required MdxNoteGroup that,
-    required FrontMatter frontMatter,
-  });
-
-  void crateApiModelsMdxNoteGroupMdxNoteGroupMdxNoteGroupAutoAccessorSetMdx({
-    required MdxNoteGroup that,
-    required MdxNoteCreatable mdx,
-  });
-
-  void crateApiModelsMdxNoteGroupMdxNoteGroupMdxNoteGroupAutoAccessorSetTags({
-    required MdxNoteGroup that,
-    required List<Taggable> tags,
-  });
-
-  Future<FlusterResultMdxNoteGroup>
-  crateApiModelsMdxNoteGroupMdxNoteGroupMdxNoteGroupFromFileSystemPath({
-    required String filePath,
-  });
-
-  Future<FlusterResultMdxNoteGroup>
-  crateApiModelsMdxNoteGroupMdxNoteGroupMdxNoteGroupFromFileSystemPathAsync({
-    required String filePath,
-  });
-
-  Future<FlusterResultMdxNoteGroup>
-  crateApiModelsMdxNoteGroupMdxNoteGroupMdxNoteGroupFromRawMdxString({
-    required String rawFileContent,
-    String? filePath,
-  });
-
-  TaggableType crateApiModelsTaggablesTaggableTaggableAutoAccessorGetTagType({
-    required Taggable that,
-  });
-
-  String crateApiModelsTaggablesTaggableTaggableAutoAccessorGetValue({
-    required Taggable that,
-  });
-
-  void crateApiModelsTaggablesTaggableTaggableAutoAccessorSetTagType({
-    required Taggable that,
-    required TaggableType tagType,
-  });
-
-  void crateApiModelsTaggablesTaggableTaggableAutoAccessorSetValue({
-    required Taggable that,
-    required String value,
-  });
-
-  Future<TagFromContentResult>
-  crateApiModelsTaggablesTaggableTaggableFromMdxContent({
-    required ParsedEntity data,
-  });
-
-  Future<List<Taggable>> crateApiModelsTaggablesTaggableTaggableFromPodData({
-    required ParsedEntity data,
   });
 
   Future<BibtexFile>
@@ -260,22 +174,42 @@ abstract class RustLibApi extends BaseApi {
     required FlusterDb db,
   });
 
+  Future<List<FlusterError>?>
+  crateApiActionsMdxNoteCreateManyCreateManyMdxNotes({
+    required AsyncPgConnection c,
+    required List<MdxNoteCreatable> newNotes,
+  });
+
+  Future<FlusterError?> crateApiActionsMdxNoteCreateCreateMdxNote({
+    required MdxNoteCreatable newNote,
+  });
+
   Future<CrossLanguageFile>
   crateApiModelsParamsCrossLanguageFileObjectCrossLanguageFileDefault();
 
-  String crateApiFsFsUtilsGetAppConfigDir();
+  Future<FrontMatterEntity>
+  crateApiModelsFrontMatterFrontMatterEntityFrontMatterEntityDefault();
 
-  String crateApiFsFsUtilsGetAppDataDir();
+  Future<FrontMatter>
+  crateApiModelsFrontMatterFrontMatterModelFrontMatterFromGrayMatter({
+    Pod? pod,
+  });
+
+  Future<FlusterResultAsyncPgConnection>
+  crateApiDataInterfaceDatabaseDbGetDatabaseConnection();
+
+  Future<PathBuf?> crateApiDataInterfaceDatabaseUtilsGetDatabasePath();
 
   Future<FlusterDatabaseStatus>
   crateApiDataInterfaceGetDatabaseStatusGetDatabaseStatus();
 
-  Future<Regex> crateApiModelsTaggablesTaggableGetTagRegularExpression();
+  Future<FlusterResultVecFrontMatterEntity>
+  crateApiActionsFrontMatterGetManyGetFrontMatterEntities();
 
-  double crateApiSearchGetTextSimilarityGetTextSimilarity({
-    required String a,
-    required String b,
-  });
+  Future<FlusterResultVecMdxNoteEntity>
+  crateApiActionsMdxNoteGetManyGetMdxNoteSummaries();
+
+  Future<Regex> crateApiModelsTaggableTaggableGetTagRegularExpression();
 
   Future<KeymapSectionId>
   crateApiModelsEnumsSettingPageIdsKeymapSectionIdDefault();
@@ -283,20 +217,45 @@ abstract class RustLibApi extends BaseApi {
   Future<MathLabelOption>
   crateApiModelsParamsSyncMdxTypescriptParamsMathLabelOptionDefault();
 
+  Future<FlusterResultMdxNoteGroup>
+  crateApiModelsMdxNoteMdxNoteGroupMdxNoteGroupMdxNoteGroupFromFileSystemPath({
+    required String filePath,
+  });
+
+  Future<FlusterResultMdxNoteGroup>
+  crateApiModelsMdxNoteMdxNoteGroupMdxNoteGroupMdxNoteGroupFromFileSystemPathAsync({
+    required String filePath,
+  });
+
+  Future<FlusterResultMdxNoteGroup>
+  crateApiModelsMdxNoteMdxNoteGroupMdxNoteGroupMdxNoteGroupFromRawMdxString({
+    required String rawFileContent,
+    String? filePath,
+  });
+
   Future<NoteType> crateApiModelsEnumsParsableFileExtensionNoteTypeDefault();
 
   Future<void> crateApiInitializeOnDesktopInitOnDesktopInit();
 
-  bool crateApiFsFsUtilsPathExists({required String filePath});
-
   Future<SettingPageId>
   crateApiModelsSettingsSettingPageIdSettingPageIdDefault();
+
+  Future<Snippet> crateApiModelsSnippetSnippetModelSnippetNew({
+    required String label,
+    required String desc,
+    required SupportedSyntaxLanguage lang,
+    required String body,
+    required int id,
+  });
 
   Future<SummaryListQuery>
   crateApiGlobalActionsGetSummaryListSummaryListQuerySummaryListQueryDefault();
 
   Future<SummaryListResults>
   crateApiGlobalActionsGetSummaryListSummaryListResultSummaryListResultsDefault();
+
+  Future<SupportedSyntaxLanguage>
+  crateApiModelsEnumsSupportedLanguageSupportedSyntaxLanguageDefault();
 
   Future<List<FlusterError>?>
   crateApiGlobalActionsParseDirectorySyncFsDirectorySyncFilesystemDirectorySyncDirectory({
@@ -320,6 +279,53 @@ abstract class RustLibApi extends BaseApi {
     required FlusterDb db,
     required int nThreads,
   });
+
+  Future<TagCreatable> crateApiModelsTaggableTagModelTagCreatableNew({
+    required String value,
+    required TaggableTypeEnum tagType,
+    int? id,
+  });
+
+  Future<TaggableWithMdxNoteJoin>
+  crateApiModelsTaggableTagModelTagEntityGetMdxNoteJoin({
+    required TagEntity that,
+    required int mdxNoteId,
+  });
+
+  Future<TagEntity> crateApiModelsTaggableTagModelTagEntityNew({
+    required String value,
+    required TaggableTypeEnum tagType,
+    required int id,
+  });
+
+  Future<TaggableWithFrontMatterJoin>
+  crateApiModelsTaggableTagModelTagEntityToFrontMatterJoin({
+    required TagEntity that,
+    required int frontMatterId,
+  });
+
+  Future<TagFromContentResult>
+  crateApiModelsTaggableTaggableTaggableFromMdxContent({
+    required ParsedEntity data,
+  });
+
+  Future<List<Taggable>> crateApiModelsTaggableTaggableTaggableFromPodData({
+    required ParsedEntity data,
+  });
+
+  Future<FlusterResult> crateApiActionsTaggablesUpsertManyUpsertManyTags({
+    required AsyncPgConnection c,
+    required List<TagCreatable> tags,
+  });
+
+  RustArcIncrementStrongCountFnType
+  get rust_arc_increment_strong_count_AsyncPgConnection;
+
+  RustArcDecrementStrongCountFnType
+  get rust_arc_decrement_strong_count_AsyncPgConnection;
+
+  CrossPlatformFinalizerArg
+  get rust_arc_decrement_strong_count_AsyncPgConnectionPtr;
 
   RustArcIncrementStrongCountFnType
   get rust_arc_increment_strong_count_BibEntryEntity;
@@ -356,14 +362,6 @@ abstract class RustLibApi extends BaseApi {
   get rust_arc_decrement_strong_count_EmbeddedTypescriptFilesPtr;
 
   RustArcIncrementStrongCountFnType
-  get rust_arc_increment_strong_count_FileTime;
-
-  RustArcDecrementStrongCountFnType
-  get rust_arc_decrement_strong_count_FileTime;
-
-  CrossPlatformFinalizerArg get rust_arc_decrement_strong_count_FileTimePtr;
-
-  RustArcIncrementStrongCountFnType
   get rust_arc_increment_strong_count_FlusterDb;
 
   RustArcDecrementStrongCountFnType
@@ -380,6 +378,24 @@ abstract class RustLibApi extends BaseApi {
   CrossPlatformFinalizerArg get rust_arc_decrement_strong_count_FlusterErrorPtr;
 
   RustArcIncrementStrongCountFnType
+  get rust_arc_increment_strong_count_FlusterResult;
+
+  RustArcDecrementStrongCountFnType
+  get rust_arc_decrement_strong_count_FlusterResult;
+
+  CrossPlatformFinalizerArg
+  get rust_arc_decrement_strong_count_FlusterResultPtr;
+
+  RustArcIncrementStrongCountFnType
+  get rust_arc_increment_strong_count_FlusterResultAsyncPgConnection;
+
+  RustArcDecrementStrongCountFnType
+  get rust_arc_decrement_strong_count_FlusterResultAsyncPgConnection;
+
+  CrossPlatformFinalizerArg
+  get rust_arc_decrement_strong_count_FlusterResultAsyncPgConnectionPtr;
+
+  RustArcIncrementStrongCountFnType
   get rust_arc_increment_strong_count_FlusterResultMdxNoteGroup;
 
   RustArcDecrementStrongCountFnType
@@ -389,64 +405,22 @@ abstract class RustLibApi extends BaseApi {
   get rust_arc_decrement_strong_count_FlusterResultMdxNoteGroupPtr;
 
   RustArcIncrementStrongCountFnType
-  get rust_arc_increment_strong_count_FlusterTime;
+  get rust_arc_increment_strong_count_FlusterResultVecFrontMatterEntity;
 
   RustArcDecrementStrongCountFnType
-  get rust_arc_decrement_strong_count_FlusterTime;
-
-  CrossPlatformFinalizerArg get rust_arc_decrement_strong_count_FlusterTimePtr;
-
-  RustArcIncrementStrongCountFnType
-  get rust_arc_increment_strong_count_FrontMatter;
-
-  RustArcDecrementStrongCountFnType
-  get rust_arc_decrement_strong_count_FrontMatter;
-
-  CrossPlatformFinalizerArg get rust_arc_decrement_strong_count_FrontMatterPtr;
-
-  RustArcIncrementStrongCountFnType
-  get rust_arc_increment_strong_count_FrontMatterEntity;
-
-  RustArcDecrementStrongCountFnType
-  get rust_arc_decrement_strong_count_FrontMatterEntity;
+  get rust_arc_decrement_strong_count_FlusterResultVecFrontMatterEntity;
 
   CrossPlatformFinalizerArg
-  get rust_arc_decrement_strong_count_FrontMatterEntityPtr;
+  get rust_arc_decrement_strong_count_FlusterResultVecFrontMatterEntityPtr;
 
   RustArcIncrementStrongCountFnType
-  get rust_arc_increment_strong_count_MdxNoteCreatable;
+  get rust_arc_increment_strong_count_FlusterResultVecMdxNoteEntity;
 
   RustArcDecrementStrongCountFnType
-  get rust_arc_decrement_strong_count_MdxNoteCreatable;
+  get rust_arc_decrement_strong_count_FlusterResultVecMdxNoteEntity;
 
   CrossPlatformFinalizerArg
-  get rust_arc_decrement_strong_count_MdxNoteCreatablePtr;
-
-  RustArcIncrementStrongCountFnType
-  get rust_arc_increment_strong_count_MdxNoteGroup;
-
-  RustArcDecrementStrongCountFnType
-  get rust_arc_decrement_strong_count_MdxNoteGroup;
-
-  CrossPlatformFinalizerArg get rust_arc_decrement_strong_count_MdxNoteGroupPtr;
-
-  RustArcIncrementStrongCountFnType
-  get rust_arc_increment_strong_count_MdxNoteSummary;
-
-  RustArcDecrementStrongCountFnType
-  get rust_arc_decrement_strong_count_MdxNoteSummary;
-
-  CrossPlatformFinalizerArg
-  get rust_arc_decrement_strong_count_MdxNoteSummaryPtr;
-
-  RustArcIncrementStrongCountFnType
-  get rust_arc_increment_strong_count_OffsetDateTime;
-
-  RustArcDecrementStrongCountFnType
-  get rust_arc_decrement_strong_count_OffsetDateTime;
-
-  CrossPlatformFinalizerArg
-  get rust_arc_decrement_strong_count_OffsetDateTimePtr;
+  get rust_arc_decrement_strong_count_FlusterResultVecMdxNoteEntityPtr;
 
   RustArcIncrementStrongCountFnType
   get rust_arc_increment_strong_count_ParsedEntity;
@@ -455,6 +429,12 @@ abstract class RustLibApi extends BaseApi {
   get rust_arc_decrement_strong_count_ParsedEntity;
 
   CrossPlatformFinalizerArg get rust_arc_decrement_strong_count_ParsedEntityPtr;
+
+  RustArcIncrementStrongCountFnType get rust_arc_increment_strong_count_PathBuf;
+
+  RustArcDecrementStrongCountFnType get rust_arc_decrement_strong_count_PathBuf;
+
+  CrossPlatformFinalizerArg get rust_arc_decrement_strong_count_PathBufPtr;
 
   RustArcIncrementStrongCountFnType get rust_arc_increment_strong_count_Pod;
 
@@ -485,29 +465,11 @@ abstract class RustLibApi extends BaseApi {
   CrossPlatformFinalizerArg
   get rust_arc_decrement_strong_count_SenderFlusterErrorPtr;
 
-  RustArcIncrementStrongCountFnType
-  get rust_arc_increment_strong_count_TagCreatable;
+  RustArcIncrementStrongCountFnType get rust_arc_increment_strong_count_Value;
 
-  RustArcDecrementStrongCountFnType
-  get rust_arc_decrement_strong_count_TagCreatable;
+  RustArcDecrementStrongCountFnType get rust_arc_decrement_strong_count_Value;
 
-  CrossPlatformFinalizerArg get rust_arc_decrement_strong_count_TagCreatablePtr;
-
-  RustArcIncrementStrongCountFnType
-  get rust_arc_increment_strong_count_Taggable;
-
-  RustArcDecrementStrongCountFnType
-  get rust_arc_decrement_strong_count_Taggable;
-
-  CrossPlatformFinalizerArg get rust_arc_decrement_strong_count_TaggablePtr;
-
-  RustArcIncrementStrongCountFnType
-  get rust_arc_increment_strong_count_TaggableType;
-
-  RustArcDecrementStrongCountFnType
-  get rust_arc_decrement_strong_count_TaggableType;
-
-  CrossPlatformFinalizerArg get rust_arc_decrement_strong_count_TaggableTypePtr;
+  CrossPlatformFinalizerArg get rust_arc_decrement_strong_count_ValuePtr;
 }
 
 class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
@@ -517,6 +479,283 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
     required super.generalizedFrbRustBinding,
     required super.portManager,
   });
+
+  @override
+  Value crateApiModelsBibliographyBibEntryBibEntryEntityAutoAccessorGetData({
+    required BibEntryEntity that,
+  }) {
+    return handler.executeSync(
+      SyncTask(
+        callFfi: () {
+          final serializer = SseSerializer(generalizedFrbRustBinding);
+          sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerBibEntryEntity(
+            that,
+            serializer,
+          );
+          return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 1)!;
+        },
+        codec: SseCodec(
+          decodeSuccessData:
+              sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerValue,
+          decodeErrorData: null,
+        ),
+        constMeta:
+            kCrateApiModelsBibliographyBibEntryBibEntryEntityAutoAccessorGetDataConstMeta,
+        argValues: [that],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta
+  get kCrateApiModelsBibliographyBibEntryBibEntryEntityAutoAccessorGetDataConstMeta =>
+      const TaskConstMeta(
+        debugName: "BibEntryEntity_auto_accessor_get_data",
+        argNames: ["that"],
+      );
+
+  @override
+  int crateApiModelsBibliographyBibEntryBibEntryEntityAutoAccessorGetId({
+    required BibEntryEntity that,
+  }) {
+    return handler.executeSync(
+      SyncTask(
+        callFfi: () {
+          final serializer = SseSerializer(generalizedFrbRustBinding);
+          sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerBibEntryEntity(
+            that,
+            serializer,
+          );
+          return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 2)!;
+        },
+        codec: SseCodec(
+          decodeSuccessData: sse_decode_i_32,
+          decodeErrorData: null,
+        ),
+        constMeta:
+            kCrateApiModelsBibliographyBibEntryBibEntryEntityAutoAccessorGetIdConstMeta,
+        argValues: [that],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta
+  get kCrateApiModelsBibliographyBibEntryBibEntryEntityAutoAccessorGetIdConstMeta =>
+      const TaskConstMeta(
+        debugName: "BibEntryEntity_auto_accessor_get_id",
+        argNames: ["that"],
+      );
+
+  @override
+  String?
+  crateApiModelsBibliographyBibEntryBibEntryEntityAutoAccessorGetPdfPath({
+    required BibEntryEntity that,
+  }) {
+    return handler.executeSync(
+      SyncTask(
+        callFfi: () {
+          final serializer = SseSerializer(generalizedFrbRustBinding);
+          sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerBibEntryEntity(
+            that,
+            serializer,
+          );
+          return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 3)!;
+        },
+        codec: SseCodec(
+          decodeSuccessData: sse_decode_opt_String,
+          decodeErrorData: null,
+        ),
+        constMeta:
+            kCrateApiModelsBibliographyBibEntryBibEntryEntityAutoAccessorGetPdfPathConstMeta,
+        argValues: [that],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta
+  get kCrateApiModelsBibliographyBibEntryBibEntryEntityAutoAccessorGetPdfPathConstMeta =>
+      const TaskConstMeta(
+        debugName: "BibEntryEntity_auto_accessor_get_pdf_path",
+        argNames: ["that"],
+      );
+
+  @override
+  bool crateApiModelsBibliographyBibEntryBibEntryEntityAutoAccessorGetRead({
+    required BibEntryEntity that,
+  }) {
+    return handler.executeSync(
+      SyncTask(
+        callFfi: () {
+          final serializer = SseSerializer(generalizedFrbRustBinding);
+          sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerBibEntryEntity(
+            that,
+            serializer,
+          );
+          return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 4)!;
+        },
+        codec: SseCodec(
+          decodeSuccessData: sse_decode_bool,
+          decodeErrorData: null,
+        ),
+        constMeta:
+            kCrateApiModelsBibliographyBibEntryBibEntryEntityAutoAccessorGetReadConstMeta,
+        argValues: [that],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta
+  get kCrateApiModelsBibliographyBibEntryBibEntryEntityAutoAccessorGetReadConstMeta =>
+      const TaskConstMeta(
+        debugName: "BibEntryEntity_auto_accessor_get_read",
+        argNames: ["that"],
+      );
+
+  @override
+  void crateApiModelsBibliographyBibEntryBibEntryEntityAutoAccessorSetData({
+    required BibEntryEntity that,
+    required Value data,
+  }) {
+    return handler.executeSync(
+      SyncTask(
+        callFfi: () {
+          final serializer = SseSerializer(generalizedFrbRustBinding);
+          sse_encode_Auto_RefMut_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerBibEntryEntity(
+            that,
+            serializer,
+          );
+          sse_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerValue(
+            data,
+            serializer,
+          );
+          return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 5)!;
+        },
+        codec: SseCodec(
+          decodeSuccessData: sse_decode_unit,
+          decodeErrorData: null,
+        ),
+        constMeta:
+            kCrateApiModelsBibliographyBibEntryBibEntryEntityAutoAccessorSetDataConstMeta,
+        argValues: [that, data],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta
+  get kCrateApiModelsBibliographyBibEntryBibEntryEntityAutoAccessorSetDataConstMeta =>
+      const TaskConstMeta(
+        debugName: "BibEntryEntity_auto_accessor_set_data",
+        argNames: ["that", "data"],
+      );
+
+  @override
+  void crateApiModelsBibliographyBibEntryBibEntryEntityAutoAccessorSetId({
+    required BibEntryEntity that,
+    required int id,
+  }) {
+    return handler.executeSync(
+      SyncTask(
+        callFfi: () {
+          final serializer = SseSerializer(generalizedFrbRustBinding);
+          sse_encode_Auto_RefMut_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerBibEntryEntity(
+            that,
+            serializer,
+          );
+          sse_encode_i_32(id, serializer);
+          return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 6)!;
+        },
+        codec: SseCodec(
+          decodeSuccessData: sse_decode_unit,
+          decodeErrorData: null,
+        ),
+        constMeta:
+            kCrateApiModelsBibliographyBibEntryBibEntryEntityAutoAccessorSetIdConstMeta,
+        argValues: [that, id],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta
+  get kCrateApiModelsBibliographyBibEntryBibEntryEntityAutoAccessorSetIdConstMeta =>
+      const TaskConstMeta(
+        debugName: "BibEntryEntity_auto_accessor_set_id",
+        argNames: ["that", "id"],
+      );
+
+  @override
+  void crateApiModelsBibliographyBibEntryBibEntryEntityAutoAccessorSetPdfPath({
+    required BibEntryEntity that,
+    String? pdfPath,
+  }) {
+    return handler.executeSync(
+      SyncTask(
+        callFfi: () {
+          final serializer = SseSerializer(generalizedFrbRustBinding);
+          sse_encode_Auto_RefMut_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerBibEntryEntity(
+            that,
+            serializer,
+          );
+          sse_encode_opt_String(pdfPath, serializer);
+          return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 7)!;
+        },
+        codec: SseCodec(
+          decodeSuccessData: sse_decode_unit,
+          decodeErrorData: null,
+        ),
+        constMeta:
+            kCrateApiModelsBibliographyBibEntryBibEntryEntityAutoAccessorSetPdfPathConstMeta,
+        argValues: [that, pdfPath],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta
+  get kCrateApiModelsBibliographyBibEntryBibEntryEntityAutoAccessorSetPdfPathConstMeta =>
+      const TaskConstMeta(
+        debugName: "BibEntryEntity_auto_accessor_set_pdf_path",
+        argNames: ["that", "pdfPath"],
+      );
+
+  @override
+  void crateApiModelsBibliographyBibEntryBibEntryEntityAutoAccessorSetRead({
+    required BibEntryEntity that,
+    required bool read,
+  }) {
+    return handler.executeSync(
+      SyncTask(
+        callFfi: () {
+          final serializer = SseSerializer(generalizedFrbRustBinding);
+          sse_encode_Auto_RefMut_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerBibEntryEntity(
+            that,
+            serializer,
+          );
+          sse_encode_bool(read, serializer);
+          return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 8)!;
+        },
+        codec: SseCodec(
+          decodeSuccessData: sse_decode_unit,
+          decodeErrorData: null,
+        ),
+        constMeta:
+            kCrateApiModelsBibliographyBibEntryBibEntryEntityAutoAccessorSetReadConstMeta,
+        argValues: [that, read],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta
+  get kCrateApiModelsBibliographyBibEntryBibEntryEntityAutoAccessorSetReadConstMeta =>
+      const TaskConstMeta(
+        debugName: "BibEntryEntity_auto_accessor_set_read",
+        argNames: ["that", "read"],
+      );
 
   @override
   RecordId crateApiTypedefsNoteTypeUtilsDbRecordAutoAccessorGetId({
@@ -530,7 +769,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
             that,
             serializer,
           );
-          return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 1)!;
+          return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 9)!;
         },
         codec: SseCodec(
           decodeSuccessData:
@@ -569,7 +808,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
             id,
             serializer,
           );
-          return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 2)!;
+          return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 10)!;
         },
         codec: SseCodec(
           decodeSuccessData: sse_decode_unit,
@@ -602,7 +841,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
           pdeCallFfi(
             generalizedFrbRustBinding,
             serializer,
-            funcId: 3,
+            funcId: 11,
             port: port_,
           );
         },
@@ -625,1059 +864,6 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
       );
 
   @override
-  OffsetDateTime
-  crateApiModelsNestedModelsFlusterDatetimeFlusterTimeFlusterTimeAutoAccessorGetValue({
-    required FlusterTime that,
-  }) {
-    return handler.executeSync(
-      SyncTask(
-        callFfi: () {
-          final serializer = SseSerializer(generalizedFrbRustBinding);
-          sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFlusterTime(
-            that,
-            serializer,
-          );
-          return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 4)!;
-        },
-        codec: SseCodec(
-          decodeSuccessData:
-              sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerOffsetDateTime,
-          decodeErrorData: null,
-        ),
-        constMeta:
-            kCrateApiModelsNestedModelsFlusterDatetimeFlusterTimeFlusterTimeAutoAccessorGetValueConstMeta,
-        argValues: [that],
-        apiImpl: this,
-      ),
-    );
-  }
-
-  TaskConstMeta
-  get kCrateApiModelsNestedModelsFlusterDatetimeFlusterTimeFlusterTimeAutoAccessorGetValueConstMeta =>
-      const TaskConstMeta(
-        debugName: "FlusterTime_auto_accessor_get_value",
-        argNames: ["that"],
-      );
-
-  @override
-  void
-  crateApiModelsNestedModelsFlusterDatetimeFlusterTimeFlusterTimeAutoAccessorSetValue({
-    required FlusterTime that,
-    required OffsetDateTime value,
-  }) {
-    return handler.executeSync(
-      SyncTask(
-        callFfi: () {
-          final serializer = SseSerializer(generalizedFrbRustBinding);
-          sse_encode_Auto_RefMut_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFlusterTime(
-            that,
-            serializer,
-          );
-          sse_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerOffsetDateTime(
-            value,
-            serializer,
-          );
-          return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 5)!;
-        },
-        codec: SseCodec(
-          decodeSuccessData: sse_decode_unit,
-          decodeErrorData: null,
-        ),
-        constMeta:
-            kCrateApiModelsNestedModelsFlusterDatetimeFlusterTimeFlusterTimeAutoAccessorSetValueConstMeta,
-        argValues: [that, value],
-        apiImpl: this,
-      ),
-    );
-  }
-
-  TaskConstMeta
-  get kCrateApiModelsNestedModelsFlusterDatetimeFlusterTimeFlusterTimeAutoAccessorSetValueConstMeta =>
-      const TaskConstMeta(
-        debugName: "FlusterTime_auto_accessor_set_value",
-        argNames: ["that", "value"],
-      );
-
-  @override
-  Future<FlusterTime>
-  crateApiModelsNestedModelsFlusterDatetimeFlusterTimeFlusterTimeDefault() {
-    return handler.executeNormal(
-      NormalTask(
-        callFfi: (port_) {
-          final serializer = SseSerializer(generalizedFrbRustBinding);
-          pdeCallFfi(
-            generalizedFrbRustBinding,
-            serializer,
-            funcId: 6,
-            port: port_,
-          );
-        },
-        codec: SseCodec(
-          decodeSuccessData:
-              sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFlusterTime,
-          decodeErrorData: null,
-        ),
-        constMeta:
-            kCrateApiModelsNestedModelsFlusterDatetimeFlusterTimeFlusterTimeDefaultConstMeta,
-        argValues: [],
-        apiImpl: this,
-      ),
-    );
-  }
-
-  TaskConstMeta
-  get kCrateApiModelsNestedModelsFlusterDatetimeFlusterTimeFlusterTimeDefaultConstMeta =>
-      const TaskConstMeta(debugName: "FlusterTime_default", argNames: []);
-
-  @override
-  Future<FlusterTime?>
-  crateApiModelsNestedModelsFlusterDatetimeFlusterTimeFlusterTimeFromFileTime({
-    FileTime? ft,
-  }) {
-    return handler.executeNormal(
-      NormalTask(
-        callFfi: (port_) {
-          final serializer = SseSerializer(generalizedFrbRustBinding);
-          sse_encode_opt_box_autoadd_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFileTime(
-            ft,
-            serializer,
-          );
-          pdeCallFfi(
-            generalizedFrbRustBinding,
-            serializer,
-            funcId: 7,
-            port: port_,
-          );
-        },
-        codec: SseCodec(
-          decodeSuccessData:
-              sse_decode_opt_box_autoadd_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFlusterTime,
-          decodeErrorData: null,
-        ),
-        constMeta:
-            kCrateApiModelsNestedModelsFlusterDatetimeFlusterTimeFlusterTimeFromFileTimeConstMeta,
-        argValues: [ft],
-        apiImpl: this,
-      ),
-    );
-  }
-
-  TaskConstMeta
-  get kCrateApiModelsNestedModelsFlusterDatetimeFlusterTimeFlusterTimeFromFileTimeConstMeta =>
-      const TaskConstMeta(
-        debugName: "FlusterTime_from_file_time",
-        argNames: ["ft"],
-      );
-
-  @override
-  Future<FlusterTime>
-  crateApiModelsNestedModelsFlusterDatetimeFlusterTimeFlusterTimeNow() {
-    return handler.executeNormal(
-      NormalTask(
-        callFfi: (port_) {
-          final serializer = SseSerializer(generalizedFrbRustBinding);
-          pdeCallFfi(
-            generalizedFrbRustBinding,
-            serializer,
-            funcId: 8,
-            port: port_,
-          );
-        },
-        codec: SseCodec(
-          decodeSuccessData:
-              sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFlusterTime,
-          decodeErrorData: null,
-        ),
-        constMeta:
-            kCrateApiModelsNestedModelsFlusterDatetimeFlusterTimeFlusterTimeNowConstMeta,
-        argValues: [],
-        apiImpl: this,
-      ),
-    );
-  }
-
-  TaskConstMeta
-  get kCrateApiModelsNestedModelsFlusterDatetimeFlusterTimeFlusterTimeNowConstMeta =>
-      const TaskConstMeta(debugName: "FlusterTime_now", argNames: []);
-
-  @override
-  FrontMatterEntity crateApiModelsFrontMatterFrontMatterAutoAccessorGetData({
-    required FrontMatter that,
-  }) {
-    return handler.executeSync(
-      SyncTask(
-        callFfi: () {
-          final serializer = SseSerializer(generalizedFrbRustBinding);
-          sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFrontMatter(
-            that,
-            serializer,
-          );
-          return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 9)!;
-        },
-        codec: SseCodec(
-          decodeSuccessData:
-              sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFrontMatterEntity,
-          decodeErrorData: null,
-        ),
-        constMeta:
-            kCrateApiModelsFrontMatterFrontMatterAutoAccessorGetDataConstMeta,
-        argValues: [that],
-        apiImpl: this,
-      ),
-    );
-  }
-
-  TaskConstMeta
-  get kCrateApiModelsFrontMatterFrontMatterAutoAccessorGetDataConstMeta =>
-      const TaskConstMeta(
-        debugName: "FrontMatter_auto_accessor_get_data",
-        argNames: ["that"],
-      );
-
-  @override
-  List<TagCreatable>
-  crateApiModelsFrontMatterFrontMatterAutoAccessorGetSubjects({
-    required FrontMatter that,
-  }) {
-    return handler.executeSync(
-      SyncTask(
-        callFfi: () {
-          final serializer = SseSerializer(generalizedFrbRustBinding);
-          sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFrontMatter(
-            that,
-            serializer,
-          );
-          return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 10)!;
-        },
-        codec: SseCodec(
-          decodeSuccessData:
-              sse_decode_list_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerTagCreatable,
-          decodeErrorData: null,
-        ),
-        constMeta:
-            kCrateApiModelsFrontMatterFrontMatterAutoAccessorGetSubjectsConstMeta,
-        argValues: [that],
-        apiImpl: this,
-      ),
-    );
-  }
-
-  TaskConstMeta
-  get kCrateApiModelsFrontMatterFrontMatterAutoAccessorGetSubjectsConstMeta =>
-      const TaskConstMeta(
-        debugName: "FrontMatter_auto_accessor_get_subjects",
-        argNames: ["that"],
-      );
-
-  @override
-  List<TagCreatable> crateApiModelsFrontMatterFrontMatterAutoAccessorGetTags({
-    required FrontMatter that,
-  }) {
-    return handler.executeSync(
-      SyncTask(
-        callFfi: () {
-          final serializer = SseSerializer(generalizedFrbRustBinding);
-          sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFrontMatter(
-            that,
-            serializer,
-          );
-          return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 11)!;
-        },
-        codec: SseCodec(
-          decodeSuccessData:
-              sse_decode_list_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerTagCreatable,
-          decodeErrorData: null,
-        ),
-        constMeta:
-            kCrateApiModelsFrontMatterFrontMatterAutoAccessorGetTagsConstMeta,
-        argValues: [that],
-        apiImpl: this,
-      ),
-    );
-  }
-
-  TaskConstMeta
-  get kCrateApiModelsFrontMatterFrontMatterAutoAccessorGetTagsConstMeta =>
-      const TaskConstMeta(
-        debugName: "FrontMatter_auto_accessor_get_tags",
-        argNames: ["that"],
-      );
-
-  @override
-  List<TagCreatable> crateApiModelsFrontMatterFrontMatterAutoAccessorGetTopics({
-    required FrontMatter that,
-  }) {
-    return handler.executeSync(
-      SyncTask(
-        callFfi: () {
-          final serializer = SseSerializer(generalizedFrbRustBinding);
-          sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFrontMatter(
-            that,
-            serializer,
-          );
-          return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 12)!;
-        },
-        codec: SseCodec(
-          decodeSuccessData:
-              sse_decode_list_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerTagCreatable,
-          decodeErrorData: null,
-        ),
-        constMeta:
-            kCrateApiModelsFrontMatterFrontMatterAutoAccessorGetTopicsConstMeta,
-        argValues: [that],
-        apiImpl: this,
-      ),
-    );
-  }
-
-  TaskConstMeta
-  get kCrateApiModelsFrontMatterFrontMatterAutoAccessorGetTopicsConstMeta =>
-      const TaskConstMeta(
-        debugName: "FrontMatter_auto_accessor_get_topics",
-        argNames: ["that"],
-      );
-
-  @override
-  void crateApiModelsFrontMatterFrontMatterAutoAccessorSetData({
-    required FrontMatter that,
-    required FrontMatterEntity data,
-  }) {
-    return handler.executeSync(
-      SyncTask(
-        callFfi: () {
-          final serializer = SseSerializer(generalizedFrbRustBinding);
-          sse_encode_Auto_RefMut_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFrontMatter(
-            that,
-            serializer,
-          );
-          sse_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFrontMatterEntity(
-            data,
-            serializer,
-          );
-          return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 13)!;
-        },
-        codec: SseCodec(
-          decodeSuccessData: sse_decode_unit,
-          decodeErrorData: null,
-        ),
-        constMeta:
-            kCrateApiModelsFrontMatterFrontMatterAutoAccessorSetDataConstMeta,
-        argValues: [that, data],
-        apiImpl: this,
-      ),
-    );
-  }
-
-  TaskConstMeta
-  get kCrateApiModelsFrontMatterFrontMatterAutoAccessorSetDataConstMeta =>
-      const TaskConstMeta(
-        debugName: "FrontMatter_auto_accessor_set_data",
-        argNames: ["that", "data"],
-      );
-
-  @override
-  void crateApiModelsFrontMatterFrontMatterAutoAccessorSetSubjects({
-    required FrontMatter that,
-    required List<TagCreatable> subjects,
-  }) {
-    return handler.executeSync(
-      SyncTask(
-        callFfi: () {
-          final serializer = SseSerializer(generalizedFrbRustBinding);
-          sse_encode_Auto_RefMut_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFrontMatter(
-            that,
-            serializer,
-          );
-          sse_encode_list_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerTagCreatable(
-            subjects,
-            serializer,
-          );
-          return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 14)!;
-        },
-        codec: SseCodec(
-          decodeSuccessData: sse_decode_unit,
-          decodeErrorData: null,
-        ),
-        constMeta:
-            kCrateApiModelsFrontMatterFrontMatterAutoAccessorSetSubjectsConstMeta,
-        argValues: [that, subjects],
-        apiImpl: this,
-      ),
-    );
-  }
-
-  TaskConstMeta
-  get kCrateApiModelsFrontMatterFrontMatterAutoAccessorSetSubjectsConstMeta =>
-      const TaskConstMeta(
-        debugName: "FrontMatter_auto_accessor_set_subjects",
-        argNames: ["that", "subjects"],
-      );
-
-  @override
-  void crateApiModelsFrontMatterFrontMatterAutoAccessorSetTags({
-    required FrontMatter that,
-    required List<TagCreatable> tags,
-  }) {
-    return handler.executeSync(
-      SyncTask(
-        callFfi: () {
-          final serializer = SseSerializer(generalizedFrbRustBinding);
-          sse_encode_Auto_RefMut_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFrontMatter(
-            that,
-            serializer,
-          );
-          sse_encode_list_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerTagCreatable(
-            tags,
-            serializer,
-          );
-          return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 15)!;
-        },
-        codec: SseCodec(
-          decodeSuccessData: sse_decode_unit,
-          decodeErrorData: null,
-        ),
-        constMeta:
-            kCrateApiModelsFrontMatterFrontMatterAutoAccessorSetTagsConstMeta,
-        argValues: [that, tags],
-        apiImpl: this,
-      ),
-    );
-  }
-
-  TaskConstMeta
-  get kCrateApiModelsFrontMatterFrontMatterAutoAccessorSetTagsConstMeta =>
-      const TaskConstMeta(
-        debugName: "FrontMatter_auto_accessor_set_tags",
-        argNames: ["that", "tags"],
-      );
-
-  @override
-  void crateApiModelsFrontMatterFrontMatterAutoAccessorSetTopics({
-    required FrontMatter that,
-    required List<TagCreatable> topics,
-  }) {
-    return handler.executeSync(
-      SyncTask(
-        callFfi: () {
-          final serializer = SseSerializer(generalizedFrbRustBinding);
-          sse_encode_Auto_RefMut_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFrontMatter(
-            that,
-            serializer,
-          );
-          sse_encode_list_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerTagCreatable(
-            topics,
-            serializer,
-          );
-          return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 16)!;
-        },
-        codec: SseCodec(
-          decodeSuccessData: sse_decode_unit,
-          decodeErrorData: null,
-        ),
-        constMeta:
-            kCrateApiModelsFrontMatterFrontMatterAutoAccessorSetTopicsConstMeta,
-        argValues: [that, topics],
-        apiImpl: this,
-      ),
-    );
-  }
-
-  TaskConstMeta
-  get kCrateApiModelsFrontMatterFrontMatterAutoAccessorSetTopicsConstMeta =>
-      const TaskConstMeta(
-        debugName: "FrontMatter_auto_accessor_set_topics",
-        argNames: ["that", "topics"],
-      );
-
-  @override
-  Future<FrontMatter> crateApiModelsFrontMatterFrontMatterFromGrayMatter({
-    Pod? pod,
-  }) {
-    return handler.executeNormal(
-      NormalTask(
-        callFfi: (port_) {
-          final serializer = SseSerializer(generalizedFrbRustBinding);
-          sse_encode_opt_box_autoadd_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerPod(
-            pod,
-            serializer,
-          );
-          pdeCallFfi(
-            generalizedFrbRustBinding,
-            serializer,
-            funcId: 17,
-            port: port_,
-          );
-        },
-        codec: SseCodec(
-          decodeSuccessData:
-              sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFrontMatter,
-          decodeErrorData: null,
-        ),
-        constMeta: kCrateApiModelsFrontMatterFrontMatterFromGrayMatterConstMeta,
-        argValues: [pod],
-        apiImpl: this,
-      ),
-    );
-  }
-
-  TaskConstMeta
-  get kCrateApiModelsFrontMatterFrontMatterFromGrayMatterConstMeta =>
-      const TaskConstMeta(
-        debugName: "FrontMatter_from_gray_matter",
-        argNames: ["pod"],
-      );
-
-  @override
-  FrontMatter
-  crateApiModelsMdxNoteGroupMdxNoteGroupMdxNoteGroupAutoAccessorGetFrontMatter({
-    required MdxNoteGroup that,
-  }) {
-    return handler.executeSync(
-      SyncTask(
-        callFfi: () {
-          final serializer = SseSerializer(generalizedFrbRustBinding);
-          sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerMdxNoteGroup(
-            that,
-            serializer,
-          );
-          return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 18)!;
-        },
-        codec: SseCodec(
-          decodeSuccessData:
-              sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFrontMatter,
-          decodeErrorData: null,
-        ),
-        constMeta:
-            kCrateApiModelsMdxNoteGroupMdxNoteGroupMdxNoteGroupAutoAccessorGetFrontMatterConstMeta,
-        argValues: [that],
-        apiImpl: this,
-      ),
-    );
-  }
-
-  TaskConstMeta
-  get kCrateApiModelsMdxNoteGroupMdxNoteGroupMdxNoteGroupAutoAccessorGetFrontMatterConstMeta =>
-      const TaskConstMeta(
-        debugName: "MdxNoteGroup_auto_accessor_get_front_matter",
-        argNames: ["that"],
-      );
-
-  @override
-  MdxNoteCreatable
-  crateApiModelsMdxNoteGroupMdxNoteGroupMdxNoteGroupAutoAccessorGetMdx({
-    required MdxNoteGroup that,
-  }) {
-    return handler.executeSync(
-      SyncTask(
-        callFfi: () {
-          final serializer = SseSerializer(generalizedFrbRustBinding);
-          sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerMdxNoteGroup(
-            that,
-            serializer,
-          );
-          return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 19)!;
-        },
-        codec: SseCodec(
-          decodeSuccessData:
-              sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerMdxNoteCreatable,
-          decodeErrorData: null,
-        ),
-        constMeta:
-            kCrateApiModelsMdxNoteGroupMdxNoteGroupMdxNoteGroupAutoAccessorGetMdxConstMeta,
-        argValues: [that],
-        apiImpl: this,
-      ),
-    );
-  }
-
-  TaskConstMeta
-  get kCrateApiModelsMdxNoteGroupMdxNoteGroupMdxNoteGroupAutoAccessorGetMdxConstMeta =>
-      const TaskConstMeta(
-        debugName: "MdxNoteGroup_auto_accessor_get_mdx",
-        argNames: ["that"],
-      );
-
-  @override
-  List<Taggable>
-  crateApiModelsMdxNoteGroupMdxNoteGroupMdxNoteGroupAutoAccessorGetTags({
-    required MdxNoteGroup that,
-  }) {
-    return handler.executeSync(
-      SyncTask(
-        callFfi: () {
-          final serializer = SseSerializer(generalizedFrbRustBinding);
-          sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerMdxNoteGroup(
-            that,
-            serializer,
-          );
-          return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 20)!;
-        },
-        codec: SseCodec(
-          decodeSuccessData:
-              sse_decode_list_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerTaggable,
-          decodeErrorData: null,
-        ),
-        constMeta:
-            kCrateApiModelsMdxNoteGroupMdxNoteGroupMdxNoteGroupAutoAccessorGetTagsConstMeta,
-        argValues: [that],
-        apiImpl: this,
-      ),
-    );
-  }
-
-  TaskConstMeta
-  get kCrateApiModelsMdxNoteGroupMdxNoteGroupMdxNoteGroupAutoAccessorGetTagsConstMeta =>
-      const TaskConstMeta(
-        debugName: "MdxNoteGroup_auto_accessor_get_tags",
-        argNames: ["that"],
-      );
-
-  @override
-  void
-  crateApiModelsMdxNoteGroupMdxNoteGroupMdxNoteGroupAutoAccessorSetFrontMatter({
-    required MdxNoteGroup that,
-    required FrontMatter frontMatter,
-  }) {
-    return handler.executeSync(
-      SyncTask(
-        callFfi: () {
-          final serializer = SseSerializer(generalizedFrbRustBinding);
-          sse_encode_Auto_RefMut_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerMdxNoteGroup(
-            that,
-            serializer,
-          );
-          sse_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFrontMatter(
-            frontMatter,
-            serializer,
-          );
-          return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 21)!;
-        },
-        codec: SseCodec(
-          decodeSuccessData: sse_decode_unit,
-          decodeErrorData: null,
-        ),
-        constMeta:
-            kCrateApiModelsMdxNoteGroupMdxNoteGroupMdxNoteGroupAutoAccessorSetFrontMatterConstMeta,
-        argValues: [that, frontMatter],
-        apiImpl: this,
-      ),
-    );
-  }
-
-  TaskConstMeta
-  get kCrateApiModelsMdxNoteGroupMdxNoteGroupMdxNoteGroupAutoAccessorSetFrontMatterConstMeta =>
-      const TaskConstMeta(
-        debugName: "MdxNoteGroup_auto_accessor_set_front_matter",
-        argNames: ["that", "frontMatter"],
-      );
-
-  @override
-  void crateApiModelsMdxNoteGroupMdxNoteGroupMdxNoteGroupAutoAccessorSetMdx({
-    required MdxNoteGroup that,
-    required MdxNoteCreatable mdx,
-  }) {
-    return handler.executeSync(
-      SyncTask(
-        callFfi: () {
-          final serializer = SseSerializer(generalizedFrbRustBinding);
-          sse_encode_Auto_RefMut_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerMdxNoteGroup(
-            that,
-            serializer,
-          );
-          sse_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerMdxNoteCreatable(
-            mdx,
-            serializer,
-          );
-          return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 22)!;
-        },
-        codec: SseCodec(
-          decodeSuccessData: sse_decode_unit,
-          decodeErrorData: null,
-        ),
-        constMeta:
-            kCrateApiModelsMdxNoteGroupMdxNoteGroupMdxNoteGroupAutoAccessorSetMdxConstMeta,
-        argValues: [that, mdx],
-        apiImpl: this,
-      ),
-    );
-  }
-
-  TaskConstMeta
-  get kCrateApiModelsMdxNoteGroupMdxNoteGroupMdxNoteGroupAutoAccessorSetMdxConstMeta =>
-      const TaskConstMeta(
-        debugName: "MdxNoteGroup_auto_accessor_set_mdx",
-        argNames: ["that", "mdx"],
-      );
-
-  @override
-  void crateApiModelsMdxNoteGroupMdxNoteGroupMdxNoteGroupAutoAccessorSetTags({
-    required MdxNoteGroup that,
-    required List<Taggable> tags,
-  }) {
-    return handler.executeSync(
-      SyncTask(
-        callFfi: () {
-          final serializer = SseSerializer(generalizedFrbRustBinding);
-          sse_encode_Auto_RefMut_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerMdxNoteGroup(
-            that,
-            serializer,
-          );
-          sse_encode_list_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerTaggable(
-            tags,
-            serializer,
-          );
-          return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 23)!;
-        },
-        codec: SseCodec(
-          decodeSuccessData: sse_decode_unit,
-          decodeErrorData: null,
-        ),
-        constMeta:
-            kCrateApiModelsMdxNoteGroupMdxNoteGroupMdxNoteGroupAutoAccessorSetTagsConstMeta,
-        argValues: [that, tags],
-        apiImpl: this,
-      ),
-    );
-  }
-
-  TaskConstMeta
-  get kCrateApiModelsMdxNoteGroupMdxNoteGroupMdxNoteGroupAutoAccessorSetTagsConstMeta =>
-      const TaskConstMeta(
-        debugName: "MdxNoteGroup_auto_accessor_set_tags",
-        argNames: ["that", "tags"],
-      );
-
-  @override
-  Future<FlusterResultMdxNoteGroup>
-  crateApiModelsMdxNoteGroupMdxNoteGroupMdxNoteGroupFromFileSystemPath({
-    required String filePath,
-  }) {
-    return handler.executeNormal(
-      NormalTask(
-        callFfi: (port_) {
-          final serializer = SseSerializer(generalizedFrbRustBinding);
-          sse_encode_String(filePath, serializer);
-          pdeCallFfi(
-            generalizedFrbRustBinding,
-            serializer,
-            funcId: 24,
-            port: port_,
-          );
-        },
-        codec: SseCodec(
-          decodeSuccessData:
-              sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFlusterResultMdxNoteGroup,
-          decodeErrorData: null,
-        ),
-        constMeta:
-            kCrateApiModelsMdxNoteGroupMdxNoteGroupMdxNoteGroupFromFileSystemPathConstMeta,
-        argValues: [filePath],
-        apiImpl: this,
-      ),
-    );
-  }
-
-  TaskConstMeta
-  get kCrateApiModelsMdxNoteGroupMdxNoteGroupMdxNoteGroupFromFileSystemPathConstMeta =>
-      const TaskConstMeta(
-        debugName: "MdxNoteGroup_from_file_system_path",
-        argNames: ["filePath"],
-      );
-
-  @override
-  Future<FlusterResultMdxNoteGroup>
-  crateApiModelsMdxNoteGroupMdxNoteGroupMdxNoteGroupFromFileSystemPathAsync({
-    required String filePath,
-  }) {
-    return handler.executeNormal(
-      NormalTask(
-        callFfi: (port_) {
-          final serializer = SseSerializer(generalizedFrbRustBinding);
-          sse_encode_String(filePath, serializer);
-          pdeCallFfi(
-            generalizedFrbRustBinding,
-            serializer,
-            funcId: 25,
-            port: port_,
-          );
-        },
-        codec: SseCodec(
-          decodeSuccessData:
-              sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFlusterResultMdxNoteGroup,
-          decodeErrorData: null,
-        ),
-        constMeta:
-            kCrateApiModelsMdxNoteGroupMdxNoteGroupMdxNoteGroupFromFileSystemPathAsyncConstMeta,
-        argValues: [filePath],
-        apiImpl: this,
-      ),
-    );
-  }
-
-  TaskConstMeta
-  get kCrateApiModelsMdxNoteGroupMdxNoteGroupMdxNoteGroupFromFileSystemPathAsyncConstMeta =>
-      const TaskConstMeta(
-        debugName: "MdxNoteGroup_from_file_system_path_async",
-        argNames: ["filePath"],
-      );
-
-  @override
-  Future<FlusterResultMdxNoteGroup>
-  crateApiModelsMdxNoteGroupMdxNoteGroupMdxNoteGroupFromRawMdxString({
-    required String rawFileContent,
-    String? filePath,
-  }) {
-    return handler.executeNormal(
-      NormalTask(
-        callFfi: (port_) {
-          final serializer = SseSerializer(generalizedFrbRustBinding);
-          sse_encode_String(rawFileContent, serializer);
-          sse_encode_opt_String(filePath, serializer);
-          pdeCallFfi(
-            generalizedFrbRustBinding,
-            serializer,
-            funcId: 26,
-            port: port_,
-          );
-        },
-        codec: SseCodec(
-          decodeSuccessData:
-              sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFlusterResultMdxNoteGroup,
-          decodeErrorData: null,
-        ),
-        constMeta:
-            kCrateApiModelsMdxNoteGroupMdxNoteGroupMdxNoteGroupFromRawMdxStringConstMeta,
-        argValues: [rawFileContent, filePath],
-        apiImpl: this,
-      ),
-    );
-  }
-
-  TaskConstMeta
-  get kCrateApiModelsMdxNoteGroupMdxNoteGroupMdxNoteGroupFromRawMdxStringConstMeta =>
-      const TaskConstMeta(
-        debugName: "MdxNoteGroup_from_raw_mdx_string",
-        argNames: ["rawFileContent", "filePath"],
-      );
-
-  @override
-  TaggableType crateApiModelsTaggablesTaggableTaggableAutoAccessorGetTagType({
-    required Taggable that,
-  }) {
-    return handler.executeSync(
-      SyncTask(
-        callFfi: () {
-          final serializer = SseSerializer(generalizedFrbRustBinding);
-          sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerTaggable(
-            that,
-            serializer,
-          );
-          return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 27)!;
-        },
-        codec: SseCodec(
-          decodeSuccessData:
-              sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerTaggableType,
-          decodeErrorData: null,
-        ),
-        constMeta:
-            kCrateApiModelsTaggablesTaggableTaggableAutoAccessorGetTagTypeConstMeta,
-        argValues: [that],
-        apiImpl: this,
-      ),
-    );
-  }
-
-  TaskConstMeta
-  get kCrateApiModelsTaggablesTaggableTaggableAutoAccessorGetTagTypeConstMeta =>
-      const TaskConstMeta(
-        debugName: "Taggable_auto_accessor_get_tag_type",
-        argNames: ["that"],
-      );
-
-  @override
-  String crateApiModelsTaggablesTaggableTaggableAutoAccessorGetValue({
-    required Taggable that,
-  }) {
-    return handler.executeSync(
-      SyncTask(
-        callFfi: () {
-          final serializer = SseSerializer(generalizedFrbRustBinding);
-          sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerTaggable(
-            that,
-            serializer,
-          );
-          return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 28)!;
-        },
-        codec: SseCodec(
-          decodeSuccessData: sse_decode_String,
-          decodeErrorData: null,
-        ),
-        constMeta:
-            kCrateApiModelsTaggablesTaggableTaggableAutoAccessorGetValueConstMeta,
-        argValues: [that],
-        apiImpl: this,
-      ),
-    );
-  }
-
-  TaskConstMeta
-  get kCrateApiModelsTaggablesTaggableTaggableAutoAccessorGetValueConstMeta =>
-      const TaskConstMeta(
-        debugName: "Taggable_auto_accessor_get_value",
-        argNames: ["that"],
-      );
-
-  @override
-  void crateApiModelsTaggablesTaggableTaggableAutoAccessorSetTagType({
-    required Taggable that,
-    required TaggableType tagType,
-  }) {
-    return handler.executeSync(
-      SyncTask(
-        callFfi: () {
-          final serializer = SseSerializer(generalizedFrbRustBinding);
-          sse_encode_Auto_RefMut_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerTaggable(
-            that,
-            serializer,
-          );
-          sse_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerTaggableType(
-            tagType,
-            serializer,
-          );
-          return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 29)!;
-        },
-        codec: SseCodec(
-          decodeSuccessData: sse_decode_unit,
-          decodeErrorData: null,
-        ),
-        constMeta:
-            kCrateApiModelsTaggablesTaggableTaggableAutoAccessorSetTagTypeConstMeta,
-        argValues: [that, tagType],
-        apiImpl: this,
-      ),
-    );
-  }
-
-  TaskConstMeta
-  get kCrateApiModelsTaggablesTaggableTaggableAutoAccessorSetTagTypeConstMeta =>
-      const TaskConstMeta(
-        debugName: "Taggable_auto_accessor_set_tag_type",
-        argNames: ["that", "tagType"],
-      );
-
-  @override
-  void crateApiModelsTaggablesTaggableTaggableAutoAccessorSetValue({
-    required Taggable that,
-    required String value,
-  }) {
-    return handler.executeSync(
-      SyncTask(
-        callFfi: () {
-          final serializer = SseSerializer(generalizedFrbRustBinding);
-          sse_encode_Auto_RefMut_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerTaggable(
-            that,
-            serializer,
-          );
-          sse_encode_String(value, serializer);
-          return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 30)!;
-        },
-        codec: SseCodec(
-          decodeSuccessData: sse_decode_unit,
-          decodeErrorData: null,
-        ),
-        constMeta:
-            kCrateApiModelsTaggablesTaggableTaggableAutoAccessorSetValueConstMeta,
-        argValues: [that, value],
-        apiImpl: this,
-      ),
-    );
-  }
-
-  TaskConstMeta
-  get kCrateApiModelsTaggablesTaggableTaggableAutoAccessorSetValueConstMeta =>
-      const TaskConstMeta(
-        debugName: "Taggable_auto_accessor_set_value",
-        argNames: ["that", "value"],
-      );
-
-  @override
-  Future<TagFromContentResult>
-  crateApiModelsTaggablesTaggableTaggableFromMdxContent({
-    required ParsedEntity data,
-  }) {
-    return handler.executeNormal(
-      NormalTask(
-        callFfi: (port_) {
-          final serializer = SseSerializer(generalizedFrbRustBinding);
-          sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerParsedEntity(
-            data,
-            serializer,
-          );
-          pdeCallFfi(
-            generalizedFrbRustBinding,
-            serializer,
-            funcId: 31,
-            port: port_,
-          );
-        },
-        codec: SseCodec(
-          decodeSuccessData: sse_decode_tag_from_content_result,
-          decodeErrorData: null,
-        ),
-        constMeta:
-            kCrateApiModelsTaggablesTaggableTaggableFromMdxContentConstMeta,
-        argValues: [data],
-        apiImpl: this,
-      ),
-    );
-  }
-
-  TaskConstMeta
-  get kCrateApiModelsTaggablesTaggableTaggableFromMdxContentConstMeta =>
-      const TaskConstMeta(
-        debugName: "Taggable_from_mdx_content",
-        argNames: ["data"],
-      );
-
-  @override
-  Future<List<Taggable>> crateApiModelsTaggablesTaggableTaggableFromPodData({
-    required ParsedEntity data,
-  }) {
-    return handler.executeNormal(
-      NormalTask(
-        callFfi: (port_) {
-          final serializer = SseSerializer(generalizedFrbRustBinding);
-          sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerParsedEntity(
-            data,
-            serializer,
-          );
-          pdeCallFfi(
-            generalizedFrbRustBinding,
-            serializer,
-            funcId: 32,
-            port: port_,
-          );
-        },
-        codec: SseCodec(
-          decodeSuccessData:
-              sse_decode_list_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerTaggable,
-          decodeErrorData: null,
-        ),
-        constMeta: kCrateApiModelsTaggablesTaggableTaggableFromPodDataConstMeta,
-        argValues: [data],
-        apiImpl: this,
-      ),
-    );
-  }
-
-  TaskConstMeta
-  get kCrateApiModelsTaggablesTaggableTaggableFromPodDataConstMeta =>
-      const TaskConstMeta(
-        debugName: "Taggable_from_pod_data",
-        argNames: ["data"],
-      );
-
-  @override
   Future<BibtexFile>
   crateApiModelsBibliographyBibFileBibtexFileFromFilesystemPath({
     required String fspath,
@@ -1690,7 +876,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
           pdeCallFfi(
             generalizedFrbRustBinding,
             serializer,
-            funcId: 33,
+            funcId: 12,
             port: port_,
           );
         },
@@ -1727,7 +913,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
           pdeCallFfi(
             generalizedFrbRustBinding,
             serializer,
-            funcId: 34,
+            funcId: 13,
             port: port_,
           );
         },
@@ -1768,7 +954,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
           pdeCallFfi(
             generalizedFrbRustBinding,
             serializer,
-            funcId: 35,
+            funcId: 14,
             port: port_,
           );
         },
@@ -1792,6 +978,78 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
       );
 
   @override
+  Future<List<FlusterError>?>
+  crateApiActionsMdxNoteCreateManyCreateManyMdxNotes({
+    required AsyncPgConnection c,
+    required List<MdxNoteCreatable> newNotes,
+  }) {
+    return handler.executeNormal(
+      NormalTask(
+        callFfi: (port_) {
+          final serializer = SseSerializer(generalizedFrbRustBinding);
+          sse_encode_Auto_RefMut_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerAsyncPgConnection(
+            c,
+            serializer,
+          );
+          sse_encode_list_mdx_note_creatable(newNotes, serializer);
+          pdeCallFfi(
+            generalizedFrbRustBinding,
+            serializer,
+            funcId: 15,
+            port: port_,
+          );
+        },
+        codec: SseCodec(
+          decodeSuccessData:
+              sse_decode_opt_list_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFlusterError,
+          decodeErrorData: null,
+        ),
+        constMeta: kCrateApiActionsMdxNoteCreateManyCreateManyMdxNotesConstMeta,
+        argValues: [c, newNotes],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta
+  get kCrateApiActionsMdxNoteCreateManyCreateManyMdxNotesConstMeta =>
+      const TaskConstMeta(
+        debugName: "create_many_mdx_notes",
+        argNames: ["c", "newNotes"],
+      );
+
+  @override
+  Future<FlusterError?> crateApiActionsMdxNoteCreateCreateMdxNote({
+    required MdxNoteCreatable newNote,
+  }) {
+    return handler.executeNormal(
+      NormalTask(
+        callFfi: (port_) {
+          final serializer = SseSerializer(generalizedFrbRustBinding);
+          sse_encode_box_autoadd_mdx_note_creatable(newNote, serializer);
+          pdeCallFfi(
+            generalizedFrbRustBinding,
+            serializer,
+            funcId: 16,
+            port: port_,
+          );
+        },
+        codec: SseCodec(
+          decodeSuccessData:
+              sse_decode_opt_box_autoadd_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFlusterError,
+          decodeErrorData: null,
+        ),
+        constMeta: kCrateApiActionsMdxNoteCreateCreateMdxNoteConstMeta,
+        argValues: [newNote],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta get kCrateApiActionsMdxNoteCreateCreateMdxNoteConstMeta =>
+      const TaskConstMeta(debugName: "create_mdx_note", argNames: ["newNote"]);
+
+  @override
   Future<CrossLanguageFile>
   crateApiModelsParamsCrossLanguageFileObjectCrossLanguageFileDefault() {
     return handler.executeNormal(
@@ -1801,7 +1059,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
           pdeCallFfi(
             generalizedFrbRustBinding,
             serializer,
-            funcId: 36,
+            funcId: 17,
             port: port_,
           );
         },
@@ -1825,50 +1083,136 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
       );
 
   @override
-  String crateApiFsFsUtilsGetAppConfigDir() {
-    return handler.executeSync(
-      SyncTask(
-        callFfi: () {
+  Future<FrontMatterEntity>
+  crateApiModelsFrontMatterFrontMatterEntityFrontMatterEntityDefault() {
+    return handler.executeNormal(
+      NormalTask(
+        callFfi: (port_) {
           final serializer = SseSerializer(generalizedFrbRustBinding);
-          return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 37)!;
+          pdeCallFfi(
+            generalizedFrbRustBinding,
+            serializer,
+            funcId: 18,
+            port: port_,
+          );
         },
         codec: SseCodec(
-          decodeSuccessData: sse_decode_String,
-          decodeErrorData:
-              sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFlusterError,
+          decodeSuccessData: sse_decode_front_matter_entity,
+          decodeErrorData: null,
         ),
-        constMeta: kCrateApiFsFsUtilsGetAppConfigDirConstMeta,
+        constMeta:
+            kCrateApiModelsFrontMatterFrontMatterEntityFrontMatterEntityDefaultConstMeta,
         argValues: [],
         apiImpl: this,
       ),
     );
   }
 
-  TaskConstMeta get kCrateApiFsFsUtilsGetAppConfigDirConstMeta =>
-      const TaskConstMeta(debugName: "get_app_config_dir", argNames: []);
+  TaskConstMeta
+  get kCrateApiModelsFrontMatterFrontMatterEntityFrontMatterEntityDefaultConstMeta =>
+      const TaskConstMeta(
+        debugName: "front_matter_entity_default",
+        argNames: [],
+      );
 
   @override
-  String crateApiFsFsUtilsGetAppDataDir() {
-    return handler.executeSync(
-      SyncTask(
-        callFfi: () {
+  Future<FrontMatter>
+  crateApiModelsFrontMatterFrontMatterModelFrontMatterFromGrayMatter({
+    Pod? pod,
+  }) {
+    return handler.executeNormal(
+      NormalTask(
+        callFfi: (port_) {
           final serializer = SseSerializer(generalizedFrbRustBinding);
-          return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 38)!;
+          sse_encode_opt_box_autoadd_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerPod(
+            pod,
+            serializer,
+          );
+          pdeCallFfi(
+            generalizedFrbRustBinding,
+            serializer,
+            funcId: 19,
+            port: port_,
+          );
         },
         codec: SseCodec(
-          decodeSuccessData: sse_decode_String,
-          decodeErrorData:
-              sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFlusterError,
+          decodeSuccessData: sse_decode_front_matter,
+          decodeErrorData: null,
         ),
-        constMeta: kCrateApiFsFsUtilsGetAppDataDirConstMeta,
+        constMeta:
+            kCrateApiModelsFrontMatterFrontMatterModelFrontMatterFromGrayMatterConstMeta,
+        argValues: [pod],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta
+  get kCrateApiModelsFrontMatterFrontMatterModelFrontMatterFromGrayMatterConstMeta =>
+      const TaskConstMeta(
+        debugName: "front_matter_from_gray_matter",
+        argNames: ["pod"],
+      );
+
+  @override
+  Future<FlusterResultAsyncPgConnection>
+  crateApiDataInterfaceDatabaseDbGetDatabaseConnection() {
+    return handler.executeNormal(
+      NormalTask(
+        callFfi: (port_) {
+          final serializer = SseSerializer(generalizedFrbRustBinding);
+          pdeCallFfi(
+            generalizedFrbRustBinding,
+            serializer,
+            funcId: 20,
+            port: port_,
+          );
+        },
+        codec: SseCodec(
+          decodeSuccessData:
+              sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFlusterResultAsyncPgConnection,
+          decodeErrorData: null,
+        ),
+        constMeta:
+            kCrateApiDataInterfaceDatabaseDbGetDatabaseConnectionConstMeta,
         argValues: [],
         apiImpl: this,
       ),
     );
   }
 
-  TaskConstMeta get kCrateApiFsFsUtilsGetAppDataDirConstMeta =>
-      const TaskConstMeta(debugName: "get_app_data_dir", argNames: []);
+  TaskConstMeta
+  get kCrateApiDataInterfaceDatabaseDbGetDatabaseConnectionConstMeta =>
+      const TaskConstMeta(debugName: "get_database_connection", argNames: []);
+
+  @override
+  Future<PathBuf?> crateApiDataInterfaceDatabaseUtilsGetDatabasePath() {
+    return handler.executeNormal(
+      NormalTask(
+        callFfi: (port_) {
+          final serializer = SseSerializer(generalizedFrbRustBinding);
+          pdeCallFfi(
+            generalizedFrbRustBinding,
+            serializer,
+            funcId: 21,
+            port: port_,
+          );
+        },
+        codec: SseCodec(
+          decodeSuccessData:
+              sse_decode_opt_box_autoadd_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerPathBuf,
+          decodeErrorData: null,
+        ),
+        constMeta: kCrateApiDataInterfaceDatabaseUtilsGetDatabasePathConstMeta,
+        argValues: [],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta
+  get kCrateApiDataInterfaceDatabaseUtilsGetDatabasePathConstMeta =>
+      const TaskConstMeta(debugName: "get_database_path", argNames: []);
 
   @override
   Future<FlusterDatabaseStatus>
@@ -1880,7 +1224,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
           pdeCallFfi(
             generalizedFrbRustBinding,
             serializer,
-            funcId: 39,
+            funcId: 22,
             port: port_,
           );
         },
@@ -1901,7 +1245,8 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
       const TaskConstMeta(debugName: "get_database_status", argNames: []);
 
   @override
-  Future<Regex> crateApiModelsTaggablesTaggableGetTagRegularExpression() {
+  Future<FlusterResultVecFrontMatterEntity>
+  crateApiActionsFrontMatterGetManyGetFrontMatterEntities() {
     return handler.executeNormal(
       NormalTask(
         callFfi: (port_) {
@@ -1909,7 +1254,67 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
           pdeCallFfi(
             generalizedFrbRustBinding,
             serializer,
-            funcId: 40,
+            funcId: 23,
+            port: port_,
+          );
+        },
+        codec: SseCodec(
+          decodeSuccessData:
+              sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFlusterResultVecFrontMatterEntity,
+          decodeErrorData: null,
+        ),
+        constMeta:
+            kCrateApiActionsFrontMatterGetManyGetFrontMatterEntitiesConstMeta,
+        argValues: [],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta
+  get kCrateApiActionsFrontMatterGetManyGetFrontMatterEntitiesConstMeta =>
+      const TaskConstMeta(debugName: "get_front_matter_entities", argNames: []);
+
+  @override
+  Future<FlusterResultVecMdxNoteEntity>
+  crateApiActionsMdxNoteGetManyGetMdxNoteSummaries() {
+    return handler.executeNormal(
+      NormalTask(
+        callFfi: (port_) {
+          final serializer = SseSerializer(generalizedFrbRustBinding);
+          pdeCallFfi(
+            generalizedFrbRustBinding,
+            serializer,
+            funcId: 24,
+            port: port_,
+          );
+        },
+        codec: SseCodec(
+          decodeSuccessData:
+              sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFlusterResultVecMdxNoteEntity,
+          decodeErrorData: null,
+        ),
+        constMeta: kCrateApiActionsMdxNoteGetManyGetMdxNoteSummariesConstMeta,
+        argValues: [],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta
+  get kCrateApiActionsMdxNoteGetManyGetMdxNoteSummariesConstMeta =>
+      const TaskConstMeta(debugName: "get_mdx_note_summaries", argNames: []);
+
+  @override
+  Future<Regex> crateApiModelsTaggableTaggableGetTagRegularExpression() {
+    return handler.executeNormal(
+      NormalTask(
+        callFfi: (port_) {
+          final serializer = SseSerializer(generalizedFrbRustBinding);
+          pdeCallFfi(
+            generalizedFrbRustBinding,
+            serializer,
+            funcId: 25,
             port: port_,
           );
         },
@@ -1919,7 +1324,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
           decodeErrorData: null,
         ),
         constMeta:
-            kCrateApiModelsTaggablesTaggableGetTagRegularExpressionConstMeta,
+            kCrateApiModelsTaggableTaggableGetTagRegularExpressionConstMeta,
         argValues: [],
         apiImpl: this,
       ),
@@ -1927,41 +1332,10 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   TaskConstMeta
-  get kCrateApiModelsTaggablesTaggableGetTagRegularExpressionConstMeta =>
+  get kCrateApiModelsTaggableTaggableGetTagRegularExpressionConstMeta =>
       const TaskConstMeta(
         debugName: "get_tag_regular_expression",
         argNames: [],
-      );
-
-  @override
-  double crateApiSearchGetTextSimilarityGetTextSimilarity({
-    required String a,
-    required String b,
-  }) {
-    return handler.executeSync(
-      SyncTask(
-        callFfi: () {
-          final serializer = SseSerializer(generalizedFrbRustBinding);
-          sse_encode_String(a, serializer);
-          sse_encode_String(b, serializer);
-          return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 41)!;
-        },
-        codec: SseCodec(
-          decodeSuccessData: sse_decode_f_64,
-          decodeErrorData: null,
-        ),
-        constMeta: kCrateApiSearchGetTextSimilarityGetTextSimilarityConstMeta,
-        argValues: [a, b],
-        apiImpl: this,
-      ),
-    );
-  }
-
-  TaskConstMeta
-  get kCrateApiSearchGetTextSimilarityGetTextSimilarityConstMeta =>
-      const TaskConstMeta(
-        debugName: "get_text_similarity",
-        argNames: ["a", "b"],
       );
 
   @override
@@ -1974,7 +1348,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
           pdeCallFfi(
             generalizedFrbRustBinding,
             serializer,
-            funcId: 42,
+            funcId: 26,
             port: port_,
           );
         },
@@ -2004,7 +1378,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
           pdeCallFfi(
             generalizedFrbRustBinding,
             serializer,
-            funcId: 43,
+            funcId: 27,
             port: port_,
           );
         },
@@ -2025,6 +1399,119 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
       const TaskConstMeta(debugName: "math_label_option_default", argNames: []);
 
   @override
+  Future<FlusterResultMdxNoteGroup>
+  crateApiModelsMdxNoteMdxNoteGroupMdxNoteGroupMdxNoteGroupFromFileSystemPath({
+    required String filePath,
+  }) {
+    return handler.executeNormal(
+      NormalTask(
+        callFfi: (port_) {
+          final serializer = SseSerializer(generalizedFrbRustBinding);
+          sse_encode_String(filePath, serializer);
+          pdeCallFfi(
+            generalizedFrbRustBinding,
+            serializer,
+            funcId: 28,
+            port: port_,
+          );
+        },
+        codec: SseCodec(
+          decodeSuccessData:
+              sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFlusterResultMdxNoteGroup,
+          decodeErrorData: null,
+        ),
+        constMeta:
+            kCrateApiModelsMdxNoteMdxNoteGroupMdxNoteGroupMdxNoteGroupFromFileSystemPathConstMeta,
+        argValues: [filePath],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta
+  get kCrateApiModelsMdxNoteMdxNoteGroupMdxNoteGroupMdxNoteGroupFromFileSystemPathConstMeta =>
+      const TaskConstMeta(
+        debugName: "mdx_note_group_from_file_system_path",
+        argNames: ["filePath"],
+      );
+
+  @override
+  Future<FlusterResultMdxNoteGroup>
+  crateApiModelsMdxNoteMdxNoteGroupMdxNoteGroupMdxNoteGroupFromFileSystemPathAsync({
+    required String filePath,
+  }) {
+    return handler.executeNormal(
+      NormalTask(
+        callFfi: (port_) {
+          final serializer = SseSerializer(generalizedFrbRustBinding);
+          sse_encode_String(filePath, serializer);
+          pdeCallFfi(
+            generalizedFrbRustBinding,
+            serializer,
+            funcId: 29,
+            port: port_,
+          );
+        },
+        codec: SseCodec(
+          decodeSuccessData:
+              sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFlusterResultMdxNoteGroup,
+          decodeErrorData: null,
+        ),
+        constMeta:
+            kCrateApiModelsMdxNoteMdxNoteGroupMdxNoteGroupMdxNoteGroupFromFileSystemPathAsyncConstMeta,
+        argValues: [filePath],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta
+  get kCrateApiModelsMdxNoteMdxNoteGroupMdxNoteGroupMdxNoteGroupFromFileSystemPathAsyncConstMeta =>
+      const TaskConstMeta(
+        debugName: "mdx_note_group_from_file_system_path_async",
+        argNames: ["filePath"],
+      );
+
+  @override
+  Future<FlusterResultMdxNoteGroup>
+  crateApiModelsMdxNoteMdxNoteGroupMdxNoteGroupMdxNoteGroupFromRawMdxString({
+    required String rawFileContent,
+    String? filePath,
+  }) {
+    return handler.executeNormal(
+      NormalTask(
+        callFfi: (port_) {
+          final serializer = SseSerializer(generalizedFrbRustBinding);
+          sse_encode_String(rawFileContent, serializer);
+          sse_encode_opt_String(filePath, serializer);
+          pdeCallFfi(
+            generalizedFrbRustBinding,
+            serializer,
+            funcId: 30,
+            port: port_,
+          );
+        },
+        codec: SseCodec(
+          decodeSuccessData:
+              sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFlusterResultMdxNoteGroup,
+          decodeErrorData: null,
+        ),
+        constMeta:
+            kCrateApiModelsMdxNoteMdxNoteGroupMdxNoteGroupMdxNoteGroupFromRawMdxStringConstMeta,
+        argValues: [rawFileContent, filePath],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta
+  get kCrateApiModelsMdxNoteMdxNoteGroupMdxNoteGroupMdxNoteGroupFromRawMdxStringConstMeta =>
+      const TaskConstMeta(
+        debugName: "mdx_note_group_from_raw_mdx_string",
+        argNames: ["rawFileContent", "filePath"],
+      );
+
+  @override
   Future<NoteType> crateApiModelsEnumsParsableFileExtensionNoteTypeDefault() {
     return handler.executeNormal(
       NormalTask(
@@ -2033,7 +1520,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
           pdeCallFfi(
             generalizedFrbRustBinding,
             serializer,
-            funcId: 44,
+            funcId: 31,
             port: port_,
           );
         },
@@ -2062,7 +1549,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
           pdeCallFfi(
             generalizedFrbRustBinding,
             serializer,
-            funcId: 45,
+            funcId: 32,
             port: port_,
           );
         },
@@ -2081,29 +1568,6 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
       const TaskConstMeta(debugName: "on_desktop_init", argNames: []);
 
   @override
-  bool crateApiFsFsUtilsPathExists({required String filePath}) {
-    return handler.executeSync(
-      SyncTask(
-        callFfi: () {
-          final serializer = SseSerializer(generalizedFrbRustBinding);
-          sse_encode_String(filePath, serializer);
-          return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 46)!;
-        },
-        codec: SseCodec(
-          decodeSuccessData: sse_decode_bool,
-          decodeErrorData: null,
-        ),
-        constMeta: kCrateApiFsFsUtilsPathExistsConstMeta,
-        argValues: [filePath],
-        apiImpl: this,
-      ),
-    );
-  }
-
-  TaskConstMeta get kCrateApiFsFsUtilsPathExistsConstMeta =>
-      const TaskConstMeta(debugName: "path_exists", argNames: ["filePath"]);
-
-  @override
   Future<SettingPageId>
   crateApiModelsSettingsSettingPageIdSettingPageIdDefault() {
     return handler.executeNormal(
@@ -2113,7 +1577,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
           pdeCallFfi(
             generalizedFrbRustBinding,
             serializer,
-            funcId: 47,
+            funcId: 33,
             port: port_,
           );
         },
@@ -2134,6 +1598,47 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
       const TaskConstMeta(debugName: "setting_page_id_default", argNames: []);
 
   @override
+  Future<Snippet> crateApiModelsSnippetSnippetModelSnippetNew({
+    required String label,
+    required String desc,
+    required SupportedSyntaxLanguage lang,
+    required String body,
+    required int id,
+  }) {
+    return handler.executeNormal(
+      NormalTask(
+        callFfi: (port_) {
+          final serializer = SseSerializer(generalizedFrbRustBinding);
+          sse_encode_String(label, serializer);
+          sse_encode_String(desc, serializer);
+          sse_encode_supported_syntax_language(lang, serializer);
+          sse_encode_String(body, serializer);
+          sse_encode_i_32(id, serializer);
+          pdeCallFfi(
+            generalizedFrbRustBinding,
+            serializer,
+            funcId: 34,
+            port: port_,
+          );
+        },
+        codec: SseCodec(
+          decodeSuccessData: sse_decode_snippet,
+          decodeErrorData: null,
+        ),
+        constMeta: kCrateApiModelsSnippetSnippetModelSnippetNewConstMeta,
+        argValues: [label, desc, lang, body, id],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta get kCrateApiModelsSnippetSnippetModelSnippetNewConstMeta =>
+      const TaskConstMeta(
+        debugName: "snippet_new",
+        argNames: ["label", "desc", "lang", "body", "id"],
+      );
+
+  @override
   Future<SummaryListQuery>
   crateApiGlobalActionsGetSummaryListSummaryListQuerySummaryListQueryDefault() {
     return handler.executeNormal(
@@ -2143,7 +1648,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
           pdeCallFfi(
             generalizedFrbRustBinding,
             serializer,
-            funcId: 48,
+            funcId: 35,
             port: port_,
           );
         },
@@ -2176,7 +1681,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
           pdeCallFfi(
             generalizedFrbRustBinding,
             serializer,
-            funcId: 49,
+            funcId: 36,
             port: port_,
           );
         },
@@ -2200,6 +1705,39 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
       );
 
   @override
+  Future<SupportedSyntaxLanguage>
+  crateApiModelsEnumsSupportedLanguageSupportedSyntaxLanguageDefault() {
+    return handler.executeNormal(
+      NormalTask(
+        callFfi: (port_) {
+          final serializer = SseSerializer(generalizedFrbRustBinding);
+          pdeCallFfi(
+            generalizedFrbRustBinding,
+            serializer,
+            funcId: 37,
+            port: port_,
+          );
+        },
+        codec: SseCodec(
+          decodeSuccessData: sse_decode_supported_syntax_language,
+          decodeErrorData: null,
+        ),
+        constMeta:
+            kCrateApiModelsEnumsSupportedLanguageSupportedSyntaxLanguageDefaultConstMeta,
+        argValues: [],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta
+  get kCrateApiModelsEnumsSupportedLanguageSupportedSyntaxLanguageDefaultConstMeta =>
+      const TaskConstMeta(
+        debugName: "supported_syntax_language_default",
+        argNames: [],
+      );
+
+  @override
   Future<List<FlusterError>?>
   crateApiGlobalActionsParseDirectorySyncFsDirectorySyncFilesystemDirectorySyncDirectory({
     required SyncFilesystemDirectoryOptions opts,
@@ -2215,7 +1753,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
           pdeCallFfi(
             generalizedFrbRustBinding,
             serializer,
-            funcId: 50,
+            funcId: 38,
             port: port_,
           );
         },
@@ -2246,7 +1784,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
           pdeCallFfi(
             generalizedFrbRustBinding,
             serializer,
-            funcId: 51,
+            funcId: 39,
             port: port_,
           );
         },
@@ -2292,7 +1830,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
           pdeCallFfi(
             generalizedFrbRustBinding,
             serializer,
-            funcId: 52,
+            funcId: 40,
             port: port_,
           );
         },
@@ -2341,7 +1879,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
           pdeCallFfi(
             generalizedFrbRustBinding,
             serializer,
-            funcId: 53,
+            funcId: 41,
             port: port_,
           );
         },
@@ -2364,189 +1902,417 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
         argNames: ["bibPath", "errorSender", "db", "nThreads"],
       );
 
+  @override
+  Future<TagCreatable> crateApiModelsTaggableTagModelTagCreatableNew({
+    required String value,
+    required TaggableTypeEnum tagType,
+    int? id,
+  }) {
+    return handler.executeNormal(
+      NormalTask(
+        callFfi: (port_) {
+          final serializer = SseSerializer(generalizedFrbRustBinding);
+          sse_encode_String(value, serializer);
+          sse_encode_taggable_type_enum(tagType, serializer);
+          sse_encode_opt_box_autoadd_i_32(id, serializer);
+          pdeCallFfi(
+            generalizedFrbRustBinding,
+            serializer,
+            funcId: 42,
+            port: port_,
+          );
+        },
+        codec: SseCodec(
+          decodeSuccessData: sse_decode_tag_creatable,
+          decodeErrorData: null,
+        ),
+        constMeta: kCrateApiModelsTaggableTagModelTagCreatableNewConstMeta,
+        argValues: [value, tagType, id],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta get kCrateApiModelsTaggableTagModelTagCreatableNewConstMeta =>
+      const TaskConstMeta(
+        debugName: "tag_creatable_new",
+        argNames: ["value", "tagType", "id"],
+      );
+
+  @override
+  Future<TaggableWithMdxNoteJoin>
+  crateApiModelsTaggableTagModelTagEntityGetMdxNoteJoin({
+    required TagEntity that,
+    required int mdxNoteId,
+  }) {
+    return handler.executeNormal(
+      NormalTask(
+        callFfi: (port_) {
+          final serializer = SseSerializer(generalizedFrbRustBinding);
+          sse_encode_box_autoadd_tag_entity(that, serializer);
+          sse_encode_i_32(mdxNoteId, serializer);
+          pdeCallFfi(
+            generalizedFrbRustBinding,
+            serializer,
+            funcId: 43,
+            port: port_,
+          );
+        },
+        codec: SseCodec(
+          decodeSuccessData: sse_decode_taggable_with_mdx_note_join,
+          decodeErrorData: null,
+        ),
+        constMeta:
+            kCrateApiModelsTaggableTagModelTagEntityGetMdxNoteJoinConstMeta,
+        argValues: [that, mdxNoteId],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta
+  get kCrateApiModelsTaggableTagModelTagEntityGetMdxNoteJoinConstMeta =>
+      const TaskConstMeta(
+        debugName: "tag_entity_get_mdx_note_join",
+        argNames: ["that", "mdxNoteId"],
+      );
+
+  @override
+  Future<TagEntity> crateApiModelsTaggableTagModelTagEntityNew({
+    required String value,
+    required TaggableTypeEnum tagType,
+    required int id,
+  }) {
+    return handler.executeNormal(
+      NormalTask(
+        callFfi: (port_) {
+          final serializer = SseSerializer(generalizedFrbRustBinding);
+          sse_encode_String(value, serializer);
+          sse_encode_taggable_type_enum(tagType, serializer);
+          sse_encode_i_32(id, serializer);
+          pdeCallFfi(
+            generalizedFrbRustBinding,
+            serializer,
+            funcId: 44,
+            port: port_,
+          );
+        },
+        codec: SseCodec(
+          decodeSuccessData: sse_decode_tag_entity,
+          decodeErrorData: null,
+        ),
+        constMeta: kCrateApiModelsTaggableTagModelTagEntityNewConstMeta,
+        argValues: [value, tagType, id],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta get kCrateApiModelsTaggableTagModelTagEntityNewConstMeta =>
+      const TaskConstMeta(
+        debugName: "tag_entity_new",
+        argNames: ["value", "tagType", "id"],
+      );
+
+  @override
+  Future<TaggableWithFrontMatterJoin>
+  crateApiModelsTaggableTagModelTagEntityToFrontMatterJoin({
+    required TagEntity that,
+    required int frontMatterId,
+  }) {
+    return handler.executeNormal(
+      NormalTask(
+        callFfi: (port_) {
+          final serializer = SseSerializer(generalizedFrbRustBinding);
+          sse_encode_box_autoadd_tag_entity(that, serializer);
+          sse_encode_i_32(frontMatterId, serializer);
+          pdeCallFfi(
+            generalizedFrbRustBinding,
+            serializer,
+            funcId: 45,
+            port: port_,
+          );
+        },
+        codec: SseCodec(
+          decodeSuccessData: sse_decode_taggable_with_front_matter_join,
+          decodeErrorData: null,
+        ),
+        constMeta:
+            kCrateApiModelsTaggableTagModelTagEntityToFrontMatterJoinConstMeta,
+        argValues: [that, frontMatterId],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta
+  get kCrateApiModelsTaggableTagModelTagEntityToFrontMatterJoinConstMeta =>
+      const TaskConstMeta(
+        debugName: "tag_entity_to_front_matter_join",
+        argNames: ["that", "frontMatterId"],
+      );
+
+  @override
+  Future<TagFromContentResult>
+  crateApiModelsTaggableTaggableTaggableFromMdxContent({
+    required ParsedEntity data,
+  }) {
+    return handler.executeNormal(
+      NormalTask(
+        callFfi: (port_) {
+          final serializer = SseSerializer(generalizedFrbRustBinding);
+          sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerParsedEntity(
+            data,
+            serializer,
+          );
+          pdeCallFfi(
+            generalizedFrbRustBinding,
+            serializer,
+            funcId: 46,
+            port: port_,
+          );
+        },
+        codec: SseCodec(
+          decodeSuccessData: sse_decode_tag_from_content_result,
+          decodeErrorData: null,
+        ),
+        constMeta:
+            kCrateApiModelsTaggableTaggableTaggableFromMdxContentConstMeta,
+        argValues: [data],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta
+  get kCrateApiModelsTaggableTaggableTaggableFromMdxContentConstMeta =>
+      const TaskConstMeta(
+        debugName: "taggable_from_mdx_content",
+        argNames: ["data"],
+      );
+
+  @override
+  Future<List<Taggable>> crateApiModelsTaggableTaggableTaggableFromPodData({
+    required ParsedEntity data,
+  }) {
+    return handler.executeNormal(
+      NormalTask(
+        callFfi: (port_) {
+          final serializer = SseSerializer(generalizedFrbRustBinding);
+          sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerParsedEntity(
+            data,
+            serializer,
+          );
+          pdeCallFfi(
+            generalizedFrbRustBinding,
+            serializer,
+            funcId: 47,
+            port: port_,
+          );
+        },
+        codec: SseCodec(
+          decodeSuccessData: sse_decode_list_taggable,
+          decodeErrorData: null,
+        ),
+        constMeta: kCrateApiModelsTaggableTaggableTaggableFromPodDataConstMeta,
+        argValues: [data],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta
+  get kCrateApiModelsTaggableTaggableTaggableFromPodDataConstMeta =>
+      const TaskConstMeta(
+        debugName: "taggable_from_pod_data",
+        argNames: ["data"],
+      );
+
+  @override
+  Future<FlusterResult> crateApiActionsTaggablesUpsertManyUpsertManyTags({
+    required AsyncPgConnection c,
+    required List<TagCreatable> tags,
+  }) {
+    return handler.executeNormal(
+      NormalTask(
+        callFfi: (port_) {
+          final serializer = SseSerializer(generalizedFrbRustBinding);
+          sse_encode_Auto_RefMut_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerAsyncPgConnection(
+            c,
+            serializer,
+          );
+          sse_encode_list_tag_creatable(tags, serializer);
+          pdeCallFfi(
+            generalizedFrbRustBinding,
+            serializer,
+            funcId: 48,
+            port: port_,
+          );
+        },
+        codec: SseCodec(
+          decodeSuccessData:
+              sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFlusterResult,
+          decodeErrorData: null,
+        ),
+        constMeta: kCrateApiActionsTaggablesUpsertManyUpsertManyTagsConstMeta,
+        argValues: [c, tags],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta
+  get kCrateApiActionsTaggablesUpsertManyUpsertManyTagsConstMeta =>
+      const TaskConstMeta(
+        debugName: "upsert_many_tags",
+        argNames: ["c", "tags"],
+      );
+
   RustArcIncrementStrongCountFnType
-  get rust_arc_increment_strong_count_BibEntryEntity => wire
-      .rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerBibEntryEntity;
+  get rust_arc_increment_strong_count_AsyncPgConnection =>
+      wire.rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerAsyncPgConnection;
 
   RustArcDecrementStrongCountFnType
-  get rust_arc_decrement_strong_count_BibEntryEntity => wire
-      .rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerBibEntryEntity;
+  get rust_arc_decrement_strong_count_AsyncPgConnection =>
+      wire.rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerAsyncPgConnection;
 
   RustArcIncrementStrongCountFnType
-  get rust_arc_increment_strong_count_DbRecord => wire
-      .rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerDbRecord;
+  get rust_arc_increment_strong_count_BibEntryEntity =>
+      wire.rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerBibEntryEntity;
 
   RustArcDecrementStrongCountFnType
-  get rust_arc_decrement_strong_count_DbRecord => wire
-      .rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerDbRecord;
+  get rust_arc_decrement_strong_count_BibEntryEntity =>
+      wire.rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerBibEntryEntity;
 
   RustArcIncrementStrongCountFnType
-  get rust_arc_increment_strong_count_EmbeddedFile => wire
-      .rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerEmbeddedFile;
+  get rust_arc_increment_strong_count_DbRecord =>
+      wire.rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerDbRecord;
 
   RustArcDecrementStrongCountFnType
-  get rust_arc_decrement_strong_count_EmbeddedFile => wire
-      .rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerEmbeddedFile;
+  get rust_arc_decrement_strong_count_DbRecord =>
+      wire.rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerDbRecord;
 
   RustArcIncrementStrongCountFnType
-  get rust_arc_increment_strong_count_EmbeddedTypescriptFiles => wire
-      .rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerEmbeddedTypescriptFiles;
+  get rust_arc_increment_strong_count_EmbeddedFile =>
+      wire.rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerEmbeddedFile;
 
   RustArcDecrementStrongCountFnType
-  get rust_arc_decrement_strong_count_EmbeddedTypescriptFiles => wire
-      .rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerEmbeddedTypescriptFiles;
+  get rust_arc_decrement_strong_count_EmbeddedFile =>
+      wire.rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerEmbeddedFile;
 
   RustArcIncrementStrongCountFnType
-  get rust_arc_increment_strong_count_FileTime => wire
-      .rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFileTime;
+  get rust_arc_increment_strong_count_EmbeddedTypescriptFiles =>
+      wire.rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerEmbeddedTypescriptFiles;
 
   RustArcDecrementStrongCountFnType
-  get rust_arc_decrement_strong_count_FileTime => wire
-      .rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFileTime;
+  get rust_arc_decrement_strong_count_EmbeddedTypescriptFiles =>
+      wire.rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerEmbeddedTypescriptFiles;
 
   RustArcIncrementStrongCountFnType
-  get rust_arc_increment_strong_count_FlusterDb => wire
-      .rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFlusterDb;
+  get rust_arc_increment_strong_count_FlusterDb =>
+      wire.rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFlusterDb;
 
   RustArcDecrementStrongCountFnType
-  get rust_arc_decrement_strong_count_FlusterDb => wire
-      .rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFlusterDb;
+  get rust_arc_decrement_strong_count_FlusterDb =>
+      wire.rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFlusterDb;
 
   RustArcIncrementStrongCountFnType
-  get rust_arc_increment_strong_count_FlusterError => wire
-      .rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFlusterError;
+  get rust_arc_increment_strong_count_FlusterError =>
+      wire.rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFlusterError;
 
   RustArcDecrementStrongCountFnType
-  get rust_arc_decrement_strong_count_FlusterError => wire
-      .rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFlusterError;
+  get rust_arc_decrement_strong_count_FlusterError =>
+      wire.rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFlusterError;
 
   RustArcIncrementStrongCountFnType
-  get rust_arc_increment_strong_count_FlusterResultMdxNoteGroup => wire
-      .rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFlusterResultMdxNoteGroup;
+  get rust_arc_increment_strong_count_FlusterResult =>
+      wire.rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFlusterResult;
 
   RustArcDecrementStrongCountFnType
-  get rust_arc_decrement_strong_count_FlusterResultMdxNoteGroup => wire
-      .rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFlusterResultMdxNoteGroup;
+  get rust_arc_decrement_strong_count_FlusterResult =>
+      wire.rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFlusterResult;
 
   RustArcIncrementStrongCountFnType
-  get rust_arc_increment_strong_count_FlusterTime => wire
-      .rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFlusterTime;
+  get rust_arc_increment_strong_count_FlusterResultAsyncPgConnection =>
+      wire.rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFlusterResultAsyncPgConnection;
 
   RustArcDecrementStrongCountFnType
-  get rust_arc_decrement_strong_count_FlusterTime => wire
-      .rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFlusterTime;
+  get rust_arc_decrement_strong_count_FlusterResultAsyncPgConnection =>
+      wire.rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFlusterResultAsyncPgConnection;
 
   RustArcIncrementStrongCountFnType
-  get rust_arc_increment_strong_count_FrontMatter => wire
-      .rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFrontMatter;
+  get rust_arc_increment_strong_count_FlusterResultMdxNoteGroup =>
+      wire.rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFlusterResultMdxNoteGroup;
 
   RustArcDecrementStrongCountFnType
-  get rust_arc_decrement_strong_count_FrontMatter => wire
-      .rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFrontMatter;
+  get rust_arc_decrement_strong_count_FlusterResultMdxNoteGroup =>
+      wire.rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFlusterResultMdxNoteGroup;
 
   RustArcIncrementStrongCountFnType
-  get rust_arc_increment_strong_count_FrontMatterEntity => wire
-      .rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFrontMatterEntity;
+  get rust_arc_increment_strong_count_FlusterResultVecFrontMatterEntity =>
+      wire.rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFlusterResultVecFrontMatterEntity;
 
   RustArcDecrementStrongCountFnType
-  get rust_arc_decrement_strong_count_FrontMatterEntity => wire
-      .rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFrontMatterEntity;
+  get rust_arc_decrement_strong_count_FlusterResultVecFrontMatterEntity =>
+      wire.rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFlusterResultVecFrontMatterEntity;
 
   RustArcIncrementStrongCountFnType
-  get rust_arc_increment_strong_count_MdxNoteCreatable => wire
-      .rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerMdxNoteCreatable;
+  get rust_arc_increment_strong_count_FlusterResultVecMdxNoteEntity =>
+      wire.rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFlusterResultVecMdxNoteEntity;
 
   RustArcDecrementStrongCountFnType
-  get rust_arc_decrement_strong_count_MdxNoteCreatable => wire
-      .rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerMdxNoteCreatable;
+  get rust_arc_decrement_strong_count_FlusterResultVecMdxNoteEntity =>
+      wire.rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFlusterResultVecMdxNoteEntity;
 
   RustArcIncrementStrongCountFnType
-  get rust_arc_increment_strong_count_MdxNoteGroup => wire
-      .rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerMdxNoteGroup;
+  get rust_arc_increment_strong_count_ParsedEntity =>
+      wire.rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerParsedEntity;
 
   RustArcDecrementStrongCountFnType
-  get rust_arc_decrement_strong_count_MdxNoteGroup => wire
-      .rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerMdxNoteGroup;
+  get rust_arc_decrement_strong_count_ParsedEntity =>
+      wire.rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerParsedEntity;
 
   RustArcIncrementStrongCountFnType
-  get rust_arc_increment_strong_count_MdxNoteSummary => wire
-      .rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerMdxNoteSummary;
+  get rust_arc_increment_strong_count_PathBuf =>
+      wire.rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerPathBuf;
 
   RustArcDecrementStrongCountFnType
-  get rust_arc_decrement_strong_count_MdxNoteSummary => wire
-      .rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerMdxNoteSummary;
+  get rust_arc_decrement_strong_count_PathBuf =>
+      wire.rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerPathBuf;
+
+  RustArcIncrementStrongCountFnType get rust_arc_increment_strong_count_Pod =>
+      wire.rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerPod;
+
+  RustArcDecrementStrongCountFnType get rust_arc_decrement_strong_count_Pod =>
+      wire.rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerPod;
 
   RustArcIncrementStrongCountFnType
-  get rust_arc_increment_strong_count_OffsetDateTime => wire
-      .rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerOffsetDateTime;
+  get rust_arc_increment_strong_count_RecordId =>
+      wire.rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRecordId;
 
   RustArcDecrementStrongCountFnType
-  get rust_arc_decrement_strong_count_OffsetDateTime => wire
-      .rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerOffsetDateTime;
+  get rust_arc_decrement_strong_count_RecordId =>
+      wire.rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRecordId;
+
+  RustArcIncrementStrongCountFnType get rust_arc_increment_strong_count_Regex =>
+      wire.rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRegex;
+
+  RustArcDecrementStrongCountFnType get rust_arc_decrement_strong_count_Regex =>
+      wire.rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRegex;
 
   RustArcIncrementStrongCountFnType
-  get rust_arc_increment_strong_count_ParsedEntity => wire
-      .rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerParsedEntity;
+  get rust_arc_increment_strong_count_SenderFlusterError =>
+      wire.rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerSenderFlusterError;
 
   RustArcDecrementStrongCountFnType
-  get rust_arc_decrement_strong_count_ParsedEntity => wire
-      .rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerParsedEntity;
+  get rust_arc_decrement_strong_count_SenderFlusterError =>
+      wire.rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerSenderFlusterError;
 
-  RustArcIncrementStrongCountFnType
-  get rust_arc_increment_strong_count_Pod => wire
-      .rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerPod;
+  RustArcIncrementStrongCountFnType get rust_arc_increment_strong_count_Value =>
+      wire.rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerValue;
 
-  RustArcDecrementStrongCountFnType
-  get rust_arc_decrement_strong_count_Pod => wire
-      .rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerPod;
-
-  RustArcIncrementStrongCountFnType
-  get rust_arc_increment_strong_count_RecordId => wire
-      .rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRecordId;
-
-  RustArcDecrementStrongCountFnType
-  get rust_arc_decrement_strong_count_RecordId => wire
-      .rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRecordId;
-
-  RustArcIncrementStrongCountFnType
-  get rust_arc_increment_strong_count_Regex => wire
-      .rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRegex;
-
-  RustArcDecrementStrongCountFnType
-  get rust_arc_decrement_strong_count_Regex => wire
-      .rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRegex;
-
-  RustArcIncrementStrongCountFnType
-  get rust_arc_increment_strong_count_SenderFlusterError => wire
-      .rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerSenderFlusterError;
-
-  RustArcDecrementStrongCountFnType
-  get rust_arc_decrement_strong_count_SenderFlusterError => wire
-      .rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerSenderFlusterError;
-
-  RustArcIncrementStrongCountFnType
-  get rust_arc_increment_strong_count_TagCreatable => wire
-      .rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerTagCreatable;
-
-  RustArcDecrementStrongCountFnType
-  get rust_arc_decrement_strong_count_TagCreatable => wire
-      .rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerTagCreatable;
-
-  RustArcIncrementStrongCountFnType
-  get rust_arc_increment_strong_count_Taggable => wire
-      .rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerTaggable;
-
-  RustArcDecrementStrongCountFnType
-  get rust_arc_decrement_strong_count_Taggable => wire
-      .rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerTaggable;
-
-  RustArcIncrementStrongCountFnType
-  get rust_arc_increment_strong_count_TaggableType => wire
-      .rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerTaggableType;
-
-  RustArcDecrementStrongCountFnType
-  get rust_arc_decrement_strong_count_TaggableType => wire
-      .rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerTaggableType;
+  RustArcDecrementStrongCountFnType get rust_arc_decrement_strong_count_Value =>
+      wire.rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerValue;
 
   @protected
   BibEntryEntity
@@ -2587,21 +2353,32 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
-  FileTime
-  dco_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFileTime(
-    dynamic raw,
-  ) {
-    // Codec=Dco (DartCObject based), see doc to use other codecs
-    return FileTimeImpl.frbInternalDcoDecode(raw as List<dynamic>);
-  }
-
-  @protected
   FlusterError
   dco_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFlusterError(
     dynamic raw,
   ) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
     return FlusterErrorImpl.frbInternalDcoDecode(raw as List<dynamic>);
+  }
+
+  @protected
+  FlusterResult
+  dco_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFlusterResult(
+    dynamic raw,
+  ) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return FlusterResultImpl.frbInternalDcoDecode(raw as List<dynamic>);
+  }
+
+  @protected
+  FlusterResultAsyncPgConnection
+  dco_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFlusterResultAsyncPgConnection(
+    dynamic raw,
+  ) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return FlusterResultAsyncPgConnectionImpl.frbInternalDcoDecode(
+      raw as List<dynamic>,
+    );
   }
 
   @protected
@@ -2616,66 +2393,34 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
-  FlusterTime
-  dco_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFlusterTime(
+  FlusterResultVecFrontMatterEntity
+  dco_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFlusterResultVecFrontMatterEntity(
     dynamic raw,
   ) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
-    return FlusterTimeImpl.frbInternalDcoDecode(raw as List<dynamic>);
+    return FlusterResultVecFrontMatterEntityImpl.frbInternalDcoDecode(
+      raw as List<dynamic>,
+    );
   }
 
   @protected
-  FrontMatter
-  dco_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFrontMatter(
+  FlusterResultVecMdxNoteEntity
+  dco_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFlusterResultVecMdxNoteEntity(
     dynamic raw,
   ) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
-    return FrontMatterImpl.frbInternalDcoDecode(raw as List<dynamic>);
+    return FlusterResultVecMdxNoteEntityImpl.frbInternalDcoDecode(
+      raw as List<dynamic>,
+    );
   }
 
   @protected
-  FrontMatterEntity
-  dco_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFrontMatterEntity(
+  PathBuf
+  dco_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerPathBuf(
     dynamic raw,
   ) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
-    return FrontMatterEntityImpl.frbInternalDcoDecode(raw as List<dynamic>);
-  }
-
-  @protected
-  MdxNoteCreatable
-  dco_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerMdxNoteCreatable(
-    dynamic raw,
-  ) {
-    // Codec=Dco (DartCObject based), see doc to use other codecs
-    return MdxNoteCreatableImpl.frbInternalDcoDecode(raw as List<dynamic>);
-  }
-
-  @protected
-  MdxNoteGroup
-  dco_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerMdxNoteGroup(
-    dynamic raw,
-  ) {
-    // Codec=Dco (DartCObject based), see doc to use other codecs
-    return MdxNoteGroupImpl.frbInternalDcoDecode(raw as List<dynamic>);
-  }
-
-  @protected
-  MdxNoteSummary
-  dco_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerMdxNoteSummary(
-    dynamic raw,
-  ) {
-    // Codec=Dco (DartCObject based), see doc to use other codecs
-    return MdxNoteSummaryImpl.frbInternalDcoDecode(raw as List<dynamic>);
-  }
-
-  @protected
-  OffsetDateTime
-  dco_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerOffsetDateTime(
-    dynamic raw,
-  ) {
-    // Codec=Dco (DartCObject based), see doc to use other codecs
-    return OffsetDateTimeImpl.frbInternalDcoDecode(raw as List<dynamic>);
+    return PathBufImpl.frbInternalDcoDecode(raw as List<dynamic>);
   }
 
   @protected
@@ -2706,30 +2451,30 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
-  TagCreatable
-  dco_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerTagCreatable(
+  Value
+  dco_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerValue(
     dynamic raw,
   ) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
-    return TagCreatableImpl.frbInternalDcoDecode(raw as List<dynamic>);
+    return ValueImpl.frbInternalDcoDecode(raw as List<dynamic>);
   }
 
   @protected
-  Taggable
-  dco_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerTaggable(
+  AsyncPgConnection
+  dco_decode_Auto_RefMut_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerAsyncPgConnection(
     dynamic raw,
   ) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
-    return TaggableImpl.frbInternalDcoDecode(raw as List<dynamic>);
+    return AsyncPgConnectionImpl.frbInternalDcoDecode(raw as List<dynamic>);
   }
 
   @protected
-  TaggableType
-  dco_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerTaggableType(
+  BibEntryEntity
+  dco_decode_Auto_RefMut_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerBibEntryEntity(
     dynamic raw,
   ) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
-    return TaggableTypeImpl.frbInternalDcoDecode(raw as List<dynamic>);
+    return BibEntryEntityImpl.frbInternalDcoDecode(raw as List<dynamic>);
   }
 
   @protected
@@ -2751,39 +2496,12 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
-  FlusterTime
-  dco_decode_Auto_RefMut_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFlusterTime(
+  BibEntryEntity
+  dco_decode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerBibEntryEntity(
     dynamic raw,
   ) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
-    return FlusterTimeImpl.frbInternalDcoDecode(raw as List<dynamic>);
-  }
-
-  @protected
-  FrontMatter
-  dco_decode_Auto_RefMut_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFrontMatter(
-    dynamic raw,
-  ) {
-    // Codec=Dco (DartCObject based), see doc to use other codecs
-    return FrontMatterImpl.frbInternalDcoDecode(raw as List<dynamic>);
-  }
-
-  @protected
-  MdxNoteGroup
-  dco_decode_Auto_RefMut_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerMdxNoteGroup(
-    dynamic raw,
-  ) {
-    // Codec=Dco (DartCObject based), see doc to use other codecs
-    return MdxNoteGroupImpl.frbInternalDcoDecode(raw as List<dynamic>);
-  }
-
-  @protected
-  Taggable
-  dco_decode_Auto_RefMut_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerTaggable(
-    dynamic raw,
-  ) {
-    // Codec=Dco (DartCObject based), see doc to use other codecs
-    return TaggableImpl.frbInternalDcoDecode(raw as List<dynamic>);
+    return BibEntryEntityImpl.frbInternalDcoDecode(raw as List<dynamic>);
   }
 
   @protected
@@ -2805,33 +2523,6 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
-  FlusterTime
-  dco_decode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFlusterTime(
-    dynamic raw,
-  ) {
-    // Codec=Dco (DartCObject based), see doc to use other codecs
-    return FlusterTimeImpl.frbInternalDcoDecode(raw as List<dynamic>);
-  }
-
-  @protected
-  FrontMatter
-  dco_decode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFrontMatter(
-    dynamic raw,
-  ) {
-    // Codec=Dco (DartCObject based), see doc to use other codecs
-    return FrontMatterImpl.frbInternalDcoDecode(raw as List<dynamic>);
-  }
-
-  @protected
-  MdxNoteGroup
-  dco_decode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerMdxNoteGroup(
-    dynamic raw,
-  ) {
-    // Codec=Dco (DartCObject based), see doc to use other codecs
-    return MdxNoteGroupImpl.frbInternalDcoDecode(raw as List<dynamic>);
-  }
-
-  @protected
   ParsedEntity
   dco_decode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerParsedEntity(
     dynamic raw,
@@ -2850,12 +2541,18 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
-  Taggable
-  dco_decode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerTaggable(
+  DateTime dco_decode_Chrono_Naive(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return dcoDecodeTimestamp(ts: dco_decode_i_64(raw).toInt(), isUtc: true);
+  }
+
+  @protected
+  AsyncPgConnection
+  dco_decode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerAsyncPgConnection(
     dynamic raw,
   ) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
-    return TaggableImpl.frbInternalDcoDecode(raw as List<dynamic>);
+    return AsyncPgConnectionImpl.frbInternalDcoDecode(raw as List<dynamic>);
   }
 
   @protected
@@ -2897,15 +2594,6 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
-  FileTime
-  dco_decode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFileTime(
-    dynamic raw,
-  ) {
-    // Codec=Dco (DartCObject based), see doc to use other codecs
-    return FileTimeImpl.frbInternalDcoDecode(raw as List<dynamic>);
-  }
-
-  @protected
   FlusterDb
   dco_decode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFlusterDb(
     dynamic raw,
@@ -2924,6 +2612,26 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
+  FlusterResult
+  dco_decode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFlusterResult(
+    dynamic raw,
+  ) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return FlusterResultImpl.frbInternalDcoDecode(raw as List<dynamic>);
+  }
+
+  @protected
+  FlusterResultAsyncPgConnection
+  dco_decode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFlusterResultAsyncPgConnection(
+    dynamic raw,
+  ) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return FlusterResultAsyncPgConnectionImpl.frbInternalDcoDecode(
+      raw as List<dynamic>,
+    );
+  }
+
+  @protected
   FlusterResultMdxNoteGroup
   dco_decode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFlusterResultMdxNoteGroup(
     dynamic raw,
@@ -2935,66 +2643,25 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
-  FlusterTime
-  dco_decode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFlusterTime(
+  FlusterResultVecFrontMatterEntity
+  dco_decode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFlusterResultVecFrontMatterEntity(
     dynamic raw,
   ) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
-    return FlusterTimeImpl.frbInternalDcoDecode(raw as List<dynamic>);
+    return FlusterResultVecFrontMatterEntityImpl.frbInternalDcoDecode(
+      raw as List<dynamic>,
+    );
   }
 
   @protected
-  FrontMatter
-  dco_decode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFrontMatter(
+  FlusterResultVecMdxNoteEntity
+  dco_decode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFlusterResultVecMdxNoteEntity(
     dynamic raw,
   ) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
-    return FrontMatterImpl.frbInternalDcoDecode(raw as List<dynamic>);
-  }
-
-  @protected
-  FrontMatterEntity
-  dco_decode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFrontMatterEntity(
-    dynamic raw,
-  ) {
-    // Codec=Dco (DartCObject based), see doc to use other codecs
-    return FrontMatterEntityImpl.frbInternalDcoDecode(raw as List<dynamic>);
-  }
-
-  @protected
-  MdxNoteCreatable
-  dco_decode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerMdxNoteCreatable(
-    dynamic raw,
-  ) {
-    // Codec=Dco (DartCObject based), see doc to use other codecs
-    return MdxNoteCreatableImpl.frbInternalDcoDecode(raw as List<dynamic>);
-  }
-
-  @protected
-  MdxNoteGroup
-  dco_decode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerMdxNoteGroup(
-    dynamic raw,
-  ) {
-    // Codec=Dco (DartCObject based), see doc to use other codecs
-    return MdxNoteGroupImpl.frbInternalDcoDecode(raw as List<dynamic>);
-  }
-
-  @protected
-  MdxNoteSummary
-  dco_decode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerMdxNoteSummary(
-    dynamic raw,
-  ) {
-    // Codec=Dco (DartCObject based), see doc to use other codecs
-    return MdxNoteSummaryImpl.frbInternalDcoDecode(raw as List<dynamic>);
-  }
-
-  @protected
-  OffsetDateTime
-  dco_decode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerOffsetDateTime(
-    dynamic raw,
-  ) {
-    // Codec=Dco (DartCObject based), see doc to use other codecs
-    return OffsetDateTimeImpl.frbInternalDcoDecode(raw as List<dynamic>);
+    return FlusterResultVecMdxNoteEntityImpl.frbInternalDcoDecode(
+      raw as List<dynamic>,
+    );
   }
 
   @protected
@@ -3004,6 +2671,15 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   ) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
     return ParsedEntityImpl.frbInternalDcoDecode(raw as List<dynamic>);
+  }
+
+  @protected
+  PathBuf
+  dco_decode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerPathBuf(
+    dynamic raw,
+  ) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return PathBufImpl.frbInternalDcoDecode(raw as List<dynamic>);
   }
 
   @protected
@@ -3043,30 +2719,12 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
-  TagCreatable
-  dco_decode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerTagCreatable(
+  Value
+  dco_decode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerValue(
     dynamic raw,
   ) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
-    return TagCreatableImpl.frbInternalDcoDecode(raw as List<dynamic>);
-  }
-
-  @protected
-  Taggable
-  dco_decode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerTaggable(
-    dynamic raw,
-  ) {
-    // Codec=Dco (DartCObject based), see doc to use other codecs
-    return TaggableImpl.frbInternalDcoDecode(raw as List<dynamic>);
-  }
-
-  @protected
-  TaggableType
-  dco_decode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerTaggableType(
-    dynamic raw,
-  ) {
-    // Codec=Dco (DartCObject based), see doc to use other codecs
-    return TaggableTypeImpl.frbInternalDcoDecode(raw as List<dynamic>);
+    return ValueImpl.frbInternalDcoDecode(raw as List<dynamic>);
   }
 
   @protected
@@ -3108,23 +2766,23 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
-  FileTime
-  dco_decode_box_autoadd_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFileTime(
+  FlusterError
+  dco_decode_box_autoadd_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFlusterError(
     dynamic raw,
   ) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
-    return dco_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFileTime(
+    return dco_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFlusterError(
       raw,
     );
   }
 
   @protected
-  FlusterTime
-  dco_decode_box_autoadd_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFlusterTime(
+  PathBuf
+  dco_decode_box_autoadd_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerPathBuf(
     dynamic raw,
   ) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
-    return dco_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFlusterTime(
+    return dco_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerPathBuf(
       raw,
     );
   }
@@ -3141,9 +2799,27 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
+  DateTime dco_decode_box_autoadd_Chrono_Naive(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return dco_decode_Chrono_Naive(raw);
+  }
+
+  @protected
   BibtexFile dco_decode_box_autoadd_bibtex_file(dynamic raw) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
     return dco_decode_bibtex_file(raw);
+  }
+
+  @protected
+  int dco_decode_box_autoadd_i_32(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return raw as int;
+  }
+
+  @protected
+  MdxNoteCreatable dco_decode_box_autoadd_mdx_note_creatable(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return dco_decode_mdx_note_creatable(raw);
   }
 
   @protected
@@ -3151,6 +2827,12 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   dco_decode_box_autoadd_sync_filesystem_directory_options(dynamic raw) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
     return dco_decode_sync_filesystem_directory_options(raw);
+  }
+
+  @protected
+  TagEntity dco_decode_box_autoadd_tag_entity(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return dco_decode_tag_entity(raw);
   }
 
   @protected
@@ -3166,21 +2848,50 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
-  double dco_decode_f_64(dynamic raw) {
-    // Codec=Dco (DartCObject based), see doc to use other codecs
-    return raw as double;
-  }
-
-  @protected
   FlusterDatabaseStatus dco_decode_fluster_database_status(dynamic raw) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
     return FlusterDatabaseStatus.values[raw as int];
   }
 
   @protected
+  FrontMatter dco_decode_front_matter(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    final arr = raw as List<dynamic>;
+    if (arr.length != 4)
+      throw Exception('unexpected arr length: expect 4 but see ${arr.length}');
+    return FrontMatter(
+      data: dco_decode_front_matter_entity(arr[0]),
+      tags: dco_decode_list_tag_creatable(arr[1]),
+      subjects: dco_decode_list_tag_creatable(arr[2]),
+      topics: dco_decode_list_tag_creatable(arr[3]),
+    );
+  }
+
+  @protected
+  FrontMatterEntity dco_decode_front_matter_entity(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    final arr = raw as List<dynamic>;
+    if (arr.length != 5)
+      throw Exception('unexpected arr length: expect 5 but see ${arr.length}');
+    return FrontMatterEntity(
+      id: dco_decode_i_32(arr[0]),
+      title: dco_decode_String(arr[1]),
+      summary: dco_decode_opt_String(arr[2]),
+      mdxNoteId: dco_decode_i_32(arr[3]),
+      userProvidedId: dco_decode_opt_String(arr[4]),
+    );
+  }
+
+  @protected
   int dco_decode_i_32(dynamic raw) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
     return raw as int;
+  }
+
+  @protected
+  PlatformInt64 dco_decode_i_64(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return dcoDecodeI64(raw);
   }
 
   @protected
@@ -3216,42 +2927,15 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
-  List<MdxNoteSummary>
-  dco_decode_list_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerMdxNoteSummary(
-    dynamic raw,
-  ) {
+  List<MdxNoteCreatable> dco_decode_list_mdx_note_creatable(dynamic raw) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
-    return (raw as List<dynamic>)
-        .map(
-          dco_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerMdxNoteSummary,
-        )
-        .toList();
+    return (raw as List<dynamic>).map(dco_decode_mdx_note_creatable).toList();
   }
 
   @protected
-  List<TagCreatable>
-  dco_decode_list_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerTagCreatable(
-    dynamic raw,
-  ) {
+  List<MdxNoteSummary> dco_decode_list_mdx_note_summary(dynamic raw) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
-    return (raw as List<dynamic>)
-        .map(
-          dco_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerTagCreatable,
-        )
-        .toList();
-  }
-
-  @protected
-  List<Taggable>
-  dco_decode_list_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerTaggable(
-    dynamic raw,
-  ) {
-    // Codec=Dco (DartCObject based), see doc to use other codecs
-    return (raw as List<dynamic>)
-        .map(
-          dco_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerTaggable,
-        )
-        .toList();
+    return (raw as List<dynamic>).map(dco_decode_mdx_note_summary).toList();
   }
 
   @protected
@@ -3261,9 +2945,62 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
+  List<TagCreatable> dco_decode_list_tag_creatable(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return (raw as List<dynamic>).map(dco_decode_tag_creatable).toList();
+  }
+
+  @protected
+  List<Taggable> dco_decode_list_taggable(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return (raw as List<dynamic>).map(dco_decode_taggable).toList();
+  }
+
+  @protected
   MathLabelOption dco_decode_math_label_option(dynamic raw) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
     return MathLabelOption.values[raw as int];
+  }
+
+  @protected
+  MdxNoteCreatable dco_decode_mdx_note_creatable(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    final arr = raw as List<dynamic>;
+    if (arr.length != 5)
+      throw Exception('unexpected arr length: expect 5 but see ${arr.length}');
+    return MdxNoteCreatable(
+      id: dco_decode_opt_box_autoadd_i_32(arr[0]),
+      filePath: dco_decode_opt_String(arr[1]),
+      rawBody: dco_decode_String(arr[2]),
+      ctime: dco_decode_opt_box_autoadd_Chrono_Naive(arr[3]),
+      mtime: dco_decode_opt_box_autoadd_Chrono_Naive(arr[4]),
+    );
+  }
+
+  @protected
+  MdxNoteGroup dco_decode_mdx_note_group(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    final arr = raw as List<dynamic>;
+    if (arr.length != 3)
+      throw Exception('unexpected arr length: expect 3 but see ${arr.length}');
+    return MdxNoteGroup(
+      mdx: dco_decode_mdx_note_creatable(arr[0]),
+      frontMatter: dco_decode_front_matter(arr[1]),
+      tags: dco_decode_list_taggable(arr[2]),
+    );
+  }
+
+  @protected
+  MdxNoteSummary dco_decode_mdx_note_summary(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    final arr = raw as List<dynamic>;
+    if (arr.length != 3)
+      throw Exception('unexpected arr length: expect 3 but see ${arr.length}');
+    return MdxNoteSummary(
+      id: dco_decode_i_32(arr[0]),
+      filePath: dco_decode_opt_String(arr[1]),
+      rawBody: dco_decode_String(arr[2]),
+    );
   }
 
   @protected
@@ -3287,34 +3024,34 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
     return raw == null
         ? null
         : dco_decode_box_autoadd_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerEmbeddedFile(
-            raw,
-          );
+          raw,
+        );
   }
 
   @protected
-  FileTime?
-  dco_decode_opt_box_autoadd_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFileTime(
+  FlusterError?
+  dco_decode_opt_box_autoadd_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFlusterError(
     dynamic raw,
   ) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
     return raw == null
         ? null
-        : dco_decode_box_autoadd_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFileTime(
-            raw,
-          );
+        : dco_decode_box_autoadd_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFlusterError(
+          raw,
+        );
   }
 
   @protected
-  FlusterTime?
-  dco_decode_opt_box_autoadd_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFlusterTime(
+  PathBuf?
+  dco_decode_opt_box_autoadd_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerPathBuf(
     dynamic raw,
   ) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
     return raw == null
         ? null
-        : dco_decode_box_autoadd_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFlusterTime(
-            raw,
-          );
+        : dco_decode_box_autoadd_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerPathBuf(
+          raw,
+        );
   }
 
   @protected
@@ -3326,8 +3063,20 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
     return raw == null
         ? null
         : dco_decode_box_autoadd_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerPod(
-            raw,
-          );
+          raw,
+        );
+  }
+
+  @protected
+  DateTime? dco_decode_opt_box_autoadd_Chrono_Naive(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return raw == null ? null : dco_decode_box_autoadd_Chrono_Naive(raw);
+  }
+
+  @protected
+  int? dco_decode_opt_box_autoadd_i_32(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return raw == null ? null : dco_decode_box_autoadd_i_32(raw);
   }
 
   @protected
@@ -3339,14 +3088,29 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
     return raw == null
         ? null
         : dco_decode_list_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFlusterError(
-            raw,
-          );
+          raw,
+        );
   }
 
   @protected
   SettingPageId dco_decode_setting_page_id(dynamic raw) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
     return SettingPageId.values[raw as int];
+  }
+
+  @protected
+  Snippet dco_decode_snippet(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    final arr = raw as List<dynamic>;
+    if (arr.length != 5)
+      throw Exception('unexpected arr length: expect 5 but see ${arr.length}');
+    return Snippet(
+      id: dco_decode_i_32(arr[0]),
+      label: dco_decode_String(arr[1]),
+      desc: dco_decode_String(arr[2]),
+      lang: dco_decode_String(arr[3]),
+      body: dco_decode_String(arr[4]),
+    );
   }
 
   @protected
@@ -3368,11 +3132,14 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
     if (arr.length != 1)
       throw Exception('unexpected arr length: expect 1 but see ${arr.length}');
     return SummaryListResults(
-      mdxNotes:
-          dco_decode_list_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerMdxNoteSummary(
-            arr[0],
-          ),
+      mdxNotes: dco_decode_list_mdx_note_summary(arr[0]),
     );
+  }
+
+  @protected
+  SupportedSyntaxLanguage dco_decode_supported_syntax_language(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return SupportedSyntaxLanguage.values[raw as int];
   }
 
   @protected
@@ -3391,17 +3158,84 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
+  TagCreatable dco_decode_tag_creatable(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    final arr = raw as List<dynamic>;
+    if (arr.length != 3)
+      throw Exception('unexpected arr length: expect 3 but see ${arr.length}');
+    return TagCreatable(
+      id: dco_decode_opt_box_autoadd_i_32(arr[0]),
+      value: dco_decode_String(arr[1]),
+      tagType: dco_decode_String(arr[2]),
+    );
+  }
+
+  @protected
+  TagEntity dco_decode_tag_entity(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    final arr = raw as List<dynamic>;
+    if (arr.length != 3)
+      throw Exception('unexpected arr length: expect 3 but see ${arr.length}');
+    return TagEntity(
+      id: dco_decode_i_32(arr[0]),
+      value: dco_decode_String(arr[1]),
+      tagType: dco_decode_String(arr[2]),
+    );
+  }
+
+  @protected
   TagFromContentResult dco_decode_tag_from_content_result(dynamic raw) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
     final arr = raw as List<dynamic>;
     if (arr.length != 2)
       throw Exception('unexpected arr length: expect 2 but see ${arr.length}');
     return TagFromContentResult(
-      tags:
-          dco_decode_list_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerTaggable(
-            arr[0],
-          ),
+      tags: dco_decode_list_taggable(arr[0]),
       parsedContent: dco_decode_String(arr[1]),
+    );
+  }
+
+  @protected
+  Taggable dco_decode_taggable(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    final arr = raw as List<dynamic>;
+    if (arr.length != 2)
+      throw Exception('unexpected arr length: expect 2 but see ${arr.length}');
+    return Taggable(
+      value: dco_decode_String(arr[0]),
+      tagType: dco_decode_taggable_type_enum(arr[1]),
+    );
+  }
+
+  @protected
+  TaggableTypeEnum dco_decode_taggable_type_enum(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return TaggableTypeEnum.values[raw as int];
+  }
+
+  @protected
+  TaggableWithFrontMatterJoin dco_decode_taggable_with_front_matter_join(
+    dynamic raw,
+  ) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    final arr = raw as List<dynamic>;
+    if (arr.length != 2)
+      throw Exception('unexpected arr length: expect 2 but see ${arr.length}');
+    return TaggableWithFrontMatterJoin(
+      tagId: dco_decode_i_32(arr[0]),
+      frontMatterId: dco_decode_i_32(arr[1]),
+    );
+  }
+
+  @protected
+  TaggableWithMdxNoteJoin dco_decode_taggable_with_mdx_note_join(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    final arr = raw as List<dynamic>;
+    if (arr.length != 2)
+      throw Exception('unexpected arr length: expect 2 but see ${arr.length}');
+    return TaggableWithMdxNoteJoin(
+      tagId: dco_decode_i_32(arr[0]),
+      mdxNoteId: dco_decode_i_32(arr[1]),
     );
   }
 
@@ -3484,24 +3318,36 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
-  FileTime
-  sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFileTime(
-    SseDeserializer deserializer,
-  ) {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    return FileTimeImpl.frbInternalSseDecode(
-      sse_decode_usize(deserializer),
-      sse_decode_i_32(deserializer),
-    );
-  }
-
-  @protected
   FlusterError
   sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFlusterError(
     SseDeserializer deserializer,
   ) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     return FlusterErrorImpl.frbInternalSseDecode(
+      sse_decode_usize(deserializer),
+      sse_decode_i_32(deserializer),
+    );
+  }
+
+  @protected
+  FlusterResult
+  sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFlusterResult(
+    SseDeserializer deserializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    return FlusterResultImpl.frbInternalSseDecode(
+      sse_decode_usize(deserializer),
+      sse_decode_i_32(deserializer),
+    );
+  }
+
+  @protected
+  FlusterResultAsyncPgConnection
+  sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFlusterResultAsyncPgConnection(
+    SseDeserializer deserializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    return FlusterResultAsyncPgConnectionImpl.frbInternalSseDecode(
       sse_decode_usize(deserializer),
       sse_decode_i_32(deserializer),
     );
@@ -3520,84 +3366,36 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
-  FlusterTime
-  sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFlusterTime(
+  FlusterResultVecFrontMatterEntity
+  sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFlusterResultVecFrontMatterEntity(
     SseDeserializer deserializer,
   ) {
     // Codec=Sse (Serialization based), see doc to use other codecs
-    return FlusterTimeImpl.frbInternalSseDecode(
+    return FlusterResultVecFrontMatterEntityImpl.frbInternalSseDecode(
       sse_decode_usize(deserializer),
       sse_decode_i_32(deserializer),
     );
   }
 
   @protected
-  FrontMatter
-  sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFrontMatter(
+  FlusterResultVecMdxNoteEntity
+  sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFlusterResultVecMdxNoteEntity(
     SseDeserializer deserializer,
   ) {
     // Codec=Sse (Serialization based), see doc to use other codecs
-    return FrontMatterImpl.frbInternalSseDecode(
+    return FlusterResultVecMdxNoteEntityImpl.frbInternalSseDecode(
       sse_decode_usize(deserializer),
       sse_decode_i_32(deserializer),
     );
   }
 
   @protected
-  FrontMatterEntity
-  sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFrontMatterEntity(
+  PathBuf
+  sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerPathBuf(
     SseDeserializer deserializer,
   ) {
     // Codec=Sse (Serialization based), see doc to use other codecs
-    return FrontMatterEntityImpl.frbInternalSseDecode(
-      sse_decode_usize(deserializer),
-      sse_decode_i_32(deserializer),
-    );
-  }
-
-  @protected
-  MdxNoteCreatable
-  sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerMdxNoteCreatable(
-    SseDeserializer deserializer,
-  ) {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    return MdxNoteCreatableImpl.frbInternalSseDecode(
-      sse_decode_usize(deserializer),
-      sse_decode_i_32(deserializer),
-    );
-  }
-
-  @protected
-  MdxNoteGroup
-  sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerMdxNoteGroup(
-    SseDeserializer deserializer,
-  ) {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    return MdxNoteGroupImpl.frbInternalSseDecode(
-      sse_decode_usize(deserializer),
-      sse_decode_i_32(deserializer),
-    );
-  }
-
-  @protected
-  MdxNoteSummary
-  sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerMdxNoteSummary(
-    SseDeserializer deserializer,
-  ) {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    return MdxNoteSummaryImpl.frbInternalSseDecode(
-      sse_decode_usize(deserializer),
-      sse_decode_i_32(deserializer),
-    );
-  }
-
-  @protected
-  OffsetDateTime
-  sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerOffsetDateTime(
-    SseDeserializer deserializer,
-  ) {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    return OffsetDateTimeImpl.frbInternalSseDecode(
+    return PathBufImpl.frbInternalSseDecode(
       sse_decode_usize(deserializer),
       sse_decode_i_32(deserializer),
     );
@@ -3640,36 +3438,36 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
-  TagCreatable
-  sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerTagCreatable(
+  Value
+  sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerValue(
     SseDeserializer deserializer,
   ) {
     // Codec=Sse (Serialization based), see doc to use other codecs
-    return TagCreatableImpl.frbInternalSseDecode(
+    return ValueImpl.frbInternalSseDecode(
       sse_decode_usize(deserializer),
       sse_decode_i_32(deserializer),
     );
   }
 
   @protected
-  Taggable
-  sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerTaggable(
+  AsyncPgConnection
+  sse_decode_Auto_RefMut_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerAsyncPgConnection(
     SseDeserializer deserializer,
   ) {
     // Codec=Sse (Serialization based), see doc to use other codecs
-    return TaggableImpl.frbInternalSseDecode(
+    return AsyncPgConnectionImpl.frbInternalSseDecode(
       sse_decode_usize(deserializer),
       sse_decode_i_32(deserializer),
     );
   }
 
   @protected
-  TaggableType
-  sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerTaggableType(
+  BibEntryEntity
+  sse_decode_Auto_RefMut_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerBibEntryEntity(
     SseDeserializer deserializer,
   ) {
     // Codec=Sse (Serialization based), see doc to use other codecs
-    return TaggableTypeImpl.frbInternalSseDecode(
+    return BibEntryEntityImpl.frbInternalSseDecode(
       sse_decode_usize(deserializer),
       sse_decode_i_32(deserializer),
     );
@@ -3700,48 +3498,12 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
-  FlusterTime
-  sse_decode_Auto_RefMut_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFlusterTime(
+  BibEntryEntity
+  sse_decode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerBibEntryEntity(
     SseDeserializer deserializer,
   ) {
     // Codec=Sse (Serialization based), see doc to use other codecs
-    return FlusterTimeImpl.frbInternalSseDecode(
-      sse_decode_usize(deserializer),
-      sse_decode_i_32(deserializer),
-    );
-  }
-
-  @protected
-  FrontMatter
-  sse_decode_Auto_RefMut_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFrontMatter(
-    SseDeserializer deserializer,
-  ) {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    return FrontMatterImpl.frbInternalSseDecode(
-      sse_decode_usize(deserializer),
-      sse_decode_i_32(deserializer),
-    );
-  }
-
-  @protected
-  MdxNoteGroup
-  sse_decode_Auto_RefMut_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerMdxNoteGroup(
-    SseDeserializer deserializer,
-  ) {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    return MdxNoteGroupImpl.frbInternalSseDecode(
-      sse_decode_usize(deserializer),
-      sse_decode_i_32(deserializer),
-    );
-  }
-
-  @protected
-  Taggable
-  sse_decode_Auto_RefMut_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerTaggable(
-    SseDeserializer deserializer,
-  ) {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    return TaggableImpl.frbInternalSseDecode(
+    return BibEntryEntityImpl.frbInternalSseDecode(
       sse_decode_usize(deserializer),
       sse_decode_i_32(deserializer),
     );
@@ -3772,42 +3534,6 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
-  FlusterTime
-  sse_decode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFlusterTime(
-    SseDeserializer deserializer,
-  ) {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    return FlusterTimeImpl.frbInternalSseDecode(
-      sse_decode_usize(deserializer),
-      sse_decode_i_32(deserializer),
-    );
-  }
-
-  @protected
-  FrontMatter
-  sse_decode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFrontMatter(
-    SseDeserializer deserializer,
-  ) {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    return FrontMatterImpl.frbInternalSseDecode(
-      sse_decode_usize(deserializer),
-      sse_decode_i_32(deserializer),
-    );
-  }
-
-  @protected
-  MdxNoteGroup
-  sse_decode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerMdxNoteGroup(
-    SseDeserializer deserializer,
-  ) {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    return MdxNoteGroupImpl.frbInternalSseDecode(
-      sse_decode_usize(deserializer),
-      sse_decode_i_32(deserializer),
-    );
-  }
-
-  @protected
   ParsedEntity
   sse_decode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerParsedEntity(
     SseDeserializer deserializer,
@@ -3832,12 +3558,19 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
-  Taggable
-  sse_decode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerTaggable(
+  DateTime sse_decode_Chrono_Naive(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    var inner = sse_decode_i_64(deserializer);
+    return DateTime.fromMicrosecondsSinceEpoch(inner.toInt(), isUtc: true);
+  }
+
+  @protected
+  AsyncPgConnection
+  sse_decode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerAsyncPgConnection(
     SseDeserializer deserializer,
   ) {
     // Codec=Sse (Serialization based), see doc to use other codecs
-    return TaggableImpl.frbInternalSseDecode(
+    return AsyncPgConnectionImpl.frbInternalSseDecode(
       sse_decode_usize(deserializer),
       sse_decode_i_32(deserializer),
     );
@@ -3892,18 +3625,6 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
-  FileTime
-  sse_decode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFileTime(
-    SseDeserializer deserializer,
-  ) {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    return FileTimeImpl.frbInternalSseDecode(
-      sse_decode_usize(deserializer),
-      sse_decode_i_32(deserializer),
-    );
-  }
-
-  @protected
   FlusterDb
   sse_decode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFlusterDb(
     SseDeserializer deserializer,
@@ -3928,6 +3649,30 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
+  FlusterResult
+  sse_decode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFlusterResult(
+    SseDeserializer deserializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    return FlusterResultImpl.frbInternalSseDecode(
+      sse_decode_usize(deserializer),
+      sse_decode_i_32(deserializer),
+    );
+  }
+
+  @protected
+  FlusterResultAsyncPgConnection
+  sse_decode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFlusterResultAsyncPgConnection(
+    SseDeserializer deserializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    return FlusterResultAsyncPgConnectionImpl.frbInternalSseDecode(
+      sse_decode_usize(deserializer),
+      sse_decode_i_32(deserializer),
+    );
+  }
+
+  @protected
   FlusterResultMdxNoteGroup
   sse_decode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFlusterResultMdxNoteGroup(
     SseDeserializer deserializer,
@@ -3940,84 +3685,24 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
-  FlusterTime
-  sse_decode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFlusterTime(
+  FlusterResultVecFrontMatterEntity
+  sse_decode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFlusterResultVecFrontMatterEntity(
     SseDeserializer deserializer,
   ) {
     // Codec=Sse (Serialization based), see doc to use other codecs
-    return FlusterTimeImpl.frbInternalSseDecode(
+    return FlusterResultVecFrontMatterEntityImpl.frbInternalSseDecode(
       sse_decode_usize(deserializer),
       sse_decode_i_32(deserializer),
     );
   }
 
   @protected
-  FrontMatter
-  sse_decode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFrontMatter(
+  FlusterResultVecMdxNoteEntity
+  sse_decode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFlusterResultVecMdxNoteEntity(
     SseDeserializer deserializer,
   ) {
     // Codec=Sse (Serialization based), see doc to use other codecs
-    return FrontMatterImpl.frbInternalSseDecode(
-      sse_decode_usize(deserializer),
-      sse_decode_i_32(deserializer),
-    );
-  }
-
-  @protected
-  FrontMatterEntity
-  sse_decode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFrontMatterEntity(
-    SseDeserializer deserializer,
-  ) {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    return FrontMatterEntityImpl.frbInternalSseDecode(
-      sse_decode_usize(deserializer),
-      sse_decode_i_32(deserializer),
-    );
-  }
-
-  @protected
-  MdxNoteCreatable
-  sse_decode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerMdxNoteCreatable(
-    SseDeserializer deserializer,
-  ) {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    return MdxNoteCreatableImpl.frbInternalSseDecode(
-      sse_decode_usize(deserializer),
-      sse_decode_i_32(deserializer),
-    );
-  }
-
-  @protected
-  MdxNoteGroup
-  sse_decode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerMdxNoteGroup(
-    SseDeserializer deserializer,
-  ) {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    return MdxNoteGroupImpl.frbInternalSseDecode(
-      sse_decode_usize(deserializer),
-      sse_decode_i_32(deserializer),
-    );
-  }
-
-  @protected
-  MdxNoteSummary
-  sse_decode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerMdxNoteSummary(
-    SseDeserializer deserializer,
-  ) {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    return MdxNoteSummaryImpl.frbInternalSseDecode(
-      sse_decode_usize(deserializer),
-      sse_decode_i_32(deserializer),
-    );
-  }
-
-  @protected
-  OffsetDateTime
-  sse_decode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerOffsetDateTime(
-    SseDeserializer deserializer,
-  ) {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    return OffsetDateTimeImpl.frbInternalSseDecode(
+    return FlusterResultVecMdxNoteEntityImpl.frbInternalSseDecode(
       sse_decode_usize(deserializer),
       sse_decode_i_32(deserializer),
     );
@@ -4030,6 +3715,18 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   ) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     return ParsedEntityImpl.frbInternalSseDecode(
+      sse_decode_usize(deserializer),
+      sse_decode_i_32(deserializer),
+    );
+  }
+
+  @protected
+  PathBuf
+  sse_decode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerPathBuf(
+    SseDeserializer deserializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    return PathBufImpl.frbInternalSseDecode(
       sse_decode_usize(deserializer),
       sse_decode_i_32(deserializer),
     );
@@ -4084,36 +3781,12 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
-  TagCreatable
-  sse_decode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerTagCreatable(
+  Value
+  sse_decode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerValue(
     SseDeserializer deserializer,
   ) {
     // Codec=Sse (Serialization based), see doc to use other codecs
-    return TagCreatableImpl.frbInternalSseDecode(
-      sse_decode_usize(deserializer),
-      sse_decode_i_32(deserializer),
-    );
-  }
-
-  @protected
-  Taggable
-  sse_decode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerTaggable(
-    SseDeserializer deserializer,
-  ) {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    return TaggableImpl.frbInternalSseDecode(
-      sse_decode_usize(deserializer),
-      sse_decode_i_32(deserializer),
-    );
-  }
-
-  @protected
-  TaggableType
-  sse_decode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerTaggableType(
-    SseDeserializer deserializer,
-  ) {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    return TaggableTypeImpl.frbInternalSseDecode(
+    return ValueImpl.frbInternalSseDecode(
       sse_decode_usize(deserializer),
       sse_decode_i_32(deserializer),
     );
@@ -4155,23 +3828,23 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
-  FileTime
-  sse_decode_box_autoadd_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFileTime(
+  FlusterError
+  sse_decode_box_autoadd_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFlusterError(
     SseDeserializer deserializer,
   ) {
     // Codec=Sse (Serialization based), see doc to use other codecs
-    return (sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFileTime(
+    return (sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFlusterError(
       deserializer,
     ));
   }
 
   @protected
-  FlusterTime
-  sse_decode_box_autoadd_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFlusterTime(
+  PathBuf
+  sse_decode_box_autoadd_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerPathBuf(
     SseDeserializer deserializer,
   ) {
     // Codec=Sse (Serialization based), see doc to use other codecs
-    return (sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFlusterTime(
+    return (sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerPathBuf(
       deserializer,
     ));
   }
@@ -4188,9 +3861,29 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
+  DateTime sse_decode_box_autoadd_Chrono_Naive(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    return (sse_decode_Chrono_Naive(deserializer));
+  }
+
+  @protected
   BibtexFile sse_decode_box_autoadd_bibtex_file(SseDeserializer deserializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     return (sse_decode_bibtex_file(deserializer));
+  }
+
+  @protected
+  int sse_decode_box_autoadd_i_32(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    return (sse_decode_i_32(deserializer));
+  }
+
+  @protected
+  MdxNoteCreatable sse_decode_box_autoadd_mdx_note_creatable(
+    SseDeserializer deserializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    return (sse_decode_mdx_note_creatable(deserializer));
   }
 
   @protected
@@ -4200,6 +3893,12 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   ) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     return (sse_decode_sync_filesystem_directory_options(deserializer));
+  }
+
+  @protected
+  TagEntity sse_decode_box_autoadd_tag_entity(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    return (sse_decode_tag_entity(deserializer));
   }
 
   @protected
@@ -4213,12 +3912,6 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
-  double sse_decode_f_64(SseDeserializer deserializer) {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    return deserializer.buffer.getFloat64();
-  }
-
-  @protected
   FlusterDatabaseStatus sse_decode_fluster_database_status(
     SseDeserializer deserializer,
   ) {
@@ -4228,9 +3921,49 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
+  FrontMatter sse_decode_front_matter(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    var var_data = sse_decode_front_matter_entity(deserializer);
+    var var_tags = sse_decode_list_tag_creatable(deserializer);
+    var var_subjects = sse_decode_list_tag_creatable(deserializer);
+    var var_topics = sse_decode_list_tag_creatable(deserializer);
+    return FrontMatter(
+      data: var_data,
+      tags: var_tags,
+      subjects: var_subjects,
+      topics: var_topics,
+    );
+  }
+
+  @protected
+  FrontMatterEntity sse_decode_front_matter_entity(
+    SseDeserializer deserializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    var var_id = sse_decode_i_32(deserializer);
+    var var_title = sse_decode_String(deserializer);
+    var var_summary = sse_decode_opt_String(deserializer);
+    var var_mdxNoteId = sse_decode_i_32(deserializer);
+    var var_userProvidedId = sse_decode_opt_String(deserializer);
+    return FrontMatterEntity(
+      id: var_id,
+      title: var_title,
+      summary: var_summary,
+      mdxNoteId: var_mdxNoteId,
+      userProvidedId: var_userProvidedId,
+    );
+  }
+
+  @protected
   int sse_decode_i_32(SseDeserializer deserializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     return deserializer.buffer.getInt32();
+  }
+
+  @protected
+  PlatformInt64 sse_decode_i_64(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    return deserializer.buffer.getPlatformInt64();
   }
 
   @protected
@@ -4279,8 +4012,21 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
-  List<MdxNoteSummary>
-  sse_decode_list_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerMdxNoteSummary(
+  List<MdxNoteCreatable> sse_decode_list_mdx_note_creatable(
+    SseDeserializer deserializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+
+    var len_ = sse_decode_i_32(deserializer);
+    var ans_ = <MdxNoteCreatable>[];
+    for (var idx_ = 0; idx_ < len_; ++idx_) {
+      ans_.add(sse_decode_mdx_note_creatable(deserializer));
+    }
+    return ans_;
+  }
+
+  @protected
+  List<MdxNoteSummary> sse_decode_list_mdx_note_summary(
     SseDeserializer deserializer,
   ) {
     // Codec=Sse (Serialization based), see doc to use other codecs
@@ -4288,49 +4034,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
     var len_ = sse_decode_i_32(deserializer);
     var ans_ = <MdxNoteSummary>[];
     for (var idx_ = 0; idx_ < len_; ++idx_) {
-      ans_.add(
-        sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerMdxNoteSummary(
-          deserializer,
-        ),
-      );
-    }
-    return ans_;
-  }
-
-  @protected
-  List<TagCreatable>
-  sse_decode_list_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerTagCreatable(
-    SseDeserializer deserializer,
-  ) {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-
-    var len_ = sse_decode_i_32(deserializer);
-    var ans_ = <TagCreatable>[];
-    for (var idx_ = 0; idx_ < len_; ++idx_) {
-      ans_.add(
-        sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerTagCreatable(
-          deserializer,
-        ),
-      );
-    }
-    return ans_;
-  }
-
-  @protected
-  List<Taggable>
-  sse_decode_list_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerTaggable(
-    SseDeserializer deserializer,
-  ) {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-
-    var len_ = sse_decode_i_32(deserializer);
-    var ans_ = <Taggable>[];
-    for (var idx_ = 0; idx_ < len_; ++idx_) {
-      ans_.add(
-        sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerTaggable(
-          deserializer,
-        ),
-      );
+      ans_.add(sse_decode_mdx_note_summary(deserializer));
     }
     return ans_;
   }
@@ -4343,10 +4047,79 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
+  List<TagCreatable> sse_decode_list_tag_creatable(
+    SseDeserializer deserializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+
+    var len_ = sse_decode_i_32(deserializer);
+    var ans_ = <TagCreatable>[];
+    for (var idx_ = 0; idx_ < len_; ++idx_) {
+      ans_.add(sse_decode_tag_creatable(deserializer));
+    }
+    return ans_;
+  }
+
+  @protected
+  List<Taggable> sse_decode_list_taggable(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+
+    var len_ = sse_decode_i_32(deserializer);
+    var ans_ = <Taggable>[];
+    for (var idx_ = 0; idx_ < len_; ++idx_) {
+      ans_.add(sse_decode_taggable(deserializer));
+    }
+    return ans_;
+  }
+
+  @protected
   MathLabelOption sse_decode_math_label_option(SseDeserializer deserializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     var inner = sse_decode_i_32(deserializer);
     return MathLabelOption.values[inner];
+  }
+
+  @protected
+  MdxNoteCreatable sse_decode_mdx_note_creatable(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    var var_id = sse_decode_opt_box_autoadd_i_32(deserializer);
+    var var_filePath = sse_decode_opt_String(deserializer);
+    var var_rawBody = sse_decode_String(deserializer);
+    var var_ctime = sse_decode_opt_box_autoadd_Chrono_Naive(deserializer);
+    var var_mtime = sse_decode_opt_box_autoadd_Chrono_Naive(deserializer);
+    return MdxNoteCreatable(
+      id: var_id,
+      filePath: var_filePath,
+      rawBody: var_rawBody,
+      ctime: var_ctime,
+      mtime: var_mtime,
+    );
+  }
+
+  @protected
+  MdxNoteGroup sse_decode_mdx_note_group(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    var var_mdx = sse_decode_mdx_note_creatable(deserializer);
+    var var_frontMatter = sse_decode_front_matter(deserializer);
+    var var_tags = sse_decode_list_taggable(deserializer);
+    return MdxNoteGroup(
+      mdx: var_mdx,
+      frontMatter: var_frontMatter,
+      tags: var_tags,
+    );
+  }
+
+  @protected
+  MdxNoteSummary sse_decode_mdx_note_summary(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    var var_id = sse_decode_i_32(deserializer);
+    var var_filePath = sse_decode_opt_String(deserializer);
+    var var_rawBody = sse_decode_String(deserializer);
+    return MdxNoteSummary(
+      id: var_id,
+      filePath: var_filePath,
+      rawBody: var_rawBody,
+    );
   }
 
   @protected
@@ -4384,14 +4157,14 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
-  FileTime?
-  sse_decode_opt_box_autoadd_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFileTime(
+  FlusterError?
+  sse_decode_opt_box_autoadd_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFlusterError(
     SseDeserializer deserializer,
   ) {
     // Codec=Sse (Serialization based), see doc to use other codecs
 
     if (sse_decode_bool(deserializer)) {
-      return (sse_decode_box_autoadd_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFileTime(
+      return (sse_decode_box_autoadd_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFlusterError(
         deserializer,
       ));
     } else {
@@ -4400,14 +4173,14 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
-  FlusterTime?
-  sse_decode_opt_box_autoadd_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFlusterTime(
+  PathBuf?
+  sse_decode_opt_box_autoadd_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerPathBuf(
     SseDeserializer deserializer,
   ) {
     // Codec=Sse (Serialization based), see doc to use other codecs
 
     if (sse_decode_bool(deserializer)) {
-      return (sse_decode_box_autoadd_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFlusterTime(
+      return (sse_decode_box_autoadd_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerPathBuf(
         deserializer,
       ));
     } else {
@@ -4426,6 +4199,30 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
       return (sse_decode_box_autoadd_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerPod(
         deserializer,
       ));
+    } else {
+      return null;
+    }
+  }
+
+  @protected
+  DateTime? sse_decode_opt_box_autoadd_Chrono_Naive(
+    SseDeserializer deserializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+
+    if (sse_decode_bool(deserializer)) {
+      return (sse_decode_box_autoadd_Chrono_Naive(deserializer));
+    } else {
+      return null;
+    }
+  }
+
+  @protected
+  int? sse_decode_opt_box_autoadd_i_32(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+
+    if (sse_decode_bool(deserializer)) {
+      return (sse_decode_box_autoadd_i_32(deserializer));
     } else {
       return null;
     }
@@ -4455,6 +4252,23 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
+  Snippet sse_decode_snippet(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    var var_id = sse_decode_i_32(deserializer);
+    var var_label = sse_decode_String(deserializer);
+    var var_desc = sse_decode_String(deserializer);
+    var var_lang = sse_decode_String(deserializer);
+    var var_body = sse_decode_String(deserializer);
+    return Snippet(
+      id: var_id,
+      label: var_label,
+      desc: var_desc,
+      lang: var_lang,
+      body: var_body,
+    );
+  }
+
+  @protected
   SummaryListQuery sse_decode_summary_list_query(SseDeserializer deserializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     var var_mdxPerPage = sse_decode_u_16(deserializer);
@@ -4467,11 +4281,17 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
     SseDeserializer deserializer,
   ) {
     // Codec=Sse (Serialization based), see doc to use other codecs
-    var var_mdxNotes =
-        sse_decode_list_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerMdxNoteSummary(
-          deserializer,
-        );
+    var var_mdxNotes = sse_decode_list_mdx_note_summary(deserializer);
     return SummaryListResults(mdxNotes: var_mdxNotes);
+  }
+
+  @protected
+  SupportedSyntaxLanguage sse_decode_supported_syntax_language(
+    SseDeserializer deserializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    var inner = sse_decode_i_32(deserializer);
+    return SupportedSyntaxLanguage.values[inner];
   }
 
   @protected
@@ -4490,19 +4310,72 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
+  TagCreatable sse_decode_tag_creatable(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    var var_id = sse_decode_opt_box_autoadd_i_32(deserializer);
+    var var_value = sse_decode_String(deserializer);
+    var var_tagType = sse_decode_String(deserializer);
+    return TagCreatable(id: var_id, value: var_value, tagType: var_tagType);
+  }
+
+  @protected
+  TagEntity sse_decode_tag_entity(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    var var_id = sse_decode_i_32(deserializer);
+    var var_value = sse_decode_String(deserializer);
+    var var_tagType = sse_decode_String(deserializer);
+    return TagEntity(id: var_id, value: var_value, tagType: var_tagType);
+  }
+
+  @protected
   TagFromContentResult sse_decode_tag_from_content_result(
     SseDeserializer deserializer,
   ) {
     // Codec=Sse (Serialization based), see doc to use other codecs
-    var var_tags =
-        sse_decode_list_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerTaggable(
-          deserializer,
-        );
+    var var_tags = sse_decode_list_taggable(deserializer);
     var var_parsedContent = sse_decode_String(deserializer);
     return TagFromContentResult(
       tags: var_tags,
       parsedContent: var_parsedContent,
     );
+  }
+
+  @protected
+  Taggable sse_decode_taggable(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    var var_value = sse_decode_String(deserializer);
+    var var_tagType = sse_decode_taggable_type_enum(deserializer);
+    return Taggable(value: var_value, tagType: var_tagType);
+  }
+
+  @protected
+  TaggableTypeEnum sse_decode_taggable_type_enum(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    var inner = sse_decode_i_32(deserializer);
+    return TaggableTypeEnum.values[inner];
+  }
+
+  @protected
+  TaggableWithFrontMatterJoin sse_decode_taggable_with_front_matter_join(
+    SseDeserializer deserializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    var var_tagId = sse_decode_i_32(deserializer);
+    var var_frontMatterId = sse_decode_i_32(deserializer);
+    return TaggableWithFrontMatterJoin(
+      tagId: var_tagId,
+      frontMatterId: var_frontMatterId,
+    );
+  }
+
+  @protected
+  TaggableWithMdxNoteJoin sse_decode_taggable_with_mdx_note_join(
+    SseDeserializer deserializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    var var_tagId = sse_decode_i_32(deserializer);
+    var var_mdxNoteId = sse_decode_i_32(deserializer);
+    return TaggableWithMdxNoteJoin(tagId: var_tagId, mdxNoteId: var_mdxNoteId);
   }
 
   @protected
@@ -4588,19 +4461,6 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
 
   @protected
   void
-  sse_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFileTime(
-    FileTime self,
-    SseSerializer serializer,
-  ) {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    sse_encode_usize(
-      (self as FileTimeImpl).frbInternalSseEncode(move: true),
-      serializer,
-    );
-  }
-
-  @protected
-  void
   sse_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFlusterError(
     FlusterError self,
     SseSerializer serializer,
@@ -4608,6 +4468,34 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
     // Codec=Sse (Serialization based), see doc to use other codecs
     sse_encode_usize(
       (self as FlusterErrorImpl).frbInternalSseEncode(move: true),
+      serializer,
+    );
+  }
+
+  @protected
+  void
+  sse_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFlusterResult(
+    FlusterResult self,
+    SseSerializer serializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_usize(
+      (self as FlusterResultImpl).frbInternalSseEncode(move: true),
+      serializer,
+    );
+  }
+
+  @protected
+  void
+  sse_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFlusterResultAsyncPgConnection(
+    FlusterResultAsyncPgConnection self,
+    SseSerializer serializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_usize(
+      (self as FlusterResultAsyncPgConnectionImpl).frbInternalSseEncode(
+        move: true,
+      ),
       serializer,
     );
   }
@@ -4627,91 +4515,43 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
 
   @protected
   void
-  sse_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFlusterTime(
-    FlusterTime self,
+  sse_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFlusterResultVecFrontMatterEntity(
+    FlusterResultVecFrontMatterEntity self,
     SseSerializer serializer,
   ) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     sse_encode_usize(
-      (self as FlusterTimeImpl).frbInternalSseEncode(move: true),
+      (self as FlusterResultVecFrontMatterEntityImpl).frbInternalSseEncode(
+        move: true,
+      ),
       serializer,
     );
   }
 
   @protected
   void
-  sse_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFrontMatter(
-    FrontMatter self,
+  sse_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFlusterResultVecMdxNoteEntity(
+    FlusterResultVecMdxNoteEntity self,
     SseSerializer serializer,
   ) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     sse_encode_usize(
-      (self as FrontMatterImpl).frbInternalSseEncode(move: true),
+      (self as FlusterResultVecMdxNoteEntityImpl).frbInternalSseEncode(
+        move: true,
+      ),
       serializer,
     );
   }
 
   @protected
   void
-  sse_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFrontMatterEntity(
-    FrontMatterEntity self,
+  sse_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerPathBuf(
+    PathBuf self,
     SseSerializer serializer,
   ) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     sse_encode_usize(
-      (self as FrontMatterEntityImpl).frbInternalSseEncode(move: true),
-      serializer,
-    );
-  }
-
-  @protected
-  void
-  sse_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerMdxNoteCreatable(
-    MdxNoteCreatable self,
-    SseSerializer serializer,
-  ) {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    sse_encode_usize(
-      (self as MdxNoteCreatableImpl).frbInternalSseEncode(move: true),
-      serializer,
-    );
-  }
-
-  @protected
-  void
-  sse_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerMdxNoteGroup(
-    MdxNoteGroup self,
-    SseSerializer serializer,
-  ) {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    sse_encode_usize(
-      (self as MdxNoteGroupImpl).frbInternalSseEncode(move: true),
-      serializer,
-    );
-  }
-
-  @protected
-  void
-  sse_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerMdxNoteSummary(
-    MdxNoteSummary self,
-    SseSerializer serializer,
-  ) {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    sse_encode_usize(
-      (self as MdxNoteSummaryImpl).frbInternalSseEncode(move: true),
-      serializer,
-    );
-  }
-
-  @protected
-  void
-  sse_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerOffsetDateTime(
-    OffsetDateTime self,
-    SseSerializer serializer,
-  ) {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    sse_encode_usize(
-      (self as OffsetDateTimeImpl).frbInternalSseEncode(move: true),
+      (self as PathBufImpl).frbInternalSseEncode(move: true),
       serializer,
     );
   }
@@ -4757,39 +4597,39 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
 
   @protected
   void
-  sse_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerTagCreatable(
-    TagCreatable self,
+  sse_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerValue(
+    Value self,
     SseSerializer serializer,
   ) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     sse_encode_usize(
-      (self as TagCreatableImpl).frbInternalSseEncode(move: true),
+      (self as ValueImpl).frbInternalSseEncode(move: true),
       serializer,
     );
   }
 
   @protected
   void
-  sse_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerTaggable(
-    Taggable self,
+  sse_encode_Auto_RefMut_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerAsyncPgConnection(
+    AsyncPgConnection self,
     SseSerializer serializer,
   ) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     sse_encode_usize(
-      (self as TaggableImpl).frbInternalSseEncode(move: true),
+      (self as AsyncPgConnectionImpl).frbInternalSseEncode(move: false),
       serializer,
     );
   }
 
   @protected
   void
-  sse_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerTaggableType(
-    TaggableType self,
+  sse_encode_Auto_RefMut_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerBibEntryEntity(
+    BibEntryEntity self,
     SseSerializer serializer,
   ) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     sse_encode_usize(
-      (self as TaggableTypeImpl).frbInternalSseEncode(move: true),
+      (self as BibEntryEntityImpl).frbInternalSseEncode(move: false),
       serializer,
     );
   }
@@ -4822,52 +4662,13 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
 
   @protected
   void
-  sse_encode_Auto_RefMut_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFlusterTime(
-    FlusterTime self,
+  sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerBibEntryEntity(
+    BibEntryEntity self,
     SseSerializer serializer,
   ) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     sse_encode_usize(
-      (self as FlusterTimeImpl).frbInternalSseEncode(move: false),
-      serializer,
-    );
-  }
-
-  @protected
-  void
-  sse_encode_Auto_RefMut_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFrontMatter(
-    FrontMatter self,
-    SseSerializer serializer,
-  ) {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    sse_encode_usize(
-      (self as FrontMatterImpl).frbInternalSseEncode(move: false),
-      serializer,
-    );
-  }
-
-  @protected
-  void
-  sse_encode_Auto_RefMut_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerMdxNoteGroup(
-    MdxNoteGroup self,
-    SseSerializer serializer,
-  ) {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    sse_encode_usize(
-      (self as MdxNoteGroupImpl).frbInternalSseEncode(move: false),
-      serializer,
-    );
-  }
-
-  @protected
-  void
-  sse_encode_Auto_RefMut_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerTaggable(
-    Taggable self,
-    SseSerializer serializer,
-  ) {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    sse_encode_usize(
-      (self as TaggableImpl).frbInternalSseEncode(move: false),
+      (self as BibEntryEntityImpl).frbInternalSseEncode(move: false),
       serializer,
     );
   }
@@ -4900,45 +4701,6 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
 
   @protected
   void
-  sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFlusterTime(
-    FlusterTime self,
-    SseSerializer serializer,
-  ) {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    sse_encode_usize(
-      (self as FlusterTimeImpl).frbInternalSseEncode(move: false),
-      serializer,
-    );
-  }
-
-  @protected
-  void
-  sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFrontMatter(
-    FrontMatter self,
-    SseSerializer serializer,
-  ) {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    sse_encode_usize(
-      (self as FrontMatterImpl).frbInternalSseEncode(move: false),
-      serializer,
-    );
-  }
-
-  @protected
-  void
-  sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerMdxNoteGroup(
-    MdxNoteGroup self,
-    SseSerializer serializer,
-  ) {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    sse_encode_usize(
-      (self as MdxNoteGroupImpl).frbInternalSseEncode(move: false),
-      serializer,
-    );
-  }
-
-  @protected
-  void
   sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerParsedEntity(
     ParsedEntity self,
     SseSerializer serializer,
@@ -4964,14 +4726,23 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
+  void sse_encode_Chrono_Naive(DateTime self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_i_64(
+      PlatformInt64Util.from(self.microsecondsSinceEpoch),
+      serializer,
+    );
+  }
+
+  @protected
   void
-  sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerTaggable(
-    Taggable self,
+  sse_encode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerAsyncPgConnection(
+    AsyncPgConnection self,
     SseSerializer serializer,
   ) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     sse_encode_usize(
-      (self as TaggableImpl).frbInternalSseEncode(move: false),
+      (self as AsyncPgConnectionImpl).frbInternalSseEncode(move: null),
       serializer,
     );
   }
@@ -5030,19 +4801,6 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
 
   @protected
   void
-  sse_encode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFileTime(
-    FileTime self,
-    SseSerializer serializer,
-  ) {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    sse_encode_usize(
-      (self as FileTimeImpl).frbInternalSseEncode(move: null),
-      serializer,
-    );
-  }
-
-  @protected
-  void
   sse_encode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFlusterDb(
     FlusterDb self,
     SseSerializer serializer,
@@ -5069,6 +4827,34 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
 
   @protected
   void
+  sse_encode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFlusterResult(
+    FlusterResult self,
+    SseSerializer serializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_usize(
+      (self as FlusterResultImpl).frbInternalSseEncode(move: null),
+      serializer,
+    );
+  }
+
+  @protected
+  void
+  sse_encode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFlusterResultAsyncPgConnection(
+    FlusterResultAsyncPgConnection self,
+    SseSerializer serializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_usize(
+      (self as FlusterResultAsyncPgConnectionImpl).frbInternalSseEncode(
+        move: null,
+      ),
+      serializer,
+    );
+  }
+
+  @protected
+  void
   sse_encode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFlusterResultMdxNoteGroup(
     FlusterResultMdxNoteGroup self,
     SseSerializer serializer,
@@ -5082,91 +4868,30 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
 
   @protected
   void
-  sse_encode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFlusterTime(
-    FlusterTime self,
+  sse_encode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFlusterResultVecFrontMatterEntity(
+    FlusterResultVecFrontMatterEntity self,
     SseSerializer serializer,
   ) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     sse_encode_usize(
-      (self as FlusterTimeImpl).frbInternalSseEncode(move: null),
+      (self as FlusterResultVecFrontMatterEntityImpl).frbInternalSseEncode(
+        move: null,
+      ),
       serializer,
     );
   }
 
   @protected
   void
-  sse_encode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFrontMatter(
-    FrontMatter self,
+  sse_encode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFlusterResultVecMdxNoteEntity(
+    FlusterResultVecMdxNoteEntity self,
     SseSerializer serializer,
   ) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     sse_encode_usize(
-      (self as FrontMatterImpl).frbInternalSseEncode(move: null),
-      serializer,
-    );
-  }
-
-  @protected
-  void
-  sse_encode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFrontMatterEntity(
-    FrontMatterEntity self,
-    SseSerializer serializer,
-  ) {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    sse_encode_usize(
-      (self as FrontMatterEntityImpl).frbInternalSseEncode(move: null),
-      serializer,
-    );
-  }
-
-  @protected
-  void
-  sse_encode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerMdxNoteCreatable(
-    MdxNoteCreatable self,
-    SseSerializer serializer,
-  ) {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    sse_encode_usize(
-      (self as MdxNoteCreatableImpl).frbInternalSseEncode(move: null),
-      serializer,
-    );
-  }
-
-  @protected
-  void
-  sse_encode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerMdxNoteGroup(
-    MdxNoteGroup self,
-    SseSerializer serializer,
-  ) {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    sse_encode_usize(
-      (self as MdxNoteGroupImpl).frbInternalSseEncode(move: null),
-      serializer,
-    );
-  }
-
-  @protected
-  void
-  sse_encode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerMdxNoteSummary(
-    MdxNoteSummary self,
-    SseSerializer serializer,
-  ) {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    sse_encode_usize(
-      (self as MdxNoteSummaryImpl).frbInternalSseEncode(move: null),
-      serializer,
-    );
-  }
-
-  @protected
-  void
-  sse_encode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerOffsetDateTime(
-    OffsetDateTime self,
-    SseSerializer serializer,
-  ) {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    sse_encode_usize(
-      (self as OffsetDateTimeImpl).frbInternalSseEncode(move: null),
+      (self as FlusterResultVecMdxNoteEntityImpl).frbInternalSseEncode(
+        move: null,
+      ),
       serializer,
     );
   }
@@ -5180,6 +4905,19 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
     // Codec=Sse (Serialization based), see doc to use other codecs
     sse_encode_usize(
       (self as ParsedEntityImpl).frbInternalSseEncode(move: null),
+      serializer,
+    );
+  }
+
+  @protected
+  void
+  sse_encode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerPathBuf(
+    PathBuf self,
+    SseSerializer serializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_usize(
+      (self as PathBufImpl).frbInternalSseEncode(move: null),
       serializer,
     );
   }
@@ -5238,39 +4976,13 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
 
   @protected
   void
-  sse_encode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerTagCreatable(
-    TagCreatable self,
+  sse_encode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerValue(
+    Value self,
     SseSerializer serializer,
   ) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     sse_encode_usize(
-      (self as TagCreatableImpl).frbInternalSseEncode(move: null),
-      serializer,
-    );
-  }
-
-  @protected
-  void
-  sse_encode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerTaggable(
-    Taggable self,
-    SseSerializer serializer,
-  ) {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    sse_encode_usize(
-      (self as TaggableImpl).frbInternalSseEncode(move: null),
-      serializer,
-    );
-  }
-
-  @protected
-  void
-  sse_encode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerTaggableType(
-    TaggableType self,
-    SseSerializer serializer,
-  ) {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    sse_encode_usize(
-      (self as TaggableTypeImpl).frbInternalSseEncode(move: null),
+      (self as ValueImpl).frbInternalSseEncode(move: null),
       serializer,
     );
   }
@@ -5312,12 +5024,12 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
 
   @protected
   void
-  sse_encode_box_autoadd_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFileTime(
-    FileTime self,
+  sse_encode_box_autoadd_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFlusterError(
+    FlusterError self,
     SseSerializer serializer,
   ) {
     // Codec=Sse (Serialization based), see doc to use other codecs
-    sse_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFileTime(
+    sse_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFlusterError(
       self,
       serializer,
     );
@@ -5325,12 +5037,12 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
 
   @protected
   void
-  sse_encode_box_autoadd_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFlusterTime(
-    FlusterTime self,
+  sse_encode_box_autoadd_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerPathBuf(
+    PathBuf self,
     SseSerializer serializer,
   ) {
     // Codec=Sse (Serialization based), see doc to use other codecs
-    sse_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFlusterTime(
+    sse_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerPathBuf(
       self,
       serializer,
     );
@@ -5350,6 +5062,15 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
+  void sse_encode_box_autoadd_Chrono_Naive(
+    DateTime self,
+    SseSerializer serializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_Chrono_Naive(self, serializer);
+  }
+
+  @protected
   void sse_encode_box_autoadd_bibtex_file(
     BibtexFile self,
     SseSerializer serializer,
@@ -5359,12 +5080,36 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
+  void sse_encode_box_autoadd_i_32(int self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_i_32(self, serializer);
+  }
+
+  @protected
+  void sse_encode_box_autoadd_mdx_note_creatable(
+    MdxNoteCreatable self,
+    SseSerializer serializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_mdx_note_creatable(self, serializer);
+  }
+
+  @protected
   void sse_encode_box_autoadd_sync_filesystem_directory_options(
     SyncFilesystemDirectoryOptions self,
     SseSerializer serializer,
   ) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     sse_encode_sync_filesystem_directory_options(self, serializer);
+  }
+
+  @protected
+  void sse_encode_box_autoadd_tag_entity(
+    TagEntity self,
+    SseSerializer serializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_tag_entity(self, serializer);
   }
 
   @protected
@@ -5378,12 +5123,6 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
-  void sse_encode_f_64(double self, SseSerializer serializer) {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    serializer.buffer.putFloat64(self);
-  }
-
-  @protected
   void sse_encode_fluster_database_status(
     FlusterDatabaseStatus self,
     SseSerializer serializer,
@@ -5393,9 +5132,37 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
+  void sse_encode_front_matter(FrontMatter self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_front_matter_entity(self.data, serializer);
+    sse_encode_list_tag_creatable(self.tags, serializer);
+    sse_encode_list_tag_creatable(self.subjects, serializer);
+    sse_encode_list_tag_creatable(self.topics, serializer);
+  }
+
+  @protected
+  void sse_encode_front_matter_entity(
+    FrontMatterEntity self,
+    SseSerializer serializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_i_32(self.id, serializer);
+    sse_encode_String(self.title, serializer);
+    sse_encode_opt_String(self.summary, serializer);
+    sse_encode_i_32(self.mdxNoteId, serializer);
+    sse_encode_opt_String(self.userProvidedId, serializer);
+  }
+
+  @protected
   void sse_encode_i_32(int self, SseSerializer serializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     serializer.buffer.putInt32(self);
+  }
+
+  @protected
+  void sse_encode_i_64(PlatformInt64 self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    serializer.buffer.putPlatformInt64(self);
   }
 
   @protected
@@ -5440,50 +5207,26 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
-  void
-  sse_encode_list_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerMdxNoteSummary(
+  void sse_encode_list_mdx_note_creatable(
+    List<MdxNoteCreatable> self,
+    SseSerializer serializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_i_32(self.length, serializer);
+    for (final item in self) {
+      sse_encode_mdx_note_creatable(item, serializer);
+    }
+  }
+
+  @protected
+  void sse_encode_list_mdx_note_summary(
     List<MdxNoteSummary> self,
     SseSerializer serializer,
   ) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     sse_encode_i_32(self.length, serializer);
     for (final item in self) {
-      sse_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerMdxNoteSummary(
-        item,
-        serializer,
-      );
-    }
-  }
-
-  @protected
-  void
-  sse_encode_list_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerTagCreatable(
-    List<TagCreatable> self,
-    SseSerializer serializer,
-  ) {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    sse_encode_i_32(self.length, serializer);
-    for (final item in self) {
-      sse_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerTagCreatable(
-        item,
-        serializer,
-      );
-    }
-  }
-
-  @protected
-  void
-  sse_encode_list_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerTaggable(
-    List<Taggable> self,
-    SseSerializer serializer,
-  ) {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    sse_encode_i_32(self.length, serializer);
-    for (final item in self) {
-      sse_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerTaggable(
-        item,
-        serializer,
-      );
+      sse_encode_mdx_note_summary(item, serializer);
     }
   }
 
@@ -5498,12 +5241,65 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
+  void sse_encode_list_tag_creatable(
+    List<TagCreatable> self,
+    SseSerializer serializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_i_32(self.length, serializer);
+    for (final item in self) {
+      sse_encode_tag_creatable(item, serializer);
+    }
+  }
+
+  @protected
+  void sse_encode_list_taggable(List<Taggable> self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_i_32(self.length, serializer);
+    for (final item in self) {
+      sse_encode_taggable(item, serializer);
+    }
+  }
+
+  @protected
   void sse_encode_math_label_option(
     MathLabelOption self,
     SseSerializer serializer,
   ) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     sse_encode_i_32(self.index, serializer);
+  }
+
+  @protected
+  void sse_encode_mdx_note_creatable(
+    MdxNoteCreatable self,
+    SseSerializer serializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_opt_box_autoadd_i_32(self.id, serializer);
+    sse_encode_opt_String(self.filePath, serializer);
+    sse_encode_String(self.rawBody, serializer);
+    sse_encode_opt_box_autoadd_Chrono_Naive(self.ctime, serializer);
+    sse_encode_opt_box_autoadd_Chrono_Naive(self.mtime, serializer);
+  }
+
+  @protected
+  void sse_encode_mdx_note_group(MdxNoteGroup self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_mdx_note_creatable(self.mdx, serializer);
+    sse_encode_front_matter(self.frontMatter, serializer);
+    sse_encode_list_taggable(self.tags, serializer);
+  }
+
+  @protected
+  void sse_encode_mdx_note_summary(
+    MdxNoteSummary self,
+    SseSerializer serializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_i_32(self.id, serializer);
+    sse_encode_opt_String(self.filePath, serializer);
+    sse_encode_String(self.rawBody, serializer);
   }
 
   @protected
@@ -5541,15 +5337,15 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
 
   @protected
   void
-  sse_encode_opt_box_autoadd_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFileTime(
-    FileTime? self,
+  sse_encode_opt_box_autoadd_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFlusterError(
+    FlusterError? self,
     SseSerializer serializer,
   ) {
     // Codec=Sse (Serialization based), see doc to use other codecs
 
     sse_encode_bool(self != null, serializer);
     if (self != null) {
-      sse_encode_box_autoadd_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFileTime(
+      sse_encode_box_autoadd_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFlusterError(
         self,
         serializer,
       );
@@ -5558,15 +5354,15 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
 
   @protected
   void
-  sse_encode_opt_box_autoadd_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFlusterTime(
-    FlusterTime? self,
+  sse_encode_opt_box_autoadd_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerPathBuf(
+    PathBuf? self,
     SseSerializer serializer,
   ) {
     // Codec=Sse (Serialization based), see doc to use other codecs
 
     sse_encode_bool(self != null, serializer);
     if (self != null) {
-      sse_encode_box_autoadd_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFlusterTime(
+      sse_encode_box_autoadd_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerPathBuf(
         self,
         serializer,
       );
@@ -5587,6 +5383,29 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
         self,
         serializer,
       );
+    }
+  }
+
+  @protected
+  void sse_encode_opt_box_autoadd_Chrono_Naive(
+    DateTime? self,
+    SseSerializer serializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+
+    sse_encode_bool(self != null, serializer);
+    if (self != null) {
+      sse_encode_box_autoadd_Chrono_Naive(self, serializer);
+    }
+  }
+
+  @protected
+  void sse_encode_opt_box_autoadd_i_32(int? self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+
+    sse_encode_bool(self != null, serializer);
+    if (self != null) {
+      sse_encode_box_autoadd_i_32(self, serializer);
     }
   }
 
@@ -5617,6 +5436,16 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
+  void sse_encode_snippet(Snippet self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_i_32(self.id, serializer);
+    sse_encode_String(self.label, serializer);
+    sse_encode_String(self.desc, serializer);
+    sse_encode_String(self.lang, serializer);
+    sse_encode_String(self.body, serializer);
+  }
+
+  @protected
   void sse_encode_summary_list_query(
     SummaryListQuery self,
     SseSerializer serializer,
@@ -5632,10 +5461,16 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
     SseSerializer serializer,
   ) {
     // Codec=Sse (Serialization based), see doc to use other codecs
-    sse_encode_list_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerMdxNoteSummary(
-      self.mdxNotes,
-      serializer,
-    );
+    sse_encode_list_mdx_note_summary(self.mdxNotes, serializer);
+  }
+
+  @protected
+  void sse_encode_supported_syntax_language(
+    SupportedSyntaxLanguage self,
+    SseSerializer serializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_i_32(self.index, serializer);
   }
 
   @protected
@@ -5650,16 +5485,65 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
+  void sse_encode_tag_creatable(TagCreatable self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_opt_box_autoadd_i_32(self.id, serializer);
+    sse_encode_String(self.value, serializer);
+    sse_encode_String(self.tagType, serializer);
+  }
+
+  @protected
+  void sse_encode_tag_entity(TagEntity self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_i_32(self.id, serializer);
+    sse_encode_String(self.value, serializer);
+    sse_encode_String(self.tagType, serializer);
+  }
+
+  @protected
   void sse_encode_tag_from_content_result(
     TagFromContentResult self,
     SseSerializer serializer,
   ) {
     // Codec=Sse (Serialization based), see doc to use other codecs
-    sse_encode_list_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerTaggable(
-      self.tags,
-      serializer,
-    );
+    sse_encode_list_taggable(self.tags, serializer);
     sse_encode_String(self.parsedContent, serializer);
+  }
+
+  @protected
+  void sse_encode_taggable(Taggable self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_String(self.value, serializer);
+    sse_encode_taggable_type_enum(self.tagType, serializer);
+  }
+
+  @protected
+  void sse_encode_taggable_type_enum(
+    TaggableTypeEnum self,
+    SseSerializer serializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_i_32(self.index, serializer);
+  }
+
+  @protected
+  void sse_encode_taggable_with_front_matter_join(
+    TaggableWithFrontMatterJoin self,
+    SseSerializer serializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_i_32(self.tagId, serializer);
+    sse_encode_i_32(self.frontMatterId, serializer);
+  }
+
+  @protected
+  void sse_encode_taggable_with_mdx_note_join(
+    TaggableWithMdxNoteJoin self,
+    SseSerializer serializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_i_32(self.tagId, serializer);
+    sse_encode_i_32(self.mdxNoteId, serializer);
   }
 
   @protected
@@ -5693,6 +5577,31 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
 }
 
 @sealed
+class AsyncPgConnectionImpl extends RustOpaque implements AsyncPgConnection {
+  // Not to be used by end users
+  AsyncPgConnectionImpl.frbInternalDcoDecode(List<dynamic> wire)
+    : super.frbInternalDcoDecode(wire, _kStaticData);
+
+  // Not to be used by end users
+  AsyncPgConnectionImpl.frbInternalSseDecode(
+    BigInt ptr,
+    int externalSizeOnNative,
+  ) : super.frbInternalSseDecode(ptr, externalSizeOnNative, _kStaticData);
+
+  static final _kStaticData = RustArcStaticData(
+    rustArcIncrementStrongCount:
+        RustLib.instance.api.rust_arc_increment_strong_count_AsyncPgConnection,
+    rustArcDecrementStrongCount:
+        RustLib.instance.api.rust_arc_decrement_strong_count_AsyncPgConnection,
+    rustArcDecrementStrongCountPtr:
+        RustLib
+            .instance
+            .api
+            .rust_arc_decrement_strong_count_AsyncPgConnectionPtr,
+  );
+}
+
+@sealed
 class BibEntryEntityImpl extends RustOpaque implements BibEntryEntity {
   // Not to be used by end users
   BibEntryEntityImpl.frbInternalDcoDecode(List<dynamic> wire)
@@ -5710,6 +5619,50 @@ class BibEntryEntityImpl extends RustOpaque implements BibEntryEntity {
     rustArcDecrementStrongCountPtr:
         RustLib.instance.api.rust_arc_decrement_strong_count_BibEntryEntityPtr,
   );
+
+  Value get data => RustLib.instance.api
+      .crateApiModelsBibliographyBibEntryBibEntryEntityAutoAccessorGetData(
+        that: this,
+      );
+
+  int get id => RustLib.instance.api
+      .crateApiModelsBibliographyBibEntryBibEntryEntityAutoAccessorGetId(
+        that: this,
+      );
+
+  String? get pdfPath => RustLib.instance.api
+      .crateApiModelsBibliographyBibEntryBibEntryEntityAutoAccessorGetPdfPath(
+        that: this,
+      );
+
+  bool get read => RustLib.instance.api
+      .crateApiModelsBibliographyBibEntryBibEntryEntityAutoAccessorGetRead(
+        that: this,
+      );
+
+  set data(Value data) => RustLib.instance.api
+      .crateApiModelsBibliographyBibEntryBibEntryEntityAutoAccessorSetData(
+        that: this,
+        data: data,
+      );
+
+  set id(int id) => RustLib.instance.api
+      .crateApiModelsBibliographyBibEntryBibEntryEntityAutoAccessorSetId(
+        that: this,
+        id: id,
+      );
+
+  set pdfPath(String? pdfPath) => RustLib.instance.api
+      .crateApiModelsBibliographyBibEntryBibEntryEntityAutoAccessorSetPdfPath(
+        that: this,
+        pdfPath: pdfPath,
+      );
+
+  set read(bool read) => RustLib.instance.api
+      .crateApiModelsBibliographyBibEntryBibEntryEntityAutoAccessorSetRead(
+        that: this,
+        read: read,
+      );
 }
 
 @sealed
@@ -5775,38 +5728,21 @@ class EmbeddedTypescriptFilesImpl extends RustOpaque
   ) : super.frbInternalSseDecode(ptr, externalSizeOnNative, _kStaticData);
 
   static final _kStaticData = RustArcStaticData(
-    rustArcIncrementStrongCount: RustLib
-        .instance
-        .api
-        .rust_arc_increment_strong_count_EmbeddedTypescriptFiles,
-    rustArcDecrementStrongCount: RustLib
-        .instance
-        .api
-        .rust_arc_decrement_strong_count_EmbeddedTypescriptFiles,
-    rustArcDecrementStrongCountPtr: RustLib
-        .instance
-        .api
-        .rust_arc_decrement_strong_count_EmbeddedTypescriptFilesPtr,
-  );
-}
-
-@sealed
-class FileTimeImpl extends RustOpaque implements FileTime {
-  // Not to be used by end users
-  FileTimeImpl.frbInternalDcoDecode(List<dynamic> wire)
-    : super.frbInternalDcoDecode(wire, _kStaticData);
-
-  // Not to be used by end users
-  FileTimeImpl.frbInternalSseDecode(BigInt ptr, int externalSizeOnNative)
-    : super.frbInternalSseDecode(ptr, externalSizeOnNative, _kStaticData);
-
-  static final _kStaticData = RustArcStaticData(
     rustArcIncrementStrongCount:
-        RustLib.instance.api.rust_arc_increment_strong_count_FileTime,
+        RustLib
+            .instance
+            .api
+            .rust_arc_increment_strong_count_EmbeddedTypescriptFiles,
     rustArcDecrementStrongCount:
-        RustLib.instance.api.rust_arc_decrement_strong_count_FileTime,
+        RustLib
+            .instance
+            .api
+            .rust_arc_decrement_strong_count_EmbeddedTypescriptFiles,
     rustArcDecrementStrongCountPtr:
-        RustLib.instance.api.rust_arc_decrement_strong_count_FileTimePtr,
+        RustLib
+            .instance
+            .api
+            .rust_arc_decrement_strong_count_EmbeddedTypescriptFilesPtr,
   );
 }
 
@@ -5851,6 +5787,58 @@ class FlusterErrorImpl extends RustOpaque implements FlusterError {
 }
 
 @sealed
+class FlusterResultAsyncPgConnectionImpl extends RustOpaque
+    implements FlusterResultAsyncPgConnection {
+  // Not to be used by end users
+  FlusterResultAsyncPgConnectionImpl.frbInternalDcoDecode(List<dynamic> wire)
+    : super.frbInternalDcoDecode(wire, _kStaticData);
+
+  // Not to be used by end users
+  FlusterResultAsyncPgConnectionImpl.frbInternalSseDecode(
+    BigInt ptr,
+    int externalSizeOnNative,
+  ) : super.frbInternalSseDecode(ptr, externalSizeOnNative, _kStaticData);
+
+  static final _kStaticData = RustArcStaticData(
+    rustArcIncrementStrongCount:
+        RustLib
+            .instance
+            .api
+            .rust_arc_increment_strong_count_FlusterResultAsyncPgConnection,
+    rustArcDecrementStrongCount:
+        RustLib
+            .instance
+            .api
+            .rust_arc_decrement_strong_count_FlusterResultAsyncPgConnection,
+    rustArcDecrementStrongCountPtr:
+        RustLib
+            .instance
+            .api
+            .rust_arc_decrement_strong_count_FlusterResultAsyncPgConnectionPtr,
+  );
+}
+
+@sealed
+class FlusterResultImpl extends RustOpaque implements FlusterResult {
+  // Not to be used by end users
+  FlusterResultImpl.frbInternalDcoDecode(List<dynamic> wire)
+    : super.frbInternalDcoDecode(wire, _kStaticData);
+
+  // Not to be used by end users
+  FlusterResultImpl.frbInternalSseDecode(BigInt ptr, int externalSizeOnNative)
+    : super.frbInternalSseDecode(ptr, externalSizeOnNative, _kStaticData);
+
+  static final _kStaticData = RustArcStaticData(
+    rustArcIncrementStrongCount:
+        RustLib.instance.api.rust_arc_increment_strong_count_FlusterResult,
+    rustArcDecrementStrongCount:
+        RustLib.instance.api.rust_arc_decrement_strong_count_FlusterResult,
+    rustArcDecrementStrongCountPtr:
+        RustLib.instance.api.rust_arc_decrement_strong_count_FlusterResultPtr,
+  );
+}
+
+@sealed
 class FlusterResultMdxNoteGroupImpl extends RustOpaque
     implements FlusterResultMdxNoteGroup {
   // Not to be used by end users
@@ -5864,246 +5852,85 @@ class FlusterResultMdxNoteGroupImpl extends RustOpaque
   ) : super.frbInternalSseDecode(ptr, externalSizeOnNative, _kStaticData);
 
   static final _kStaticData = RustArcStaticData(
-    rustArcIncrementStrongCount: RustLib
-        .instance
-        .api
-        .rust_arc_increment_strong_count_FlusterResultMdxNoteGroup,
-    rustArcDecrementStrongCount: RustLib
-        .instance
-        .api
-        .rust_arc_decrement_strong_count_FlusterResultMdxNoteGroup,
-    rustArcDecrementStrongCountPtr: RustLib
-        .instance
-        .api
-        .rust_arc_decrement_strong_count_FlusterResultMdxNoteGroupPtr,
-  );
-}
-
-@sealed
-class FlusterTimeImpl extends RustOpaque implements FlusterTime {
-  // Not to be used by end users
-  FlusterTimeImpl.frbInternalDcoDecode(List<dynamic> wire)
-    : super.frbInternalDcoDecode(wire, _kStaticData);
-
-  // Not to be used by end users
-  FlusterTimeImpl.frbInternalSseDecode(BigInt ptr, int externalSizeOnNative)
-    : super.frbInternalSseDecode(ptr, externalSizeOnNative, _kStaticData);
-
-  static final _kStaticData = RustArcStaticData(
     rustArcIncrementStrongCount:
-        RustLib.instance.api.rust_arc_increment_strong_count_FlusterTime,
+        RustLib
+            .instance
+            .api
+            .rust_arc_increment_strong_count_FlusterResultMdxNoteGroup,
     rustArcDecrementStrongCount:
-        RustLib.instance.api.rust_arc_decrement_strong_count_FlusterTime,
+        RustLib
+            .instance
+            .api
+            .rust_arc_decrement_strong_count_FlusterResultMdxNoteGroup,
     rustArcDecrementStrongCountPtr:
-        RustLib.instance.api.rust_arc_decrement_strong_count_FlusterTimePtr,
+        RustLib
+            .instance
+            .api
+            .rust_arc_decrement_strong_count_FlusterResultMdxNoteGroupPtr,
   );
-
-  OffsetDateTime get value => RustLib.instance.api
-      .crateApiModelsNestedModelsFlusterDatetimeFlusterTimeFlusterTimeAutoAccessorGetValue(
-        that: this,
-      );
-
-  set value(OffsetDateTime value) => RustLib.instance.api
-      .crateApiModelsNestedModelsFlusterDatetimeFlusterTimeFlusterTimeAutoAccessorSetValue(
-        that: this,
-        value: value,
-      );
 }
 
 @sealed
-class FrontMatterEntityImpl extends RustOpaque implements FrontMatterEntity {
+class FlusterResultVecFrontMatterEntityImpl extends RustOpaque
+    implements FlusterResultVecFrontMatterEntity {
   // Not to be used by end users
-  FrontMatterEntityImpl.frbInternalDcoDecode(List<dynamic> wire)
+  FlusterResultVecFrontMatterEntityImpl.frbInternalDcoDecode(List<dynamic> wire)
     : super.frbInternalDcoDecode(wire, _kStaticData);
 
   // Not to be used by end users
-  FrontMatterEntityImpl.frbInternalSseDecode(
+  FlusterResultVecFrontMatterEntityImpl.frbInternalSseDecode(
     BigInt ptr,
     int externalSizeOnNative,
   ) : super.frbInternalSseDecode(ptr, externalSizeOnNative, _kStaticData);
 
   static final _kStaticData = RustArcStaticData(
     rustArcIncrementStrongCount:
-        RustLib.instance.api.rust_arc_increment_strong_count_FrontMatterEntity,
+        RustLib
+            .instance
+            .api
+            .rust_arc_increment_strong_count_FlusterResultVecFrontMatterEntity,
     rustArcDecrementStrongCount:
-        RustLib.instance.api.rust_arc_decrement_strong_count_FrontMatterEntity,
-    rustArcDecrementStrongCountPtr: RustLib
-        .instance
-        .api
-        .rust_arc_decrement_strong_count_FrontMatterEntityPtr,
-  );
-}
-
-@sealed
-class FrontMatterImpl extends RustOpaque implements FrontMatter {
-  // Not to be used by end users
-  FrontMatterImpl.frbInternalDcoDecode(List<dynamic> wire)
-    : super.frbInternalDcoDecode(wire, _kStaticData);
-
-  // Not to be used by end users
-  FrontMatterImpl.frbInternalSseDecode(BigInt ptr, int externalSizeOnNative)
-    : super.frbInternalSseDecode(ptr, externalSizeOnNative, _kStaticData);
-
-  static final _kStaticData = RustArcStaticData(
-    rustArcIncrementStrongCount:
-        RustLib.instance.api.rust_arc_increment_strong_count_FrontMatter,
-    rustArcDecrementStrongCount:
-        RustLib.instance.api.rust_arc_decrement_strong_count_FrontMatter,
+        RustLib
+            .instance
+            .api
+            .rust_arc_decrement_strong_count_FlusterResultVecFrontMatterEntity,
     rustArcDecrementStrongCountPtr:
-        RustLib.instance.api.rust_arc_decrement_strong_count_FrontMatterPtr,
+        RustLib
+            .instance
+            .api
+            .rust_arc_decrement_strong_count_FlusterResultVecFrontMatterEntityPtr,
   );
-
-  FrontMatterEntity get data => RustLib.instance.api
-      .crateApiModelsFrontMatterFrontMatterAutoAccessorGetData(that: this);
-
-  List<TagCreatable> get subjects => RustLib.instance.api
-      .crateApiModelsFrontMatterFrontMatterAutoAccessorGetSubjects(that: this);
-
-  List<TagCreatable> get tags => RustLib.instance.api
-      .crateApiModelsFrontMatterFrontMatterAutoAccessorGetTags(that: this);
-
-  List<TagCreatable> get topics => RustLib.instance.api
-      .crateApiModelsFrontMatterFrontMatterAutoAccessorGetTopics(that: this);
-
-  set data(FrontMatterEntity data) => RustLib.instance.api
-      .crateApiModelsFrontMatterFrontMatterAutoAccessorSetData(
-        that: this,
-        data: data,
-      );
-
-  set subjects(List<TagCreatable> subjects) => RustLib.instance.api
-      .crateApiModelsFrontMatterFrontMatterAutoAccessorSetSubjects(
-        that: this,
-        subjects: subjects,
-      );
-
-  set tags(List<TagCreatable> tags) => RustLib.instance.api
-      .crateApiModelsFrontMatterFrontMatterAutoAccessorSetTags(
-        that: this,
-        tags: tags,
-      );
-
-  set topics(List<TagCreatable> topics) => RustLib.instance.api
-      .crateApiModelsFrontMatterFrontMatterAutoAccessorSetTopics(
-        that: this,
-        topics: topics,
-      );
 }
 
 @sealed
-class MdxNoteCreatableImpl extends RustOpaque implements MdxNoteCreatable {
+class FlusterResultVecMdxNoteEntityImpl extends RustOpaque
+    implements FlusterResultVecMdxNoteEntity {
   // Not to be used by end users
-  MdxNoteCreatableImpl.frbInternalDcoDecode(List<dynamic> wire)
+  FlusterResultVecMdxNoteEntityImpl.frbInternalDcoDecode(List<dynamic> wire)
     : super.frbInternalDcoDecode(wire, _kStaticData);
 
   // Not to be used by end users
-  MdxNoteCreatableImpl.frbInternalSseDecode(
+  FlusterResultVecMdxNoteEntityImpl.frbInternalSseDecode(
     BigInt ptr,
     int externalSizeOnNative,
   ) : super.frbInternalSseDecode(ptr, externalSizeOnNative, _kStaticData);
 
   static final _kStaticData = RustArcStaticData(
     rustArcIncrementStrongCount:
-        RustLib.instance.api.rust_arc_increment_strong_count_MdxNoteCreatable,
+        RustLib
+            .instance
+            .api
+            .rust_arc_increment_strong_count_FlusterResultVecMdxNoteEntity,
     rustArcDecrementStrongCount:
-        RustLib.instance.api.rust_arc_decrement_strong_count_MdxNoteCreatable,
-    rustArcDecrementStrongCountPtr: RustLib
-        .instance
-        .api
-        .rust_arc_decrement_strong_count_MdxNoteCreatablePtr,
-  );
-}
-
-@sealed
-class MdxNoteGroupImpl extends RustOpaque implements MdxNoteGroup {
-  // Not to be used by end users
-  MdxNoteGroupImpl.frbInternalDcoDecode(List<dynamic> wire)
-    : super.frbInternalDcoDecode(wire, _kStaticData);
-
-  // Not to be used by end users
-  MdxNoteGroupImpl.frbInternalSseDecode(BigInt ptr, int externalSizeOnNative)
-    : super.frbInternalSseDecode(ptr, externalSizeOnNative, _kStaticData);
-
-  static final _kStaticData = RustArcStaticData(
-    rustArcIncrementStrongCount:
-        RustLib.instance.api.rust_arc_increment_strong_count_MdxNoteGroup,
-    rustArcDecrementStrongCount:
-        RustLib.instance.api.rust_arc_decrement_strong_count_MdxNoteGroup,
+        RustLib
+            .instance
+            .api
+            .rust_arc_decrement_strong_count_FlusterResultVecMdxNoteEntity,
     rustArcDecrementStrongCountPtr:
-        RustLib.instance.api.rust_arc_decrement_strong_count_MdxNoteGroupPtr,
-  );
-
-  FrontMatter get frontMatter => RustLib.instance.api
-      .crateApiModelsMdxNoteGroupMdxNoteGroupMdxNoteGroupAutoAccessorGetFrontMatter(
-        that: this,
-      );
-
-  MdxNoteCreatable get mdx => RustLib.instance.api
-      .crateApiModelsMdxNoteGroupMdxNoteGroupMdxNoteGroupAutoAccessorGetMdx(
-        that: this,
-      );
-
-  List<Taggable> get tags => RustLib.instance.api
-      .crateApiModelsMdxNoteGroupMdxNoteGroupMdxNoteGroupAutoAccessorGetTags(
-        that: this,
-      );
-
-  set frontMatter(FrontMatter frontMatter) => RustLib.instance.api
-      .crateApiModelsMdxNoteGroupMdxNoteGroupMdxNoteGroupAutoAccessorSetFrontMatter(
-        that: this,
-        frontMatter: frontMatter,
-      );
-
-  set mdx(MdxNoteCreatable mdx) => RustLib.instance.api
-      .crateApiModelsMdxNoteGroupMdxNoteGroupMdxNoteGroupAutoAccessorSetMdx(
-        that: this,
-        mdx: mdx,
-      );
-
-  set tags(List<Taggable> tags) => RustLib.instance.api
-      .crateApiModelsMdxNoteGroupMdxNoteGroupMdxNoteGroupAutoAccessorSetTags(
-        that: this,
-        tags: tags,
-      );
-}
-
-@sealed
-class MdxNoteSummaryImpl extends RustOpaque implements MdxNoteSummary {
-  // Not to be used by end users
-  MdxNoteSummaryImpl.frbInternalDcoDecode(List<dynamic> wire)
-    : super.frbInternalDcoDecode(wire, _kStaticData);
-
-  // Not to be used by end users
-  MdxNoteSummaryImpl.frbInternalSseDecode(BigInt ptr, int externalSizeOnNative)
-    : super.frbInternalSseDecode(ptr, externalSizeOnNative, _kStaticData);
-
-  static final _kStaticData = RustArcStaticData(
-    rustArcIncrementStrongCount:
-        RustLib.instance.api.rust_arc_increment_strong_count_MdxNoteSummary,
-    rustArcDecrementStrongCount:
-        RustLib.instance.api.rust_arc_decrement_strong_count_MdxNoteSummary,
-    rustArcDecrementStrongCountPtr:
-        RustLib.instance.api.rust_arc_decrement_strong_count_MdxNoteSummaryPtr,
-  );
-}
-
-@sealed
-class OffsetDateTimeImpl extends RustOpaque implements OffsetDateTime {
-  // Not to be used by end users
-  OffsetDateTimeImpl.frbInternalDcoDecode(List<dynamic> wire)
-    : super.frbInternalDcoDecode(wire, _kStaticData);
-
-  // Not to be used by end users
-  OffsetDateTimeImpl.frbInternalSseDecode(BigInt ptr, int externalSizeOnNative)
-    : super.frbInternalSseDecode(ptr, externalSizeOnNative, _kStaticData);
-
-  static final _kStaticData = RustArcStaticData(
-    rustArcIncrementStrongCount:
-        RustLib.instance.api.rust_arc_increment_strong_count_OffsetDateTime,
-    rustArcDecrementStrongCount:
-        RustLib.instance.api.rust_arc_decrement_strong_count_OffsetDateTime,
-    rustArcDecrementStrongCountPtr:
-        RustLib.instance.api.rust_arc_decrement_strong_count_OffsetDateTimePtr,
+        RustLib
+            .instance
+            .api
+            .rust_arc_decrement_strong_count_FlusterResultVecMdxNoteEntityPtr,
   );
 }
 
@@ -6124,6 +5951,26 @@ class ParsedEntityImpl extends RustOpaque implements ParsedEntity {
         RustLib.instance.api.rust_arc_decrement_strong_count_ParsedEntity,
     rustArcDecrementStrongCountPtr:
         RustLib.instance.api.rust_arc_decrement_strong_count_ParsedEntityPtr,
+  );
+}
+
+@sealed
+class PathBufImpl extends RustOpaque implements PathBuf {
+  // Not to be used by end users
+  PathBufImpl.frbInternalDcoDecode(List<dynamic> wire)
+    : super.frbInternalDcoDecode(wire, _kStaticData);
+
+  // Not to be used by end users
+  PathBufImpl.frbInternalSseDecode(BigInt ptr, int externalSizeOnNative)
+    : super.frbInternalSseDecode(ptr, externalSizeOnNative, _kStaticData);
+
+  static final _kStaticData = RustArcStaticData(
+    rustArcIncrementStrongCount:
+        RustLib.instance.api.rust_arc_increment_strong_count_PathBuf,
+    rustArcDecrementStrongCount:
+        RustLib.instance.api.rust_arc_decrement_strong_count_PathBuf,
+    rustArcDecrementStrongCountPtr:
+        RustLib.instance.api.rust_arc_decrement_strong_count_PathBufPtr,
   );
 }
 
@@ -6204,89 +6051,30 @@ class SenderFlusterErrorImpl extends RustOpaque implements SenderFlusterError {
         RustLib.instance.api.rust_arc_increment_strong_count_SenderFlusterError,
     rustArcDecrementStrongCount:
         RustLib.instance.api.rust_arc_decrement_strong_count_SenderFlusterError,
-    rustArcDecrementStrongCountPtr: RustLib
-        .instance
-        .api
-        .rust_arc_decrement_strong_count_SenderFlusterErrorPtr,
+    rustArcDecrementStrongCountPtr:
+        RustLib
+            .instance
+            .api
+            .rust_arc_decrement_strong_count_SenderFlusterErrorPtr,
   );
 }
 
 @sealed
-class TagCreatableImpl extends RustOpaque implements TagCreatable {
+class ValueImpl extends RustOpaque implements Value {
   // Not to be used by end users
-  TagCreatableImpl.frbInternalDcoDecode(List<dynamic> wire)
+  ValueImpl.frbInternalDcoDecode(List<dynamic> wire)
     : super.frbInternalDcoDecode(wire, _kStaticData);
 
   // Not to be used by end users
-  TagCreatableImpl.frbInternalSseDecode(BigInt ptr, int externalSizeOnNative)
+  ValueImpl.frbInternalSseDecode(BigInt ptr, int externalSizeOnNative)
     : super.frbInternalSseDecode(ptr, externalSizeOnNative, _kStaticData);
 
   static final _kStaticData = RustArcStaticData(
     rustArcIncrementStrongCount:
-        RustLib.instance.api.rust_arc_increment_strong_count_TagCreatable,
+        RustLib.instance.api.rust_arc_increment_strong_count_Value,
     rustArcDecrementStrongCount:
-        RustLib.instance.api.rust_arc_decrement_strong_count_TagCreatable,
+        RustLib.instance.api.rust_arc_decrement_strong_count_Value,
     rustArcDecrementStrongCountPtr:
-        RustLib.instance.api.rust_arc_decrement_strong_count_TagCreatablePtr,
-  );
-}
-
-@sealed
-class TaggableImpl extends RustOpaque implements Taggable {
-  // Not to be used by end users
-  TaggableImpl.frbInternalDcoDecode(List<dynamic> wire)
-    : super.frbInternalDcoDecode(wire, _kStaticData);
-
-  // Not to be used by end users
-  TaggableImpl.frbInternalSseDecode(BigInt ptr, int externalSizeOnNative)
-    : super.frbInternalSseDecode(ptr, externalSizeOnNative, _kStaticData);
-
-  static final _kStaticData = RustArcStaticData(
-    rustArcIncrementStrongCount:
-        RustLib.instance.api.rust_arc_increment_strong_count_Taggable,
-    rustArcDecrementStrongCount:
-        RustLib.instance.api.rust_arc_decrement_strong_count_Taggable,
-    rustArcDecrementStrongCountPtr:
-        RustLib.instance.api.rust_arc_decrement_strong_count_TaggablePtr,
-  );
-
-  TaggableType get tagType => RustLib.instance.api
-      .crateApiModelsTaggablesTaggableTaggableAutoAccessorGetTagType(
-        that: this,
-      );
-
-  String get value => RustLib.instance.api
-      .crateApiModelsTaggablesTaggableTaggableAutoAccessorGetValue(that: this);
-
-  set tagType(TaggableType tagType) => RustLib.instance.api
-      .crateApiModelsTaggablesTaggableTaggableAutoAccessorSetTagType(
-        that: this,
-        tagType: tagType,
-      );
-
-  set value(String value) => RustLib.instance.api
-      .crateApiModelsTaggablesTaggableTaggableAutoAccessorSetValue(
-        that: this,
-        value: value,
-      );
-}
-
-@sealed
-class TaggableTypeImpl extends RustOpaque implements TaggableType {
-  // Not to be used by end users
-  TaggableTypeImpl.frbInternalDcoDecode(List<dynamic> wire)
-    : super.frbInternalDcoDecode(wire, _kStaticData);
-
-  // Not to be used by end users
-  TaggableTypeImpl.frbInternalSseDecode(BigInt ptr, int externalSizeOnNative)
-    : super.frbInternalSseDecode(ptr, externalSizeOnNative, _kStaticData);
-
-  static final _kStaticData = RustArcStaticData(
-    rustArcIncrementStrongCount:
-        RustLib.instance.api.rust_arc_increment_strong_count_TaggableType,
-    rustArcDecrementStrongCount:
-        RustLib.instance.api.rust_arc_decrement_strong_count_TaggableType,
-    rustArcDecrementStrongCountPtr:
-        RustLib.instance.api.rust_arc_decrement_strong_count_TaggableTypePtr,
+        RustLib.instance.api.rust_arc_decrement_strong_count_ValuePtr,
   );
 }

@@ -12,6 +12,7 @@ enum NoteType {
   mdx,
   markdown;
 
-  static Future<NoteType> default_() => RustLib.instance.api
-      .crateApiModelsEnumsParsableFileExtensionNoteTypeDefault();
+  static Future<NoteType> default_() =>
+      RustLib.instance.api
+          .crateApiModelsEnumsParsableFileExtensionNoteTypeDefault();
 }

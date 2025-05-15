@@ -5,9 +5,10 @@ import 'package:fluster/core/static/global_keys.dart';
 import 'package:flutter/material.dart';
 
 void toggleDarkMode(ThemeMode? providedThemeMode, BuildContext? context) {
+    
   final themeMode =
       providedThemeMode ??
-      Theme.brightnessOf(desktopScaffoldMessenegerKey.currentState!.context);
+      Theme.of(context ?? desktopScaffoldMessenegerKey.currentState!.context)).brightness;
   if (context != null) {
     context.dispatch(
       SetThemeModeAction(

@@ -24,10 +24,10 @@ impl MdxNoteGroup {
         let mut note_data =
             MdxNoteGroup::from_raw_mdx_string(raw_file_content, Some(file_path.to_string()))
                 .or_else(|_| Err(FlusterError::FailToUpsertTags))?;
-        note_data.mdx.atime = Some(chrono::NaiveDateTime::from_timestamp(
-            FileTime::from_last_access_time(file_meta).seconds(),
-            0,
-        ));
+        // note_data.mdx.atime = Some(chrono::NaiveDateTime::from_timestamp(
+        //     FileTime::from_last_access_time(file_meta).seconds(),
+        //     0,
+        // ));
         note_data.mdx.ctime = Some(chrono::NaiveDateTime::from_timestamp(
             FileTime::from_creation_time(file_meta)
                 .or(Some(FileTime::now()))

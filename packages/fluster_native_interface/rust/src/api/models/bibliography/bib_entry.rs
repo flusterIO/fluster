@@ -1,5 +1,5 @@
-use crate::api::data_interface::database::schema::generated::main_schema::bib_entry;
 use diesel::{prelude::*};
+use fluster_db::generated::main_schema::bib_entry;
 use serde::{Deserialize, Serialize};
 use tsify::Tsify;
 

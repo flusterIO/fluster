@@ -1,5 +1,5 @@
-use crate::api::data_interface::database::schema::generated::main_schema::mdx_note;
 use diesel::prelude::*;
+use fluster_db::generated::main_schema::mdx_note;
 use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Deserialize, Serialize, Clone, PartialEq, Eq, Insertable)]
@@ -10,7 +10,7 @@ pub struct MdxNoteCreatable {
     pub raw_body: String,
     pub ctime: Option<chrono::NaiveDateTime>,
     pub mtime: Option<chrono::NaiveDateTime>,
-    pub atime: Option<chrono::NaiveDateTime>,
+    // pub atime: Option<chrono::NaiveDateTime>,
 }
 
 // impl MdxNoteCreatable {

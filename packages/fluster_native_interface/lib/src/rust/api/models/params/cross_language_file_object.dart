@@ -15,8 +15,9 @@ class CrossLanguageFile {
 
   const CrossLanguageFile({required this.path, required this.noteType});
 
-  static Future<CrossLanguageFile> default_() => RustLib.instance.api
-      .crateApiModelsParamsCrossLanguageFileObjectCrossLanguageFileDefault();
+  static Future<CrossLanguageFile> default_() =>
+      RustLib.instance.api
+          .crateApiModelsParamsCrossLanguageFileObjectCrossLanguageFileDefault();
 
   @override
   int get hashCode => path.hashCode ^ noteType.hashCode;

@@ -3,8 +3,7 @@ description: Modern, academic note taking.
 publish_to: none
 version: 0.0.1
 environment:
-  sdk: ^3.8.0
-  flutter: 3.32.0-1.0.pre.180
+  sdk: ^3.7.2
 resolution: workspace
 dependencies:
   flutter:
@@ -22,7 +21,6 @@ dependencies:
   mime: ^2.0.0
   path_provider: ^2.1.5
   fluentui_system_icons: ^1.1.273
-  flutter_resizable_container: ^4.0.1
   flutter_spinkit: ^5.2.1
   bitsdojo_window: ^0.1.6
   fluent_ui: ^4.11.3
@@ -44,6 +42,8 @@ dependencies:
   flutter_animate: ^4.5.2
   latext: ^0.5.0
   webview_all: ^0.5.2
+  pretty_json: ^2.0.0
+  flutter_resizable_container: ^3.0.4
 dev_dependencies:
   flutter_test:
     sdk: flutter

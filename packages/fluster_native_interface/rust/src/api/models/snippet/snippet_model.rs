@@ -1,8 +1,8 @@
 use crate::api::{
-    data_interface::database::schema::generated::main_schema::snippet,
     models::enums::supported_language::SupportedSyntaxLanguage,
 };
 use diesel::prelude::*;
+use fluster_db::generated::main_schema::snippet;
 use serde::{Deserialize, Serialize};
 
 #[derive(

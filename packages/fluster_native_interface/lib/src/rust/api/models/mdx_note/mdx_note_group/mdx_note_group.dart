@@ -3,10 +3,13 @@
 
 // ignore_for_file: invalid_use_of_internal_member, unused_import, unnecessary_import
 
-import '../../../frb_generated.dart';
-import '../../../lib.dart';
-import '../front_matter.dart';
-import '../taggables/taggable.dart';
+import '../../../../frb_generated.dart';
+import '../../enums/taggable_type.dart';
+import '../../front_matter/front_matter_entity.dart';
+import '../../front_matter/front_matter_model.dart';
+import '../../taggable/tag_model.dart';
+import '../../taggable/taggable.dart';
+import '../mdx_note_creatable.dart';
 import 'package:flutter_rust_bridge/flutter_rust_bridge_for_generated.dart';
 
 // These functions are ignored because they are not marked as `pub`: `handle_fs_parse`
@@ -15,31 +18,28 @@ import 'package:flutter_rust_bridge/flutter_rust_bridge_for_generated.dart';
 // Rust type: RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<FlusterResult < MdxNoteGroup >>>
 abstract class FlusterResultMdxNoteGroup implements RustOpaqueInterface {}
 
-// Rust type: RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<MdxNoteGroup>>
-abstract class MdxNoteGroup implements RustOpaqueInterface {
-  FrontMatter get frontMatter;
+class MdxNoteGroup {
+  final MdxNoteCreatable mdx;
+  final FrontMatter frontMatter;
+  final List<Taggable> tags;
 
-  MdxNoteCreatable get mdx;
-
-  List<Taggable> get tags;
-
-  set frontMatter(FrontMatter frontMatter);
-
-  set mdx(MdxNoteCreatable mdx);
-
-  set tags(List<Taggable> tags);
+  const MdxNoteGroup({
+    required this.mdx,
+    required this.frontMatter,
+    required this.tags,
+  });
 
   static Future<FlusterResultMdxNoteGroup> fromFileSystemPath({
     required String filePath,
   }) => RustLib.instance.api
-      .crateApiModelsMdxNoteGroupMdxNoteGroupMdxNoteGroupFromFileSystemPath(
+      .crateApiModelsMdxNoteMdxNoteGroupMdxNoteGroupMdxNoteGroupFromFileSystemPath(
         filePath: filePath,
       );
 
   static Future<FlusterResultMdxNoteGroup> fromFileSystemPathAsync({
     required String filePath,
   }) => RustLib.instance.api
-      .crateApiModelsMdxNoteGroupMdxNoteGroupMdxNoteGroupFromFileSystemPathAsync(
+      .crateApiModelsMdxNoteMdxNoteGroupMdxNoteGroupMdxNoteGroupFromFileSystemPathAsync(
         filePath: filePath,
       );
 
@@ -47,8 +47,20 @@ abstract class MdxNoteGroup implements RustOpaqueInterface {
     required String rawFileContent,
     String? filePath,
   }) => RustLib.instance.api
-      .crateApiModelsMdxNoteGroupMdxNoteGroupMdxNoteGroupFromRawMdxString(
+      .crateApiModelsMdxNoteMdxNoteGroupMdxNoteGroupMdxNoteGroupFromRawMdxString(
         rawFileContent: rawFileContent,
         filePath: filePath,
       );
+
+  @override
+  int get hashCode => mdx.hashCode ^ frontMatter.hashCode ^ tags.hashCode;
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is MdxNoteGroup &&
+          runtimeType == other.runtimeType &&
+          mdx == other.mdx &&
+          frontMatter == other.frontMatter &&
+          tags == other.tags;
 }

@@ -17,10 +17,9 @@ class SyncFilesystemDirectoryOptions {
     required this.nThreads,
   });
 
-  static Future<SyncFilesystemDirectoryOptions> default_() => RustLib
-      .instance
-      .api
-      .crateApiGlobalActionsParseDirectorySyncFsDirectoryModelsSyncFilesystemOptionsSyncFilesystemDirectoryOptionsDefault();
+  static Future<SyncFilesystemDirectoryOptions> default_() =>
+      RustLib.instance.api
+          .crateApiGlobalActionsParseDirectorySyncFsDirectoryModelsSyncFilesystemOptionsSyncFilesystemDirectoryOptionsDefault();
 
   @override
   int get hashCode => dirPath.hashCode ^ bibPath.hashCode ^ nThreads.hashCode;
