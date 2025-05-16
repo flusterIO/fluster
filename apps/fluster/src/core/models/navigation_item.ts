@@ -1,4 +1,5 @@
 import { GeneralCommandPaletteItem } from "#/command_palette/data/models/command_palette_item";
+import { AppRoutes } from "#/router/data/main_router_routes";
 import { GlobalAction } from "@/state/actions/global_action";
 import { ComponentType } from "react";
 import { Navigator } from "react-router";
@@ -9,12 +10,12 @@ export enum NavItemPosition {
 }
 
 export class NavigationItem extends GlobalAction {
-    href: string;
+    href: AppRoutes;
     icon: ComponentType;
     position: NavItemPosition;
     constructor(
         label: string,
-        href: string,
+        href: AppRoutes,
         icon: ComponentType,
         position: NavItemPosition,
     ) {
