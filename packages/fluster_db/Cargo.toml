@@ -22,7 +22,6 @@ serde.workspace = true
 serde_json.workspace = true
 strum = "0.27.1"
 strum_macros = "0.27.1"
-tsify = "0.5.5"
 fluster_types = { path = "../fluster_types/" }
 wasm-bindgen.workspace = true
 tokio = { version = "1.45.0", features = ["fs"] }

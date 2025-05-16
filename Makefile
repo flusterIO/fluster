@@ -18,6 +18,8 @@ build_protos: build_go
 	${FLUSTER_NATIVE_ROOT}/packages/fluster_internal_workspace/fluster_internal_workspace generate_grpc_script
 	${FLUSTER_NATIVE_ROOT}/packages/fluster_grpc/scripts/clean.sh
 	cd ${FLUSTER_NATIVE_ROOT}/packages/fluster_grpc; ${FLUSTER_NATIVE_ROOT}/packages/fluster_grpc/scripts/distribute_proto.sh
+lock_package_json_versions:
+	/Users/bigsexy/Desktop/fluster/node_modules/.pnpm/syncpack@13.0.3_typescript@5.8.3/node_modules/syncpack/dist/index.js
 build_embedded_ts:
 	cd ${FLUSTER_NATIVE_ROOT}/packages/fluster_native_interface/typescript; pnpm install
 	cd ${FLUSTER_NATIVE_ROOT}/packages/fluster_native_interface/typescript; pnpm build

@@ -47,7 +47,28 @@ const config = {
             range: "",
         },
     ],
-    versionGroups: [],
+    customTypes: {
+        engines: {
+            path: "engines",
+            strategy: "versionsByName",
+        },
+        packageManager: {
+            path: "pnpm",
+            strategy: "pnpm@9.7.1",
+        },
+    },
+    versionGroups: [
+        // {
+        //     label: "Use workspace protocol when developing local packages",
+        //     dependencies: [
+        //         "@your-repo/node-client-plugin-retry",
+        //         "@your-repo/node-client",
+        //         "dashboard-ui",
+        //     ],
+        //     dependencyTypes: ["dev"],
+        //     pinVersion: "workspace:*",
+        // },
+    ],
 };
 
 /* @ts-ignore */

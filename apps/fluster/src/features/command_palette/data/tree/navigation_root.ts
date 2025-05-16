@@ -1,0 +1,12 @@
+import { globalNavigationItems } from "@/models/static_model_data/navigation_items";
+import { CommandPaletteAnyEntry } from "../models/command_palette_any_entry";
+import { CommandPaletteCategory } from "../models/command_palette_category";
+
+class NavigationCommandPaletteRoot extends CommandPaletteCategory {
+    constructor(label: string) {
+        super(label);
+    }
+    getItems(): CommandPaletteAnyEntry[] {
+        return globalNavigationItems();
+    }
+}

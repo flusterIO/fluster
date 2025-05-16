@@ -28,7 +28,7 @@ func CreateCleanFeature() {
 	handleError(os.MkdirAll(path.Join(featureDir, "data", "models"), 0777))
 	handleError(os.MkdirAll(path.Join(featureDir, "presentation"), 0777))
 	handleError(os.MkdirAll(path.Join(featureDir, "state", "actions"), 0777))
-	handleError(os.MkdirAll(path.Join(utils.GetNativeRoot(), "apps", "fluster", "src-tauri", "features", featureName), 0777))
+	handleError(os.MkdirAll(path.Join(utils.GetNativeRoot(), "apps", "fluster", "src-tauri", "src", "features", featureName), 0777))
 	log.SetReportTimestamp(false)
 	log.Infof("✅ - Successfully created the %s feature in %s", featureName, featureDir)
 }

@@ -31,6 +31,10 @@ tauri-plugin-http = "2"
 tauri-plugin-shell = "2"
 tauri-plugin-devtools = "2.0.0"
 tauri-plugin-store = "2"
+typeshare.workspace = true
+tauri-specta = { version = "=2.0.0-rc.21", features = ["derive", "typescript"] }
+specta = { version = "=2.0.0-rc.22", features = ["chrono", "derive"] }
+# specta = { version = "1.0.5", features = ["tokio", "chrono", "tauri"] }
 
 [target.'cfg(not(any(target_os = "android", target_os = "ios")))'.dependencies]
 tauri-plugin-global-shortcut = "2"
