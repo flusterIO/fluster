@@ -1,25 +1,25 @@
+import { NavigationItem, NavItemPosition } from "@/models/navigation_item";
+import { AppState } from "@/state/initial_state";
 import React, { type ReactNode } from "react";
 
-enum NavItemPosition {
-    top,
-    bottom,
-}
+import { connect } from "react-redux";
 
-export interface NavigationItem {
-    label: ReactNode;
-    href?: string;
-    /* FIXME: Replace this with an enum generated from rust once specta is in place.  */
-    globalActionId: string;
-    position: NavItemPosition;
-    icon: string;
-}
+const connector = connect((state: AppState, props: any) => ({
+    items: state.scaffold.sideNavButtons,
+    props: props,
+}));
 
 interface DesktopSideNavigationProps {
     items: NavigationItem[];
 }
 
 const SideNavigationItem = ({ item }: { item: NavigationItem }): ReactNode => {
-    return <div>{item.icon}</div>;
+    let Icon = item.icon;
+    return (
+        <div>
+            <Icon />
+        </div>
+    );
 };
 
 const SideNavigationCol = ({
@@ -34,25 +34,25 @@ const SideNavigationCol = ({
     );
 };
 
-const DesktopSideNavigation = ({
-    items,
-}: DesktopSideNavigationProps): ReactNode => {
-    let top: NavigationItem[] = [];
-    let bottom: NavigationItem[] = [];
-    for (const item of items) {
-        if (item.position === NavItemPosition.top) {
-            top.push(item);
-        } else {
-            bottom.push(item);
+const DesktopSideNavigation = connector(
+    ({ items }: DesktopSideNavigationProps): ReactNode => {
+        let top: NavigationItem[] = [];
+        let bottom: NavigationItem[] = [];
+        for (const item of items) {
+            if (item.position === NavItemPosition.top) {
+                top.push(item);
+            } else {
+                bottom.push(item);
+            }
         }
-    }
-    return (
-        <div className="w-fit h-full flex flex-col justify-between items-center gap-8 border-r">
-            <SideNavigationCol items={top} />
-            <SideNavigationCol items={bottom} />
-        </div>
-    );
-};
+        return (
+            <div className="w-fit h-full flex flex-col justify-between items-center gap-8 border-r pt-8 px-6 pb-6 stroke-foreground">
+                <SideNavigationCol items={top} />
+                <SideNavigationCol items={bottom} />
+            </div>
+        );
+    },
+);
 
 DesktopSideNavigation.displayName = "DesktopSideNavigation";
 

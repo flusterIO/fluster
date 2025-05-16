@@ -7,7 +7,7 @@ import {
     ScaffoldState,
 } from "../../features/scaffold/state/initial_state";
 
-interface AppState {
+export interface AppState {
     commandPalette: CommandPaletteState;
     scaffold: ScaffoldState;
 }

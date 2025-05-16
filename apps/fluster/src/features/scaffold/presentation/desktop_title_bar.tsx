@@ -5,7 +5,7 @@ interface DesktopTitleBarProps { }
 const DesktopTitleBar = (props: DesktopTitleBarProps): ReactNode => {
     return (
         <div
-            className="h-4 w-screen top-0 left-0 right-0 fixed"
+            className="h-8 w-screen top-0 left-0 right-0 fixed bg-[hsl(var(--card))]"
             data-tauri-drag-region
         />
     );

@@ -5,7 +5,7 @@ interface AppProps { }
 
 const App = (props: AppProps): ReactNode => {
     return (
-        <main className="h-screen w-screen dark text-3xl">
+        <main className="h-screen w-screen dark">
             <DesktopScaffold />
         </main>
     );

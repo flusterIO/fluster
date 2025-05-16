@@ -1,21 +1,16 @@
 import React, { type ReactNode } from "react";
 import { Resizable, ResizableBox } from "react-resizable";
 import PanelLeftSwitch from "./panel_left_switch";
+import { Panel } from "react-resizable-panels";
 
 const PanelLeftDesktop = (): ReactNode => {
     return (
-        /* @ts-ignore */
-        <ResizableBox
-            width={200}
-            axis="x"
-            className="border-r h-full"
-            handleSize={[5, 32]}
-        /* draggableOpts={{ */
-        /*     "" */
-        /* }} */
+        <Panel
+            defaultSize={200}
+            className="border-r h-full pt-8 px-6 pb-6 relative"
         >
             <PanelLeftSwitch />
-        </ResizableBox>
+        </Panel>
     );
 };
 

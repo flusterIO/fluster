@@ -1,4 +1,6 @@
-import { type NavigationItem } from "../presentation/desktop_side_navigation";
+import { NavigationItem } from "@/models/navigation_item";
+import { globalNavigationItems } from "@/models/static_model_data/navigation_items";
+// import { type NavigationItem } from "../presentation/desktop_side_navigation";
 
 export enum ThemeMode {
     light,
@@ -12,6 +14,6 @@ export interface ScaffoldState {
 }
 
 export const initialScaffoldState: ScaffoldState = {
-    sideNavButtons: [],
+    sideNavButtons: globalNavigationItems(),
     themeMode: ThemeMode.system,
 };
