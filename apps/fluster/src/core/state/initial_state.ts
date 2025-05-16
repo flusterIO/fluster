@@ -1,3 +1,5 @@
+import { initialKeymapState } from "#/keymap/state/initial_keymap_state";
+import { KeymapState } from "#/keymap/state/keymap_state";
 import {
     CommandPaletteState,
     initialCommandPaletteState,
@@ -10,9 +12,11 @@ import {
 export interface AppState {
     commandPalette: CommandPaletteState;
     scaffold: ScaffoldState;
+    keymap: KeymapState;
 }
 
 export const initialAppState: AppState = {
     commandPalette: initialCommandPaletteState,
     scaffold: initialScaffoldState,
+    keymap: initialKeymapState,
 };
