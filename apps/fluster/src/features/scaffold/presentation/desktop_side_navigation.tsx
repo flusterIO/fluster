@@ -3,6 +3,7 @@ import { AppState } from "@/state/initial_state";
 import React, { type ReactNode } from "react";
 
 import { connect } from "react-redux";
+import { NavLink } from "react-router";
 
 const connector = connect((state: AppState, props: any) => ({
     items: state.scaffold.sideNavButtons,
@@ -16,9 +17,9 @@ interface DesktopSideNavigationProps {
 const SideNavigationItem = ({ item }: { item: NavigationItem }): ReactNode => {
     let Icon = item.icon;
     return (
-        <div>
+        <NavLink to={item.href} end>
             <Icon />
-        </div>
+        </NavLink>
     );
 };
 
@@ -26,7 +27,7 @@ const SideNavigationCol = ({
     items,
 }: DesktopSideNavigationProps): ReactNode => {
     return (
-        <div>
+        <div className="flex flex-col justify-center items-center gap-6">
             {items.map((k) => (
                 <SideNavigationItem item={k} key={`${k.label}-side-nav`} />
             ))}
@@ -46,7 +47,7 @@ const DesktopSideNavigation = connector(
             }
         }
         return (
-            <div className="w-fit h-full flex flex-col justify-between items-center gap-8 border-r pt-8 px-6 pb-6 stroke-foreground">
+            <div className="w-fit h-full flex flex-col justify-between items-center gap-8 border-r pt-8 px-2 pb-6 stroke-foreground">
                 <SideNavigationCol items={top} />
                 <SideNavigationCol items={bottom} />
             </div>

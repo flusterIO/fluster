@@ -6,22 +6,12 @@ import PanelRightDesktop from "../../panel_right/presentation/panel_right_deskto
 import DesktopTitleBar from "./desktop_title_bar";
 import { Panel, PanelGroup, PanelResizeHandle } from "react-resizable-panels";
 
-interface DesktopScaffoldProps { }
-
-const DesktopScaffold = (props: DesktopScaffoldProps): ReactNode => {
+const DesktopScaffold = (): ReactNode => {
     return (
         <div className="h-full w-full flex flex-row justify-center items-center relative  bg-background text-foreground">
             <DesktopTitleBar />
-            <DesktopSideNavigation items={[]} />
-            <PanelGroup autoSaveId={"scaffold-panels"} direction="horizontal">
-                <PanelLeftDesktop />
-                <PanelResizeHandle />
-                <Panel>
-                    <Outlet />
-                </Panel>
-                <PanelResizeHandle />
-                <PanelRightDesktop />
-            </PanelGroup>
+            <DesktopSideNavigation />
+            <Outlet />
         </div>
     );
 };

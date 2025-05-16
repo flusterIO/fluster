@@ -1,13 +1,21 @@
+import PanelLeftDesktop from "#/panel_left/presentation/panel_left_desktop";
+import PanelRightDesktop from "#/panel_right/presentation/panel_right_desktop";
 import React, { type ReactNode } from "react";
+import { Panel, PanelGroup, PanelResizeHandle } from "react-resizable-panels";
 import { Outlet } from "react-router";
 
-export const DashboardScaffold = (): ReactNode => {
+export const ScaffoldWithSidePanels = (): ReactNode => {
     return (
-        <div>
-            <h3>Desktop scaffold</h3>
-            <Outlet />
-        </div>
+        <PanelGroup autoSaveId={"scaffold-panels"} direction="horizontal">
+            <PanelLeftDesktop />
+            <PanelResizeHandle />
+            <Panel>
+                <Outlet />
+            </Panel>
+            <PanelResizeHandle />
+            <PanelRightDesktop />
+        </PanelGroup>
     );
 };
 
-DashboardScaffold.displayName = "DesktopScaffold";
+ScaffoldWithSidePanels.displayName = "DesktopScaffold";

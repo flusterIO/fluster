@@ -1,5 +1,4 @@
 import React, { type ReactNode } from "react";
-import { Resizable, ResizableBox } from "react-resizable";
 import PanelLeftSwitch from "./panel_left_switch";
 import { Panel } from "react-resizable-panels";
 

@@ -2,7 +2,7 @@ import { createBrowserRouter } from "react-router";
 import DashboardPage from "../../dashboard/presentation/page";
 import { Settings } from "lucide-react";
 import DesktopScaffold from "../../scaffold/presentation/desktop_scaffold";
-import { DashboardScaffold } from "../presentation/dashboard_scaffold";
+import { ScaffoldWithSidePanels } from "../presentation/dashboard_scaffold";
 
 export enum MainRouterRoute {
     dashboard = "/",
@@ -12,10 +12,16 @@ export enum MainRouterRoute {
 export const getBrowserRouter = () => {
     return createBrowserRouter([
         {
-            Component: DashboardScaffold,
+            path: MainRouterRoute.dashboard,
+            Component: DesktopScaffold,
             children: [
-                { index: true, Component: DashboardPage },
-                { path: MainRouterRoute.settings, Component: Settings },
+                {
+                    Component: ScaffoldWithSidePanels,
+                    children: [
+                        { index: true, Component: DashboardPage },
+                        { path: MainRouterRoute.settings, Component: Settings },
+                    ],
+                },
             ],
         },
     ]);
