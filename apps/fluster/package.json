@@ -41,6 +41,7 @@
         "@tabler/icons-react": "^3.31.0",
         "@tailwindcss/typography": "^0.5.16",
         "@tauri-apps/api": "^2",
+        "@tauri-apps/plugin-log": "^2.4.0",
         "@tauri-apps/plugin-opener": "^2",
         "autoprefixer": "^10.4.21",
         "class-variance-authority": "^0.7.1",
@@ -64,6 +65,7 @@
         "recharts": "^2.15.3",
         "sonner": "^2.0.3",
         "tailwind-merge": "^3.3.0",
+        "uuid": "^11.1.0",
         "vaul": "^1.1.2",
         "zod": "^3.24.4"
     },

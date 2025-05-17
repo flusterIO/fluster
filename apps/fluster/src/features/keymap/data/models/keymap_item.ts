@@ -1,26 +1,35 @@
-class KeymapItem {
-    shift: boolean;
-    cmd: boolean;
-    ctrl: boolean;
-    keyCode: number;
-    constructor(shift: boolean, cmd: boolean, ctrl: boolean, keyCode: number) {
-        this.shift = shift;
-        this.cmd = cmd;
-        this.ctrl = ctrl;
-        this.keyCode = keyCode;
-    }
+export class KeymapItem {
+  shift: boolean;
+  meta: boolean;
+  ctrl: boolean;
+  alt: boolean;
+  key: string;
+  constructor(
+    shift: boolean,
+    meta: boolean,
+    ctrl: boolean,
+    alt: boolean,
+    key: string,
+  ) {
+    this.shift = shift;
+    this.meta = meta;
+    this.ctrl = ctrl;
+    this.alt = alt;
+    this.key = key;
+  }
 
-    toString(): string {
-        return `${this.keyCode}-${this.shift ? "true" : "false"}-${this.cmd ? "true" : "false"}-${this.ctrl ? "true" : "false"}`;
-    }
+  toString(): string {
+    return `${this.key}-${this.alt ? "true" : "false"}-${this.shift ? "true" : "false"}-${this.meta ? "true" : "false"}-${this.ctrl ? "true" : "false"}`;
+  }
 
-    static fromString(val: string): KeymapItem {
-        const [keyCode, shift, cmd, ctrl] = val.split("-");
-        return new KeymapItem(
-            shift == "true",
-            cmd == "true",
-            ctrl === "true",
-            parseInt(keyCode),
-        );
-    }
+  static fromString(val: string): KeymapItem {
+    const [keyCode, alt, shift, meta, ctrl] = val.split("-");
+    return new KeymapItem(
+      shift == "true",
+      meta == "true",
+      ctrl === "true",
+      alt === "true",
+      keyCode,
+    );
+  }
 }

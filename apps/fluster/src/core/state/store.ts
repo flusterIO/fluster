@@ -1,12 +1,19 @@
-import { Reducer, combineReducers, configureStore } from "@reduxjs/toolkit";
+import { Reducer, configureStore } from "@reduxjs/toolkit";
 import ScaffoldReducer from "#/scaffold/state/slice.ts";
-export type ExtraReducers<T extends string> = Record<T, Reducer>;
-export type ExtraInitialState<T extends string> = Record<T, object>;
+import KeymapReducer from "#/keymap/state/slice.ts";
+import CommandPaletteReducer from "#/command_palette/state/slice.ts";
+import ToastReducer from "#/toast_notification/state/slice.ts";
+import { AppState } from "./initial_state";
+
+const reducers: Record<keyof AppState, Reducer> = {
+    scaffold: ScaffoldReducer,
+    keymap: KeymapReducer,
+    commandPalette: CommandPaletteReducer,
+    toast: ToastReducer,
+};
 
 const store = configureStore({
-    reducer: {
-        scaffold: ScaffoldReducer,
-    },
+    reducer: reducers,
 });
 
 export default store;

@@ -13,6 +13,16 @@ pub fn run() {
             //     .set_focus();
         }))
         .plugin(tauri_plugin_opener::init())
+        .plugin(
+            tauri_plugin_log::Builder::new()
+                .target(tauri_plugin_log::Target::new(
+                    tauri_plugin_log::TargetKind::LogDir {
+                        file_name: Some("logs".to_string()),
+                    },
+                ))
+                .max_file_size(50_000)
+                .build(),
+        )
         .invoke_handler(tauri::generate_handler![
             dashboard::get_dashboard_data::get_dashboard_data
         ])
