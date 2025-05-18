@@ -1,4 +1,3 @@
-import { Input } from "@/components/ui/shad/input";
 import {
   ForwardedRef,
   forwardRef,
@@ -13,6 +12,9 @@ import {
   useCommandPaletteContext,
   useCommandPaletteDispatch,
 } from "../state/command_palette_provider";
+import { CommandPaletteCategory } from "../data/models/command_palette_category";
+import { CommandPaletteItem as CommandPaletteItemAbstract } from "../data/models/command_palette_item.ts";
+import { appendCommandPaletteCategory } from "../state/actions/appendCommandPaletteCategory";
 
 interface CommandPaletteInputProps {}
 
@@ -25,6 +27,7 @@ const CommandPaletteInput = forwardRef(
     const [hasFocused, setHasFocused] = useState(false);
     const state = useCommandPaletteContext();
     const dispatch = useCommandPaletteDispatch();
+    /* const nav = useNavigationType(); */
 
     useEffect(() => {
       if (state.navStack.length > 0 && !hasFocused) {
@@ -40,8 +43,17 @@ const CommandPaletteInput = forwardRef(
         setHasFocused(false);
       }
     }, [state.navStack.length]);
+
     useEffect(() => {
-      console.log("value: ", value);
+      if (value === "") {
+        return;
+      }
+      dispatch({
+        type: CommandPaletteActionType.setFilteredItems,
+        payload: state.availableItems.filter((f) =>
+          f.label.toLowerCase().includes(value.toLowerCase()),
+        ),
+      });
     }, [value]);
 
     const handleKeyDown: KeyboardEventHandler<HTMLInputElement> = (e): void => {
@@ -63,8 +75,21 @@ const CommandPaletteInput = forwardRef(
             type: CommandPaletteActionType.incrementFocusIndex,
           });
         }
+      } else if (e.key === "Enter") {
+        let item = state.filteredItems[state.focusedIndex];
+        if (item instanceof CommandPaletteCategory) {
+          appendCommandPaletteCategory(item, dispatch);
+        } else if (item instanceof CommandPaletteItemAbstract) {
+          /* RESUME: Figure out how to get the navigator class and pass that to the invoke function here. */
+          /* item.invoke(nav); */
+          dispatch({
+            type: CommandPaletteActionType.setCommandPaletteOpen,
+            payload: false,
+          });
+        }
       }
     };
+
     return (
       <input
         id="searchCommandInput"
@@ -72,7 +97,7 @@ const CommandPaletteInput = forwardRef(
         ref={ref}
         value={value}
         onChange={(e) => setValue(e.target.value)}
-        className="w-full p-2 focus-visible:ring-transparent rounded-tr rounded-tl"
+        className="w-full p-2 focus-visible:ring-transparent focus-visible:outline-none rounded-tr rounded-tl"
         onKeyDown={handleKeyDown}
       />
     );

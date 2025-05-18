@@ -64,7 +64,7 @@ const CommandPalette = (): ReactNode => {
           left: (window.innerWidth - width) / 2,
           width: `${width}px`,
         }}
-        className="max-h-[80vh] absolute top-24"
+        className="max-h-[80vh] absolute top-24 bg-popover"
         variants={{
           show: {
             scale: 1,
