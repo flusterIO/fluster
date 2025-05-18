@@ -5,7 +5,7 @@ import { useCommandPaletteContext } from "../state/command_palette_provider";
 const CommandPaletteResults = (): ReactNode => {
   const state = useCommandPaletteContext();
   return (
-    <div>
+    <div className="rounded-br rounded-bl bg-popover">
       {state.filteredItems.map((r, i) => {
         return (
           <CommandPaletteItem

@@ -10,7 +10,16 @@ const CommandPaletteItem = ({
   item,
   focused,
 }: CommandPaletteItemProps): ReactNode => {
-  return <div className="p-2">{item.label}</div>;
+  return (
+    <div
+      className="p-2 border-l-2"
+      style={{
+        borderColor: focused ? "hsl(var(--primary))" : "transparent",
+      }}
+    >
+      {item.label}
+    </div>
+  );
 };
 
 CommandPaletteItem.displayName = "CommandPaletteItem";

@@ -51,15 +51,28 @@ const CommandPaletteInput = forwardRef(
         dispatch({
           type: CommandPaletteActionType.popCommandPaletteCategory,
         });
+      } else if (e.key === "Tab") {
+        e.preventDefault();
+        e.stopPropagation();
+        if (e.shiftKey) {
+          dispatch({
+            type: CommandPaletteActionType.decrementFocusIndex,
+          });
+        } else {
+          dispatch({
+            type: CommandPaletteActionType.incrementFocusIndex,
+          });
+        }
       }
     };
     return (
-      <Input
+      <input
         id="searchCommandInput"
         type="text"
         ref={ref}
         value={value}
         onChange={(e) => setValue(e.target.value)}
+        className="w-full p-2 focus-visible:ring-transparent rounded-tr rounded-tl"
         onKeyDown={handleKeyDown}
       />
     );
