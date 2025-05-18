@@ -1,25 +1,32 @@
 import { initialKeymapState } from "#/keymap/state/initial_keymap_state";
 import { KeymapState } from "#/keymap/state/keymap_state";
+import { initialPanelBottomState } from "#/panel_bottom/state/initial_state";
+import { PanelBottomState } from "#/panel_bottom/state/panel_bottom_state";
+import { initialPanelLeftState } from "#/panel_left/state/initial_state";
+import { PanelLeftState } from "#/panel_left/state/panel_left_state";
+import { initialPanelRightState } from "#/panel_right/state/initial_state";
+import { PanelRightState } from "#/panel_right/state/panel_right_state";
 import { initialToastState } from "#/toast_notification/state/initial_toast_state";
+import { ToastState } from "#/toast_notification/state/toast_state";
 import {
-    CommandPaletteState,
-    initialCommandPaletteState,
-} from "../../features/command_palette/state/command_palette_state";
-import {
-    initialScaffoldState,
-    ScaffoldState,
+  initialScaffoldState,
+  ScaffoldState,
 } from "../../features/scaffold/state/initial_state";
 
 export interface AppState {
-    commandPalette: CommandPaletteState;
-    scaffold: ScaffoldState;
-    keymap: KeymapState;
-    toast: ToastState;
+  scaffold: ScaffoldState;
+  keymap: KeymapState;
+  toast: ToastState;
+  panelLeft: PanelLeftState;
+  panelRight: PanelRightState;
+  panelBottom: PanelBottomState;
 }
 
 export const initialAppState: AppState = {
-    commandPalette: initialCommandPaletteState,
-    scaffold: initialScaffoldState,
-    keymap: initialKeymapState,
-    toast: initialToastState,
+  scaffold: initialScaffoldState,
+  keymap: initialKeymapState,
+  toast: initialToastState,
+  panelLeft: initialPanelLeftState,
+  panelRight: initialPanelRightState,
+  panelBottom: initialPanelBottomState,
 };

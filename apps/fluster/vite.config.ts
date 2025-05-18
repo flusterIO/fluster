@@ -1,7 +1,6 @@
 import { defineConfig } from "vite";
 import tailwindcss from "@tailwindcss/vite";
 import tsconfigPaths from "vite-tsconfig-paths";
-import { reactRouter } from "@react-router/dev/vite";
 import tauri from "vite-plugin-tauri";
 import react from "@vitejs/plugin-react";
 import path from "path";

@@ -9,28 +9,28 @@ import { ThemeMode } from "../state/initial_state";
 import clsx from "clsx";
 
 const connector = connect((state: AppState, props: any) => ({
-  themeMode: state.scaffold.themeMode,
-  props: props,
+    themeMode: state.scaffold.themeMode,
+    props: props,
 }));
 
 const DesktopScaffold = connector(
-  ({ themeMode }: { themeMode: ThemeMode }): ReactNode => {
-    return (
-      <div
-        className={clsx(
-          "h-full w-full flex flex-row justify-center items-center relative  bg-background text-foreground",
-          themeMode === ThemeMode.dark && "dark",
-        )}
-      >
-        <DesktopTitleBar />
-        <DesktopSideNavigation />
-        <div className="flex-grow h-full w-full pt-8">
-          <Outlet />
-        </div>
-        <ToastNotificationList />
-      </div>
-    );
-  },
+    ({ themeMode }: { themeMode: ThemeMode }): ReactNode => {
+        return (
+            <div
+                className={clsx(
+                    "h-full w-full flex flex-row justify-center items-center relative  bg-background text-foreground min-scrollbar",
+                    themeMode === ThemeMode.dark && "dark",
+                )}
+            >
+                <DesktopTitleBar />
+                <DesktopSideNavigation />
+                <div className="flex-grow h-full w-full pt-8">
+                    <Outlet />
+                </div>
+                <ToastNotificationList />
+            </div>
+        );
+    },
 );
 
 DesktopScaffold.displayName = "DesktopScaffold";

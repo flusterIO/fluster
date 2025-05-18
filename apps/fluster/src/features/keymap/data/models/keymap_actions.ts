@@ -1,20 +1,27 @@
 import store from "@/state/store";
 import { KeymapId } from "./keymap_ids";
-import { setCommandPaletteOpen } from "#/command_palette/state/slice";
-import { showToast } from "#/toast_notification/state/slice";
-import { ToastVariant } from "#/toast_notification/state/toast_state";
+import { ShowCommandPaletteEventProps } from "@/events/show_command_palette";
+import { togglePanelBottom } from "#/panel_bottom/state/slice";
+import { togglePanelRight } from "#/panel_right/state/slice";
+import { togglePanelLeft } from "#/panel_left/state/slice";
 
 export const keymapActions: Record<KeymapId, () => Promise<void>> = {
   [KeymapId.syncDirectory]: async () => {},
   [KeymapId.showCommandPalette]: async () => {
-    store.dispatch(
-      showToast({
-        expires: 5000,
-        title: "Toast here",
-        desc: "Description goes here",
-        variant: ToastVariant.info,
+    window.dispatchEvent(
+      new CustomEvent<ShowCommandPaletteEventProps>("show_command_palette", {
+        detail: {},
       }),
     );
-    store.dispatch(setCommandPaletteOpen(true));
+    // store.dispatch(setCommandPaletteOpen(true));
+  },
+  [KeymapId.togglePanelBottom]: async () => {
+    store.dispatch(togglePanelBottom());
+  },
+  [KeymapId.togglePanelLeft]: async () => {
+    store.dispatch(togglePanelLeft());
+  },
+  [KeymapId.togglePanelRight]: async () => {
+    store.dispatch(togglePanelRight());
   },
 };

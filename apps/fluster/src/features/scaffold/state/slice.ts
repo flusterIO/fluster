@@ -6,8 +6,15 @@ const scaffoldSlice = createSlice({
   initialState: initialScaffoldState,
   reducers: {
     toggleDarkMode(state) {
-      state.themeMode =
-        state.themeMode === ThemeMode.dark ? ThemeMode.light : ThemeMode.dark;
+      if (state.themeMode === ThemeMode.system) {
+        const isDarkMode = window.matchMedia(
+          "(prefers-color-scheme: dark)",
+        ).matches;
+        state.themeMode = isDarkMode ? ThemeMode.light : ThemeMode.dark;
+      } else {
+        state.themeMode =
+          state.themeMode === ThemeMode.dark ? ThemeMode.light : ThemeMode.dark;
+      }
     },
 
     setThemeMode(state, action: PayloadAction<ThemeMode>) {

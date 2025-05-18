@@ -1,38 +1,86 @@
-import React, { type ReactNode } from "react";
+import { useEffect, useRef, useState, type ReactNode } from "react";
 import { motion } from "motion/react";
+import CommandPaletteInput from "./command_palette_input";
+import CommandPaletteResults from "./command_palette_results";
+import {
+  CommandPaletteActionType,
+  useCommandPaletteContext,
+  useCommandPaletteDispatch,
+} from "../state/command_palette_provider";
+import { useEventListener } from "@/hooks/use_event_listener";
+import { CommandPaletteRoot } from "../data/command_palette_tree";
 
-import { connect } from "react-redux";
-import { AppState } from "@/state/initial_state";
+const getWidth = (): number => Math.min(768, window.innerWidth - 64);
 
-const connector = connect((state: AppState, props: any) => ({
-  state: state.commandPalette,
-  props: props,
-}));
-
-interface CommandPaletteProps {
-  state: AppState["commandPalette"];
-}
-
-const CommandPalette = connector(
-  ({ state }: CommandPaletteProps): ReactNode => {
-    return (
+const CommandPalette = (): ReactNode => {
+  const input = useRef<HTMLInputElement>(null!);
+  const [open, setOpen] = useState(false);
+  const [width, setWidth] = useState(getWidth());
+  const dispatch = useCommandPaletteDispatch();
+  const handleResize = () => setWidth(getWidth());
+  const state = useCommandPaletteContext();
+  useEffect(() => {
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+  useEventListener("show_command_palette", async () => {
+    let cat = new CommandPaletteRoot();
+    let items = await cat.getItems();
+    dispatch({
+      type: CommandPaletteActionType.appendCommandPaletteCategory,
+      payload: {
+        cat,
+        items,
+      },
+    });
+  });
+  useEffect(() => {
+    setOpen(state.navStack.length > 0);
+  }, [state.navStack]);
+  if (state.navStack.length == 0) {
+    return null;
+  }
+  return (
+    <motion.div
+      className="fixed top-0 left-0 right-0 bottom-0 w-screen h-screen bg-foreground/20"
+      animate={open ? "show" : "hide"}
+      variants={{
+        show: {
+          opacity: 1,
+        },
+        hide: {
+          opacity: 0,
+        },
+      }}
+      onClick={() =>
+        dispatch({
+          type: CommandPaletteActionType.setCommandPaletteOpen,
+          payload: false,
+        })
+      }
+    >
       <motion.div
-        className="w-32 h-32 bg-green-500"
-        animate={state.navStack.length > 0 ? "show" : "hide"}
+        style={{
+          left: (window.innerWidth - width) / 2,
+          width: `${width}px`,
+        }}
+        className="max-h-[80vh] absolute top-24"
         variants={{
           show: {
             scale: 1,
           },
           hide: {
             scale: 0,
+            top: 0,
           },
         }}
       >
-        Cmd palette
+        <CommandPaletteInput ref={input} />
+        <CommandPaletteResults />
       </motion.div>
-    );
-  },
-);
+    </motion.div>
+  );
+};
 
 CommandPalette.displayName = "CommandPalette";
 

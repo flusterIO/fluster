@@ -17,4 +17,25 @@ export const initialKeymapState: KeymapState = {
     false,
     "p",
   ).toString(),
+  [KeymapId.togglePanelLeft]: new KeymapItem(
+    true,
+    true,
+    false,
+    false,
+    "l",
+  ).toString(),
+  [KeymapId.togglePanelRight]: new KeymapItem(
+    true,
+    true,
+    false,
+    false,
+    "r",
+  ).toString(),
+  [KeymapId.togglePanelBottom]: new KeymapItem(
+    true,
+    true,
+    false,
+    false,
+    "t",
+  ).toString(),
 };
