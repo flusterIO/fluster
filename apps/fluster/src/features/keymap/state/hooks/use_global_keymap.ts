@@ -4,7 +4,6 @@ import { KeymapItem } from "#/keymap/data/models/keymap_item";
 import { AppState } from "@/state/initial_state";
 import { useEffect, useMemo } from "react";
 import { shallowEqual, useSelector } from "react-redux";
-import { info } from "@tauri-apps/plugin-log";
 
 const stateToKeyRecord = (
   state: AppState["keymap"],
@@ -20,7 +19,6 @@ const stateToKeyRecord = (
 };
 
 export const useGlobalKeymap = () => {
-  info(`In the global keymap`);
   const globalKeymap = useSelector((state: AppState) => state.keymap, {
     equalityFn: shallowEqual,
   });
@@ -32,7 +30,7 @@ export const useGlobalKeymap = () => {
   const handleKeyDown = (e: KeyboardEvent): void => {
     for (const entry_id in keymapData) {
       let entry = keymapData[entry_id as unknown as KeymapId];
-      console.log("entry: ", entry);
+      console.log("entry: ", entry, e);
       if (
         entry.key === e.key &&
         entry.alt === e.altKey &&
@@ -40,6 +38,7 @@ export const useGlobalKeymap = () => {
         entry.shift === e.shiftKey &&
         entry.ctrl === e.ctrlKey
       ) {
+        console.log(`Sending action...`);
         keymapActions[entry_id as unknown as KeymapId]();
       }
     }

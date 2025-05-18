@@ -16,8 +16,8 @@ interface ToastNotificationListProps {
 const ToastNotificationList = connector(
   (props: ToastNotificationListProps): ReactNode => {
     return (
-      <div className="h-fit flex flex-col justify-center items-center gap-6 max-w-[350px] max-h-screen absolute">
-        {props.toasts.map((t) => (
+      <div className="h-fit flex flex-col justify-center items-center gap-6 max-w-[350px] max-h-screen absolute right-0 bottom-0 p-6 overflow-hidden">
+        {props.toasts.map((t: (typeof props.toasts)[number]) => (
           <Toast item={t} key={`toast-${t.title}-${t.desc}-${t.variant}`} />
         ))}
       </div>

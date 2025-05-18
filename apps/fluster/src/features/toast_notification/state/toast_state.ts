@@ -1,10 +1,10 @@
-enum ToastVariant {
+export enum ToastVariant {
   error,
   info,
   success,
 }
 
-interface ToastItem {
+export interface ToastItem {
   expires: number;
   title: string;
   desc: string;
@@ -12,6 +12,6 @@ interface ToastItem {
   id: string;
 }
 
-interface ToastState {
+export interface ToastState {
   toasts: ToastItem[];
 }

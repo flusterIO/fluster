@@ -8,13 +8,13 @@ export const initialKeymapState: KeymapState = {
     true,
     false,
     false,
-    "keyB",
+    "b",
   ).toString(),
   [KeymapId.showCommandPalette]: new KeymapItem(
     false,
     true,
     false,
     false,
-    "keyP",
+    "p",
   ).toString(),
 };

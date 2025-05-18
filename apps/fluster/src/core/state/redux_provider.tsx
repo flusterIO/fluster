@@ -4,17 +4,12 @@ import { Provider } from "react-redux";
 import { BrowserRouter, RouterProvider } from "react-router";
 import { getBrowserRouter } from "#/router/data/main_router_routes";
 
-interface ReduxProviderProps {
+interface Props {
     children: ReactNode;
 }
 
-const ReduxProvider = ({ children }: ReduxProviderProps) => {
-    const router = useMemo(() => getBrowserRouter(), []);
-    return (
-        <Provider store={store}>
-            <RouterProvider router={router} />
-        </Provider>
-    );
+const ReduxProvider = ({ children }: Props) => {
+    return <Provider store={store}>{children}</Provider>;
 };
 
 ReduxProvider.displayName = "ReduxProvider";
