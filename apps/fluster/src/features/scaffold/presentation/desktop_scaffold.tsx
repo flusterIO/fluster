@@ -1,4 +1,4 @@
-import React, { type ReactNode } from "react";
+import { type ReactNode } from "react";
 import DesktopSideNavigation from "./desktop_side_navigation";
 import { Outlet } from "react-router";
 import DesktopTitleBar from "./desktop_title_bar";

@@ -15,6 +15,7 @@ import {
 import { CommandPaletteCategory } from "../data/models/command_palette_category";
 import { CommandPaletteItem as CommandPaletteItemAbstract } from "../data/models/command_palette_item.ts";
 import { appendCommandPaletteCategory } from "../state/actions/appendCommandPaletteCategory";
+import { SearchIcon } from "lucide-react";
 
 interface CommandPaletteInputProps {}
 
@@ -27,7 +28,6 @@ const CommandPaletteInput = forwardRef(
     const [hasFocused, setHasFocused] = useState(false);
     const state = useCommandPaletteContext();
     const dispatch = useCommandPaletteDispatch();
-    /* const nav = useNavigationType(); */
 
     useEffect(() => {
       if (state.navStack.length > 0 && !hasFocused) {
@@ -79,7 +79,10 @@ const CommandPaletteInput = forwardRef(
         let item = state.filteredItems[state.focusedIndex];
         if (item instanceof CommandPaletteCategory) {
           appendCommandPaletteCategory(item, dispatch);
-        } else if (item instanceof CommandPaletteItemAbstract) {
+        } else if (
+          item instanceof CommandPaletteItemAbstract ||
+          "invoke" in item
+        ) {
           /* RESUME: Figure out how to get the navigator class and pass that to the invoke function here. */
           /* item.invoke(nav); */
           dispatch({
@@ -91,15 +94,18 @@ const CommandPaletteInput = forwardRef(
     };
 
     return (
+    <div className="w-full relative h-fit">
+        <SearchIcon className="absolute top-[50%] translate-y-[-50%] left-2 w-4 h-4" />
       <input
         id="searchCommandInput"
         type="text"
         ref={ref}
         value={value}
         onChange={(e) => setValue(e.target.value)}
-        className="w-full p-2 focus-visible:ring-transparent focus-visible:outline-none rounded-tr rounded-tl bg-input"
+        className="w-full pr-2 py-2 pl-8 focus-visible:ring-transparent focus-visible:outline-none rounded-tr rounded-tl bg-popover text-popover-foreground"
         onKeyDown={handleKeyDown}
       />
+    </div>
     );
   },
 );

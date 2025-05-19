@@ -1,18 +1,16 @@
 import PanelLeftDesktop from "#/panel_left/presentation/panel_left_desktop";
 import PanelRightDesktop from "#/panel_right/presentation/panel_right_desktop";
-import React, { type ReactNode } from "react";
-import { Panel, PanelGroup, PanelResizeHandle } from "react-resizable-panels";
+import { type ReactNode } from "react";
+import { Panel, PanelGroup } from "react-resizable-panels";
 import { Outlet } from "react-router";
 
 export const ScaffoldWithSidePanels = (): ReactNode => {
     return (
         <PanelGroup autoSaveId={"scaffold-panels"} direction="horizontal">
             <PanelLeftDesktop />
-            <PanelResizeHandle />
-            <Panel>
+            <Panel id="main-panel" order={2} defaultSize={50}>
                 <Outlet />
             </Panel>
-            <PanelResizeHandle />
             <PanelRightDesktop />
         </PanelGroup>
     );

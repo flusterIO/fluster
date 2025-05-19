@@ -1,11 +1,11 @@
 import { NavigationItem, NavItemPosition } from "@/models/navigation_item";
 import { AppState } from "@/state/initial_state";
 import { SunMoonIcon } from "lucide-react";
-import React, { type ReactNode } from "react";
-
+import { type ReactNode } from "react";
 import { connect, useDispatch } from "react-redux";
-import { NavLink } from "react-router";
+import { NavLink, useMatch } from "react-router";
 import { toggleDarkMode } from "../state/slice";
+import { cn } from "@/lib/utils";
 
 const connector = connect((state: AppState, props: any) => ({
   items: state.scaffold.sideNavButtons,
@@ -18,9 +18,12 @@ interface DesktopSideNavigationProps {
 
 const SideNavigationItem = ({ item }: { item: NavigationItem }): ReactNode => {
   let Icon = item.icon;
+  let isCurrent = useMatch(item.href);
   return (
     <NavLink to={item.href} end>
-      <Icon />
+      <Icon
+        className={cn(isCurrent ? "text-foreground" : "text-foreground/70")}
+      />
     </NavLink>
   );
 };

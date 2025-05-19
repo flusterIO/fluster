@@ -5,32 +5,32 @@ import { ComponentType } from "react";
 import { Navigator } from "react-router";
 
 export enum NavItemPosition {
-    top,
-    bottom,
+  top,
+  bottom,
 }
 
 export class NavigationItem extends GlobalAction {
-    href: AppRoutes;
-    icon: ComponentType;
-    position: NavItemPosition;
-    constructor(
-        label: string,
-        href: AppRoutes,
-        icon: ComponentType,
-        position: NavItemPosition,
-    ) {
-        super(label);
-        this.href = href;
-        this.icon = icon;
-        this.position = position;
-    }
+  href: AppRoutes;
+  icon: ComponentType<{ className: string }>;
+  position: NavItemPosition;
+  constructor(
+    label: string,
+    href: AppRoutes,
+    icon: ComponentType<{ className: string }>,
+    position: NavItemPosition,
+  ) {
+    super(label);
+    this.href = href;
+    this.icon = icon;
+    this.position = position;
+  }
 
-    async invoke(nav: Navigator): Promise<void> {
-        nav.push(this.href);
-    }
-    toCommandPaletteEntry() {
-        new GeneralCommandPaletteItem(this.label, (nav: Navigator) =>
-            this.invoke(nav),
-        );
-    }
+  async invoke(nav: Navigator): Promise<void> {
+    nav.push(this.href);
+  }
+  toCommandPaletteEntry() {
+    new GeneralCommandPaletteItem(this.label, (nav: Navigator) =>
+      this.invoke(nav),
+    );
+  }
 }
