@@ -42,7 +42,7 @@ const CommandPalette = (): ReactNode => {
   }
   return (
     <motion.div
-      className="fixed top-0 left-0 right-0 bottom-0 w-screen h-screen bg-foreground/20"
+      className="fixed top-0 left-0 right-0 bottom-0 w-screen h-screen bg-black/20 dark:bg-black/70"
       animate={open ? "show" : "hide"}
       variants={{
         show: {

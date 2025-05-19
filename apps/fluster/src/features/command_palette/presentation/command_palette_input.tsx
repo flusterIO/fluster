@@ -45,14 +45,14 @@ const CommandPaletteInput = forwardRef(
     }, [state.navStack.length]);
 
     useEffect(() => {
-      if (value === "") {
-        return;
-      }
       dispatch({
         type: CommandPaletteActionType.setFilteredItems,
-        payload: state.availableItems.filter((f) =>
-          f.label.toLowerCase().includes(value.toLowerCase()),
-        ),
+        payload:
+          value === ""
+            ? state.availableItems
+            : state.availableItems.filter((f) =>
+                f.label.toLowerCase().includes(value.toLowerCase()),
+              ),
       });
     }, [value]);
 
@@ -97,7 +97,7 @@ const CommandPaletteInput = forwardRef(
         ref={ref}
         value={value}
         onChange={(e) => setValue(e.target.value)}
-        className="w-full p-2 focus-visible:ring-transparent focus-visible:outline-none rounded-tr rounded-tl"
+        className="w-full p-2 focus-visible:ring-transparent focus-visible:outline-none rounded-tr rounded-tl bg-input"
         onKeyDown={handleKeyDown}
       />
     );
