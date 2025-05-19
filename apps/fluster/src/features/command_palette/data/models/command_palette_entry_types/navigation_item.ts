@@ -1,4 +1,4 @@
-import { Navigator } from "react-router";
+import { NavigateFunction } from "react-router";
 import { CommandPaletteItem } from "../command_palette_item";
 
 export class NavigationCommandPaletteItem extends CommandPaletteItem {
@@ -7,7 +7,7 @@ export class NavigationCommandPaletteItem extends CommandPaletteItem {
         super(label);
         this.href = href;
     }
-    async invoke(nav: Navigator): Promise<void> {
-        nav.push(this.href);
+    async invoke(nav: NavigateFunction): Promise<void> {
+        nav(this.href);
     }
 }

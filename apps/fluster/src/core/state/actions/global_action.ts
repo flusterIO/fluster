@@ -1,4 +1,4 @@
-import { Navigator } from "react-router";
+import { NavigateFunction } from "react-router";
 
 export abstract class GlobalAction {
     label: string;
@@ -7,5 +7,5 @@ export abstract class GlobalAction {
         this.label = label;
     }
 
-    abstract invoke(nav: Navigator): Promise<void>;
+    abstract invoke(nav: NavigateFunction): Promise<void>;
 }
