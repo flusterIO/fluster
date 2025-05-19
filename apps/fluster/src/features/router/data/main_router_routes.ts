@@ -6,14 +6,7 @@ import SnippetsPage from "#/snippets/presentation/snippets_page";
 import DictionaryPage from "#/dictionary/presentation/dictionary_page";
 import DashboardPage from "#/dashboard/presentation/dashboard_page";
 import BibliographyPage from "#/bibliography/presentation/bib_page";
-
-export enum AppRoutes {
-    dashboard = "/",
-    settings = "/settings",
-    bibliography = "/bibliography",
-    dictionary = "/dictionary",
-    snippets = "/snippets",
-}
+import { AppRoutes } from "./app_routes";
 
 export const getBrowserRouter = () => {
     return createBrowserRouter([

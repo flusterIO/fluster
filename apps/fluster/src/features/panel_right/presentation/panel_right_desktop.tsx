@@ -13,7 +13,6 @@ interface PanelRightDesktopProps {
     open: boolean;
 }
 
-/* WITH_WIFI: Look up the docs for this collapsible panel. See how they collapsed it to zero width. */
 const PanelRightDesktop = connector(
     ({ open }: PanelRightDesktopProps): ReactNode => {
         if (!open) {

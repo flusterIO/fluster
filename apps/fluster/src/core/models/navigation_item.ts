@@ -1,5 +1,5 @@
 import { GeneralCommandPaletteItem } from "#/command_palette/data/models/command_palette_item";
-import { AppRoutes } from "#/router/data/main_router_routes";
+import { AppRoutes } from "#/router/data/app_routes";
 import { GlobalAction } from "@/state/actions/global_action";
 import { ComponentType } from "react";
 import { NavigateFunction } from "react-router";

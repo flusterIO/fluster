@@ -1,45 +1,44 @@
-import { AppRoutes } from "#/router/data/main_router_routes";
+import { ComponentType } from "react";
 import { NavigationItem, NavItemPosition } from "../navigation_item";
-
-import * as icons from "@tabler/icons-react";
-// import {
-//     IconHome,
-//     IconBook2,
-//     IconTextGrammar,
-//     IconCode,
-//     IconSettings2,
-// } from "@tabler/icons-react";
+import {
+    IconHome,
+    IconBook2,
+    IconTextGrammar,
+    IconCode,
+    IconSettings2,
+} from "@tabler/icons-react";
+import { AppRoutes } from "#/router/data/app_routes";
 
 export const globalNavigationItems = (): NavigationItem[] => {
     return [
         new NavigationItem(
             "Dashboard",
             AppRoutes.dashboard,
-            icons.IconHome,
+            IconHome as ComponentType<{ className: string }>,
             NavItemPosition.top,
         ),
         new NavigationItem(
             "Bibliography",
             AppRoutes.bibliography,
-            icons.IconBook2,
+            IconBook2 as ComponentType<{ className: string }>,
             NavItemPosition.top,
         ),
         new NavigationItem(
             "Dictionary",
             AppRoutes.dictionary,
-            icons.IconTextGrammar,
+            IconTextGrammar as ComponentType<{ className: string }>,
             NavItemPosition.top,
         ),
         new NavigationItem(
             "Snippets",
             AppRoutes.snippets,
-            icons.IconCode,
+            IconCode as ComponentType<{ className: string }>,
             NavItemPosition.top,
         ),
         new NavigationItem(
             "Settings",
             AppRoutes.settings,
-            icons.IconSettings2,
+            IconSettings2 as ComponentType<{ className: string }>,
             NavItemPosition.bottom,
         ),
     ];
