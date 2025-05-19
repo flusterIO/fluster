@@ -85,7 +85,7 @@ const CommandPaletteInput = forwardRef(
                     item instanceof CommandPaletteItemAbstract ||
                     "invoke" in item
                 ) {
-                    /* RESUME: Figure out how to get the navigator class and pass that to the invoke function here. */
+                    /* @ts-ignore */
                     item.invoke(nav);
                     dispatch({
                         type: CommandPaletteActionType.setCommandPaletteOpen,

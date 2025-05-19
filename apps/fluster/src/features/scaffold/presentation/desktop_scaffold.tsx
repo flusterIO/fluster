@@ -21,9 +21,9 @@ const DesktopScaffold = connector(
         return (
             <div
                 className={clsx(
-                    "h-full w-full flex flex-row justify-center items-center relative  bg-background text-foreground min-scrollbar",
+                    "h-full w-full flex flex-row justify-center items-center relative  bg-background text-foreground no-scrollbar-all",
                     (themeMode === ThemeMode.dark ||
-                        (ThemeMode.system && prefersDarkMode())) &&
+                        (themeMode === ThemeMode.system && prefersDarkMode())) &&
                     "dark",
                 )}
             >

@@ -49,7 +49,7 @@ const DesktopSideNavigation = (): ReactNode => {
     }, [sideNavButtons]);
     const dispatch = useDispatch();
     return (
-        <div className="w-fit h-full flex flex-col justify-between items-center gap-8 border-r pt-10 px-2 pb-6 stroke-foreground">
+        <div className="w-fit h-full flex flex-col justify-between items-center gap-8 border-r pt-10 px-2 pb-6 stroke-foreground overflow-y-auto">
             <SideNavigationCol items={top} />
             <div className="flex flex-col justify-center items-center gap-6">
                 <SunMoonIcon

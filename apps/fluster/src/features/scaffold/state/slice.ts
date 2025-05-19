@@ -15,6 +15,7 @@ const scaffoldSlice = createSlice({
                 state.themeMode =
                     state.themeMode === ThemeMode.dark ? ThemeMode.light : ThemeMode.dark;
             }
+            console.log("state.themeMode: ", state.themeMode);
         },
 
         setThemeMode(state, action: PayloadAction<ThemeMode>) {

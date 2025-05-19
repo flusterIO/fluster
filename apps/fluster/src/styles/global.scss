@@ -14,9 +14,28 @@
   -webkit-text-size-adjust: 100%;
 }
 
+html {
+  /* background-color: hsl(var(--background)); */
+  overscroll-behavior-y: none;
+  overscroll-behavior-block: none;
+}
+
 #root {
   height: 100vh;
   width: 100vw;
+}
+
+.no-scrollbar-all {
+  * {
+    -ms-overflow-style: none;
+    /* IE and Edge */
+    scrollbar-width: none;
+
+    /* Firefox */
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
 }
 
 .min-scrollbar {

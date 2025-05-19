@@ -4,8 +4,7 @@ import "./styles/base.css";
 import "./styles/global.scss";
 import App from "./App";
 import ReduxProvider from "@/state/redux_provider";
-import DesktopScaffold from "#/scaffold/presentation/desktop_scaffold";
-import { DesktopScaffoldProvider } from "#/scaffold/state/scaffold_provider";
+import { DesktopScaffoldProvider } from "#/scaffold/state/scaffold_provider.tsx";
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
     <React.StrictMode>
