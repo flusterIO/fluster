@@ -1,17 +1,32 @@
 // Learn more about Tauri commands at https://tauri.app/develop/calling-rust/p
 
+pub mod core;
 pub mod features;
+use core::{
+    events::show_toast::ShowToast, sync::sync_local_database::SyncFilesystemDirectoryOptions,
+    types::errors::errors::FlusterError,
+};
+
+use crate::core::sync::sync_local_database::sync_local_database;
 pub use features::dashboard;
+use specta_typescript::Typescript;
+use tauri_specta::{collect_commands, collect_events, Builder};
 
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
+    let cmds = Builder::<tauri::Wry>::new()
+        .commands(collect_commands![
+            sync_local_database,
+            crate::features::dashboard::get_dashboard_data::get_dashboard_data
+        ])
+        .events(collect_events![ShowToast,])
+        .typ::<FlusterError>()
+        .typ::<SyncFilesystemDirectoryOptions>();
+    #[cfg(debug_assertions)] // So we don't export types on release builds.
+    cmds.export(Typescript::default(), "../src/core/lib/bindings.ts")
+        .expect("Exports bindings to typescript.");
     tauri::Builder::default()
-        .plugin(tauri_plugin_single_instance::init(|_, _, _| {
-            // let _ = app
-            //     .get_webview_window("main")
-            //     .expect("no main window")
-            //     .set_focus();
-        }))
+        .plugin(tauri_plugin_single_instance::init(|_, _, _| {}))
         .plugin(tauri_plugin_opener::init())
         .plugin(
             tauri_plugin_log::Builder::new()
@@ -23,9 +38,11 @@ pub fn run() {
                 .max_file_size(50_000)
                 .build(),
         )
-        .invoke_handler(tauri::generate_handler![
-            dashboard::get_dashboard_data::get_dashboard_data
-        ])
+        .invoke_handler(cmds.invoke_handler())
+        .setup(move |app| {
+            cmds.mount_events(app);
+            Ok(())
+        })
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
 }

@@ -4,17 +4,19 @@ import { CommandPaletteCategory } from "./models/command_palette_category";
 import { GeneralCommandPaletteItem } from "./models/command_palette_item";
 import { NavigationCommandPaletteRoot } from "./tree/navigation_root";
 import { toggleDarkMode } from "#/scaffold/state/slice";
+import { syncDatabase } from "@/lib/sync_database";
 
 export class CommandPaletteRoot extends CommandPaletteCategory {
-  constructor() {
-    super("Home");
-  }
-  async getItems(): Promise<CommandPaletteAnyEntry[]> {
-    return [
-      new NavigationCommandPaletteRoot(),
-      new GeneralCommandPaletteItem("Toggle Dark Mode", async () => {
-        store.dispatch(toggleDarkMode());
-      }),
-    ];
-  }
+    constructor() {
+        super("Home");
+    }
+    async getItems(): Promise<CommandPaletteAnyEntry[]> {
+        return [
+            new NavigationCommandPaletteRoot(),
+            new GeneralCommandPaletteItem("Toggle Dark Mode", async () => {
+                store.dispatch(toggleDarkMode());
+            }),
+            new GeneralCommandPaletteItem("Sync database", syncDatabase),
+        ];
+    }
 }

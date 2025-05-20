@@ -1,17 +1,7 @@
-export enum ToastVariant {
-  error,
-  info,
-  success,
-}
+import { ShowToast } from "@/lib/bindings";
 
-export interface ToastItem {
-  expires: number;
-  title: string;
-  desc: string;
-  variant: ToastVariant;
-  id: string;
-}
+export type ToastItem = ShowToast;
 
 export interface ToastState {
-  toasts: ToastItem[];
+    toasts: ToastItem[];
 }

@@ -70,6 +70,7 @@
         "zod": "^3.24.4"
     },
     "devDependencies": {
+        "@faker-js/faker": "^9.8.0",
         "@react-router/dev": "^7.6.0",
         "@tailwindcss/vite": "^4.1.7",
         "@tauri-apps/cli": "^2",

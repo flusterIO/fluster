@@ -9,8 +9,5 @@ chmod +x "$FLUSTER_NATIVE_ROOT/scripts/.proto_build_script.sh"
 # Execute that dude...
 sh "$FLUSTER_NATIVE_ROOT/scripts/.proto_build_script.sh"
 
-# Generate flutter bindings
-cd "$FLUSTER_NATIVE_ROOT/packages/fluster_native_interface/" && flutter_rust_bridge_codegen generate
-
 # Jump to root of project
 cd "$FLUSTER_NATIVE_ROOT" || exit
