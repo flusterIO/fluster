@@ -66,7 +66,7 @@ crossbeam-channel = "0.5.15"
 rayon.workspace = true
 strum = "0.27.1"
 strum_macros = "0.27.1"
-# specta = { version = "1.0.5", features = ["tokio", "chrono", "tauri"] }
+surrealdb.workspace = true
 
 [target.'cfg(not(any(target_os = "android", target_os = "ios")))'.dependencies]
 tauri-plugin-global-shortcut = "2"

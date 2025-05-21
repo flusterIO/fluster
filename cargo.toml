@@ -36,6 +36,13 @@ log4rs = { version = "1.3.0", features = [
     "json_encoder",
     "threshold_filter",
 ] }
+surrealdb = { version = "=2.2.1", features = [
+    # "kv-surrealkv",
+    "kv-rocksdb",
+    "kv-surrealkv",
+    "protocol-ws",
+    "rustls",
+] }
 thiserror = "2.0.12"
 diesel-async = { version = "0.5.2", features = ["tokio-postgres", "postgres"] }
 diesel = { version = "2.2.10", features = [
