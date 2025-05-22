@@ -1,9 +1,9 @@
 // Learn more about Tauri commands at https://tauri.app/develop/calling-rust/p
-
 pub mod core;
 pub mod features;
 use core::{
-    events::show_toast::ShowToast, sync::sync_local_database::SyncFilesystemDirectoryOptions,
+    events::{set_db_connection_uri::SetDbConnectionUri, show_toast::ShowToast},
+    sync::sync_local_database::SyncFilesystemDirectoryOptions,
     types::errors::errors::FlusterError,
 };
 
@@ -19,7 +19,7 @@ pub fn run() {
             sync_local_database,
             crate::features::dashboard::get_dashboard_data::get_dashboard_data
         ])
-        .events(collect_events![ShowToast,])
+        .events(collect_events![ShowToast, SetDbConnectionUri])
         .typ::<FlusterError>()
         .typ::<SyncFilesystemDirectoryOptions>();
     #[cfg(debug_assertions)] // So we don't export types on release builds.

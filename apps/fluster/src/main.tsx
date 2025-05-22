@@ -1,6 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import "./styles/base.css";
+import "./styles/themes.scss";
+import "./styles/dark_themes.scss";
 import "./styles/global.scss";
 import App from "./App";
 import ReduxProvider from "@/state/redux_provider";

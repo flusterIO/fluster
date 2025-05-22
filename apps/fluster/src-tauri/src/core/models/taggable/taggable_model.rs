@@ -4,7 +4,6 @@ use crate::core::types::{
     traits::db_entity::DbRecord,
     FlusterDb,
 };
-use diesel_async::RunQueryDsl;
 use gray_matter::{ParsedEntity, Pod};
 use rayon::prelude::*;
 use regex::Regex;
@@ -38,22 +37,23 @@ pub fn get_tag_regular_expression() -> Regex {
 
 impl Taggable {
     pub async fn save(&self, db: &FlusterDb) -> FlusterResult<TagEntity> {
+        Err(FlusterError::NotImplemented)
         // let sql = self.get_sql_template_string();
-        let mut m: BTreeMap<&'static str, Value> = BTreeMap::new();
-        m.insert("tag_value", Value::from(self.value.clone()));
-        let data: Option<DbRecord> = db
-            .upsert((self.get_table_name(), self.value.clone()))
-            .content(m)
-            .await
-            .map_err(|_| FlusterError::FailToConnect)?;
-        match data {
-            Some(x) => Ok(TagEntity {
-                id: x.id,
-                value: self.value.clone(),
-                tag_type: self.tag_type.clone(),
-            }),
-            None => Err(FlusterError::FailToUpsertTags),
-        }
+        // let mut m: BTreeMap<&'static str, Value> = BTreeMap::new();
+        // m.insert("tag_value", Value::from(self.value.clone()));
+        // let data: Option<DbRecord> = db
+        //     .upsert((self.get_table_name(), self.value.clone()))
+        //     .content(m)
+        //     .await
+        //     .map_err(|_| FlusterError::FailToConnect)?;
+        // match data {
+        //     Some(x) => Ok(TagEntity {
+        //         id: x.id,
+        //         value: self.value.clone(),
+        //         tag_type: self.tag_type.clone(),
+        //     }),
+        //     None => Err(FlusterError::FailToUpsertTags),
+        // }
     }
 
     fn get_table_name(&self) -> &'static str {

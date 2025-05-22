@@ -11,19 +11,20 @@ pub async fn sync_user_bibliography(
     db: &FlusterDb,
     n_threads: u32,
 ) {
-    let bib_file = BibtexFile::from_filesystem_path(bib_path).await;
-    if bib_file.is_ok() {
-        // bib_file.unwrap().save_entries(db).await;
-        // let js_files = EmbededJsFiles::get("sync_bibliography/sync_bibliography.cjs")
-        //     .expect("Did not find embedded javascript file.");
-        // let js_code = std::str::from_utf8(js_files.data.as_ref()).expect(
-        //     "Could not parse javascript file content in sync_bibliography/sync_bibliography.cjs.",
-        // );
-        // let res = fluster_v8::get_v8_environment::run_javascript_min(js_code, n_threads);
-    } else {
-        error_sender.send(FlusterError::CannotParseBibfile);
-    }
 }
+// let bib_file = BibtexFile::from_filesystem_path(bib_path).await;
+// if bib_file.is_ok() {
+// bib_file.unwrap().save_entries(db).await;
+// let js_files = EmbededJsFiles::get("sync_bibliography/sync_bibliography.cjs")
+//     .expect("Did not find embedded javascript file.");
+// let js_code = std::str::from_utf8(js_files.data.as_ref()).expect(
+//     "Could not parse javascript file content in sync_bibliography/sync_bibliography.cjs.",
+// );
+// let res = fluster_v8::get_v8_environment::run_javascript_min(js_code, n_threads);
+// } else {
+//     error_sender.send(FlusterError::CannotParseBibfile);
+// }
+// }
 
 // #[cfg(test)]
 // mod tests {

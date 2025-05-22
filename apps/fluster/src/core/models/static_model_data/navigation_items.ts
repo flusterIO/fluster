@@ -6,6 +6,9 @@ import {
     IconTextGrammar,
     IconCode,
     IconSettings2,
+    IconBlob,
+    IconAbc,
+    IconBox,
 } from "@tabler/icons-react";
 import { AppRoutes } from "#/router/data/app_routes";
 
@@ -26,13 +29,19 @@ export const globalNavigationItems = (): NavigationItem[] => {
         new NavigationItem(
             "Dictionary",
             AppRoutes.dictionary,
-            IconTextGrammar as ComponentType<{ className: string }>,
+            IconAbc as ComponentType<{ className: string }>,
             NavItemPosition.top,
         ),
         new NavigationItem(
             "Snippets",
             AppRoutes.snippets,
             IconCode as ComponentType<{ className: string }>,
+            NavItemPosition.top,
+        ),
+        new NavigationItem(
+            "Kanban Boards",
+            AppRoutes.kanbanBoards,
+            IconBox as ComponentType<{ className: string }>,
             NavItemPosition.top,
         ),
         new NavigationItem(

@@ -21,8 +21,10 @@ async getDashboardData() : Promise<DashboardData> {
 
 
 export const events = __makeEvents__<{
+setDbConnectionUri: SetDbConnectionUri,
 showToast: ShowToast
 }>({
+setDbConnectionUri: "set-db-connection-uri",
 showToast: "show-toast"
 })
 
@@ -32,14 +34,14 @@ showToast: "show-toast"
 
 /** user-defined types **/
 
-export type DashboardData = { notes: MdxNoteSummary[] }
-export type FlusterError = "SettingsBibPathNotFound" | "CannotParseBibfile" | "FailToConnect" | "FailToCreateEntity" | "FailToFind" | "FailToFindById" | { DataDirNotFound: [] } | "FailToCreatePath" | "FailToLocateStorageDir" | { FailToReadFileSystemPath: string } | { MdxParsingError: string } | { NoTitleError: string } | { AttemptedToParseFileWasntFound: string } | { FailToSaveMdxNote: string } | 
+export type DashboardData = Record<string, never>
+export type FlusterError = "NotImplemented" | "SettingsBibPathNotFound" | "CannotParseBibfile" | "FailToConnect" | "FailToCreateEntity" | "FailToFind" | "FailToFindById" | { DataDirNotFound: [] } | "FailToCreatePath" | "FailToCreateTag" | "FailToCreateSubject" | "FailToCreateTopic" | "FailToLocateStorageDir" | { FailToReadFileSystemPath: string } | { MdxParsingError: string } | { NoTitleError: string } | { AttemptedToParseFileWasntFound: string } | { FailToSaveMdxNote: string } | 
 /**
  * Taggables
  * 
  */
 "FailToUpsertTags"
-export type MdxNoteSummary = { id: number; file_path: string | null; raw_body: string; ctime: string | null; mtime: string | null; atime: string | null }
+export type SetDbConnectionUri = { uri: string }
 export type ShowToast = { title: string; body: string; duration: number; variant: ToastVariant }
 export type SyncFilesystemDirectoryOptions = { dir_path: string; bib_path: string | null; n_threads: number }
 export type ToastVariant = "Success" | "Info" | "Error"

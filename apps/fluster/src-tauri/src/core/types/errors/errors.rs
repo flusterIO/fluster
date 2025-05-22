@@ -4,6 +4,8 @@ use thiserror::Error;
 
 #[derive(Debug, Error, Serialize, Deserialize, Type)]
 pub enum FlusterError {
+    #[error("This error is entirely on us. If you continue to encounter this error, please submit an issue on Github.")]
+    NotImplemented,
     // Bibliography Errors
     #[error("Your specified bibliography path was not found.")]
     SettingsBibPathNotFound,
@@ -32,6 +34,14 @@ pub enum FlusterError {
     #[error("We could not create the necessary paths. Unfortunately, we cannot continue.")]
     FailToCreatePath,
 
+    #[error("We could not create a tag in your database. Make sure that everything is formatted correctly.")]
+    FailToCreateTag,
+
+    #[error("We could not create a subject in your database. Make sure that everything is formatted correctly.")]
+    FailToCreateSubject,
+
+    #[error("We could not create a topic in your database. Make sure that everything is formatted correctly.")]
+    FailToCreateTopic,
     #[error("Fluster failed to locate a valid locate to store the necessary data. Please submit an issue on Github at {}", crate::core::types::constants::fluster_constants::GITHUB_ISSUE_PAGE_URL)]
     FailToLocateStorageDir,
 

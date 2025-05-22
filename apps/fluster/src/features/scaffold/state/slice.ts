@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { initialScaffoldState, ThemeMode } from "./initial_state";
+import { initialScaffoldState, ThemeMode, themes } from "./initial_state";
 import { prefersDarkMode } from "../utils";
 
 const scaffoldSlice = createSlice({
@@ -21,9 +21,12 @@ const scaffoldSlice = createSlice({
         setThemeMode(state, action: PayloadAction<ThemeMode>) {
             state.themeMode = action.payload;
         },
+        setTheme(state, action: PayloadAction<(typeof themes)[number]>) {
+            state.theme = action.payload;
+        },
     },
 });
 
-export const { toggleDarkMode, setThemeMode } = scaffoldSlice.actions;
+export const { toggleDarkMode, setThemeMode, setTheme } = scaffoldSlice.actions;
 
 export default scaffoldSlice.reducer;

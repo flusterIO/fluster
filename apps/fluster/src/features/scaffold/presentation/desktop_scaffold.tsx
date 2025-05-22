@@ -13,13 +13,21 @@ import { prefersDarkMode } from "../utils";
 
 const connector = connect((state: AppState, props: any) => ({
     themeMode: state.scaffold.themeMode,
+    theme: state.scaffold.theme,
     props: props,
 }));
 
 const DesktopScaffold = connector(
-    ({ themeMode }: { themeMode: ThemeMode }): ReactNode => {
+    ({
+        themeMode,
+        theme,
+    }: {
+        themeMode: ThemeMode;
+        theme: AppState["scaffold"]["theme"];
+    }): ReactNode => {
         return (
             <div
+                data-fluster-theme={theme}
                 className={clsx(
                     "h-full w-full flex flex-row justify-center items-center relative  bg-background text-foreground no-scrollbar-all",
                     (themeMode === ThemeMode.dark ||

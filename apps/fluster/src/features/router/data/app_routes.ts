@@ -4,4 +4,5 @@ export enum AppRoutes {
     bibliography = "/bibliography",
     dictionary = "/dictionary",
     snippets = "/snippets",
+    kanbanBoards = "/kanban-boards",
 }

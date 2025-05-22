@@ -10,8 +10,6 @@ use surrealdb::sql::Value;
 
 type BtreeValueArray = Vec<BTreeMap<&'static str, Value>>;
 
-// FIX: Clean this up and remove this file. There's no need to nest the front_matter data if we're not using diesel anymore.
-
 /// This model mirrors the structure of the front matter as it appears in a user's note, where the
 /// nested entities represent the data as it is stored in the database. This model should handle
 /// all parsing and saving of all nested models.
@@ -29,18 +27,9 @@ pub struct FrontMatter {
 }
 
 impl FrontMatter {
-    // pub fn to_btree_map(&self) -> BTreeMap<&'static str, Value> {
-    //     let mut m = self.data.to_btree_map();
-    //     m.insert("tags", self.tags.iter().map(|x| x.fmt));
-    //     let topics: BtreeValueArray = Vec::new();
-    //     let subjects: BtreeValueArray = Vec::new();
-    //     m
-    // }
     pub fn from_gray_matter(pod: Option<Pod>) -> FrontMatter {
         let mut tags: Vec<Taggable> = Vec::new();
-        let mut subjects: Vec<Taggable> = Vec::new();
-        let mut topics: Vec<Taggable> = Vec::new();
-        let front_matter: FrontMatter = match pod {
+        match pod {
             None => FrontMatter::default(),
             Some(p) => {
                 let mut x = FrontMatter::default();
@@ -77,32 +66,23 @@ impl FrontMatter {
                             }
                         }
                     }
-
+                    // Set subject
                     if d.contains_key("subject") {
-                        // let mut item_tags = d["subjects"].clone();
-                        // for _ in 0..item_tags.len() {
-                        //     let tag_item = item_tags.pop().as_string();
-                        //     if let Ok(item) = tag_item {
-                        //         subjects.push(TagCreatable {
-                        //             value: item,
-                        //             id: None,
-                        //             tag_type: TaggableTypeEnum::Subject.to_string(),
-                        //         });
-                        //     }
-                        // }
+                        let item_subject = d["subject"].clone();
+                        x.subject = Some(Taggable {
+                            id: None,
+                            value: item_subject.as_string().unwrap(),
+                            tag_type: TaggableTypeEnum::Subject,
+                        });
                     }
+                    // Set topic
                     if d.contains_key("topic") {
-                        let mut item_tags = d["topics"].clone();
-                        for _ in 0..item_tags.len() {
-                            let tag_item = item_tags.pop().as_string();
-                            if let Ok(item) = tag_item {
-                                topics.push(Taggable {
-                                    value: item,
-                                    id: None,
-                                    tag_type: TaggableTypeEnum::Topic,
-                                });
-                            }
-                        }
+                        let item_topic = d["topic"].clone();
+                        x.topic = Some(Taggable {
+                            id: None,
+                            value: item_topic.as_string().unwrap(),
+                            tag_type: TaggableTypeEnum::Topic,
+                        });
                     }
                     // Set note_id
                     if d.contains_key("id") {
@@ -111,16 +91,9 @@ impl FrontMatter {
                             x.user_provided_id = Some(note_id.unwrap());
                         }
                     }
-                    // x.tags = tags.unwrap().;
                     x
                 }
             }
-        };
-        FrontMatter {
-            data: front_matter,
-            tags,
-            topics,
-            subjects,
         }
     }
 }

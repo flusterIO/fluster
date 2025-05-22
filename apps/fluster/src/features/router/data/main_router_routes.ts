@@ -7,6 +7,7 @@ import DictionaryPage from "#/dictionary/presentation/dictionary_page";
 import DashboardPage from "#/dashboard/presentation/dashboard_page";
 import BibliographyPage from "#/bibliography/presentation/bib_page";
 import { AppRoutes } from "./app_routes";
+import KanbanBoardList from "#/kanban/presentation/kanban_board_list";
 
 export const getBrowserRouter = () => {
     return createBrowserRouter([
@@ -26,6 +27,10 @@ export const getBrowserRouter = () => {
                 {
                     path: AppRoutes.dictionary,
                     Component: DictionaryPage,
+                },
+                {
+                    path: AppRoutes.kanbanBoards,
+                    Component: KanbanBoardList,
                 },
                 {
                     Component: ScaffoldWithSidePanels,
