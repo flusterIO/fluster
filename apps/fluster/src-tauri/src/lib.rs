@@ -8,6 +8,7 @@ use core::{
 };
 
 use crate::core::sync::sync_local_database::sync_local_database;
+use crate::features::dictionary::dictionary_entry::DictionaryEntry;
 pub use features::dashboard;
 use specta_typescript::Typescript;
 use tauri_specta::{collect_commands, collect_events, Builder};
@@ -21,6 +22,7 @@ pub fn run() {
         ])
         .events(collect_events![ShowToast, SetDbConnectionUri])
         .typ::<FlusterError>()
+        .typ::<DictionaryEntry>()
         .typ::<SyncFilesystemDirectoryOptions>();
     #[cfg(debug_assertions)] // So we don't export types on release builds.
     cmds.export(Typescript::default(), "../src/core/lib/bindings.ts")

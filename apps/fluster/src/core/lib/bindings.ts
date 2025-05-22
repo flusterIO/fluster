@@ -35,6 +35,7 @@ showToast: "show-toast"
 /** user-defined types **/
 
 export type DashboardData = Record<string, never>
+export type DictionaryEntry = { label: string; body: string }
 export type FlusterError = "NotImplemented" | "SettingsBibPathNotFound" | "CannotParseBibfile" | "FailToConnect" | "FailToCreateEntity" | "FailToFind" | "FailToFindById" | { DataDirNotFound: [] } | "FailToCreatePath" | "FailToCreateTag" | "FailToCreateSubject" | "FailToCreateTopic" | "FailToLocateStorageDir" | { FailToReadFileSystemPath: string } | { MdxParsingError: string } | { NoTitleError: string } | { AttemptedToParseFileWasntFound: string } | { FailToSaveMdxNote: string } | 
 /**
  * Taggables
