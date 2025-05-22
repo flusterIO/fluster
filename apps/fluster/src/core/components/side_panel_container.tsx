@@ -1,0 +1,31 @@
+import { HTMLProps, type ReactNode } from "react";
+import { H4 } from "./typography/typography";
+import { cn } from "@/lib/utils";
+
+interface SidePanelContainerProps extends HTMLProps<HTMLDivElement> {
+    label: string;
+}
+
+const SidePanelContainer = ({
+    children,
+    label,
+    className,
+    ...props
+}: SidePanelContainerProps): ReactNode => {
+    return (
+        <div
+            {...props}
+            className={cn(
+                "p-6 flex flex-col justify-center items-center gap-6",
+                className,
+            )}
+        >
+            <H4>{label}</H4>
+            {children}
+        </div>
+    );
+};
+
+SidePanelContainer.displayName = "SidePanelContainer";
+
+export default SidePanelContainer;

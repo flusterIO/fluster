@@ -92,6 +92,11 @@ const CommandPaletteInput = forwardRef(
                         payload: false,
                     });
                 }
+            } else if (e.key === "Escape") {
+                dispatch({
+                    type: CommandPaletteActionType.setCommandPaletteOpen,
+                    payload: false,
+                });
             }
         };
 
