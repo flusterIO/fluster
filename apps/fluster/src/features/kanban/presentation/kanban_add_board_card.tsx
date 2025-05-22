@@ -1,10 +1,21 @@
 import { Button } from "@/components/ui/shad/button";
 import React, { type ReactNode } from "react";
+import { KanbanActions, useKanbanDispatch } from "../state/kanban_provider";
 
 const KanbanAddBoardCard = (): ReactNode => {
+    const dispatch = useKanbanDispatch();
     return (
         <div className="w-full h-fit p-6">
-            <Button>Create new board</Button>
+            <Button
+                onClick={() => {
+                    dispatch({
+                        type: KanbanActions.showAddBoardModal,
+                        payload: true,
+                    });
+                }}
+            >
+                Create new board
+            </Button>
         </div>
     );
 };

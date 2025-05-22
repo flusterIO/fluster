@@ -13,7 +13,6 @@ const CommandPaletteItem = ({
     const ref = useRef<HTMLDivElement>(null!);
     useEffect(() => {
         if (focused) {
-            console.log(`Scrolling into view...`);
             ref.current.scrollIntoView();
         }
     }, [focused]);

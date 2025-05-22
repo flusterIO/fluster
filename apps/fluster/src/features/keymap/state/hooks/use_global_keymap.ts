@@ -6,50 +6,48 @@ import { useEffect, useMemo } from "react";
 import { shallowEqual, useSelector } from "react-redux";
 
 const stateToKeyRecord = (
-  state: AppState["keymap"],
+    state: AppState["keymap"],
 ): Record<KeymapId, KeymapItem> => {
-  let data: Record<KeymapId, KeymapItem> = {} as Record<KeymapId, KeymapItem>;
-  for (const keymap_id in state) {
-    console.log("keymap_id: ", keymap_id);
-    data[keymap_id as unknown as KeymapId] = KeymapItem.fromString(
-      state[keymap_id as unknown as KeymapId],
-    );
-  }
-  return data;
+    let data: Record<KeymapId, KeymapItem> = {} as Record<KeymapId, KeymapItem>;
+    for (const keymap_id in state) {
+        data[keymap_id as unknown as KeymapId] = KeymapItem.fromString(
+            state[keymap_id as unknown as KeymapId],
+        );
+    }
+    return data;
 };
 
 export const useGlobalKeymap = () => {
-  const globalKeymap = useSelector((state: AppState) => state.keymap, {
-    equalityFn: shallowEqual,
-  });
-  const keymapData = useMemo(
-    () => stateToKeyRecord(globalKeymap),
-    [globalKeymap],
-  );
+    const globalKeymap = useSelector((state: AppState) => state.keymap, {
+        equalityFn: shallowEqual,
+    });
+    const keymapData = useMemo(
+        () => stateToKeyRecord(globalKeymap),
+        [globalKeymap],
+    );
 
-  const handleKeyDown = (e: KeyboardEvent): void => {
-    for (const entry_id in keymapData) {
-      let entry = keymapData[entry_id as unknown as KeymapId];
-      console.log("entry: ", entry, e);
-      if (
-        entry.key === e.key &&
-        entry.alt === e.altKey &&
-        entry.meta === e.metaKey &&
-        entry.shift === e.shiftKey &&
-        entry.ctrl === e.ctrlKey
-      ) {
-        console.log(`Sending action...`);
-        keymapActions[entry_id as unknown as KeymapId]();
-      }
-    }
-  };
-  useEffect(() => {
-    window.addEventListener("keydown", handleKeyDown);
-    return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [keymapData]);
-  // const handleStateChange = (): void => {
-  //   let s = store.getState();
-  // };
-  // useEffect(() => {}, []);
-  return null;
+    const handleKeyDown = (e: KeyboardEvent): void => {
+        for (const entry_id in keymapData) {
+            let entry = keymapData[entry_id as unknown as KeymapId];
+            console.log("entry: ", entry, e);
+            if (
+                entry.key === e.key &&
+                entry.alt === e.altKey &&
+                entry.meta === e.metaKey &&
+                entry.shift === e.shiftKey &&
+                entry.ctrl === e.ctrlKey
+            ) {
+                keymapActions[entry_id as unknown as KeymapId]();
+            }
+        }
+    };
+    useEffect(() => {
+        window.addEventListener("keydown", handleKeyDown);
+        return () => window.removeEventListener("keydown", handleKeyDown);
+    }, [keymapData]);
+    // const handleStateChange = (): void => {
+    //   let s = store.getState();
+    // };
+    // useEffect(() => {}, []);
+    return null;
 };

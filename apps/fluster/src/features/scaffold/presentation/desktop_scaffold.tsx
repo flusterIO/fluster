@@ -27,6 +27,7 @@ const DesktopScaffold = connector(
     }): ReactNode => {
         return (
             <div
+                id="main-scaffold"
                 data-fluster-theme={theme}
                 className={clsx(
                     "h-full w-full flex flex-row justify-center items-center relative  bg-background text-foreground no-scrollbar-all",

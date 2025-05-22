@@ -4,7 +4,6 @@ import { Channel } from "@tauri-apps/api/core";
 
 // FIX: Replace these imports when bindings can be generated.
 export const syncDatabase = async (): Promise<void> => {
-    console.log(`Syncing...`);
     const onError = new Channel<FlusterError>();
     onError.onmessage = (e) => {
         console.log("error: ", e);
