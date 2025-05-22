@@ -61,7 +61,7 @@ const DictionaryPage = (props: DictionaryPageProps): ReactNode => {
     const items = getFakeDictionaryEntries(100);
     const groupedItems = groupDictionaryEntries(items);
     return (
-        <PanelContainer className="w-full flex flex-col justify-start items-start gap-6">
+        <PanelContainer className="w-full flex flex-col justify-start items-center gap-6">
             {Object.entries(groupedItems).map((l) => (
                 <DictionaryLetterGroup
                     key={`letter-group-${l[0]}`}

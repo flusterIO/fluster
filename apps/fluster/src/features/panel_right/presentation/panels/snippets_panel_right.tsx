@@ -1,12 +1,8 @@
-import { H3, H4 } from "@/components/typography/typography";
-import React, { type ReactNode } from "react";
+import SidePanelContainer from "@/components/side_panel_container";
+import { type ReactNode } from "react";
 
 const SnippetsFilterPanel = (): ReactNode => {
-    return (
-        <div className="w-full h-full flex flex-col justify-start items-start">
-            <H4>Filter Snippets</H4>
-        </div>
-    );
+    return <SidePanelContainer label="Filter Snippets"></SidePanelContainer>;
 };
 
 SnippetsFilterPanel.displayName = "SnippetsFilterPanel";

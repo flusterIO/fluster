@@ -16,11 +16,11 @@ const SidePanelContainer = ({
         <div
             {...props}
             className={cn(
-                "p-6 flex flex-col justify-center items-center gap-6",
+                "px-6 py-4 flex flex-col justify-center items-center gap-6",
                 className,
             )}
         >
-            <H4>{label}</H4>
+            <H4 className="w-full">{label}</H4>
             {children}
         </div>
     );

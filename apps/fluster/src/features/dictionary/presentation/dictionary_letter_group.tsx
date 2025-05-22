@@ -16,7 +16,7 @@ const DictionaryLetterGroup = ({
         return items.sort((a, b) => (a.label > b.label ? 1 : -1));
     }, [items]);
     return (
-        <div className="grid grid-cols-[80px_1fr]">
+        <div className="grid grid-cols-[80px_1fr] max-w-[1080px]">
             <div className="w-full h-full flex flex-col justify-start items-center">
                 <H3>{letter.toUpperCase()}</H3>
             </div>

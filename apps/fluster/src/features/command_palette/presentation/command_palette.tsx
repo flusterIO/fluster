@@ -40,6 +40,7 @@ const CommandPalette = (): ReactNode => {
     if (state.navStack.length == 0) {
         return null;
     }
+
     return (
         <motion.div
             className="fixed top-0 left-0 right-0 bottom-0 w-screen h-screen bg-black/20 dark:bg-black/70"
