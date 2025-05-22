@@ -33,7 +33,8 @@ DEFINE TABLE tag_front_matter SCHEMAFULL;
 DEFINE FIELD tag_id ON TABLE tag_front_matter type record<tag>;
 DEFINE FIELD front_matter_id ON TABLE tag_front_matter type record<front_matter>;
 
-# Mdx Notes
+
+# Mdx Note
 DEFINE TABLE mdx_note SCHEMAFULL;
 DEFINE FIELD raw_body ON TABLE mdx_note TYPE string;
 /// The time a file was last accessed.

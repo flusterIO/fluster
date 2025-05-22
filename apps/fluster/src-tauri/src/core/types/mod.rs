@@ -1,6 +1,7 @@
-use surrealdb::Surreal;
+use pg_embed::postgres::PgEmbed;
 
-pub type FlusterDb = Surreal<surrealdb::engine::local::Db>;
+pub type FlusterDb = PgEmbed;
 pub mod constants;
 pub mod enums;
 pub mod errors;
+pub mod traits;

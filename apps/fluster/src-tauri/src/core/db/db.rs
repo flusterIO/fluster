@@ -1,12 +1,15 @@
-use std::path::PathBuf;
-use surrealdb::{
-    engine::local::{Db, RocksDb},
-    opt::auth::Root,
-    Surreal,
+use std::{path::PathBuf, time::Duration};
+
+use pg_embed::{
+    pg_enums::PgAuthMethod,
+    pg_fetch::{PgFetchSettings, PG_V15},
+    postgres::{PgEmbed, PgSettings},
 };
 use tokio::sync::OnceCell;
 
-use crate::core::types::{errors::errors::FlusterError, FlusterDb};
+use crate::core::types::errors::errors::{FlusterError, FlusterResult};
+
+static DB: OnceCell<PgEmbed> = OnceCell::const_new();
 
 pub fn get_database_path() -> Option<PathBuf> {
     let mut d = dirs::data_dir();
@@ -20,55 +23,53 @@ pub fn get_database_path() -> Option<PathBuf> {
     Some(d.unwrap().join("Fluster").join("data").join("database"))
 }
 
-// static DB: LazyLock<Surreal<Db>> = LazyLock::new(Surreal::init);
-static DB: OnceCell<Surreal<Db>> = OnceCell::const_new();
-
-pub struct DatabaseOptions<'a> {
-    pub database_name: String,
-    pub port: String,
-    pub credentials: Root<'a>,
+pub fn get_database_settings() -> FlusterResult<PgSettings> {
+    let dpath = get_database_path();
+    if dpath.is_none() {
+        return Err(FlusterError::FailToConnect);
+    }
+    Ok(PgSettings {
+        // Where to store the postgresql database
+        database_dir: dpath.unwrap(),
+        port: 5432,
+        user: "postgres".to_string(),
+        password: "password".to_string(),
+        // authentication method
+        auth_method: PgAuthMethod::Plain,
+        // If persistent is false clean up files and directories on drop, otherwise keep them
+        persistent: false,
+        // duration to wait before terminating process execution
+        // pg_ctl start/stop and initdb timeout
+        // if set to None the process will not be terminated
+        timeout: Some(Duration::from_secs(15)),
+        // If migration sql scripts need to be run, the directory containing those scripts can be
+        // specified here with `Some(PathBuf(path_to_dir)), otherwise `None` to run no migrations.
+        // To enable migrations view the **Usage** section for details
+        migration_dir: None,
+    })
 }
 
-impl Default for DatabaseOptions<'_> {
-    fn default() -> Self {
-        Self {
-            database_name: Default::default(),
-            port: "8000".to_string(),
-            credentials: Root {
-                username: "root",
-                password: "root",
-            },
+pub fn get_database_fetch_settings() -> PgFetchSettings {
+    PgFetchSettings {
+        version: PG_V15,
+        ..Default::default()
+    }
+}
+
+pub async fn get_database() -> &'static PgEmbed {
+    DB.get_or_init(|| async {
+        let db_settings = get_database_settings();
+        if (db_settings.is_err()) {
+            log::error!("Could not connect to the database. We cannot continue.");
+            std::process::exit(1);
         }
-    }
-}
-
-/// This should be used as the only way to read get access to the database. This desperately need
-/// to be set to a constructor, but it's early, I'm tired, I'm new to rust, and rust is hard...
-pub async fn get_database() -> Result<&'static FlusterDb, FlusterError> {
-    let db = DB
-        .get_or_init(|| async {
-            let d = get_database_path().unwrap();
-            let res = surrealdb::Surreal::new::<RocksDb>(d.to_str().unwrap()).await;
-            if res.is_err() {
-                println!(
-                    "RESSSS: Instanciating surrealdb returned an error. {:?}",
-                    res
-                );
-            }
-            res.unwrap()
-        })
-        .await;
-    Ok(db)
-}
-
-#[cfg(test)]
-mod tests {
-    use super::*;
-
-    #[tokio::test]
-    async fn database_returns_healthy_report() {
-        let db = get_database().await;
-        assert!(db.is_ok(), "Database does not return an error.");
-        // assert_eq!(result, 4);
-    }
+        let pg = PgEmbed::new(db_settings.unwrap(), get_database_fetch_settings()).await;
+        if pg.is_err() {
+            log::error!("Could not connect to the database. We cannot continue.");
+            std::process::exit(1);
+        }
+        pg.unwrap()
+    })
+    .await
+    // let d = pg
 }

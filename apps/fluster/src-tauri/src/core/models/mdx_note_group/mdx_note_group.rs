@@ -1,20 +1,36 @@
-use crate::core::db::entities::mdx_note::mdx_note_creatable::MdxNoteCreatable;
 use crate::core::models::front_matter::front_matter_model::FrontMatter;
-use crate::core::models::taggable::taggable_model::Taggable;
+use crate::core::models::taggable::taggable_model::{TagEntity, Taggable};
 use crate::core::types::errors::errors::{FlusterError, FlusterResult};
+use crate::core::types::FlusterDb;
 use filetime::FileTime;
 use gray_matter::{engine::YAML, Matter};
+use serde::{Deserialize, Serialize};
+use specta::Type;
 use std::fs;
 use std::fs::Metadata;
 
-#[derive(Debug, Clone)]
+use super::mdx_note::MdxNote;
+
+#[derive(Debug, Clone, Serialize, Deserialize, Type)]
 pub struct MdxNoteGroup {
-    pub mdx: MdxNoteCreatable,
+    pub mdx: MdxNote,
     pub front_matter: FrontMatter,
     pub tags: Vec<Taggable>,
 }
 
 impl MdxNoteGroup {
+    pub async fn save(&self, db: &FlusterDb) -> FlusterResult<()> {
+        let mut front_matter_tags: Vec<TagEntity> = Vec::new();
+        for t in self.tags.iter() {
+            if let Ok(tag_entity) = t.save(&db).await {
+                front_matter_tags.push(tag_entity);
+            } else {
+                log::error!("Failed to save taggable.");
+                return Err(FlusterError::FailToUpsertTags);
+            }
+        }
+        Ok(())
+    }
     fn handle_fs_parse(
         raw_file_content: String,
         file_path: String,
@@ -22,15 +38,14 @@ impl MdxNoteGroup {
     ) -> FlusterResult<MdxNoteGroup> {
         let mut note_data =
             MdxNoteGroup::from_raw_mdx_string(raw_file_content, Some(file_path.to_string()))
-                .or_else(|_| Err(FlusterError::FailToUpsertTags))?;
+                .map_err(|_| FlusterError::FailToUpsertTags)?;
         note_data.mdx.atime = Some(chrono::NaiveDateTime::from_timestamp(
             FileTime::from_last_access_time(file_meta).seconds(),
             0,
         ));
         note_data.mdx.ctime = Some(chrono::NaiveDateTime::from_timestamp(
             FileTime::from_creation_time(file_meta)
-                .or(Some(FileTime::now()))
-                .unwrap()
+                .unwrap_or(FileTime::now())
                 .seconds(),
             0,
         ));
@@ -42,18 +57,18 @@ impl MdxNoteGroup {
     }
     pub fn from_file_system_path(file_path: String) -> FlusterResult<MdxNoteGroup> {
         let raw_file_content = fs::read_to_string(&file_path)
-            .or_else(|_| Err(FlusterError::FailToReadFileSystemPath(file_path.clone())))?;
+            .map_err(|_| FlusterError::FailToReadFileSystemPath(file_path.clone()))?;
         let file_meta = fs::metadata(&file_path)
-            .or_else(|_| Err(FlusterError::FailToReadFileSystemPath(file_path.clone())))?;
+            .map_err(|_| FlusterError::FailToReadFileSystemPath(file_path.clone()))?;
         MdxNoteGroup::handle_fs_parse(raw_file_content, file_path, &file_meta)
     }
     pub async fn from_file_system_path_async(file_path: String) -> FlusterResult<MdxNoteGroup> {
         let raw_file_content = tokio::fs::read_to_string(&file_path)
             .await
-            .or_else(|_| Err(FlusterError::FailToReadFileSystemPath(file_path.clone())))?;
+            .map_err(|_| FlusterError::FailToReadFileSystemPath(file_path.clone()))?;
         let file_meta = tokio::fs::metadata(&file_path)
             .await
-            .or_else(|_| Err(FlusterError::FailToReadFileSystemPath(file_path.clone())))?;
+            .map_err(|_| FlusterError::FailToReadFileSystemPath(file_path.clone()))?;
         MdxNoteGroup::handle_fs_parse(raw_file_content, file_path, &file_meta)
     }
     pub fn from_raw_mdx_string(
@@ -66,7 +81,7 @@ impl MdxNoteGroup {
         let post_tag_parse = Taggable::from_mdx_content(&result);
         Ok(MdxNoteGroup {
             front_matter: FrontMatter::from_gray_matter(result.data),
-            mdx: MdxNoteCreatable {
+            mdx: MdxNote {
                 id: None,
                 raw_body: post_tag_parse.parsed_content,
                 file_path: Some(fp),
@@ -77,12 +92,16 @@ impl MdxNoteGroup {
             tags: post_tag_parse.tags,
         })
     }
+    pub fn upsert() {
+        let sql = r#""#;
+    }
 }
 
 #[cfg(test)]
 mod tests {
     use fluster_test_utils::test_utils::get_test_mdx_path;
-    use fluster_types::enums::taggable_type::TaggableTypeEnum;
+
+    use crate::core::types::enums::taggable_type::TaggableTypeEnum;
 
     use super::*;
 
@@ -93,20 +112,18 @@ mod tests {
         );
         let n = note_data.unwrap();
         let tags = n.front_matter.tags;
-        let topics = n.front_matter.topics;
-        let subjects = n.front_matter.subjects;
         assert!(
-            tags[0].value == "Tag 1" && tags[0].tag_type == TaggableTypeEnum::Subject.to_string(),
+            tags[0].value == "Tag 1" && tags[0].tag_type == TaggableTypeEnum::Subject,
             "Gathers tags properly."
         );
         assert!(
-            subjects[0].value == "Subject 1"
-                && subjects[0].tag_type == TaggableTypeEnum::Subject.to_string(),
+            n.front_matter.subject.clone().unwrap().value == "Subject 1"
+                && n.front_matter.subject.unwrap().tag_type == TaggableTypeEnum::Subject,
             "Gathers subjects properly."
         );
         assert!(
-            topics[0].value == "Topic 1"
-                && topics[0].tag_type == TaggableTypeEnum::Topic.to_string(),
+            n.front_matter.topic.clone().unwrap().value == "Topic 1"
+                && n.front_matter.topic.unwrap().tag_type == TaggableTypeEnum::Topic,
             "Gathers topics properly."
         );
     }

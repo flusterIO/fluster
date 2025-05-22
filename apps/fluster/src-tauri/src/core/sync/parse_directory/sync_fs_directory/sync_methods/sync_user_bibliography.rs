@@ -25,32 +25,32 @@ pub async fn sync_user_bibliography(
     }
 }
 
-#[cfg(test)]
-mod tests {
-    use crossbeam_channel::unbounded;
+// #[cfg(test)]
+// mod tests {
+//     use crossbeam_channel::unbounded;
 
-    use crate::core::db::db::{get_database_connection, get_pg_embed};
+//     use crate::core::db::db::{get_database_connection, get_surreal};
 
-    use super::*;
+//     use super::*;
 
-    #[tokio::test]
-    async fn sync_bib_throw_no_errors() {
-        let (error_sender, error_receiver) = unbounded::<FlusterError>();
-        let d = get_pg_embed()
-            .await
-            .expect("Returned the database without throwing an error.");
-        let db = get_database_connection(d)
-            .await
-            .expect("Retrieved database without errors.");
-        let x = sync_user_bibliography(
-            "/Users/bigsexy/Desktop/notes/content/citations.bib",
-            &error_sender,
-            &db,
-            8,
-        );
-        for k in error_receiver.iter() {
-            assert!(false, "Sync bib returned no errors for a valid path.")
-        }
-        // assert_eq!(result, 4);
-    }
-}
+//     #[tokio::test]
+//     async fn sync_bib_throw_no_errors() {
+//         let (error_sender, error_receiver) = unbounded::<FlusterError>();
+//         let d = get_surreal()
+//             .await
+//             .expect("Returned the database without throwing an error.");
+//         let db = get_database_connection(d)
+//             .await
+//             .expect("Retrieved database without errors.");
+//         let x = sync_user_bibliography(
+//             "/Users/bigsexy/Desktop/notes/content/citations.bib",
+//             &error_sender,
+//             &db,
+//             8,
+//         );
+//         for k in error_receiver.iter() {
+//             assert!(false, "Sync bib returned no errors for a valid path.")
+//         }
+//         // assert_eq!(result, 4);
+//     }
+// }

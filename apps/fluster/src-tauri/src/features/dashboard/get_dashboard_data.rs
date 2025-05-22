@@ -1,24 +1,16 @@
-use diesel::{
-    query_dsl::methods::{FilterDsl, LimitDsl},
-    ExpressionMethods, QueryDsl, RunQueryDsl,
-};
+use diesel::query_dsl::methods::{FilterDsl, LimitDsl};
 use serde::{Deserialize, Serialize};
 use specta::Type;
 
-use crate::core::db::{
-    db::{get_database_connection, get_pg_embed},
-    entities::mdx_note::mdx_note_summary::MdxNoteSummary,
-};
-
 #[derive(Debug, Deserialize, Serialize, Type)]
 pub struct DashboardData {
-    notes: Vec<MdxNoteSummary>,
+    // notes: Vec<MdxNoteSummary>,
 }
 
 impl Default for DashboardData {
     fn default() -> Self {
         Self {
-            notes: Vec::<MdxNoteSummary>::new(),
+            // notes: Vec::<MdxNoteSummary>::new(),
         }
     }
 }

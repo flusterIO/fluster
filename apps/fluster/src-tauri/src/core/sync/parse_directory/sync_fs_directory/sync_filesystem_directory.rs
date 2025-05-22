@@ -2,8 +2,7 @@ use crossbeam_channel::unbounded;
 use tauri::ipc::Channel;
 
 use crate::core::{
-    db::db::{get_database_connection, get_pg_embed},
-    sync::sync_local_database::SyncFilesystemDirectoryOptions,
+    db::db::get_database, sync::sync_local_database::SyncFilesystemDirectoryOptions,
     types::errors::errors::FlusterError,
 };
 
@@ -16,9 +15,7 @@ pub async fn sync_directory(
 ) -> Result<(), FlusterError> {
     let (error_sender, error_receiver) = unbounded::<FlusterError>();
 
-    let mut db = get_pg_embed().await?;
-    db.start_db().await;
-    let mut conn = get_database_connection(&db).await?;
+    let db = get_database().await?;
 
     // This needs to go before joining threads, but after all of the thread initialization
     for err in error_receiver.iter() {
@@ -26,7 +23,7 @@ pub async fn sync_directory(
     }
 
     // No need to thread here, as ignore is taking care of the threading.
-    let res = sync_mdx_filesystem_notes(&opts.dir_path, &error_sender, &mut conn).await?;
+    sync_mdx_filesystem_notes(&opts.dir_path, &error_sender, db).await?;
 
     // Check if user provided bib path, and if so spawn a new thread and sync that bib.
     // let handle: Option<>
@@ -42,7 +39,6 @@ pub async fn sync_directory(
     //     }
     // });
     // bib_thread_handle.join();
-    db.stop_db().await;
     Ok(())
 }
 

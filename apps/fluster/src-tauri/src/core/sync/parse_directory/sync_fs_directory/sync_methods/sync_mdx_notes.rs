@@ -1,20 +1,18 @@
-use crate::core::db::entities::mdx_note::mdx_note_creatable::MdxNoteCreatable;
-use crate::core::db::generated::main_schema::mdx_note;
+use std::collections::BTreeMap;
+
 use crate::core::models::mdx_note_group::mdx_note_group::MdxNoteGroup;
-use crate::core::models::taggable::taggable_model::Taggable;
 use crate::core::types::errors::errors::FlusterError;
+use crate::core::types::FlusterDb;
 use crossbeam_channel::unbounded;
 use crossbeam_channel::Sender;
-use diesel::insert_into;
-use diesel_async::AsyncPgConnection;
-use diesel_async::RunQueryDsl;
 use ignore::WalkBuilder;
 use ignore::{DirEntry, WalkState};
+use surrealdb::sql::Value;
 
 pub async fn sync_mdx_filesystem_notes(
     notes_path: &str,
     error_sender: &Sender<FlusterError>,
-    c: &mut AsyncPgConnection,
+    db: &FlusterDb,
 ) -> Result<(), FlusterError> {
     let (mdx_sender, mdx_receiver) = unbounded::<Result<MdxNoteGroup, FlusterError>>();
     // let mut c = get_database_connection()
@@ -42,24 +40,38 @@ pub async fn sync_mdx_filesystem_notes(
         });
 
     drop(mdx_sender);
-    let mut mdx_notes: Vec<MdxNoteCreatable> = Vec::new();
-    let mut tags: Vec<Taggable> = Vec::new();
+    // let mut items: Vec<BTreeMap<&'static str, BTreeMap<&'static str, Value>>> = Vec::new();
+    let mut items: Vec<MdxNoteGroup> = Vec::new();
     for x in mdx_receiver.iter() {
-        if let Ok(mut note) = x {
-            mdx_notes.push(note.mdx);
-            tags.append(&mut note.tags);
+        if let Ok(note) = x {
+            // let b = note.to_upsert_args();
+            // items.push(b);
+            items.push(note);
         } else {
             error_sender.send(FlusterError::FailToCreateEntity).unwrap();
         }
     }
     Ok(())
-    // if let Ok(_) = insert_into(mdx_note::table)
-    //     .values(&mdx_notes)
-    //     .execute(c)
-    //     .await
-    // {
-    //     Ok(())
-    // } else {
-    //     Err(FlusterError::FailToConnect)
-    // }
+}
+
+#[cfg(test)]
+mod tests {
+    use crate::core::db::db::get_database;
+
+    use super::*;
+
+    #[tokio::test]
+    async fn mdx_note_serializes_to_sql() {
+        // let p = fluster_test_utils::test_utils::get_test_mdx_path();
+        let db = fluster_test_utils::test_utils::get_memory_database().await;
+        let (error_sender, error_receiver) = unbounded::<FlusterError>();
+        let res =
+            sync_mdx_filesystem_notes("/Users/bigsexy/Desktop/notes/", &error_sender, &db).await;
+        assert!(
+            res.is_ok(),
+            "Parses notes directory without throwing an error."
+        );
+
+        // assert_eq!(result, 4);
+    }
 }
