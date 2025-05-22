@@ -1,9 +1,8 @@
-import React, { type ReactNode } from "react";
+import PanelContainer from "@/components/util/panel_container";
+import { type ReactNode } from "react";
 
-interface SnippetsPageProps { }
-
-const SnippetsPage = (props: SnippetsPageProps): ReactNode => {
-    return <div>Snippets</div>;
+const SnippetsPage = (): ReactNode => {
+    return <PanelContainer>Snippets</PanelContainer>;
 };
 
 SnippetsPage.displayName = "SnippetsPage";

@@ -1,4 +1,4 @@
-import { H3, LargeText } from "@/components/typography/typography";
+import { LargeText } from "@/components/typography/typography";
 import { DictionaryEntry } from "@/lib/bindings";
 import { type ReactNode } from "react";
 

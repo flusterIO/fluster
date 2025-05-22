@@ -1,9 +1,8 @@
-import React, { type ReactNode } from "react";
+import PanelContainer from "@/components/util/panel_container";
+import { type ReactNode } from "react";
 
-interface BibliographyPageProps { }
-
-const BibliographyPage = (props: BibliographyPageProps): ReactNode => {
-    return <div>Bibliography page</div>;
+const BibliographyPage = (): ReactNode => {
+    return <PanelContainer>Bibliography page</PanelContainer>;
 };
 
 BibliographyPage.displayName = "BibliographyPage";

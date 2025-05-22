@@ -45,9 +45,5 @@ export const useGlobalKeymap = () => {
         window.addEventListener("keydown", handleKeyDown);
         return () => window.removeEventListener("keydown", handleKeyDown);
     }, [keymapData]);
-    // const handleStateChange = (): void => {
-    //   let s = store.getState();
-    // };
-    // useEffect(() => {}, []);
     return null;
 };
