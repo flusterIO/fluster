@@ -81,6 +81,7 @@ const CommandPaletteInput = forwardRef(
                 let item = state.filteredItems[state.focusedIndex];
                 if (item instanceof CommandPaletteCategory) {
                     appendCommandPaletteCategory(item, dispatch);
+                    setValue("");
                 } else if (
                     item instanceof CommandPaletteItemAbstract ||
                     "invoke" in item
@@ -109,7 +110,7 @@ const CommandPaletteInput = forwardRef(
                     ref={ref}
                     value={value}
                     onChange={(e) => setValue(e.target.value)}
-                    className="w-full pr-2 py-2 pl-8 focus-visible:ring-transparent focus-visible:outline-none rounded-tr rounded-tl bg-popover text-popover-foreground"
+                    className="w-full pr-2 py-2 pl-8 focus-visible:ring-transparent focus-visible:outline-none rounded-tr rounded-tl bg-popover text-foreground"
                     onKeyDown={handleKeyDown}
                 />
             </div>

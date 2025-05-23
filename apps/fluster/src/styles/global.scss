@@ -33,7 +33,23 @@ html {
 
     /* Firefox */
     &::-webkit-scrollbar {
+      width: none;
       display: none;
+    }
+
+    /* Track */
+    &::-webkit-scrollbar-track {
+      background: hsl(var(--background));
+    }
+
+    /* Handle */
+    &::-webkit-scrollbar-thumb {
+      background: hsl(var(--muted-foreground));
+    }
+
+    /* Handle on hover */
+    &::-webkit-scrollbar-thumb:hover {
+      background: #555;
     }
   }
 }
@@ -62,36 +78,6 @@ html {
     &.scrollbarMuted {
       & *::-webkit-scrollbar {
         background-color: hsl(var(--muted));
-      }
-
-      & *::-webkit-scrollbar-thumb {
-        background: hsl(var(--background));
-      }
-    }
-
-    &.scrollbarMutedForeground {
-      & *::-webkit-scrollbar {
-        background-color: hsl(var(--muted-foreground));
-      }
-
-      & *::-webkit-scrollbar-thumb {
-        background: hsl(var(--background));
-      }
-    }
-
-    &.scrollbarPrimary {
-      & *::-webkit-scrollbar {
-        background-color: hsl(var(--primary));
-      }
-
-      & *::-webkit-scrollbar-thumb {
-        background: hsl(var(--background));
-      }
-    }
-
-    &.scrollbarForeground {
-      & *::-webkit-scrollbar {
-        background-color: hsl(var(--foreground));
       }
 
       & *::-webkit-scrollbar-thumb {

@@ -13,7 +13,10 @@ const PanelContainer = ({
     return (
         <div
             {...props}
-            className={cn("p-6 max-h-full overflow-y-auto min-scrollbar", className)}
+            className={cn(
+                "p-6 max-h-full overflow-y-auto no-scrollbar-all",
+                className,
+            )}
         >
             {children}
         </div>

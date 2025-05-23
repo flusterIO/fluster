@@ -23,7 +23,7 @@ const CommandPaletteResults = (): ReactNode => {
         getItems(state.navStack[state.navStack.length - 1].getItems);
     }, [state.navStack]);
     return (
-        <div className="rounded-br rounded-bl bg-popover overflow-y-auto min-scrollbar max-h-[min(50vh,400px)]">
+        <div className="rounded-br rounded-bl bg-popover overflow-y-auto max-h-[min(50vh,400px)]">
             {state.filteredItems.map((r, i) => {
                 return (
                     <CommandPaletteItem

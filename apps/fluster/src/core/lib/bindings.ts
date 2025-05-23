@@ -44,7 +44,9 @@ export type FlusterError = "NotImplemented" | "SettingsBibPathNotFound" | "Canno
 "FailToUpsertTags"
 export type SetDbConnectionUri = { uri: string }
 export type ShowToast = { title: string; body: string; duration: number; variant: ToastVariant }
+export type SnippetItem = { body: string; desc: string; lang: SyntaxSupportedLanguage }
 export type SyncFilesystemDirectoryOptions = { dir_path: string; bib_path: string | null; n_threads: number }
+export type SyntaxSupportedLanguage = "Ts" | "Typescript" | "Javascript" | "Go" | "Lua" | "Markdown" | "Mdx"
 export type ToastVariant = "Success" | "Info" | "Error"
 
 /** tauri-specta globals **/
