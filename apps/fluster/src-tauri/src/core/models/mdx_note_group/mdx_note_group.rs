@@ -19,10 +19,10 @@ pub struct MdxNoteGroup {
 }
 
 impl MdxNoteGroup {
-    pub async fn save(&self, db: &FlusterDb) -> FlusterResult<()> {
+    pub async fn save(&self, db: &mut FlusterDb<'_>) -> FlusterResult<()> {
         let mut front_matter_tags: Vec<TagEntity> = Vec::new();
         for t in self.tags.iter() {
-            if let Ok(tag_entity) = t.save(&db).await {
+            if let Ok(tag_entity) = t.save(db).await {
                 front_matter_tags.push(tag_entity);
             } else {
                 log::error!("Failed to save taggable.");

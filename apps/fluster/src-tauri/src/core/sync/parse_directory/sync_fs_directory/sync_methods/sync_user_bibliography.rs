@@ -5,13 +5,13 @@ use crate::core::{
     types::{errors::errors::FlusterError, FlusterDb},
 };
 
-pub async fn sync_user_bibliography(
-    bib_path: &str,
-    error_sender: &Sender<FlusterError>,
-    db: &FlusterDb,
-    n_threads: u32,
-) {
-}
+// pub async fn sync_user_bibliography(
+//     bib_path: &str,
+//     error_sender: &Sender<FlusterError>,
+//     db: FlusterDb,
+//     n_threads: u32,
+// ) {
+// }
 // let bib_file = BibtexFile::from_filesystem_path(bib_path).await;
 // if bib_file.is_ok() {
 // bib_file.unwrap().save_entries(db).await;

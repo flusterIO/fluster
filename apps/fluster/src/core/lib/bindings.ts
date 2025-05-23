@@ -15,8 +15,13 @@ async syncLocalDatabase(opts: SyncFilesystemDirectoryOptions, onError: TAURI_CHA
 async getDashboardData() : Promise<DashboardData> {
     return await TAURI_INVOKE("get_dashboard_data");
 },
-async saveSnippet() : Promise<void> {
-    await TAURI_INVOKE("save_snippet");
+async saveSnippet(item: SnippetItem) : Promise<Result<DbRecord, FlusterError>> {
+    try {
+    return { status: "ok", data: await TAURI_INVOKE("save_snippet", { item }) };
+} catch (e) {
+    if(e instanceof Error) throw e;
+    else return { status: "error", error: e  as any };
+}
 }
 }
 
@@ -38,6 +43,7 @@ showToast: "show-toast"
 /** user-defined types **/
 
 export type DashboardData = Record<string, never>
+export type DbRecord = { id: string }
 export type DictionaryEntry = { label: string; body: string }
 export type FlusterError = "NotImplemented" | "SettingsBibPathNotFound" | "CannotParseBibfile" | "FailToConnect" | "FailToCreateEntity" | "FailToFind" | "FailToFindById" | { DataDirNotFound: [] } | "FailToCreatePath" | "FailToCreateTag" | "FailToCreateSubject" | "FailToCreateTopic" | "FailToLocateStorageDir" | { FailToReadFileSystemPath: string } | { MdxParsingError: string } | { NoTitleError: string } | { AttemptedToParseFileWasntFound: string } | { FailToSaveMdxNote: string } | 
 /**

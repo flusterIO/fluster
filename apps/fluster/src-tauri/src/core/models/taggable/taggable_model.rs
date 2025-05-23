@@ -9,8 +9,6 @@ use rayon::prelude::*;
 use regex::Regex;
 use serde::{Deserialize, Serialize};
 use specta::Type;
-use std::collections::BTreeMap;
-use surrealdb::sql::Value;
 
 #[derive(Clone, Type, Deserialize, Serialize, Debug)]
 pub struct Taggable {
@@ -36,7 +34,7 @@ pub fn get_tag_regular_expression() -> Regex {
 }
 
 impl Taggable {
-    pub async fn save(&self, db: &FlusterDb) -> FlusterResult<TagEntity> {
+    pub async fn save(&self, db: &mut FlusterDb<'_>) -> FlusterResult<TagEntity> {
         Err(FlusterError::NotImplemented)
         // let sql = self.get_sql_template_string();
         // let mut m: BTreeMap<&'static str, Value> = BTreeMap::new();

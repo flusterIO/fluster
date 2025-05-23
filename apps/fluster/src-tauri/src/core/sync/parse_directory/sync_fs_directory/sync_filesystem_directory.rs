@@ -15,7 +15,8 @@ pub async fn sync_directory(
 ) -> Result<(), FlusterError> {
     let (error_sender, error_receiver) = unbounded::<FlusterError>();
 
-    let db = get_database().await;
+    let db_res = get_database().await;
+    let mut db = db_res.lock().await;
 
     // This needs to go before joining threads, but after all of the thread initialization
     for err in error_receiver.iter() {
@@ -23,7 +24,7 @@ pub async fn sync_directory(
     }
 
     // No need to thread here, as ignore is taking care of the threading.
-    sync_mdx_filesystem_notes(&opts.dir_path, &error_sender, db).await?;
+    sync_mdx_filesystem_notes(&opts.dir_path, &error_sender, &mut db).await?;
 
     // Check if user provided bib path, and if so spawn a new thread and sync that bib.
     // let handle: Option<>
