@@ -1,6 +1,7 @@
 // import { createPreset } from "fumadocs-ui/tailwind-plugin";
 import { Config } from "tailwindcss/types/config";
-import typpgraphy from "@tailwindcss/typography";
+import typography from "@tailwindcss/typography";
+import containerQueries from "@tailwindcss/container-queries";
 
 const flattenColorPalette = (colors: any): any =>
     Object.assign(
@@ -142,7 +143,8 @@ const tailwindCfg: Config = {
         },
     },
     plugins: [
-        typpgraphy,
+        typography,
+        containerQueries,
         function addVariablesForColors({ addBase, theme }: any) {
             let allColors = flattenColorPalette(theme("colors"));
             let newVars = Object.fromEntries(

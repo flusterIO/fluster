@@ -2,7 +2,6 @@ import { useMemo, useState, type ReactNode } from "react";
 import { getSupportedProgrammingLanguages } from "../../data/get_supported_languages";
 import {
   Popover,
-  PopoverContent,
   PopoverContentNoPortal,
   PopoverTrigger,
 } from "@/components/ui/shad/popover";
@@ -50,7 +49,7 @@ const SyntaxSupportedLanguageSelect = ({
           role="combobox"
           aria-expanded={open}
           className={cn("min-w-[200px] justify-between", classes.button)}
-          onClick={() => setOpen(true)}
+          /* onClick={() => setOpen(true)} */
         >
           {value
             ? languages.find((lang) => lang.value === value)?.label

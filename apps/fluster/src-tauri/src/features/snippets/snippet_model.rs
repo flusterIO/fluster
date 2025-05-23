@@ -1,3 +1,4 @@
+use sea_orm::DeriveIden;
 use serde::{Deserialize, Serialize};
 use specta::Type;
 

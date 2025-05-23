@@ -1,0 +1,8 @@
+{
+    "name": "fluster.io",
+    "pnpm": {
+        "overrides": {
+            "@radix-ui/react-dismissable-layer": "1.0.2"
+        }
+    }
+}

@@ -14,6 +14,9 @@ async syncLocalDatabase(opts: SyncFilesystemDirectoryOptions, onError: TAURI_CHA
 },
 async getDashboardData() : Promise<DashboardData> {
     return await TAURI_INVOKE("get_dashboard_data");
+},
+async saveSnippet() : Promise<void> {
+    await TAURI_INVOKE("save_snippet");
 }
 }
 

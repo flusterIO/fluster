@@ -1,15 +1,16 @@
 use std::{path::PathBuf, time::Duration};
 
+use crate::core::types::errors::errors::{FlusterError, FlusterResult};
 use pg_embed::{
     pg_enums::PgAuthMethod,
     pg_fetch::{PgFetchSettings, PG_V15},
     postgres::{PgEmbed, PgSettings},
 };
+use std::sync::Arc;
+use tokio::sync::Mutex;
 use tokio::sync::OnceCell;
 
-use crate::core::types::errors::errors::{FlusterError, FlusterResult};
-
-static DB: OnceCell<PgEmbed> = OnceCell::const_new();
+static DB: OnceCell<Arc<Mutex<PgEmbed>>> = OnceCell::const_new();
 
 pub fn get_database_path() -> Option<PathBuf> {
     let mut d = dirs::data_dir();
@@ -56,10 +57,10 @@ pub fn get_database_fetch_settings() -> PgFetchSettings {
     }
 }
 
-pub async fn get_database() -> &'static PgEmbed {
+pub async fn get_database() -> Arc<Mutex<PgEmbed>> {
     DB.get_or_init(|| async {
         let db_settings = get_database_settings();
-        if (db_settings.is_err()) {
+        if db_settings.is_err() {
             log::error!("Could not connect to the database. We cannot continue.");
             std::process::exit(1);
         }
@@ -68,8 +69,9 @@ pub async fn get_database() -> &'static PgEmbed {
             log::error!("Could not connect to the database. We cannot continue.");
             std::process::exit(1);
         }
-        pg.unwrap()
+        Arc::new(Mutex::new(pg.unwrap()))
     })
     .await
-    // let d = pg
+    .clone()
 }
+

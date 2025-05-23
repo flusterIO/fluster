@@ -20,7 +20,8 @@ pub fn run() {
     let cmds = Builder::<tauri::Wry>::new()
         .commands(collect_commands![
             sync_local_database,
-            crate::features::dashboard::get_dashboard_data::get_dashboard_data
+            crate::features::dashboard::get_dashboard_data::get_dashboard_data,
+            crate::features::snippets::save_snippet::save_snippet
         ])
         .events(collect_events![ShowToast, SetDbConnectionUri])
         .typ::<FlusterError>()
@@ -34,6 +35,7 @@ pub fn run() {
     tauri::Builder::default()
         .plugin(tauri_plugin_single_instance::init(|_, _, _| {}))
         .plugin(tauri_plugin_opener::init())
+        .plugin(tauri_plugin_devtools::init())
         .plugin(
             tauri_plugin_log::Builder::new()
                 .target(tauri_plugin_log::Target::new(

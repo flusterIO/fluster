@@ -1,18 +1,37 @@
 use crate::core::{
     events::set_db_connection_uri::SetDbConnectionUri, types::errors::errors::FlusterError,
 };
+use sqlx::postgres::PgPoolOptions;
 use tauri::{ipc::Channel, AppHandle, Emitter};
 
 use super::db::{get_database, get_database_path};
 
 pub async fn initialize_database(app: AppHandle, on_error: Channel<FlusterError>) {
-    let db = get_database().await;
+    let mut db = get_database().await;
     if let Some(db_path) = get_database_path() {
         let exists = std::fs::exists(&db_path).is_ok_and(|x| x);
         if !exists {
             let res = std::fs::create_dir_all(&db_path);
             if res.is_err() {
                 log::error!("Creating the fluster managed database was unsuccessful.")
+            }
+            let setup_res = db.setup().await;
+            let uri = db.full_db_uri("fluster");
+            if let Ok(pool) = PgPoolOptions::new()
+                .max_connections(5)
+                .connect(&uri)
+                .await
+                .map_err(|_| FlusterError::FailToConnect)
+            {
+                let res = sqlx::migrate!("./migrations").run(&pool).await;
+                if res.is_err() {
+                    log::error!("Failed to initialize database.");
+                } else {
+                    log::info!("Successfully initialized database.");
+                    pool.close().await;
+                }
+            } else {
+                log::error!("Failed to initialize database.");
             }
         }
     } else {
