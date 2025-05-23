@@ -1,5 +1,3 @@
-use std::collections::BTreeMap;
-
 use crate::core::models::mdx_note_group::mdx_note_group::MdxNoteGroup;
 use crate::core::types::errors::errors::FlusterError;
 use crate::core::types::FlusterDb;
@@ -7,7 +5,6 @@ use crossbeam_channel::unbounded;
 use crossbeam_channel::Sender;
 use ignore::WalkBuilder;
 use ignore::{DirEntry, WalkState};
-use surrealdb::sql::Value;
 
 pub async fn sync_mdx_filesystem_notes(
     notes_path: &str,

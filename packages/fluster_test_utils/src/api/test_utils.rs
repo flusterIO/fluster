@@ -24,10 +24,10 @@ pub fn get_test_mdx_path() -> std::path::PathBuf {
         .join("test_mdx_content.mdx")
 }
 
-pub async fn get_memory_database() -> Surreal<Db> {
-    let db = Surreal::new::<Mem>(())
-        .await
-        .expect("Returns in memory database for testing without throwing an error.");
-    db.use_ns("fluster").use_db("main");
-    db
-}
+// pub async fn get_memory_database() -> Surreal<Db> {
+//     let db = Surreal::new::<Mem>(())
+//         .await
+//         .expect("Returns in memory database for testing without throwing an error.");
+//     db.use_ns("fluster").use_db("main");
+//     db
+// }

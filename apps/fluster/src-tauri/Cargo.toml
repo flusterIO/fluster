@@ -63,6 +63,7 @@ strum = "0.27.1"
 strum_macros = "0.27.1"
 surrealdb.workspace = true
 sqlx = { version = "0.8.6", features = ["postgres", "runtime-tokio-rustls"] }
+sea-query = "0.32.5"
 
 [target.'cfg(not(any(target_os = "android", target_os = "ios")))'.dependencies]
 tauri-plugin-global-shortcut = "2"

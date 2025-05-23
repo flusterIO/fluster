@@ -10,7 +10,10 @@ pub async fn initialize_database(app: AppHandle, on_error: Channel<FlusterError>
     if let Some(db_path) = get_database_path() {
         let exists = std::fs::exists(&db_path).is_ok_and(|x| x);
         if !exists {
-            std::fs::create_dir_all(&db_path);
+            let res = std::fs::create_dir_all(&db_path);
+            if res.is_err() {
+                log::error!("Creating the fluster managed database was unsuccessful.")
+            }
         }
     } else {
         on_error.send(FlusterError::FailToConnect);

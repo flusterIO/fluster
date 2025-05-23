@@ -27,6 +27,6 @@ pub async fn sync_local_database(
             5000,
             crate::core::events::show_toast::ToastVariant::Error,
         );
-        &app.emit("show-toast", t);
+        app.emit("show-toast", t);
     }
 }
