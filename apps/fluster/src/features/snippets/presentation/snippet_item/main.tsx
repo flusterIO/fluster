@@ -7,12 +7,17 @@ import { useConfirmation } from "#/confirmation_modal/state/hooks/use_confirmati
 import { reloadSnippetList } from "#/snippets/data/events/reload_snippet_list";
 import { copyStringToClipboard } from "@/lib/copy_string_to_clipboard";
 import { showToast } from "#/toast_notification/data/events/show_toast";
+import { motion } from "motion/react";
 
 interface SnippetItemComponentProps {
     item: SnippetItem;
+    idx: number;
 }
 
-const SnippetListItem = ({ item }: SnippetItemComponentProps): ReactNode => {
+const SnippetListItem = ({
+    item,
+    idx,
+}: SnippetItemComponentProps): ReactNode => {
     const confirmationId = `delete-snippet-${item.id}`;
     const handleDelete = async (): Promise<void> => {
         if (item.id) {
@@ -50,19 +55,55 @@ const SnippetListItem = ({ item }: SnippetItemComponentProps): ReactNode => {
             });
         }
     };
+
+    const handleEditClick = (): void => { };
     return (
-        <div className="w-[min(90%,1080px)] h-fit px-6 pb-6 pt-4 border rounded">
+        <motion.div
+            className="w-[min(90%,1080px)] h-fit px-6 pb-6 pt-4 border rounded @container/snippet_item"
+            initial="initial"
+            animate="show"
+            transition={{
+                delay: idx * 0.1,
+            }}
+            variants={{
+                initial: {
+                    x: idx % 2 === 0 ? -200 : 200,
+                    opacity: 0,
+                },
+                show: {
+                    x: 0,
+                    opacity: 1,
+                },
+            }}
+        >
             <H3 className="mb-2">{item.label}</H3>
             <div className="text-sm text-muted-foreground mb-3">{item.lang}</div>
             {item.desc && item.desc !== "" && <div className="mb-3">{item.desc}</div>}
             <CodeBlock lang={item.lang} code={item.body} />
-            <div className="flex flex-row justify-end items-center gap-4 w-full mt-4">
-                <Button variant={"destructive"} onClick={handleDeleteClick}>
+            <div className="w-full flex flex-col justify-between items-center gap-4 @[300px]/snippet_item:gap-6 @[300px]/snippet_item:flex-row mt-4">
+                <Button
+                    className="w-full @[300px]/snippet_item:w-fit"
+                    variant={"destructive"}
+                    onClick={handleDeleteClick}
+                >
                     Delete
                 </Button>
-                <Button onClick={handleCopyClick}>Copy</Button>
+                <div className="flex flex-col justify-end items-center gap-4 w-full @[300px]/snippet_item:flex-row">
+                    <Button
+                        className="w-full @[300px]/snippet_item:w-fit"
+                        onClick={handleEditClick}
+                    >
+                        Edit
+                    </Button>
+                    <Button
+                        className="w-full @[300px]/snippet_item:w-fit"
+                        onClick={handleCopyClick}
+                    >
+                        Copy
+                    </Button>
+                </div>
             </div>
-        </div>
+        </motion.div>
     );
 };
 

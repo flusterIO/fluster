@@ -21,12 +21,14 @@ import { useMatch } from "react-router";
 import { AppRoutes } from "#/router/data/app_routes";
 import { Button } from "@/components/ui/shad/button";
 import { commands, SnippetItem } from "@/lib/bindings";
+import TagInput from "@/components/inputs/tag_input/main";
 
 const snippetSchema = z.object({
     lang: z.string(),
     label: z.string(),
     body: z.string(),
     desc: z.string(),
+    tags: z.string().array(),
 });
 
 const connector = connect((state: AppState, props: any) => ({
@@ -43,6 +45,7 @@ const AddSnippetPanel = connector(
                 lang: "python",
                 body: "",
                 desc: "",
+                tags: [],
             },
         });
         const isSnippetsPage = useMatch(AppRoutes.snippets);
@@ -126,6 +129,14 @@ const AddSnippetPanel = connector(
                                     </FormItem>
                                 );
                             }}
+                        />
+                        <TagInput
+                            form={form}
+                            name="tags"
+                            classes={{
+                                formItem: "w-full max-w-[600px]",
+                            }}
+                            desc="Click on a tag to remove it."
                         />
                         <FormField
                             control={form.control}

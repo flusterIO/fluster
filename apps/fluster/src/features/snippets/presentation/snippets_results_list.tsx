@@ -16,7 +16,6 @@ const SnippetsResultsList = (): ReactNode => {
             setResults(res.data);
         } else {
             setResults([]);
-            console.log("No snippets were returned");
         }
     };
     const gatherData = (): void => {
@@ -31,7 +30,7 @@ const SnippetsResultsList = (): ReactNode => {
         gatherData();
     }, [languageFilter]);
 
-    useEventListener("reload-snippet-list", (e) => gatherData());
+    useEventListener("reload-snippet-list", () => gatherData());
 
     return (
         <div className="w-full flex flex-col justify-start items-center gap-6">
@@ -40,8 +39,12 @@ const SnippetsResultsList = (): ReactNode => {
                     <div>Loading...</div>
                 </div>
             ) : results.length ? (
-                results.map((l) => (
-                    <SnippetListItem key={`snippet-${l.label}`} item={l} />
+                results.map((l, i) => (
+                    <SnippetListItem 
+                            idx={i}
+                            key={`snippet-${l.label}`} 
+                            item={l}
+                        />
                 ))
             ) : (
                 <NoSnippetsFound />
