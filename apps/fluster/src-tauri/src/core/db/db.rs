@@ -32,13 +32,13 @@ pub fn get_database_settings() -> FlusterResult<PgSettings> {
     Ok(PgSettings {
         // Where to store the postgresql database
         database_dir: dpath.unwrap(),
-        port: 5432,
-        user: "postgres".to_string(),
+        port: 5433,
         password: "password".to_string(),
+        user: "postgres".to_string(),
         // authentication method
         auth_method: PgAuthMethod::Plain,
         // If persistent is false clean up files and directories on drop, otherwise keep them
-        persistent: false,
+        persistent: true,
         // duration to wait before terminating process execution
         // pg_ctl start/stop and initdb timeout
         // if set to None the process will not be terminated
@@ -74,4 +74,3 @@ pub async fn get_database() -> Arc<Mutex<PgEmbed>> {
     .await
     .clone()
 }
-

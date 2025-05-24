@@ -20,6 +20,9 @@ pub enum FlusterError {
     #[error("Fluster failed to insert an item into your database.")]
     FailToCreateEntity,
 
+    #[error("Fluster failed to insert a snippet into your database.")]
+    FailToCreateSnippet,
+
     #[error("Fluster failed to find what it was looking for.")]
     FailToFind,
 

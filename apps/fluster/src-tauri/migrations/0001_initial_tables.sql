@@ -1,4 +1,4 @@
-CREATE TABLE log (
+CREATE TABLE IF NOT EXISTS log (
     id SERIAL PRIMARY KEY,
     "msg" VARCHAR(255) NOT NULL, 
     ctime TIMESTAMP NOT NULL DEFAULT NOW()
@@ -10,14 +10,14 @@ CREATE TABLE log (
 -- WHERE ctime < NOW() - INTERVAL '7 days'
 
 
-CREATE TABLE taggable ( 
+CREATE TABLE IF NOT EXISTS taggable ( 
     id SERIAL PRIMARY KEY,
     value VARCHAR(50) NOT NULL,
     tag_type VARCHAR(7) NOT NULL 
 );
 
 
-CREATE TABLE mdx_note (
+CREATE TABLE IF NOT EXISTS mdx_note (
     id SERIAL PRIMARY KEY,
 -- Not varchar to allow for an indefinite length.
     file_path TEXT,
@@ -34,7 +34,7 @@ CREATE TABLE mdx_note (
 );
 
 
-CREATE TABLE mdx_note_taggable_join (
+CREATE TABLE IF NOT EXISTS mdx_note_taggable_join (
     mdx_note_id INT NOT NULL,
     tag_id INT NOT NULL,
     CONSTRAINT fk_mdx_note_id
@@ -47,25 +47,25 @@ CREATE TABLE mdx_note_taggable_join (
 );
 
 
-CREATE TABLE snippet (
+CREATE TABLE IF NOT EXISTS snippet (
     id SERIAL PRIMARY KEY,
     label TEXT NOT NULL,
-    "desc" TEXT NOT NULL,
+    description TEXT NOT NULL,
     lang VARCHAR(20) NOT NULL DEFAULT 'python',
-    body TEXT NOT NULL,
+    body TEXT NOT NULL
 );
 
 
-CREATE TABLE equation ( 
+CREATE TABLE IF NOT EXISTS equation ( 
     id SERIAL PRIMARY KEY,
     content TEXT NOT NULL,
     label TEXT NOT NULL,
-    "desc" TEXT NOT NULL,
+    description TEXT NOT NULL,
     eq_id VARCHAR(100)
 );
 
 
-CREATE TABLE equation_mdx_note_join (
+CREATE TABLE IF NOT EXISTS equation_mdx_note_join (
     mdx_note_id INT NOT NULL,
     equation_id INT NOT NULL,
     CONSTRAINT fk_mdx_note_id
@@ -78,7 +78,7 @@ CREATE TABLE equation_mdx_note_join (
 );
 
 
-CREATE TABLE equation_snippet_join (
+CREATE TABLE IF NOT EXISTS equation_snippet_join (
     equation_id INT NOT NULL,
     snippet_id INT NOT NULL,
     CONSTRAINT fk_snippet_id
@@ -91,7 +91,7 @@ CREATE TABLE equation_snippet_join (
 );
 
 
-CREATE TABLE front_matter ( 
+CREATE TABLE IF NOT EXISTS front_matter ( 
     id SERIAL PRIMARY KEY,
     title TEXT NOT NULL,
     summary TEXT,
@@ -101,7 +101,7 @@ CREATE TABLE front_matter (
 );
 
 
-CREATE TABLE front_matter_taggable_join (
+CREATE TABLE IF NOT EXISTS front_matter_taggable_join (
     tag_id INT NOT NULL,
     front_matter_id INT NOT NULL,
     CONSTRAINT fk_tag_id 
@@ -117,7 +117,7 @@ CREATE TABLE front_matter_taggable_join (
 -- Bibliography 
 --
 
-CREATE TABLE reading_list ( 
+CREATE TABLE IF NOT EXISTS reading_list ( 
     id SERIAL PRIMARY KEY,
     "desc" TEXT NOT NULL,
     label VARCHAR(30) NOT NULL,
@@ -125,7 +125,7 @@ CREATE TABLE reading_list (
 );
 
 
-CREATE TABLE bib_entry (
+CREATE TABLE IF NOT EXISTS bib_entry (
     id SERIAL PRIMARY KEY,
 -- The notes raw mdx content with the front matter removed.
     data JSON NOT NULL,
@@ -133,7 +133,7 @@ CREATE TABLE bib_entry (
     read BOOLEAN NOT NULL DEFAULT false
 );
 
-CREATE TABLE reading_list_bib_entry_join (
+CREATE TABLE IF NOT EXISTS reading_list_bib_entry_join (
     bib_entry_id INT NOT NULL,
     reading_list_id INT NOT NULL,
     CONSTRAINT fk_reading_list 

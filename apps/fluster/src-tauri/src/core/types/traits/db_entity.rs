@@ -1,7 +1,8 @@
 use serde::{Deserialize, Serialize};
 use specta::Type;
+use sqlx::prelude::FromRow;
 
-#[derive(Deserialize, Type, Serialize)]
+#[derive(Deserialize, Type, Serialize, FromRow)]
 pub struct DbRecord {
-    pub id: String,
+    pub id: i32,
 }

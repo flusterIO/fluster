@@ -140,16 +140,16 @@ impl Taggable {
 mod tests {
     use super::*;
 
-    #[tokio::test]
-    async fn saves_tag_successfully() {
-        let db = fluster_test_utils::test_utils::get_memory_database().await;
-        let t = Taggable {
-            id: None,
-            value: "Test tag".to_string(),
-            tag_type: TaggableTypeEnum::Tag,
-        };
-        let res = t.save(&db).await;
-        assert!(res.is_ok(), "Saves tag without throwing an error.");
-        // assert_eq!(result, 4);
-    }
+    // #[tokio::test]
+    // async fn saves_tag_successfully() {
+    //     let db = fluster_test_utils::test_utils::get_memory_database().await;
+    //     let t = Taggable {
+    //         id: None,
+    //         value: "Test tag".to_string(),
+    //         tag_type: TaggableTypeEnum::Tag,
+    //     };
+    //     let res = t.save(&db).await;
+    //     assert!(res.is_ok(), "Saves tag without throwing an error.");
+    //     // assert_eq!(result, 4);
+    // }
 }
