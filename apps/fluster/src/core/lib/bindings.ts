@@ -15,9 +15,17 @@ async syncLocalDatabase(opts: SyncFilesystemDirectoryOptions, onError: TAURI_CHA
 async getDashboardData() : Promise<DashboardData> {
     return await TAURI_INVOKE("get_dashboard_data");
 },
-async saveSnippet(item: SnippetItem) : Promise<Result<DbRecord, FlusterError>> {
+async saveSnippet(item: SnippetItem) : Promise<Result<null, FlusterError>> {
     try {
     return { status: "ok", data: await TAURI_INVOKE("save_snippet", { item }) };
+} catch (e) {
+    if(e instanceof Error) throw e;
+    else return { status: "error", error: e  as any };
+}
+},
+async getSnippets(opts: GetSnippetsParams) : Promise<Result<SnippetItem[], FlusterError>> {
+    try {
+    return { status: "ok", data: await TAURI_INVOKE("get_snippets", { opts }) };
 } catch (e) {
     if(e instanceof Error) throw e;
     else return { status: "error", error: e  as any };
@@ -43,19 +51,18 @@ showToast: "show-toast"
 /** user-defined types **/
 
 export type DashboardData = Record<string, never>
-export type DbRecord = { id: string }
 export type DictionaryEntry = { label: string; body: string }
-export type FlusterError = "NotImplemented" | "SettingsBibPathNotFound" | "CannotParseBibfile" | "FailToConnect" | "FailToCreateEntity" | "FailToFind" | "FailToFindById" | { DataDirNotFound: [] } | "FailToCreatePath" | "FailToCreateTag" | "FailToCreateSubject" | "FailToCreateTopic" | "FailToLocateStorageDir" | { FailToReadFileSystemPath: string } | { MdxParsingError: string } | { NoTitleError: string } | { AttemptedToParseFileWasntFound: string } | { FailToSaveMdxNote: string } | 
+export type FlusterError = "NotImplemented" | "SettingsBibPathNotFound" | "CannotParseBibfile" | "FailToConnect" | "FailToStartDb" | "FailToStopDb" | "FailToCreateEntity" | "FailToCreateSnippet" | "FailToFind" | "FailToFindById" | { DataDirNotFound: [] } | "FailToCreatePath" | "FailToCreateTag" | "FailToCreateSubject" | "FailToCreateTopic" | "FailToLocateStorageDir" | { FailToReadFileSystemPath: string } | { MdxParsingError: string } | { NoTitleError: string } | { AttemptedToParseFileWasntFound: string } | { FailToSaveMdxNote: string } | 
 /**
  * Taggables
  * 
  */
 "FailToUpsertTags"
+export type GetSnippetsParams = { langs: string[] | null }
 export type SetDbConnectionUri = { uri: string }
 export type ShowToast = { title: string; body: string; duration: number; variant: ToastVariant }
-export type SnippetItem = { id: number | null; label: string; body: string; desc: string; lang: SyntaxSupportedLanguage }
+export type SnippetItem = { id: number | null; label: string; body: string; desc: string; lang: string }
 export type SyncFilesystemDirectoryOptions = { dir_path: string; bib_path: string | null; n_threads: number }
-export type SyntaxSupportedLanguage = "Ts" | "Typescript" | "Javascript" | "Go" | "Lua" | "Markdown" | "Mdx"
 export type ToastVariant = "Success" | "Info" | "Error"
 
 /** tauri-specta globals **/

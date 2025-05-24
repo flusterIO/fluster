@@ -20,7 +20,8 @@ pub fn run() {
         .commands(collect_commands![
             sync_local_database,
             crate::features::dashboard::get_dashboard_data::get_dashboard_data,
-            crate::features::snippets::save_snippet::save_snippet
+            crate::features::snippets::save_snippet::save_snippet,
+            crate::features::snippets::get_snippets::get_snippets,
         ])
         .events(collect_events![ShowToast, SetDbConnectionUri])
         .typ::<FlusterError>()
