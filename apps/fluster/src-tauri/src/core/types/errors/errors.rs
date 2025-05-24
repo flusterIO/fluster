@@ -17,6 +17,12 @@ pub enum FlusterError {
     #[error("Fluster failed to connect to your database.")]
     FailToConnect,
 
+    #[error("Fluster failed to start the database server. This error may be harmless.")]
+    FailToStartDb,
+
+    #[error("Fluster failed to stop the database server as intended.")]
+    FailToStopDb,
+
     #[error("Fluster failed to insert an item into your database.")]
     FailToCreateEntity,
 
