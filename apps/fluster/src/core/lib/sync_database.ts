@@ -1,4 +1,4 @@
-import { showToast } from "#/toast_notification/state/slice.ts";
+import { showToast } from "#/toast_notification/data/events/show_toast.ts";
 import { commands, FlusterError } from "./bindings.ts";
 import { Channel } from "@tauri-apps/api/core";
 
@@ -14,7 +14,7 @@ export const syncDatabase = async (): Promise<void> => {
             bib_path: "citations.bib",
             n_threads: 8,
         },
-        onError,
+        onError
     );
     showToast({
         title: "res",

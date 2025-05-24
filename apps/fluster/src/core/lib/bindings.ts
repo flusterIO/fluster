@@ -68,7 +68,11 @@ export type FlusterError = "NotImplemented" | "SettingsBibPathNotFound" | "Canno
 "FailToUpsertTags"
 export type GetSnippetsParams = { langs: string[] | null }
 export type SetDbConnectionUri = { uri: string }
-export type ShowToast = { title: string; body: string; duration: number; variant: ToastVariant }
+export type ShowToast = { title: string; body: string; duration: number; variant: ToastVariant; 
+/**
+ * id is required to allow items to be removed reliably. It just needs to be unique.
+ */
+id: string }
 export type SnippetItem = { id: number | null; label: string; body: string; desc: string; lang: string }
 export type SyncFilesystemDirectoryOptions = { dir_path: string; bib_path: string | null; n_threads: number }
 export type ToastVariant = "Success" | "Info" | "Error"

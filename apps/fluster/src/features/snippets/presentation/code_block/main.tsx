@@ -24,7 +24,7 @@ const CodeBlock = (props: CodeBlockProps): ReactNode => {
     return (
         <div className="w-full overflow-x-auto">
             <div
-                className="[&>pre]:p-3 text-sm"
+                className="[&>pre]:p-3 [&>pre]:overflow-auto text-sm"
                 dangerouslySetInnerHTML={{ __html: parsedHtml }}
             />
         </div>

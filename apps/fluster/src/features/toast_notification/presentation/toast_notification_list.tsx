@@ -1,29 +1,39 @@
-import React, { type ReactNode } from "react";
-
-import { connect } from "react-redux";
-import { AppState } from "@/state/initial_state";
+import { useEffect, useState, type ReactNode } from "react";
 import Toast from "./toast_item";
+import { useEventListener } from "@/hooks/use_event_listener";
+import { ToastItem } from "../state/toast_state";
 
-const connector = connect((state: AppState, props: any) => ({
-  toasts: state.toast.toasts,
-  props: props,
-}));
+const ToastNotificationList = (): ReactNode => {
+    const [items, setItems] = useState<(ToastItem & { createdAt: number })[]>([]);
 
-interface ToastNotificationListProps {
-  toasts: AppState["toast"]["toasts"];
-}
+    useEventListener("show-toast", (e) => {
+        console.log(`Appending item...`);
+        setItems([
+            ...items,
+            {
+                ...e.detail,
+                createdAt: Date.now(),
+            },
+        ]);
+    });
 
-const ToastNotificationList = connector(
-  (props: ToastNotificationListProps): ReactNode => {
     return (
-      <div className="h-fit flex flex-col justify-center items-center gap-6 max-w-[350px] max-h-screen absolute right-0 bottom-0 p-6 overflow-hidden">
-        {props.toasts.map((t: (typeof props.toasts)[number]) => (
-          <Toast item={t} key={`toast-${t.title}-${t.desc}-${t.variant}`} />
-        ))}
-      </div>
+        <div
+            id="toast-list"
+            className="h-fit flex flex-col justify-center items-center gap-6 max-w-[350px] max-h-screen absolute right-0 bottom-0 p-6 overflow-hidden overflow-y-auto"
+        >
+            {items
+                .sort((a, b) => b.createdAt - a.createdAt)
+                .map((t: ToastItem) => (
+                    <Toast
+                        removeSelf={() => setItems(items.filter((x) => x.id !== t.id))}
+                        item={t}
+                        key={t.id}
+                    />
+                ))}
+        </div>
     );
-  },
-);
+};
 
 ToastNotificationList.displayName = "ToastNotificationList";
 

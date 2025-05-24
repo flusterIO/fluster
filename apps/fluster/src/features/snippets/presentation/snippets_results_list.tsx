@@ -4,7 +4,6 @@ import { useSnippetContext } from "../state/snippets_provider";
 import SnippetListItem from "./snippet_item/main";
 import NoSnippetsFound from "./no_snippets_found";
 import { useEventListener } from "@/hooks/use_event_listener";
-import { array } from "zod";
 
 const SnippetsResultsList = (): ReactNode => {
     const { languageFilter } = useSnippetContext();
@@ -15,15 +14,19 @@ const SnippetsResultsList = (): ReactNode => {
         });
         if (res.status === "ok") {
             setResults(res.data);
+        } else {
+            setResults([]);
+            console.log("No snippets were returned");
         }
     };
     const gatherData = (): void => {
-        let newLangs = Object.entries(languageFilter)
-            .filter((x) => x[1])
-            .map((l) => l[0]);
-        console.log("newLangs: ", newLangs);
-        getNewSnippetData(newLangs);
+        getNewSnippetData(
+            Object.entries(languageFilter)
+                .filter((x) => x[1])
+                .map((l) => l[0])
+        );
     };
+
     useEffect(() => {
         gatherData();
     }, [languageFilter]);
