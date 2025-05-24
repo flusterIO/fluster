@@ -20,11 +20,13 @@ import { connect } from "react-redux";
 import { useMatch } from "react-router";
 import { AppRoutes } from "#/router/data/app_routes";
 import { Button } from "@/components/ui/shad/button";
+import { commands, SnippetItem } from "@/lib/bindings";
 
 const snippetSchema = z.object({
-    language: z.string(),
+    lang: z.string(),
     label: z.string(),
     body: z.string(),
+    desc: z.string(),
 });
 
 const connector = connect((state: AppState, props: any) => ({
@@ -36,6 +38,12 @@ const AddSnippetPanel = connector(
     ({ panelOpen }: { panelOpen: boolean }): ReactNode => {
         const form = useForm({
             resolver: zodResolver(snippetSchema),
+            defaultValues: {
+                label: "",
+                lang: "python",
+                body: "",
+                desc: "",
+            },
         });
         const isSnippetsPage = useMatch(AppRoutes.snippets);
         useEffect(() => {
@@ -45,9 +53,21 @@ const AddSnippetPanel = connector(
         }, [panelOpen]);
 
         const handleSubmit = async (
-            data: z.infer<typeof snippetSchema>,
+            data: z.infer<typeof snippetSchema>
         ): Promise<void> => {
-            console.log("data: ", data);
+            let snippetItem: SnippetItem = {
+                id: null,
+                label: data.label,
+                body: data.body,
+                desc: data.desc,
+                lang: data.lang,
+            };
+            let res = await commands.saveSnippet(snippetItem);
+            console.log("res: ", res);
+            if (res.status === "ok") {
+                form.reset();
+                window.dispatchEvent(new CustomEvent("reload-snippet-list", {}));
+            }
         };
 
         return (
@@ -82,7 +102,7 @@ const AddSnippetPanel = connector(
                         />
                         <FormField
                             control={form.control}
-                            name={"language"}
+                            name={"lang"}
                             render={({ field }) => {
                                 return (
                                     <FormItem className="w-full max-w-[600px]">
@@ -133,9 +153,11 @@ const AddSnippetPanel = connector(
                             <Button
                                 type="submit"
                                 disabled={
-                                    form.watch("language")?.length > 0 &&
-                                    form.watch("body")?.length > 0 &&
-                                    form.watch("label")?.length > 0
+                                    !(
+                                        form.watch("lang")?.length > 0 &&
+                                        form.watch("body")?.length > 0 &&
+                                        form.watch("label")?.length > 0
+                                    )
                                 }
                             >
                                 Create
@@ -145,7 +167,7 @@ const AddSnippetPanel = connector(
                 </Form>
             </SidePanelContainer>
         );
-    },
+    }
 );
 
 AddSnippetPanel.displayName = "AddSnippetPanel";

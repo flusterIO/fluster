@@ -10,6 +10,7 @@ import clsx from "clsx";
 import { CommandPaletteProvider } from "#/command_palette/state/command_palette_provider";
 import CommandPalette from "#/command_palette/presentation/command_palette";
 import { prefersDarkMode } from "../utils";
+import ConfirmationModalContainer from "#/confirmation_modal/presentation/confirmation_modal_container";
 
 const connector = connect((state: AppState, props: any) => ({
     themeMode: state.scaffold.themeMode,
@@ -33,7 +34,7 @@ const DesktopScaffold = connector(
                     "h-full w-full flex flex-row justify-center items-center relative  bg-background text-foreground no-scrollbar-all",
                     (themeMode === ThemeMode.dark ||
                         (themeMode === ThemeMode.system && prefersDarkMode())) &&
-                    "dark",
+                    "dark"
                 )}
             >
                 <DesktopTitleBar />
@@ -45,9 +46,10 @@ const DesktopScaffold = connector(
                 <CommandPaletteProvider>
                     <CommandPalette />
                 </CommandPaletteProvider>
+                <ConfirmationModalContainer />
             </div>
         );
-    },
+    }
 );
 
 DesktopScaffold.displayName = "DesktopScaffold";
