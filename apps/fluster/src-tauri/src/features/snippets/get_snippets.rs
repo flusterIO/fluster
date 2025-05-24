@@ -29,15 +29,24 @@ pub async fn get_snippets(opts: GetSnippetsParams) -> FlusterResult<Vec<SnippetI
         .connect(&uri)
         .await
         .map_err(|_| FlusterError::FailToConnect)?;
-    let mut s = "SELECT * from snippet".to_owned();
-    if opts.langs.is_some() {
-        s.push_str(" WHERE lang in ($1)");
+    let mut s = "SELECT * FROM snippet".to_owned();
+    if let Some(langs) = &opts.langs {
+        if !langs.is_empty() {
+            let params = format!("?{}", ", ?".repeat(langs.len() - 1));
+            s = format!("SELECT * FROM snippet WHERE lang IN ( { } )", params);
+        }
     }
 
-    let res_data = sqlx::query_as::<_, SnippetItem>(s.as_str())
-        .bind(opts.langs.unwrap().join(", "))
-        .fetch_all(&pool)
-        .await;
+    let mut query = sqlx::query_as::<_, SnippetItem>(s.as_str());
+    if let Some(langs) = &opts.langs {
+        for lang in langs {
+            query = query.bind(lang);
+        }
+    }
+    // .bind(opts.langs.unwrap().join(", "))
+    // .fetch_all(&pool)
+    // .await;
+    let res_data = query.fetch_all(&pool).await;
     if let Ok(res) = res_data {
         println!("Res items: {:?}", res);
         return Ok(res);

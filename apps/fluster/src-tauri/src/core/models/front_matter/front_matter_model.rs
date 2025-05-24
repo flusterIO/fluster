@@ -6,9 +6,8 @@ use crate::core::{
 use gray_matter::Pod;
 use serde::{Deserialize, Serialize};
 use specta::Type;
-use surrealdb::sql::Value;
 
-type BtreeValueArray = Vec<BTreeMap<&'static str, Value>>;
+// type BtreeValueArray = Vec<BTreeMap<&'static str, Value>>;
 
 /// This model mirrors the structure of the front matter as it appears in a user's note, where the
 /// nested entities represent the data as it is stored in the database. This model should handle

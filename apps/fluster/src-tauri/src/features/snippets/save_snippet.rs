@@ -31,7 +31,7 @@ pub async fn save_snippet(item: SnippetItem) -> FlusterResult<()> {
             VALUES($1, $2, $3, $4)"#,
             item.label,
             item.desc,
-            item.lang,
+            item.lang.replace("-", "_"),
             item.body
         )
         .execute(&pool)

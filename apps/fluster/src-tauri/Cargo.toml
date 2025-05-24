@@ -71,7 +71,6 @@ crossbeam-channel = "0.5.15"
 rayon.workspace = true
 strum = "0.27.1"
 strum_macros = "0.27.1"
-surrealdb.workspace = true
 sqlx = { version = "0.8.6", features = ["postgres", "runtime-tokio-rustls"] }
 sea-query = "0.32.5"
 sea-orm = { version = "1.1.11", features = [

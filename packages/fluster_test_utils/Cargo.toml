@@ -12,5 +12,4 @@ handlebars = "6.3.2"
 include_dir = { workspace = true }
 serde = { workspace = true }
 serde_json = { workspace = true }
-surrealdb = { workspace = true, features = ["kv-mem"] }
 tempfile = "3.19.1"

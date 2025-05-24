@@ -1,10 +1,5 @@
 use std::{env, path, process::exit};
 
-use surrealdb::{
-    engine::local::{Db, Mem},
-    Surreal,
-};
-
 pub fn get_development_root_or_die() -> String {
     let r = env::var("FLUSTER_NATIVE_ROOT");
     if r.is_err() {
