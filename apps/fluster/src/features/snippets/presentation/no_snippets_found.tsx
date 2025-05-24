@@ -7,8 +7,8 @@ const NoSnippetsFound = (): ReactNode => {
             <div className="max-w-[350px] h-fit flex flex-col justify-center items-center">
                 <H3 className="mb-4">No Snippets Found</H3>
                 <SmallText className="text-muted-foreground text-center">
-                    The left panel includes a form to add and edit snippets. The right
-                    panel handles your search filter settings.
+                    Use the left panel to add and edit snippets. The right panel handles
+                    your search filter settings when you are on your snippets page.
                 </SmallText>
             </div>
         </div>

@@ -33,15 +33,16 @@ pub async fn get_snippets(opts: GetSnippetsParams) -> FlusterResult<Vec<SnippetI
     if let Some(langs) = &opts.langs {
         if !langs.is_empty() {
             let params = format!("?{}", ", ?".repeat(langs.len() - 1));
-            s = format!("SELECT * FROM snippet WHERE lang IN ( { } )", params);
+            s = "SELECT * FROM snippet WHERE lang = ANY($1)".to_owned();
         }
     }
 
     let mut query = sqlx::query_as::<_, SnippetItem>(s.as_str());
     if let Some(langs) = &opts.langs {
-        for lang in langs {
-            query = query.bind(lang);
-        }
+        query = query.bind(langs);
+        // for lang in langs {
+        // query = query.bind(lang);
+        // }
     }
     // .bind(opts.langs.unwrap().join(", "))
     // .fetch_all(&pool)
