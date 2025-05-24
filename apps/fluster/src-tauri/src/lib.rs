@@ -22,6 +22,7 @@ pub fn run() {
             crate::features::dashboard::get_dashboard_data::get_dashboard_data,
             crate::features::snippets::save_snippet::save_snippet,
             crate::features::snippets::get_snippets::get_snippets,
+            crate::features::snippets::delete_snippet_by_id::delete_snippet_by_id,
         ])
         .events(collect_events![ShowToast, SetDbConnectionUri])
         .typ::<FlusterError>()

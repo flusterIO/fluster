@@ -61,6 +61,7 @@ const ConfirmationModal = (
                                 sendConfirmationResponse(true, props.id);
                                 closeModal();
                             }}
+                            variant={props.confirmationVariant}
                         >
                             {props.acceptButtonText}
                         </Button>

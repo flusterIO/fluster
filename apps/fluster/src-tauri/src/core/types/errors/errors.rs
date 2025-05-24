@@ -14,6 +14,9 @@ pub enum FlusterError {
     CannotParseBibfile,
 
     // Database Errors
+    #[error("Failed to delete an entity.")]
+    FailToDelete,
+
     #[error("Fluster failed to connect to your database.")]
     FailToConnect,
 

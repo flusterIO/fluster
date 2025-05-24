@@ -118,6 +118,7 @@ const AddSnippetPanel = connector(
                                                     classes={{
                                                         button: "w-full max-w-[600px]",
                                                         popover: "w-full",
+                                                        popoverContainer: "w-full max-w-[600px]",
                                                     }}
                                                 />
                                             </>

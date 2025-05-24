@@ -30,6 +30,14 @@ async getSnippets(opts: GetSnippetsParams) : Promise<Result<SnippetItem[], Flust
     if(e instanceof Error) throw e;
     else return { status: "error", error: e  as any };
 }
+},
+async deleteSnippetById(id: number) : Promise<Result<null, FlusterError>> {
+    try {
+    return { status: "ok", data: await TAURI_INVOKE("delete_snippet_by_id", { id }) };
+} catch (e) {
+    if(e instanceof Error) throw e;
+    else return { status: "error", error: e  as any };
+}
 }
 }
 
@@ -52,7 +60,7 @@ showToast: "show-toast"
 
 export type DashboardData = Record<string, never>
 export type DictionaryEntry = { label: string; body: string }
-export type FlusterError = "NotImplemented" | "SettingsBibPathNotFound" | "CannotParseBibfile" | "FailToConnect" | "FailToStartDb" | "FailToStopDb" | "FailToCreateEntity" | "FailToCreateSnippet" | "FailToFind" | "FailToFindById" | { DataDirNotFound: [] } | "FailToCreatePath" | "FailToCreateTag" | "FailToCreateSubject" | "FailToCreateTopic" | "FailToLocateStorageDir" | { FailToReadFileSystemPath: string } | { MdxParsingError: string } | { NoTitleError: string } | { AttemptedToParseFileWasntFound: string } | { FailToSaveMdxNote: string } | 
+export type FlusterError = "NotImplemented" | "SettingsBibPathNotFound" | "CannotParseBibfile" | "FailToDelete" | "FailToConnect" | "FailToStartDb" | "FailToStopDb" | "FailToCreateEntity" | "FailToCreateSnippet" | "FailToFind" | "FailToFindById" | { DataDirNotFound: [] } | "FailToCreatePath" | "FailToCreateTag" | "FailToCreateSubject" | "FailToCreateTopic" | "FailToLocateStorageDir" | { FailToReadFileSystemPath: string } | { MdxParsingError: string } | { NoTitleError: string } | { AttemptedToParseFileWasntFound: string } | { FailToSaveMdxNote: string } | 
 /**
  * Taggables
  * 

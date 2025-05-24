@@ -1,9 +1,10 @@
 import { H3 } from "@/components/typography/typography";
-import { SnippetItem } from "@/lib/bindings";
+import { commands, SnippetItem } from "@/lib/bindings";
 import { useMemo, type ReactNode } from "react";
 import CodeBlock from "../code_block/main";
 import { Button } from "@/components/ui/shad/button";
 import { useConfirmation } from "#/confirmation_modal/state/hooks/use_confirmation";
+import { reloadSnippetList } from "#/snippets/data/events/reload_snippet_list";
 
 interface SnippetItemComponentProps {
     item: SnippetItem;
@@ -11,7 +12,16 @@ interface SnippetItemComponentProps {
 
 const SnippetListItem = ({ item }: SnippetItemComponentProps): ReactNode => {
     const confirmationId = `delete-snippet-${item.id}`;
-    const handleDelete = async (): Promise<void> => { };
+    const handleDelete = async (): Promise<void> => {
+        console.log(`Deleting snippet...`);
+        /* let res = await commands. */
+        if (item.id) {
+            let res = await commands.deleteSnippetById(item.id);
+            if (res.status === "ok") {
+                reloadSnippetList();
+            }
+        }
+    };
     const confirm = useConfirmation(
         {
             id: confirmationId,
@@ -19,6 +29,7 @@ const SnippetListItem = ({ item }: SnippetItemComponentProps): ReactNode => {
             denyButtonText: "Cancel",
             title: "Are you sure?",
             body: "Deleting this snippet is irreversable.",
+            confirmationVariant: "destructive",
         },
         () => {
             handleDelete();
