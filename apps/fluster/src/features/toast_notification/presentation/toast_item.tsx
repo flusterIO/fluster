@@ -1,4 +1,4 @@
-import { CheckCircle } from "lucide-react";
+import { CheckCircle, Info, XCircleIcon } from "lucide-react";
 import React, { useEffect, useState, type ReactNode } from "react";
 import { cn } from "@/lib/utils";
 import { motion } from "motion/react";
@@ -17,7 +17,17 @@ const ToastIcon = ({
     variant: ToastVariant;
     className: string;
 }): ReactNode => {
-    return <CheckCircle className={cn("stroke-lime-500", className)} />;
+    switch (variant) {
+        case "Success": {
+            return <CheckCircle className={cn("stroke-lime-500", className)} />;
+        }
+        case "Info": {
+            return <Info className={cn("text-lightBlue-500", className)} />;
+        }
+        case "Error": {
+            return <XCircleIcon className={cn("text-red-500", className)} />;
+        }
+    }
 };
 
 const Toast = (props: ToastProps): ReactNode => {

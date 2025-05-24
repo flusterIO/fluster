@@ -1,4 +1,4 @@
-import { useEffect, useState, type ReactNode } from "react";
+import { useState, type ReactNode } from "react";
 import Toast from "./toast_item";
 import { useEventListener } from "@/hooks/use_event_listener";
 import { ToastItem } from "../state/toast_state";
