@@ -1,6 +1,5 @@
-import React, { type ReactNode } from "react";
+import { type ReactNode } from "react";
 import { Panel, PanelGroup, PanelResizeHandle } from "react-resizable-panels";
-import { Outlet } from "react-router";
 import CodeEditor, { CodeEditorProps } from "../code_editor/main";
 import MdxContent from "#/mdx/presentation/mdx_content";
 
