@@ -1,3 +1,5 @@
 import { DictionaryEntry } from "@/lib/bindings";
 
-export type GroupedDictionaryEntries = Record<string, DictionaryEntry[]>;
+export type DictionaryEntryWithIdx = DictionaryEntry & { idx: number };
+
+export type GroupedDictionaryEntries = Record<string, DictionaryEntryWithIdx[]>;

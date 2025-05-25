@@ -184,6 +184,9 @@ importers:
       react-hook-form:
         specifier: ^7.56.3
         version: 7.56.3(react@19.1.0)
+      react-mathquill:
+        specifier: ^1.0.3
+        version: 1.0.3(react@19.1.0)
       react-redux:
         specifier: ^9.2.0
         version: 9.2.0(@types/react@18.3.21)(react@19.1.0)(redux@5.0.1)
@@ -3845,6 +3848,11 @@ packages:
 
   react-is@18.3.1:
     resolution: {integrity: sha512-/LLMVyas0ljjAtoYiPqYiL8VWXzUUdThrmU5+n20DZv+a+ClRoevUzw5JxU+Ieh5/c87ytoTBV9G1FiKfNJdmg==}
+
+  react-mathquill@1.0.3:
+    resolution: {integrity: sha512-H0z0FJsrjgKzXA1kR3rxcQyO28bXyeyMUM13VJ9jAn5cA9SJ35eScE5AK46R0O/H5zRyycGlSo2u+Pdxakbpkg==}
+    peerDependencies:
+      react: ^18.2.0
 
   react-redux@9.2.0:
     resolution: {integrity: sha512-ROY9fvHhwOD9ySfrF0wmvu//bKCQ6AeZZq1nJNtbDC+kk5DuSuNX/n6YWYF/SYy7bSba4D4FSz8DJeKY/S/r+g==}
@@ -8746,6 +8754,10 @@ snapshots:
   react-is@16.13.1: {}
 
   react-is@18.3.1: {}
+
+  react-mathquill@1.0.3(react@19.1.0):
+    dependencies:
+      react: 19.1.0
 
   react-redux@9.2.0(@types/react@18.3.21)(react@19.1.0)(redux@5.0.1):
     dependencies:

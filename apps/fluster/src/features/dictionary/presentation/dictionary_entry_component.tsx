@@ -1,10 +1,9 @@
 import MdxContent from "#/mdx/presentation/mdx_content";
-import { LargeText } from "@/components/typography/typography";
-import { DictionaryEntry } from "@/lib/bindings";
 import { type ReactNode } from "react";
+import { DictionaryEntryWithIdx } from "../types";
 
 interface DictionaryEntryComponentProps {
-  item: DictionaryEntry;
+  item: DictionaryEntryWithIdx;
 }
 
 const DictionaryEntryComponent = ({
