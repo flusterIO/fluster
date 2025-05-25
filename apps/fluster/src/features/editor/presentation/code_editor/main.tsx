@@ -10,12 +10,16 @@ import {
 } from "shiki";
 import { connect } from "react-redux";
 import { AppState } from "@/state/initial_state";
+import { applyNestedMathLsp } from "#/editor/data/apply_nested_math_lsp";
+import { useKeymap } from "#/keymap/state/hooks/use_keymap";
+import { KeymapId } from "#/keymap/data/models/keymap_ids";
 
 export interface CodeEditorProps {
   value: string;
   onChange: (newVal: string) => void;
   language: string;
   themes: AppState["code"]["theme"];
+  isModal: boolean;
 }
 
 const connector = connect((state: AppState, props: any) => ({
@@ -24,9 +28,16 @@ const connector = connect((state: AppState, props: any) => ({
 }));
 
 const CodeEditor = connector(
-  ({ onChange, value, language, themes }: CodeEditorProps): ReactNode => {
+  ({
+    onChange,
+    value,
+    language,
+    themes,
+    isModal,
+  }: CodeEditorProps): ReactNode => {
     const darkMode = useDarkMode();
     const editorRef = useRef<Parameters<OnMount>[0] | null>(null);
+    const commandPaletteKeyMap = useKeymap(KeymapId.editorCommandPalette);
     const [highlighter, setHighligher] = useState<HighlighterGeneric<
       BundledLanguage,
       BundledTheme
@@ -52,9 +63,42 @@ const CodeEditor = connector(
     }
 
     const handleEditorMount: OnMount = (editor, monaco): void => {
+      applyNestedMathLsp(monaco);
       editorRef.current = editor;
       editorRef.current.focus();
+      if (isModal) {
+        editorRef.current.addAction({
+          // an unique identifier of the contributed action
+          id: "submit-monaco-modal",
+          // a label of the action that will be presented to the user
+          label: "Submit Monaco Modal",
+          keybindings: [
+            monaco.KeyMod.CtrlCmd | monaco.KeyMod.Shift | monaco.KeyCode.Enter,
+          ],
+          // the method that will be executed when the action is triggered.
+          run: function (editorState) {
+            /* TODO: Handle closing of the modal here. */
+            /* opts.onAccept(editorState.getValue()); */
+          },
+        });
+      }
 
+      console.log(
+        "commandPaletteKeyMap.toMonacoKeyMap(): ",
+        commandPaletteKeyMap?.toMonacoKeyMap()
+      );
+
+      if (commandPaletteKeyMap) {
+        editorRef.current.addAction({
+          id: "cmd-palette",
+          label: "Open Editor Command Palette",
+          keybindings: commandPaletteKeyMap.toMonacoKeyMap(),
+          run: (editorState) => {
+            const action = editorState.getAction("editor.action.quickCommand");
+            action?.run();
+          },
+        });
+      }
       shikiToMonaco(highlighter, monaco);
     };
     /* const [size, setSize] = useState<Size | null>(null); */

@@ -1,4 +1,4 @@
-use crate::core::types::errors::errors::FlusterError;
+use crate::core::types::errors::errors::{FlusterError, FlusterResult};
 
 pub fn path_exists(file_path: &str) -> bool {
     std::fs::exists(file_path).is_ok_and(|a| a)

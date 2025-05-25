@@ -59,6 +59,9 @@ pub enum FlusterError {
 
     #[error("Failed to read file system path at {0}.")]
     FailToReadFileSystemPath(String),
+
+    #[error("Failed to save file at {0}.")]
+    FailToSaveFile(String),
     // Parsing Errors
     #[error("Failed to parse the mdx content at `{0}`.")]
     MdxParsingError(String),

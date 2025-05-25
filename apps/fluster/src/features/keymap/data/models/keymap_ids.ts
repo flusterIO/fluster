@@ -4,4 +4,5 @@ export enum KeymapId {
   togglePanelBottom,
   togglePanelLeft,
   togglePanelRight,
+  editorCommandPalette,
 }

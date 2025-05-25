@@ -8,34 +8,41 @@ export const initialKeymapState: KeymapState = {
     true,
     false,
     false,
-    "b",
+    "b"
   ).toString(),
   [KeymapId.showCommandPalette]: new KeymapItem(
     false,
     true,
     false,
     false,
-    "p",
+    "p"
   ).toString(),
   [KeymapId.togglePanelLeft]: new KeymapItem(
     true,
     true,
     false,
     false,
-    "l",
+    "l"
   ).toString(),
   [KeymapId.togglePanelRight]: new KeymapItem(
     true,
     true,
     false,
     false,
-    "r",
+    "r"
   ).toString(),
   [KeymapId.togglePanelBottom]: new KeymapItem(
     true,
     true,
     false,
     false,
-    "t",
+    "t"
+  ).toString(),
+  [KeymapId.editorCommandPalette]: new KeymapItem(
+    true,
+    true,
+    false,
+    false,
+    "p"
   ).toString(),
 };
