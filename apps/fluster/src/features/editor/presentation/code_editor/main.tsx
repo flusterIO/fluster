@@ -23,8 +23,6 @@ const connector = connect((state: AppState, props: any) => ({
   props: props,
 }));
 
-const handleEditorChange = (): void => {};
-
 const CodeEditor = connector(
   ({ onChange, value, language, themes }: CodeEditorProps): ReactNode => {
     const darkMode = useDarkMode();
@@ -70,7 +68,7 @@ const CodeEditor = connector(
           onMount={handleEditorMount}
           theme={darkMode ? themes.dark : themes.light}
           onChange={(val) => {
-            if (val) {
+            if (typeof val === "string") {
               onChange(val);
             }
           }}
