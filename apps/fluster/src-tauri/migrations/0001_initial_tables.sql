@@ -10,12 +10,22 @@ CREATE TABLE IF NOT EXISTS log (
 -- WHERE ctime < NOW() - INTERVAL '7 days'
 
 
-CREATE TABLE IF NOT EXISTS taggable ( 
+CREATE TABLE IF NOT EXISTS tag ( 
     id SERIAL PRIMARY KEY,
-    value VARCHAR(50) NOT NULL,
-    tag_type VARCHAR(7) NOT NULL 
+    value VARCHAR(50) NOT NULL UNIQUE,
 );
 
+
+CREATE TABLE IF NOT EXISTS subject ( 
+    id SERIAL PRIMARY KEY,
+    value VARCHAR(50) NOT NULL UNIQUE,
+);
+
+-- Figure out how to make the unique property case insensitive when back on wifi.
+CREATE TABLE IF NOT EXISTS topic ( 
+    id SERIAL PRIMARY KEY,
+    value VARCHAR(50) NOT NULL UNIQUE,
+);
 
 CREATE TABLE IF NOT EXISTS mdx_note (
     id SERIAL PRIMARY KEY,
@@ -34,15 +44,15 @@ CREATE TABLE IF NOT EXISTS mdx_note (
 );
 
 
-CREATE TABLE IF NOT EXISTS mdx_note_taggable_join (
+CREATE TABLE IF NOT EXISTS mdx_note_tag_join (
     mdx_note_id INT NOT NULL,
     tag_id INT NOT NULL,
     CONSTRAINT fk_mdx_note_id
         FOREIGN KEY(mdx_note_id)
             REFERENCES mdx_note(id),
-    CONSTRAINT fk_taggable_id
+    CONSTRAINT fk_tag_id
         FOREIGN KEY(tag_id)
-           REFERENCES taggable(id),
+           REFERENCES tag(id),
     PRIMARY KEY (mdx_note_id, tag_id)
 );
 
@@ -90,6 +100,18 @@ CREATE TABLE IF NOT EXISTS equation_snippet_join (
     PRIMARY KEY (equation_id, snippet_id)
 );
 
+CREATE TABLE IF NOT EXISTS tag_snippet_join (
+    tag_id INT NOT NULL,
+    snippet_id INT NOT NULL,
+    CONSTRAINT fk_snippet_id
+        FOREIGN KEY(snippet_id)
+            REFERENCES snippet(id),
+    CONSTRAINT fk_tag_id
+        FOREIGN KEY(tag_id)
+           REFERENCES tag(id),
+    PRIMARY KEY (tag_id, snippet_id)
+);
+
 
 CREATE TABLE IF NOT EXISTS front_matter ( 
     id SERIAL PRIMARY KEY,
@@ -101,12 +123,12 @@ CREATE TABLE IF NOT EXISTS front_matter (
 );
 
 
-CREATE TABLE IF NOT EXISTS front_matter_taggable_join (
+CREATE TABLE IF NOT EXISTS front_matter_tag_join (
     tag_id INT NOT NULL,
     front_matter_id INT NOT NULL,
     CONSTRAINT fk_tag_id 
         FOREIGN KEY(tag_id)
-            REFERENCES taggable(id),
+            REFERENCES tag(id),
     CONSTRAINT fk_front_matter_id
         FOREIGN KEY(front_matter_id)
            REFERENCES front_matter(id),

@@ -17,7 +17,7 @@ import SyntaxSupportedLanguageSelect from "../inputs/syntax_supported_language_s
 import { AppState } from "@/state/initial_state";
 import { Textarea } from "@/components/ui/shad/textarea";
 import { connect } from "react-redux";
-import { useMatch } from "react-router";
+import { useMatch, useSearchParams } from "react-router";
 import { AppRoutes } from "#/router/data/app_routes";
 import { Button } from "@/components/ui/shad/button";
 import { commands, SnippetItem } from "@/lib/bindings";
@@ -29,6 +29,7 @@ const snippetSchema = z.object({
     body: z.string(),
     desc: z.string(),
     tags: z.string().array(),
+    id: z.number().int().nullable(),
 });
 
 const connector = connect((state: AppState, props: any) => ({
@@ -46,9 +47,28 @@ const AddSnippetPanel = connector(
                 body: "",
                 desc: "",
                 tags: [],
+                id: null,
             },
         });
         const isSnippetsPage = useMatch(AppRoutes.snippets);
+        const searchParams = useSearchParams();
+        const getSnippetBeingEdited = async (id: number): Promise<void> => {
+            let res = await commands.getSnippetById(id);
+            if (res.status === "ok") {
+                form.setValue("label", res.data.label);
+                form.setValue("id", res.data.id);
+                form.setValue("lang", res.data.lang);
+                form.setValue("body", res.data.body);
+                form.setValue("desc", res.data.desc);
+                /* form.setValue("tags", res.data.tags); */
+            }
+        };
+        useEffect(() => {
+            const editingId = searchParams[0].get("editing");
+            if (isSnippetsPage && editingId && editingId.length) {
+                getSnippetBeingEdited(parseInt(editingId));
+            }
+        }, []);
         useEffect(() => {
             if (isSnippetsPage && panelOpen) {
                 document.getElementById("snippet-name-input")?.focus();

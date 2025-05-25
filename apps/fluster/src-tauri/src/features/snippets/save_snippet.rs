@@ -9,7 +9,7 @@ use super::snippet_model::SnippetItem;
 
 #[tauri::command]
 #[specta::specta]
-pub async fn save_snippet(item: SnippetItem) -> FlusterResult<()> {
+pub async fn save_snippet(item: SnippetItem, tags: Vec<String>) -> FlusterResult<()> {
     let db_res = get_database().await;
     let mut db = db_res.lock().await;
     let uri = db.full_db_uri("fluster");
@@ -24,6 +24,13 @@ pub async fn save_snippet(item: SnippetItem) -> FlusterResult<()> {
         .map_err(|_| FlusterError::FailToConnect)?;
     if item.id.is_some() {
     } else {
+        // for tag in tags {
+        /// Create the tag if it does not exist and return the id.
+        // let tag_id = sqlx::
+        /// Use that tag_id and the snippet_id to create the tag_snippet_join. This second call will need to be moved
+        /// below the creation of the snippet itself, where you'll need to return the id.
+        // let tag_query = sqlx::query("INSERT INTO tag_snippet_join")
+        // }
         // RESUME: Come back here and start working with this in the database. Once this is handled, move
         // to the equations and tags before going on to the sync method.
         let res = sqlx::query!(

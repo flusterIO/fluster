@@ -23,6 +23,8 @@ pub fn run() {
             crate::features::snippets::save_snippet::save_snippet,
             crate::features::snippets::get_snippets::get_snippets,
             crate::features::snippets::delete_snippet_by_id::delete_snippet_by_id,
+            crate::features::snippets::get_snippet_by_id::get_snippet_by_id,
+            crate::features::mdx::read_mdx_from_fs::read_mdx_from_fs
         ])
         .events(collect_events![ShowToast, SetDbConnectionUri])
         .typ::<FlusterError>()

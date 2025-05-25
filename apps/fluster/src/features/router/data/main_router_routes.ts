@@ -8,6 +8,8 @@ import DashboardPage from "#/dashboard/presentation/dashboard_page";
 import BibliographyPage from "#/bibliography/presentation/bib_page";
 import { AppRoutes } from "./app_routes";
 import KanbanBoardList from "#/kanban/presentation/kanban_board_list";
+import MdxNotePage from "#/mdx/presentation/mdx_note_page";
+import EditNoteSplitViewPage from "#/editor/presentation/split_view/edit_note_split_view_page";
 
 export const getBrowserRouter = () => {
     return createBrowserRouter([
@@ -35,7 +37,18 @@ export const getBrowserRouter = () => {
                 {
                     Component: ScaffoldWithSidePanels,
                     children: [
-                        { path: AppRoutes.settings, Component: Settings },
+                        {
+                            path: AppRoutes.settings,
+                            Component: Settings,
+                        },
+                        {
+                            path: AppRoutes.mdxNotes,
+                            Component: MdxNotePage,
+                        },
+                        {
+                            path: AppRoutes.splitViewEditMdx,
+                            Component: EditNoteSplitViewPage,
+                        },
                         {
                             path: AppRoutes.snippets,
                             Component: SnippetsPage,

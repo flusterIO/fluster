@@ -2,12 +2,16 @@ import { H3 } from "@/components/typography/typography";
 import { commands, SnippetItem } from "@/lib/bindings";
 import { type ReactNode } from "react";
 import CodeBlock from "../code_block/main";
-import { Button } from "@/components/ui/shad/button";
+import { Button, buttonVariants } from "@/components/ui/shad/button";
 import { useConfirmation } from "#/confirmation_modal/state/hooks/use_confirmation";
 import { reloadSnippetList } from "#/snippets/data/events/reload_snippet_list";
 import { copyStringToClipboard } from "@/lib/copy_string_to_clipboard";
 import { showToast } from "#/toast_notification/data/events/show_toast";
 import { motion } from "motion/react";
+import { Link } from "react-router";
+import { cn } from "@/lib/utils";
+import store from "@/state/store";
+import { setPanelLeftOpen } from "#/panel_left/state/slice";
 
 interface SnippetItemComponentProps {
     item: SnippetItem;
@@ -56,7 +60,10 @@ const SnippetListItem = ({
         }
     };
 
-    const handleEditClick = (): void => { };
+    const handleEditClick = (): void => {
+        store.dispatch(setPanelLeftOpen(true));
+    };
+
     return (
         <motion.div
             className="w-[min(90%,1080px)] h-fit px-6 pb-6 pt-4 border rounded @container/snippet_item"
@@ -89,12 +96,16 @@ const SnippetListItem = ({
                     Delete
                 </Button>
                 <div className="flex flex-col justify-end items-center gap-4 w-full @[300px]/snippet_item:flex-row">
-                    <Button
-                        className="w-full @[300px]/snippet_item:w-fit"
+                    <Link
+                        className={cn(
+                            "w-full @[300px]/snippet_item:w-fit",
+                            buttonVariants({ variant: "outline" })
+                        )}
                         onClick={handleEditClick}
+                        to={`/snippets?editing=${item.id}`}
                     >
                         Edit
-                    </Button>
+                    </Link>
                     <Button
                         className="w-full @[300px]/snippet_item:w-fit"
                         onClick={handleCopyClick}
