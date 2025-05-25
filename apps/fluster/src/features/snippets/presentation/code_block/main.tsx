@@ -1,7 +1,6 @@
 import { useDarkMode } from "@/hooks/use_dark_mode";
-import React, { useEffect, useMemo, useState, type ReactNode } from "react";
-import { codeToHtml, createHighlighter } from "shiki";
-
+import { useEffect, useState, type ReactNode } from "react";
+import { codeToHtml } from "shiki";
 import { connect } from "react-redux";
 import { AppState } from "@/state/initial_state";
 
@@ -22,17 +21,18 @@ const CodeBlock = connector((props: CodeBlockProps): ReactNode => {
   const handleCodeParsing = async (
     code: string,
     lang: string,
-    isDark: boolean
+    isDark: boolean,
+    themes: typeof props.themes
   ): Promise<void> => {
     const html = await codeToHtml(code, {
       lang: lang,
-      theme: isDark ? props.themes.dark : props.themes.light,
+      theme: isDark ? themes.dark : themes.light,
     });
     setParsedHtml(html);
   };
   useEffect(() => {
-    handleCodeParsing(props.code, props.lang, darkMode);
-  }, [props.lang, props.code, darkMode]);
+    handleCodeParsing(props.code, props.lang, darkMode, props.themes);
+  }, [props.lang, props.code, darkMode, props.themes]);
   return (
     <div className="w-full overflow-x-auto">
       <div

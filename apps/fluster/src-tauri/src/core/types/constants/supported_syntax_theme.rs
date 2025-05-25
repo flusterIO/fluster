@@ -1,9 +1,10 @@
 use serde::{Deserialize, Serialize};
+use sqlx::prelude::Type;
 
 /** Themes generated from shiki. This will not be implemented by the datbaase package as this is
  * only used as part of the settings object which is serialized as json before being saved tothe
  * DB*/
-#[derive(Debug, Serialize, Deserialize, Clone, Default)]
+#[derive(Debug, Serialize, Deserialize, Clone, Default, Type)]
 pub enum SupportedSyntaxTheme {
     #[serde(rename(serialize = "andromeeda", deserialize = "andromeeda"))]
     Andromeeda,
@@ -154,4 +155,3 @@ pub enum SupportedSyntaxTheme {
     #[serde(rename(serialize = "vitesse-light", deserialize = "vitesse-light"))]
     VitesseLight,
 }
-
