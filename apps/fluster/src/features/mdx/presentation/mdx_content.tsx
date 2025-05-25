@@ -15,7 +15,7 @@ const MdxContent = ({ mdx, className }: MdxContentProps): ReactNode => {
   return (
     <Component
       className={cn(
-        "prose dark:prose-invert prose-p:text-foreground",
+        "prose dark:prose-invert prose-p:text-foreground w-full max-w-full",
         className
       )}
     />
