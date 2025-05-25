@@ -7,6 +7,7 @@ import type { CompileOptions } from "@mdx-js/mdx";
 // } from "fumadocs-core/mdx-plugins";
 /* import rehypeImgSize from "rehype-img-size"; */
 import remarkMath from "remark-math";
+import remarkGfm from "remark-gfm";
 import rehypeMathjax from "rehype-mathjax/chtml";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
 import rehypePrettyCode from "rehype-pretty-code";

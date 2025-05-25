@@ -35,7 +35,7 @@ const EditNoteSplitViewPage = (
         }
     }, [searchParams]);
     return (
-        <SplitViewContainer defaultLang="mdx" value={value} onChange={setValue} />
+        <SplitViewContainer language="mdx" value={value} onChange={setValue} />
     );
 };
 
