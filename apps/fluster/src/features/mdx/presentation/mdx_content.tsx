@@ -3,16 +3,23 @@ import { useDebounceMdxParse } from "../state/hooks/use_debounce_mdx_parse";
 import { cn } from "@/lib/utils";
 
 interface MdxContentProps {
-    mdx: string;
-    className?: string;
+  mdx: string;
+  className?: string;
 }
 
 const MdxContent = ({ mdx, className }: MdxContentProps): ReactNode => {
-    const { Component, setValue } = useDebounceMdxParse();
-    useEffect(() => {
-        setValue(mdx);
-    }, [mdx]);
-    return <Component className={cn("prose dark:prose-invert", className)} />;
+  const { Component, setValue } = useDebounceMdxParse();
+  useEffect(() => {
+    setValue(mdx);
+  }, [mdx]);
+  return (
+    <Component
+      className={cn(
+        "prose dark:prose-invert prose-p:text-foreground",
+        className
+      )}
+    />
+  );
 };
 
 MdxContent.displayName = "MdxContent";
