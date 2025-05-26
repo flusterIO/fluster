@@ -7,7 +7,7 @@ const flattenColorPalette = (colors: any): any =>
     Object.assign(
         {},
         ...Object.entries(
-            colors !== null && colors !== void 0 ? colors : {},
+            colors !== null && colors !== void 0 ? colors : {}
         ).flatMap(([color, values]: any) =>
             typeof values == "object"
                 ? Object.entries(flattenColorPalette(values)).map(([number, hex]) => ({
@@ -17,12 +17,16 @@ const flattenColorPalette = (colors: any): any =>
                     {
                         [`${color}`]: values,
                     },
-                ],
-        ),
+                ]
+        )
     );
 
 const tailwindCfg: Config = {
-    content: ["./src/**/*.{js,ts,jsx,tsx,mdx}", "./content/**/*.mdx"],
+    content: [
+        "./src/**/*.{js,ts,jsx,tsx,mdx}",
+        "./content/**/*.mdx",
+        "../../packages/fluster_ui/src/**/*.{js,ts,jsx,tsx,mdx}",
+    ],
     theme: {
         extend: {
             screens: {
@@ -146,9 +150,9 @@ const tailwindCfg: Config = {
         typography,
         containerQueries,
         function addVariablesForColors({ addBase, theme }: any) {
-            let allColors = flattenColorPalette(theme("colors"));
-            let newVars = Object.fromEntries(
-                Object.entries(allColors).map(([key, val]) => [`--${key}`, val]),
+            const allColors = flattenColorPalette(theme("colors"));
+            const newVars = Object.fromEntries(
+                Object.entries(allColors).map(([key, val]) => [`--${key}`, val])
             );
             addBase({
                 ":root": newVars,

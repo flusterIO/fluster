@@ -38,4 +38,9 @@ export default defineConfig(() => ({
             "#": path.resolve(__dirname, "./src/features/"),
         },
     },
+    test: {
+        environment: "jsdom",
+        globals: true,
+        setupFiles: "./tests/setup.js",
+    },
 }));

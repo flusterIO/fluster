@@ -53,6 +53,7 @@ const AddSnippetPanel = connector(
         const getSnippetBeingEdited = async (id: number): Promise<void> => {
             const res = await commands.getSnippetById(id);
             if (res.status === "ok") {
+                console.log(`Setting edit data...`);
                 const snippetItem = res.data[0];
                 const tags = res.data[1];
                 form.setValue("label", snippetItem.label);
@@ -67,6 +68,7 @@ const AddSnippetPanel = connector(
                 /* form.setValue("tags", res.data.tags); */
             }
         };
+
         useEffect(() => {
             const editingId = searchParams[0].get("editing");
             if (isSnippetsPage && editingId && editingId.length) {
@@ -77,6 +79,7 @@ const AddSnippetPanel = connector(
                 });
             }
         }, []);
+
         useEffect(() => {
             if (isSnippetsPage && panelOpen) {
                 document.getElementById("snippet-name-input")?.focus();

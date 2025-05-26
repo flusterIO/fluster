@@ -33,4 +33,9 @@ export default defineConfig({
         sourcemap: true,
         emptyOutDir: false,
     },
+    test: {
+        environment: "jsdom",
+        globals: true,
+        setupFiles: "./tests/setup.js",
+    },
 });
