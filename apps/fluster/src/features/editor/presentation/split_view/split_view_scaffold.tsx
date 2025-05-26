@@ -3,8 +3,7 @@ import { Panel, PanelGroup, PanelResizeHandle } from "react-resizable-panels";
 import CodeEditor, { CodeEditorProps } from "../code_editor/main";
 import MdxContent from "#/mdx/presentation/mdx_content";
 
-interface SplitViewScaffoldProps
-  extends Omit<CodeEditorProps, "themes" | "isModal"> {}
+type SplitViewScaffoldProps = Omit<CodeEditorProps, "themes" | "isModal">;
 
 const SplitViewContainer = ({
   onChange,

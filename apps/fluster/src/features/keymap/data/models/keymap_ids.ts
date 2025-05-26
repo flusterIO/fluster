@@ -1,8 +1,8 @@
 export enum KeymapId {
-  syncDirectory,
-  showCommandPalette,
-  togglePanelBottom,
-  togglePanelLeft,
-  togglePanelRight,
-  editorCommandPalette,
+  syncDirectory = "syncDirectory",
+  showCommandPalette = "showCommandPalette",
+  togglePanelBottom = "togglePanelBottom",
+  togglePanelLeft = "togglePanelLeft",
+  togglePanelRight = "togglePanelRight",
+  editorCommandPalette = "editorCommandPalette",
 }

@@ -1,6 +1,5 @@
 import store from "@/state/store";
 import { KeymapId } from "./keymap_ids";
-import { ShowCommandPaletteEventProps } from "@/events/show_command_palette";
 import { togglePanelBottom } from "#/panel_bottom/state/slice";
 import { togglePanelRight } from "#/panel_right/state/slice";
 import { togglePanelLeft } from "#/panel_left/state/slice";
@@ -15,7 +14,7 @@ export const keymapActions: Record<GlobalKeymapActionId, () => Promise<void>> =
     [KeymapId.syncDirectory]: async () => {},
     [KeymapId.showCommandPalette]: async () => {
       window.dispatchEvent(
-        new CustomEvent<ShowCommandPaletteEventProps>("show_command_palette", {
+        new CustomEvent("show_command_palette", {
           detail: {},
         })
       );

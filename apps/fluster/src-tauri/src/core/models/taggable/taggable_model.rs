@@ -98,10 +98,9 @@ impl Taggable {
         let mut tags: Vec<Taggable> = Vec::new();
         if let Some(parsed_data) = &data.data {
             if let Ok(h) = parsed_data.as_hashmap() {
-                tags = Taggable::handle_arr_data(&h["tags"], &tags, &TaggableTypeEnum::Tag);
-                tags = Taggable::handle_arr_data(&h["topics"], &tags, &&TaggableTypeEnum::Topic);
-                tags =
-                    Taggable::handle_arr_data(&h["subjects"], &tags, &&TaggableTypeEnum::Subject);
+                if h.contains_key("tags") {
+                    tags = Taggable::handle_arr_data(&h["tags"], &tags, &TaggableTypeEnum::Tag);
+                }
             }
         }
         tags
