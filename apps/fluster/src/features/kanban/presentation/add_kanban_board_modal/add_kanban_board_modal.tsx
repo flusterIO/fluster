@@ -3,8 +3,7 @@ import {
     useKanbanContext,
     useKanbanDispatch,
 } from "#/kanban/state/kanban_provider";
-import { Button } from "@fluster/ui";
-import TextInputGroup from "@fluster/ui";
+import { Button, TextInputGroup } from "@fluster/ui";
 import ModalBackdrop from "@/components/util/modal_backdrop";
 import { useEffect, useState, type ReactNode } from "react";
 import { createPortal } from "react-dom";
