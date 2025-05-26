@@ -1,9 +1,7 @@
 import PanelContainer from "@/components/util/panel_container";
 import React, { type ReactNode } from "react";
 
-interface DashboardPageProps { }
-
-const DashboardPage = (props: DashboardPageProps): ReactNode => {
+const DashboardPage = (): ReactNode => {
     return <PanelContainer>Dashboard Page</PanelContainer>;
 };
 

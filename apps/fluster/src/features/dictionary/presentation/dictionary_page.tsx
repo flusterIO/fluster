@@ -5,7 +5,6 @@ import { DictionaryEntry } from "@/lib/bindings";
 import DictionaryLetterGroup from "./dictionary_letter_group";
 import PanelContainer from "@/components/util/panel_container";
 
-interface DictionaryPageProps {}
 
 const initialGroupedDictionaryEntries = (): GroupedDictionaryEntries => {
   return {
@@ -62,7 +61,7 @@ const groupDictionaryEntries = (
   return groupedEntries;
 };
 
-const DictionaryPage = (props: DictionaryPageProps): ReactNode => {
+const DictionaryPage = (): ReactNode => {
   const items = getFakeDictionaryEntries(100);
   const groupedItems = groupDictionaryEntries(items);
   return (

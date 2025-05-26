@@ -1,4 +1,3 @@
-import { P } from "@/components/typography/typography";
 import { KeyCode, KeyMod } from "monaco-editor";
 
 export class KeymapItem {

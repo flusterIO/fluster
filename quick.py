@@ -18,4 +18,4 @@ for t in dep_types:
             if dep in bad_data[t2]:
                 bad_data[t2][dep] = good_data[t][dep]
 
-print(good_data)
+print(json.dumps(bad_data))

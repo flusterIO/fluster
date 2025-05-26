@@ -12,7 +12,7 @@ export interface MdxNotePageSearchParams {
 
 const MdxNotePage = (): ReactNode => {
     const [searchParams] = useSearchParams();
-    const [content, setContent] = useState("");
+    const [content] = useState("");
 
     const getNoteContentFromFs = async (fsPath: string): Promise<void> => {
         console.log("fsPath: ", fsPath);

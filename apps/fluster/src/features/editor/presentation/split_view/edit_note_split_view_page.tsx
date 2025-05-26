@@ -15,11 +15,8 @@ export interface EditNoteSplitViewSearchParams {
   fsPath: string;
 }
 
-interface EditNoteSplitViewPageProps {}
 
-const EditNoteSplitViewPage = (
-  props: EditNoteSplitViewPageProps
-): ReactNode => {
+const EditNoteSplitViewPage = (): ReactNode => {
   const [searchParams] = useSearchParams();
   const [value, setValue] = useState("");
   const getFileContent = async (fsPath: string): Promise<void> => {

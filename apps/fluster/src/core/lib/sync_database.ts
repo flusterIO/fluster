@@ -16,6 +16,7 @@ export const syncDatabase = async (): Promise<void> => {
         },
         onError
     );
+    console.log("res: ", res);
     showToast({
         title: "res",
         body: onError.toJSON(),

@@ -1,9 +1,8 @@
 import PanelContainer from "@/components/util/panel_container";
 import { type ReactNode } from "react";
 
-interface EquationsPageProps {}
 
-const EquationsPage = (props: EquationsPageProps): ReactNode => {
+const EquationsPage = (): ReactNode => {
   return <PanelContainer>Equations</PanelContainer>;
 };
 
