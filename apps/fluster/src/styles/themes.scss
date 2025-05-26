@@ -3,6 +3,13 @@
 @tailwind utilities;
 
 @layer base {
+
+  /// New variables added. Set these to settings so users can modify them dynamically.
+  html * {
+    --fluster-math-font-size: 1.2rem;
+  }
+
+
   div[data-fluster-theme="zinc"] {
     --background: 0 0% 100%;
     --foreground: 240 10% 3.9%;

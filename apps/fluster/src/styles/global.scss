@@ -20,6 +20,10 @@ html {
   overscroll-behavior-block: none;
 }
 
+body {
+  overflow: hidden;
+}
+
 #root {
   height: 100vh;
   width: 100vw;
@@ -170,3 +174,4 @@ html {
 /*         background-color: #0f0f0f69; */
 /*     } */
 /* } */
+
