@@ -3,8 +3,8 @@ import {
     useKanbanContext,
     useKanbanDispatch,
 } from "#/kanban/state/kanban_provider";
-import { Button } from "@/components/ui/shad/button";
-import TextInputGroup from "@/components/ui/text_input_group";
+import { Button } from "@fluster/ui";
+import TextInputGroup from "@fluster/ui";
 import ModalBackdrop from "@/components/util/modal_backdrop";
 import { useEffect, useState, type ReactNode } from "react";
 import { createPortal } from "react-dom";
@@ -69,7 +69,7 @@ const AddKanbanBoardModal = (): ReactNode => {
     if (open) {
         return createPortal(
             <AddKanbanBoardModalInner />,
-            document.getElementById("main-scaffold")!,
+            document.getElementById("main-scaffold")!
         );
     }
     return null;

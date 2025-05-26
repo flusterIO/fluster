@@ -6,7 +6,7 @@ import { useIsomorphicLayoutEffect } from "@/hooks/use_isomorphic_effect";
 import { AppRoutes } from "#/router/data/app_routes";
 
 export const getEditNoteSplitViewPageUrl = (noteAbsolutePath: string) => {
-  let sp = new URLSearchParams();
+  const sp = new URLSearchParams();
   sp.set("fsPath", noteAbsolutePath);
   return `${AppRoutes.splitViewEditMdx}?${sp.toString()}`;
 };
@@ -23,24 +23,19 @@ const EditNoteSplitViewPage = (
   const [searchParams] = useSearchParams();
   const [value, setValue] = useState("");
   const getFileContent = async (fsPath: string): Promise<void> => {
-    let res = await commands.readMdxFromFs(fsPath);
+    const res = await commands.readMdxFromFs(fsPath);
     if (res.status === "ok") {
       setValue(res.data.mdx.raw_body);
     }
   };
   useIsomorphicLayoutEffect(() => {
-    let fsPath = searchParams.get("fsPath");
+    const fsPath = searchParams.get("fsPath");
     if (fsPath) {
       getFileContent(fsPath);
     }
   }, [searchParams]);
   return (
-    <SplitViewContainer
-      isModal={false}
-      language="mdx"
-      value={value}
-      onChange={setValue}
-    />
+    <SplitViewContainer language="mdx" value={value} onChange={setValue} />
   );
 };
 

@@ -2,13 +2,12 @@ import { H3 } from "@/components/typography/typography";
 import { commands, SnippetItem } from "@/lib/bindings";
 import { type ReactNode } from "react";
 import CodeBlock from "../code_block/main";
-import { Button, buttonVariants } from "@/components/ui/shad/button";
+import { Button, buttonVariants } from "@fluster/ui";
 import { useConfirmation } from "#/confirmation_modal/state/hooks/use_confirmation";
 import { reloadSnippetList } from "#/snippets/data/events/reload_snippet_list";
 import { copyStringToClipboard } from "@/lib/copy_string_to_clipboard";
 import { showToast } from "#/toast_notification/data/events/show_toast";
 import { motion } from "motion/react";
-import { Link } from "react-router";
 import { cn } from "@/lib/utils";
 import store from "@/state/store";
 import { setPanelLeftOpen } from "#/panel_left/state/slice";
@@ -25,7 +24,7 @@ const SnippetListItem = ({
     const confirmationId = `delete-snippet-${item.id}`;
     const handleDelete = async (): Promise<void> => {
         if (item.id) {
-            let res = await commands.deleteSnippetById(item.id);
+            const res = await commands.deleteSnippetById(item.id);
             if (res.status === "ok") {
                 reloadSnippetList();
             }
@@ -41,15 +40,23 @@ const SnippetListItem = ({
             confirmationVariant: "destructive",
         },
         () => {
-            handleDelete();
+            handleDelete().catch(() => {
+                showToast({
+                    title: "Oh no",
+                    body: "Something went wrong while deleting this snippet.",
+                    variant: "Error",
+                    duration: 5000,
+                });
+            });
         }
     );
-    const handleDeleteClick = async (): Promise<void> => {
+
+    const handleDeleteClick = (): void => {
         confirm.setVisible(true);
     };
 
     const handleCopyClick = async () => {
-        let res = await copyStringToClipboard(item.body);
+        const res = await copyStringToClipboard(item.body);
         if (res) {
             showToast({
                 title: "Success",
@@ -96,19 +103,19 @@ const SnippetListItem = ({
                     Delete
                 </Button>
                 <div className="flex flex-col justify-end items-center gap-4 w-full @[300px]/snippet_item:flex-row">
-                    <Link
+                    <a
                         className={cn(
                             "w-full @[300px]/snippet_item:w-fit",
                             buttonVariants({ variant: "outline" })
                         )}
                         onClick={handleEditClick}
-                        to={`/snippets?editing=${item.id}`}
+                        href={`/snippets?editing=${item.id}`}
                     >
                         Edit
-                    </Link>
+                    </a>
                     <Button
                         className="w-full @[300px]/snippet_item:w-fit"
-                        onClick={handleCopyClick}
+                        onClick={() => handleCopyClick()}
                     >
                         Copy
                     </Button>

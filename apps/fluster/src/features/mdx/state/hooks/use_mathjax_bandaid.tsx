@@ -17,12 +17,12 @@ export const mathjaxMutationObserver = () =>
 export const applyMathjaxBandaid = (
     element: string | React.RefObject<HTMLElement>
 ) => {
-    let em =
+    const em =
         typeof element === "string"
             ? document.getElementById(element)
             : element.current;
     if (!em) return;
-    let observer = mathjaxMutationObserver();
+    const observer = mathjaxMutationObserver();
     // WITH_WIFI: Improve this SIGNIFICANTLY. Look up the necessary properties to find just the classname attribute that's applied mistakenly by the parser.
     // TODO: Keep attributes field but make others dependent on a prop.
     observer.observe(em, {

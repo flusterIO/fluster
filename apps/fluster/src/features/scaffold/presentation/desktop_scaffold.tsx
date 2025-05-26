@@ -12,10 +12,9 @@ import CommandPalette from "#/command_palette/presentation/command_palette";
 import { prefersDarkMode } from "../utils";
 import ConfirmationModalContainer from "#/confirmation_modal/presentation/confirmation_modal_container";
 
-const connector = connect((state: AppState, props: any) => ({
+const connector = connect((state: AppState) => ({
     themeMode: state.scaffold.themeMode,
     theme: state.scaffold.theme,
-    props: props,
 }));
 
 const DesktopScaffold = connector(

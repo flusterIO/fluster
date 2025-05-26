@@ -5,7 +5,7 @@ import { KeymapItem } from "#/keymap/data/models/keymap_item";
 
 export const useKeymap = (id: KeymapId): KeymapItem | undefined => {
   return useSelector((state: AppState) => {
-    let s = state.keymap[id];
+    const s = state.keymap[id];
     if (typeof s === "string") {
       return KeymapItem.fromString(s);
     } else {

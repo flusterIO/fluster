@@ -34,7 +34,7 @@ const CommandPaletteInput = forwardRef(
         useEffect(() => {
             if (state.navStack.length > 0 && !hasFocused) {
                 ref;
-                let em =
+                const em =
                     (ref as MutableRefObject<HTMLInputElement>)?.current ??
                     document.getElementById("searchCommandInput");
                 if (em) {
@@ -78,7 +78,7 @@ const CommandPaletteInput = forwardRef(
                     });
                 }
             } else if (e.key === "Enter") {
-                let item = state.filteredItems[state.focusedIndex];
+                const item = state.filteredItems[state.focusedIndex];
                 if (item instanceof CommandPaletteCategory) {
                     appendCommandPaletteCategory(item, dispatch);
                     setValue("");

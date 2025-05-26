@@ -1,7 +1,7 @@
 import { ConfirmationModalProps } from "#/confirmation_modal/types/confirmation_modal_types";
 
 declare global {
-    // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
+     
     interface WindowEventMap {
         "request-confirmation-response": CustomEvent<ConfirmationModalProps>;
     }

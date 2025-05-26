@@ -49,7 +49,7 @@ export class KeymapItem {
   }
 
   toMonacoKeyMap() {
-    let items: number[] = [];
+    const items: number[] = [];
     if (this.meta) {
       items.push(KeyMod.CtrlCmd);
     }
@@ -62,7 +62,7 @@ export class KeymapItem {
     if (this.ctrl) {
       items.push(KeyMod.WinCtrl);
     }
-    let k = `Key${this.key.toUpperCase()}`;
+    const k = `Key${this.key.toUpperCase()}`;
     if (KeyCode[`Key${k}` as keyof typeof KeyCode] as number) {
       items.push(KeyCode[`Key${k}` as keyof typeof KeyCode] as number);
     }

@@ -4,12 +4,13 @@ import { useSnippetContext } from "../state/snippets_provider";
 import SnippetListItem from "./snippet_item/main";
 import NoSnippetsFound from "./no_snippets_found";
 import { useEventListener } from "@/hooks/use_event_listener";
+import { showToast } from "#/toast_notification/data/events/show_toast";
 
 const SnippetsResultsList = (): ReactNode => {
     const { languageFilter } = useSnippetContext();
     const [results, setResults] = useState<SnippetItem[] | "loading">("loading");
     const getNewSnippetData = async (langs: string[]): Promise<void> => {
-        let res = await commands.getSnippets({
+        const res = await commands.getSnippets({
             langs,
         });
         if (res.status === "ok") {
@@ -23,7 +24,14 @@ const SnippetsResultsList = (): ReactNode => {
             Object.entries(languageFilter)
                 .filter((x) => x[1])
                 .map((l) => l[0])
-        );
+        ).catch(() => {
+            showToast({
+                title: "Oh no",
+                body: "Something went wrong while gathering your snippets.",
+                duration: 5000,
+                variant: "Error",
+            });
+        });
     };
 
     useEffect(() => {
@@ -40,11 +48,7 @@ const SnippetsResultsList = (): ReactNode => {
                 </div>
             ) : results.length ? (
                 results.map((l, i) => (
-                    <SnippetListItem 
-                            idx={i}
-                            key={`snippet-${l.label}`} 
-                            item={l}
-                        />
+                    <SnippetListItem idx={i} key={`snippet-${l.label}`} item={l} />
                 ))
             ) : (
                 <NoSnippetsFound />

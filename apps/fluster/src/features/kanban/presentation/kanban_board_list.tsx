@@ -6,8 +6,8 @@ import AddKanbanBoardModal from "./add_kanban_board_modal/add_kanban_board_modal
 
 const KanbanBoardList = (): ReactNode => {
     const { lists } = useKanbanContext();
-    let isEven = lists.length % 2 === 0;
-    let gridItems = isEven ? [...lists] : lists.slice(0, lists.length - 2);
+    const isEven = lists.length % 2 === 0;
+    const gridItems = isEven ? [...lists] : lists.slice(0, lists.length - 2);
     return (
         <KanbanProvider>
             <div className="w-full flex flex-col justify-center items-center gap-6">

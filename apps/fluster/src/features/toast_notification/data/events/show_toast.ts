@@ -1,8 +1,8 @@
-import { ToastItem } from "#/toast_notification/state/toast_state";
+// import { ToastItem } from "#/toast_notification/state/toast_state";
+import { ToastItem } from "#/toast_notification/types";
 import { v4 as uuidv4 } from "uuid";
 
 declare global {
-    // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
     interface WindowEventMap {
         "show-toast": CustomEvent<ToastItem>;
     }

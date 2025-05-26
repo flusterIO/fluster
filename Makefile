@@ -10,6 +10,8 @@ set_version:
 format_everything: set_version
 	dart fix
 	pnpm syncpack format
+syncpack_fix_mismatches:
+	npx syncpack fix-mismatches
 generate_icons:
 	cd ${FLUSTER_NATIVE_ROOT}/apps/fluster/; flutter pub run flutter_launcher_icons -f flutter_launcher_icons.yaml
 run_builders:
@@ -18,11 +20,11 @@ build_protos: build_go
 	${FLUSTER_NATIVE_ROOT}/packages/fluster_internal_workspace/fluster_internal_workspace generate_grpc_script
 	${FLUSTER_NATIVE_ROOT}/packages/fluster_grpc/scripts/clean.sh
 	cd ${FLUSTER_NATIVE_ROOT}/packages/fluster_grpc; ${FLUSTER_NATIVE_ROOT}/packages/fluster_grpc/scripts/distribute_proto.sh
-lock_package_json_versions:
-	/Users/bigsexy/Desktop/fluster/node_modules/.pnpm/syncpack@13.0.3_typescript@5.8.3/node_modules/syncpack/dist/index.js
 build_embedded_ts:
 	cd ${FLUSTER_NATIVE_ROOT}/packages/fluster_native_interface/typescript; pnpm install
 	cd ${FLUSTER_NATIVE_ROOT}/packages/fluster_native_interface/typescript; pnpm build
+build_ui_typescript:
+	cd ${FLUSTER_NATIVE_ROOT}/packages/fluster_ui; pnpm build
 build_node: build_embedded_ts
 	pnpm syncpack format
 	cd ${FLUSTER_NATIVE_ROOT}/packages/fluster_ts; pnpm build

@@ -14,12 +14,13 @@
         "resolveJsonModule": true,
         "isolatedModules": true,
         "noEmit": true,
-        "jsx": "react-jsx",
+        "jsx": "react",
         /* Linting */
         "strict": true,
         "noUnusedLocals": true,
         "noUnusedParameters": true,
         "noFallthroughCasesInSwitch": true,
+        "allowUmdGlobalAccess": true,
         "paths": {
             "@/*": [
                 "./src/core/*"

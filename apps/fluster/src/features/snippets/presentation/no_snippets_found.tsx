@@ -1,5 +1,5 @@
 import { H3, SmallText } from "@/components/typography/typography";
-import React, { type ReactNode } from "react";
+import { type ReactNode } from "react";
 
 const NoSnippetsFound = (): ReactNode => {
     return (

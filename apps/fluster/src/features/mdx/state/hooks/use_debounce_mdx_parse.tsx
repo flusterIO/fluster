@@ -9,7 +9,8 @@ import { parseMdxString } from "#/mdx/data/parse/mdx_to_jsx";
 // import { useAppConfig } from "./useAppConfig";
 //
 
-const getComponentMap = (mdxContent: string): Object => {
+const getComponentMap = (mdxContent: string): object => {
+    console.log("mdxContent: ", mdxContent);
     return {};
 };
 
@@ -38,19 +39,18 @@ export const useDebounceMdxParse = (
     const [value, setValue] = useState<string>(initialValue);
     const [hasParsed, setHasParsed] = useState(false);
     const [mdxModule, setMdxModule] = useState<MDXModule | null>(null);
-    const [timer, setTimer] = useState<any>(null);
+    const [timer, setTimer] = useState<NodeJS.Timeout | null>(null);
 
     const handleParse = async (_value: string) => {
         /* TODO: Add function param and modify this to add the ability to format mdx content with internal parser. */
-        let compiled = await parseMdxString({
+        const compiled = await parseMdxString({
             content: _value,
         });
-        /* let compiled = await parseMdxString({ content: _value, appConfig }); */
         const res = await run(compiled, {
             Fragment: Fragment,
-            jsx: runtime.jsx as any,
-            jsxs: runtime.jsxs as any,
-            jsxDEV: devRuntime.jsxDEV as any,
+            jsx: runtime.jsx,
+            jsxs: runtime.jsxs,
+            jsxDEV: devRuntime.jsxDEV,
             baseUrl: import.meta.url,
         });
         setMdxModule(res);
@@ -61,7 +61,9 @@ export const useDebounceMdxParse = (
             clearTimeout(timer);
         }
         if (hasParsed === false) {
-            handleParse(value);
+            handleParse(value).catch(() => {
+                console.error("An error occurred while parsing mdx content.");
+            });
             setHasParsed(true);
         } else {
             setTimer(setTimeout(() => handleParse(value || ""), debounceTimeout));

@@ -11,7 +11,7 @@
     "app": {
         "windows": [
             {
-                "title": "fluster",
+                "title": "Fluster",
                 "titleBarStyle": "Overlay",
                 "width": 800,
                 "height": 600

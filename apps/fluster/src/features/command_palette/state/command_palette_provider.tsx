@@ -83,7 +83,7 @@ export const CommandPaletteContextReducer = (
 ): CommandPaletteState => {
     switch (action.type) {
         case CommandPaletteActionType.popCommandPaletteCategory: {
-            let newStack =
+            const newStack =
                 state.navStack.length > 1
                     ? state.navStack.slice(0, state.navStack.length - 1)
                     : [];

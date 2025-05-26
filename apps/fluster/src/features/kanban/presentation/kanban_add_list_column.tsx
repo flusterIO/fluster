@@ -1,4 +1,4 @@
-import { Button } from "@/components/ui/shad/button";
+import { Button } from "@fluster/ui";
 import React, { type ReactNode } from "react";
 
 interface KanbanAddListColumnProps { }

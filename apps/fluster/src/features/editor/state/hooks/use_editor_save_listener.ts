@@ -13,7 +13,7 @@ export const useEditorSaveListener = (
     cb: () => void,
     observables: any[] = []
 ) => {
-    let f = editorSaveKeydown(cb, observables);
+    const f = editorSaveKeydown(cb, observables);
     useEffect(() => {
         document.addEventListener("keydown", f);
         return () => {

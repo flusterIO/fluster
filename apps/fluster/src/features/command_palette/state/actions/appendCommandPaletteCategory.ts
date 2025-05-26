@@ -9,7 +9,7 @@ export const appendCommandPaletteCategory = async (
     cat: CommandPaletteCategory,
     dispatch: Dispatch<CommandPaletteContextActions>,
 ): Promise<void> => {
-    let items = await cat.getItems();
+    const items = await cat.getItems();
     dispatch({
         type: CommandPaletteActionType.appendCommandPaletteCategory,
         payload: {

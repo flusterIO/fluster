@@ -3,7 +3,7 @@ import { useEffect, useRef } from "react";
 import type { RefObject } from "react";
 
 declare global {
-  // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
+   
   interface WindowEventMap {
     "mathjax-loaded": CustomEvent;
   }

@@ -8,7 +8,7 @@ export const syncDatabase = async (): Promise<void> => {
     onError.onmessage = (e) => {
         console.log("error: ", e);
     };
-    let res = await commands.syncLocalDatabase(
+    const res = await commands.syncLocalDatabase(
         {
             dir_path: "/Users/bigsexy/notes",
             bib_path: "citations.bib",

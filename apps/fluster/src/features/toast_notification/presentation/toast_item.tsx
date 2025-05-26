@@ -1,9 +1,9 @@
 import { CheckCircle, Info, XCircleIcon } from "lucide-react";
-import React, { useEffect, useState, type ReactNode } from "react";
+import { useEffect, useState, type ReactNode } from "react";
 import { cn } from "@/lib/utils";
 import { motion } from "motion/react";
 import { ToastVariant } from "@/lib/bindings";
-import { ToastItem } from "../state/toast_state";
+import { ToastItem } from "../types";
 
 interface ToastProps {
     item: ToastItem;

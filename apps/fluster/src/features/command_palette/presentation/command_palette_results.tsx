@@ -13,7 +13,7 @@ const CommandPaletteResults = (): ReactNode => {
     const getItems = async (
         cb: () => Promise<CommandPaletteAnyEntry[]>,
     ): Promise<void> => {
-        let items = await cb();
+        const items = await cb();
         dispatch({
             type: CommandPaletteActionType.setCategoryItems,
             payload: items,

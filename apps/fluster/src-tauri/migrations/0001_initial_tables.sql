@@ -1,7 +1,7 @@
 CREATE TABLE IF NOT EXISTS log (
     id SERIAL PRIMARY KEY,
     "msg" VARCHAR(255) NOT NULL, 
-    ctime TIMESTAMP NOT NULL DEFAULT NOW()
+    ctime TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
 
@@ -12,19 +12,19 @@ CREATE TABLE IF NOT EXISTS log (
 
 CREATE TABLE IF NOT EXISTS tag ( 
     id SERIAL PRIMARY KEY,
-    value VARCHAR(50) NOT NULL UNIQUE,
+    value VARCHAR(50) NOT NULL UNIQUE
 );
 
 
 CREATE TABLE IF NOT EXISTS subject ( 
     id SERIAL PRIMARY KEY,
-    value VARCHAR(50) NOT NULL UNIQUE,
+    value VARCHAR(50) NOT NULL UNIQUE
 );
 
 -- Figure out how to make the unique property case insensitive when back on wifi.
 CREATE TABLE IF NOT EXISTS topic ( 
     id SERIAL PRIMARY KEY,
-    value VARCHAR(50) NOT NULL UNIQUE,
+    value VARCHAR(50) NOT NULL UNIQUE
 );
 
 CREATE TABLE IF NOT EXISTS mdx_note (
@@ -166,4 +166,3 @@ CREATE TABLE IF NOT EXISTS reading_list_bib_entry_join (
            REFERENCES bib_entry(id),
     PRIMARY KEY (bib_entry_id, reading_list_id)
 );
-

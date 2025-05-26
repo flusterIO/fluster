@@ -8,8 +8,8 @@ import { cn } from "@/lib/utils";
 import { useDesktopScaffoldContext } from "../state/scaffold_provider.tsx";
 
 const SideNavigationItem = ({ item }: { item: NavigationItem }): ReactNode => {
-    let Icon = item.icon;
-    let isCurrent = useMatch(item.href);
+    const Icon = item.icon;
+    const isCurrent = useMatch(item.href);
     return (
         <NavLink to={item.href} end>
             <Icon
@@ -36,8 +36,8 @@ const SideNavigationCol = ({
 const DesktopSideNavigation = (): ReactNode => {
     const { sideNavButtons } = useDesktopScaffoldContext();
     const { top, bottom } = useMemo(() => {
-        let top: NavigationItem[] = [];
-        let bottom: NavigationItem[] = [];
+        const top: NavigationItem[] = [];
+        const bottom: NavigationItem[] = [];
         for (const item of sideNavButtons) {
             if (item.position === NavItemPosition.top) {
                 top.push(item);

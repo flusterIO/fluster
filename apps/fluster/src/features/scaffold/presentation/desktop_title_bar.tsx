@@ -1,8 +1,6 @@
-import React, { type ReactNode } from "react";
+import { type ReactNode } from "react";
 
-interface DesktopTitleBarProps { }
-
-const DesktopTitleBar = (props: DesktopTitleBarProps): ReactNode => {
+const DesktopTitleBar = (): ReactNode => {
     return (
         <div
             className="h-8 w-screen top-0 left-0 right-0 fixed bg-[hsl(var(--card))]"

@@ -1,6 +1,5 @@
 "use client";
 import { ReactNode, createContext, useReducer, useContext } from "react";
-import { BundledLanguage } from "shiki";
 
 export interface SnippetState {
     languageFilter: Record<string, boolean>;

@@ -52,22 +52,35 @@ const config = {
             path: "engines",
             strategy: "versionsByName",
         },
-        packageManager: {
-            path: "pnpm",
-            strategy: "pnpm@9.7.1",
-        },
+        // packageManager: {
+        //     path: "pnpm",
+        //     strategy: "pnpm@9.7.1",
+        // },
     },
     versionGroups: [
-        // {
-        //     label: "Use workspace protocol when developing local packages",
-        //     dependencies: [
-        //         "@your-repo/node-client-plugin-retry",
-        //         "@your-repo/node-client",
-        //         "dashboard-ui",
-        //     ],
-        //     dependencyTypes: ["dev"],
-        //     pinVersion: "workspace:*",
-        // },
+        {
+            dependencyTypes: ["dev"],
+            dependencies: ["@types/react-dom"],
+            pinVersion: "19.1.5",
+            label: "pin @types/react-dom",
+        },
+        {
+            dependencyTypes: ["dev"],
+            dependencies: ["@types/react"],
+            pinVersion: "19.1.5",
+            label: "pin @types/react",
+        },
+        {
+            dependencies: ["react"],
+            pinVersion: "19.1.0",
+            label: "Pin react in packages.",
+        },
+
+        {
+            dependencies: ["react-dom"],
+            pinVersion: "19.1.0",
+            label: "Pin react-dom in packages.",
+        },
     ],
 };
 

@@ -1,9 +1,6 @@
-interface EventProps { }
-
 declare global {
-    // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
     interface WindowEventMap {
-        "reload-snippet-list": CustomEvent<EventProps>;
+        "reload-snippet-list": CustomEvent<object>;
     }
 }
 

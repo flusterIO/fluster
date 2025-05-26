@@ -6,7 +6,7 @@ interface EventProps {
 }
 
 declare global {
-    // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
+     
     interface WindowEventMap {
         "confirmation-response": CustomEvent<EventProps>;
     }

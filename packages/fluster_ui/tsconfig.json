@@ -1,0 +1,19 @@
+{
+    "extends": "@fluster/config/tsconfig.json",
+    "files": [],
+    "compilerOptions": {
+        "jsx": "react",
+        "module": "ESNext",
+        "moduleResolution": "bundler",
+        "allowUmdGlobalAccess": true,
+        "resolveJsonModule": true,
+        "isolatedModules": true,
+        "noEmit": true,
+        "allowJs": false,
+        "skipLibCheck": true,
+        "rootDir": "src"
+    },
+    "include": [
+        "src"
+    ]
+}

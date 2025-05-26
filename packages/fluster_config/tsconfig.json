@@ -1,0 +1,19 @@
+{
+    "extends": "@tsconfig/node20/tsconfig.json",
+    "compilerOptions": {
+        "target": "ES2022",
+        "module": "NodeNext",
+        "lib": [
+            "ES2022",
+            "DOM",
+            "DOM.Iterable"
+        ],
+        "moduleResolution": "bundler",
+        "esModuleInterop": true,
+        "outDir": "lib",
+        "jsx": "react"
+    },
+    "exclude": [
+        "lib"
+    ]
+}

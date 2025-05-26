@@ -10,52 +10,57 @@ import { AppRoutes } from "./app_routes";
 import KanbanBoardList from "#/kanban/presentation/kanban_board_list";
 import MdxNotePage from "#/mdx/presentation/mdx_note_page";
 import EditNoteSplitViewPage from "#/editor/presentation/split_view/edit_note_split_view_page";
+import EquationsPage from "#/math/presentation/equations_page/main";
 
 export const getBrowserRouter = () => {
-    return createBrowserRouter([
+  return createBrowserRouter([
+    {
+      path: AppRoutes.dashboard,
+      Component: DesktopScaffold,
+      children: [
+        { index: true, Component: DashboardPage },
         {
-            path: AppRoutes.dashboard,
-            Component: DesktopScaffold,
-            children: [
-                { index: true, Component: DashboardPage },
-                {
-                    path: AppRoutes.dashboard,
-                    Component: DashboardPage,
-                },
-                {
-                    path: AppRoutes.bibliography,
-                    Component: BibliographyPage,
-                },
-                {
-                    path: AppRoutes.dictionary,
-                    Component: DictionaryPage,
-                },
-                {
-                    path: AppRoutes.kanbanBoards,
-                    Component: KanbanBoardList,
-                },
-                {
-                    Component: ScaffoldWithSidePanels,
-                    children: [
-                        {
-                            path: AppRoutes.settings,
-                            Component: Settings,
-                        },
-                        {
-                            path: AppRoutes.mdxNotes,
-                            Component: MdxNotePage,
-                        },
-                        {
-                            path: AppRoutes.splitViewEditMdx,
-                            Component: EditNoteSplitViewPage,
-                        },
-                        {
-                            path: AppRoutes.snippets,
-                            Component: SnippetsPage,
-                        },
-                    ],
-                },
-            ],
+          path: AppRoutes.dashboard,
+          Component: DashboardPage,
         },
-    ]);
+        {
+          path: AppRoutes.bibliography,
+          Component: BibliographyPage,
+        },
+        {
+          path: AppRoutes.dictionary,
+          Component: DictionaryPage,
+        },
+        {
+          path: AppRoutes.kanbanBoards,
+          Component: KanbanBoardList,
+        },
+        {
+          Component: ScaffoldWithSidePanels,
+          children: [
+            {
+              path: AppRoutes.settings,
+              Component: Settings,
+            },
+            {
+              path: AppRoutes.viewMdxNote,
+              Component: MdxNotePage,
+            },
+            {
+              path: AppRoutes.equations,
+              Component: EquationsPage,
+            },
+            {
+              path: AppRoutes.splitViewEditMdx,
+              Component: EditNoteSplitViewPage,
+            },
+            {
+              path: AppRoutes.snippets,
+              Component: SnippetsPage,
+            },
+          ],
+        },
+      ],
+    },
+  ]);
 };

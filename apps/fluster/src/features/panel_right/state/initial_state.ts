@@ -1,5 +1,5 @@
-import { PanelRightState } from "./panel_bottom_state";
+import { PanelRightState } from "./panel_right_state";
 
 export const initialPanelRightState: PanelRightState = {
-  open: false,
+    open: false,
 };

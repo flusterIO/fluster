@@ -1,6 +1,6 @@
 import { ConfirmationModalProps } from "../types/confirmation_modal_types";
 import ModalBackdrop from "@/components/util/modal_backdrop";
-import { Button } from "@/components/ui/shad/button";
+import { Button } from "@fluster/ui";
 import { motion } from "motion/react";
 import { type ReactNode, useEffect, useState } from "react";
 import { H4 } from "@/components/typography/typography";

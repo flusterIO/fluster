@@ -1,4 +1,3 @@
-import React from "react";
 import SidePanelContainer from "@/components/side_panel_container";
 import {
     Form,
@@ -7,21 +6,21 @@ import {
     FormItem,
     FormLabel,
     FormMessage,
-} from "@/components/ui/shad/form";
-import { Input } from "@/components/ui/shad/input";
+    TagInput,
+} from "@fluster/ui";
+import { Input } from "@fluster/ui";
 import { useEffect, type ReactNode } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import SyntaxSupportedLanguageSelect from "../inputs/syntax_supported_language_select";
 import { AppState } from "@/state/initial_state";
-import { Textarea } from "@/components/ui/shad/textarea";
+import { Textarea } from "@fluster/ui";
 import { connect } from "react-redux";
 import { useMatch, useSearchParams } from "react-router";
 import { AppRoutes } from "#/router/data/app_routes";
-import { Button } from "@/components/ui/shad/button";
+import { Button } from "@fluster/ui";
 import { commands, SnippetItem } from "@/lib/bindings";
-import TagInput from "@/components/inputs/tag_input/main";
 
 const snippetSchema = z.object({
     lang: z.string(),
@@ -32,9 +31,8 @@ const snippetSchema = z.object({
     id: z.number().int().nullable(),
 });
 
-const connector = connect((state: AppState, props: any) => ({
+const connector = connect((state: AppState) => ({
     panelOpen: state.panelLeft.open,
-    props: props,
 }));
 
 const AddSnippetPanel = connector(
@@ -53,20 +51,30 @@ const AddSnippetPanel = connector(
         const isSnippetsPage = useMatch(AppRoutes.snippets);
         const searchParams = useSearchParams();
         const getSnippetBeingEdited = async (id: number): Promise<void> => {
-            let res = await commands.getSnippetById(id);
+            const res = await commands.getSnippetById(id);
             if (res.status === "ok") {
-                form.setValue("label", res.data.label);
-                form.setValue("id", res.data.id);
-                form.setValue("lang", res.data.lang);
-                form.setValue("body", res.data.body);
-                form.setValue("desc", res.data.desc);
+                const snippetItem = res.data[0];
+                const tags = res.data[1];
+                form.setValue("label", snippetItem.label);
+                form.setValue("id", snippetItem.id);
+                form.setValue("lang", snippetItem.lang);
+                form.setValue("body", snippetItem.body);
+                form.setValue("desc", snippetItem.desc);
+                form.setValue(
+                    "tags",
+                    tags.map((t) => t.value)
+                );
                 /* form.setValue("tags", res.data.tags); */
             }
         };
         useEffect(() => {
             const editingId = searchParams[0].get("editing");
             if (isSnippetsPage && editingId && editingId.length) {
-                getSnippetBeingEdited(parseInt(editingId));
+                getSnippetBeingEdited(parseInt(editingId)).catch(() => {
+                    console.error(
+                        "Fluster attempted to find a snippet that you intended to edit and was unsuccessful."
+                    );
+                });
             }
         }, []);
         useEffect(() => {
@@ -78,14 +86,14 @@ const AddSnippetPanel = connector(
         const handleSubmit = async (
             data: z.infer<typeof snippetSchema>
         ): Promise<void> => {
-            let snippetItem: SnippetItem = {
+            const snippetItem: SnippetItem = {
                 id: null,
                 label: data.label,
                 body: data.body,
                 desc: data.desc,
                 lang: data.lang,
             };
-            let res = await commands.saveSnippet(snippetItem);
+            const res = await commands.saveSnippet(snippetItem, data.tags);
             console.log("res: ", res);
             if (res.status === "ok") {
                 form.reset();
@@ -98,7 +106,7 @@ const AddSnippetPanel = connector(
                 <Form {...form}>
                     <form
                         className="w-full max-w-[600px] flex flex-col justify-start items-center gap-6"
-                        onSubmit={form.handleSubmit(handleSubmit)}
+                        onSubmit={form.handleSubmit(async (_data) => handleSubmit(_data))}
                     >
                         <FormField
                             control={form.control}

@@ -1,11 +1,7 @@
 import { useEffect, useMemo, useRef, useState, type ReactNode } from "react";
 import { getSupportedProgrammingLanguages } from "../../data/get_supported_languages";
-import {
-    Popover,
-    PopoverContentNoPortal,
-    PopoverTrigger,
-} from "@/components/ui/shad/popover";
-import { Button } from "@/components/ui/shad/button";
+import { Popover, PopoverContentNoPortal, PopoverTrigger } from "@fluster/ui";
+import { Button } from "@fluster/ui";
 import { Check, ChevronsUpDown } from "lucide-react";
 import {
     Command,
@@ -14,7 +10,7 @@ import {
     CommandInput,
     CommandItem,
     CommandList,
-} from "@/components/ui/shad/command";
+} from "@fluster/ui";
 import { cn } from "@/lib/utils";
 
 interface SyntaxSupportedLanguageSelectProps {

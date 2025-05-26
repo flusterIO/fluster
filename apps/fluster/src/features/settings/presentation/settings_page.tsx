@@ -1,8 +1,6 @@
-import React, { type ReactNode } from "react";
+import { type ReactNode } from "react";
 
-interface SettingsPageProps { }
-
-const SettingsPage = (props: SettingsPageProps): ReactNode => {
+const SettingsPage = (): ReactNode => {
     return <div>Settings Page</div>;
 };
 

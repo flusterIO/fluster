@@ -1,13 +1,12 @@
 import { useState, type ReactNode } from "react";
 import Toast from "./toast_item";
 import { useEventListener } from "@/hooks/use_event_listener";
-import { ToastItem } from "../state/toast_state";
+import { ToastItem } from "../types";
 
 const ToastNotificationList = (): ReactNode => {
     const [items, setItems] = useState<(ToastItem & { createdAt: number })[]>([]);
 
     useEventListener("show-toast", (e) => {
-        console.log(`Appending item...`);
         setItems([
             ...items,
             {
@@ -26,7 +25,9 @@ const ToastNotificationList = (): ReactNode => {
                 .sort((a, b) => b.createdAt - a.createdAt)
                 .map((t: ToastItem) => (
                     <Toast
-                        removeSelf={() => setItems(items.filter((x) => x.id !== t.id))}
+                        removeSelf={() =>
+                            setItems(items.filter((x: ToastItem) => x.id !== t.id))
+                        }
                         item={t}
                         key={t.id}
                     />
