@@ -33,11 +33,6 @@ export const useGlobalKeymap = () => {
         for (const entry_id in keymapData) {
             const entry = keymapData[entry_id as unknown as KeymapId];
             const action = keymapActions[entry_id as unknown as GlobalKeymapActionId];
-            if (!action) {
-                console.error(
-                    `Attempted to call an action that doesn't exist with entry id: ${entry_id}`
-                );
-            }
             if (
                 entry.key === e.key &&
                 entry.alt === e.altKey &&
