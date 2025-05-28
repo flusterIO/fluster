@@ -1,7 +1,7 @@
 "use client";
 import { ReactNode, useEffect, useState } from "react";
 import { createPortal } from "react-dom";
-import { useEventListener } from "@fluster/dev";
+import { useEventListener } from "@fluster.io/dev";
 import store from "#/state/store";
 import { closeDrawer } from "#/state/slices/core";
 import InternalReduxProvider from "#/state/provider";

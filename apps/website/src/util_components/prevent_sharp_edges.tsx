@@ -1,5 +1,5 @@
 import React from "react";
-import { cn } from "@fluster/dev";
+import { cn } from "@fluster.io/dev";
 
 interface PreventSharpEdgesProps {
     className?: string;

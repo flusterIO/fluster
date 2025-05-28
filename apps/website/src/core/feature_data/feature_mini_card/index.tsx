@@ -10,7 +10,7 @@ import {
 } from "@use-gesture/vanilla";
 import { Lethargy } from "lethargy";
 const lethargy = new Lethargy();
-import { useViewport } from "@fluster/dev";
+import { useViewport } from "@fluster.io/dev";
 import { MiniFeatureScrollBtn } from "./mini_feature_scroll_buttons";
 import MiniFeatureCard from "./mini_feature_card";
 import { allMiniFeatures } from "../miniFeatures/allMiniFeatures";

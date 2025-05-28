@@ -1,4 +1,4 @@
-# @fluster/dev
+# @fluster.io/dev
 
 ## 0.0.1
 

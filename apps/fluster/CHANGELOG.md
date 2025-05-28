@@ -5,4 +5,4 @@
 ### Patch Changes
 
 - Updated dependencies
-  - @fluster/dev@0.0.1
+  - @fluster.io/dev@0.0.1

@@ -1,6 +1,6 @@
 "use client";
 import PreventSharpEdges from "#/util_components/prevent_sharp_edges";
-import { cn } from "@fluster/dev";
+import { cn } from "@fluster.io/dev";
 import {
     useMotionValue,
     motion,

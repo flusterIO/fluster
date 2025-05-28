@@ -1,7 +1,7 @@
 import React, { ComponentProps } from "react";
 import NextLink from "next/link";
 import { motion } from "framer-motion";
-import { cn } from "@fluster/dev";
+import { cn } from "@fluster.io/dev";
 
 const Link = motion(NextLink);
 

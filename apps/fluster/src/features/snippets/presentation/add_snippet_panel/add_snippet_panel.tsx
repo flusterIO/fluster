@@ -7,19 +7,19 @@ import {
     FormLabel,
     FormMessage,
     TagInput,
-} from "@fluster/dev";
-import { Input } from "@fluster/dev";
+} from "@fluster.io/dev";
+import { Input } from "@fluster.io/dev";
 import React, { useEffect, useState, type ReactNode } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import SyntaxSupportedLanguageSelect from "../inputs/syntax_supported_language_select";
 import { AppState } from "@/state/initial_state";
-import { Textarea } from "@fluster/dev";
+import { Textarea } from "@fluster.io/dev";
 import { connect } from "react-redux";
 import { useMatch, useSearchParams } from "react-router";
 import { AppRoutes } from "#/router/data/app_routes";
-import { Button } from "@fluster/dev";
+import { Button } from "@fluster.io/dev";
 import { commands, SnippetItem } from "@/lib/bindings";
 
 const snippetSchema = z.object({

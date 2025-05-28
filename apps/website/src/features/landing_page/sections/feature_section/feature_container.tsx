@@ -4,7 +4,7 @@ import { FeatureContainerProps } from "./types";
 import FeatureContainerText from "./feature_container_text";
 import FeatureContainerDisplay from "./feature_container_display";
 import clsx from "clsx";
-import { useViewport } from "@fluster/dev";
+import { useViewport } from "@fluster.io/dev";
 import { useInView } from "framer-motion";
 
 const FeatureContainer = ({

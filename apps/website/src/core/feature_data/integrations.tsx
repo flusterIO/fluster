@@ -6,7 +6,7 @@ import { techIconClasses } from "./pluginArchitecture";
 import { FeaturedContainerPropsRequired } from "#/features/landing_page/sections/feature_section/types";
 import LogoAsText from "../logo/logo_as_text";
 import { FeatureDescContainer } from "#/features/landing_page/sections/feature_section/feature_desc_container";
-import { buttonVariants } from "@fluster/dev";
+import { buttonVariants } from "@fluster.io/dev";
 
 export const integrationsFeature: FeaturedContainerPropsRequired = {
   label: () => {

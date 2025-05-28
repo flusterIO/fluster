@@ -2,7 +2,7 @@ import { H3 } from "@/components/typography/typography";
 import { commands, SnippetItem } from "@/lib/bindings";
 import React, { type ReactNode } from "react";
 import CodeBlock from "../code_block/main";
-import { Button, buttonVariants } from "@fluster/dev";
+import { Button, buttonVariants } from "@fluster.io/dev";
 import { useConfirmation } from "#/confirmation_modal/state/hooks/use_confirmation";
 import { reloadSnippetList } from "#/snippets/data/events/reload_snippet_list";
 import { copyStringToClipboard } from "@/lib/copy_string_to_clipboard";

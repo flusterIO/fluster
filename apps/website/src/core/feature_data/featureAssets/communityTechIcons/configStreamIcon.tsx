@@ -8,7 +8,7 @@ import React, {
 } from "react";
 import { Variants, motion, useAnimate } from "framer-motion";
 import clsx from "clsx";
-import { useViewport } from "@fluster/dev";
+import { useViewport } from "@fluster.io/dev";
 
 const BoltIcon = motion(BoltIconComp);
 

@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import "@fluster/dev/themes.css";
+import "@fluster.io/dev/themes.css";
 import "./globals.scss";
 import localFont from "next/font/local";
 import { RootProvider } from "fumadocs-ui/provider";

@@ -1,6 +1,6 @@
 import React, { ComponentPropsWithoutRef, ReactNode } from "react";
 import clsx from "clsx";
-import { cn } from "@fluster/dev";
+import { cn } from "@fluster.io/dev";
 import { useRouter } from "next/navigation";
 import { BackgroundGradientCard } from "./background_gradient_card";
 

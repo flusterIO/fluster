@@ -7,7 +7,7 @@ import { wrap } from "popmotion";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import styles from "./styles.module.scss";
 import { swipeConfidenceThreshold, swipePower } from "#/core/utils/swipe_utils";
-import { cn } from "@fluster/dev";
+import { cn } from "@fluster.io/dev";
 
 export type SlideShowImage = {
     src: StaticImageData;

@@ -4,7 +4,7 @@ import {
     useSnippetContext,
     useSnippetDispatch,
 } from "#/snippets/state/snippets_provider";
-import { Checkbox } from "@fluster/dev";
+import { Checkbox } from "@fluster.io/dev";
 import { type ReactNode } from "react";
 
 interface LanguageFilterItemProps {

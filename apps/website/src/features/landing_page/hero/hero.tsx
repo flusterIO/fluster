@@ -3,7 +3,7 @@ import React from "react";
 import { MotionProps, motion } from "framer-motion";
 import { HeroBackground } from "./hero_background";
 import { staticContent } from "#/core/static_content";
-import { Badge, buttonVariants, cn } from "@fluster/dev";
+import { Badge, buttonVariants, cn } from "@fluster.io/dev";
 import Link from "next/link";
 import { Brain, Download, Globe, Sparkles, Video, Zap } from "lucide-react";
 

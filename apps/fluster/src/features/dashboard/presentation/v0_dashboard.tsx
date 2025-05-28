@@ -29,7 +29,7 @@ import {
     CardTitle,
     Progress,
     Input,
-} from "@fluster/dev";
+} from "@fluster.io/dev";
 
 // Mock data for demonstration
 const recentNotes = [

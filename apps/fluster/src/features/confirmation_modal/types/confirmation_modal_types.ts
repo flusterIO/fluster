@@ -1,4 +1,4 @@
-import { Button } from "@fluster/dev";
+import { Button } from "@fluster.io/dev";
 import { ComponentProps, ReactNode } from "react";
 
 export interface ConfirmationModalProps {

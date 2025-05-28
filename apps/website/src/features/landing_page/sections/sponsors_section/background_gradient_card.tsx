@@ -1,6 +1,6 @@
 import React, { ComponentPropsWithoutRef, ReactNode } from "react";
 import { BackgroundGradient } from "./background_gradient";
-import { cn } from "@fluster/dev";
+import { cn } from "@fluster.io/dev";
 
 interface BackgroundGradientCardProps
   extends ComponentPropsWithoutRef<typeof BackgroundGradient> {

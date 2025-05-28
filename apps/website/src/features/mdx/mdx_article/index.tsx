@@ -1,7 +1,7 @@
 import { getRandomId } from "@ulld/utilities/identity";
 import React, { ComponentProps, HTMLProps, ReactNode } from "react";
 import defaultMdxComponents from "fumadocs-ui/mdx";
-import { cn } from "@fluster/dev";
+import { cn } from "@fluster.io/dev";
 import "#/styles/proseStyles.scss";
 import { serverComponentMap } from "#/mdx/serverComponentMap";
 import { getComponentMap } from "@ulld/component-map/client";

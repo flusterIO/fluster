@@ -1,6 +1,6 @@
 import { ConfirmationModalProps } from "../types/confirmation_modal_types";
 import ModalBackdrop from "@/components/util/modal_backdrop";
-import { Button } from "@fluster/dev";
+import { Button } from "@fluster.io/dev";
 import { motion } from "motion/react";
 import { type ReactNode, useEffect, useState } from "react";
 import { H4 } from "@/components/typography/typography";

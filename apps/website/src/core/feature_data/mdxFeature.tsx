@@ -3,7 +3,7 @@ import mdxScreenshot from "../../../assets/screenshots/codeOutputPairs/different
 import mdxScreenshotOutput from "./featureAssets/mdxScreenshotOutput.png";
 import { ImageCarousel } from "#/features/image_carousel";
 import { FeaturedContainerPropsRequired } from "#/features/landing_page/sections/feature_section/types";
-import { Hint } from "@fluster/dev";
+import { Hint } from "@fluster.io/dev";
 
 export const mdxFeature: FeaturedContainerPropsRequired = {
   label: "Write in MDX",

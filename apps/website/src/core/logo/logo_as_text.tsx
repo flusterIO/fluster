@@ -1,4 +1,4 @@
-import { cn } from "@fluster/dev";
+import { cn } from "@fluster.io/dev";
 import React from "react";
 import { useMediaQuery } from "react-responsive";
 

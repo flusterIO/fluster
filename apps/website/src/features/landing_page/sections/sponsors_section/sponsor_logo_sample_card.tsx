@@ -1,5 +1,5 @@
 import React from "react";
-import { FlusterIcon } from "@fluster/dev";
+import { FlusterIcon } from "@fluster.io/dev";
 import clsx from "clsx";
 import { SponsorLogoCard } from "./sponsor_logo_card";
 

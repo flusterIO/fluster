@@ -3,7 +3,7 @@ import { FeatureDescContainer } from "#/features/landing_page/sections/feature_s
 import { FeaturedContainerPropsRequired } from "#/features/landing_page/sections/feature_section/types";
 import Link from "next/link";
 import { staticContent } from "../static_content";
-import { buttonVariants } from "@fluster/dev";
+import { buttonVariants } from "@fluster.io/dev";
 import { slideShowScreenshots } from "./featureAssets/slideShowScreenshots";
 import { LogoAsText } from "../logo/logo_as_text";
 import { ImageCarousel } from "#/features/image_carousel";

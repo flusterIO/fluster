@@ -1,5 +1,5 @@
 "use client";
-import { useViewport } from "@fluster/dev";
+import { useViewport } from "@fluster.io/dev";
 import { motion } from "framer-motion";
 import React, { useRef } from "react";
 import clsx from "clsx";

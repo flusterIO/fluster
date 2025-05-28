@@ -1,6 +1,6 @@
 import { HTMLMotionProps, motion } from "framer-motion";
 import React, { ReactNode, useRef } from "react";
-import { useViewportProportionalPosition, cn } from "@fluster/dev";
+import { useViewportProportionalPosition, cn } from "@fluster.io/dev";
 
 const maxOpacity = 0.8;
 

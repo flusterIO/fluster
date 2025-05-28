@@ -1,4 +1,4 @@
-import { Button } from "@fluster/dev";
+import { Button } from "@fluster.io/dev";
 import React, { type ReactNode } from "react";
 import { KanbanActions, useKanbanDispatch } from "../state/kanban_provider";
 
