@@ -1,7 +1,7 @@
 use serde::{Deserialize, Serialize};
 use sqlx::prelude::Type;
 
-#[derive(Type, Deserialize, Seriajlize)]
+#[derive(Type, Deserialize, Serialize)]
 pub enum InternalEmbeddedDocsId {
     OnBoardingWelcome,
     /// This is shown to the user if they attempt to initialize the app for the first time

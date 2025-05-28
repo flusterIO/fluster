@@ -7,7 +7,8 @@
         "access": "public"
     },
     "files": [
-        "dist"
+        "dist",
+        "src/themes.scss"
     ],
     "scripts": {
         "build": "wireit",
@@ -38,6 +39,10 @@
         "./themes.css": {
             "import": "./dist/themes.css",
             "require": "./dist/themes.css"
+        },
+        "./themes.scss": {
+            "import": "./src/themes.scss",
+            "require": "./src/themes.scss"
         }
     },
     "dependencies": {

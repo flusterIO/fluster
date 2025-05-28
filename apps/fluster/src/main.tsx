@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import "./styles/themes.scss";
+import "@fluster.io/dev/themes.scss";
 import "./styles/global.scss";
 import "./styles/math.scss";
 import App from "./App";
@@ -14,5 +14,5 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
                 <App />
             </DesktopScaffoldProvider>
         </ReduxProvider>
-    </React.StrictMode>,
+    </React.StrictMode>
 );
