@@ -1,5 +1,13 @@
 # @fluster/plugin_template
 
+## 0.0.3
+
+### Patch Changes
+
+- Update to fix mismatched versions.
+- Updated dependencies
+  - @fluster.io/fluster-ts@0.0.3
+
 ## 0.0.2
 
 ### Patch Changes

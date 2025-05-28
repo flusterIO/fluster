@@ -1,5 +1,13 @@
 # fluster
 
+## 0.1.3
+
+### Patch Changes
+
+- Update to fix mismatched versions.
+- Updated dependencies
+  - @fluster.io/dev@0.0.3
+
 ## 0.1.2
 
 ### Patch Changes

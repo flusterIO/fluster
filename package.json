@@ -15,11 +15,15 @@
         "publish:fluster_ts": {
             "command": "cd packages/fluster_ts && pnpm run build && pnpm publish --access public ./ --no-git-checks"
         },
+        "ci:publish:fluster_config": {
+            "command": "cd packages/fluster_config && pnpm publish --access public ./ --no-git-checks"
+        },
         "ci:publish:fluster_developer": {
             "command": "cd packages/fluster_developer && pnpm run build && pnpm publish --access public ./ --no-git-checks"
         },
         "ci:publish": {
             "dependencies": [
+                "ci:publish:fluster_config",
                 "ci:publish:fluster_developer"
             ]
         }
