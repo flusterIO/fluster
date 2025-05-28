@@ -1,3 +1,4 @@
+"use client"
 import React, { type ReactNode } from "react";
 import HeroSection from "./hero/hero";
 import { HighlightedFeaturesSection } from "./sections/feature_section";

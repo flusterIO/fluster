@@ -1,3 +1,4 @@
+"use client"
 import React, { ComponentProps } from "react";
 import NextLink from "next/link";
 import { motion } from "framer-motion";

@@ -1,3 +1,4 @@
+"use client"
 import React, { ComponentPropsWithoutRef, ReactNode } from "react";
 import clsx from "clsx";
 import { cn } from "@fluster.io/dev";

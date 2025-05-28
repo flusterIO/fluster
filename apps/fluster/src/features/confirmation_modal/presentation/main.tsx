@@ -1,8 +1,9 @@
+"use client"
 import { ConfirmationModalProps } from "../types/confirmation_modal_types";
 import ModalBackdrop from "@/components/util/modal_backdrop";
 import { Button } from "@fluster.io/dev";
 import { motion } from "motion/react";
-import { type ReactNode, useEffect, useState } from "react";
+import React, { type ReactNode, useEffect, useState } from "react";
 import { H4 } from "@/components/typography/typography";
 import { sendConfirmationResponse } from "../data/events/confirmation_response";
 

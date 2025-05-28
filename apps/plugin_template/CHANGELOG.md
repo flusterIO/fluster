@@ -1,5 +1,13 @@
 # @fluster/plugin_template
 
+## 0.0.4
+
+### Patch Changes
+
+- Removing mathquil just to make next happy. I hateeee Next, but I'm broke and they're free.
+- Updated dependencies
+  - @fluster.io/fluster-ts@0.0.4
+
 ## 0.0.3
 
 ### Patch Changes

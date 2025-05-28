@@ -1,4 +1,5 @@
-import { useEffect, useRef, useState, type ReactNode } from "react";
+"use client"
+import React, { useEffect, useRef, useState, type ReactNode } from "react";
 import { motion } from "motion/react";
 import CommandPaletteInput from "./command_palette_input";
 import CommandPaletteResults from "./command_palette_results";

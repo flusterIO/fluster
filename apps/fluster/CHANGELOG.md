@@ -1,5 +1,13 @@
 # fluster
 
+## 0.1.4
+
+### Patch Changes
+
+- Removing mathquil just to make next happy. I hateeee Next, but I'm broke and they're free.
+- Updated dependencies
+  - @fluster.io/dev@0.0.4
+
 ## 0.1.3
 
 ### Patch Changes

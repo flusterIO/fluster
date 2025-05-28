@@ -1,3 +1,4 @@
+"use client"
 import React from "react";
 import cssIcon from "./css.svg";
 import nextIcon from "./next.svg";

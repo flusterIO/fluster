@@ -1,3 +1,4 @@
+"use client"
 import { type ReactNode } from "react";
 import { motion } from "motion/react";
 import KanbanCard from "./kanban_card";

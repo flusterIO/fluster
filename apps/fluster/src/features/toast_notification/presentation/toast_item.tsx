@@ -1,5 +1,6 @@
+"use client"
 import { CheckCircle, Info, XCircleIcon } from "lucide-react";
-import { useEffect, useState, type ReactNode } from "react";
+import React, { useEffect, useState, type ReactNode } from "react";
 import { cn } from "@/lib/utils";
 import { motion } from "motion/react";
 import { ToastVariant } from "@/lib/bindings";

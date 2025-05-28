@@ -1,3 +1,4 @@
+"use client"
 import { AnimatePresence, motion } from "framer-motion";
 import { StaticImageData } from "next/image";
 import React, { useRef, useState } from "react";

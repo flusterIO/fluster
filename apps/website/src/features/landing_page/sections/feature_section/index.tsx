@@ -1,4 +1,4 @@
-"use client";
+"use client"
 import React from "react";
 import FeatureContainer from "./feature_container";
 import { allFeatures } from "#/core/feature_data/allFeatures";

@@ -1,3 +1,4 @@
+"use client"
 import React from "react";
 import { FlusterIcon } from "@fluster.io/dev";
 import clsx from "clsx";

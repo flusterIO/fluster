@@ -1,6 +1,6 @@
 {
     "name": "@fluster/website",
-    "version": "0.1.2",
+    "version": "0.1.3",
     "private": true,
     "scripts": {
         "build": "next build",
@@ -11,7 +11,7 @@
         "typecheck": "tsc --noEmit -p ./tsconfig.json"
     },
     "dependencies": {
-        "@fluster.io/dev": "0.0.2",
+        "@fluster.io/dev": "workspace:*",
         "@fumadocs/content-collections": "^1.2.0",
         "@next/third-parties": "^15.3.2",
         "@prisma/client": "^6.8.2",

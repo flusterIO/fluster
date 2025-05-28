@@ -1,4 +1,4 @@
-"use client";
+"use client"
 import { Card, CardDescription, CardHeader, CardTitle } from "@fluster.io/dev";
 import React, { type ReactNode } from "react";
 import {

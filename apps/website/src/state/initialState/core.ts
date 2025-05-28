@@ -7,12 +7,6 @@ export interface NavbarButton {
     active?: boolean
 }
 
-export interface NavbarButtonClick {
-    onClick: () => void;
-    label: ReactNode;
-    id: string;
-    active?: boolean
-}
 
 export type InitialCoreState = {
     hasRendered: boolean;

@@ -1,6 +1,6 @@
 {
   "name": "@fluster.io/fluster-ts",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "homepage": "https://ulld.vercel.app",
   "author": "Andrew Mueller <fluster.eyeoh@gmail.com",
   "type": "module",

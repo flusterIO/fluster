@@ -1,3 +1,4 @@
+"use client"
 import React from "react";
 import { cn } from "@fluster.io/dev";
 

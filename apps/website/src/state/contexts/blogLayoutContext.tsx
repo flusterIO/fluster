@@ -1,3 +1,4 @@
+"use client";
 import { ReactNode, createContext, useContext, useReducer } from "react";
 
 interface BlogLayoutState {
@@ -25,7 +26,7 @@ export const useBlogLayoutDispatch = () =>
 
 export const BlogLayoutContextReducer = (
     state: BlogLayoutState,
-    action: BlogLayoutContextActions,
+    action: BlogLayoutContextActions
 ): BlogLayoutState => {
     switch (action.type) {
         case "openSidebar": {
@@ -65,7 +66,7 @@ export const BlogLayoutProvider = ({
 }: BlogLayoutProviderProps) => {
     const [state, dispatch] = useReducer(
         BlogLayoutContextReducer,
-        initialValues || {},
+        initialValues || {}
     );
 
     return (
