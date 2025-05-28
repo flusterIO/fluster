@@ -9,7 +9,7 @@ const slice = createSlice({
     reducers: {
         sm(state, action: PayloadAction<{
             key: keyof InitialInteractionsState["modals"],
-            value: any
+            value: boolean
         }>) {
             state.modals[action.payload.key] = action.payload.value
         },

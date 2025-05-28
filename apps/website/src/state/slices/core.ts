@@ -33,7 +33,7 @@ const slice = createSlice({
                 breakpoint: action.payload,
             };
         },
-        closeDrawer(state, action: PayloadAction) {
+        closeDrawer(state) {
             state.drawer = {
                 ...state.drawer,
                 open: false,

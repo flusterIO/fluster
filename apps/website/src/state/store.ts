@@ -1,6 +1,6 @@
 import CoreReducer from "./slices/core";
 import InteractionsReducer from "./slices/interactions";
-import { Reducer, configureStore } from "@reduxjs/toolkit";
+import { configureStore } from "@reduxjs/toolkit";
 
 const rootReducer = {
   core: CoreReducer,
