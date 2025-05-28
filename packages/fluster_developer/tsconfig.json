@@ -1,5 +1,5 @@
 {
-    "extends": "@fluster/config/tsconfig.json",
+    "extends": "@fluster.io/config/tsconfig.json",
     "files": [],
     "compilerOptions": {
         "jsx": "react",
