@@ -15,12 +15,12 @@
         "publish:fluster_ts": {
             "command": "pnpm publish ./packages/fluster_ts"
         },
-        "publish:fluster_developer": {
-            "command": "pnpm publish ./packages/fluster_developer"
+        "ci:publish:fluster_developer": {
+            "command": "pnpm publish ./packages/fluster_developer --no-git-checks"
         },
         "ci:publish": {
             "dependencies": [
-                "publish:fluster_developer"
+                "ci:publish:fluster_developer"
             ]
         }
     },
