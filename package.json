@@ -22,9 +22,6 @@
             "dependencies": [
                 "publish:fluster_developer"
             ]
-        },
-        "build:all": {
-            "command": "make build_all"
         }
     },
     "devDependencies": {
