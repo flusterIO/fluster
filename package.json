@@ -1,7 +1,8 @@
 {
     "name": "fluster.io",
     "scripts": {
-        "release": "wireit"
+        "release": "wireit",
+        "ci:publish": "pnpm release"
     },
     "wireit": {
         "release": {
@@ -9,6 +10,17 @@
             "clean": false,
             "dependencies": [
                 "build:all"
+            ]
+        },
+        "publish:fluster_ts": {
+            "command": "pnpm publish --dir ./packages/fluster_ts"
+        },
+        "publish:fluster_developer": {
+            "command": "pnpm publish --dir ./packages/fluster_developer"
+        },
+        "ci:publish": {
+            "dependencies": [
+                "publish:fluster_developer"
             ]
         },
         "build:all": {
