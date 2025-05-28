@@ -87,7 +87,7 @@
     "devDependencies": {
         "@chromatic-com/storybook": "^3",
         "@eslint/js": "^9.25.0",
-        "@fluster.io/config": "workspace:*",
+        "@fluster.io/config": "0.0.2*",
         "@microsoft/api-extractor": "^7.52.8",
         "@storybook/addon-essentials": "^8.6.14",
         "@storybook/addon-onboarding": "^8.6.14",
