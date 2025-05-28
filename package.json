@@ -13,10 +13,10 @@
             ]
         },
         "publish:fluster_ts": {
-            "command": "pnpm publish --dir ./packages/fluster_ts"
+            "command": "pnpm publish ./packages/fluster_ts"
         },
         "publish:fluster_developer": {
-            "command": "pnpm publish --dir ./packages/fluster_developer"
+            "command": "pnpm publish ./packages/fluster_developer"
         },
         "ci:publish": {
             "dependencies": [
