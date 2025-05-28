@@ -1,6 +1,7 @@
 {
   "name": "fluster.io",
   "devDependencies": {
+    "@changesets/cli": "^2.29.4",
     "@tailwindcss/vite": "4.1.7",
     "@types/node": "22.14.1",
     "@types/react": "19.1.5",

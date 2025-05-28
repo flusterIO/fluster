@@ -1,6 +1,6 @@
 {
     "name": "@fluster/dev",
-    "version": "0.0.0",
+    "version": "0.0.1",
     "files": [
         "dist"
     ],
@@ -77,6 +77,7 @@
         "playwright": "^1.52.0",
         "sass": "^1.89.0",
         "storybook": "^8.6.14",
+        "typedoc": "0.28.3",
         "typescript": "~5.8.3",
         "typescript-eslint": "^8.30.1",
         "vite": "^6.3.5",
