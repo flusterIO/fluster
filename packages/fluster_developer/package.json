@@ -1,5 +1,5 @@
 {
-    "name": "@fluster/dev",
+    "name": "@fluster.io/dev",
     "version": "0.0.1",
     "files": [
         "dist"

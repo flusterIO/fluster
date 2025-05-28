@@ -11,7 +11,7 @@
         "postinstall": "fumadocs-mdx"
     },
     "dependencies": {
-        "@fluster/dev": "workspace:*",
+        "@fluster.io/dev": "workspace:*",
         "@fumadocs/content-collections": "^1.2.0",
         "@next/third-parties": "^15.3.2",
         "@prisma/client": "^6.8.2",
