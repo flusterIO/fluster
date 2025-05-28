@@ -13,10 +13,10 @@
             ]
         },
         "publish:fluster_ts": {
-            "command": "pnpm build --dir ./packages/fluster_ts && pnpm publish --access public ./packages/fluster_ts"
+            "command": "cd packages/fluster_ts && pnpm run build && pnpm publish --access public ./ --no-git-checks"
         },
         "ci:publish:fluster_developer": {
-            "command": "pnpm build --dir ./packages/fluster_developer && pnpm publish --access public ./packages/fluster_developer --no-git-checks"
+            "command": "cd packages/fluster_developer && pnpm run build && pnpm publish --access public ./ --no-git-checks"
         },
         "ci:publish": {
             "dependencies": [
