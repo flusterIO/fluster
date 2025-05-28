@@ -2,7 +2,7 @@
     "name": "fluster.io",
     "scripts": {
         "release": "wireit",
-        "ci:publish": "pnpm release"
+        "ci:publish": "wireit"
     },
     "wireit": {
         "release": {
