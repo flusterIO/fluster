@@ -90,21 +90,21 @@ const HeroSection = () => {
                         variants={{
                             initial: {
                                 opacity: 0,
-                                x: -200,
+                                scale: 0,
                             },
                             show: {
                                 opacity: 1,
-                                x: 0,
+                                scale: 1,
                             },
                         }}
                         transition={{
-                            delay: 0.9,
+                            delay: 0.2,
                         }}
                     >
                         <Download className="w-5 h-5 mr-2" />
                         Download Now
                     </MotionLink>
-                    <MotionLink
+                    <motion.a
                         href={staticContent.links.videoDemo}
                         className={cn(
                             "bg-gradient-to-r from-blue-600 to-primary hover:from-blue-700 hover:to-primary",
@@ -112,37 +112,88 @@ const HeroSection = () => {
                         )}
                         animate="show"
                         initial="initial"
-                        transition={{
-                            delay: 0.75,
-                        }}
                         variants={{
                             initial: {
                                 opacity: 0,
-                                x: -200,
+                                scale: 0,
                             },
                             show: {
                                 opacity: 1,
-                                x: 0,
+                                scale: 1,
                             },
+                        }}
+                        transition={{
+                            delay: 0.35,
                         }}
                     >
                         <Video className="w-5 h-5 mr-2" />
                         Video Demo
-                    </MotionLink>
+                    </motion.a>
                 </div>
                 <div className="mt-12 flex flex-wrap justify-center gap-6 text-sm text-gray-300">
-                    <div className="flex items-center">
+                    <motion.div
+                        initial="initial"
+                        animate="animate"
+                        variants={{
+                            initial: {
+                                x: -100,
+                                opacity: 0,
+                            },
+                            animate: {
+                                x: 0,
+                                opacity: 1,
+                            },
+                        }}
+                        transition={{
+                            delay: 0.7
+                        }}
+                        className="flex items-center"
+                    >
                         <Globe className="w-4 h-4 mr-2" />
                         Cross-Platform
-                    </div>
-                    <div className="flex items-center">
+                    </motion.div>
+                    <motion.div
+                        className="flex items-center"
+                        initial="initial"
+                        animate="animate"
+                        variants={{
+                            initial: {
+                                y: 200,
+                                opacity: 0,
+                            },
+                            animate: {
+                                y: 0,
+                                opacity: 1,
+                            },
+                        }}
+                        transition={{
+                            delay: 0.85
+                        }}
+                    >
                         <Zap className="w-4 h-4 mr-2" />
                         Rust Performance
-                    </div>
-                    <div className="flex items-center">
+                    </motion.div>
+                    <motion.div
+                        className="flex items-center"
+                        initial="initial"
+                        animate="animate"
+                        variants={{
+                            initial: {
+                                x: -100,
+                                opacity: 0,
+                            },
+                            animate: {
+                                x: 0,
+                                opacity: 1,
+                            },
+                        }}
+                        transition={{
+                            delay: 0.4
+                        }}
+                    >
                         <Brain className="w-4 h-4 mr-2" />
                         AI-Powered
-                    </div>
+                    </motion.div>
                 </div>
             </div>
         </HeroBackground>

@@ -16,6 +16,5 @@
         "test": "echo \"Error: no test specified\" && exit 1"
     },
     "dependencies": {
-        "@tsconfig/node20": "20.1.5"
     }
 }

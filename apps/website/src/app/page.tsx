@@ -1,4 +1,4 @@
-import LandingPage from "#/features/landing_page/landing_page_template";
+import LandingPage from "#/features/landing_page/landing_page";
 
 export default function Home() {
     return <LandingPage />;
