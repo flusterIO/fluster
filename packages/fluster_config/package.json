@@ -1,19 +1,19 @@
 {
-    "name": "@fluster.io/config",
-    "version": "0.0.1",
-    "description": "Shared configs for the Fluster ecosystem.",
-    "keywords": [
-        "fluster"
-    ],
-    "files": [
-        "."
-    ],
-    "license": "ISC",
-    "author": "Andrew Iglinski <fluster.eyeoh@gmail.com>",
-    "type": "module",
-    "main": "index.js",
-    "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1"
-    },
-    "dependencies": {}
+  "name": "@fluster.io/config",
+  "version": "0.0.1",
+  "keywords": [
+    "fluster"
+  ],
+  "author": "Andrew Iglinski <fluster.eyeoh@gmail.com>",
+  "type": "module",
+  "files": [
+    "."
+  ],
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "main": "index.js",
+  "dependencies": {},
+  "license": "ISC",
+  "description": "Shared configs for the Fluster ecosystem."
 }

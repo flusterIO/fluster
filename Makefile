@@ -5,11 +5,10 @@ BUILD_DATE := $(shell date -u +"%Y-%m-%d%H:%M:%SZ")
 VERSION := $(shell git describe --tags --abbrev=0)
 
 
-set_version:
-	FLUSTER_VERSION=${VERSION} tsx ${FLUSTER_NATIVE_ROOT}/scripts/set_package_version.ts
-format_everything: set_version
-	dart fix
+
+format_package_jsons:
 	pnpm syncpack format
+format_everything: format_package_jsons
 syncpack_fix_mismatches:
 	npx syncpack fix-mismatches
 generate_icons:

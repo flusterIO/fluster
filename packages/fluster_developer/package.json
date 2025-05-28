@@ -1,11 +1,44 @@
 {
     "name": "@fluster.io/dev",
     "version": "0.0.1",
+    "type": "module",
+    "private": false,
+    "publishConfig": {
+        "access": "public"
+    },
     "files": [
         "dist"
     ],
-    "publishConfig": {
-        "access": "public"
+    "scripts": {
+        "build": "wireit",
+        "build-storybook": "storybook build",
+        "lint": "eslint .",
+        "preview": "vite preview",
+        "dev": "storybook dev -p 6006"
+    },
+    "wireit": {
+        "build": {
+            "clean": false,
+            "command": "tsc && vite build",
+            "output": [
+                "dist/index.cjs",
+                "dist/index.mjs",
+                "dist/index.d.ts"
+            ]
+        }
+    },
+    "types": "./dist/index.d.ts",
+    "main": "./dist/index.umd.js",
+    "exports": {
+        ".": {
+            "types": "./dist/index.d.ts",
+            "import": "./dist/index.es.js",
+            "require": "./dist/index.umd.js"
+        },
+        "./themes.css": {
+            "import": "./dist/themes.css",
+            "require": "./dist/themes.css"
+        }
     },
     "dependencies": {
         "@radix-ui/react-accordion": "^1.2.11",
@@ -87,46 +120,10 @@
         "vitest": "^3.1.4",
         "wireit": "0.14.12"
     },
-    "exports": {
-        ".": {
-            "types": "./dist/index.d.ts",
-            "require": "./dist/index.umd.js",
-            "import": "./dist/index.es.js"
-        },
-        "./themes.css": {
-            "require": "./dist/themes.css",
-            "import": "./dist/themes.css"
-        }
-    },
-    "main": "./dist/index.umd.js",
-    "module": "./dist/index.es.js",
-    "types": "./dist/index.d.ts",
-    "private": false,
-    "scripts": {
-        "build": "wireit",
-        "build:types": "wireit",
-        "bundle": "wireit",
-        "dev": "vite",
-        "lint": "eslint .",
-        "preview": "vite preview",
-        "storybook": "storybook dev -p 6006",
-        "build-storybook": "storybook build"
-    },
-    "type": "module",
-    "wireit": {
-        "build": {
-            "clean": false,
-            "command": "tsc && vite build",
-            "output": [
-                "dist/index.cjs",
-                "dist/index.mjs",
-                "dist/index.d.ts"
-            ]
-        }
-    },
     "eslintConfig": {
         "extends": [
             "plugin:storybook/recommended"
         ]
-    }
+    },
+    "module": "./dist/index.es.js"
 }

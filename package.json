@@ -1,8 +1,8 @@
 {
     "name": "fluster.io",
     "scripts": {
-        "release": "wireit",
-        "ci:publish": "wireit"
+        "ci:publish": "wireit",
+        "release": "wireit"
     },
     "wireit": {
         "release": {
@@ -13,10 +13,10 @@
             ]
         },
         "publish:fluster_ts": {
-            "command": "pnpm publish --access public ./packages/fluster_ts"
+            "command": "pnpm build --dir ./packages/fluster_ts && pnpm publish --access public ./packages/fluster_ts"
         },
         "ci:publish:fluster_developer": {
-            "command": "pnpm publish --access public ./packages/fluster_developer --no-git-checks"
+            "command": "pnpm build --dir ./packages/fluster_developer && pnpm publish --access public ./packages/fluster_developer --no-git-checks"
         },
         "ci:publish": {
             "dependencies": [
@@ -43,6 +43,7 @@
         "vitest": "3.1.2",
         "wireit": "0.14.12"
     },
+    "packageManager": "pnpm@9.7.1+sha512.faf344af2d6ca65c4c5c8c2224ea77a81a5e8859cbc4e06b1511ddce2f0151512431dd19e6aff31f2c6a8f5f2aced9bd2273e1fed7dd4de1868984059d2c4247",
     "pnpm": {
         "overrides": {
             "react": "19.1.0",
@@ -50,6 +51,5 @@
             "@types/react": "19.1.5",
             "@types/react-dom": "19.1.5"
         }
-    },
-    "packageManager": "pnpm@9.7.1+sha512.faf344af2d6ca65c4c5c8c2224ea77a81a5e8859cbc4e06b1511ddce2f0151512431dd19e6aff31f2c6a8f5f2aced9bd2273e1fed7dd4de1868984059d2c4247"
+    }
 }
