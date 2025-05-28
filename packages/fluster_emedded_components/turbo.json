@@ -1,0 +1,44 @@
+{
+  "$schema": "https://turbo.build/schema.json",
+  "globalEnv": [
+    "NEXT_PUBLIC_ORAMA_ENDPOINT",
+    "NEXT_PUBLIC_ORAMA_API_KEY",
+    "GITHUB_APP_PRIVATE_KEY",
+    "GITHUB_APP_ID",
+    "GITHUB_TOKEN",
+    "INKEEP_API_KEY"
+  ],
+  "ui": "stream",
+  "tasks": {
+    "build": {
+      "env": ["ALGOLIA_API_KEY", "ORAMA_INDEX_ID", "ORAMA_PRIVATE_API_KEY"],
+      "dependsOn": ["^build"],
+      "outputs": [
+        ".output",
+        "public/registry",
+        ".contentlayer/**",
+        ".source/**",
+        "!.contentlayer/.cache/**",
+        ".next/**",
+        "content/docs/openapi/\\(generated\\)",
+        "!.next/cache/**",
+        "dist/**",
+        "out",
+        "build",
+        ".vercel"
+      ]
+    },
+    "lint": {},
+    "types:check": {
+      "dependsOn": [],
+      "outputs": []
+    },
+    "clean": {
+      "cache": false
+    },
+    "dev": {
+      "cache": false,
+      "persistent": true
+    }
+  }
+}

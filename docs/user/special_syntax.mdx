@@ -1,0 +1,43 @@
+---
+title: Special Fluster Syntax
+---
+
+Fluster supports all Github-flavored markdown syntax, React-like mdx syntax and a few additional features listed here, that work to bring the other parts of your Fluster data into your notes.
+
+
+## Embed an equation tag
+
+You can write math as you would in normal markdown or mdx as 
+
+```mdx
+$$
+\begin{gather}
+v = \pm \frac{c \sqrt{ds^{2} - dr^{2}}}{ds} \quad \Rightarrow \quad \pm c \sqrt{1 - \frac{dr^{2}}{ds^{2}} }
+\end{gather}
+$$
+```
+
+but for equations that are frequently referenced in your notes, you can use the following syntax to embed a note tag with the given id. This note tag will display a simple button, that when clicked will display more details about the equation in question, given that you have properly added an equation with that id to your database. Obviously replace `myEquationId` with the id you provided to the equations page for that given equation. When embedding equations in this manner, they can be used to group your notes and find related content, where latex might give a mathematically identical representation that is not equal in the underlying text, therefore making searching for this sort of content quite a challenge. 
+
+<Hint>This must begin a new line, or some undesirable layout effects might occur.</Hint>
+
+```mdx
+[[eq:myEquationId]]
+```
+
+## Linking other notes
+
+As with other markdown environments, you can create a link using the `[my text](https://google.com)` syntax, but you can also reference a note by the `id` field in that note's front matter. This should be the preferred way to reference other notes as to not rely on internally generated urls that might change.
+
+You can reference your other note, with the id `myNoteId`. Note that you can still use the additional `[My text](noteId:myNoteId#someElementId)` syntax to link to a specfic position within that note.
+
+```mdx
+[My text](noteId:myNoteId)
+```
+
+Linking notes this way is also used internally to generate a network graph of your notes, which is in turn used by various AI and search related features. Some of these features might lose some effictiveness if internal notes are not linked with this syntax.
+
+
+## Adding tags
+
+You can add an inline tag anywhere using the `[[#myTag]]` syntax.

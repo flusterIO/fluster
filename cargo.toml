@@ -1,0 +1,60 @@
+[workspace]
+resolver = "2"
+members = [
+    "apps/fluster/src-tauri",
+    "packages/fluster_grpc",
+    "packages/fluster_test_utils",
+    "packages/fluster_lua",
+]
+
+
+[workspace.package]
+version = "0.0.1"
+authors = ["Andrew Iglinski"]
+description = "Be less dum."
+documentation = "ulld.vercel.app"
+edition = "2021"
+
+[workspace.dependencies]
+serde = "1.0.219"
+serde_json = "1.0.140"
+gray_matter = "0.2.8"
+typeshare = "1.0.4"
+wasm-bindgen = "0.2.100"
+rayon = "1.10.0"
+chrono = "0.4.40"
+include_dir = "0.7.4"
+dirs = "6.0.0"
+tracing = "0.1"
+tracing-subscriber = "0.3.0"
+mlua = { version = "0.10", features = ["lua54", "vendored"] }
+diesel-derive-enum = { version = "2.1.0", features = ["postgres"] }
+log4rs = { version = "1.3.0", features = [
+    "rolling_file_appender",
+    "size_trigger",
+    "json_encoder",
+    "threshold_filter",
+] }
+thiserror = "2.0.12"
+diesel-async = { version = "0.5.2", features = ["tokio-postgres", "postgres"] }
+diesel = { version = "2.2.10", features = [
+    "postgres",
+    "postgres_backend",
+    "serde_json",
+] }
+dotenvy = "0.15"
+
+# TODO: Remove this and the reliance on console_subscriber when actually building for production.
+# TEMP: Move this to each nested project if necessary
+# [build]
+# rustflags = ["--cfg", "tokio_unstable"]
+
+[profile.release]
+lto = true
+strip = true
+opt-level = 3
+panic = 'abort'
+codegen-units = 1
+
+[profile.dev.package.sqlx-macros]
+opt-level = 3

@@ -1,0 +1,9 @@
+syntax = "proto3";
+package database.v1;
+
+option go_package = "./database";
+
+message DatabaseCredentialsRequest {
+  string username = 1;
+  string secure_key = 2;
+}

@@ -1,0 +1,68 @@
+{
+  "name": "@fluster/fluster-ts",
+  "version": "0.0.1",
+  "homepage": "https://ulld.vercel.app",
+  "author": "Andrew Mueller <fluster.eyeoh@gmail.com",
+  "type": "module",
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "build_rust": "wireit",
+    "build_typescript": "wireit",
+    "cargo-build": "tsc &&cargo build --message-format=json-render-diagnostics > cargo.log",
+    "cross": "npm run cross-build -- --release",
+    "cross-build": "tsc &&cross build --message-format=json-render-diagnostics > cross.log",
+    "debug": "npm run cargo-build --",
+    "dryrun": "gh workflow run publish.yml -f dryrun=true",
+    "lint": "tsc --no-emit",
+    "postcargo-build": "neon dist < cargo.log",
+    "postcross-build": "neon dist -m /target < cross.log",
+    "prepack": "tsc &&neon update",
+    "release": "gh workflow run release.yml -f dryrun=false -f version=patch",
+    "test": "tsc &&cargo test",
+    "version": "neon bump --binaries platforms && git add ."
+  },
+  "wireit": {
+    "build_typescript": {
+      "command": "tsup",
+      "dependencies": [
+        "build_rust"
+      ]
+    },
+    "build_rust": {
+      "command": "npm run cargo-build -- --release",
+      "dependencies": []
+    }
+  },
+  "types": "dist/index.d.ts",
+  "main": "dist/index.js",
+  "dependencies": {
+    "@mdx-js/mdx": "3.1.0",
+    "@shikijs/rehype": "3.3.0",
+    "@tsconfig/node20": "20.1.5",
+    "bibtex": "0.9.0",
+    "google-protobuf": "3.21.4",
+    "rehype-mathjax": "7.1.0",
+    "remark-gfm": "4.0.1",
+    "remark-math": "6.0.0",
+    "ts-protoc-gen": "0.15.0",
+    "typedoc": "0.28.3",
+    "typedoc-plugin-markdown": "4.6.3"
+  },
+  "devDependencies": {
+    "@types/node": "22.14.1",
+    "changeset": "0.2.6",
+    "glob": "11.0.1",
+    "husky": "9.1.7",
+    "shiki": "3.3.0",
+    "syncpack": "13.0.3",
+    "tsc": "2.0.4",
+    "tsup": "8.4.0",
+    "typescript": "5.8.3",
+    "wireit": "0.14.12"
+  },
+  "license": "LicenseRef-license.md",
+  "description": "Fluster types, grpc client and api for developers.",
+  "module": "dist/index.mjs"
+}

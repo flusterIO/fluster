@@ -1,0 +1,41 @@
+{
+  "name": "@flusterio/flusterlinux-x64-gnu",
+  "description": "Prebuilt binary package for `fluster_ts` on `linux-x64-gnu`.",
+  "version": "0.0.1",
+  "os": [
+    "linux"
+  ],
+  "cpu": [
+    "x64"
+  ],
+  "main": "index.node",
+  "files": [
+    "index.node"
+  ],
+  "neon": {
+    "type": "binary",
+    "rust": "x86_64-unknown-linux-gnu",
+    "node": "linux-x64-gnu",
+    "os": "linux",
+    "arch": "x64",
+    "abi": "gnu"
+  },
+  "author": "Andrew Mueller",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/flusterIO/fluster.git"
+  },
+  "keywords": [
+    "academic",
+    "note",
+    "taking",
+    "jupyter",
+    "markdown",
+    "mdx"
+  ],
+  "bugs": {
+    "url": "https://github.com/flusterIO/fluster/issues"
+  },
+  "homepage": "https://github.com/flusterIO/fluster#readme",
+  "license": "ISC"
+}

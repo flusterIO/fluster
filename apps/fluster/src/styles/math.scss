@@ -1,0 +1,30 @@
+.math.math.math-display {
+  overflow: auto;
+}
+
+.inlineMath mjx-container {
+  margin-left: 0.25rem;
+  margin-right: 0.25rem;
+}
+
+mjx-container {
+    font-size: var(--fluster-math-font-size);
+   mjx-labels {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 640px) {
+  mjx-container[jax="CHTML"][display="true"] {
+    max-width: 100%;
+    min-width: 0px !important;
+    overflow-x: auto;
+
+    mjx-table,
+    mjx-mtable,
+    mjx-itable {
+      max-width: 100%;
+      min-width: 0px !important;
+    }
+  }
+}
