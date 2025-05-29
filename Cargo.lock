@@ -3134,6 +3134,8 @@ dependencies = [
 name = "fluster"
 version = "0.1.0"
 dependencies = [
+ "arrow-array",
+ "arrow-schema",
  "biblatex",
  "chrono",
  "crossbeam",

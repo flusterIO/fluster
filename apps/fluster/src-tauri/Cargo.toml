@@ -72,7 +72,7 @@ postgresql_archive = { version = "0.18.5", features = ["zonky"] }
 include_dir.workspace = true
 uuid = { version = "1.17.0", features = ["v4"] }
 lancedb = { version = "0.19", features = ["polars"] }
-chrono = { version = "0.4.39", features = ["serde"] }
+chrono = { workspace = true, features = ["now", "serde"] }
 arrow-schema = "54.1"
 arrow-array = "54.1"
 

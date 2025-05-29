@@ -5,12 +5,15 @@ use lancedb::{
     Table,
 };
 
-use crate::core::types::errors::errors::{FlusterError, FlusterResult};
+use crate::core::{
+    models::taggable::tag_model::Tag,
+    types::errors::errors::{FlusterError, FlusterResult},
+};
 
-use super::{shared_taggable_schema::get_shared_taggable_schema, table_paths::DatabaseTables};
+use super::table_paths::DatabaseTables;
 
-pub async fn create_tag_table(db: &lancedb::Connection) -> FlusterResult<Table> {
-    let schema = Arc::new(get_shared_taggable_schema());
+pub async fn create_tag_table(db: &lancedb::Connection, vector_dims: i32) -> FlusterResult<Table> {
+    let schema = Tag::arrow_schema(vector_dims);
     db.create_empty_table(DatabaseTables::Tags.to_string(), schema)
         .mode(lancedb::database::CreateTableMode::Create)
         .execute()

@@ -7,7 +7,7 @@ documentation.workspace = true
 edition.workspace = true
 
 [dependencies]
-chrono = { workspace = true }
+chrono.workspace = true
 handlebars = "6.3.2"
 include_dir = { workspace = true }
 serde = { workspace = true }

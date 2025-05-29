@@ -1,9 +1,8 @@
-use lancedb::{
-    arrow::arrow_schema::{DataType, Field, Schema},
-    Table,
-};
+use std::sync::Arc;
 
-pub fn get_shared_taggable_schema() -> Schema {
+use lancedb::arrow::arrow_schema::{DataType, Field, Schema};
+
+pub fn get_shared_taggable_schema(vector_dim: i32) -> Schema {
     Schema::new(vec![
         Field::new("value", DataType::Utf8, false),
         Field::new("ctime", DataType::Date64, false),
