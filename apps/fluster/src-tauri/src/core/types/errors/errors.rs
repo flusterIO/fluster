@@ -17,6 +17,9 @@ pub enum FlusterError {
     #[error("Failed to delete an entity.")]
     FailToDelete,
 
+    #[error("Fluster failed to create a necessary table.")]
+    FailToCreateTable,
+
     #[error("Fluster failed to connect to your database.")]
     FailToConnect,
 
@@ -41,14 +44,6 @@ pub enum FlusterError {
     #[error("Fluster failed to find something by a specific d. If you feel this is an issue with Fluster, please submit an issue on our github page.")]
     FailToFindById,
 
-    // File system errors
-    //
-    #[error("Could not find the data directory for your operating system. We cannot continue.")]
-    DataDirNotFound(),
-
-    #[error("Failed to clear the directory at {0}")]
-    FailToClearDirectory(String),
-
     #[error("We could not create the necessary paths. Unfortunately, we cannot continue.")]
     FailToCreatePath,
 
@@ -57,6 +52,17 @@ pub enum FlusterError {
 
     #[error("We could not create a subject in your database. Make sure that everything is formatted correctly.")]
     FailToCreateSubject,
+
+    #[error("Fluster failed to open a database table.")]
+    FailToOpenTable,
+
+    // File system errors
+    //
+    #[error("Could not find the data directory for your operating system. We cannot continue.")]
+    DataDirNotFound(),
+
+    #[error("Failed to clear the directory at {0}")]
+    FailToClearDirectory(String),
 
     #[error("We could not create a topic in your database. Make sure that everything is formatted correctly.")]
     FailToCreateTopic,

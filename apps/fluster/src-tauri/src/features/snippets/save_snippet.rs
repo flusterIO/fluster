@@ -3,6 +3,7 @@ use sqlx::postgres::PgPoolOptions;
 use crate::core::{
     db::{
         db::{get_database, get_database_uri},
+        tables::table_paths::DatabaseTables,
         utils::{start_db, stop_db},
     },
     types::errors::errors::{FlusterError, FlusterResult},
@@ -14,59 +15,16 @@ use super::snippet_model::SnippetItem;
 
 #[tauri::command]
 #[specta::specta]
-pub async fn save_snippet(item: SnippetItem, tags: Vec<String>) -> FlusterResult<SnippetItem> {
+pub async fn save_snippet(item: SnippetItem, tags: Vec<String>) -> FlusterResult<()> {
     let db_res = get_database().await;
-    let mut db = db_res.lock().await;
-    let start_res = start_db(&mut db).await;
-    if start_res.is_err() {
-        println!("Error while starting database: {:?}", start_res.err());
-    }
-    let pool = PgPoolOptions::new()
-        .max_connections(5)
-        .connect(&get_database_uri())
+    let db = db_res.lock().await;
+    let tbl = db
+        .open_table(DatabaseTables::Snippets.to_string())
+        .execute()
         .await
-        .map_err(|_| FlusterError::FailToConnect)?;
-    if item.id.is_some() {
-        let res = sqlx::query_as::<_, SnippetItem>(
-            r#"INSERT INTO snippet (id, label, description, lang, body)
-            VALUES($1, $2, $3, $4, $5) RETURNING *"#,
-        )
-        .bind(item.id)
-        .bind(item.label)
-        .bind(item.desc)
-        .bind(item.lang.replace("-", "_"))
-        .bind(item.body)
-        .fetch_one(&pool)
-        .await;
-        if res.is_ok() {
-            stop_db(&mut db).await?;
-            return Ok(res.unwrap());
-        } else {
-            stop_db(&mut db).await?;
-            return Err(FlusterError::NotImplemented);
-        }
-    } else {
-        // RESUME: Come back here and handle saving of tags and
-        // ings here.
-        // to the equations and tags before going on to the sync method.
-        let res = sqlx::query_as::<_, SnippetItem>(
-            r#"INSERT INTO snippet (label, description, lang, body)
-            VALUES($1, $2, $3, $4) RETURNING *"#,
-        )
-        .bind(item.label)
-        .bind(item.desc)
-        .bind(item.lang.replace("-", "_"))
-        .bind(item.body)
-        .fetch_one(&pool)
-        .await;
-        if res.is_ok() {
-            stop_db(&mut db).await?;
-            return Ok(res.unwrap());
-        } else {
-            stop_db(&mut db).await?;
-            return Err(FlusterError::FailToCreateEntity);
-        }
-    }
+        .map_err(|_| FlusterError::FailToOpenTable)?;
+    tbl.add(item).execute().await;
+    Ok(())
 }
 
 #[cfg(test)]

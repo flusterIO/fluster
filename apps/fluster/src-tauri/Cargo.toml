@@ -53,7 +53,7 @@ biblatex = "0.10.0"
 dirs.workspace = true
 tokio = { version = "1.45.0", features = ["fs", "full"] }
 thiserror.workspace = true
-chrono = { workspace = true, features = ["serde"] }
+# chrono = { features = ["serde"] }
 gray_matter.workspace = true
 ignore = "0.4.23"
 filetime = "0.2.25"
@@ -71,7 +71,11 @@ postgresql_embedded = { version = "0.18.3", features = ["tokio", "zonky"] }
 postgresql_archive = { version = "0.18.5", features = ["zonky"] }
 include_dir.workspace = true
 uuid = { version = "1.17.0", features = ["v4"] }
-lancedb = { version = "0.19.1", features = ["polars"] }
+lancedb = { version = "0.19", features = ["polars"] }
+chrono = { version = "0.4.39", features = ["serde"] }
+arrow-schema = "54.1"
+arrow-array = "54.1"
+
 
 [target.'cfg(not(any(target_os = "android", target_os = "ios")))'.dependencies]
 tauri-plugin-global-shortcut = "2"
