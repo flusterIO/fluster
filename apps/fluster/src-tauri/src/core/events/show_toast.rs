@@ -1,6 +1,5 @@
 use serde::{Deserialize, Serialize};
 use specta::Type;
-use sqlx::types::uuid;
 use tauri_specta::Event;
 
 #[derive(Serialize, Deserialize, Debug, Clone, Type)]

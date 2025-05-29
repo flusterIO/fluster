@@ -24,8 +24,10 @@ import { commands, SnippetItem } from "@/lib/bindings";
 
 const snippetSchema = z.object({
     lang: z.string(),
-    label: z.string(),
-    body: z.string(),
+    label: z
+        .string()
+        .min(2, "Your label needs to be at least 2 characters long."),
+    body: z.string().min(3, "Please add a body to this snippet."),
     desc: z.string(),
     tags: z.string().array(),
     id: z.number().int().nullable(),
@@ -63,7 +65,6 @@ const AddSnippetPanel = connector(
             }
             const getSnippetBeingEdited = async (id: number): Promise<void> => {
                 const res = await commands.getSnippetById(id);
-                console.log("res: ", res);
                 if (res.status === "ok") {
                     const snippetItem = res.data[0];
                     const tags = res.data[1];

@@ -159,24 +159,24 @@ export function Dashboard() {
                 </div>
 
                 {/* AI Assistant Greeting */}
-                <Card className="border-2 border-dashed border-blue-200 bg-primary/40">
+                <Card className="border-2 border-dashed border-primary/10 dark:border-border bg-primary/20 dark:bg-primary/80">
                     <CardContent className="p-6">
                         <div className="flex items-start space-x-4">
-                            <div className="rounded-full bg-blue-100 p-3 dark:bg-blue-900">
-                                <Brain className="h-6 w-6 text-blue-600 dark:text-blue-400" />
+                            <div className="rounded-full bg-accent p-3">
+                                <Brain className="h-6 w-6 text-accent-foreground" />
                             </div>
                             <div className="flex-1">
-                                <h3 className="font-semibold text-primary-foreground/90">
+                                <h3 className="font-semibold text-primary dark:text-primary-foreground">
                                     Good morning, Dr. Researcher! 🧬
                                 </h3>
-                                <p className="mt-1 text-sm text-primary-foreground/90">
+                                <p className="mt-1 text-sm text-foreground dark:text-primary-foreground/90">
                                     I've analyzed your recent notes and found 3 potential
                                     connections between your quantum mechanics and bioinformatics
                                     research. Would you like me to help you explore these
                                     interdisciplinary insights?
                                 </p>
                                 <div className="mt-3 flex space-x-2">
-                                    <Button size="sm" className="bg-blue-600 hover:bg-blue-700">
+                                    <Button size="sm" className="bg-primary">
                                         <Sparkles className="mr-2 h-4 w-4" />
                                         Show Insights
                                     </Button>

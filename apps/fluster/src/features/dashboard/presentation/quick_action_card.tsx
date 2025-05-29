@@ -1,6 +1,5 @@
 import React, { type ReactNode } from "react";
 import { DashboardStaticData } from "../data/models/dashboard_static_data";
-import { Button, cn } from "@fluster.io/dev";
 import { useNavigate } from "react-router";
 
 interface QuickActionCardProps {

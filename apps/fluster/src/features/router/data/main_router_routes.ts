@@ -12,6 +12,8 @@ import MdxNotePage from "#/mdx/presentation/mdx_note_page";
 import EditNoteSplitViewPage from "#/editor/presentation/split_view/edit_note_split_view_page";
 import EquationsPage from "#/math/presentation/equations_page/main";
 import EmbeddedDocsDashboardPage from "#/embedded_docs/presentation/embedded_docs_dashboard";
+import BookmarksPage from "#/bookmark/presentation/bookmarks_page";
+import { TaskListsPage } from "#/task_manager/presentation/task_lists_page";
 
 export const getBrowserRouter = () => {
     return createBrowserRouter([
@@ -39,6 +41,14 @@ export const getBrowserRouter = () => {
                 {
                     path: AppRoutes.embeddedDocs,
                     Component: EmbeddedDocsDashboardPage,
+                },
+                {
+                    path: AppRoutes.bookmarks,
+                    Component: BookmarksPage,
+                },
+                {
+                    path: AppRoutes.taskLists,
+                    Component: TaskListsPage,
                 },
                 {
                     Component: ScaffoldWithSidePanels,

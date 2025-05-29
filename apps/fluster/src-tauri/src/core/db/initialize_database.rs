@@ -1,6 +1,5 @@
 use crate::core::{db::db::get_database_uri, events::set_db_connection_uri::SetDbConnectionUri};
 use log::{error, info};
-use postgresql_embedded::VersionReq;
 use sqlx::postgres::PgPoolOptions;
 use tauri::{AppHandle, Emitter, Runtime};
 
@@ -30,21 +29,22 @@ pub async fn initialize_database<T: Runtime>(app: &AppHandle<T>) {
                 error!("An error occurred while attempting to initialize Fluster's database.");
                 println!("An error occurred while attempting to initialize Fluster's database.");
             }
-            info!("Installing vector related database dependencies...");
-            let pg_vector_install_res = postgresql_extensions::install(
-                db.settings(),
-                "portal-corp",
-                "pgvector_compiled",
-                &VersionReq::parse("=0.16.12")
-                    .expect("Failed to parse version provided to pg-vector."),
-            )
-            .await;
-            if pg_vector_install_res.is_err() {
-                println!(
-                    "Error while installing pg-vector: {:?}",
-                    pg_vector_install_res.err()
-                );
-            }
+            // FIXME: Reenable this pg-vector install. It's currently running into a 401 error since I'm working on public networks all day.
+            // info!("Installing vector related database dependencies...");
+            // let pg_vector_install_res = postgresql_extensions::install(
+            //     db.settings(),
+            //     "portal-corp",
+            //     "pgvector_compiled",
+            //     &VersionReq::parse("=0.16.12")
+            //         .expect("Failed to parse version provided to pg-vector."),
+            // )
+            // .await;
+            // if pg_vector_install_res.is_err() {
+            //     println!(
+            //         "Error while installing pg-vector: {:?}",
+            //         pg_vector_install_res.err()
+            //     );
+            // }
             let start_res = db.start().await;
             if start_res.is_err() {
                 println!("Error when starting database: {:?}", start_res.err());

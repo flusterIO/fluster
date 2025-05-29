@@ -1,3 +1,4 @@
+import { AppRoutes } from "#/router/data/app_routes";
 import {
     Calculator,
     Code,
@@ -39,7 +40,9 @@ export const dashboardStaticData: DashboardStaticData = {
             label: "Bookmarks",
             icon: Bookmark,
             color: "bg-blue-500",
-            onClick: () => { },
+            onClick: (nav) => {
+                nav(AppRoutes.bookmarks);
+            },
         },
         {
             id: QuickActionId.viewEquations,
@@ -47,7 +50,9 @@ export const dashboardStaticData: DashboardStaticData = {
             label: "Equations",
             icon: Calculator,
             color: "bg-red-500",
-            onClick: () => { },
+            onClick: (nav) => {
+                nav(AppRoutes.equations);
+            },
         },
         {
             id: QuickActionId.viewSnippets,
@@ -55,7 +60,9 @@ export const dashboardStaticData: DashboardStaticData = {
             label: "Snippets",
             icon: Code,
             color: "bg-green-500",
-            onClick: () => { },
+            onClick: (nav) => {
+                nav(AppRoutes.snippets);
+            },
         },
         {
             id: QuickActionId.viewBibliography,
@@ -63,7 +70,9 @@ export const dashboardStaticData: DashboardStaticData = {
             label: "Bibliography",
             icon: BookOpen,
             color: "bg-purple-500",
-            onClick: () => { },
+            onClick: (nav) => {
+                nav(AppRoutes.bibliography);
+            },
         },
         {
             id: QuickActionId.vewTaskLists,
@@ -71,7 +80,9 @@ export const dashboardStaticData: DashboardStaticData = {
             label: "To-Do's",
             icon: CheckSquare,
             color: "bg-orange-500",
-            onClick: () => { },
+            onClick: (nav) => {
+                nav(AppRoutes.taskLists);
+            },
         },
         {
             id: QuickActionId.viewKanbanBoards,
@@ -79,7 +90,9 @@ export const dashboardStaticData: DashboardStaticData = {
             label: "Kanban Boards",
             icon: Kanban,
             color: "bg-pink-500",
-            onClick: () => { },
+            onClick: (nav) => {
+                nav(AppRoutes.kanbanBoards);
+            },
         },
     ],
 };

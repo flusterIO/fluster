@@ -9,6 +9,8 @@ export enum AppRoutes {
     viewMdxNote = "/mdx",
     splitViewEditMdx = "/mdx-split-view",
     embeddedDocs = "/docs",
+    bookmarks = "/bookmarks",
+    taskLists = "/taskLists",
 }
 
 export const getMdxNoteByIdRoute = (noteId: number) => `/mdx?noteId=${noteId}`;

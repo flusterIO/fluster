@@ -4,6 +4,7 @@ use crate::core::types::errors::errors::{FlusterError, FlusterResult};
 use postgresql_archive::configuration::zonky;
 use postgresql_embedded::VersionReq;
 use postgresql_embedded::{PostgreSQL, Settings};
+use sea_query::Iden;
 use std::sync::Arc;
 use tokio::sync::Mutex;
 use tokio::sync::OnceCell;
@@ -58,6 +59,23 @@ pub fn get_database_uri() -> String {
     )
 }
 
+pub fn get_database_installation_path() -> Option<PathBuf> {
+    let mut d = dirs::data_dir();
+    if d.is_none() {
+        d = dirs::data_local_dir();
+    }
+    if d.is_none() {
+        log::error!("Failed to get a databse path for your operating system. Something is likely configured terribly wrong.");
+        return None;
+    }
+    Some(
+        d.unwrap()
+            .join("Fluster")
+            .join("data")
+            .join("database_server"),
+    )
+}
+
 pub fn get_database_path() -> Option<PathBuf> {
     let mut d = dirs::data_dir();
     if d.is_none() {
@@ -81,6 +99,7 @@ pub fn get_database_settings() -> FlusterResult<Settings> {
             .map_err(|_| FlusterError::FailToInstallDatabaseDeps)?,
         port: get_database_port(),
         data_dir: dpath.unwrap(),
+        installation_dir: get_database_path().unwrap(),
         ..Default::default()
     })
 }
