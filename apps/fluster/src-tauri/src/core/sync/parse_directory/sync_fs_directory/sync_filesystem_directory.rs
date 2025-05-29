@@ -6,7 +6,7 @@ use crate::core::{
     types::errors::errors::FlusterError,
 };
 
-use super::sync_methods::sync_mdx_notes::sync_mdx_filesystem_notes;
+// use super::sync_methods::sync_mdx_notes::sync_mdx_filesystem_notes;
 
 pub async fn sync_directory(
     app: &tauri::AppHandle,
@@ -24,7 +24,7 @@ pub async fn sync_directory(
     }
 
     // No need to thread here, as ignore is taking care of the threading.
-    sync_mdx_filesystem_notes(&opts.dir_path, &error_sender, &mut db).await?;
+    // sync_mdx_filesystem_notes(&opts.dir_path, &error_sender, &mut db).await?;
 
     // Check if user provided bib path, and if so spawn a new thread and sync that bib.
     // let handle: Option<>

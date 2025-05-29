@@ -3,10 +3,7 @@ use specta::Type;
 use sqlx::postgres::PgPoolOptions;
 
 use crate::core::{
-    db::{
-        db::{get_database, get_database_uri},
-        utils::{start_db, stop_db},
-    },
+    db::db::get_database,
     types::errors::errors::{FlusterError, FlusterResult},
 };
 
@@ -21,38 +18,7 @@ pub struct GetSnippetsParams {
 #[specta::specta]
 pub async fn get_snippets(opts: GetSnippetsParams) -> FlusterResult<Vec<SnippetItem>> {
     let db_res = get_database().await;
-    let mut db = db_res.lock().await;
-    let uri = get_database_uri();
-    let start_res = start_db(&mut db).await;
-    if start_res.is_err() {
-        println!("Error while starting database: {:?}", start_res.err());
-    }
-    let pool = PgPoolOptions::new()
-        .max_connections(5)
-        .connect(&uri)
-        .await
-        .map_err(|_| FlusterError::FailToConnect)?;
-    let mut s = "SELECT * FROM snippet".to_owned();
-    if let Some(langs) = &opts.langs {
-        if !langs.is_empty() {
-            s = "SELECT * FROM snippet WHERE lang = ANY($1)".to_owned();
-        }
-    }
-
-    let mut query = sqlx::query_as::<_, SnippetItem>(s.as_str());
-    if let Some(langs) = &opts.langs {
-        query = query.bind(langs);
-    }
-    let res_data = query.fetch_all(&pool).await;
-    if let Ok(res) = res_data {
-        println!("Res items: {:?}", res);
-        stop_db(&mut db).await;
-        return Ok(res);
-    } else {
-        println!("An error occurred while retrieving snippets.");
-        println!("Error: {:?}", res_data.err());
-    }
-    stop_db(&mut db).await;
+    let db = db_res.lock().await;
     Err(crate::core::types::errors::errors::FlusterError::FailToFind)
 }
 
