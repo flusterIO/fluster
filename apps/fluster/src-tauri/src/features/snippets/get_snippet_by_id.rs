@@ -1,7 +1,10 @@
 use sqlx::postgres::PgPoolOptions;
 
 use crate::core::{
-    db::db::{get_database, get_database_uri},
+    db::{
+        db::{get_database, get_database_uri},
+        utils::{start_db, stop_db},
+    },
     models::taggable::{tag_model::Tag, tag_snippet_join::TagSnippetJoin},
     types::errors::errors::{FlusterError, FlusterResult},
 };
@@ -14,7 +17,7 @@ pub async fn get_snippet_by_id(id: i32) -> FlusterResult<(SnippetItem, Vec<Tag>)
     let db_res = get_database().await;
     let mut db = db_res.lock().await;
     let uri = get_database_uri();
-    let start_res = db.start().await;
+    let start_res = start_db(&mut db).await;
     if start_res.is_err() {
         println!("Error while starting database: {:?}", start_res.err());
     }
@@ -56,6 +59,7 @@ pub async fn get_snippet_by_id(id: i32) -> FlusterResult<(SnippetItem, Vec<Tag>)
         }
     };
 
+    stop_db(&mut db).await;
     Ok((res, tags))
 }
 

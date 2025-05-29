@@ -1,7 +1,10 @@
 use sqlx::postgres::PgPoolOptions;
 
 use crate::core::{
-    db::db::{get_database, get_database_uri},
+    db::{
+        db::{get_database, get_database_uri},
+        utils::{start_db, stop_db},
+    },
     types::errors::errors::{FlusterError, FlusterResult},
 };
 
@@ -14,7 +17,7 @@ use super::snippet_model::SnippetItem;
 pub async fn save_snippet(item: SnippetItem, tags: Vec<String>) -> FlusterResult<SnippetItem> {
     let db_res = get_database().await;
     let mut db = db_res.lock().await;
-    let start_res = db.start().await;
+    let start_res = start_db(&mut db).await;
     if start_res.is_err() {
         println!("Error while starting database: {:?}", start_res.err());
     }
@@ -36,8 +39,10 @@ pub async fn save_snippet(item: SnippetItem, tags: Vec<String>) -> FlusterResult
         .fetch_one(&pool)
         .await;
         if res.is_ok() {
+            stop_db(&mut db).await?;
             return Ok(res.unwrap());
         } else {
+            stop_db(&mut db).await?;
             return Err(FlusterError::NotImplemented);
         }
     } else {
@@ -55,8 +60,10 @@ pub async fn save_snippet(item: SnippetItem, tags: Vec<String>) -> FlusterResult
         .fetch_one(&pool)
         .await;
         if res.is_ok() {
+            stop_db(&mut db).await?;
             return Ok(res.unwrap());
         } else {
+            stop_db(&mut db).await?;
             return Err(FlusterError::FailToCreateEntity);
         }
     }

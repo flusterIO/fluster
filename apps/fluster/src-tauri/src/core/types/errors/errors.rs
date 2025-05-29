@@ -46,6 +46,9 @@ pub enum FlusterError {
     #[error("Could not find the data directory for your operating system. We cannot continue.")]
     DataDirNotFound(),
 
+    #[error("Failed to clear the directory at {0}")]
+    FailToClearDirectory(String),
+
     #[error("We could not create the necessary paths. Unfortunately, we cannot continue.")]
     FailToCreatePath,
 

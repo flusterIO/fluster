@@ -1,15 +1,15 @@
 use std::path::PathBuf;
 
 use crate::core::types::errors::errors::{FlusterError, FlusterResult};
+use crate::core::types::FlusterDbRaw;
 use postgresql_archive::configuration::zonky;
 use postgresql_embedded::VersionReq;
 use postgresql_embedded::{PostgreSQL, Settings};
-use sea_query::Iden;
 use std::sync::Arc;
 use tokio::sync::Mutex;
 use tokio::sync::OnceCell;
 
-static DB: OnceCell<Arc<Mutex<PostgreSQL>>> = OnceCell::const_new();
+static DB: OnceCell<Arc<Mutex<FlusterDbRaw>>> = OnceCell::const_new();
 
 pub fn get_database_port() -> u16 {
     match std::env::var("FLUSTER_DATABASE_PORT") {
@@ -17,10 +17,10 @@ pub fn get_database_port() -> u16 {
             if let Ok(n) = x.parse() {
                 n
             } else {
-                21521
+                5432
             }
         }
-        Err(_) => 21521,
+        Err(_) => 5432,
     }
 }
 
@@ -77,7 +77,7 @@ pub fn get_database_installation_path() -> Option<PathBuf> {
 }
 
 pub fn get_database_path() -> Option<PathBuf> {
-    let mut d = dirs::data_dir();
+    let mut d = dirs::data_local_dir();
     if d.is_none() {
         d = dirs::data_local_dir();
     }
@@ -104,7 +104,7 @@ pub fn get_database_settings() -> FlusterResult<Settings> {
     })
 }
 
-pub async fn get_database() -> Arc<Mutex<PostgreSQL>> {
+pub async fn get_database() -> Arc<Mutex<FlusterDbRaw>> {
     DB.get_or_init(|| async {
         let db_settings = get_database_settings();
         if db_settings.is_err() {

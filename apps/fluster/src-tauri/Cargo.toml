@@ -71,6 +71,7 @@ postgresql_embedded = { version = "0.18.3", features = ["tokio", "zonky"] }
 postgresql_archive = { version = "0.18.5", features = ["zonky"] }
 include_dir.workspace = true
 uuid = { version = "1.17.0", features = ["v4"] }
+lancedb = { version = "0.19.1", features = ["polars"] }
 
 [target.'cfg(not(any(target_os = "android", target_os = "ios")))'.dependencies]
 tauri-plugin-global-shortcut = "2"

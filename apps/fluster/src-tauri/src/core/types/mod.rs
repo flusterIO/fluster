@@ -1,7 +1,9 @@
 use postgresql_embedded::PostgreSQL;
 use tokio::sync::MutexGuard;
 
-pub type FlusterDb<'a> = MutexGuard<'a, PostgreSQL>;
+pub type FlusterDbRaw = PostgreSQL;
+
+pub type FlusterDb<'a> = MutexGuard<'a, FlusterDbRaw>;
 pub mod constants;
 pub mod enums;
 pub mod errors;

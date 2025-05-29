@@ -1,4 +1,10 @@
-use crate::core::{db::db::get_database_uri, events::set_db_connection_uri::SetDbConnectionUri};
+use crate::core::{
+    db::{
+        db::get_database_uri,
+        utils::{start_db, stop_db},
+    },
+    events::set_db_connection_uri::SetDbConnectionUri,
+};
 use log::{error, info};
 use sqlx::postgres::PgPoolOptions;
 use tauri::{AppHandle, Emitter, Runtime};
@@ -9,18 +15,27 @@ pub async fn initialize_database<T: Runtime>(app: &AppHandle<T>) {
     let uri = get_database_uri();
     if let Some(db_path) = get_database_path() {
         let exists = std::fs::exists(&db_path).is_ok_and(|x| x);
-        if !exists {
-            let mkdir_res = std::fs::create_dir_all(&db_path);
-            if mkdir_res.is_err() {
-                error!("Creating the fluster managed database was unsuccessful.");
-                println!("Creating the fluster managed database was unsuccessful.");
-            }
-        }
+        // if !exists {
+        //     let mkdir_res = std::fs::create_dir_all(&db_path);
+        //     if mkdir_res.is_err() {
+        //         error!("Creating the fluster managed database was unsuccessful.");
+        //         println!("Creating the fluster managed database was unsuccessful.");
+        //     }
+        // }
         let db_res = get_database().await;
         let mut db = db_res.lock().await;
 
-        let db_exists = db.database_exists("fluster").await.is_ok_and(|x| x);
-        if !exists || !db_exists {
+        // let db_exists = db.database_exists("fluster").await.is_ok_and(|x| x);
+        // println!("Db exists {:?}", db_exists);
+        println!("path exists {:?}", exists);
+        if !exists {
+            // Only run this block if the directory doesn't exist. This is a bit of a hack
+            // to get around a bug with this setup attempting to create the directory twice,
+            // but it should work in production as well I think.
+            let clear_res = tokio::fs::remove_dir_all(db_path).await;
+            if clear_res.is_err() {
+                println!("Error while clearing database directory: {:?}", clear_res)
+            }
             // This is only setup once when the application is initially launched.
             info!("Initializing database...");
             let setup_res = db.setup().await;
@@ -45,7 +60,7 @@ pub async fn initialize_database<T: Runtime>(app: &AppHandle<T>) {
             //         pg_vector_install_res.err()
             //     );
             // }
-            let start_res = db.start().await;
+            let start_res = start_db(&mut db).await;
             if start_res.is_err() {
                 println!("Error when starting database: {:?}", start_res.err());
             }
@@ -68,7 +83,7 @@ pub async fn initialize_database<T: Runtime>(app: &AppHandle<T>) {
                 } else {
                     log::info!("Successfully initialized database.");
                     println!("Creating Fluster database...");
-                    let stop_res = db.stop().await;
+                    let stop_res = stop_db(&mut db).await;
                     if stop_res.is_err() {
                         println!("Error when stopping database: {:?}", stop_res.err())
                     }

@@ -3,7 +3,10 @@ use specta::Type;
 use sqlx::postgres::PgPoolOptions;
 
 use crate::core::{
-    db::db::{get_database, get_database_uri},
+    db::{
+        db::{get_database, get_database_uri},
+        utils::{start_db, stop_db},
+    },
     types::errors::errors::{FlusterError, FlusterResult},
 };
 
@@ -20,7 +23,7 @@ pub async fn get_snippets(opts: GetSnippetsParams) -> FlusterResult<Vec<SnippetI
     let db_res = get_database().await;
     let mut db = db_res.lock().await;
     let uri = get_database_uri();
-    let start_res = db.start().await;
+    let start_res = start_db(&mut db).await;
     if start_res.is_err() {
         println!("Error while starting database: {:?}", start_res.err());
     }
@@ -43,11 +46,13 @@ pub async fn get_snippets(opts: GetSnippetsParams) -> FlusterResult<Vec<SnippetI
     let res_data = query.fetch_all(&pool).await;
     if let Ok(res) = res_data {
         println!("Res items: {:?}", res);
+        stop_db(&mut db).await;
         return Ok(res);
     } else {
         println!("An error occurred while retrieving snippets.");
         println!("Error: {:?}", res_data.err());
     }
+    stop_db(&mut db).await;
     Err(crate::core::types::errors::errors::FlusterError::FailToFind)
 }
 

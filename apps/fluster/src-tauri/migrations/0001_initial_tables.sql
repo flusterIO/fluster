@@ -1,3 +1,22 @@
+DROP TABLE IF EXISTS log;
+DROP TABLE IF EXISTS tag;
+DROP TABLE IF EXISTS subject;
+DROP TABLE IF EXISTS topic;
+DROP TABLE IF EXISTS mdx_note;
+DROP TABLE IF EXISTS mdx_note_tag;
+DROP TABLE IF EXISTS snippet;
+DROP TABLE IF EXISTS equation;
+DROP TABLE IF EXISTS equation_mdx_note;
+DROP TABLE IF EXISTS equation_snippet;
+DROP TABLE IF EXISTS snippet_tag;
+DROP TABLE IF EXISTS front_matter;
+DROP TABLE IF EXISTS front_matter_tag;
+DROP TABLE IF EXISTS reading_list;
+DROP TABLE IF EXISTS bib_entry;
+DROP TABLE IF EXISTS reading_list_bib_entry;
+
+CREATE EXTENSION vector;
+
 CREATE TABLE IF NOT EXISTS log (
     id SERIAL PRIMARY KEY,
     "msg" VARCHAR(255) NOT NULL, 
@@ -44,7 +63,7 @@ CREATE TABLE IF NOT EXISTS mdx_note (
 );
 
 
-CREATE TABLE IF NOT EXISTS mdx_note_tag_join (
+CREATE TABLE IF NOT EXISTS mdx_note_tag (
     mdx_note_id INT NOT NULL,
     tag_id INT NOT NULL,
     CONSTRAINT fk_mdx_note_id
@@ -75,7 +94,7 @@ CREATE TABLE IF NOT EXISTS equation (
 );
 
 
-CREATE TABLE IF NOT EXISTS equation_mdx_note_join (
+CREATE TABLE IF NOT EXISTS equation_mdx_note (
     mdx_note_id INT NOT NULL,
     equation_id INT NOT NULL,
     CONSTRAINT fk_mdx_note_id
@@ -88,7 +107,7 @@ CREATE TABLE IF NOT EXISTS equation_mdx_note_join (
 );
 
 
-CREATE TABLE IF NOT EXISTS equation_snippet_join (
+CREATE TABLE IF NOT EXISTS equation_snippet (
     equation_id INT NOT NULL,
     snippet_id INT NOT NULL,
     CONSTRAINT fk_snippet_id
@@ -100,7 +119,7 @@ CREATE TABLE IF NOT EXISTS equation_snippet_join (
     PRIMARY KEY (equation_id, snippet_id)
 );
 
-CREATE TABLE IF NOT EXISTS tag_snippet_join (
+CREATE TABLE IF NOT EXISTS snippet_tag (
     tag_id INT NOT NULL,
     snippet_id INT NOT NULL,
     CONSTRAINT fk_snippet_id
@@ -123,7 +142,7 @@ CREATE TABLE IF NOT EXISTS front_matter (
 );
 
 
-CREATE TABLE IF NOT EXISTS front_matter_tag_join (
+CREATE TABLE IF NOT EXISTS front_matter_tag (
     tag_id INT NOT NULL,
     front_matter_id INT NOT NULL,
     CONSTRAINT fk_tag_id 
@@ -155,7 +174,7 @@ CREATE TABLE IF NOT EXISTS bib_entry (
     read BOOLEAN NOT NULL DEFAULT false
 );
 
-CREATE TABLE IF NOT EXISTS reading_list_bib_entry_join (
+CREATE TABLE IF NOT EXISTS reading_list_bib_entry (
     bib_entry_id INT NOT NULL,
     reading_list_id INT NOT NULL,
     CONSTRAINT fk_reading_list 
