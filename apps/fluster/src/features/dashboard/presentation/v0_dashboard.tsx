@@ -30,6 +30,8 @@ import {
     Progress,
     Input,
 } from "@fluster.io/dev";
+import { dashboardStaticData } from "../data/models/dashboard_static_data";
+import QuickActionCard from "./quick_action_card";
 
 // Mock data for demonstration
 const recentNotes = [
@@ -130,16 +132,14 @@ export function Dashboard() {
     const [searchQuery, setSearchQuery] = useState("");
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-900 dark:to-slate-800">
+        <div className="min-h-screen">
             <div className="container mx-auto p-6 space-y-6">
                 {/* Header */}
                 <div className="flex flex-col space-y-4 md:flex-row md:items-center md:justify-between md:space-y-0">
                     <div>
-                        <h1 className="text-3xl font-bold tracking-tight">
-                            Research Dashboard
-                        </h1>
+                        <h1 className="text-3xl font-bold tracking-tight">Dashboard</h1>
                         <p className="text-muted-foreground">
-                            Organize your scientific knowledge and accelerate discovery
+                            Organize your knowledge and accelerate discovery
                         </p>
                     </div>
                     <div className="flex items-center space-x-2">
@@ -159,17 +159,17 @@ export function Dashboard() {
                 </div>
 
                 {/* AI Assistant Greeting */}
-                <Card className="border-2 border-dashed border-blue-200 bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-950 dark:to-indigo-950">
+                <Card className="border-2 border-dashed border-blue-200 bg-primary/40">
                     <CardContent className="p-6">
                         <div className="flex items-start space-x-4">
                             <div className="rounded-full bg-blue-100 p-3 dark:bg-blue-900">
                                 <Brain className="h-6 w-6 text-blue-600 dark:text-blue-400" />
                             </div>
                             <div className="flex-1">
-                                <h3 className="font-semibold text-blue-900 dark:text-blue-100">
+                                <h3 className="font-semibold text-primary-foreground/90">
                                     Good morning, Dr. Researcher! 🧬
                                 </h3>
-                                <p className="mt-1 text-sm text-blue-700 dark:text-blue-300">
+                                <p className="mt-1 text-sm text-primary-foreground/90">
                                     I've analyzed your recent notes and found 3 potential
                                     connections between your quantum mechanics and bioinformatics
                                     research. Would you like me to help you explore these
@@ -194,62 +194,16 @@ export function Dashboard() {
                     <CardHeader>
                         <CardTitle className="flex items-center">
                             <Plus className="mr-2 h-5 w-5" />
-                            Quick Create
+                            Quick Actions
                         </CardTitle>
                         <CardDescription>
-                            Start a new note or research entry
+                            Convenient & frequently used actions.
                         </CardDescription>
                     </CardHeader>
                     <CardContent>
                         <div className="grid grid-cols-2 gap-3 md:grid-cols-4 lg:grid-cols-6">
-                            {[
-                                {
-                                    type: "equation",
-                                    label: "Equation",
-                                    icon: Calculator,
-                                    color: "bg-blue-500",
-                                },
-                                {
-                                    type: "code",
-                                    label: "Code",
-                                    icon: Code,
-                                    color: "bg-green-500",
-                                },
-                                {
-                                    type: "markdown",
-                                    label: "Notes",
-                                    icon: FileText,
-                                    color: "bg-purple-500",
-                                },
-                                {
-                                    type: "table",
-                                    label: "Data",
-                                    icon: Table,
-                                    color: "bg-orange-500",
-                                },
-                                {
-                                    type: "image",
-                                    label: "Image",
-                                    icon: ImageIcon,
-                                    color: "bg-pink-500",
-                                },
-                                {
-                                    type: "video",
-                                    label: "Video",
-                                    icon: Video,
-                                    color: "bg-red-500",
-                                },
-                            ].map((item) => (
-                                <Button
-                                    key={item.type}
-                                    variant="outline"
-                                    className="h-20 flex-col space-y-2 hover:bg-slate-50 dark:hover:bg-slate-800"
-                                >
-                                    <div className={`rounded-lg p-2 ${item.color}`}>
-                                        <item.icon className="h-4 w-4 text-white" />
-                                    </div>
-                                    <span className="text-xs">{item.label}</span>
-                                </Button>
+                            {dashboardStaticData.quickCreateItems.map((item) => (
+                                <QuickActionCard key={`quick-action-${item.id}`} item={item} />
                             ))}
                         </div>
                     </CardContent>
@@ -319,7 +273,7 @@ export function Dashboard() {
                             <CardHeader>
                                 <CardTitle className="flex items-center">
                                     <TrendingUp className="mr-2 h-5 w-5" />
-                                    Research Progress
+                                    Progress
                                 </CardTitle>
                                 <CardDescription>Track your ongoing projects</CardDescription>
                             </CardHeader>
@@ -356,7 +310,7 @@ export function Dashboard() {
                             <CardHeader>
                                 <CardTitle className="flex items-center">
                                     <BookOpen className="mr-2 h-5 w-5" />
-                                    Research Subjects
+                                    Subjects
                                 </CardTitle>
                                 <CardDescription>Organize by field of study</CardDescription>
                             </CardHeader>
@@ -383,7 +337,7 @@ export function Dashboard() {
                             <CardHeader>
                                 <CardTitle className="flex items-center">
                                     <CheckSquare className="mr-2 h-5 w-5" />
-                                    Research Tasks
+                                    Tasks
                                 </CardTitle>
                                 <CardDescription>Keep track of your priorities</CardDescription>
                             </CardHeader>

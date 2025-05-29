@@ -83,6 +83,8 @@ embed-file = "0.2.0"
 postgresql_extensions = "0.18.3"
 pgvector = "0.4.1"
 postgresql_embedded = { version = "0.18.3", features = ["tokio", "zonky"] }
+postgresql_archive = { version = "0.18.5", features = ["zonky"] }
+include_dir.workspace = true
 
 [target.'cfg(not(any(target_os = "android", target_os = "ios")))'.dependencies]
 tauri-plugin-global-shortcut = "2"

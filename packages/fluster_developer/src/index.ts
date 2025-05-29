@@ -1,6 +1,7 @@
 export type * from "./components/inputs/types.d.ts";
 export { TextInputGroup } from "./components/inputs/text_input_group/main";
 export { TagInput } from "./components/inputs/tag_input/main";
+export { MathTextInput } from "./components/inputs/math_text_input/main";
 export * from "./themes.scss";
 export * from "./utils/cn";
 export * from "./components/icons/icon_components/index";

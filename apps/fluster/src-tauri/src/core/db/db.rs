@@ -1,6 +1,7 @@
 use std::path::PathBuf;
 
 use crate::core::types::errors::errors::{FlusterError, FlusterResult};
+use postgresql_archive::configuration::zonky;
 use postgresql_embedded::VersionReq;
 use postgresql_embedded::{PostgreSQL, Settings};
 use std::sync::Arc;
@@ -75,6 +76,7 @@ pub fn get_database_settings() -> FlusterResult<Settings> {
         return Err(FlusterError::FailToConnect);
     }
     Ok(Settings {
+        releases_url: zonky::URL.to_string(),
         version: VersionReq::parse("=16.4.0")
             .map_err(|_| FlusterError::FailToInstallDatabaseDeps)?,
         port: get_database_port(),

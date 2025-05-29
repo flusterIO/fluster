@@ -28,6 +28,7 @@ const tailwindCfg: Config = {
         "./content/**/*.mdx",
         "../../packages/fluster_developer/src/**/*.{js,ts,jsx,tsx,mdx}",
     ],
+    darkMode: "class",
     theme: {
         extend: {
             screens: {
