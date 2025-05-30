@@ -14,11 +14,20 @@ pub enum FlusterError {
     CannotParseBibfile,
 
     // Database Errors
+    #[error("Failed to serialize an entity.")]
+    FailToSerialize,
+
+    #[error("Found multiple entries with the same id.")]
+    DuplicateId,
+
     #[error("Failed to delete an entity.")]
     FailToDelete,
 
     #[error("Fluster failed to create a necessary table.")]
     FailToCreateTable,
+
+    #[error("Flusted failed to open a database table.")]
+    FailToOpenTable,
 
     #[error("Fluster failed to connect to your database.")]
     FailToConnect,
@@ -52,9 +61,6 @@ pub enum FlusterError {
 
     #[error("We could not create a subject in your database. Make sure that everything is formatted correctly.")]
     FailToCreateSubject,
-
-    #[error("Fluster failed to open a database table.")]
-    FailToOpenTable,
 
     // File system errors
     //

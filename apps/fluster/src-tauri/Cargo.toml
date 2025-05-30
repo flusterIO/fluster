@@ -75,6 +75,11 @@ lancedb = { version = "0.19", features = ["polars"] }
 chrono = { workspace = true, features = ["now", "serde"] }
 arrow-schema = "54.1"
 arrow-array = "54.1"
+ollama-rs = { version = "0.3.1", features = ["stream"] }
+futures-util = "0.3.31"
+llm = "1.2.9"
+futures = "0.3.31"
+serde_arrow = { version = "0.13.3", features = ["arrow-54"] }
 
 
 [target.'cfg(not(any(target_os = "android", target_os = "ios")))'.dependencies]

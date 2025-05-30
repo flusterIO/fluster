@@ -4,7 +4,7 @@ members = [
     "apps/fluster/src-tauri",
     "packages/fluster_grpc",
     "packages/fluster_test_utils",
-    "packages/fluster_lua",
+    "packages/fluster_lua", "packages/fluster_py_internal",
 ]
 
 

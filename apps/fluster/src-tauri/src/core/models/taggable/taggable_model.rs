@@ -36,22 +36,6 @@ pub fn get_tag_regular_expression() -> Regex {
 impl Taggable {
     pub async fn save(&self, db: &mut FlusterDb<'_>) -> FlusterResult<TagEntity> {
         Err(FlusterError::NotImplemented)
-        // let sql = self.get_sql_template_string();
-        // let mut m: BTreeMap<&'static str, Value> = BTreeMap::new();
-        // m.insert("tag_value", Value::from(self.value.clone()));
-        // let data: Option<DbRecord> = db
-        //     .upsert((self.get_table_name(), self.value.clone()))
-        //     .content(m)
-        //     .await
-        //     .map_err(|_| FlusterError::FailToConnect)?;
-        // match data {
-        //     Some(x) => Ok(TagEntity {
-        //         id: x.id,
-        //         value: self.value.clone(),
-        //         tag_type: self.tag_type.clone(),
-        //     }),
-        //     None => Err(FlusterError::FailToUpsertTags),
-        // }
     }
 
     fn get_table_name(&self) -> &'static str {
@@ -93,45 +77,6 @@ impl Taggable {
             }
         }
         tags
-    }
-    pub fn from_pod_data(data: &ParsedEntity) -> Vec<Taggable> {
-        let mut tags: Vec<Taggable> = Vec::new();
-        if let Some(parsed_data) = &data.data {
-            if let Ok(h) = parsed_data.as_hashmap() {
-                if h.contains_key("tags") {
-                    tags = Taggable::handle_arr_data(&h["tags"], &tags, &TaggableTypeEnum::Tag);
-                }
-            }
-        }
-        tags
-    }
-    pub fn from_mdx_content(data: &ParsedEntity) -> TagFromContentResult {
-        let mut tags: Vec<Taggable> = Taggable::from_pod_data(&data);
-        let r = get_tag_regular_expression();
-        let mut new_content = String::from(&data.content);
-        for result in r.captures_iter(&data.content) {
-            if let Some(body) = result.get(1) {
-                let body_as_string = body.as_str();
-                if !tags
-                    .par_iter()
-                    .any(|tag_item| tag_item.value == body_as_string)
-                {
-                    tags.push(Taggable {
-                        id: None,
-                        value: body_as_string.to_owned(),
-                        tag_type: TaggableTypeEnum::Tag,
-                    });
-                    new_content = new_content.replace(
-                        &format!("[[#{}]]", body_as_string),
-                        &format!("<Tag value={{\"{}\"}} />", body_as_string),
-                    );
-                }
-            }
-        }
-        TagFromContentResult {
-            tags,
-            parsed_content: new_content,
-        }
     }
 }
 

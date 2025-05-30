@@ -1,7 +1,7 @@
 use serde::{Deserialize, Serialize};
-use sqlx::prelude::Type;
 
 use include_dir::{include_dir, Dir};
+use specta::Type;
 
 static DOCS: Dir = include_dir!("$FLUSTER_NATIVE_ROOT/docs/embedded");
 

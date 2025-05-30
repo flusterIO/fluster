@@ -1,30 +1,22 @@
-use serde::{Deserialize, Serialize};
 use std::sync::Arc;
 
-use arrow_array::{Int64Array, RecordBatch};
+use arrow_array::{Date64Array, RecordBatch};
 use arrow_schema::{DataType, Field, Schema};
-use chrono::prelude::*;
 
-#[derive(specta::Type, Deserialize, Serialize, Clone)]
-pub struct Topic {
-    pub value: String,
-    pub ctime: i64,
-}
+use super::shared_taggable_model::SharedTaggableModel;
+use crate::core::types::traits::db_entity::DbEntity;
 
-impl Topic {
-    pub fn new(val: &str) -> Topic {
-        Topic {
-            value: val.to_string(),
-            ctime: Utc::now().timestamp_millis(),
-        }
-    }
-    pub fn to_record_batch(&self, schema: Arc<Schema>) -> RecordBatch {
-        let ctime = Int64Array::from(vec![self.ctime]);
-        let text_array = arrow_array::StringArray::from(vec![self.value.clone()]);
+#[derive(Clone)]
+pub struct TopicEntity {}
+
+impl DbEntity<SharedTaggableModel> for TopicEntity {
+    fn to_record_batch(&self, item: &SharedTaggableModel, schema: Arc<Schema>) -> RecordBatch {
+        let ctime = Date64Array::from(vec![item.ctime.timestamp_millis()]);
+        let text_array = arrow_array::StringArray::from(vec![item.value.clone()]);
         // Create the vector array
         RecordBatch::try_new(schema, vec![Arc::new(text_array), Arc::new(ctime)]).unwrap()
     }
-    pub fn arrow_schema() -> Arc<Schema> {
+    fn arrow_schema() -> Arc<Schema> {
         Arc::new(Schema::new(vec![
             Field::new("value", DataType::Utf8, false),
             Field::new("ctime", DataType::Date64, false),

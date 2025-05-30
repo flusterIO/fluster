@@ -1,5 +1,4 @@
 use lancedb::Connection;
-use postgresql_embedded::PostgreSQL;
 use tokio::sync::MutexGuard;
 
 pub type FlusterDbRaw = Connection;

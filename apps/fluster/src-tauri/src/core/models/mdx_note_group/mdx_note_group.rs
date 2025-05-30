@@ -1,5 +1,6 @@
 use crate::core::models::front_matter::front_matter_model::FrontMatter;
-use crate::core::models::taggable::taggable_model::{TagEntity, Taggable};
+use crate::core::models::taggable::shared_taggable_model::SharedTaggableModel;
+use crate::core::models::taggable::tag_entity::TagEntity;
 use crate::core::types::errors::errors::{FlusterError, FlusterResult};
 use crate::core::types::FlusterDb;
 use filetime::FileTime;
@@ -15,21 +16,12 @@ use super::mdx_note::MdxNote;
 pub struct MdxNoteGroup {
     pub mdx: MdxNote,
     pub front_matter: FrontMatter,
-    pub tags: Vec<Taggable>,
+    pub tags: Vec<SharedTaggableModel>,
 }
 
 impl MdxNoteGroup {
     pub async fn save(&self, db: &mut FlusterDb<'_>) -> FlusterResult<()> {
-        let mut front_matter_tags: Vec<TagEntity> = Vec::new();
-        for t in self.tags.iter() {
-            if let Ok(tag_entity) = t.save(db).await {
-                front_matter_tags.push(tag_entity);
-            } else {
-                log::error!("Failed to save taggable.");
-                return Err(FlusterError::FailToUpsertTags);
-            }
-        }
-        Ok(())
+        Err(FlusterError::NotImplemented)
     }
     fn handle_fs_parse(
         raw_file_content: String,
@@ -78,7 +70,7 @@ impl MdxNoteGroup {
         let matter = Matter::<YAML>::new();
         let result = matter.parse(&raw_file_content);
         let fp = file_path.unwrap_or("Unknown".to_string());
-        let post_tag_parse = Taggable::from_mdx_content(&result);
+        let post_tag_parse = TagEntity::from_mdx_content(&result);
         Ok(MdxNoteGroup {
             front_matter: FrontMatter::from_gray_matter(result.data),
             mdx: MdxNote {
@@ -112,18 +104,13 @@ mod tests {
         );
         let n = note_data.unwrap();
         let tags = n.front_matter.tags;
+        assert!(tags[0].value == "Tag 1", "Gathers tags properly.");
         assert!(
-            tags[0].value == "Tag 1" && tags[0].tag_type == TaggableTypeEnum::Subject,
-            "Gathers tags properly."
-        );
-        assert!(
-            n.front_matter.subject.clone().unwrap().value == "Subject 1"
-                && n.front_matter.subject.unwrap().tag_type == TaggableTypeEnum::Subject,
+            n.front_matter.subject.clone().unwrap().value == "Subject 1",
             "Gathers subjects properly."
         );
         assert!(
-            n.front_matter.topic.clone().unwrap().value == "Topic 1"
-                && n.front_matter.topic.unwrap().tag_type == TaggableTypeEnum::Topic,
+            n.front_matter.topic.clone().unwrap().value == "Topic 1",
             "Gathers topics properly."
         );
     }

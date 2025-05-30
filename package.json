@@ -31,6 +31,7 @@
     "devDependencies": {
         "@changesets/cli": "^2.29.4",
         "@tailwindcss/vite": "4.1.7",
+        "@testing-library/react-hooks": "^8.0.1",
         "@types/node": "22.14.1",
         "@types/react": "19.1.5",
         "@types/react-dom": "19.1.5",
@@ -38,6 +39,7 @@
         "@vitest/coverage-v8": "^3.1.4",
         "glob": "11.0.1",
         "globals": "^16.0.0",
+        "react-test-renderer": "^19.1.0",
         "syncpack": "13.0.3",
         "tsup": "8.4.0",
         "typedoc-material-theme": "^1.4.0",

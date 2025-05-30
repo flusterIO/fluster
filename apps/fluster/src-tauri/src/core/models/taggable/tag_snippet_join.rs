@@ -1,19 +1,20 @@
 use serde::{Deserialize, Serialize};
 use specta::Type;
-use sqlx::prelude::FromRow;
 
-use crate::core::types::errors::errors::FlusterResult;
+use crate::{
+    core::types::{errors::errors::FlusterResult, FlusterDb},
+    features::snippets::{snippet_entity::SnippetEntity, snippet_model::SnippetModel},
+};
 
-use super::tag_model::Tag;
-
-#[derive(Serialize, Deserialize, Type, FromRow)]
-pub struct TagSnippetJoin {
-    pub tag_id: i32,
-    pub snippet_id: i32,
+#[derive(Serialize, Deserialize, Type)]
+pub struct TagSnippetJoinModel {
+    pub tag_id: String,
+    pub snippet_id: String,
 }
 
-impl TagSnippetJoin {
-    pub fn get_tag() -> FlusterResult<Tag> {
-        Err(crate::core::types::errors::errors::FlusterError::NotImplemented)
+impl TagSnippetJoinModel {
+    pub async fn get_snippet(&self, conn: FlusterDb<'_>) -> FlusterResult<SnippetModel> {
+        let tbl_manager = SnippetEntity {};
+        tbl_manager.get_by_id(self.snippet_id.clone(), conn).await
     }
 }

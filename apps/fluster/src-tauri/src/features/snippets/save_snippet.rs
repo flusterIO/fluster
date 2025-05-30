@@ -1,17 +1,18 @@
-use sqlx::postgres::PgPoolOptions;
-
 use crate::core::{
     db::{db::get_database, tables::table_paths::DatabaseTables},
     types::errors::errors::{FlusterError, FlusterResult},
 };
 
-use super::snippet_model::SnippetItem;
+use super::{snippet_entity::SnippetEntity, snippet_model::SnippetModel};
 
-// FIXME: Tags are not currently being saved. Handle that here ace...
-
+/// Note that the values are all in array's and that tags is a 2d array. This is so that for each
+/// index in the snippets array, there is an array at that index in the tags array with the tags
+/// the snippet at that index contains.
+/// While it's weird to think about a database's data in this way, this very similar to how pandas and
+/// polars handle their data.
 #[tauri::command]
 #[specta::specta]
-pub async fn save_snippet(item: SnippetItem, tags: Vec<String>) -> FlusterResult<()> {
+pub async fn save_snippets(items: Vec<SnippetModel>, tags: Vec<Vec<String>>) -> FlusterResult<()> {
     let db_res = get_database().await;
     let db = db_res.lock().await;
     let tbl = db
@@ -19,7 +20,8 @@ pub async fn save_snippet(item: SnippetItem, tags: Vec<String>) -> FlusterResult
         .execute()
         .await
         .map_err(|_| FlusterError::FailToOpenTable)?;
-    // tbl.add(item).execute().await;
+    let tbl_manager = SnippetEntity {};
+    tbl_manager.save_many(items, db).await?;
     Ok(())
 }
 
@@ -31,20 +33,24 @@ mod tests {
 
     use super::*;
 
+    fn get_test_snippet() -> SnippetModel {
+        SnippetModel::new_now(
+            "test snippet".to_string(),
+            "test snippet body".to_string(),
+            "typescript".to_string(),
+            Some("My description for my test snippet.".to_string()),
+        )
+    }
+
     #[tokio::test]
     async fn saves_snippet_successfully() {
-        let s = SnippetItem {
-            id: None,
-            label: "test snippet".to_string(),
-            body: "test snippet body".to_string(),
-            desc: "My description for my test snippet.".to_string(),
-            lang: "typescript".to_string(),
-        };
+        let s = get_test_snippet();
         let app = mock_app();
+
         let handle = app.handle();
         initialize_database(handle).await;
 
-        let res = save_snippet(s, Vec::new()).await;
+        let res = save_snippets(vec![s], Vec::new()).await;
         // println!("Res: {:?}", res.as_ref().err().unwrap());
         assert!(res.is_ok(), "Saves snippet without throwing an error.");
         // assert_eq!(result, 4);
@@ -52,28 +58,13 @@ mod tests {
 
     #[tokio::test]
     async fn updates_snippet_successfully() {
-        let label = "test snippet updated".to_string();
-        let body = "test snippet body updated".to_string();
-        let desc = "My description for my test snippet updated.".to_string();
-        let lang = "python".to_string();
-        let s = SnippetItem {
-            id: Some(1),
-            label: label.clone(),
-            body: body.clone(),
-            desc: desc.clone(),
-            lang: lang.clone(),
-        };
+        let s = get_test_snippet();
         let app = mock_app();
         let handle = app.handle();
         initialize_database(handle).await;
 
-        let res = save_snippet(s, Vec::new()).await;
+        let res = save_snippets(vec![s], Vec::new()).await;
         // println!("Res: {:?}", res.as_ref().err().unwrap());
         assert!(res.is_ok(), "Saves snippet without throwing an error.");
-        // assert_eq!(data.body, body, "Updates body");
-        // assert_eq!(data.label, label, "Updates label");
-        // assert_eq!(data.desc, desc, "Updates desc");
-        // assert_eq!(data.lang, lang, "Updates lang");
-        // assert_eq!(result, 4);
     }
 }

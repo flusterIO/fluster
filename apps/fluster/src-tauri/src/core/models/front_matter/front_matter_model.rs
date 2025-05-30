@@ -1,8 +1,4 @@
-use std::collections::BTreeMap;
-
-use crate::core::{
-    models::taggable::taggable_model::Taggable, types::enums::taggable_type::TaggableTypeEnum,
-};
+use crate::core::models::taggable::shared_taggable_model::SharedTaggableModel;
 use gray_matter::Pod;
 use serde::{Deserialize, Serialize};
 use specta::Type;
@@ -20,14 +16,14 @@ pub struct FrontMatter {
     pub user_provided_id: Option<String>,
     pub title: String,
     pub summary: Option<String>,
-    pub tags: Vec<Taggable>,
-    pub subject: Option<Taggable>,
-    pub topic: Option<Taggable>,
+    pub tags: Vec<SharedTaggableModel>,
+    pub subject: Option<SharedTaggableModel>,
+    pub topic: Option<SharedTaggableModel>,
 }
 
 impl FrontMatter {
     pub fn from_gray_matter(pod: Option<Pod>) -> FrontMatter {
-        let mut tags: Vec<Taggable> = Vec::new();
+        let mut tags: Vec<SharedTaggableModel> = Vec::new();
         match pod {
             None => FrontMatter::default(),
             Some(p) => {
@@ -57,31 +53,25 @@ impl FrontMatter {
                         for _ in 0..item_tags.len() {
                             let tag_item = item_tags.pop().as_string();
                             if let Ok(item) = tag_item {
-                                tags.push(Taggable {
-                                    value: item,
-                                    id: None,
-                                    tag_type: TaggableTypeEnum::Tag,
-                                });
+                                tags.push(SharedTaggableModel::new(item, None));
                             }
                         }
                     }
                     // Set subject
                     if d.contains_key("subject") {
                         let item_subject = d["subject"].clone();
-                        x.subject = Some(Taggable {
-                            id: None,
-                            value: item_subject.as_string().unwrap(),
-                            tag_type: TaggableTypeEnum::Subject,
-                        });
+                        x.subject = Some(SharedTaggableModel::new(
+                            item_subject.as_string().unwrap(),
+                            None,
+                        ))
                     }
                     // Set topic
                     if d.contains_key("topic") {
                         let item_topic = d["topic"].clone();
-                        x.topic = Some(Taggable {
-                            id: None,
-                            value: item_topic.as_string().unwrap(),
-                            tag_type: TaggableTypeEnum::Topic,
-                        });
+                        x.topic = Some(SharedTaggableModel::new(
+                            item_topic.as_string().unwrap(),
+                            None,
+                        ));
                     }
                     // Set note_id
                     if d.contains_key("id") {

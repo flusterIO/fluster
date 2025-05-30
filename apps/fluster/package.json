@@ -74,6 +74,7 @@
     "@shikijs/monaco": "3.4.2",
     "@tailwindcss/container-queries": "0.1.1",
     "@tailwindcss/vite": "4.1.7",
+    "@tanstack/react-query-devtools": "^5.79.0",
     "@tauri-apps/cli": "2",
     "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/react": "^16.3.0",

@@ -9,7 +9,7 @@ use core::{
 
 use crate::core::sync::sync_local_database::sync_local_database;
 use crate::features::dictionary::dictionary_entry::DictionaryEntry;
-use crate::features::snippets::snippet_model::SnippetItem;
+use crate::features::snippets::snippet_model::SnippetModel;
 pub use features::dashboard;
 use specta_typescript::Typescript;
 use tauri_specta::{collect_commands, collect_events, Builder};
@@ -20,7 +20,7 @@ pub fn run() {
         .commands(collect_commands![
             sync_local_database,
             crate::features::dashboard::get_dashboard_data::get_dashboard_data,
-            crate::features::snippets::save_snippet::save_snippet,
+            crate::features::snippets::save_snippet::save_snippets,
             crate::features::snippets::get_snippets::get_snippets,
             crate::features::snippets::delete_snippet_by_id::delete_snippet_by_id,
             crate::features::snippets::get_snippet_by_id::get_snippet_by_id,
@@ -31,7 +31,7 @@ pub fn run() {
         .events(collect_events![ShowToast, SetDbConnectionUri])
         .typ::<FlusterError>()
         .typ::<DictionaryEntry>()
-        .typ::<SnippetItem>()
+        .typ::<SnippetModel>()
         .typ::<SyncFilesystemDirectoryOptions>();
     #[cfg(debug_assertions)] // So we don't export types on release builds.
     cmds.export(Typescript::default(), "../src/core/lib/bindings.ts")
