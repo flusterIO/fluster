@@ -1,7 +1,4 @@
-use crate::core::{
-    db::utils::{start_db, stop_db},
-    types::errors::errors::{FlusterError, FlusterResult},
-};
+use crate::core::types::errors::errors::{FlusterError, FlusterResult};
 use lancedb::connect;
 use tauri::{AppHandle, Runtime};
 
@@ -11,7 +8,6 @@ use super::{
 };
 
 pub async fn initialize_database<T: Runtime>(app: &AppHandle<T>) -> FlusterResult<()> {
-    let vector_dims = 768;
     if let Some(db_path) = get_database_path() {
         let db = connect(db_path.to_str().unwrap())
             .execute()

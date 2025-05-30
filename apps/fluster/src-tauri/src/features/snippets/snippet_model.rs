@@ -1,7 +1,6 @@
 use lancedb::arrow::{IntoArrow, IntoArrowStream};
 use serde::{Deserialize, Serialize};
 use specta::Type;
-use sqlx::prelude::FromRow;
 
 #[derive(Type, Serialize, Deserialize, Debug)]
 pub struct SnippetItem {

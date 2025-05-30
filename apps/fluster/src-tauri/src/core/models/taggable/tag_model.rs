@@ -1,17 +1,15 @@
 use std::sync::Arc;
 
-use arrow_array::{
-    types::Float32Type, ArrayRef, FixedSizeListArray, Float32Array, Int32Array, Int64Array,
-    RecordBatch,
-};
+use arrow_array::{Date64Array, Int64Array, RecordBatch};
 use arrow_schema::{DataType, Field, Schema};
 use chrono::prelude::*;
-use sea_query::Iden;
 use serde::{Deserialize, Serialize};
 
 #[derive(specta::Type, Deserialize, Serialize, Clone)]
 pub struct Tag {
+    /// The tag text..
     pub value: String,
+    /// The time the tag was created.
     pub ctime: i64,
 }
 
@@ -23,12 +21,12 @@ impl Tag {
         }
     }
     pub fn to_record_batch(&self, schema: Arc<Schema>) -> RecordBatch {
-        let ctime = Int64Array::from(vec![self.ctime]);
+        let ctime = Date64Array::from(vec![self.ctime]);
         let text_array = arrow_array::StringArray::from(vec![self.value.clone()]);
         // Create the vector array
         RecordBatch::try_new(schema, vec![Arc::new(text_array), Arc::new(ctime)]).unwrap()
     }
-    pub fn arrow_schema(vector_dim: i32) -> Arc<Schema> {
+    pub fn arrow_schema() -> Arc<Schema> {
         Arc::new(Schema::new(vec![
             Field::new("value", DataType::Utf8, false),
             Field::new("ctime", DataType::Date64, false),
@@ -57,7 +55,7 @@ mod tests {
         let test_tag = Tag::new("test tag");
         let db_res = get_database().await;
         let db = db_res.lock().await;
-        let schema = Tag::arrow_schema(1);
+        let schema = Tag::arrow_schema();
         let tbl = db
             .open_table(DatabaseTables::Tags.to_string())
             .execute()
@@ -68,9 +66,8 @@ mod tests {
             initial_batches.into_iter(),
             schema.clone(),
         )) as Box<dyn RecordBatchReader + Send>;
-        tbl.add(stream)
-            .execute()
-            .await
-            .expect("Saves tag without throwing an error.");
+        let res = tbl.add(stream).execute().await;
+        println!("Res: {:?}", res);
+        assert!(res.is_ok(), "Saves tag without throwing an error.");
     }
 }

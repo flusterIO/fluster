@@ -1,11 +1,7 @@
 use std::path::PathBuf;
 
-use crate::core::types::errors::errors::{FlusterError, FlusterResult};
 use crate::core::types::FlusterDbRaw;
 use lancedb::{connect, Connection};
-use postgresql_archive::configuration::zonky;
-use postgresql_embedded::VersionReq;
-use postgresql_embedded::{PostgreSQL, Settings};
 use std::sync::Arc;
 use tokio::sync::Mutex;
 use tokio::sync::OnceCell;
@@ -27,7 +23,10 @@ pub fn get_database_path() -> Option<PathBuf> {
 pub async fn get_database() -> Arc<Mutex<Connection>> {
     DB.get_or_init(|| async {
         let db_path = get_database_path().unwrap();
-        let db = connect(db_path.to_str().unwrap()).execute().await;
+        let db = connect(db_path.to_str().unwrap())
+            .execute()
+            .await
+            .expect("Failed to connect to database.");
         Arc::new(Mutex::new(db))
     })
     .await
