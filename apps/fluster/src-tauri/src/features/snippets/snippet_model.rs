@@ -2,8 +2,6 @@ use chrono::prelude::*;
 use serde::{Deserialize, Serialize};
 use specta::Type;
 
-use crate::core::types::traits::db_entity::FlusterDateTime;
-
 /// The SnippetModel is the snippet representation that is passed back and forth across language
 /// boundries to get around serialization issues with the SnippetEntity methods.
 #[derive(Type, Serialize, Deserialize, Debug, Clone)]
@@ -18,9 +16,9 @@ pub struct SnippetModel {
     /// THe language of the snippet.
     pub lang: String,
     /// The time the snippet was created.
-    pub ctime: Option<FlusterDateTime>,
+    pub ctime: Option<i64>,
     /// The time the snippet was last updated.
-    pub utime: Option<FlusterDateTime>,
+    pub utime: Option<i64>,
 }
 
 impl SnippetModel {
@@ -31,7 +29,7 @@ impl SnippetModel {
         lang: String,
         desc: Option<String>,
     ) -> SnippetModel {
-        let now = Utc::now();
+        let now = Utc::now().timestamp_millis();
         SnippetModel {
             id: None,
             label,
@@ -39,7 +37,7 @@ impl SnippetModel {
             desc,
             lang,
             utime: Some(now),
-            ctime: Some(now),
+            ctime: Some(1),
         }
     }
 }

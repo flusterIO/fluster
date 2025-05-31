@@ -1,6 +1,9 @@
 pub mod dashboard;
 pub mod dictionary;
 pub mod embedded_docs;
+pub mod health;
 pub mod mdx;
 pub mod router;
+pub mod settings;
 pub mod snippets;
+pub mod math;

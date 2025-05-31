@@ -1,8 +1,8 @@
-import {
+import React, {
   ForwardedRef,
   forwardRef,
   KeyboardEventHandler,
-  MutableRefObject,
+  RefObject,
   useEffect,
   useState,
   type ReactNode,
@@ -17,6 +17,14 @@ import { CommandPaletteItem as CommandPaletteItemAbstract } from "../data/models
 import { appendCommandPaletteCategory } from "../state/actions/appendCommandPaletteCategory";
 import { SearchIcon } from "lucide-react";
 import { useNavigate } from "react-router";
+import { useEventListener } from "@fluster.io/dev";
+
+declare global {
+   
+  interface WindowEventMap {
+    "reset-command-palette-input": CustomEvent<object>;
+  }
+}
 
 const CommandPaletteInput = forwardRef(
   (_: object, ref: ForwardedRef<HTMLInputElement>): ReactNode => {
@@ -26,10 +34,12 @@ const CommandPaletteInput = forwardRef(
     const dispatch = useCommandPaletteDispatch();
     const nav = useNavigate();
 
+    useEventListener("reset-command-palette-input", () => setValue(""));
+
     useEffect(() => {
       if (state.navStack.length > 0 && !hasFocused) {
         const em =
-          (ref as MutableRefObject<HTMLInputElement>)?.current ??
+          (ref as RefObject<HTMLInputElement>)?.current ??
           document.getElementById("searchCommandInput");
         if (em) {
           em.focus();
@@ -38,6 +48,7 @@ const CommandPaletteInput = forwardRef(
       } else if (state.navStack.length === 0) {
         setHasFocused(false);
       }
+      /* eslint-disable-next-line  --  */
     }, [state.navStack.length]);
 
     useEffect(() => {
@@ -50,6 +61,7 @@ const CommandPaletteInput = forwardRef(
                 f.label.toLowerCase().includes(value.toLowerCase())
               ),
       });
+      /* eslint-disable-next-line  --  */
     }, [value]);
 
     const handleKeyDown: KeyboardEventHandler<HTMLInputElement> = (e): void => {

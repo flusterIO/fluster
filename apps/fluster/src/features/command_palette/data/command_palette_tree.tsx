@@ -7,6 +7,7 @@ import { toggleDarkMode } from "#/scaffold/state/slice";
 import { syncDatabase } from "@/lib/sync_database";
 import { ThemeCommandPaletteRoot } from "./tree/theme_root";
 import { CodeThemeCommandPaletteRoot } from "#/editor/data/command_palette/code_theme_command_palette_category";
+import { EmbeddedDocsCommandPaletteRoot } from "./tree/embedded_docs_root";
 
 export class CommandPaletteRoot extends CommandPaletteCategory {
   constructor() {
@@ -21,6 +22,7 @@ export class CommandPaletteRoot extends CommandPaletteCategory {
       new ThemeCommandPaletteRoot(),
       new CodeThemeCommandPaletteRoot(),
       new GeneralCommandPaletteItem("Sync database", syncDatabase),
+      new EmbeddedDocsCommandPaletteRoot(),
     ];
   }
 }

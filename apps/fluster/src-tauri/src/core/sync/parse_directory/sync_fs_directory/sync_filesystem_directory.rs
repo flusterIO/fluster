@@ -1,10 +1,9 @@
 use crossbeam_channel::unbounded;
 use tauri::ipc::Channel;
 
-use crate::core::{
-    db::db::get_database, sync::sync_local_database::SyncFilesystemDirectoryOptions,
-    types::errors::errors::FlusterError,
-};
+use crate::core::{database::db::get_database, types::errors::errors::FlusterError};
+
+use super::models::sync_filesystem_options::SyncFilesystemDirectoryOptions;
 
 // use super::sync_methods::sync_mdx_notes::sync_mdx_filesystem_notes;
 

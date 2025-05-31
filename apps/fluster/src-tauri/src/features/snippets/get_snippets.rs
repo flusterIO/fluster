@@ -5,7 +5,7 @@ use serde_arrow::from_record_batch;
 use specta::Type;
 
 use crate::core::{
-    db::{db::get_database, tables::table_paths::DatabaseTables},
+    database::{db::get_database, tables::table_paths::DatabaseTables},
     types::errors::errors::{FlusterError, FlusterResult},
 };
 

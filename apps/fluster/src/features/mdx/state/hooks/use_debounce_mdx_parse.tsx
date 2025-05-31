@@ -1,36 +1,11 @@
 "use client";
-import { useEffect, useState, Fragment, useRef } from "react";
+import React, { useEffect, useState, Fragment } from "react";
 import { run } from "@mdx-js/mdx";
 import * as runtime from "react/jsx-runtime";
 import * as devRuntime from "react/jsx-dev-runtime";
-import type { MDXComponents, MDXContent, MDXModule } from "mdx/types";
+import type { MDXModule } from "mdx/types";
 import { parseMdxString } from "#/mdx/data/parse/mdx_to_jsx";
-// import { getComponentMap } from "@ulld/component-map/client";
-// import { useAppConfig } from "./useAppConfig";
-//
-
-const getComponentMap = (mdxContent: string): object => {
-    console.log("mdxContent: ", mdxContent);
-    return {};
-};
-
-const Content = ({
-    MdxContentComponent,
-    raw,
-    className,
-}: {
-    MdxContentComponent: MDXContent;
-    raw: string;
-    className?: string;
-}) => {
-    const ref = useRef<HTMLDivElement>(null!);
-    /* useMathjaxBandaid(ref); */
-    return (
-        <div ref={ref} className={className}>
-            <MdxContentComponent components={getComponentMap(raw) as MDXComponents} />
-        </div>
-    );
-};
+import { ParsedMdxContent } from "#/mdx/presentation/parsed_mdx_content";
 
 export const useDebounceMdxParse = (
     initialValue: string = "",
@@ -68,11 +43,12 @@ export const useDebounceMdxParse = (
         } else {
             setTimer(setTimeout(() => handleParse(value || ""), debounceTimeout));
         }
+        /* eslint-disable-next-line  --  */
     }, [value]);
 
     const Component = ({ className }: { className?: string }) =>
         mdxModule ? (
-            <Content
+            <ParsedMdxContent
                 className={className}
                 MdxContentComponent={mdxModule.default}
                 raw={value}

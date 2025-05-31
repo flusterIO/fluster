@@ -1,4 +1,4 @@
-import { type ReactNode } from "react";
+import React, { type ReactNode } from "react";
 import { useMatch } from "react-router";
 import { AppRoutes } from "#/router/data/app_routes";
 import SnippetsFilterPanel from "#/snippets/presentation/filter_snippets_panel/filter_snippets_panel";

@@ -1,14 +1,8 @@
 use crate::core::{events::show_toast::ShowToast, types::errors::errors::FlusterError};
 use serde::{Deserialize, Serialize};
-use specta::Type;
 use tauri::{ipc::Channel, Emitter};
 
-#[derive(Type, Serialize, Deserialize, Debug)]
-pub struct SyncFilesystemDirectoryOptions {
-    pub dir_path: String,
-    pub bib_path: Option<String>,
-    pub n_threads: u32,
-}
+use super::parse_directory::sync_fs_directory::models::sync_filesystem_options::SyncFilesystemDirectoryOptions;
 
 /// This wraps a series of functions handled by the fluster_native_interface package, conditionally
 /// based on user settings and app state.

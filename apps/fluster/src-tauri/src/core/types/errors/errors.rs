@@ -6,6 +6,12 @@ use thiserror::Error;
 pub enum FlusterError {
     #[error("This error is entirely on us. If you continue to encounter this error, please submit an issue on Github.")]
     NotImplemented,
+
+    #[error("Fluster failed while attempting to save your settings.")]
+    FailToSaveSettings,
+
+    #[error("Fail to read settings from database.")]
+    FailToReadSettings,
     // Bibliography Errors
     #[error("Your specified bibliography path was not found.")]
     SettingsBibPathNotFound,
@@ -14,6 +20,9 @@ pub enum FlusterError {
     CannotParseBibfile,
 
     // Database Errors
+    #[error("Fluster couldn't find a valid data directory.")]
+    FailToFindDataDirectory,
+
     #[error("Failed to serialize an entity.")]
     FailToSerialize,
 
@@ -31,9 +40,6 @@ pub enum FlusterError {
 
     #[error("Fluster failed to connect to your database.")]
     FailToConnect,
-
-    #[error("Fluster failed attempting to install some database dependencies.")]
-    FailToInstallDatabaseDeps,
 
     #[error("Fluster failed to start the database server. This error may be harmless.")]
     FailToStartDb,

@@ -81,6 +81,71 @@ async readUtf8File(fsPath: string) : Promise<Result<string, FlusterError>> {
     if(e instanceof Error) throw e;
     else return { status: "error", error: e  as any };
 }
+},
+async getEmbeddedDoc(id: InternalEmbeddedDocsId) : Promise<string> {
+    return await TAURI_INVOKE("get_embedded_doc", { id });
+},
+async getDesktopHealthReport() : Promise<DesktopHealthReport> {
+    return await TAURI_INVOKE("get_desktop_health_report");
+},
+/**
+ * Returns the string which points the location of mathjax that needs to be passed to the front
+ * end. This is the location that mathjax is copied *to*, not from.
+ */
+async getMathjaxPath() : Promise<string> {
+    return await TAURI_INVOKE("get_mathjax_path");
+},
+async deleteSettingState(settingsId: string) : Promise<Result<null, FlusterError>> {
+    try {
+    return { status: "ok", data: await TAURI_INVOKE("delete_setting_state", { settingsId }) };
+} catch (e) {
+    if(e instanceof Error) throw e;
+    else return { status: "error", error: e  as any };
+}
+},
+async saveSettingState(jsonString: string, settingsId: string) : Promise<Result<null, FlusterError>> {
+    try {
+    return { status: "ok", data: await TAURI_INVOKE("save_setting_state", { jsonString, settingsId }) };
+} catch (e) {
+    if(e instanceof Error) throw e;
+    else return { status: "error", error: e  as any };
+}
+},
+async getSettingState(settingsId: string) : Promise<Result<string, FlusterError>> {
+    try {
+    return { status: "ok", data: await TAURI_INVOKE("get_setting_state", { settingsId }) };
+} catch (e) {
+    if(e instanceof Error) throw e;
+    else return { status: "error", error: e  as any };
+}
+},
+async initializeDatabase() : Promise<Result<null, FlusterError>> {
+    try {
+    return { status: "ok", data: await TAURI_INVOKE("initialize_database") };
+} catch (e) {
+    if(e instanceof Error) throw e;
+    else return { status: "error", error: e  as any };
+}
+},
+async initializeDesktop() : Promise<Result<null, FlusterError>> {
+    try {
+    return { status: "ok", data: await TAURI_INVOKE("initialize_desktop") };
+} catch (e) {
+    if(e instanceof Error) throw e;
+    else return { status: "error", error: e  as any };
+}
+},
+/**
+ * Copies mathjax directory to the user's machine, making it available to front end even while
+ * offline.
+ */
+async copyMathjax() : Promise<Result<null, FlusterError>> {
+    try {
+    return { status: "ok", data: await TAURI_INVOKE("copy_mathjax") };
+} catch (e) {
+    if(e instanceof Error) throw e;
+    else return { status: "error", error: e  as any };
+}
 }
 }
 
@@ -102,8 +167,14 @@ showToast: "show-toast"
 /** user-defined types **/
 
 export type DashboardData = Record<string, never>
+export type DesktopHealthReport = { database_tables_exist: boolean; mathjax_dir_exists: boolean; 
+/**
+ * This boolean describes the overall health of the desktop app. If any inidividual field
+ * that warrents re-initializing is false, this field will be false.
+ */
+healthy: boolean }
 export type DictionaryEntry = { label: string; body: string }
-export type FlusterError = "NotImplemented" | "SettingsBibPathNotFound" | "CannotParseBibfile" | "FailToSerialize" | "DuplicateId" | "FailToDelete" | "FailToCreateTable" | "FailToOpenTable" | "FailToConnect" | "FailToInstallDatabaseDeps" | "FailToStartDb" | "FailToStopDb" | "FailToCreateEntity" | "FailToCreateSnippet" | "FailToFind" | "FailToFindById" | "FailToCreatePath" | "FailToCreateTag" | "FailToCreateSubject" | { DataDirNotFound: [] } | { FailToClearDirectory: string } | "FailToCreateTopic" | "FailToLocateStorageDir" | { FailToReadFileSystemPath: string } | { FailToSaveFile: string } | { MdxParsingError: string } | { NoTitleError: string } | { AttemptedToParseFileWasntFound: string } | { FailToSaveMdxNote: string } | 
+export type FlusterError = "NotImplemented" | "FailToSaveSettings" | "FailToReadSettings" | "SettingsBibPathNotFound" | "CannotParseBibfile" | "FailToFindDataDirectory" | "FailToSerialize" | "DuplicateId" | "FailToDelete" | "FailToCreateTable" | "FailToOpenTable" | "FailToConnect" | "FailToStartDb" | "FailToStopDb" | "FailToCreateEntity" | "FailToCreateSnippet" | "FailToFind" | "FailToFindById" | "FailToCreatePath" | "FailToCreateTag" | "FailToCreateSubject" | { DataDirNotFound: [] } | { FailToClearDirectory: string } | "FailToCreateTopic" | "FailToLocateStorageDir" | { FailToReadFileSystemPath: string } | { FailToSaveFile: string } | { MdxParsingError: string } | { NoTitleError: string } | { AttemptedToParseFileWasntFound: string } | { FailToSaveMdxNote: string } | 
 /**
  * Taggables
  * 
@@ -121,6 +192,17 @@ export type FrontMatter = { id: string | null;
  */
 user_provided_id: string | null; title: string; summary: string | null; tags: SharedTaggableModel[]; subject: SharedTaggableModel | null; topic: SharedTaggableModel | null }
 export type GetSnippetsParams = { langs: string[] | null }
+export type InternalEmbeddedDocsId = 
+/**
+ * This is the super general public version of the model, designed to peak interest, not
+ * prove the model.
+ */
+"ModelIntro" | 
+/**
+ * This is the somewhat academic version of the model. Not fully peer-review worthy, but
+ * who gives a shit. It's right.
+ */
+"ModelFull"
 export type MdxNote = { id: string | null; raw_body: string; file_path: string | null; ctime: string | null; mtime: string | null; atime: string | null }
 export type MdxNoteGroup = { mdx: MdxNote; front_matter: FrontMatter; tags: SharedTaggableModel[] }
 export type SetDbConnectionUri = { uri: string }

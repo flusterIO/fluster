@@ -1,7 +1,4 @@
-use crate::core::{
-    db::{db::get_database, tables::table_paths::DatabaseTables},
-    types::errors::errors::{FlusterError, FlusterResult},
-};
+use crate::core::{database::db::get_database, types::errors::errors::FlusterResult};
 
 use super::{snippet_entity::SnippetEntity, snippet_model::SnippetModel};
 
@@ -15,11 +12,6 @@ use super::{snippet_entity::SnippetEntity, snippet_model::SnippetModel};
 pub async fn save_snippets(items: Vec<SnippetModel>, tags: Vec<Vec<String>>) -> FlusterResult<()> {
     let db_res = get_database().await;
     let db = db_res.lock().await;
-    let tbl = db
-        .open_table(DatabaseTables::Snippets.to_string())
-        .execute()
-        .await
-        .map_err(|_| FlusterError::FailToOpenTable)?;
     let tbl_manager = SnippetEntity {};
     tbl_manager.save_many(items, db).await?;
     Ok(())
@@ -29,7 +21,7 @@ pub async fn save_snippets(items: Vec<SnippetModel>, tags: Vec<Vec<String>>) -> 
 mod tests {
     use tauri::test::mock_app;
 
-    use crate::core::db::initialize_database::initialize_database;
+    use crate::core::utils::initialize::initialize_database::{self, initialize_database};
 
     use super::*;
 
@@ -48,7 +40,7 @@ mod tests {
         let app = mock_app();
 
         let handle = app.handle();
-        initialize_database(handle).await;
+        initialize_database().await;
 
         let res = save_snippets(vec![s], Vec::new()).await;
         // println!("Res: {:?}", res.as_ref().err().unwrap());
@@ -61,7 +53,7 @@ mod tests {
         let s = get_test_snippet();
         let app = mock_app();
         let handle = app.handle();
-        initialize_database(handle).await;
+        initialize_database().await;
 
         let res = save_snippets(vec![s], Vec::new()).await;
         // println!("Res: {:?}", res.as_ref().err().unwrap());

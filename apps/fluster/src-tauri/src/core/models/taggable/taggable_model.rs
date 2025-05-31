@@ -24,11 +24,6 @@ pub struct TagEntity {
     pub tag_type: TaggableTypeEnum,
 }
 
-pub struct TagFromContentResult {
-    pub tags: Vec<Taggable>,
-    pub parsed_content: String,
-}
-
 pub fn get_tag_regular_expression() -> Regex {
     Regex::new(r"\[\[#(?<body>[^#]+)\]\]").unwrap()
 }
@@ -51,32 +46,6 @@ impl Taggable {
             TaggableTypeEnum::Subject => "UPSERT subject SET val $tag_value RETURN id;",
             TaggableTypeEnum::Tag => "UPSERT tag SET val $tag_value RETURN id;",
         }
-    }
-    fn handle_arr_data<'a>(
-        d: &Pod,
-        taggables: &Vec<Taggable>,
-        tag_type: &TaggableTypeEnum,
-    ) -> Vec<Taggable> {
-        let mut tags = taggables.clone();
-        if !d.is_empty() {
-            let res = d.as_vec();
-            if res.is_ok() {
-                res.unwrap()
-                    .iter()
-                    .map(|x| {
-                        let s = x.as_string();
-                        if s.is_ok() {
-                            tags.push(Taggable {
-                                id: None,
-                                value: s.unwrap(),
-                                tag_type: tag_type.clone(),
-                            })
-                        }
-                    })
-                    .collect()
-            }
-        }
-        tags
     }
 }
 

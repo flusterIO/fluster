@@ -3,8 +3,6 @@ use serde::{Deserialize, Serialize};
 use include_dir::{include_dir, Dir};
 use specta::Type;
 
-static DOCS: Dir = include_dir!("$FLUSTER_NATIVE_ROOT/docs/embedded");
-
 #[derive(Type, Deserialize, Serialize)]
 pub enum InternalEmbeddedDocsId {
     // OnBoardingWelcome,
@@ -15,18 +13,7 @@ pub enum InternalEmbeddedDocsId {
     /// This is the super general public version of the model, designed to peak interest, not
     /// prove the model.
     ModelIntro,
-    // /// This is the somewhat academic version of the model. Not fully peer-review worthy, but
-    // /// who gives a shit. It's right.
-    // ModelFull,
-}
-
-pub fn get_embedded_doc(id: InternalEmbeddedDocsId) -> String {
-    let p = match id {
-        InternalEmbeddedDocsId::ModelIntro => DOCS
-            .get_file("/my_work/full_model.mdx")
-            .expect("Did not successfully load full_model.mdx"),
-    };
-    p.contents_utf8()
-        .expect("Failed to load contents from an embedded doc.")
-        .to_string()
+    /// This is the somewhat academic version of the model. Not fully peer-review worthy, but
+    /// who gives a shit. It's right.
+    ModelFull,
 }

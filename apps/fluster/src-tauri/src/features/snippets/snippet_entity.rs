@@ -8,7 +8,7 @@ use serde_arrow::from_record_batch;
 use std::{ops::Index, sync::Arc};
 
 use crate::core::{
-    db::tables::table_paths::DatabaseTables,
+    database::tables::table_paths::DatabaseTables,
     types::{
         errors::errors::{FlusterError, FlusterResult},
         traits::db_entity::DbEntity,
@@ -98,9 +98,9 @@ impl DbEntity<SnippetModel> for SnippetEntity {
     }
 
     fn to_record_batch(&self, item: &SnippetModel, schema: Arc<Schema>) -> RecordBatch {
-        let now = Utc::now();
-        let ctime = Date64Array::from(vec![item.ctime.unwrap_or(now).timestamp_millis()]);
-        let utime = Date64Array::from(vec![item.utime.unwrap_or(now).timestamp_millis()]);
+        let now = Utc::now().timestamp_millis();
+        let ctime = Date64Array::from(vec![item.ctime.unwrap_or(now)]);
+        let utime = Date64Array::from(vec![item.utime.unwrap_or(now)]);
         let body = arrow_array::StringArray::from(vec![item.body.clone()]);
         let id = arrow_array::StringArray::from(vec![item
             .id
