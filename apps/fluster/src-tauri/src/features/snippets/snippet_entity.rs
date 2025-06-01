@@ -79,8 +79,80 @@ impl SnippetEntity {
         // RESUME: Come back here when back online and able to look at the docs for querying
         // with strings. This needs to turn into an upsert statement.
         // tbl.merge_insert(j)
-        let res = tbl.add(stream).execute().await;
-        Err(FlusterError::NotImplemented)
+        tbl.add(stream)
+            .execute()
+            .await
+            .map_err(|_| FlusterError::FailToCreateEntity)?;
+        Ok(())
+    }
+
+    async fn get_many_with_langs(
+        db: FlusterDb<'_>,
+        langs: Vec<String>,
+    ) -> FlusterResult<Vec<SnippetModel>> {
+        let tbl = db
+            .open_table(DatabaseTables::Snippets.to_string())
+            .execute()
+            .await
+            .map_err(|_| FlusterError::FailToConnect)?;
+        let items_batch = tbl
+            .query()
+            .only_if(format!("lang in ({})", langs.join(", ")))
+            .execute()
+            .await
+            .map_err(|_| FlusterError::FailToConnect)?
+            .try_collect::<Vec<_>>()
+            .await
+            .map_err(|_| FlusterError::FailToCreateEntity)?;
+        if items_batch.is_empty() {
+            return Ok(Vec::new());
+        }
+        let mut items: Vec<SnippetModel> = Vec::new();
+        for batch in items_batch.iter() {
+            let data: Vec<SnippetModel> =
+                from_record_batch(batch).map_err(|_| FlusterError::FailToSerialize)?;
+            items.extend(data);
+        }
+        Ok(items)
+    }
+
+    async fn get_many_no_langs(db: FlusterDb<'_>) -> FlusterResult<Vec<SnippetModel>> {
+        let tbl = db
+            .open_table(DatabaseTables::Snippets.to_string())
+            .execute()
+            .await
+            .map_err(|_| FlusterError::FailToConnect)?;
+        let items_batch = tbl
+            .query()
+            .execute()
+            .await
+            .map_err(|_| FlusterError::FailToConnect)?
+            .try_collect::<Vec<_>>()
+            .await
+            .map_err(|_| FlusterError::FailToCreateEntity)?;
+        if items_batch.is_empty() {
+            return Ok(Vec::new());
+        }
+        // let items: Vec<SnippetModel> =
+        //     from_record_batch(items_batch).map_err(|_| FlusterError::FailToSerialize)?;
+        let mut items: Vec<SnippetModel> = Vec::new();
+        for batch in items_batch.iter() {
+            let data: Vec<SnippetModel> =
+                from_record_batch(batch).map_err(|_| FlusterError::FailToSerialize)?;
+            items.extend(data);
+        }
+        Ok(items)
+    }
+
+    pub async fn get_many(
+        db: FlusterDb<'_>,
+        langs: Option<Vec<String>>,
+    ) -> FlusterResult<Vec<SnippetModel>> {
+        if langs.is_some() {
+            SnippetEntity::get_many_with_langs(db, langs.unwrap()).await
+        } else {
+            SnippetEntity::get_many_no_langs(db).await
+        }
     }
 }
 

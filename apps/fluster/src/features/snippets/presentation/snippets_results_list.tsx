@@ -1,5 +1,5 @@
-import { commands, SnippetItem } from "@/lib/bindings";
-import { useEffect, useState, type ReactNode } from "react";
+import { commands, SnippetModel } from "@/lib/bindings";
+import React, { useEffect, useState, type ReactNode } from "react";
 import { useSnippetContext } from "../state/snippets_provider";
 import SnippetListItem from "./snippet_item/main";
 import NoSnippetsFound from "./no_snippets_found";
@@ -8,7 +8,7 @@ import { showToast } from "#/toast_notification/data/events/show_toast";
 
 const SnippetsResultsList = (): ReactNode => {
     const { languageFilter } = useSnippetContext();
-    const [results, setResults] = useState<SnippetItem[] | "loading">("loading");
+    const [results, setResults] = useState<SnippetModel[] | "loading">("loading");
     const getNewSnippetData = async (langs: string[]): Promise<void> => {
         const res = await commands.getSnippets({
             langs,
