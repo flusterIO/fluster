@@ -7,6 +7,7 @@ import {
     useOnboardingStateDispatch,
 } from "#/onboarding/state/onboarding_context";
 import { useNavigate } from "react-router";
+import { AppRoutes } from "#/router/data/app_routes";
 
 const OnboardingSetupCompleteScreen = (): ReactNode => {
     const state = useOnboardingStateContext();
@@ -14,6 +15,7 @@ const OnboardingSetupCompleteScreen = (): ReactNode => {
     const nav = useNavigate();
     const handleClick = async (): Promise<void> => {
         incrementOnboardingPageIndex(state.pageIndex, dispatch, nav);
+        nav(AppRoutes.dashboard);
     };
     return (
         <div className="max-w-[768px] flex flex-col justify-center items-start gap-8 px-8">
