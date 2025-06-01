@@ -1,54 +1,11 @@
-import { NavigationItem } from "@/models/navigation_item";
-import { globalNavigationItems } from "@/models/static_model_data/navigation_items";
-import { ReactNode, createContext, useReducer, useContext } from "react";
-
-export interface DesktopScaffoldState {
-    sideNavButtons: NavigationItem[];
-}
-
-const defaultInitialValues: DesktopScaffoldState = {
-    sideNavButtons: globalNavigationItems(),
-};
-
-export const DesktopScaffoldContext =
-    createContext<DesktopScaffoldState>(defaultInitialValues);
-
-export enum ScaffoldActionTypes {
-    setSideNavButtons,
-}
-
-type DesktopScaffoldContextActions = {
-    type: ScaffoldActionTypes.setSideNavButtons;
-    payload: NavigationItem[];
-};
-
-export const DesktopScaffoldDispatchContext = createContext<
-    React.Dispatch<DesktopScaffoldContextActions>
->(null!);
-
-export const useDesktopScaffoldContext = () =>
-    useContext(DesktopScaffoldContext);
-export const useDesktopScaffoldDispatch = () =>
-    useContext(DesktopScaffoldDispatchContext);
-
-export const DesktopScaffoldContextReducer = (
-    state: DesktopScaffoldState,
-    action: DesktopScaffoldContextActions,
-): DesktopScaffoldState => {
-    switch (action.type) {
-        case ScaffoldActionTypes.setSideNavButtons: {
-            return {
-                ...state,
-                sideNavButtons: action.payload,
-            };
-        }
-        default: {
-            return state;
-        }
-    }
-};
-
-DesktopScaffoldContextReducer.displayName = "DesktopScaffoldContextReducer";
+import React, { ReactNode, useReducer } from "react";
+import {
+    DesktopScaffoldContext,
+    DesktopScaffoldContextReducer,
+    desktopScaffoldDefaultInitialValues,
+    DesktopScaffoldDispatchContext,
+    DesktopScaffoldState,
+} from "./scaffold_context";
 
 interface DesktopScaffoldProviderProps {
     children: ReactNode;
@@ -62,8 +19,8 @@ export const DesktopScaffoldProvider = ({
     const [state, dispatch] = useReducer(
         DesktopScaffoldContextReducer,
         initialValues
-            ? { ...initialValues, ...defaultInitialValues }
-            : defaultInitialValues,
+            ? { ...initialValues, ...desktopScaffoldDefaultInitialValues }
+            : desktopScaffoldDefaultInitialValues
     );
 
     return (

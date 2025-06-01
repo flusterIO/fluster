@@ -1,11 +1,12 @@
-import React, { ReactNode, useReducer } from "react";
+import React, { ReactNode, useEffect, useReducer } from "react";
 import { HealthContext } from "./health_context";
 import { HealthState } from "./types";
 import { HealthContextReducer } from "./health_reducer";
 import { useEventListener, useIsomorphicLayoutEffect } from "@fluster.io/dev";
 import { commands } from "@/lib/bindings";
-import HealthOnboardingSwitch from "./health_onboarding_switch";
 import { HealthDispatchContext } from "./health_dispatch_context";
+import { useNavigate } from "react-router";
+import { AppRoutes } from "#/router/data/app_routes";
 
 interface HealthProviderProps {
     children: ReactNode;
@@ -15,6 +16,7 @@ interface HealthProviderProps {
 declare global {
     interface WindowEventMap {
         "request-new-health-report": CustomEvent<object>;
+        "set-health-as-being-checked": CustomEvent<object>;
     }
 }
 
@@ -46,8 +48,27 @@ export const HealthProvider = ({
         checkHealth();
     });
 
+    useEventListener("set-health-as-being-checked", () => {
+        dispatch({
+            type: "set_health_report_as_being_checked",
+            payload: null,
+        });
+    });
+
+    const nav = useNavigate();
+
+    /// FIXME: Disabled automatically checking health for now because it was causing issues with navigation on the onboarding screens. Fix this later if it becomes too cumbersome to do it through events.
+    useEffect(() => {
+        console.log("state.report: ", state);
+        if (!state.report?.healthy && state.have_checked_health) {
+            console.log(`Navigating to onboaring page.`);
+            nav(AppRoutes.onboarding);
+        }
+        /* eslint-disable-next-line  --  */
+    }, [state.have_checked_health]);
+
     useIsomorphicLayoutEffect(() => {
-        if (!state.have_checked_health) {
+        if (state.have_checked_health === false) {
             checkHealth();
         }
     }, [state.have_checked_health]);
@@ -55,7 +76,7 @@ export const HealthProvider = ({
     return (
         <HealthContext.Provider value={state}>
             <HealthDispatchContext.Provider value={dispatch}>
-                <HealthOnboardingSwitch>{children}</HealthOnboardingSwitch>
+                {children}
             </HealthDispatchContext.Provider>
         </HealthContext.Provider>
     );

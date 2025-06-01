@@ -6,17 +6,13 @@ import "./styles/math.scss";
 import App from "./App";
 import ReduxProvider from "@/state/redux_provider";
 import { DesktopScaffoldProvider } from "#/scaffold/state/scaffold_provider.tsx";
-import { HealthProvider } from "#/health/state/health_provider";
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
     <React.StrictMode>
-        {/* <script src={} id="MathJax-script" async></script> */}
         <ReduxProvider>
-            <HealthProvider>
-                <DesktopScaffoldProvider>
-                    <App />
-                </DesktopScaffoldProvider>
-            </HealthProvider>
+            <DesktopScaffoldProvider>
+                <App />
+            </DesktopScaffoldProvider>
         </ReduxProvider>
     </React.StrictMode>
 );

@@ -14,7 +14,7 @@ export const incrementOnboardingPageIndex = (
             payload: null,
         });
     } else {
-        nav(AppRoutes.dashboard.toString());
+        // nav(AppRoutes.dashboard.toString());
     }
 };
 

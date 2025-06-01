@@ -1,11 +1,11 @@
 import { NavigationItem, NavItemPosition } from "@/models/navigation_item";
 import { SunMoonIcon } from "lucide-react";
-import { useMemo, type ReactNode } from "react";
+import React, { useMemo, type ReactNode } from "react";
 import { useDispatch } from "react-redux";
 import { NavLink, useMatch } from "react-router";
 import { toggleDarkMode } from "../state/slice";
 import { cn } from "@/lib/utils";
-import { useDesktopScaffoldContext } from "../state/scaffold_provider.tsx";
+import { useDesktopScaffoldContext } from "../state/scaffold_context";
 
 const SideNavigationItem = ({ item }: { item: NavigationItem }): ReactNode => {
     const Icon = item.icon;

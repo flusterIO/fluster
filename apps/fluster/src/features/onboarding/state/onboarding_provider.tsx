@@ -20,6 +20,7 @@ export const OnboardingStateContextReducer = (
             };
         }
         case "increment_onboarding_index": {
+            console.log(`incrementing`);
             return {
                 ...state,
                 pageIndex: state.pageIndex + 1,
