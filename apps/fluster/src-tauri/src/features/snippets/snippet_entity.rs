@@ -22,7 +22,18 @@ use super::{get_snippet_params::GetSnippetsParams, snippet_model::SnippetModel};
 pub struct SnippetEntity {}
 
 impl SnippetEntity {
-    pub async fn get_by_id(&self, id: String, conn: FlusterDb<'_>) -> FlusterResult<SnippetModel> {
+    pub async fn delete_by_id(id: String, conn: FlusterDb<'_>) -> FlusterResult<()> {
+        let tbl = conn
+            .open_table(DatabaseTables::Snippets.to_string())
+            .execute()
+            .await
+            .map_err(|_| FlusterError::FailToFind)?;
+        tbl.delete(&format!("id = \"{}\"", id))
+            .await
+            .map_err(|_| FlusterError::FailToDelete)?;
+        Ok(())
+    }
+    pub async fn get_by_id(id: String, conn: FlusterDb<'_>) -> FlusterResult<SnippetModel> {
         let tbl = conn
             .open_table(DatabaseTables::Snippets.to_string())
             .execute()
@@ -30,7 +41,7 @@ impl SnippetEntity {
             .map_err(|_| FlusterError::FailToFind)?;
         let res = tbl
             .query()
-            .only_if(format!("id = {}", id))
+            .only_if(format!("id = \"{}\"", id))
             .execute()
             .await
             .map_err(|_| FlusterError::FailToFind)?
@@ -103,7 +114,6 @@ impl SnippetEntity {
                 .collect::<Vec<String>>()
                 .join(", ")
         );
-        println!("Query: {:?}", query_string);
         let items_batch = tbl
             .query()
             .only_if(query_string)

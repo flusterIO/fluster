@@ -38,7 +38,7 @@ async getSnippets(opts: GetSnippetsParams) : Promise<Result<SnippetModel[], Flus
     else return { status: "error", error: e  as any };
 }
 },
-async deleteSnippetById(id: number) : Promise<Result<null, FlusterError>> {
+async deleteSnippetById(id: string) : Promise<Result<null, FlusterError>> {
     try {
     return { status: "ok", data: await TAURI_INVOKE("delete_snippet_by_id", { id }) };
 } catch (e) {

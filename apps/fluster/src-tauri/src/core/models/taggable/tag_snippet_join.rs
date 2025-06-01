@@ -14,7 +14,6 @@ pub struct TagSnippetJoinModel {
 
 impl TagSnippetJoinModel {
     pub async fn get_snippet(&self, conn: FlusterDb<'_>) -> FlusterResult<SnippetModel> {
-        let tbl_manager = SnippetEntity {};
-        tbl_manager.get_by_id(self.snippet_id.clone(), conn).await
+        SnippetEntity::get_by_id(self.snippet_id.clone(), conn).await
     }
 }
