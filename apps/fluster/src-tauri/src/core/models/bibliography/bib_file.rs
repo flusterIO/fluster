@@ -1,9 +1,3 @@
-use std::{path::PathBuf, str::FromStr};
-
-use crate::core::types::{errors::errors::FlusterError, FlusterDb};
-use biblatex::{Bibliography, Entry};
-use tokio::fs;
-
 pub struct BibtexFile {
     pub path: Option<String>,
     // pub entries: Vec<BibEntryEntity>,

@@ -50,25 +50,3 @@ pub async fn sync_mdx_filesystem_notes(
     }
     Ok(())
 }
-
-#[cfg(test)]
-mod tests {
-    use crate::core::db::db::get_database;
-
-    use super::*;
-
-    // #[tokio::test]
-    // async fn mdx_note_serializes_to_sql() {
-    //     // let p = fluster_test_utils::test_utils::get_test_mdx_path();
-    //     let db = fluster_test_utils::test_utils::get_memory_database().await;
-    //     let (error_sender, error_receiver) = unbounded::<FlusterError>();
-    //     let res =
-    //         sync_mdx_filesystem_notes("/Users/bigsexy/Desktop/notes/", &error_sender, &db).await;
-    //     assert!(
-    //         res.is_ok(),
-    //         "Parses notes directory without throwing an error."
-    //     );
-
-    //     // assert_eq!(result, 4);
-    // }
-}

@@ -1,5 +1,4 @@
 use crate::core::{events::show_toast::ShowToast, types::errors::errors::FlusterError};
-use serde::{Deserialize, Serialize};
 use tauri::{ipc::Channel, Emitter};
 
 use super::parse_directory::sync_fs_directory::models::sync_filesystem_options::SyncFilesystemDirectoryOptions;

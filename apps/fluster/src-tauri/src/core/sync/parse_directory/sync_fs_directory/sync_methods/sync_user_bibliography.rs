@@ -1,10 +1,5 @@
 pub use crossbeam_channel::Sender;
 
-use crate::core::{
-    models::bibliography::bib_file::BibtexFile,
-    types::{errors::errors::FlusterError, FlusterDb},
-};
-
 // pub async fn sync_user_bibliography(
 //     bib_path: &str,
 //     error_sender: &Sender<FlusterError>,

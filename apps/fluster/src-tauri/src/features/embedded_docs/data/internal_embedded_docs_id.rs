@@ -1,6 +1,5 @@
 use serde::{Deserialize, Serialize};
 
-use include_dir::{include_dir, Dir};
 use specta::Type;
 
 #[derive(Type, Deserialize, Serialize)]

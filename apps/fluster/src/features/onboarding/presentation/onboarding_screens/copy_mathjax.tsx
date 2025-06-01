@@ -8,14 +8,16 @@ import {
     useOnboardingStateDispatch,
 } from "#/onboarding/state/onboarding_context";
 import { useNavigate } from "react-router";
+import {
+  info,
+} from '@tauri-apps/plugin-log';
 
 const OnboardingCopyMathjaxScreen = (): ReactNode => {
     const state = useOnboardingStateContext();
     const dispatch = useOnboardingStateDispatch();
     const nav = useNavigate();
     const handleClick = async (): Promise<void> => {
-        /* RESUME: Pick back up here and run the necessary initialization steps one by one. */
-        console.log(`Initializing database...`);
+        info(`Initializing database...`);
         const res = await commands.copyMathjax();
         if (res.status === "error") {
             console.warn(`Fluster encountered an error while attempting to copy necessary mathjajx files.

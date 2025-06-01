@@ -1,51 +1,16 @@
-use futures_util::TryStreamExt;
-use lancedb::query::{ExecutableQuery, QueryBase};
-use serde::{Deserialize, Serialize};
-use serde_arrow::from_record_batch;
-use specta::Type;
-
-use crate::core::{
-    database::{db::get_database, tables::table_paths::DatabaseTables},
-    types::errors::errors::{FlusterError, FlusterResult},
+use crate::{
+    core::{database::db::get_database, types::errors::errors::FlusterResult},
+    features::snippets::snippet_entity::SnippetEntity,
 };
 
-use super::snippet_model::SnippetModel;
-
-#[derive(Type, Debug, Serialize, Deserialize)]
-pub struct GetSnippetsParams {
-    pub langs: Option<Vec<String>>,
-}
+use super::{get_snippet_params::GetSnippetsParams, snippet_model::SnippetModel};
 
 #[tauri::command]
 #[specta::specta]
 pub async fn get_snippets(opts: GetSnippetsParams) -> FlusterResult<Vec<SnippetModel>> {
     let db_res = get_database().await;
     let db = db_res.lock().await;
-    let tbl = db
-        .open_table(DatabaseTables::Snippets.to_string())
-        .execute()
-        .await
-        .map_err(|_| FlusterError::FailToFind)?;
-    let mut query = tbl.query().select(lancedb::query::Select::All);
-    if opts.langs.is_some() {
-        let lang_string = opts.langs.unwrap().join(", ");
-        query = query.only_if(format!("lang in ({})", lang_string))
-    }
-    let res = query
-        .execute()
-        .await
-        .map_err(|_| FlusterError::FailToFind)?
-        .try_collect::<Vec<_>>()
-        .await
-        .map_err(|_| FlusterError::FailToFind)?;
-    let mut items: Vec<SnippetModel> = Vec::new();
-    for snippet_batch in res.iter() {
-        let batch_snippet: Vec<SnippetModel> =
-            from_record_batch(snippet_batch).map_err(|_| FlusterError::FailToSerialize)?;
-        items.extend(batch_snippet);
-    }
-    println!("Items: {:?}", items);
-    Ok(items)
+    SnippetEntity::get_many(db, opts).await
 }
 
 #[cfg(test)]
@@ -54,15 +19,29 @@ mod tests {
     use super::*;
 
     #[tokio::test]
-    async fn gets_snippets() {
-        let items = get_snippets(GetSnippetsParams {
-            langs: Some(vec!["typescript".to_string()]),
-        })
-        .await;
+    async fn gets_snippets_without_langs() {
+        let items = get_snippets(GetSnippetsParams { langs: None }).await;
+        println!("Data: {:?}", items);
         assert!(
             items.is_ok(),
             "Snippets are returned without throwing an error."
         );
+        assert!(!items.unwrap().is_empty(), "Returned a non-empty list.");
+        // assert_eq!(result, 4);
+    }
+
+    #[tokio::test]
+    async fn gets_snippets_with_langs() {
+        let items = get_snippets(GetSnippetsParams {
+            langs: Some(vec!["python".to_string()]),
+        })
+        .await;
+        println!("Data: {:?}", items);
+        assert!(
+            items.is_ok(),
+            "Snippets are returned without throwing an error."
+        );
+        assert!(!items.unwrap().is_empty(), "Returned a non-empty list.");
         // assert_eq!(result, 4);
     }
 }

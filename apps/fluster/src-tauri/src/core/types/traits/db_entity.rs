@@ -2,10 +2,9 @@ use arrow_array::RecordBatch;
 use arrow_schema::Schema;
 use serde::{Deserialize, Serialize};
 use specta::Type;
-use sqlx::prelude::FromRow;
 use std::sync::Arc;
 
-#[derive(Deserialize, Type, Serialize, FromRow)]
+#[derive(Deserialize, Type, Serialize)]
 pub struct DbRecord {
     pub id: i32,
 }

@@ -6,9 +6,17 @@ import PanelLeftReducer from "#/panel_left/state/slice.ts";
 import PanelBottomReducer from "#/panel_bottom/state/slice.ts";
 import CodeReducer from "#/editor/state/slice.ts";
 import { AppState } from "./initial_state";
-import { persistReducer, PersistConfig } from "redux-persist";
+import {
+    persistReducer,
+    PersistConfig,
+    FLUSH,
+    REHYDRATE,
+    PAUSE,
+    PERSIST,
+    PURGE,
+    REGISTER,
+} from "redux-persist";
 import { stateStorage } from "./state_storage";
-import persistStore from "redux-persist/es/persistStore";
 
 const reducers: Record<keyof AppState, Reducer> = {
     scaffold: ScaffoldReducer,
@@ -30,6 +38,12 @@ const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 const store = configureStore({
     reducer: persistedReducer,
+    middleware: (getDefaultMiddleware) =>
+        getDefaultMiddleware({
+            serializableCheck: {
+                ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+            },
+        }),
 });
 
 export default store;

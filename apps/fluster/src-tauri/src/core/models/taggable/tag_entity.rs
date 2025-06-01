@@ -1,6 +1,5 @@
 use arrow_array::{Date64Array, RecordBatch};
 use arrow_schema::{DataType, Field, Schema};
-use chrono::TimeZone;
 use gray_matter::{ParsedEntity, Pod};
 use rayon::iter::IntoParallelRefIterator;
 use rayon::prelude::*;
@@ -24,20 +23,15 @@ impl TagEntity {
     pub fn get_tag_regular_expression() -> Regex {
         Regex::new(r"\[\[#(?<body>[^#]+)\]\]").unwrap()
     }
-    fn handle_arr_data<'a>(
-        d: &Pod,
-        taggables: &Vec<SharedTaggableModel>,
-    ) -> Vec<SharedTaggableModel> {
+    fn handle_arr_data(d: &Pod, taggables: &Vec<SharedTaggableModel>) -> Vec<SharedTaggableModel> {
         let mut tags = taggables.clone();
         if !d.is_empty() {
             let res = d.as_vec();
-            if res.is_ok() {
-                res.unwrap()
-                    .iter()
+            if let Ok(_res) = res {
+                _res.iter()
                     .map(|x| {
-                        let s = x.as_string();
-                        if s.is_ok() {
-                            tags.push(SharedTaggableModel::new(s.unwrap(), None))
+                        if let Ok(s) = x.as_string() {
+                            tags.push(SharedTaggableModel::new(s, None));
                         }
                     })
                     .collect()
@@ -93,14 +87,6 @@ impl DbEntity<SharedTaggableModel> for TagEntity {
         Arc::new(Schema::new(vec![
             Field::new("value", DataType::Utf8, false),
             Field::new("ctime", DataType::Date64, false),
-            // Field::new(
-            //     "vector",
-            //     DataType::FixedSizeList(
-            //         Arc::new(Field::new("item", DataType::Float32, true)),
-            //         vector_dim,
-            //     ),
-            //     true, // Vectors can be nullable if you intend to have some entries without embeddings
-            // ),
         ]))
     }
 }
@@ -109,7 +95,7 @@ impl DbEntity<SharedTaggableModel> for TagEntity {
 mod tests {
     use arrow_array::{RecordBatchIterator, RecordBatchReader};
 
-    use crate::core::db::{db::get_database, tables::table_paths::DatabaseTables};
+    use crate::core::database::{db::get_database, tables::table_paths::DatabaseTables};
 
     use super::*;
 

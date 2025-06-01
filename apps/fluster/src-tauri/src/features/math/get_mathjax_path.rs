@@ -1,5 +1,3 @@
-use include_dir::{include_dir, Dir};
-
 use crate::core::database::db::get_data_dir;
 
 /// Returns the string which points the location of mathjax that needs to be passed to the front

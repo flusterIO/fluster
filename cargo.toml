@@ -4,7 +4,7 @@ members = [
     "apps/fluster/src-tauri",
     "packages/fluster_grpc",
     "packages/fluster_test_utils",
-    "packages/fluster_lua", "packages/fluster_py_internal",
+    "packages/fluster_lua",
 ]
 
 
@@ -42,12 +42,12 @@ dotenvy = "0.15"
 # [build]
 # rustflags = ["--cfg", "tokio_unstable"]
 
+[profile.dev.package.lancedb]
+opt-level = 1
+
 [profile.release]
 lto = true
 strip = true
 opt-level = 3
 panic = 'abort'
 codegen-units = 1
-
-[profile.dev.package.sqlx-macros]
-opt-level = 3

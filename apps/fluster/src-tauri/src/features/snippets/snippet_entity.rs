@@ -16,7 +16,7 @@ use crate::core::{
     },
 };
 
-use super::snippet_model::SnippetModel;
+use super::{get_snippet_params::GetSnippetsParams, snippet_model::SnippetModel};
 
 #[derive(Serialize, Deserialize, Debug)]
 pub struct SnippetEntity {}
@@ -95,15 +95,27 @@ impl SnippetEntity {
             .execute()
             .await
             .map_err(|_| FlusterError::FailToConnect)?;
+        let query_string = format!(
+            "lang in ({})",
+            langs
+                .iter()
+                .map(|x| format!("\"{}\"", x))
+                .collect::<Vec<String>>()
+                .join(", ")
+        );
+        println!("Query: {:?}", query_string);
         let items_batch = tbl
             .query()
-            .only_if(format!("lang in ({})", langs.join(", ")))
+            .only_if(query_string)
             .execute()
             .await
-            .map_err(|_| FlusterError::FailToConnect)?
+            .map_err(|e| {
+                println!("Error: {:?}", e);
+                FlusterError::FailToFind
+            })?
             .try_collect::<Vec<_>>()
             .await
-            .map_err(|_| FlusterError::FailToCreateEntity)?;
+            .map_err(|_| FlusterError::FailToFind)?;
         if items_batch.is_empty() {
             return Ok(Vec::new());
         }
@@ -146,10 +158,10 @@ impl SnippetEntity {
 
     pub async fn get_many(
         db: FlusterDb<'_>,
-        langs: Option<Vec<String>>,
+        opts: GetSnippetsParams,
     ) -> FlusterResult<Vec<SnippetModel>> {
-        if langs.is_some() {
-            SnippetEntity::get_many_with_langs(db, langs.unwrap()).await
+        if opts.langs.is_some() {
+            SnippetEntity::get_many_with_langs(db, opts.langs.unwrap()).await
         } else {
             SnippetEntity::get_many_no_langs(db).await
         }

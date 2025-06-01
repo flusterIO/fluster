@@ -3,19 +3,18 @@
 [[profiles.default.overrides]]
 filter = "core::db::initialize_database::tests::initializes_database"
 priority = 100
-slow-timeout = "10m"
 
 # -- Run all save tests. The C & U in CRUD.
 [[profiles.default.overrides]]
 filter = "features::snippets::save_snippet::tests::saves_snippet_successfully"
 priority = 10
 
-[[profiles.default.overrides]]
-filter = "api::models::notes::mdx::mdx_note::tests::saves_parsed_note_successfully"
-priority = 10
+# [[profiles.default.overrides]]
+# filter = "api::models::notes::mdx::mdx_note::tests::saves_parsed_note_successfully"
+# priority = 10
 
 # -- Make  all get methods a negative priority and all save methods positive to avoid clashing because of order.
 
-[[profiles.default.overrides]]
-filter = "features::snippets::get_snippet_by_id::tests::gets_snippet_by_id"
-priority = -10
+# [[profiles.default.overrides]]
+# filter = "features::snippets::get_snippet_by_id::tests::gets_snippet_by_id"
+# priority = -10

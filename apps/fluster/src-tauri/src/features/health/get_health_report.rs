@@ -7,7 +7,7 @@ use crate::{
         database::{db::get_database, tables::table_paths::DatabaseTables},
         types::FlusterDb,
     },
-    features::math::get_mathjax_path::{self, get_mathjax_path},
+    features::math::get_mathjax_path::get_mathjax_path,
 };
 
 #[derive(Type, Serialize, Deserialize, Clone)]

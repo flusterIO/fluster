@@ -15,7 +15,7 @@ pub async fn sync_directory(
     let (error_sender, error_receiver) = unbounded::<FlusterError>();
 
     let db_res = get_database().await;
-    let mut db = db_res.lock().await;
+    let db = db_res.lock().await;
 
     // This needs to go before joining threads, but after all of the thread initialization
     for err in error_receiver.iter() {
