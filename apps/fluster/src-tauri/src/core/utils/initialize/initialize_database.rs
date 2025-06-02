@@ -13,6 +13,7 @@ use crate::{
         },
     },
     features::{
+        bibliography::data::bib_entry_entity::BibEntryEntity,
         math::data::{
             equation_entity::EquationEntity, equation_snippet_entity::EquationSnippetEntity,
             equation_tag_entity::EquationTagEntity,
@@ -97,6 +98,10 @@ pub async fn initialize_database() -> FlusterResult<()> {
         TableInitData {
             table: DatabaseTables::EquationTag,
             entity: EquationTagEntity::arrow_schema(),
+        },
+        TableInitData {
+            table: DatabaseTables::BibEntry,
+            entity: BibEntryEntity::arrow_schema(),
         },
     ];
     if let Ok(db_path) = get_database_path() {
