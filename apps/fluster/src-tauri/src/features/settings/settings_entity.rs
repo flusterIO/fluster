@@ -8,6 +8,7 @@ use std::{ops::Index, sync::Arc};
 
 use crate::core::{
     database::tables::table_paths::DatabaseTables,
+    models::settings::settings::Settings,
     types::{
         errors::errors::{FlusterError, FlusterResult},
         traits::db_entity::DbEntity,
@@ -36,10 +37,9 @@ impl SettingsEntity {
             .execute()
             .await
             .map_err(|_| FlusterError::FailToSaveSettings)?;
-        let tbl_manager = SettingsEntity {};
         let schema = SettingsEntity::arrow_schema();
         let batches: Vec<Result<RecordBatch, ArrowError>> =
-            vec![Ok(tbl_manager.to_record_batch(&data, schema.clone()))];
+            vec![Ok(SettingsEntity::to_record_batch(&data, schema.clone()))];
         let stream = Box::new(RecordBatchIterator::new(
             batches.into_iter(),
             schema.clone(),
@@ -98,7 +98,7 @@ impl SettingsEntity {
 }
 
 impl DbEntity<SettingsModel> for SettingsEntity {
-    fn to_record_batch(&self, item: &SettingsModel, schema: Arc<Schema>) -> RecordBatch {
+    fn to_record_batch(item: &SettingsModel, schema: Arc<Schema>) -> RecordBatch {
         let id = StringArray::from(vec![item.id.clone()]);
         let body = StringArray::from(vec![item.body.clone()]);
         // Create the vector array

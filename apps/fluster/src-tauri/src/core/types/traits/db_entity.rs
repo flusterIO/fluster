@@ -11,7 +11,7 @@ pub struct DbRecord {
 
 pub trait DbEntity<T> {
     fn arrow_schema() -> Arc<Schema>;
-    fn to_record_batch(&self, item: &T, schema: Arc<Schema>) -> RecordBatch;
+    fn to_record_batch(item: &T, schema: Arc<Schema>) -> RecordBatch;
 }
 
 pub type FlusterDateTime = chrono::DateTime<chrono::Utc>;

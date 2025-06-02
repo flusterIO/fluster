@@ -66,7 +66,7 @@ pub fn run() {
         "../src/core/lib/bindings.ts",
     )
     .expect("Exports bindings to typescript.");
-    tauri::Builder::default() 
+    tauri::Builder::default()
         .plugin(tauri_plugin_dialog::init())
         .plugin(tauri_plugin_single_instance::init(|_, _, _| {}))
         .plugin(tauri_plugin_opener::init())

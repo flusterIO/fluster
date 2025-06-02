@@ -5,6 +5,12 @@ use strum_macros::{Display, EnumIter};
 pub enum DatabaseTables {
     #[strum(to_string = "snippet")]
     Snippets,
+    #[strum(to_string = "snippet_tags")]
+    SnippetTags,
+    #[strum(to_string = "equations")]
+    Equations,
+    #[strum(to_string = "equation_snippet")]
+    EquationSnippets,
     #[strum(to_string = "tag")]
     Tags,
     #[strum(to_string = "topic")]
@@ -13,4 +19,8 @@ pub enum DatabaseTables {
     Subjects,
     #[strum(to_string = "settings")]
     Settings,
+    #[strum(to_string = "mdx_notes")]
+    MdxNotes,
+    #[strum(to_string = "front_matter")]
+    FrontMatter,
 }

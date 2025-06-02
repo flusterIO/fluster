@@ -1,5 +1,5 @@
-use arrow_array::{Date64Array, RecordBatch};
-use arrow_schema::{DataType, Field, Schema};
+use arrow_array::{Date64Array, RecordBatch, RecordBatchIterator};
+use arrow_schema::{ArrowError, DataType, Field, Schema};
 use gray_matter::{ParsedEntity, Pod};
 use rayon::iter::IntoParallelRefIterator;
 use rayon::prelude::*;
@@ -7,19 +7,50 @@ use regex::Regex;
 use serde::{Deserialize, Serialize};
 use std::sync::Arc;
 
-use crate::core::types::traits::db_entity::DbEntity;
+use crate::core::{
+    database::db::get_table,
+    types::{
+        errors::errors::{FlusterError, FlusterResult},
+        traits::db_entity::DbEntity,
+        FlusterDb,
+    },
+};
 
-use super::shared_taggable_model::SharedTaggableModel;
+use super::{shared_taggable_model::SharedTaggableModel, types::TagFromContentResult};
 
 #[derive(Deserialize, Serialize, Clone)]
 pub struct TagEntity {}
 
-pub struct TagFromContentResult {
-    pub tags: Vec<SharedTaggableModel>,
-    pub parsed_content: String,
-}
-
 impl TagEntity {
+    pub async fn save_many(
+        items: Vec<SharedTaggableModel>,
+        db: FlusterDb<'_>,
+    ) -> FlusterResult<()> {
+        let schema = TagEntity::arrow_schema();
+        let tbl = get_table(
+            &db,
+            crate::core::database::tables::table_paths::DatabaseTables::Tags,
+        )
+        .await?;
+        let batches: Vec<Result<RecordBatch, ArrowError>> = items
+            .iter()
+            .map(|x| Ok(TagEntity::to_record_batch(x, schema.clone())))
+            .collect();
+        let stream = Box::new(RecordBatchIterator::new(
+            batches.into_iter(),
+            schema.clone(),
+        ));
+        let primary_key: &[&str] = &["id"];
+        tbl.merge_insert(primary_key)
+            .when_matched_update_all(None)
+            .when_not_matched_insert_all()
+            .clone()
+            .execute(stream)
+            .await
+            .map_err(|_| FlusterError::FailToCreateTag)?;
+
+        Ok(())
+    }
     pub fn get_tag_regular_expression() -> Regex {
         Regex::new(r"\[\[#(?<body>[^#]+)\]\]").unwrap()
     }
@@ -77,7 +108,7 @@ impl TagEntity {
 }
 
 impl DbEntity<SharedTaggableModel> for TagEntity {
-    fn to_record_batch(&self, item: &SharedTaggableModel, schema: Arc<Schema>) -> RecordBatch {
+    fn to_record_batch(item: &SharedTaggableModel, schema: Arc<Schema>) -> RecordBatch {
         let ctime = Date64Array::from(vec![item.ctime.timestamp_millis()]);
         let text_array = arrow_array::StringArray::from(vec![item.value.clone()]);
         // Create the vector array
@@ -110,8 +141,7 @@ mod tests {
             .execute()
             .await
             .expect("Opens tag table without throwing an error.");
-        let tbl_manager = TagEntity {};
-        let initial_batches = vec![Ok(tbl_manager.to_record_batch(&test_tag, schema.clone()))];
+        let initial_batches = vec![Ok(TagEntity::to_record_batch(&test_tag, schema.clone()))];
         let stream = Box::new(RecordBatchIterator::new(
             initial_batches.into_iter(),
             schema.clone(),

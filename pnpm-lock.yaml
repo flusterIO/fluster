@@ -212,6 +212,9 @@ importers:
       react-router:
         specifier: 7.6.0
         version: 7.6.0(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      react-spinners:
+        specifier: ^0.17.0
+        version: 0.17.0(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       recharts:
         specifier: 2.15.3
         version: 2.15.3(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
@@ -8538,6 +8541,12 @@ packages:
 
   react-smooth@4.0.4:
     resolution: {integrity: sha512-gnGKTpYwqL0Iii09gHobNolvX4Kiq4PKx6eWBCYYix+8cdw+cGo3do906l1NBPKkSWx1DghC1dlWG9L2uGd61Q==}
+    peerDependencies:
+      react: 19.1.0
+      react-dom: 19.1.0
+
+  react-spinners@0.17.0:
+    resolution: {integrity: sha512-L/8HTylaBmIWwQzIjMq+0vyaRXuoAevzWoD35wKpNTxxtYXWZp+xtgkfD7Y4WItuX0YvdxMPU79+7VhhmbmuTQ==}
     peerDependencies:
       react: 19.1.0
       react-dom: 19.1.0
@@ -18674,6 +18683,11 @@ snapshots:
       react: 19.1.0
       react-dom: 19.1.0(react@19.1.0)
       react-transition-group: 4.4.5(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+
+  react-spinners@0.17.0(react-dom@19.1.0(react@19.1.0))(react@19.1.0):
+    dependencies:
+      react: 19.1.0
+      react-dom: 19.1.0(react@19.1.0)
 
   react-style-singleton@2.2.3(@types/react@19.1.5)(react@19.1.0):
     dependencies:

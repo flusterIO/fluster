@@ -9,6 +9,10 @@
         "frontendDist": "../dist"
     },
     "app": {
+        "trayIcon": {
+            "title": "Fluster",
+            "iconPath": "icons/Square310x310Logo.png"
+        },
         "windows": [
             {
                 "title": "Fluster",
@@ -36,16 +40,11 @@
         "active": true,
         "targets": "all",
         "icon": [
-            "icons/logo/Assets.xcassets/AppIcon.appiconset/32.png",
-            "icons/logo/Assets.xcassets/AppIcon.appiconset/128.png",
-            "icons/logo/Assets.xcassets/AppIcon.appiconset/256.png",
-            "icons/logo/appstore.png",
-            "icons/logo/playstore.png",
-            "icons/logo/android/mipmap-hdpi/ic_launcher.png",
-            "icons/logo/android/mipmap-mdpi/ic_launcher.png",
-            "icons/logo/android/mipmap-xhdpi/ic_launcher.png",
-            "icons/logo/android/mipmap-xxhdpi/ic_launcher.png",
-            "icons/logo/android/mipmap-xxxhdpi/ic_launcher.png"
+            "icons/32x32.png",
+            "icons/128x128.png",
+            "icons/128x128@2x.png",
+            "icons/icon.icns",
+            "icons/icon.ico"
         ]
     }
 }

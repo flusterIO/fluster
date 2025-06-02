@@ -2,11 +2,15 @@ use std::path::PathBuf;
 
 use crate::core::types::errors::errors::FlusterError;
 use crate::core::types::errors::errors::FlusterResult;
+use crate::core::types::FlusterDb;
 use crate::core::types::FlusterDbRaw;
+use lancedb::Table;
 use lancedb::{connect, Connection};
 use std::sync::Arc;
 use tokio::sync::Mutex;
 use tokio::sync::OnceCell;
+
+use super::tables::table_paths::DatabaseTables;
 
 static DB: OnceCell<Arc<Mutex<FlusterDbRaw>>> = OnceCell::const_new();
 
@@ -20,6 +24,13 @@ pub fn get_data_dir() -> FlusterResult<PathBuf> {
         return Err(FlusterError::FailToFindDataDirectory);
     }
     return Ok(d.unwrap().join("Fluster").join("data"));
+}
+
+pub async fn get_table(conn: &FlusterDb<'_>, tbl: DatabaseTables) -> FlusterResult<Table> {
+    conn.open_table(tbl.to_string())
+        .execute()
+        .await
+        .map_err(|_| FlusterError::FailToFind)
 }
 
 pub fn get_database_path() -> FlusterResult<PathBuf> {

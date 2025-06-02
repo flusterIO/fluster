@@ -81,7 +81,7 @@ impl SnippetEntity {
             .map_err(|_| FlusterError::FailToOpenTable)?;
         let batches: Vec<Result<RecordBatch, ArrowError>> = items
             .iter()
-            .map(|x| Ok(self.to_record_batch(x, schema.clone())))
+            .map(|x| Ok(SnippetEntity::to_record_batch(x, schema.clone())))
             .collect();
         let stream = Box::new(RecordBatchIterator::new(
             batches.into_iter(),
@@ -119,10 +119,7 @@ impl SnippetEntity {
             .only_if(query_string)
             .execute()
             .await
-            .map_err(|e| {
-                println!("Error: {:?}", e);
-                FlusterError::FailToFind
-            })?
+            .map_err(|e| FlusterError::FailToFind)?
             .try_collect::<Vec<_>>()
             .await
             .map_err(|_| FlusterError::FailToFind)?;
@@ -191,7 +188,7 @@ impl DbEntity<SnippetModel> for SnippetEntity {
         ]))
     }
 
-    fn to_record_batch(&self, item: &SnippetModel, schema: Arc<Schema>) -> RecordBatch {
+    fn to_record_batch(item: &SnippetModel, schema: Arc<Schema>) -> RecordBatch {
         let now = Utc::now().timestamp_millis();
         let ctime = Date64Array::from(vec![item.ctime.unwrap_or(now)]);
         let utime = Date64Array::from(vec![item.utime.unwrap_or(now)]);

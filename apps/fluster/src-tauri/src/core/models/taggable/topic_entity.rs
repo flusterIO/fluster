@@ -10,7 +10,7 @@ use crate::core::types::traits::db_entity::DbEntity;
 pub struct TopicEntity {}
 
 impl DbEntity<SharedTaggableModel> for TopicEntity {
-    fn to_record_batch(&self, item: &SharedTaggableModel, schema: Arc<Schema>) -> RecordBatch {
+    fn to_record_batch(item: &SharedTaggableModel, schema: Arc<Schema>) -> RecordBatch {
         let ctime = Date64Array::from(vec![item.ctime.timestamp_millis()]);
         let text_array = arrow_array::StringArray::from(vec![item.value.clone()]);
         // Create the vector array
