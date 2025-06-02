@@ -17,23 +17,14 @@ import SyntaxSupportedLanguageSelect from "../inputs/syntax_supported_language_s
 import { AppState } from "@/state/initial_state";
 import { Textarea } from "@fluster.io/dev";
 import { connect } from "react-redux";
-import { useMatch, useSearchParams } from "react-router";
+import { useMatch, useNavigate, useSearchParams } from "react-router";
 import { AppRoutes } from "#/router/data/app_routes";
 import { Button } from "@fluster.io/dev";
 import { commands, SnippetModel } from "@/lib/bindings";
-
-const snippetSchema = z.object({
-    lang: z.string(),
-    label: z
-        .string()
-        .min(2, "Your label needs to be at least 2 characters long."),
-    body: z.string().min(3, "Please add a body to this snippet."),
-    desc: z.string(),
-    tags: z.string().array(),
-    ctime: z.string(),
-    utime: z.string(),
-    id: z.string().uuid().nullable(),
-});
+import { snippetSchema } from "#/snippets/data/snippet_schema";
+import { requestSnippetListRefresh } from "#/snippets/state/actions/request_snippet_list_refresh";
+import { onEnter } from "@/events/on_enter";
+import { arrayBuffer } from "stream/consumers";
 
 const connector = connect((state: AppState) => ({
     panelOpen: state.panelLeft.open,
@@ -54,6 +45,13 @@ const AddSnippetPanel = connector(
                 utime: now,
                 id: null,
             },
+        });
+        form.watch((data) => {
+            window.dispatchEvent(
+                new CustomEvent("set-snippet-preview", {
+                    detail: data,
+                })
+            );
         });
         const isSnippetsPage = useMatch(AppRoutes.snippets);
         const [editingIdState, setEditingIdState] = useState<string | null>(null);
@@ -119,10 +117,15 @@ const AddSnippetPanel = connector(
             }
         };
 
+        const nav = useNavigate();
+
         const exitEditingMode = () => {
             setEditingIdState(null);
             searchParams.delete("editing");
+            let sp = searchParams.toString();
+            nav(`${AppRoutes.snippets}?${sp}`);
             form.reset();
+            /* requestSnippetListRefresh(); */
         };
 
         return (

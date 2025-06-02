@@ -39,7 +39,8 @@
     --brand: 198.6 88.7% 48.4%;
 
     .dark:not(.light *),
-    &.dark {
+    &.dark,
+    html.dark * {
       --background: 240 10% 3.9%;
       --foreground: 0 0% 98%;
       --card: 240 10% 3.9%;
@@ -96,7 +97,8 @@
     --brand: 198.6 88.7% 48.4%;
 
     .dark:not(.light *),
-    &.dark {
+    &.dark,
+    html.dark * {
       --background: 20 14.3% 4.1%;
       --foreground: 60 9.1% 97.8%;
       --card: 20 14.3% 4.1%;
@@ -153,7 +155,8 @@
     --brand: 198.6 88.7% 48.4%;
 
     .dark:not(.light *),
-    &.dark {
+    &.dark,
+    html.dark * {
       --background: 224 71.4% 4.1%;
       --foreground: 210 20% 98%;
       --card: 224 71.4% 4.1%;
@@ -210,7 +213,8 @@
     --brand: 198.6 88.7% 48.4%;
 
     .dark:not(.light *),
-    &.dark {
+    &.dark,
+    html.dark * {
       --background: 222.2 84% 4.9%;
       --foreground: 210 40% 98%;
       --card: 222.2 84% 4.9%;
@@ -266,7 +270,8 @@
     --brand: 198.6 88.7% 48.4%;
 
     .dark:not(.light *),
-    &.dark {
+    &.dark,
+    html.dark * {
       --background: 20 14.3% 4.1%;
       --foreground: 60 9.1% 97.8%;
       --card: 20 14.3% 4.1%;
@@ -323,7 +328,8 @@
     --brand: 198.6 88.7% 48.4%;
 
     .dark:not(.light *),
-    &.dark {
+    &.dark,
+    html.dark * {
       --background: 222.2 84% 4.9%;
       --foreground: 210 40% 98%;
       --card: 222.2 84% 4.9%;
@@ -380,7 +386,8 @@
     --brand: 198.6 88.7% 48.4%;
 
     .dark:not(.light *),
-    &.dark {
+    &.dark,
+    html.dark * {
       --background: 20 14.3% 4.1%;
       --foreground: 0 0% 95%;
       --card: 24 9.8% 10%;
@@ -437,7 +444,8 @@
     --brand: 198.6 88.7% 48.4%;
 
     .dark:not(.light *),
-    &.dark {
+    &.dark,
+    html.dark * {
       --background: 0 0% 3.9%;
       --foreground: 0 0% 98%;
       --card: 0 0% 3.9%;
@@ -494,7 +502,8 @@
     --brand: 198.6 88.7% 48.4%;
 
     .dark:not(.light *),
-    &.dark {
+    &.dark,
+    html.dark * {
       --background: 20 14.3% 4.1%;
       --foreground: 60 9.1% 97.8%;
       --card: 20 14.3% 4.1%;
@@ -551,7 +560,8 @@
     --brand: 198.6 88.7% 48.4%;
 
     .dark:not(.light *),
-    &.dark {
+    &.dark,
+    html.dark * {
       --background: 0 0% 3.9%;
       --foreground: 0 0% 98%;
       --card: 0 0% 3.9%;
@@ -608,7 +618,8 @@
     --brand: 198.6 88.7% 48.4%;
 
     .dark:not(.light *),
-    &.dark {
+    &.dark,
+    html.dark * {
       --background: 20 14.3% 4.1%;
       --foreground: 0 0% 95%;
       --card: 24 9.8% 10%;
@@ -664,7 +675,8 @@
     --brand: 198.6 88.7% 48.4%;
 
     .dark:not(.light *),
-    &.dark {
+    &.dark,
+    html.dark * {
       --background: 224 71.4% 4.1%;
       --foreground: 210 20% 98%;
       --card: 224 71.4% 4.1%;
@@ -721,7 +733,8 @@
     --brand: 198.6 88.7% 48.4%;
 
     .dark:not(.light *),
-    &.dark {
+    &.dark,
+    html.dark * {
       --background: 222.2 84% 4.9%;
       --foreground: 210 40% 98%;
       --card: 222.2 84% 4.9%;
@@ -757,5 +770,10 @@
     * {
       border-color: hsl(var(--border));
     }
+
+  }
+
+  main {
+    background-color: hsl(var(--background)) !important;
   }
 }

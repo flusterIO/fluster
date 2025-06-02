@@ -1,22 +1,24 @@
-import { useDarkMode } from "@/hooks/use_dark_mode";
-import { useEffect, useState, type ReactNode } from "react";
+import React, { useEffect, useState, type ReactNode } from "react";
 import { codeToHtml } from "shiki";
-import { connect } from "react-redux";
-import { AppState } from "@/state/initial_state";
+import { cn } from "../../utils/cn";
 
-const connector = connect((state: AppState) => ({
-    themes: state.code.theme,
-}));
-
-interface CodeBlockProps {
+export interface CodeBlockProps {
     code: string;
     lang: string;
-    themes: AppState["code"]["theme"];
+    themes: {
+        dark: string;
+        light: string;
+    };
+    darkMode: boolean;
+    className?: string;
 }
 
-const CodeBlock = connector((props: CodeBlockProps): ReactNode => {
+export const CodeBlock = ({
+    darkMode,
+    className,
+    ...props
+}: CodeBlockProps): ReactNode => {
     const [parsedHtml, setParsedHtml] = useState("");
-    const darkMode = useDarkMode();
     const handleCodeParsing = async (
         code: string,
         lang: string,
@@ -37,15 +39,13 @@ const CodeBlock = connector((props: CodeBlockProps): ReactNode => {
         );
     }, [props.lang, props.code, darkMode, props.themes]);
     return (
-        <div className="w-full overflow-x-auto">
+        <div className={cn("w-full overflow-x-auto", className)}>
             <div
                 className="[&>pre]:p-3 [&>pre]:overflow-auto text-sm"
                 dangerouslySetInnerHTML={{ __html: parsedHtml }}
             />
         </div>
     );
-});
+};
 
 CodeBlock.displayName = "CodeBlock";
-
-export default CodeBlock;

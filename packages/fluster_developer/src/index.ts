@@ -5,6 +5,8 @@ export { MathTextInput } from "./components/inputs/math_text_input/main";
 export * from "./themes.scss";
 export * from "./utils/cn";
 export * from "./components/icons/icon_components/index";
+export * from "./components/code/code_block";
+export * from "./components/code/snippet_modal/index";
 export * from "./hooks/use_is_mounted";
 export * from "./hooks/use_local_storage";
 export * from "./hooks/use_event_callback";

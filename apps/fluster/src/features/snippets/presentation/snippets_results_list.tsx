@@ -6,9 +6,10 @@ import { useEventListener } from "@/hooks/use_event_listener";
 import { showToast } from "#/toast_notification/data/events/show_toast";
 import { LoadingComponent } from "@/components/loading_screen";
 import { useSnippetContext } from "../state/snippet_context";
+import { useSearchParams } from "react-router";
+import SnippetPreview from "./snippet_preview";
 
 const mapToStringList = (data: Record<string, boolean>): string[] => {
-    console.log("data: ", data);
     const items = [];
     for (const x in data) {
         if (data[x]) {
@@ -21,14 +22,14 @@ const mapToStringList = (data: Record<string, boolean>): string[] => {
 
 const SnippetsResultsList = (): ReactNode => {
     const context = useSnippetContext();
+    const [searchParams] = useSearchParams();
+
+    const editingId = searchParams.get("editing");
     const [results, setResults] = useState<SnippetModel[] | "loading">("loading");
     const getNewSnippetData = async (langs: string[]): Promise<void> => {
-        console.info(`Getting snippet data`);
-        console.log("langs: ", langs);
         const res = await commands.getSnippets({
             langs,
         });
-        console.log("res: ", res);
         if (res.status === "ok") {
             setResults(res.data);
         } else {
@@ -36,7 +37,6 @@ const SnippetsResultsList = (): ReactNode => {
         }
     };
     const gatherData = (langs?: Record<string, boolean>): void => {
-        console.log("langs: ", langs);
         getNewSnippetData(mapToStringList(langs ?? context.languageFilter)).catch(
             () => {
                 showToast({
@@ -55,6 +55,10 @@ const SnippetsResultsList = (): ReactNode => {
     }, [context.languageFilter]);
 
     useEventListener("reload-snippet-list", (e) => gatherData(e.detail.langs));
+
+    if (editingId?.length) {
+        return <SnippetPreview />;
+    }
 
     return (
         <div className="w-full flex flex-col justify-start items-center gap-6">

@@ -146,6 +146,14 @@ async copyMathjax() : Promise<Result<null, FlusterError>> {
     if(e instanceof Error) throw e;
     else return { status: "error", error: e  as any };
 }
+},
+async getDictionaryEntries() : Promise<Result<DictionaryEntryModel[], FlusterError>> {
+    try {
+    return { status: "ok", data: await TAURI_INVOKE("get_dictionary_entries") };
+} catch (e) {
+    if(e instanceof Error) throw e;
+    else return { status: "error", error: e  as any };
+}
 }
 }
 
@@ -173,7 +181,7 @@ export type DesktopHealthReport = { database_tables_exist: boolean; mathjax_dir_
  * that warrents re-initializing is false, this field will be false.
  */
 healthy: boolean }
-export type DictionaryEntry = { label: string; body: string }
+export type DictionaryEntryModel = { label: string; body: string; ctime: string }
 export type FlusterError = "NotImplemented" | "FailToSaveSettings" | "FailToReadSettings" | "SettingsBibPathNotFound" | "CannotParseBibfile" | "FailToFindDataDirectory" | "FailToSerialize" | "DuplicateId" | "FailToDelete" | "FailToCreateTable" | "FailToOpenTable" | "FailToConnect" | "FailToStartDb" | "FailToStopDb" | "FailToCreateEntity" | "FailToCreateSnippet" | "FailToFind" | "FailToFindById" | "FailToCreatePath" | "FailToCreateTag" | "FailToCreateSubject" | { DataDirNotFound: [] } | { FailToClearDirectory: string } | "FailToCreateTopic" | "FailToLocateStorageDir" | { FailToReadFileSystemPath: string } | { FailToSaveFile: string } | { MdxParsingError: string } | { NoTitleError: string } | { AttemptedToParseFileWasntFound: string } | { FailToSaveMdxNote: string } | 
 /**
  * Taggables

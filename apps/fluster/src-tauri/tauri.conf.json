@@ -10,7 +10,6 @@
     },
     "app": {
         "trayIcon": {
-            "title": "Fluster",
             "iconPath": "icons/Square310x310Logo.png"
         },
         "windows": [

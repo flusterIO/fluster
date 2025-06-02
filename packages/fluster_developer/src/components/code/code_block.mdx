@@ -1,0 +1,14 @@
+import { Meta, Story, Canvas } from '@storybook/addon-docs/blocks';
+import * as CodeBlockStories from "./code_block.stories.tsx";
+
+# Code Block
+
+Use shiki to syntax highlight text passed into the `code` prop. Any shiki supported language and theme is supported by this component.
+
+<Meta
+    title = "Test title"
+    component={CodeBlock}
+/>
+
+
+<Canvas of={CodeBlockStories.Basic} />

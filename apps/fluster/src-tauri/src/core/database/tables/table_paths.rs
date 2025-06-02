@@ -29,4 +29,6 @@ pub enum DatabaseTables {
     MdxNoteTag,
     #[strum(to_string = "bib_entry")]
     BibEntry,
+    #[strum(to_string = "dictionary_entry")]
+    DictionaryEntry,
 }

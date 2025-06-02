@@ -1,8 +1,8 @@
 export class DictionaryEntry {
-    label: string
-    content: string
+    label: string;
+    content: string;
     constructor(label: string, content: string) {
-     this.label = label;
+        this.label = label;
         this.content = content;
     }
 }

@@ -64,6 +64,8 @@ export const TagInput = <T extends FieldValues>({
                                     e.key === "Enter" &&
                                     (e.target as HTMLInputElement)?.value.length > 0
                                 ) {
+                                    e.preventDefault();
+                                    e.stopPropagation();
                                     appendItem();
                                 }
                             }}
