@@ -1,6 +1,6 @@
-use crate::core::models::mdx_note_group::mdx_note_group::MdxNoteGroup;
 use crate::core::types::errors::errors::FlusterError;
 use crate::core::types::FlusterDb;
+use crate::features::mdx::data::mdx_note_group::MdxNoteGroup;
 use crossbeam_channel::unbounded;
 use crossbeam_channel::Sender;
 use ignore::WalkBuilder;

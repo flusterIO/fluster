@@ -1,6 +1,6 @@
-use crate::core::{
-    models::mdx_note_group::mdx_note_group::MdxNoteGroup, types::errors::errors::FlusterResult,
-};
+use crate::core::types::errors::errors::FlusterResult;
+
+use super::data::mdx_note_group::MdxNoteGroup;
 
 /// This method is used when the search param fsPath is set. This is similar to the way the app
 /// worked in the previous rendtion when 'prefer fs' was enabled by the user.

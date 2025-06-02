@@ -13,14 +13,21 @@ use crate::{
         },
     },
     features::{
-        math::data::equation_entity::EquationEntity,
-        mdx::data::{front_matter_entity::FrontMatterEntity, mdx_note_entity::MdxNoteEntity},
+        math::data::{
+            equation_entity::EquationEntity, equation_snippet_entity::EquationSnippetEntity,
+            equation_tag_entity::EquationTagEntity,
+        },
+        mdx::data::{
+            front_matter_entity::FrontMatterEntity, mdx_note_entity::MdxNoteEntity,
+            mdx_note_tag_entity::MdxNoteTagEntity,
+        },
         settings::settings_entity::SettingsEntity,
         snippets::snippet_entity::SnippetEntity,
     },
 };
 use arrow_schema::Schema;
 use lancedb::{connect, Table};
+use log::info;
 
 async fn create_table(
     db: &lancedb::Connection,
@@ -73,7 +80,7 @@ pub async fn initialize_database() -> FlusterResult<()> {
         },
         TableInitData {
             table: DatabaseTables::EquationSnippets,
-            entity: EquationEntity::arrow_schema(),
+            entity: EquationSnippetEntity::arrow_schema(),
         },
         TableInitData {
             table: DatabaseTables::MdxNotes,
@@ -82,6 +89,14 @@ pub async fn initialize_database() -> FlusterResult<()> {
         TableInitData {
             table: DatabaseTables::FrontMatter,
             entity: FrontMatterEntity::arrow_schema(),
+        },
+        TableInitData {
+            table: DatabaseTables::MdxNoteTag,
+            entity: MdxNoteTagEntity::arrow_schema(),
+        },
+        TableInitData {
+            table: DatabaseTables::EquationTag,
+            entity: EquationTagEntity::arrow_schema(),
         },
     ];
     if let Ok(db_path) = get_database_path() {
@@ -93,7 +108,13 @@ pub async fn initialize_database() -> FlusterResult<()> {
             // Don't return errors on failure to create the table because it likely just means
             // that the table already exists. Add some more robust error handling here once
             // the rest of the functionality is in working order.
-            create_table(&db, &td.entity, &td.table).await;
+            let res = create_table(&db, &td.entity, &td.table).await;
+            if res.is_ok() {
+                warn!(format!(
+                    "Fluster failed while attempting to generate a database table for {}",
+                    td.table.to_string()
+                ));
+            }
         }
     }
     Ok(())

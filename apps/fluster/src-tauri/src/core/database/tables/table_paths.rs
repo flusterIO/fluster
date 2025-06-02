@@ -11,6 +11,8 @@ pub enum DatabaseTables {
     Equations,
     #[strum(to_string = "equation_snippet")]
     EquationSnippets,
+    #[strum(to_string = "equation_tag")]
+    EquationTag,
     #[strum(to_string = "tag")]
     Tags,
     #[strum(to_string = "topic")]
@@ -23,4 +25,6 @@ pub enum DatabaseTables {
     MdxNotes,
     #[strum(to_string = "front_matter")]
     FrontMatter,
+    #[strum(to_string = "mdx_note_tag")]
+    MdxNoteTag,
 }

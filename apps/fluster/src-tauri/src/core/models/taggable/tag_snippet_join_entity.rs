@@ -6,13 +6,16 @@ use futures::TryStreamExt;
 use lancedb::query::{ExecutableQuery, QueryBase};
 use serde_arrow::from_record_batch;
 
-use crate::core::{
-    database::{db::get_table, tables::table_paths::DatabaseTables},
-    types::{
-        errors::errors::{FlusterError, FlusterResult},
-        traits::db_entity::DbEntity,
-        FlusterDb,
+use crate::{
+    core::{
+        database::{db::get_table, tables::table_paths::DatabaseTables},
+        types::{
+            errors::errors::{FlusterError, FlusterResult},
+            traits::db_entity::DbEntity,
+            FlusterDb,
+        },
     },
+    features::snippets::snippet_model::SnippetModel,
 };
 
 use super::tag_snippet_join_model::SnippetTagModel;
@@ -57,14 +60,15 @@ impl SnippetTagEntity {
             crate::core::database::tables::table_paths::DatabaseTables::Tags,
         )
         .await?;
-        let filtered_items = items
-            .iter()
-            .filter(|x| {
-                !existing_tags
-                    .iter()
-                    .any(|y| y.tag_id == x.tag_id && y.snippet_id == x.snippet_id)
-            })
-            .collect();
+        let mut filtered_items = Vec::new();
+        for item in items {
+            let exists = existing_tags
+                .iter()
+                .any(|y| y.tag_id == item.tag_id && y.snippet_id == item.snippet_id);
+            if !exists {
+                filtered_items.push(item);
+            }
+        }
         let batches: Vec<Result<RecordBatch, ArrowError>> = filtered_items
             .iter()
             .map(|x| Ok(SnippetTagEntity::to_record_batch(x, schema.clone())))
