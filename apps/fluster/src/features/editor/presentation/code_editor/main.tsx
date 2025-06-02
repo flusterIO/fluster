@@ -84,20 +84,6 @@ const CodeEditor = connector(
             }
 
             if (commandPaletteKeyMap) {
-                const data = [
-                    monaco.KeyMod.CtrlCmd | monaco.KeyMod.Shift | monaco.KeyCode.KeyP,
-                ];
-                console.log(
-                    "data: ",
-                    data,
-                    monaco.KeyMod.CtrlCmd,
-                    monaco.KeyMod.Shift,
-                    monaco.KeyCode.KeyP,
-                    commandPaletteKeyMap.key
-                );
-
-                console.log("Here: ", commandPaletteKeyMap.toMonacoKeyMap());
-
                 editorRef.current.addAction({
                     id: "cmd-palette",
                     label: "Open Editor Command Palette",

@@ -30,8 +30,8 @@ const snippetSchema = z.object({
     body: z.string().min(3, "Please add a body to this snippet."),
     desc: z.string(),
     tags: z.string().array(),
-    ctime: z.number().int(),
-    utime: z.number().int(),
+    ctime: z.string(),
+    utime: z.string(),
     id: z.string().uuid().nullable(),
 });
 
@@ -41,7 +41,7 @@ const connector = connect((state: AppState) => ({
 
 const AddSnippetPanel = connector(
     ({ panelOpen }: { panelOpen: boolean }): ReactNode => {
-        const now = new Date().valueOf();
+        const now = new Date().toISOString();
         const form = useForm({
             resolver: zodResolver(snippetSchema),
             defaultValues: {
@@ -80,7 +80,6 @@ const AddSnippetPanel = connector(
                         "tags",
                         tags.map((t) => t.value)
                     );
-                    /* form.setValue("tags", res.data.tags); */
                 }
             };
 

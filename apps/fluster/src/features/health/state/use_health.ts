@@ -1,5 +1,6 @@
 import { DesktopHealthReport } from "@/lib/bindings";
 import { useHealthContext } from "./hooks";
+import { useEffect } from "react";
 
 interface HealthReportData {
     report: DesktopHealthReport | null;
@@ -8,6 +9,9 @@ interface HealthReportData {
 
 export const useHealthReport = (): HealthReportData => {
     const state = useHealthContext();
+    useEffect(() => {
+        console.info("Health: ", state);
+    }, [state]);
     return {
         report: state.report,
         requestNew: () =>

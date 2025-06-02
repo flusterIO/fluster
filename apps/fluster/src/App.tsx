@@ -6,6 +6,7 @@ import { getEditNoteSplitViewPageUrl } from "#/editor/presentation/split_view/ed
 import { PersistGate } from "redux-persist/integration/react";
 import store from "@/state/store";
 import persistStore from "redux-persist/es/persistStore";
+import LoadingScreen from "@/components/loading_screen";
 
 const App = (): ReactNode => {
     useGlobalKeymap();
@@ -21,7 +22,7 @@ const App = (): ReactNode => {
 
     const persistor = persistStore(store);
     return (
-        <PersistGate persistor={persistor} loading={<div>Loading...</div>}>
+        <PersistGate persistor={persistor} loading={<LoadingScreen />}>
             <RouterProvider router={router} />
         </PersistGate>
     );

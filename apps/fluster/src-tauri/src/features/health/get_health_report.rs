@@ -22,7 +22,7 @@ pub struct DesktopHealthReport {
 pub async fn database_tables_exist(db: &FlusterDb<'_>) -> bool {
     let table_names = db.table_names().execute().await;
     if table_names.is_err() {
-        return false;
+        false
     } else {
         let d = table_names.unwrap();
         DatabaseTables::iter().all(|x| d.contains(&x.to_string()))
@@ -37,11 +37,11 @@ pub async fn get_desktop_health_report() -> DesktopHealthReport {
     // let tables = DatabaseTables::iter().all(|x| &db.open_table )
     let database_tables_exist = database_tables_exist(&db).await;
     let mathjax_dir_exists = std::fs::exists(get_mathjax_path()).is_ok_and(|x| x);
-    return DesktopHealthReport {
+    DesktopHealthReport {
         database_tables_exist,
         mathjax_dir_exists,
         healthy: vec![database_tables_exist, mathjax_dir_exists]
             .iter()
             .all(|x| *x),
-    };
+    }
 }

@@ -1,50 +1,68 @@
 import { commands, SnippetModel } from "@/lib/bindings";
 import React, { useEffect, useState, type ReactNode } from "react";
-import { useSnippetContext } from "../state/snippets_provider";
 import SnippetListItem from "./snippet_item/main";
 import NoSnippetsFound from "./no_snippets_found";
 import { useEventListener } from "@/hooks/use_event_listener";
 import { showToast } from "#/toast_notification/data/events/show_toast";
+import { LoadingComponent } from "@/components/loading_screen";
+import { useSnippetContext } from "../state/snippet_context";
+
+const mapToStringList = (data: Record<string, boolean>): string[] => {
+    console.log("data: ", data);
+    const items = [];
+    for (const x in data) {
+        if (data[x]) {
+            console.log("x: ", x);
+            items.push(x);
+        }
+    }
+    return items;
+};
 
 const SnippetsResultsList = (): ReactNode => {
-    const { languageFilter } = useSnippetContext();
+    const context = useSnippetContext();
     const [results, setResults] = useState<SnippetModel[] | "loading">("loading");
     const getNewSnippetData = async (langs: string[]): Promise<void> => {
+        console.info(`Getting snippet data`);
+        console.log("langs: ", langs);
         const res = await commands.getSnippets({
             langs,
         });
+        console.log("res: ", res);
         if (res.status === "ok") {
             setResults(res.data);
         } else {
             setResults([]);
         }
     };
-    const gatherData = (): void => {
-        getNewSnippetData(
-            Object.entries(languageFilter)
-                .filter((x) => x[1])
-                .map((l) => l[0])
-        ).catch(() => {
-            showToast({
-                title: "Oh no",
-                body: "Something went wrong while gathering your snippets.",
-                duration: 5000,
-                variant: "Error",
-            });
-        });
+    const gatherData = (langs?: Record<string, boolean>): void => {
+        console.log("langs: ", langs);
+        getNewSnippetData(mapToStringList(langs ?? context.languageFilter)).catch(
+            () => {
+                showToast({
+                    title: "Oh no",
+                    body: "Something went wrong while gathering your snippets.",
+                    duration: 5000,
+                    variant: "Error",
+                });
+            }
+        );
     };
 
     useEffect(() => {
         gatherData();
-    }, [languageFilter]);
+        /* eslint-disable-next-line  --  */
+    }, [context.languageFilter]);
 
-    useEventListener("reload-snippet-list", () => gatherData());
+    useEventListener("reload-snippet-list", (e) => gatherData(e.detail.langs));
 
     return (
         <div className="w-full flex flex-col justify-start items-center gap-6">
             {results === "loading" ? (
                 <div className="flex flex-col justify-center items-center min-h-[calc(100vh-80px)]">
-                    <div>Loading...</div>
+                    <div>
+                        <LoadingComponent />
+                    </div>
                 </div>
             ) : results.length ? (
                 results.map((l, i) => (

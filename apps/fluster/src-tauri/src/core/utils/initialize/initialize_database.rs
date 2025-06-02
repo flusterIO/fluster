@@ -28,7 +28,7 @@ use crate::{
 };
 use arrow_schema::Schema;
 use lancedb::{connect, Table};
-use log::info;
+use log::{info, warn};
 
 async fn create_table(
     db: &lancedb::Connection,
@@ -115,10 +115,8 @@ pub async fn initialize_database() -> FlusterResult<()> {
             // the rest of the functionality is in working order.
             let res = create_table(&db, &td.entity, &td.table).await;
             if res.is_ok() {
-                warn!(format!(
-                    "Fluster failed while attempting to generate a database table for {}",
-                    td.table.to_string()
-                ));
+                let s = td.table.to_string();
+                warn!("Fluster failed while attempting to generate a database table for {s}",);
             }
         }
     }

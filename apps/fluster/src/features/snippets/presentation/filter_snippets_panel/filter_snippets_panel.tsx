@@ -1,6 +1,6 @@
 import { getSupportedProgrammingLanguages } from "#/snippets/data/get_supported_languages";
 import SidePanelContainer from "@/components/side_panel_container";
-import { useMemo, type ReactNode } from "react";
+import React, { useMemo, type ReactNode } from "react";
 import LanguageFilterItem from "./language_item";
 
 const SnippetsFilterPanel = (): ReactNode => {
