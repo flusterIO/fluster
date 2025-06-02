@@ -14,4 +14,5 @@ pub trait DbEntity<T> {
     fn to_record_batch(item: &T, schema: Arc<Schema>) -> RecordBatch;
 }
 
+// TODO: Delete this once all references are removed. Don't need this after moving from surreal to lancedb.
 pub type FlusterDateTime = chrono::DateTime<chrono::Utc>;

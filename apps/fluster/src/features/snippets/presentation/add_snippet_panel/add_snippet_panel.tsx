@@ -48,7 +48,9 @@ const AddSnippetPanel = connector(
         form.watch((data) => {
             window.dispatchEvent(
                 new CustomEvent("set-snippet-preview", {
-                    detail: data,
+                    detail: {
+                        data,
+                    },
                 })
             );
         });
@@ -100,7 +102,6 @@ const AddSnippetPanel = connector(
         const handleSubmit = async (
             data: z.infer<typeof snippetSchema>
         ): Promise<void> => {
-            console.log("data: ", data);
             const snippetModel: SnippetModel = {
                 id: null,
                 label: data.label,
@@ -179,6 +180,29 @@ const AddSnippetPanel = connector(
                                                         popoverContainer: "w-full max-w-[600px]",
                                                     }}
                                                 />
+                                            </div>
+                                        </FormControl>
+                                    </FormItem>
+                                );
+                            }}
+                        />
+                        <FormField
+                            control={form.control}
+                            name={"desc"}
+                            render={({ field }) => {
+                                return (
+                                    <FormItem className="w-full max-w-[600px]">
+                                        <FormLabel>Description</FormLabel>
+                                        <FormControl>
+                                            <div className="w-full max-w-[600px]">
+                                                <Textarea
+                                                    value={field.value}
+                                                    onChange={(e) =>
+                                                        form.setValue(field.name, e.target.value)
+                                                    }
+                                                    rows={2}
+                                                />
+                                                <FormMessage />
                                             </div>
                                         </FormControl>
                                     </FormItem>

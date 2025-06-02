@@ -21,10 +21,12 @@ const connector = connect((state: AppState, props: any) => ({
 
 const SnippetPreview = connector(({ themes }): ReactNode => {
     const [data, setData] = useState<SnippetSchema | null>(null);
-    useEventListener("set-snippet-preview", (e) => setData(e.detail.data));
+    useEventListener("set-snippet-preview", (e) => {
+        setData(e.detail.data);
+    });
     const isDark = useDarkMode();
     return (
-        <div className="w-full flex flex-col justify-center items-center px-8 py-6">
+        <div className="@container/snippet_preview w-full flex flex-col justify-center items-center px-8 py-6">
             {data && <SnippetModal darkMode={isDark} themes={themes} data={data} />}
         </div>
     );
