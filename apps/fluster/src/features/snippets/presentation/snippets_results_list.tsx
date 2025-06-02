@@ -54,7 +54,7 @@ const SnippetsResultsList = (): ReactNode => {
         /* eslint-disable-next-line  --  */
     }, [context.languageFilter]);
 
-    useEventListener("reload-snippet-list", (e) => gatherData(e.detail.langs));
+    useEventListener("reload-snippet-list", (e) => gatherData(e.detail?.langs));
 
     if (editingId?.length) {
         return <SnippetPreview />;

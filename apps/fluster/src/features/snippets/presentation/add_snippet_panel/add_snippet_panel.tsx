@@ -22,9 +22,8 @@ import { AppRoutes } from "#/router/data/app_routes";
 import { Button } from "@fluster.io/dev";
 import { commands, SnippetModel } from "@/lib/bindings";
 import { snippetSchema } from "#/snippets/data/snippet_schema";
-import { requestSnippetListRefresh } from "#/snippets/state/actions/request_snippet_list_refresh";
-import { onEnter } from "@/events/on_enter";
-import { arrayBuffer } from "stream/consumers";
+import { useSnippetContext } from "#/snippets/state/snippet_context";
+import { reloadSnippetList } from "#/snippets/data/events/reload_snippet_list";
 
 const connector = connect((state: AppState) => ({
     panelOpen: state.panelLeft.open,
@@ -53,6 +52,7 @@ const AddSnippetPanel = connector(
                 })
             );
         });
+        const state = useSnippetContext();
         const isSnippetsPage = useMatch(AppRoutes.snippets);
         const [editingIdState, setEditingIdState] = useState<string | null>(null);
         const [searchParams] = useSearchParams();
@@ -113,7 +113,7 @@ const AddSnippetPanel = connector(
             const res = await commands.saveSnippets([snippetModel], [data.tags]);
             if (res.status === "ok") {
                 form.reset();
-                window.dispatchEvent(new CustomEvent("reload-snippet-list", {}));
+                reloadSnippetList(state.languageFilter);
             }
         };
 
@@ -231,6 +231,16 @@ const AddSnippetPanel = connector(
                                         form.watch("label")?.length > 0
                                     )
                                 }
+                                onClick={(e) => {
+                                    e.preventDefault();
+                                    let is_valid = Object.values(form.formState.errors).every(
+                                        (x) => x
+                                    );
+                                    if (is_valid) {
+                                        let data = form.getValues();
+                                        handleSubmit(data);
+                                    }
+                                }}
                             >
                                 {editingIdState ? "Update" : "Create"}
                             </Button>
