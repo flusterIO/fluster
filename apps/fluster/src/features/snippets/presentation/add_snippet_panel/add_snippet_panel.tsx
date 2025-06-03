@@ -123,7 +123,7 @@ const AddSnippetPanel = connector(
         const exitEditingMode = () => {
             setEditingIdState(null);
             searchParams.delete("editing");
-            let sp = searchParams.toString();
+            const sp = searchParams.toString();
             nav(`${AppRoutes.snippets}?${sp}`);
             form.reset();
             /* requestSnippetListRefresh(); */
@@ -257,11 +257,11 @@ const AddSnippetPanel = connector(
                                 }
                                 onClick={(e) => {
                                     e.preventDefault();
-                                    let is_valid = Object.values(form.formState.errors).every(
+                                    const is_valid = Object.values(form.formState.errors).every(
                                         (x) => x
                                     );
                                     if (is_valid) {
-                                        let data = form.getValues();
+                                        const data = form.getValues();
                                         handleSubmit(data);
                                     }
                                 }}

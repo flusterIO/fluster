@@ -19,6 +19,8 @@ pub struct FrontMatterModel {
     pub tags: Vec<SharedTaggableModel>,
     pub subject: Option<SharedTaggableModel>,
     pub topic: Option<SharedTaggableModel>,
+    pub list_id: Option<String>,
+    pub list_index: Option<i64>,
 }
 
 impl FrontMatterModel {
@@ -26,20 +28,22 @@ impl FrontMatterModel {
         let _id = front_matter_id.to_string();
         let mut tags: Vec<SharedTaggableModel> = Vec::new();
         match pod {
-            None => {
-                let mut x = FrontMatterModel::default();
-                x.id = _id;
-                x
-            }
+            None => FrontMatterModel {
+                id: _id,
+                ..Default::default()
+            },
             Some(p) => {
-                let mut x = FrontMatterModel::default();
-                x.id = _id.clone();
+                let mut x = FrontMatterModel {
+                    id: _id.clone(),
+                    ..Default::default()
+                };
                 // Set title
                 let data = p.as_hashmap();
-                if let Err(_) = p.as_hashmap() {
-                    let mut x = FrontMatterModel::default();
-                    x.id = _id;
-                    x
+                if data.is_err() {
+                    FrontMatterModel {
+                        id: _id,
+                        ..Default::default()
+                    }
                 } else {
                     let d = data.unwrap();
                     if d.contains_key("title") {
@@ -86,6 +90,19 @@ impl FrontMatterModel {
                         let note_id = d["id"].as_string();
                         if note_id.is_ok() {
                             x.user_provided_id = Some(note_id.unwrap());
+                        }
+                    }
+
+                    if d.contains_key("listId") {
+                        let list_id = d["listId"].as_string();
+                        if list_id.is_ok() {
+                            x.list_id = Some(list_id.unwrap());
+                        }
+                    }
+                    if d.contains_key("listIndex") {
+                        let list_index = d["listIndex"].as_i64();
+                        if list_index.is_ok() {
+                            x.list_index = Some(list_index.unwrap());
                         }
                     }
                     x

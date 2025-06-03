@@ -7,6 +7,8 @@ import { NavigateFunction } from "react-router";
 export enum NavItemPosition {
     top,
     bottom,
+    /// If hidden it will not be shown in the sidebar, but will still be available in the command palette.
+    hidden,
 }
 
 export class NavigationItem extends GlobalAction {
@@ -17,7 +19,7 @@ export class NavigationItem extends GlobalAction {
         label: string,
         href: AppRoutes,
         icon: ComponentType<{ className: string }>,
-        position: NavItemPosition,
+        position: NavItemPosition
     ) {
         super(label);
         this.href = href;
@@ -30,7 +32,7 @@ export class NavigationItem extends GlobalAction {
     }
     toCommandPaletteEntry() {
         new GeneralCommandPaletteItem(this.label, (nav: NavigateFunction) =>
-            this.invoke(nav),
+            this.invoke(nav)
         );
     }
 }

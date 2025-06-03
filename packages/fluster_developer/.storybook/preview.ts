@@ -1,7 +1,7 @@
 import type { Preview } from "@storybook/react-vite";
 import "../src/themes.scss";
 import { withThemeByClassName } from "@storybook/addon-themes";
-import { themes } from "storybook/theming";
+import { background, themes } from "storybook/theming";
 
 export const parameters = {
     darkMode: {
@@ -30,6 +30,15 @@ const preview: Preview = {
                 date: /Date$/i,
             },
         },
+        backgrounds: {
+            options: {
+                dark: { name: "Dark", value: "#333" },
+                light: { name: "Light", value: "#F7F9F2" },
+            },
+        },
+    },
+    initialGlobals: {
+        backgrounds: { value: "dark" },
     },
     tags: ["autodocs"],
 };

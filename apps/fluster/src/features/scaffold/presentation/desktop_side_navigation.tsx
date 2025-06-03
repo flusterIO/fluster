@@ -41,7 +41,7 @@ const DesktopSideNavigation = (): ReactNode => {
         for (const item of sideNavButtons) {
             if (item.position === NavItemPosition.top) {
                 top.push(item);
-            } else {
+            } else if (item.position === NavItemPosition.bottom) {
                 bottom.push(item);
             }
         }

@@ -27,7 +27,8 @@ const NoDictionaryEntriesFound = connector(
                         lang={"mdx"}
                         code={`\`\`\`dictionary - My Entry \n# My title 
 > You can use any mdx you want inside of here.
-This will be found saved to your dictionary as "My Entry".
+This will be saved to your dictionary as "My Entry". 
+With _this_ mdx as the body.
 \`\`\``}
                     />
                 </div>

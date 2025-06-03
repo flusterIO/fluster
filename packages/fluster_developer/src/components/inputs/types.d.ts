@@ -5,5 +5,5 @@ export interface FormInputProps<T extends FieldValues> {
     form: UseFormReturn<T>;
     name: Path<T>;
     label: ReactNode;
-    desc?: ReactNode;
+    desc?: string | null;
 }

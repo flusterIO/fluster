@@ -1,5 +1,5 @@
 import { H3 } from "@/components/typography/typography";
-import { commands, SnippetModel } from "@/lib/bindings";
+import { commands } from "@/lib/bindings";
 import React, { type ReactNode } from "react";
 import { Button, buttonVariants, CodeBlock } from "@fluster.io/dev";
 import { useConfirmation } from "#/confirmation_modal/state/hooks/use_confirmation";
@@ -17,15 +17,15 @@ import { useDarkMode } from "@/hooks/use_dark_mode";
 import { connect } from "react-redux";
 import { AppState } from "@/state/initial_state";
 
+const connector = connect((state: AppState) => ({
+    themes: state.code.theme,
+}));
+
 interface SnippetItemComponentProps {
     item: SnippetItem;
     idx: number;
+    themes: AppState["code"]["theme"];
 }
-
-const connector = connect((state: AppState, props: any) => ({
-    themes: state.code.theme,
-    props: props,
-}));
 
 const SnippetListItem = connector(
     ({ item, idx, themes }: SnippetItemComponentProps): ReactNode => {
@@ -126,7 +126,6 @@ const SnippetListItem = connector(
                                     variant: "outline",
                                 })
                             )}
-                            /* variant={"outline"} */
                             onClick={handleEditClick}
                             to={`${AppRoutes.snippets}?editing=${item.id}`}
                         >

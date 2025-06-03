@@ -13,15 +13,12 @@ import { Badge } from "../../shad/badge";
 import { FormInputProps } from "../types";
 import { cn } from "../../../utils/cn";
 
-interface TagInputProps<T extends FieldValues>
-    extends Omit<FormInputProps<T>, "label"> {
+interface TagInputProps<T extends FieldValues> extends FormInputProps<T> {
     classes: {
         formItem?: string;
         input?: string;
         tagList?: string;
     };
-    label?: ReactNode;
-    desc?: ReactNode;
 }
 
 export const TagInput = <T extends FieldValues>({

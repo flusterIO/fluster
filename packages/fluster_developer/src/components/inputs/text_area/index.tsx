@@ -1,5 +1,4 @@
-import React, { type ComponentProps, type ReactNode } from "react";
-import { Input } from "../../shad/input";
+import React, { type ReactNode } from "react";
 import {
     FormControl,
     FormDescription,
@@ -8,26 +7,28 @@ import {
     FormLabel,
     FormMessage,
 } from "../../shad/form";
+import { Textarea } from "../../shad/textarea";
 import { FormInputProps } from "../types";
 import { FieldValues } from "react-hook-form";
 import { cn } from "../../../utils/cn";
 
-interface TextInputGroupProps<T extends FieldValues> extends FormInputProps<T> {
-    inputProps?: Omit<ComponentProps<typeof Input>, "onChange" | "value">;
+interface TextAreaInputProps<T extends FieldValues> extends FormInputProps<T> {
     classes?: {
         formItem?: string;
+        textArea?: string;
         container?: string;
-        input?: string;
     };
+    rows?: number;
 }
 
-export const TextInputGroup = <T extends FieldValues>({
-    form,
+export const TextAreaInput = <T extends FieldValues>({
     label,
+    form,
     name,
     desc,
+    rows = 4,
     classes = {},
-}: TextInputGroupProps<T>): ReactNode => {
+}: TextAreaInputProps<T>): ReactNode => {
     return (
         <FormField
             control={form.control}
@@ -38,19 +39,16 @@ export const TextInputGroup = <T extends FieldValues>({
                         <FormLabel>{label}</FormLabel>
                         <FormControl>
                             <div className={cn("w-full max-w-[600px]", classes.container)}>
-                                <Input
-                                    id={"equation-name-input"}
+                                <Textarea
                                     value={field.value}
                                     onChange={(e) =>
-                                        form.setValue(
-                                            name,
-                                            e.target.value as Parameters<typeof form.setValue>[1]
-                                        )
+                                        form.setValue(field.name, e.target.value as any)
                                     }
-                                    className={classes.input}
+                                    rows={rows}
+                                    className={classes.textArea}
                                 />
                                 {desc?.length ? (
-                                    <FormDescription className="mt-2">{desc}</FormDescription>
+                                    <FormDescription>{desc}</FormDescription>
                                 ) : null}
                                 <FormMessage />
                             </div>
@@ -62,4 +60,4 @@ export const TextInputGroup = <T extends FieldValues>({
     );
 };
 
-TextInputGroup.displayName = "TextInputGroup";
+TextAreaInput.displayName = "TextAreaInput";

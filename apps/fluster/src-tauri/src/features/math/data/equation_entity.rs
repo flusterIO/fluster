@@ -22,11 +22,7 @@ pub struct EquationEntity {}
 impl EquationEntity {
     pub async fn save_many(db: &FlusterDb<'_>, items: Vec<EquationModel>) -> FlusterResult<()> {
         let schema = EquationEntity::arrow_schema();
-        let tbl = db
-            .open_table(DatabaseTables::Equations.to_string())
-            .execute()
-            .await
-            .map_err(|_| FlusterError::FailToOpenTable)?;
+        let tbl = get_table(db, DatabaseTables::Equations).await?;
         let batches: Vec<Result<RecordBatch, ArrowError>> = items
             .iter()
             .map(|x| Ok(EquationEntity::to_record_batch(x, schema.clone())))
@@ -35,11 +31,12 @@ impl EquationEntity {
             batches.into_iter(),
             schema.clone(),
         ));
-        // RESUME: Come back here when back online and able to look at the docs for querying
-        // with strings. This needs to turn into an upsert statement.
-        // tbl.merge_insert(j)
-        tbl.add(stream)
-            .execute()
+        let primary_key: &[&str] = &["id"];
+        tbl.merge_insert(primary_key)
+            .when_matched_update_all(None)
+            .when_not_matched_insert_all()
+            .clone()
+            .execute(stream)
             .await
             .map_err(|_| FlusterError::FailToCreateEntity)?;
         Ok(())
@@ -62,7 +59,6 @@ impl EquationEntity {
             .try_collect::<Vec<_>>()
             .await
             .map_err(|_| FlusterError::FailToFind)?;
-
         if res.is_empty() {
             return Err(FlusterError::FailToFind);
         }
@@ -96,8 +92,10 @@ impl EquationEntity {
         }
         let mut items: Vec<EquationModel> = Vec::new();
         for batch in items_batch.iter() {
-            let data: Vec<EquationModel> =
-                from_record_batch(batch).map_err(|_| FlusterError::FailToSerialize)?;
+            let data: Vec<EquationModel> = from_record_batch(batch).map_err(|e| {
+                println!("Error: {:?}", e);
+                FlusterError::FailToSerialize
+            })?;
             items.extend(data);
         }
         Ok(items)
@@ -126,8 +124,8 @@ impl DbEntity<EquationModel> for EquationEntity {
         let label = arrow_array::StringArray::from(vec![item.label.clone()]);
         let body = arrow_array::StringArray::from(vec![item.body.clone()]);
         let desc = arrow_array::StringArray::from(vec![item.desc.clone()]);
-        let ctime = Date64Array::from(vec![item.ctime.timestamp_millis()]);
-        let utime = Date64Array::from(vec![item.utime.timestamp_millis()]);
+        let ctime = Date64Array::from(vec![item.ctime]);
+        let utime = Date64Array::from(vec![item.utime]);
         RecordBatch::try_new(
             schema,
             vec![

@@ -6,6 +6,7 @@ use crate::core::utils::file_system::fs_commands::read_utf8_file;
 use crate::core::utils::file_system::fs_commands::save_utf8_file;
 use crate::core::utils::initialize::initialize_database::initialize_database;
 use crate::core::utils::initialize::initialize_desktop::initialize_desktop;
+use crate::core::utils::random_utils::get_unique_id;
 use crate::features::dashboard::get_dashboard_data::get_dashboard_data;
 use crate::features::dictionary::commands::get_dictionary_entries::get_dictionary_entries;
 use crate::features::dictionary::dictionary_entry_model::DictionaryEntryModel;
@@ -63,6 +64,7 @@ pub fn run() {
             get_equation_by_id,
             delete_equation_by_id,
             get_equations,
+            get_unique_id
         ])
         .events(collect_events![ShowToast, SetDbConnectionUri])
         .typ::<FlusterError>()

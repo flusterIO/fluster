@@ -21,7 +21,8 @@ use crate::{
         },
         mdx::data::{
             front_matter_entity::FrontMatterEntity, mdx_note_entity::MdxNoteEntity,
-            mdx_note_tag_entity::MdxNoteTagEntity,
+            mdx_note_equation_entity::MdxNoteEquationEntity,
+            mdx_note_snippet_entity::MdxNoteSnippetEntity, mdx_note_tag_entity::MdxNoteTagEntity,
         },
         settings::settings_entity::SettingsEntity,
         snippets::snippet_entity::SnippetEntity,
@@ -29,7 +30,7 @@ use crate::{
 };
 use arrow_schema::Schema;
 use lancedb::{connect, Table};
-use log::{info, warn};
+use log::warn;
 
 async fn create_table(
     db: &lancedb::Connection,
@@ -108,6 +109,14 @@ pub async fn initialize_database() -> FlusterResult<()> {
             table: DatabaseTables::DictionaryEntry,
             entity: DictionaryEntryEntity::arrow_schema(),
         },
+        TableInitData {
+            table: DatabaseTables::MdxNoteEquation,
+            entity: MdxNoteEquationEntity::arrow_schema(),
+        },
+        TableInitData {
+            table: DatabaseTables::MdxNoteSnippet,
+            entity: MdxNoteSnippetEntity::arrow_schema(),
+        },
     ];
     if let Ok(db_path) = get_database_path() {
         let db = connect(db_path.to_str().unwrap())
@@ -117,7 +126,8 @@ pub async fn initialize_database() -> FlusterResult<()> {
         for td in table_data.iter() {
             // Don't return errors on failure to create the table because it likely just means
             // that the table already exists. Add some more robust error handling here once
-            // the rest of the functionality is in working order.
+            // the rest of the functionality is in working order. This additional functionality
+            // is likely a necessity to allow for migrations in future versions.
             let res = create_table(&db, &td.entity, &td.table).await;
             if res.is_ok() {
                 let s = td.table.to_string();

@@ -8,3 +8,4 @@ pub mod mdx;
 pub mod router;
 pub mod settings;
 pub mod snippets;
+pub mod task_manager;

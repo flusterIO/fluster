@@ -1,9 +1,13 @@
 import PanelContainer from "@/components/util/panel_container";
-import { type ReactNode } from "react";
-
+import React, { type ReactNode } from "react";
+import EquationsList from "../equations_list";
 
 const EquationsPage = (): ReactNode => {
-  return <PanelContainer>Equations</PanelContainer>;
+    return (
+        <PanelContainer>
+            <EquationsList />
+        </PanelContainer>
+    );
 };
 
 EquationsPage.displayName = "EquationsPage";

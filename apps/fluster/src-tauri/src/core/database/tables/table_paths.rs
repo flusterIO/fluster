@@ -27,6 +27,10 @@ pub enum DatabaseTables {
     FrontMatter,
     #[strum(to_string = "mdx_note_tag")]
     MdxNoteTag,
+    #[strum(to_string = "mdx_note_equation")]
+    MdxNoteEquation,
+    #[strum(to_string = "mdx_note_snippet")]
+    MdxNoteSnippet,
     #[strum(to_string = "bib_entry")]
     BibEntry,
     #[strum(to_string = "dictionary_entry")]
