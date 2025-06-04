@@ -15,7 +15,6 @@ import {
     mermaidTheme,
 } from "./static_mdx_options";
 import { ParseMdxStringOptions } from "../types";
-import { ResourceRoutes } from "#/router/data/app_routes";
 
 export const mermaidConfig: MermaidConfigType = {
     output: "svg",

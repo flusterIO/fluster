@@ -15,8 +15,8 @@ export enum AppRoutes {
 }
 
 export enum ResourceRoutes {
-    mathjaxFonts = "/assets/mathjax_fonts",
-    mathjax = "/assets/mathjax",
+    mathjax = "/mathjax",
+    mathjaxFonts = "/mathjax/output/chtml/fonts/woff-v2/",
 }
 
 export const getMdxNoteByIdRoute = (noteId: number) => `/mdx?noteId=${noteId}`;

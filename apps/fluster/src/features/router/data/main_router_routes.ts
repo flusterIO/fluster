@@ -26,19 +26,19 @@ export const getBrowserRouter = () => {
             path: AppRoutes.onboarding,
             Component: OnboardingPage,
         },
-        {
-            path: "/assets",
-            children: [
-                {
-                    path: `${ResourceRoutes.mathjaxFonts}/:font_path`,
-                    loader: mathjaxFontLoader,
-                },
-                {
-                    path: ResourceRoutes.mathjax,
-                    loader: mathjaxLoader,
-                },
-            ],
-        },
+        // {
+        //     path: "/assets",
+        //     children: [
+        //         {
+        //             path: `${ResourceRoutes.mathjaxFonts}/:font_path`,
+        //             loader: mathjaxFontLoader,
+        //         },
+        //         {
+        //             path: ResourceRoutes.mathjax,
+        //             loader: mathjaxLoader,
+        //         },
+        //     ],
+        // },
         {
             path: AppRoutes.dashboard,
             Component: DesktopScaffold,

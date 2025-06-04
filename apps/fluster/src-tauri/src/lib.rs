@@ -16,7 +16,6 @@ use crate::features::math::commands::get_equation_by_id::get_equation_by_id;
 use crate::features::math::commands::get_equations::get_equations;
 use crate::features::math::commands::read_mathjax_file::{read_mathjax, read_mathjax_font_file};
 use crate::features::math::commands::save_equation::save_equations;
-// use crate::features::math::copy_mathjax_dir::copy_mathjax;
 use crate::features::mdx::read_mdx_from_fs::read_mdx_from_fs;
 use crate::features::settings::delete_setting_state::delete_setting_state;
 use crate::features::settings::get_setting_state::get_setting_state;
