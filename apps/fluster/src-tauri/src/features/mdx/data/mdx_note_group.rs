@@ -1,7 +1,6 @@
 use crate::core::models::taggable::shared_taggable_model::SharedTaggableModel;
 use crate::core::models::taggable::tag_entity::TagEntity;
 use crate::core::types::errors::errors::{FlusterError, FlusterResult};
-use crate::core::types::FlusterDb;
 use crate::core::utils::random_utils::new_uuid;
 use chrono::Utc;
 use filetime::FileTime;
@@ -19,12 +18,10 @@ pub struct MdxNoteGroup {
     pub mdx: MdxNoteModel,
     pub front_matter: FrontMatterModel,
     pub tags: Vec<SharedTaggableModel>,
+    pub equation_ids: Vec<String>,
 }
 
 impl MdxNoteGroup {
-    pub async fn save(&self, db: &mut FlusterDb<'_>) -> FlusterResult<()> {
-        Err(FlusterError::NotImplemented)
-    }
     fn handle_fs_parse(
         raw_file_content: String,
         file_path: String,
@@ -37,17 +34,7 @@ impl MdxNoteGroup {
             Some(x) => chrono::DateTime::from_timestamp(x.unix_seconds(), 0).unwrap(),
             None => chrono::DateTime::from_timestamp(Utc::now().timestamp(), 0).unwrap(),
         };
-        note_data.mdx.ctime = chrono::DateTime::from_timestamp(ctime.timestamp(), 0);
-        // note_data.mdx.ctime = Some(chrono::NaiveDateTime::from_timestamp(
-        //     FileTime::from_creation_time(file_meta)
-        //         .unwrap_or(FileTime::now())
-        //         .seconds(),
-        //     0,
-        // ));
-        // note_data.mdx.mtime = Some(chrono::NaiveDateTime::from_timestamp(
-        //     FileTime::from_last_modification_time(file_meta).seconds(),
-        //     0,
-        // ));
+        note_data.mdx.ctime = ctime.timestamp_millis();
         Ok(note_data)
     }
     pub fn from_file_system_path(file_path: String) -> FlusterResult<MdxNoteGroup> {
@@ -70,6 +57,7 @@ impl MdxNoteGroup {
         raw_file_content: String,
         file_path: Option<String>,
     ) -> FlusterResult<MdxNoteGroup> {
+        let now = Utc::now().timestamp_millis();
         let matter = Matter::<YAML>::new();
         let result = matter.parse(&raw_file_content);
         let fp = file_path.unwrap_or("Unknown".to_string());
@@ -79,17 +67,15 @@ impl MdxNoteGroup {
             front_matter: FrontMatterModel::from_gray_matter(result.data, &front_matter_id),
             mdx: MdxNoteModel {
                 front_matter_id: front_matter_id.clone(),
-                id: new_uuid(),
                 raw_body: post_tag_parse.parsed_content,
-                file_path: Some(fp),
-                ctime: None,
-                last_read: None,
+                file_path: fp,
+                ctime: now,
+                last_read: 0,
             },
+            //FIXME: The equation tags are not yet being parsed.
+            equation_ids: Vec::new(),
             tags: post_tag_parse.tags,
         })
-    }
-    pub fn upsert() {
-        let sql = r#""#;
     }
 }
 

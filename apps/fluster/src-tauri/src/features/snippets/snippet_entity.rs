@@ -90,8 +90,12 @@ impl SnippetEntity {
         // RESUME: Come back here when back online and able to look at the docs for querying
         // with strings. This needs to turn into an upsert statement.
         // tbl.merge_insert(j)
-        tbl.add(stream)
-            .execute()
+        let primary_key: &[&str] = &["id"];
+        tbl.merge_insert(primary_key)
+            .when_matched_update_all(None)
+            .when_not_matched_insert_all()
+            .clone()
+            .execute(stream)
             .await
             .map_err(|_| FlusterError::FailToCreateEntity)?;
         Ok(())

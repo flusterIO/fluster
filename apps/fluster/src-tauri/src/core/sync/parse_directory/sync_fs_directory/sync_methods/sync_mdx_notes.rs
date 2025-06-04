@@ -1,16 +1,11 @@
 use crate::core::types::errors::errors::FlusterError;
-use crate::core::types::FlusterDb;
+use crate::features::mdx::actions::save_mdx_note_groups::save_mdx_note_groups;
 use crate::features::mdx::data::mdx_note_group::MdxNoteGroup;
 use crossbeam_channel::unbounded;
-use crossbeam_channel::Sender;
 use ignore::WalkBuilder;
 use ignore::{DirEntry, WalkState};
 
-pub async fn sync_mdx_filesystem_notes(
-    notes_path: &str,
-    error_sender: &Sender<FlusterError>,
-    db: &mut FlusterDb<'_>,
-) -> Result<(), FlusterError> {
+pub async fn sync_mdx_filesystem_notes(notes_path: &str) -> Result<(), FlusterError> {
     let (mdx_sender, mdx_receiver) = unbounded::<Result<MdxNoteGroup, FlusterError>>();
     // let mut c = get_database_connection()
     //     .await
@@ -45,8 +40,9 @@ pub async fn sync_mdx_filesystem_notes(
             // items.push(b);
             items.push(note);
         } else {
-            error_sender.send(FlusterError::FailToCreateEntity).unwrap();
+            log::error!("Failed to create an MdxNoteGroup.")
         }
     }
+    save_mdx_note_groups(items).await?;
     Ok(())
 }

@@ -7,6 +7,9 @@ pub enum FlusterError {
     #[error("This error is entirely on us. If you continue to encounter this error, please submit an issue on Github.")]
     NotImplemented,
 
+    #[error("Fluster failed to copy some necessary files. You might experience unexpected behavior until this is resolved.")]
+    FailToCopyFiles,
+
     #[error("Fluster failed while attempting to save your settings.")]
     FailToSaveSettings,
 
@@ -31,6 +34,9 @@ pub enum FlusterError {
 
     #[error("Failed to delete an entity.")]
     FailToDelete,
+
+    #[error("Failed to clean data. This may result in stale data in your database.")]
+    FailToClean,
 
     #[error("Fluster failed to create a necessary table.")]
     FailToCreateTable,
@@ -83,6 +89,9 @@ pub enum FlusterError {
 
     #[error("Failed to read file system path at {0}.")]
     FailToReadFileSystemPath(String),
+
+    #[error("Fail to read mathjax font. Math may not render properly.")]
+    FailToReadMathjaxFont,
 
     #[error("Failed to save file at {0}.")]
     FailToSaveFile(String),

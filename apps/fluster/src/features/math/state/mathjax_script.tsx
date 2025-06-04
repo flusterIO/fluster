@@ -1,6 +1,5 @@
-import { useHealthReport } from "#/health/state/use_health";
-import { commands } from "@/lib/bindings";
-import React, { useEffect, useState, type ReactNode } from "react";
+import { ResourceRoutes } from "#/router/data/app_routes";
+import React, { type ReactNode } from "react";
 
 export const MathjaxConfigScript = () => {
     return (
@@ -15,7 +14,7 @@ export const MathjaxConfigScript = () => {
   },
   chtml: {
     minScale: 0.2,
-    fontURL: "/font/mathjax",
+    fontURL: "${ResourceRoutes.mathjaxFonts}",
   }
 }`}
         </script>
@@ -23,31 +22,24 @@ export const MathjaxConfigScript = () => {
 };
 
 const MathjaxScript = (): ReactNode => {
-    const [src, setSrc] = useState<null | string>(null);
-    const healthState = useHealthReport();
-    const getMathjaxPath = async (): Promise<void> => {
-        const res = await commands.getMathjaxPath();
-        if (res.length) {
-            setSrc(res);
-        }
+    window.MathJax = {
+        /* @ts-expect-error -- Not sure if this is working but I'm leaving it until all math is rendering properly. */
+        "HTML-CSS": { linebreaks: { automatic: true } },
+        tex: {
+            inlineMath: [["$", "$"]],
+        },
+        menuSettings: {
+            autocollapse: true,
+        },
+        chtml: {
+            minScale: 0.2,
+            fontURL: ResourceRoutes.mathjaxFonts,
+        },
     };
-    useEffect(() => {
-        if (healthState.report?.healthy) {
-            getMathjaxPath();
-        }
-    }, [healthState.report, healthState.requestNew]);
-    if (src === null) {
-        return null;
-    }
     return (
         <>
             <MathjaxConfigScript />
-            <script
-                src={
-                    "/Users/bigsexy/Library/Application Support/Fluster/data/mathjax/tex-chtml.js"
-                }
-                async
-            />
+            <script src={ResourceRoutes.mathjax} async />
         </>
     );
 };

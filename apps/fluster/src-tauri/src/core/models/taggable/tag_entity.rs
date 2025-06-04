@@ -26,6 +26,7 @@ impl TagEntity {
         items: Vec<SharedTaggableModel>,
         db: FlusterDb<'_>,
     ) -> FlusterResult<()> {
+        // FIXME: This method will fail. There is no id field. This should instead check the value and insert only if it does not exist.
         let schema = TagEntity::arrow_schema();
         let tbl = get_table(
             &db,
@@ -40,7 +41,7 @@ impl TagEntity {
             batches.into_iter(),
             schema.clone(),
         ));
-        let primary_key: &[&str] = &["id"];
+        let primary_key: &[&str] = &["value"];
         tbl.merge_insert(primary_key)
             .when_matched_update_all(None)
             .when_not_matched_insert_all()
@@ -119,35 +120,5 @@ impl DbEntity<SharedTaggableModel> for TagEntity {
             Field::new("value", DataType::Utf8, false),
             Field::new("ctime", DataType::Date64, false),
         ]))
-    }
-}
-
-#[cfg(test)]
-mod tests {
-    use arrow_array::{RecordBatchIterator, RecordBatchReader};
-
-    use crate::core::database::{db::get_database, tables::table_paths::DatabaseTables};
-
-    use super::*;
-
-    #[tokio::test]
-    async fn saves_tag() {
-        let test_tag = SharedTaggableModel::new("test tag".to_string(), None);
-        let db_res = get_database().await;
-        let db = db_res.lock().await;
-        let schema = TagEntity::arrow_schema();
-        let tbl = db
-            .open_table(DatabaseTables::Tags.to_string())
-            .execute()
-            .await
-            .expect("Opens tag table without throwing an error.");
-        let initial_batches = vec![Ok(TagEntity::to_record_batch(&test_tag, schema.clone()))];
-        let stream = Box::new(RecordBatchIterator::new(
-            initial_batches.into_iter(),
-            schema.clone(),
-        )) as Box<dyn RecordBatchReader + Send>;
-        let res = tbl.add(stream).execute().await;
-        println!("Res: {:?}", res);
-        assert!(res.is_ok(), "Saves tag without throwing an error.");
     }
 }

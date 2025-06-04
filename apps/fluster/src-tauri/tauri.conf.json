@@ -29,7 +29,10 @@
                         "*"
                     ],
                     "permissions": [
-                        "core:window:allow-start-dragging"
+                        "core:default",
+                        "core:window:allow-start-dragging",
+                        "log:allow-log",
+                        "log:default"
                     ]
                 }
             ]

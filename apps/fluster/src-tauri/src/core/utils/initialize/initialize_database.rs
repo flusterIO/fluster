@@ -86,7 +86,7 @@ pub async fn initialize_database() -> FlusterResult<()> {
             entity: EquationSnippetEntity::arrow_schema(),
         },
         TableInitData {
-            table: DatabaseTables::MdxNotes,
+            table: DatabaseTables::MdxNote,
             entity: MdxNoteEntity::arrow_schema(),
         },
         TableInitData {

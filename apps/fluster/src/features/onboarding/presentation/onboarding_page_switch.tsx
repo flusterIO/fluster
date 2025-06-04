@@ -1,7 +1,6 @@
 import React, { useEffect, type ReactNode } from "react";
 import OnboardingCreateDatabaseScreen from "./onboarding_screens/creating_database";
 import { useOnboardingStateContext } from "../state/onboarding_context";
-import OnboardingCopyMathjaxScreen from "./onboarding_screens/copy_mathjax";
 import OnboardingSetupCompleteScreen from "./onboarding_screens/setup_complete";
 
 const OnboardingPageSwitch = (): ReactNode => {
@@ -18,9 +17,6 @@ const OnboardingPageSwitch = (): ReactNode => {
             return <OnboardingCreateDatabaseScreen />;
         }
         case 1: {
-            return <OnboardingCopyMathjaxScreen />;
-        }
-        case 2: {
             return <OnboardingSetupCompleteScreen />;
         }
     }

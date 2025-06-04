@@ -1,6 +1,4 @@
 /* eslint-disable  @typescript-eslint/no-explicit-any -- No need to type library stuff */
-/* eslint-disable  @typescript-eslint/no-unsafe-member-access -- No need to type library stuff */
-/* eslint-disable  @typescript-eslint/no-unsafe-call -- No need to type library stuff */
 import { compile } from "@mdx-js/mdx";
 import type { CompileOptions } from "@mdx-js/mdx";
 import remarkMath from "remark-math";
@@ -17,6 +15,7 @@ import {
     mermaidTheme,
 } from "./static_mdx_options";
 import { ParseMdxStringOptions } from "../types";
+import { ResourceRoutes } from "#/router/data/app_routes";
 
 export const mermaidConfig: MermaidConfigType = {
     output: "svg",
@@ -38,16 +37,7 @@ const rehypePlugins = (): CompileOptions["rehypePlugins"] => {
                 details: false,
             },
         ],
-        [
-            rehypeMathjax as any,
-            {
-                ...mathOptions,
-                tex: {
-                    ...mathOptions.tex,
-                    tags: mathOptions.tex.tags,
-                },
-            },
-        ],
+        [rehypeMathjax as any, mathOptions],
         [
             rehypePrettyCode as any,
             {

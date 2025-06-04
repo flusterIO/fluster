@@ -36,7 +36,8 @@ pub async fn get_desktop_health_report() -> DesktopHealthReport {
     let db = db_res.lock().await;
     // let tables = DatabaseTables::iter().all(|x| &db.open_table )
     let database_tables_exist = database_tables_exist(&db).await;
-    let mathjax_dir_exists = std::fs::exists(get_mathjax_path()).is_ok_and(|x| x);
+    let math_root = get_mathjax_path().root;
+    let mathjax_dir_exists = std::fs::exists(math_root).is_ok_and(|x| x);
     DesktopHealthReport {
         database_tables_exist,
         mathjax_dir_exists,

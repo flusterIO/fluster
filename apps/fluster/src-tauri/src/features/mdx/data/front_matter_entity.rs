@@ -1,13 +1,51 @@
 use std::sync::Arc;
 
-use arrow_array::{RecordBatch, StringArray};
-use arrow_schema::{DataType, Field, Schema};
+use arrow_array::{RecordBatch, RecordBatchIterator, StringArray};
+use arrow_schema::{ArrowError, DataType, Field, Schema};
 
-use crate::core::types::traits::db_entity::DbEntity;
+use crate::core::{
+    database::{
+        db::{clean_table, get_table},
+        tables::table_paths::DatabaseTables,
+    },
+    types::{
+        errors::errors::{FlusterError, FlusterResult},
+        traits::db_entity::DbEntity,
+        FlusterDb,
+    },
+};
 
-use super::front_matter_model::FrontMatterModel;
+use super::{front_matter_model::FrontMatterModel, mdx_note_entity::MdxNoteEntity};
 
 pub struct FrontMatterEntity {}
+
+impl FrontMatterEntity {
+    pub async fn clean(db: &FlusterDb<'_>) -> FlusterResult<()> {
+        clean_table(db, DatabaseTables::FrontMatter).await
+    }
+    pub async fn save_many(items: Vec<FrontMatterModel>, db: &FlusterDb<'_>) -> FlusterResult<()> {
+        // RESUME: Come back here to take care of the sync method.
+        let schema = MdxNoteEntity::arrow_schema();
+        let tbl = get_table(&db, DatabaseTables::MdxNote).await?;
+        let batches: Vec<Result<RecordBatch, ArrowError>> = items
+            .iter()
+            .map(|x| Ok(FrontMatterEntity::to_record_batch(x, schema.clone())))
+            .collect();
+        let stream = Box::new(RecordBatchIterator::new(
+            batches.into_iter(),
+            schema.clone(),
+        ));
+        let primary_key: &[&str] = &["mdx_note_file_path"];
+        tbl.merge_insert(primary_key)
+            .when_matched_update_all(None)
+            .when_not_matched_insert_all()
+            .clone()
+            .execute(stream)
+            .await
+            .map_err(|_| FlusterError::FailToCreateTag)?;
+        Ok(())
+    }
+}
 
 impl DbEntity<FrontMatterModel> for FrontMatterEntity {
     fn arrow_schema() -> std::sync::Arc<arrow_schema::Schema> {

@@ -21,6 +21,7 @@ pub struct FrontMatterModel {
     pub topic: Option<SharedTaggableModel>,
     pub list_id: Option<String>,
     pub list_index: Option<i64>,
+    pub mdx_note_file_path: String,
 }
 
 impl FrontMatterModel {

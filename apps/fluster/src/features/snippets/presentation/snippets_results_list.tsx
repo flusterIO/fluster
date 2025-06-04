@@ -13,7 +13,6 @@ const mapToStringList = (data: Record<string, boolean>): string[] => {
     const items = [];
     for (const x in data) {
         if (data[x]) {
-            console.log("x: ", x);
             items.push(x);
         }
     }

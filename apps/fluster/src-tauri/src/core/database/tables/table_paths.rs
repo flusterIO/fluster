@@ -21,8 +21,8 @@ pub enum DatabaseTables {
     Subjects,
     #[strum(to_string = "settings")]
     Settings,
-    #[strum(to_string = "mdx_notes")]
-    MdxNotes,
+    #[strum(to_string = "mdx_note")]
+    MdxNote,
     #[strum(to_string = "front_matter")]
     FrontMatter,
     #[strum(to_string = "mdx_note_tag")]

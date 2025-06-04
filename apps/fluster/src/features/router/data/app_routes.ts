@@ -14,6 +14,11 @@ export enum AppRoutes {
     onboarding = "/onboarding",
 }
 
+export enum ResourceRoutes {
+    mathjaxFonts = "/assets/mathjax_fonts",
+    mathjax = "/assets/mathjax",
+}
+
 export const getMdxNoteByIdRoute = (noteId: number) => `/mdx?noteId=${noteId}`;
 export const getMdxNoteFromFsRoute = (fsPath: string): string => {
     const sp = new URLSearchParams();

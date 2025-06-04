@@ -6,10 +6,12 @@ import { CommandPaletteProvider } from "#/command_palette/state/command_palette_
 import CommandPalette from "#/command_palette/presentation/command_palette";
 import ConfirmationModalContainer from "#/confirmation_modal/presentation/confirmation_modal_container";
 import PageContainer from "@/components/util/page_container";
+import MathjaxScript from "#/math/state/mathjax_script";
 
 const DesktopScaffold = (): ReactNode => {
     return (
         <PageContainer id="main-scaffold">
+            <MathjaxScript />
             <DesktopSideNavigation />
             <div className="flex-grow h-full w-full pt-8 overflow-y-auto">
                 <Outlet />

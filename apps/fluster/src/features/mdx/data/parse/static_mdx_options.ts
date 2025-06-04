@@ -1,12 +1,13 @@
-export interface MermaidConfigType {
-    output: "svg" | "ast"
-    theme?: {
-        dark?: string
-        light?: string
-    }
-    mermaid: any
-}
+import { AppRoutes, ResourceRoutes } from "#/router/data/app_routes";
 
+export interface MermaidConfigType {
+    output: "svg" | "ast";
+    theme?: {
+        dark?: string;
+        light?: string;
+    };
+    mermaid: any;
+}
 
 export interface MathOptionsType {
     tex: {
@@ -54,11 +55,8 @@ export const mermaidTheme = {
         lineColor: "#9ca3af",
         noteBkgColor: "#1b1917",
         noteTextColor: "#000000",
-    }
-}
-
-
-
+    },
+};
 
 export const mathOptions: MathOptionsType = {
     tex: {
@@ -69,7 +67,7 @@ export const mathOptions: MathOptionsType = {
         processEnvironments: true,
     },
     chtml: {
-        fontURL: "/font/mathjax",
+        fontURL: ResourceRoutes.mathjaxFonts,
         adaptiveCSS: true,
     },
 };

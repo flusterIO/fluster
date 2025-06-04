@@ -50,3 +50,11 @@ pub async fn get_database() -> Arc<Mutex<Connection>> {
     .await
     .clone()
 }
+
+pub async fn clean_table(db: &FlusterDb<'_>, tb: DatabaseTables) -> FlusterResult<()> {
+    let tbl = get_table(db, tb).await?;
+    tbl.delete("*")
+        .await
+        .map_err(|_| FlusterError::FailToDelete)?;
+    Ok(())
+}

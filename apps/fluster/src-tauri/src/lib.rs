@@ -14,8 +14,9 @@ use crate::features::embedded_docs::get_embedded_doc_by_id::get_embedded_doc;
 use crate::features::math::commands::delete_equation_by_id::delete_equation_by_id;
 use crate::features::math::commands::get_equation_by_id::get_equation_by_id;
 use crate::features::math::commands::get_equations::get_equations;
+use crate::features::math::commands::read_mathjax_file::{read_mathjax, read_mathjax_font_file};
 use crate::features::math::commands::save_equation::save_equations;
-use crate::features::math::copy_mathjax_dir::copy_mathjax;
+// use crate::features::math::copy_mathjax_dir::copy_mathjax;
 use crate::features::mdx::read_mdx_from_fs::read_mdx_from_fs;
 use crate::features::settings::delete_setting_state::delete_setting_state;
 use crate::features::settings::get_setting_state::get_setting_state;
@@ -58,13 +59,14 @@ pub fn run() {
             get_setting_state,
             initialize_database,
             initialize_desktop,
-            copy_mathjax,
             get_dictionary_entries,
             save_equations,
             get_equation_by_id,
             delete_equation_by_id,
             get_equations,
-            get_unique_id
+            get_unique_id,
+            read_mathjax_font_file,
+            read_mathjax
         ])
         .events(collect_events![ShowToast, SetDbConnectionUri])
         .typ::<FlusterError>()

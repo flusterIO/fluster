@@ -1,7 +1,10 @@
 import type { Preview } from "@storybook/react-vite";
 import "../src/themes.scss";
-import { withThemeByClassName } from "@storybook/addon-themes";
-import { background, themes } from "storybook/theming";
+import {
+    withThemeByClassName,
+    withThemeByDataAttribute,
+} from "@storybook/addon-themes";
+import { themes } from "storybook/theming";
 
 export const parameters = {
     darkMode: {
@@ -19,6 +22,25 @@ export const decorators = [
             dark: "dark",
         },
         defaultTheme: "light",
+    }),
+    withThemeByDataAttribute({
+        defaultTheme: "fluster",
+        attributeName: "data-fluster-theme",
+        themes: {
+            zinc: "zinc",
+            yellow: "yellow",
+            violet: "violet",
+            fluster: "fluster",
+            stone: "stone",
+            slate: "slate",
+            rose: "rose",
+            red: "red",
+            orange: "orange",
+            neutral: "neutral",
+            green: "green",
+            gray: "gray",
+            blue: "blue",
+        },
     }),
 ];
 
