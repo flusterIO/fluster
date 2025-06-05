@@ -1,6 +1,6 @@
 use std::sync::Arc;
 
-use arrow_array::{Date64Array, RecordBatch};
+use arrow_array::{Date64Array, RecordBatch, TimestampMillisecondArray};
 use arrow_schema::{DataType, Field, Schema};
 use chrono::prelude::*;
 use futures::TryStreamExt;
@@ -54,7 +54,11 @@ impl DbEntity<DictionaryEntryModel> for DictionaryEntryEntity {
         Arc::new(Schema::new(vec![
             Field::new("label", DataType::Utf8, false),
             Field::new("body", DataType::Utf8, false),
-            Field::new("ctime", DataType::Date64, false),
+            Field::new(
+                "ctime",
+                DataType::Timestamp(arrow_schema::TimeUnit::Millisecond, Some("Utc".into())),
+                false,
+            ),
         ]))
     }
 
@@ -65,7 +69,7 @@ impl DbEntity<DictionaryEntryModel> for DictionaryEntryEntity {
         let now = Utc::now().timestamp_millis();
         let label = arrow_array::StringArray::from(vec![item.label.clone()]);
         let body = arrow_array::StringArray::from(vec![item.body.clone()]);
-        let ctime = Date64Array::from(vec![item.ctime]);
+        let ctime = TimestampMillisecondArray::from(vec![item.ctime]);
         RecordBatch::try_new(
             schema,
             vec![Arc::new(label), Arc::new(body), Arc::new(ctime)],

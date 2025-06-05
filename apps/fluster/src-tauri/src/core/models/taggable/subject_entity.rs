@@ -1,5 +1,5 @@
 use super::shared_taggable_model::SharedTaggableModel;
-use arrow_array::{Date64Array, RecordBatch};
+use arrow_array::{Date64Array, RecordBatch, TimestampMillisecondArray};
 use arrow_schema::{DataType, Field, Schema};
 use serde::{Deserialize, Serialize};
 use std::sync::Arc;
@@ -11,7 +11,7 @@ pub struct SubjectEntity {}
 
 impl DbEntity<SharedTaggableModel> for SubjectEntity {
     fn to_record_batch(item: &SharedTaggableModel, schema: Arc<Schema>) -> RecordBatch {
-        let ctime = Date64Array::from(vec![item.ctime.timestamp_millis()]);
+        let ctime = TimestampMillisecondArray::from(vec![item.ctime.timestamp_millis()]);
         let text_array = arrow_array::StringArray::from(vec![item.value.clone()]);
         // Create the vector array
         RecordBatch::try_new(schema, vec![Arc::new(text_array), Arc::new(ctime)]).unwrap()
@@ -19,7 +19,11 @@ impl DbEntity<SharedTaggableModel> for SubjectEntity {
     fn arrow_schema() -> Arc<Schema> {
         Arc::new(Schema::new(vec![
             Field::new("value", DataType::Utf8, false),
-            Field::new("ctime", DataType::Date64, false),
+            Field::new(
+                "ctime",
+                DataType::Timestamp(arrow_schema::TimeUnit::Millisecond, Some("Utc".into())),
+                false,
+            ),
             // Field::new(
             //     "vector",
             //     DataType::FixedSizeList(

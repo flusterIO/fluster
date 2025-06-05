@@ -31,7 +31,7 @@ const connector = connect((state: AppState) => ({
 
 const AddSnippetPanel = connector(
     ({ panelOpen }: { panelOpen: boolean }): ReactNode => {
-        const now = new Date().valueOf();
+        const now = BigInt(new Date().valueOf());
         const form = useForm({
             resolver: zodResolver(snippetSchema),
             defaultValues: {
@@ -74,8 +74,8 @@ const AddSnippetPanel = connector(
                     form.setValue("lang", snippetItem.lang);
                     form.setValue("body", snippetItem.body);
                     form.setValue("desc", snippetItem.desc ?? "");
-                    form.setValue("utime", snippetItem.utime ?? now);
-                    form.setValue("ctime", snippetItem.ctime ?? now);
+                    form.setValue("utime", snippetItem.utime ?? BigInt(now));
+                    form.setValue("ctime", snippetItem.ctime ?? BigInt(now));
                     form.setValue(
                         "tags",
                         tags.map((t) => t.value)

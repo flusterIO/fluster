@@ -1,4 +1,6 @@
-use arrow_array::{Date64Array, RecordBatch, RecordBatchIterator, StringArray};
+use arrow_array::{
+    Date64Array, RecordBatch, RecordBatchIterator, StringArray, TimestampMillisecondArray,
+};
 use arrow_schema::{ArrowError, DataType, Field, Schema};
 use chrono::prelude::*;
 use std::sync::Arc;
@@ -53,8 +55,16 @@ impl DbEntity<MdxNoteModel> for MdxNoteEntity {
             Field::new("file_path", DataType::Utf8, true),
             Field::new("raw_body", DataType::Utf8, false),
             Field::new("front_matter_id", DataType::Utf8, false),
-            Field::new("ctime", DataType::Date64, false),
-            Field::new("last_read", DataType::Date64, false),
+            Field::new(
+                "ctime",
+                DataType::Timestamp(arrow_schema::TimeUnit::Millisecond, Some("Utc".into())),
+                false,
+            ),
+            Field::new(
+                "last_read",
+                DataType::Timestamp(arrow_schema::TimeUnit::Millisecond, Some("Utc".into())),
+                false,
+            ),
         ]))
     }
 
@@ -66,8 +76,8 @@ impl DbEntity<MdxNoteModel> for MdxNoteEntity {
         let raw_body = StringArray::from(vec![item.raw_body.clone()]);
         let file_path = StringArray::from(vec![item.file_path.clone()]);
         let front_matter_id = StringArray::from(vec![item.file_path.clone()]);
-        let ctime = Date64Array::from(vec![item.ctime]);
-        let last_read = Date64Array::from(vec![item.last_read]);
+        let ctime = TimestampMillisecondArray::from(vec![item.ctime]);
+        let last_read = TimestampMillisecondArray::from(vec![item.last_read]);
         // Create the vector array
         RecordBatch::try_new(
             schema,

@@ -6,7 +6,9 @@ use crate::core::{
         FlusterDb,
     },
 };
-use arrow_array::{Date64Array, RecordBatch, RecordBatchIterator, StringArray};
+use arrow_array::{
+    Date64Array, RecordBatch, RecordBatchIterator, StringArray, TimestampMillisecondArray,
+};
 use arrow_schema::{ArrowError, DataType, Field, Schema};
 use futures::TryStreamExt;
 use lancedb::query::{ExecutableQuery, QueryBase};
@@ -110,8 +112,16 @@ impl DbEntity<EquationModel> for EquationEntity {
             Field::new("label", DataType::Utf8, false),
             Field::new("body", DataType::Utf8, false),
             Field::new("desc", DataType::Utf8, true),
-            Field::new("ctime", DataType::Date64, false),
-            Field::new("utime", DataType::Date64, false),
+            Field::new(
+                "ctime",
+                DataType::Timestamp(arrow_schema::TimeUnit::Millisecond, Some("Utc".into())),
+                false,
+            ),
+            Field::new(
+                "utime",
+                DataType::Timestamp(arrow_schema::TimeUnit::Millisecond, Some("Utc".into())),
+                false,
+            ),
         ]))
     }
 
@@ -124,8 +134,8 @@ impl DbEntity<EquationModel> for EquationEntity {
         let label = arrow_array::StringArray::from(vec![item.label.clone()]);
         let body = arrow_array::StringArray::from(vec![item.body.clone()]);
         let desc = arrow_array::StringArray::from(vec![item.desc.clone()]);
-        let ctime = Date64Array::from(vec![item.ctime]);
-        let utime = Date64Array::from(vec![item.utime]);
+        let ctime = TimestampMillisecondArray::from(vec![item.ctime]);
+        let utime = TimestampMillisecondArray::from(vec![item.utime]);
         RecordBatch::try_new(
             schema,
             vec![

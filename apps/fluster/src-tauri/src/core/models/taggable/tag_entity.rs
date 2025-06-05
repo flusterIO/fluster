@@ -1,4 +1,4 @@
-use arrow_array::{Date64Array, RecordBatch, RecordBatchIterator};
+use arrow_array::{Date64Array, RecordBatch, RecordBatchIterator, TimestampMillisecondArray};
 use arrow_schema::{ArrowError, DataType, Field, Schema};
 use gray_matter::{ParsedEntity, Pod};
 use rayon::iter::IntoParallelRefIterator;
@@ -110,7 +110,7 @@ impl TagEntity {
 
 impl DbEntity<SharedTaggableModel> for TagEntity {
     fn to_record_batch(item: &SharedTaggableModel, schema: Arc<Schema>) -> RecordBatch {
-        let ctime = Date64Array::from(vec![item.ctime.timestamp_millis()]);
+        let ctime = TimestampMillisecondArray::from(vec![item.ctime.timestamp_millis()]);
         let text_array = arrow_array::StringArray::from(vec![item.value.clone()]);
         // Create the vector array
         RecordBatch::try_new(schema, vec![Arc::new(text_array), Arc::new(ctime)]).unwrap()
@@ -118,7 +118,11 @@ impl DbEntity<SharedTaggableModel> for TagEntity {
     fn arrow_schema() -> Arc<Schema> {
         Arc::new(Schema::new(vec![
             Field::new("value", DataType::Utf8, false),
-            Field::new("ctime", DataType::Date64, false),
+            Field::new(
+                "ctime",
+                DataType::Timestamp(arrow_schema::TimeUnit::Millisecond, Some("Utc".into())),
+                false,
+            ),
         ]))
     }
 }

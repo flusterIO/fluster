@@ -1,6 +1,6 @@
 use std::sync::Arc;
 
-use arrow_array::{Date64Array, RecordBatch, StringArray};
+use arrow_array::{Date64Array, RecordBatch, StringArray, TimestampMillisecondArray};
 use arrow_schema::{DataType, Field, Schema};
 
 use super::bib_entry_model::BibEntryModel;
@@ -21,7 +21,11 @@ impl DbEntity<BibEntryModel> for BibEntryEntity {
             Field::new("id", DataType::Utf8, false),
             Field::new("user_provided_id", DataType::Utf8, false),
             Field::new("data", DataType::Utf8, false),
-            Field::new("ctime", DataType::Date64, true),
+            Field::new(
+                "ctime",
+                DataType::Timestamp(arrow_schema::TimeUnit::Millisecond, Some("Utc".into())),
+                true,
+            ),
         ]))
     }
 
@@ -32,7 +36,7 @@ impl DbEntity<BibEntryModel> for BibEntryEntity {
         let id = StringArray::from(vec![item.id.clone()]);
         let user_provided_id = StringArray::from(vec![item.user_provided_id.clone()]);
         let data = StringArray::from(vec![item.data.clone()]);
-        let ctime = Date64Array::from(vec![item.ctime.timestamp_millis()]);
+        let ctime = TimestampMillisecondArray::from(vec![item.ctime.timestamp_millis()]);
         RecordBatch::try_new(
             schema,
             vec![
