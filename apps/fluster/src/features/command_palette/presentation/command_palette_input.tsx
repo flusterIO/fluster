@@ -20,7 +20,6 @@ import { useNavigate } from "react-router";
 import { useEventListener } from "@fluster.io/dev";
 
 declare global {
-   
   interface WindowEventMap {
     "reset-command-palette-input": CustomEvent<object>;
   }
@@ -83,6 +82,15 @@ const CommandPaletteInput = forwardRef(
             type: CommandPaletteActionType.incrementFocusIndex,
           });
         }
+      } else if (e.key === "ArrowDown") {
+        console.log(`down arrow`);
+        dispatch({
+          type: CommandPaletteActionType.incrementFocusIndex,
+        });
+      } else if (e.key === "ArrowUp") {
+        dispatch({
+          type: CommandPaletteActionType.decrementFocusIndex,
+        });
       } else if (e.key === "Enter") {
         const item = state.filteredItems[state.focusedIndex];
         if (item instanceof CommandPaletteCategory) {
