@@ -1,4 +1,4 @@
-use arrow_array::{Date64Array, RecordBatch, RecordBatchIterator};
+use arrow_array::{Date64Array, RecordBatch, RecordBatchIterator, TimestampMillisecondArray};
 use arrow_schema::{ArrowError, DataType, Field, Schema};
 use chrono::Utc;
 use futures::TryStreamExt;
@@ -58,8 +58,10 @@ impl SnippetEntity {
         }
 
         let batch = res.index(0);
-        let items: Vec<SnippetModel> =
-            from_record_batch(batch).map_err(|_| FlusterError::FailToSerialize)?;
+        let items: Vec<SnippetModel> = from_record_batch(batch).map_err(|e| {
+            println!("Failed to serialize: {:?}", e);
+            FlusterError::FailToSerialize
+        })?;
 
         let len = items.len();
         match len {
@@ -132,8 +134,10 @@ impl SnippetEntity {
         }
         let mut items: Vec<SnippetModel> = Vec::new();
         for batch in items_batch.iter() {
-            let data: Vec<SnippetModel> =
-                from_record_batch(batch).map_err(|_| FlusterError::FailToSerialize)?;
+            let data: Vec<SnippetModel> = from_record_batch(batch).map_err(|e| {
+                println!("Serialization Error: {:?}", e);
+                FlusterError::FailToSerialize
+            })?;
             items.extend(data);
         }
         Ok(items)
@@ -160,8 +164,10 @@ impl SnippetEntity {
         //     from_record_batch(items_batch).map_err(|_| FlusterError::FailToSerialize)?;
         let mut items: Vec<SnippetModel> = Vec::new();
         for batch in items_batch.iter() {
-            let data: Vec<SnippetModel> =
-                from_record_batch(batch).map_err(|_| FlusterError::FailToSerialize)?;
+            let data: Vec<SnippetModel> = from_record_batch(batch).map_err(|e| {
+                println!("Serialization Error: {:?}", e);
+                FlusterError::FailToSerialize
+            })?;
             items.extend(data);
         }
         Ok(items)
@@ -187,15 +193,22 @@ impl DbEntity<SnippetModel> for SnippetEntity {
             Field::new("body", DataType::Utf8, false),
             Field::new("desc", DataType::Utf8, true),
             Field::new("lang", DataType::Utf8, false),
-            Field::new("ctime", DataType::Date64, false),
-            Field::new("utime", DataType::Date64, false),
+            Field::new(
+                "ctime",
+                DataType::Timestamp(arrow_schema::TimeUnit::Millisecond, None),
+                false,
+            ),
+            Field::new(
+                "utime",
+                DataType::Timestamp(arrow_schema::TimeUnit::Millisecond, None),
+                false,
+            ),
         ]))
     }
 
     fn to_record_batch(item: &SnippetModel, schema: Arc<Schema>) -> RecordBatch {
-        let now = Utc::now().timestamp_millis();
-        let ctime = Date64Array::from(vec![item.ctime.unwrap_or(now)]);
-        let utime = Date64Array::from(vec![item.utime.unwrap_or(now)]);
+        let ctime = TimestampMillisecondArray::from(vec![item.ctime]);
+        let utime = TimestampMillisecondArray::from(vec![item.utime]);
         let body = arrow_array::StringArray::from(vec![item.body.clone()]);
         let id = arrow_array::StringArray::from(vec![item
             .id

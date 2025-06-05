@@ -16,9 +16,9 @@ pub struct SnippetModel {
     /// THe language of the snippet.
     pub lang: String,
     /// The time the snippet was created.
-    pub ctime: Option<i64>,
+    pub ctime: i64,
     /// The time the snippet was last updated.
-    pub utime: Option<i64>,
+    pub utime: i64,
 }
 
 impl SnippetModel {
@@ -36,8 +36,8 @@ impl SnippetModel {
             body,
             desc,
             lang,
-            utime: Some(now),
-            ctime: Some(1),
+            utime: now,
+            ctime: now,
         }
     }
 }

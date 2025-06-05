@@ -32,6 +32,10 @@ const SnippetsResultsList = (): ReactNode => {
         if (res.status === "ok") {
             setResults(res.data);
         } else {
+            console.error(
+                `An error occurred while attempting to gather snippets from the database: `,
+                res.error
+            );
             setResults([]);
         }
     };
@@ -69,7 +73,14 @@ const SnippetsResultsList = (): ReactNode => {
                 </div>
             ) : results.length ? (
                 results.map((l, i) => (
-                    <SnippetListItem idx={i} key={`snippet-${l.label}`} item={l} />
+                    <SnippetListItem
+                        idx={i}
+                        key={`snippet-${l.label}`}
+                        item={{
+                            ...l,
+                            tags: [],
+                        }}
+                    />
                 ))
             ) : (
                 <NoSnippetsFound />

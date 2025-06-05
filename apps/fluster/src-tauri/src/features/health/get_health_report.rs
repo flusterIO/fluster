@@ -13,7 +13,6 @@ use crate::{
 #[derive(Type, Serialize, Deserialize, Clone)]
 pub struct DesktopHealthReport {
     pub database_tables_exist: bool,
-    pub mathjax_dir_exists: bool,
     /// This boolean describes the overall health of the desktop app. If any inidividual field
     /// that warrents re-initializing is false, this field will be false.
     pub healthy: bool,
@@ -37,12 +36,9 @@ pub async fn get_desktop_health_report() -> DesktopHealthReport {
     // let tables = DatabaseTables::iter().all(|x| &db.open_table )
     let database_tables_exist = database_tables_exist(&db).await;
     let math_root = get_mathjax_path().root;
-    let mathjax_dir_exists = std::fs::exists(math_root).is_ok_and(|x| x);
     DesktopHealthReport {
         database_tables_exist,
-        mathjax_dir_exists,
-        healthy: vec![database_tables_exist, mathjax_dir_exists]
-            .iter()
-            .all(|x| *x),
+        // leaving this as an array so it can be expanded upon later.
+        healthy: vec![database_tables_exist].iter().all(|x| *x),
     }
 }

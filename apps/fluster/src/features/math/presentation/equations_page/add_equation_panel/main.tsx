@@ -2,18 +2,10 @@ import SidePanelContainer from "@/components/side_panel_container";
 import React, { useEffect, useState, type ReactNode } from "react";
 import {
     Form,
-    FormControl,
-    FormDescription,
-    FormField,
-    FormItem,
-    FormLabel,
-    FormMessage,
-    Input,
     MathTextInput,
     TextAreaInput,
     TextInputGroup,
 } from "@fluster.io/dev";
-import { Textarea } from "@fluster.io/dev";
 import { Button } from "@fluster.io/dev";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -70,7 +62,7 @@ export const AddEquationPanel = connector(
         const getEquationBeingEdited = async (id: string): Promise<void> => {
             console.log("id: ", id);
             /* FIXME: Return the related tags and snippet_ids in the `get_equation_by_id` method and populate the form properly here. Make sure they are being saved as well. */
-            let data = await commands.getEquationById(id);
+            const data = await commands.getEquationById(id);
             if (data.status === "ok") {
                 form.setValue("id", data.data.id);
                 form.setValue("user_provided_id", data.data.equation_id ?? "");
@@ -95,11 +87,12 @@ export const AddEquationPanel = connector(
                     );
                 });
             }
+            /* eslint-disable-next-line  --  */
         }, [searchParams, editingIdState, isEquationsPage]);
         const handleSubmit = async (
             data: z.infer<typeof addEquationSchema>
         ): Promise<void> => {
-            const now = new Date().valueOf();
+            const now = new Date().valueOf().toString();
             let _unique_id = "";
             if (data.id === null) {
                 _unique_id = await commands.getUniqueId();
