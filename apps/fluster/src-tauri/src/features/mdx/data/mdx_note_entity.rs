@@ -28,7 +28,7 @@ impl MdxNoteEntity {
     }
     pub async fn save_many(items: Vec<MdxNoteModel>, db: &FlusterDb<'_>) -> FlusterResult<()> {
         let schema = MdxNoteEntity::arrow_schema();
-        let tbl = get_table(&db, DatabaseTables::MdxNote).await?;
+        let tbl = get_table(db, DatabaseTables::MdxNote).await?;
         let batches: Vec<Result<RecordBatch, ArrowError>> = items
             .iter()
             .map(|x| Ok(MdxNoteEntity::to_record_batch(x, schema.clone())))
@@ -72,7 +72,6 @@ impl DbEntity<MdxNoteModel> for MdxNoteEntity {
         item: &MdxNoteModel,
         schema: std::sync::Arc<arrow_schema::Schema>,
     ) -> arrow_array::RecordBatch {
-        let now = Utc::now();
         let raw_body = StringArray::from(vec![item.raw_body.clone()]);
         let file_path = StringArray::from(vec![item.file_path.clone()]);
         let front_matter_id = StringArray::from(vec![item.file_path.clone()]);

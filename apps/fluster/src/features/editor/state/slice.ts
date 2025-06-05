@@ -1,11 +1,17 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { initialCodeState } from "./initial_state";
-import { BundledTheme } from "shiki";
+import { BundledLanguage, BundledTheme } from "shiki";
 
 const slice = createSlice({
   name: "code",
   initialState: initialCodeState,
   reducers: {
+    setDefaultLanguage(state, action: PayloadAction<BundledLanguage>) {
+      return {
+        ...state,
+        defaultLanguage: action.payload,
+      };
+    },
     setCodeTheme(
       state,
       action: PayloadAction<{
@@ -24,6 +30,6 @@ const slice = createSlice({
   },
 });
 
-export const { setCodeTheme } = slice.actions;
+export const { setCodeTheme, setDefaultLanguage } = slice.actions;
 
 export default slice.reducer;
