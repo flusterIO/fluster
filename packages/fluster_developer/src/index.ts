@@ -5,6 +5,7 @@ export { MathTextInput } from "./components/inputs/math_text_input/main";
 export { TextAreaInput } from "./components/inputs/text_area/index";
 export { SyntaxSupportedLanguageSelect } from "./components/inputs/select/supported_programming_language/index";
 export { SyntaxSupportedThemeSelect } from "./components/inputs/select/supported_syntax_theme/index";
+export { FilePathInput } from "./components//inputs/file_select/index";
 export * from "./utils/bundled_languages";
 export * from "./utils/bundled_syntax_themes";
 export * from "./themes.scss";

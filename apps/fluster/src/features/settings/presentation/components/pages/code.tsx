@@ -41,6 +41,9 @@ const CodeSettingsPage = connector(({ state }: Props): ReactNode => {
         form={form}
         name="defaultLanguage"
         label="Default Language"
+        classes={{
+          button: "w-[min(300px,80%)]",
+        }}
       />
     </Form>
   );

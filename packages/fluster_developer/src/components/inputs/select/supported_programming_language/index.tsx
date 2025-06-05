@@ -39,7 +39,9 @@ interface SyntaxSupportedLanguageSelectProps<T extends FieldValues>
   };
 }
 
-/// A utility combobox that is already populated with all of  the supported themes.
+/* TODO: Add the desc field into the rendered component.  */
+
+/// A utility combobox that is already populated with all of the supported languages.
 export const SyntaxSupportedLanguageSelect = <T extends FieldValues>({
   form,
   name,

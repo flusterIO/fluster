@@ -39,6 +39,8 @@ interface SyntaxSupportedThemeSelectProps<T extends FieldValues>
   };
 }
 
+/* TODO: Add the desc field into the rendered component.  */
+
 /// A utility combobox that is already populated with all of  the supported themes.
 export const SyntaxSupportedThemeSelect = <T extends FieldValues>({
   form,

@@ -9,6 +9,7 @@
         "frontendDist": "../dist"
     },
     "app": {
+        "withGlobalTauri": true,
         "trayIcon": {
             "iconPath": "icons/Square310x310Logo.png"
         },
@@ -32,7 +33,9 @@
                         "core:default",
                         "core:window:allow-start-dragging",
                         "log:allow-log",
-                        "log:default"
+                        "log:default",
+                        "dialog:allow-open",
+                        "dialog:allow-save"
                     ]
                 }
             ]
