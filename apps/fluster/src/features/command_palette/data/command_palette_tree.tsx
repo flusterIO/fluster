@@ -8,21 +8,23 @@ import { syncDatabase } from "@/lib/sync_database";
 import { ThemeCommandPaletteRoot } from "./tree/theme_root";
 import { CodeThemeCommandPaletteRoot } from "#/editor/data/command_palette/code_theme_command_palette_category";
 import { EmbeddedDocsCommandPaletteRoot } from "./tree/embedded_docs_root";
+import { NotesCommandPaletteRoot } from "./tree/notes_root";
 
 export class CommandPaletteRoot extends CommandPaletteCategory {
-  constructor() {
-    super("Home");
-  }
-  async getItems(): Promise<CommandPaletteAnyEntry[]> {
-    return [
-      new NavigationCommandPaletteRoot(),
-      new GeneralCommandPaletteItem("Toggle Dark Mode", async () => {
-        store.dispatch(toggleDarkMode());
-      }),
-      new ThemeCommandPaletteRoot(),
-      new CodeThemeCommandPaletteRoot(),
-      new GeneralCommandPaletteItem("Sync database", syncDatabase),
-      new EmbeddedDocsCommandPaletteRoot(),
-    ];
-  }
+    constructor() {
+        super("Home");
+    }
+    async getItems(): Promise<CommandPaletteAnyEntry[]> {
+        return [
+            new NavigationCommandPaletteRoot(),
+            new GeneralCommandPaletteItem("Toggle Dark Mode", async () => {
+                store.dispatch(toggleDarkMode());
+            }),
+            new ThemeCommandPaletteRoot(),
+            new CodeThemeCommandPaletteRoot(),
+            new GeneralCommandPaletteItem("Sync database", syncDatabase),
+            new NotesCommandPaletteRoot(),
+            new EmbeddedDocsCommandPaletteRoot(),
+        ];
+    }
 }
