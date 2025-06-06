@@ -1,9 +1,6 @@
 import React, { useEffect, useRef, type ReactNode } from "react";
 import { CommandPaletteAnyEntry } from "../data/models/command_palette_any_entry";
-import {
-  CommandPaletteActionType,
-  useCommandPaletteDispatch,
-} from "../state/command_palette_provider";
+import { useCommandPaletteDispatch } from "../state/command_palette_provider";
 import { CommandPaletteCategory } from "../data/models/command_palette_category";
 import { appendCommandPaletteCategory } from "../state/actions/appendCommandPaletteCategory";
 

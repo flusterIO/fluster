@@ -10,6 +10,8 @@ import { initialPanelLeftState } from "#/panel_left/state/initial_state";
 import { PanelLeftState } from "#/panel_left/state/panel_left_state";
 import { initialPanelRightState } from "#/panel_right/state/initial_state";
 import { PanelRightState } from "#/panel_right/state/panel_right_state";
+import { CoreSettings } from "#/settings/state/core_settings";
+import { initialCoreSettings } from "#/settings/state/initial_core_settings";
 import {
   initialScaffoldState,
   ScaffoldState,
@@ -23,6 +25,7 @@ export interface AppState {
   panelBottom: PanelBottomState;
   code: CodeState;
   bib: BibliographyState;
+  core: CoreSettings;
 }
 
 export const initialAppState: AppState = {
@@ -33,4 +36,5 @@ export const initialAppState: AppState = {
   panelBottom: initialPanelBottomState,
   code: initialCodeState,
   bib: initialBibliographyState,
+  core: initialCoreSettings,
 };

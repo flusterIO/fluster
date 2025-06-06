@@ -1,8 +1,8 @@
 import { CategoryId } from "#/settings/data/setting_page_data";
 import React, { type ReactNode } from "react";
 import { useSearchParams } from "react-router";
-import GeneralSettingsPage from "./pages/general";
-import CodeSettingsPage from "./pages/code";
+import { GeneralSettingsPage } from "./pages/general";
+import { CodeSettingsPage } from "./pages/code";
 import { BibliographySettingsPage } from "./pages/bib";
 
 const SettingsPageContentSwitch = (): ReactNode => {

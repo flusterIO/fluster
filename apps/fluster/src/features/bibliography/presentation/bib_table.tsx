@@ -132,16 +132,15 @@ export default function BibliographyPageContent() {
 
   return (
     <div className="min-h-screen bg-background">
-      {/* Header */}
-      <header className="border-b bg-white/50 backdrop-blur-sm sticky top-0 z-10">
+      <header className="border-b bg-card/50 backdrop-blur-sm sticky top-0 z-10">
         <div className="container mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
               <BookOpen className="h-8 w-8 text-primary" />
               <div>
-                <h1 className="text-2xl font-bold">Research Bibliography</h1>
+                <h1 className="text-2xl font-bold">Bibliography</h1>
                 <p className="text-sm text-muted-foreground">
-                  Manage your scientific references
+                  Manage your references
                 </p>
               </div>
             </div>

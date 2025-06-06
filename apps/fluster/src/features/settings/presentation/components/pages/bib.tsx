@@ -8,6 +8,7 @@ import { AppState } from "@/state/initial_state";
 import { z } from "zod";
 import { setBibPath } from "#/bibliography/state/slice";
 import { FilePathInput } from "@fluster.io/dev";
+import { SettingPageTitle } from "../setting_page_title";
 
 const connector = connect((state: AppState) => ({
   state: state.bib,
@@ -36,7 +37,8 @@ export const BibliographySettingsPage = connector(
     /* FIX: Create the language and theme select inputs and implement them here. */
     return (
       <Form {...form}>
-        <form className="space-y-6">
+        <form className="space-y-6 w-full">
+          <SettingPageTitle title="Bibliography Settings" />
           <FilePathInput
             form={form}
             name="bib_path"

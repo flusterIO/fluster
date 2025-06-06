@@ -11,7 +11,7 @@ import {
   FormMessage,
 } from "../../shad/form";
 import { cn } from "../../../utils/cn";
-import { File } from "lucide-react";
+import { File, Folder } from "lucide-react";
 import { Button } from "../../shad/button";
 import { Tooltip, TooltipContent, TooltipTrigger } from "../../shad/tooltip";
 
@@ -50,9 +50,12 @@ export const FilePathInput = <T extends FieldValues>({
       defaultPath,
       title: dialogTitle,
     });
+    debugger;
+    console.log("res: ", res);
     form.setValue(name, res as PathValue<T, typeof name>);
   };
   const value = form.watch(name);
+  const Icon = directory ? Folder : File;
   return (
     <FormField
       name={name}
@@ -86,7 +89,7 @@ export const FilePathInput = <T extends FieldValues>({
                         Use a file picker to select a file.
                       </TooltipContent>
                       <TooltipTrigger asChild>
-                        <File />
+                        <Icon />
                       </TooltipTrigger>
                     </Tooltip>
                   </Button>

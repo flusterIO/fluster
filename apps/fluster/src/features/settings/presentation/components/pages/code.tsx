@@ -7,6 +7,7 @@ import { AppState } from "@/state/initial_state";
 import { Form, SyntaxSupportedLanguageSelect } from "@fluster.io/dev";
 import { setDefaultLanguage } from "#/editor/state/slice";
 import { BundledLanguage } from "shiki";
+import { SettingPageTitle } from "../setting_page_title";
 
 const connector = connect((state: AppState) => ({
   state: state.code,
@@ -20,7 +21,7 @@ const schema = z.object({
   defaultLanguage: z.string(),
 });
 
-const CodeSettingsPage = connector(({ state }: Props): ReactNode => {
+export const CodeSettingsPage = connector(({ state }: Props): ReactNode => {
   const dispatch = useDispatch();
   const form = useForm({
     resolver: zodResolver(schema),
@@ -34,21 +35,23 @@ const CodeSettingsPage = connector(({ state }: Props): ReactNode => {
       dispatch(setDefaultLanguage(state.defaultLanguage as BundledLanguage));
     }
   });
+
   /* FIX: Create the language and theme select inputs and implement them here. */
   return (
     <Form {...form}>
-      <SyntaxSupportedLanguageSelect
-        form={form}
-        name="defaultLanguage"
-        label="Default Language"
-        classes={{
-          button: "w-[min(300px,80%)]",
-        }}
-      />
+      <form className="w-full space-y-6">
+        <SettingPageTitle title="Code Settings" />
+        <SyntaxSupportedLanguageSelect
+          form={form}
+          name="defaultLanguage"
+          label="Default Language"
+          classes={{
+            button: "w-[min(300px,80%)]",
+          }}
+        />
+      </form>
     </Form>
   );
 });
 
 CodeSettingsPage.displayName = "CodeSettingsPage";
-
-export default CodeSettingsPage;

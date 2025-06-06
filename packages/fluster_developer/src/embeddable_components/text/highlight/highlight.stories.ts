@@ -1,14 +1,14 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import { Ul } from ".";
+import { Hl } from ".";
 
 const meta = {
-    title: "Embeddable Components/Ul",
-    component: Ul,
+    title: "Embeddable Components/Highlight",
+    component: Hl,
     parameters: {
         children: "My highlighted text",
         color: "primary",
     },
-} satisfies Meta<typeof Ul>;
+} satisfies Meta<typeof Hl>;
 
 export default meta;
 
