@@ -16,7 +16,7 @@ const schema = z.object({
     file_path: z.string(),
 });
 
-const OnboardingCreateDatabaseScreen = (): ReactNode => {
+const OnBoardingSetDirectoryScreen = (): ReactNode => {
     const state = useOnboardingStateContext();
     const dispatch = useOnboardingStateDispatch();
     const nav = useNavigate();
@@ -55,6 +55,6 @@ If you do encounter issues with your database, please submit an issue on Github.
     );
 };
 
-OnboardingCreateDatabaseScreen.displayName = "OnboardingCreateDatabaseScreen";
+OnBoardingSetDirectoryScreen.displayName = "OnBoardingSetDirectoryScreen";
 
-export default OnboardingCreateDatabaseScreen;
+export default OnBoardingSetDirectoryScreen;

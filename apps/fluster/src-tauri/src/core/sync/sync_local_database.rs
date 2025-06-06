@@ -16,7 +16,10 @@ mod tests {
 
     #[tokio::test]
     async fn syncs_directory() {
-        let opts = SyncFilesystemDirectoryOptions::default();
+        let opts = SyncFilesystemDirectoryOptions {
+            dir_path: "/Users/bigsexy/Desktop/notes/content/".to_string(),
+            ..Default::default()
+        };
         let res = sync_local_database(opts).await;
         println!("Response: {:?}", res);
         assert!(res.is_ok(), "Parses directory without throwing an error.");

@@ -24,6 +24,7 @@ use crate::features::snippets::delete_snippet_by_id::delete_snippet_by_id;
 use crate::features::snippets::get_snippet_by_id::get_snippet_by_id;
 use crate::features::snippets::get_snippets::get_snippets;
 use crate::features::snippets::save_snippet::save_snippets;
+use crate::features::search::commands::get_note_summaries::get_note_summaries;
 use crate::features::snippets::snippet_model::SnippetModel;
 use core::sync::parse_directory::sync_fs_directory::models::sync_filesystem_options::SyncFilesystemDirectoryOptions;
 use core::{
@@ -65,7 +66,8 @@ pub fn run() {
             get_equations,
             get_unique_id,
             read_mathjax_font_file,
-            read_mathjax
+            read_mathjax,
+            get_note_summaries
         ])
         .events(collect_events![ShowToast, SetDbConnectionUri])
         .typ::<FlusterError>()

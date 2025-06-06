@@ -1,12 +1,9 @@
-import { DesktopHealthReport } from "@/lib/bindings";
 import { useHealthContext } from "./hooks";
 import { useEffect, useState } from "react";
 import store from "@/state/store";
 import { AppState } from "@/state/initial_state";
+import { CombinedHealthReport } from "./types";
 
-type CombinedHealthReport = DesktopHealthReport & {
-    hasSetNotesDir: boolean;
-};
 
 interface HealthReportData {
     report: CombinedHealthReport | null;

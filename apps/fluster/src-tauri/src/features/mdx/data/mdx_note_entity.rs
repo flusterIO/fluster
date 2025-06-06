@@ -61,12 +61,12 @@ impl DbEntity<MdxNoteModel> for MdxNoteEntity {
             Field::new("front_matter_id", DataType::Utf8, false),
             Field::new(
                 "ctime",
-                DataType::Timestamp(arrow_schema::TimeUnit::Millisecond, Some("Utc".into())),
+                DataType::Timestamp(arrow_schema::TimeUnit::Millisecond, None),
                 false,
             ),
             Field::new(
                 "last_read",
-                DataType::Timestamp(arrow_schema::TimeUnit::Millisecond, Some("Utc".into())),
+                DataType::Timestamp(arrow_schema::TimeUnit::Millisecond, None),
                 false,
             ),
         ]))

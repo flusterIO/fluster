@@ -8,14 +8,12 @@ pub struct SyncFilesystemDirectoryOptions {
     pub n_threads: u32,
 }
 
-// impl FunctionArg for SyncFilesystemDirectoryOptions {}
-
 impl Default for SyncFilesystemDirectoryOptions {
     fn default() -> Self {
         Self {
             dir_path: Default::default(),
             bib_path: Default::default(),
-            n_threads: 32,
+            n_threads: 8,
         }
     }
 }

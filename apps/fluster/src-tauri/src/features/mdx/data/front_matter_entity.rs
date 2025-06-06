@@ -1,21 +1,27 @@
 use std::sync::Arc;
 
-use arrow_array::{Int32Array, Int64Array, RecordBatch, RecordBatchIterator, StringArray};
+use arrow_array::{Int64Array, RecordBatch, RecordBatchIterator, StringArray};
 use arrow_schema::{ArrowError, DataType, Field, Schema};
+use futures::TryStreamExt;
+use lancedb::query::{ExecutableQuery, QueryBase};
+use serde_arrow::from_record_batch;
 
-use crate::core::{
-    database::{
-        db::{clean_table, get_table},
-        tables::table_paths::DatabaseTables,
+use crate::{
+    core::{
+        database::{
+            db::{clean_table, get_table},
+            tables::table_paths::DatabaseTables,
+        },
+        types::{
+            errors::errors::{FlusterError, FlusterResult},
+            traits::db_entity::DbEntity,
+            FlusterDb,
+        },
     },
-    types::{
-        errors::errors::{FlusterError, FlusterResult},
-        traits::db_entity::DbEntity,
-        FlusterDb,
-    },
+    features::search::types::{NoteSummary, PaginationProps},
 };
 
-use super::{front_matter_model::FrontMatterModel, mdx_note_entity::MdxNoteEntity};
+use super::front_matter_model::{FrontMatterBaseModel, FrontMatterModel};
 
 pub struct FrontMatterEntity {}
 
@@ -48,13 +54,51 @@ impl FrontMatterEntity {
             })?;
         Ok(())
     }
+    pub async fn get_all(
+        db: &FlusterDb<'_>,
+        pagination: &PaginationProps,
+    ) -> FlusterResult<Vec<NoteSummary>> {
+        let front_matter_table = get_table(db, DatabaseTables::FrontMatter).await?;
+        // WITH_WIFI: Figure out how to convert an i32 to usize to enable pagination.
+        let offset = (pagination.per_page * (pagination.page_number - 1)) as usize;
+        let items_batch = front_matter_table
+            .query()
+            .offset(offset)
+            .limit(pagination.per_page as usize)
+            .execute()
+            .await
+            .map_err(|_| FlusterError::FailToFind)?
+            .try_collect::<Vec<_>>()
+            .await
+            .map_err(|_| FlusterError::FailToFind)?;
+        if items_batch.is_empty() {
+            return Ok(Vec::new());
+        }
+        let mut items: Vec<NoteSummary> = Vec::new();
+        for batch in items_batch.iter() {
+            let data: Vec<FrontMatterBaseModel> = from_record_batch(batch).map_err(|e| {
+                println!("Error: {:?}", e);
+                FlusterError::FailToSerialize
+            })?;
+            items.extend(
+                data.iter()
+                    .map(|x| NoteSummary {
+                        title: x.title.clone(),
+                        file_path: x.mdx_note_file_path.clone(),
+                    })
+                    .collect::<Vec<NoteSummary>>(),
+            );
+            // items.extend(data);
+        }
+        Ok(items)
+    }
 }
 
 impl DbEntity<FrontMatterModel> for FrontMatterEntity {
     fn arrow_schema() -> std::sync::Arc<arrow_schema::Schema> {
         Arc::new(Schema::new(vec![
             Field::new("mdx_note_file_path", DataType::Utf8, false),
-            Field::new("user_provided_id", DataType::Utf8, false),
+            Field::new("user_provided_id", DataType::Utf8, true),
             Field::new("title", DataType::Utf8, false),
             Field::new("summary", DataType::Utf8, true),
             Field::new("list_id", DataType::Utf8, true),

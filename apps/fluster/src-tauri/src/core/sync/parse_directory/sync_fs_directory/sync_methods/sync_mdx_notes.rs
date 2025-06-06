@@ -1,3 +1,4 @@
+use crate::core::sync::parse_directory::sync_fs_directory::models::sync_filesystem_options::SyncFilesystemDirectoryOptions;
 use crate::core::types::errors::errors::FlusterError;
 use crate::features::mdx::actions::save_mdx_note_groups::save_mdx_note_groups;
 use crate::features::mdx::data::mdx_note_group::MdxNoteGroup;
@@ -5,13 +6,12 @@ use crossbeam_channel::unbounded;
 use ignore::WalkBuilder;
 use ignore::{DirEntry, WalkState};
 
-pub async fn sync_mdx_filesystem_notes(notes_path: &str) -> Result<(), FlusterError> {
+pub async fn sync_mdx_filesystem_notes(
+    opts: &SyncFilesystemDirectoryOptions,
+) -> Result<(), FlusterError> {
     let (mdx_sender, mdx_receiver) = unbounded::<Result<MdxNoteGroup, FlusterError>>();
-    // let mut c = get_database_connection()
-    //     .await
-    //     .or_else(|_| Err(FlusterError::FailToConnect))?;
-    WalkBuilder::new(notes_path)
-        .threads(32)
+    WalkBuilder::new(opts.dir_path.clone())
+        .threads(opts.n_threads as usize)
         .add_custom_ignore_filename(".flusterIgnore")
         .ignore(true)
         .build_parallel()
@@ -35,14 +35,14 @@ pub async fn sync_mdx_filesystem_notes(notes_path: &str) -> Result<(), FlusterEr
     // let mut items: Vec<BTreeMap<&'static str, BTreeMap<&'static str, Value>>> = Vec::new();
     let mut items: Vec<MdxNoteGroup> = Vec::new();
     for x in mdx_receiver.iter() {
+        println!("X: {:?}", x);
         if let Ok(note) = x {
-            // let b = note.to_upsert_args();
-            // items.push(b);
             items.push(note);
         } else {
             log::error!("Failed to create an MdxNoteGroup.")
         }
     }
+    println!("Data: {:?}", items);
     save_mdx_note_groups(items).await?;
     Ok(())
 }
