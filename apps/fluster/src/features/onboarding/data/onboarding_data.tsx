@@ -16,6 +16,12 @@ export const onBoardingPageData: OnBoardingPageData[] = [
     },
     {
         sidebar: {
+            title: "Help us find your notes",
+            body: "Please provide a directory where you intend to keep your notes.",
+        },
+    },
+    {
+        sidebar: {
             title: "Whewww...",
             body: "We're all done! Make sure to checkout the documentation, and share this app to spread the word.",
         },

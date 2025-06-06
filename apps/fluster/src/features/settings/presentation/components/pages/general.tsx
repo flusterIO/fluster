@@ -8,35 +8,35 @@ import { connect } from "react-redux";
 import { AppState } from "@/state/initial_state";
 
 const connector = connect((state: AppState) => ({
-  state: state.core,
+    state: state.core,
 }));
 
 const schema = z.object({
-  notesDirectory: z.string(),
+    notesDirectory: z.string(),
 });
 
 export const GeneralSettingsPage = connector(
-  ({ state }: { state: AppState["core"] }): ReactNode => {
-    const form = useForm({
-      resolver: zodResolver(schema),
-      defaultValues: {
-        notesDirectory: state?.notesDirectory ?? "",
-      },
-    });
-    return (
-      <Form {...form}>
-        <form className="w-full space-y-6">
-          <SettingPageTitle title="Code Settings" />
-          <FilePathInput
-            label="Notes Directory"
-            form={form}
-            name="notesDirectory"
-            directory
-          />
-        </form>
-      </Form>
-    );
-  }
+    ({ state }: { state: AppState["core"] }): ReactNode => {
+        const form = useForm({
+            resolver: zodResolver(schema),
+            defaultValues: {
+                notesDirectory: state?.notesDirectory ?? "",
+            },
+        });
+        return (
+            <Form {...form}>
+                <form className="w-full space-y-6">
+                    <SettingPageTitle title="General Settings" />
+                    <FilePathInput
+                        label="Notes Directory"
+                        form={form}
+                        name="notesDirectory"
+                        directory
+                    />
+                </form>
+            </Form>
+        );
+    }
 );
 
 GeneralSettingsPage.displayName = "GeneralSettingsPage";

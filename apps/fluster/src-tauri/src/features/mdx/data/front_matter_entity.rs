@@ -1,6 +1,6 @@
 use std::sync::Arc;
 
-use arrow_array::{RecordBatch, RecordBatchIterator, StringArray};
+use arrow_array::{Int32Array, Int64Array, RecordBatch, RecordBatchIterator, StringArray};
 use arrow_schema::{ArrowError, DataType, Field, Schema};
 
 use crate::core::{
@@ -25,8 +25,8 @@ impl FrontMatterEntity {
     }
     pub async fn save_many(items: Vec<FrontMatterModel>, db: &FlusterDb<'_>) -> FlusterResult<()> {
         // RESUME: Come back here to take care of the sync method.
-        let schema = MdxNoteEntity::arrow_schema();
-        let tbl = get_table(&db, DatabaseTables::MdxNote).await?;
+        let schema = FrontMatterEntity::arrow_schema();
+        let tbl = get_table(&db, DatabaseTables::FrontMatter).await?;
         let batches: Vec<Result<RecordBatch, ArrowError>> = items
             .iter()
             .map(|x| Ok(FrontMatterEntity::to_record_batch(x, schema.clone())))
@@ -42,7 +42,10 @@ impl FrontMatterEntity {
             .clone()
             .execute(stream)
             .await
-            .map_err(|_| FlusterError::FailToCreateTag)?;
+            .map_err(|e| {
+                println!("Error in front matter: {:?}", e);
+                FlusterError::FailToCreateEntity
+            })?;
         Ok(())
     }
 }
@@ -50,10 +53,12 @@ impl FrontMatterEntity {
 impl DbEntity<FrontMatterModel> for FrontMatterEntity {
     fn arrow_schema() -> std::sync::Arc<arrow_schema::Schema> {
         Arc::new(Schema::new(vec![
-            Field::new("id", DataType::Utf8, false),
+            Field::new("mdx_note_file_path", DataType::Utf8, false),
             Field::new("user_provided_id", DataType::Utf8, false),
             Field::new("title", DataType::Utf8, false),
             Field::new("summary", DataType::Utf8, true),
+            Field::new("list_id", DataType::Utf8, true),
+            Field::new("list_index", DataType::Int64, true),
         ]))
     }
 
@@ -61,18 +66,22 @@ impl DbEntity<FrontMatterModel> for FrontMatterEntity {
         item: &FrontMatterModel,
         schema: std::sync::Arc<arrow_schema::Schema>,
     ) -> arrow_array::RecordBatch {
-        let id = StringArray::from(vec![item.id.clone()]);
+        let mdx_note_file_path = StringArray::from(vec![item.mdx_note_file_path.clone()]);
         let user_provided_id = StringArray::from(vec![item.user_provided_id.clone()]);
         let title = StringArray::from(vec![item.title.clone()]);
         let summary = StringArray::from(vec![item.summary.clone()]);
+        let list_id = StringArray::from(vec![item.list_id.clone()]);
+        let list_index = Int64Array::from(vec![item.list_index.clone().unwrap_or(0)]);
         // Create the vector array
         RecordBatch::try_new(
             schema,
             vec![
-                Arc::new(id),
+                Arc::new(mdx_note_file_path),
                 Arc::new(user_provided_id),
                 Arc::new(title),
                 Arc::new(summary),
+                Arc::new(list_id),
+                Arc::new(list_index),
             ],
         )
         .unwrap()

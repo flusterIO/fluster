@@ -50,7 +50,7 @@ impl SnippetTagEntity {
                 from_record_batch(batch).map_err(|_| FlusterError::FailToSerialize)?;
             items.extend(data);
         }
-        Err(FlusterError::NotImplemented)
+        Ok(items)
     }
     pub async fn save_many(items: Vec<SnippetTagModel>, db: FlusterDb<'_>) -> FlusterResult<()> {
         let schema = SnippetTagEntity::arrow_schema();
@@ -84,7 +84,10 @@ impl SnippetTagEntity {
             .clone()
             .execute(stream)
             .await
-            .map_err(|_| FlusterError::FailToCreateTag)?;
+            .map_err(|e| {
+                println!("Error in snippet tag: {:?}", e);
+                FlusterError::FailToCreateEntity
+            })?;
 
         Ok(())
     }

@@ -3,14 +3,11 @@ import "../node_modules/.pnpm/@types+node@22.14.1/node_modules/@types/node/index
 import fs from "fs";
 
 const cleanDirectories = [
-    "packages/fluster_native_interface/lib/src/rust",
-    "/packages/fluster_grpc/lib/src/rust/",
     "/packages/fluster_go/pkg/generated/",
     "/packages/fluster_py/fluster_py/generated/",
     "/packages/fluster_ts/src/generated/",
     "/docs/api/packages/fluster_ts",
     "/docs/api/packages/fluster_py",
-    "/docs/api/packages/fluster_py03",
 ];
 
 const cleanFiles = [
@@ -24,7 +21,7 @@ let root = process.env.FLUSTER_NATIVE_ROOT;
 
 if (!root) {
     console.log(
-        "We cannot continue without the FLUSTER_NATIVE_ROOT env variable.",
+        "We cannot continue without the FLUSTER_NATIVE_ROOT env variable."
     );
     process.exit(1);
 }

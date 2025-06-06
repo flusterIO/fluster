@@ -74,7 +74,7 @@ impl MdxNoteTagEntity {
             .execute()
             .await
             .map_err(|_| FlusterError::FailToCreateEntity);
-        Err(FlusterError::NotImplemented)
+        Ok(())
     }
 }
 

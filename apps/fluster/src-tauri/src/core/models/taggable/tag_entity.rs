@@ -48,7 +48,10 @@ impl TagEntity {
             .clone()
             .execute(stream)
             .await
-            .map_err(|_| FlusterError::FailToCreateTag)?;
+            .map_err(|e| {
+                println!("Error in taggable model: {:?}", e);
+                FlusterError::FailToCreateEntity
+            })?;
 
         Ok(())
     }

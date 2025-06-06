@@ -78,7 +78,7 @@ impl MdxNoteEquationEntity {
             .execute()
             .await
             .map_err(|_| FlusterError::FailToCreateEntity);
-        Err(FlusterError::NotImplemented)
+        Ok(())
     }
 }
 
@@ -94,9 +94,13 @@ impl DbEntity<MdxNoteEquationModel> for MdxNoteEquationEntity {
         item: &MdxNoteEquationModel,
         schema: std::sync::Arc<arrow_schema::Schema>,
     ) -> arrow_array::RecordBatch {
-        let mdx_note_id = StringArray::from(vec![item.mdx_note_file_path.clone()]);
+        let mdx_note_file_path = StringArray::from(vec![item.mdx_note_file_path.clone()]);
         let equation_id = StringArray::from(vec![item.equation_id.clone()]);
 
-        RecordBatch::try_new(schema, vec![Arc::new(mdx_note_id), Arc::new(equation_id)]).unwrap()
+        RecordBatch::try_new(
+            schema,
+            vec![Arc::new(mdx_note_file_path), Arc::new(equation_id)],
+        )
+        .unwrap()
     }
 }

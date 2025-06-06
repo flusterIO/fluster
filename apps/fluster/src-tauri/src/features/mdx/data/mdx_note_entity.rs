@@ -37,14 +37,18 @@ impl MdxNoteEntity {
             batches.into_iter(),
             schema.clone(),
         ));
-        let primary_key: &[&str] = &["id"];
+        let primary_key: &[&str] = &["file_path"];
         tbl.merge_insert(primary_key)
             .when_matched_update_all(None)
             .when_not_matched_insert_all()
             .clone()
             .execute(stream)
             .await
-            .map_err(|_| FlusterError::FailToCreateTag)?;
+            .map_err(|e| {
+                log::error!("Error: {:?}", e);
+                println!("Error: {:?}", e);
+                FlusterError::FailToCreateEntity
+            })?;
         Ok(())
     }
 }

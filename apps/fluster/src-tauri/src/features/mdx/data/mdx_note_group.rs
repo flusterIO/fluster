@@ -28,7 +28,7 @@ impl MdxNoteGroup {
         file_meta: &Metadata,
     ) -> FlusterResult<MdxNoteGroup> {
         let mut note_data =
-            MdxNoteGroup::from_raw_mdx_string(raw_file_content, Some(file_path.to_string()))
+            MdxNoteGroup::from_raw_mdx_string(raw_file_content, file_path.to_string())
                 .map_err(|_| FlusterError::FailToUpsertTags)?;
         let ctime = match FileTime::from_creation_time(file_meta) {
             Some(x) => chrono::DateTime::from_timestamp(x.unix_seconds(), 0).unwrap(),
@@ -55,20 +55,17 @@ impl MdxNoteGroup {
     }
     pub fn from_raw_mdx_string(
         raw_file_content: String,
-        file_path: Option<String>,
+        file_path: String,
     ) -> FlusterResult<MdxNoteGroup> {
         let now = Utc::now().timestamp_millis();
         let matter = Matter::<YAML>::new();
         let result = matter.parse(&raw_file_content);
-        let fp = file_path.unwrap_or("Unknown".to_string());
         let post_tag_parse = TagEntity::from_mdx_content(&result);
-        let front_matter_id = new_uuid();
         Ok(MdxNoteGroup {
-            front_matter: FrontMatterModel::from_gray_matter(result.data, &front_matter_id),
+            front_matter: FrontMatterModel::from_gray_matter(result.data, &file_path),
             mdx: MdxNoteModel {
-                front_matter_id: front_matter_id.clone(),
                 raw_body: post_tag_parse.parsed_content,
-                file_path: fp,
+                file_path,
                 ctime: now,
                 last_read: 0,
             },

@@ -41,6 +41,7 @@ func init() {
 	rootCmd.AddCommand(generateGrpcBuildScriptCmd)
 	rootCmd.AddCommand(setDistributedVersionCmd)
 	rootCmd.AddCommand(createCleanFeatureCmd)
+	rootCmd.AddCommand(noCheckBindingsFileCmd)
 }
 
 // Execute adds all child commands to the root command and sets flags appropriately.

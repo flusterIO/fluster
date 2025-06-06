@@ -5,20 +5,13 @@ use crate::{
         types::errors::errors::FlusterResult,
     },
     features::mdx::data::{
-        front_matter_entity::FrontMatterEntity,
-        front_matter_model::{self, FrontMatterModel},
-        mdx_note_entity::MdxNoteEntity,
-        mdx_note_equation_entity::MdxNoteEquationEntity,
-        mdx_note_equation_model::MdxNoteEquationModel,
-        mdx_note_group::MdxNoteGroup,
-        mdx_note_model::MdxNoteModel,
-        mdx_note_tag_entity::MdxNoteTagEntity,
+        front_matter_entity::FrontMatterEntity, front_matter_model::FrontMatterModel,
+        mdx_note_entity::MdxNoteEntity, mdx_note_equation_entity::MdxNoteEquationEntity,
+        mdx_note_equation_model::MdxNoteEquationModel, mdx_note_group::MdxNoteGroup,
+        mdx_note_model::MdxNoteModel, mdx_note_tag_entity::MdxNoteTagEntity,
         mdx_note_tag_model::MdxNoteTagModel,
     },
 };
-use crossbeam_channel::unbounded;
-use rayon::iter::IntoParallelRefIterator;
-use rayon::prelude::*;
 
 // FIXME: Bib entries are not being generated along with the mdx_note_bib_entry joining table.
 pub async fn save_mdx_note_groups(groups: Vec<MdxNoteGroup>) -> FlusterResult<()> {
