@@ -4,6 +4,7 @@ import { useCommandPaletteDispatch } from "../state/command_palette_provider";
 import { CommandPaletteCategory } from "../data/models/command_palette_category";
 import { appendCommandPaletteCategory } from "../state/actions/appendCommandPaletteCategory";
 import { InlineMdxContent } from "#/mdx/presentation/inline_mdx_content";
+import { useLocation } from "react-router";
 
 interface CommandPaletteItemProps {
     item: CommandPaletteAnyEntry;
@@ -16,6 +17,7 @@ const CommandPaletteItem = ({
 }: CommandPaletteItemProps): ReactNode => {
     const ref = useRef<HTMLDivElement>(null!);
     const dispatch = useCommandPaletteDispatch();
+    const location = useLocation();
     useEffect(() => {
         if (focused) {
             ref.current.scrollIntoView();
@@ -39,7 +41,7 @@ const CommandPaletteItem = ({
             }}
             onClick={() => {
                 if (item instanceof CommandPaletteCategory) {
-                    appendCommandPaletteCategory(item, dispatch);
+                    appendCommandPaletteCategory(item, location, dispatch);
                     clearInput();
                 } else if (item instanceof CommandPaletteItem || "invoke" in item) {
                     /* @ts-expect-error -- This is the only type of invoke function available. I'll clean this up later. */
@@ -47,11 +49,7 @@ const CommandPaletteItem = ({
                 }
             }}
         >
-            {item.label.includes("$") ? (
-                <InlineMdxContent mdx={item.label} />
-            ) : (
-                item.label
-            )}
+            <InlineMdxContent mdx={item.label} />
         </div>
     );
 };

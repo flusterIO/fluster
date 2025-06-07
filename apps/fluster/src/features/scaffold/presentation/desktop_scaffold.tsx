@@ -7,8 +7,10 @@ import CommandPalette from "#/command_palette/presentation/command_palette";
 import ConfirmationModalContainer from "#/confirmation_modal/presentation/confirmation_modal_container";
 import PageContainer from "@/components/util/page_container";
 import MathjaxScript from "#/math/state/mathjax_script";
+import { useDevelopmentLogger } from "@/state/use_development_state_logger";
 
 const DesktopScaffold = (): ReactNode => {
+    useDevelopmentLogger();
     return (
         <PageContainer id="main-scaffold">
             <MathjaxScript />

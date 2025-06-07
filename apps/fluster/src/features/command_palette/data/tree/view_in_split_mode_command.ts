@@ -10,7 +10,7 @@ declare global {
 
 export class EditInSplitViewCommandEntry extends CommandPaletteItem {
     constructor() {
-        super("Edit in split view.");
+        super("Edit in split view.", "to_split_view");
     }
 
     filterByLocation(location: Location): boolean {

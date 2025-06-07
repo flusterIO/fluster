@@ -1,6 +1,9 @@
 use strsim::jaro_winkler;
 
+#[tauri::command]
+#[specta::specta]
 pub fn get_text_similarity(a: String, b: String) -> f64 {
+    // strsim::min
     jaro_winkler(&a, &b)
 }
 

@@ -14,7 +14,7 @@ import { EditInSplitViewCommandEntry } from "./tree/view_in_split_mode_command";
 
 export class CommandPaletteRoot extends CommandPaletteCategory {
     constructor() {
-        super("Home");
+        super("Home", "cmd-palete-root");
     }
 
     filterByLocation(): boolean {
@@ -23,13 +23,17 @@ export class CommandPaletteRoot extends CommandPaletteCategory {
     async getItems(location: Location): Promise<CommandPaletteAnyEntry[]> {
         return [
             new NavigationCommandPaletteRoot(),
-            new GeneralCommandPaletteItem("Toggle Dark Mode", async () => {
-                store.dispatch(toggleDarkMode());
-            }),
+            new GeneralCommandPaletteItem(
+                "Toggle Dark Mode",
+                "toggle_dark_mode",
+                async () => {
+                    store.dispatch(toggleDarkMode());
+                }
+            ),
             new ThemeCommandPaletteRoot(),
             new CodeThemeCommandPaletteRoot(),
             new EditInSplitViewCommandEntry(),
-            new GeneralCommandPaletteItem("Sync database", syncDatabase),
+            new GeneralCommandPaletteItem("Sync database", "sync_db", syncDatabase),
             new NotesCommandPaletteRoot(),
             new EmbeddedDocsCommandPaletteRoot(),
         ].filter((x) => x.filterByLocation(location));

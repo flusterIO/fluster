@@ -6,7 +6,7 @@ import { AppRoutes } from "#/router/data/app_routes";
 
 export class NotesCommandPaletteRoot extends CommandPaletteCategory {
     constructor() {
-        super("Notes");
+        super("Notes", "cmd-palette-notes");
     }
     filterByLocation(): boolean {
         return true;
@@ -18,11 +18,15 @@ export class NotesCommandPaletteRoot extends CommandPaletteCategory {
         });
         if (items.status === "ok") {
             return items.data.map((x) => {
-                return new GeneralCommandPaletteItem(x.title, async (nav) => {
-                    const sp = new URLSearchParams();
-                    sp.set("fsPath", x.file_path);
-                    nav(`${AppRoutes.viewMdxNote}?${sp.toString()}`);
-                });
+                return new GeneralCommandPaletteItem(
+                    x.title,
+                    `${x.title}-${x.file_path}`,
+                    async (nav) => {
+                        const sp = new URLSearchParams();
+                        sp.set("fsPath", x.file_path);
+                        nav(`${AppRoutes.viewMdxNote}?${sp.toString()}`);
+                    }
+                );
             });
         } else {
             return [];

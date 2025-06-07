@@ -7,7 +7,7 @@ import { setTheme } from "#/scaffold/state/slice";
 
 export class ThemeCommandPaletteRoot extends CommandPaletteCategory {
     constructor() {
-        super("Themes");
+        super("Themes", "cmd-palette-themes");
     }
     filterByLocation(): boolean {
         return true;
@@ -15,7 +15,7 @@ export class ThemeCommandPaletteRoot extends CommandPaletteCategory {
     async getItems(): Promise<CommandPaletteAnyEntry[]> {
         return themes.map(
             (x) =>
-                new GeneralCommandPaletteItem(x, async () => {
+                new GeneralCommandPaletteItem(x, `theme-${x}`, async () => {
                     store.dispatch(setTheme(x));
                 })
         );

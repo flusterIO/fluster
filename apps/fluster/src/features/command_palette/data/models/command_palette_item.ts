@@ -2,8 +2,8 @@ import { Location, NavigateFunction } from "react-router";
 import { CommandPaletteAnyEntry } from "./command_palette_any_entry";
 
 export abstract class CommandPaletteItem extends CommandPaletteAnyEntry {
-    constructor(label: string) {
-        super(label);
+    constructor(label: string, id: string) {
+        super(label, id);
     }
 
     abstract filterByLocation(location: Location): boolean;
@@ -12,8 +12,12 @@ export abstract class CommandPaletteItem extends CommandPaletteAnyEntry {
 
 export class GeneralCommandPaletteItem extends CommandPaletteItem {
     onInvoke: (nav: NavigateFunction) => Promise<void>;
-    constructor(label: string, invoke: (nav: NavigateFunction) => Promise<void>) {
-        super(label);
+    constructor(
+        label: string,
+        id: string,
+        invoke: (nav: NavigateFunction) => Promise<void>
+    ) {
+        super(label, id);
         this.onInvoke = invoke;
     }
     filterByLocation(): boolean {

@@ -7,6 +7,7 @@ use crate::core::utils::file_system::fs_commands::save_utf8_file;
 use crate::core::utils::initialize::initialize_database::initialize_database;
 use crate::core::utils::initialize::initialize_desktop::initialize_desktop;
 use crate::core::utils::random_utils::get_unique_id;
+use crate::core::utils::search::get_text_similarity::get_text_similarity;
 use crate::features::dashboard::get_dashboard_data::get_dashboard_data;
 use crate::features::dictionary::commands::get_dictionary_entries::get_dictionary_entries;
 use crate::features::dictionary::dictionary_entry_model::DictionaryEntryModel;
@@ -44,6 +45,7 @@ use tauri_specta::{collect_commands, collect_events, Builder};
 pub fn run() {
     let cmds = Builder::<tauri::Wry>::new()
         .commands(collect_commands![
+            get_text_similarity,
             sync_local_database,
             get_dashboard_data,
             save_snippets,

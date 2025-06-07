@@ -6,7 +6,7 @@ import { GeneralCommandPaletteItem } from "../models/command_palette_item";
 
 export class EmbeddedDocsCommandPaletteRoot extends CommandPaletteCategory {
     constructor() {
-        super("Documentation");
+        super("Documentation", "cmd-palette-docs");
     }
     filterByLocation(): boolean {
         return true;
@@ -15,7 +15,7 @@ export class EmbeddedDocsCommandPaletteRoot extends CommandPaletteCategory {
         return Object.entries(embeddedDocLabels).map((k) => {
             const sp = new URLSearchParams();
             sp.set("id", k[0]);
-            return new GeneralCommandPaletteItem(k[1], async (nav) => {
+            return new GeneralCommandPaletteItem(k[1], k[1], async (nav) => {
                 nav(`${AppRoutes.embeddedDocs.toString()}/${encodeURI(k[0])}`);
             });
         });

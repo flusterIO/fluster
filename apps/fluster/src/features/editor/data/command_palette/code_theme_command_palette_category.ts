@@ -14,7 +14,7 @@ class CommandPaletteDarkTheme extends CommandPaletteCategory {
     }
     async getItems(): Promise<CommandPaletteAnyEntry[]> {
         return bundledSyntaxThemes.map((x) => {
-            return new GeneralCommandPaletteItem(x, async () => {
+            return new GeneralCommandPaletteItem(x, `dark_${x}`, async () => {
                 store.dispatch(
                     setCodeTheme({
                         themeMode: "dark",
@@ -36,7 +36,7 @@ class CommandPaletteLightTheme extends CommandPaletteCategory {
     }
     async getItems(): Promise<CommandPaletteAnyEntry[]> {
         return bundledSyntaxThemes.map((x) => {
-            return new GeneralCommandPaletteItem(x, async () => {
+            return new GeneralCommandPaletteItem(x, `light-${x}`, async () => {
                 store.dispatch(
                     setCodeTheme({
                         themeMode: "light",

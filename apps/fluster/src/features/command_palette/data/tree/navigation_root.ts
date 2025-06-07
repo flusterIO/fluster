@@ -4,12 +4,17 @@ import { CommandPaletteCategory } from "../models/command_palette_category";
 
 export class NavigationCommandPaletteRoot extends CommandPaletteCategory {
     constructor() {
-        super("Navigation");
+        super("Navigation", "cmd-palette-nav");
     }
     filterByLocation(): boolean {
         return true;
     }
     async getItems(): Promise<CommandPaletteAnyEntry[]> {
-        return globalNavigationItems();
+        return globalNavigationItems().map((x) => {
+            return {
+                ...x,
+                id: x.label,
+            };
+        });
     }
 }

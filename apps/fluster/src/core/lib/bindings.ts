@@ -5,6 +5,9 @@
 
 
 export const commands = {
+async getTextSimilarity(a: string, b: string) : Promise<number> {
+    return await TAURI_INVOKE("get_text_similarity", { a, b });
+},
 /**
  * This wraps a series of functions handled by the fluster_native_interface package, conditionally
  * based on user settings and app state.

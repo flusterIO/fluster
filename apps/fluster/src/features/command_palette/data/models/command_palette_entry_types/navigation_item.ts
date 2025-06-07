@@ -4,7 +4,7 @@ import { CommandPaletteItem } from "../command_palette_item";
 export class NavigationCommandPaletteItem extends CommandPaletteItem {
     href: string;
     constructor(label: string, href: string) {
-        super(label);
+        super(label, href);
         this.href = href;
     }
 
