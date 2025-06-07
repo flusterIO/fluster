@@ -7,9 +7,14 @@
   /// New variables added. Set these to settings so users can modify them dynamically.
   html * {
     --fluster-math-font-size: 1.2rem;
-    --warning: 60 100.0% 50.0%;
-    --success: 120 100% 50.0%;
-    --info: 195 100.0% 50.0%
+    --info: 203 100% 49%;
+    --info-foreground: 298 100% 100%;
+    --success: 150 100% 50%;
+    --success-foreground: 298 100% 0%;
+    --error: 348 83.3% 47.1%;
+    --error-foreground: 298 100% 100%;
+    --warning: 60 100% 50%;
+    --warning-foreground: 298 100% 0%;
   }
 
 

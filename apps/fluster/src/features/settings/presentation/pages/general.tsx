@@ -1,6 +1,6 @@
 import { FilePathInput, Form } from "@fluster.io/dev";
 import React, { type ReactNode } from "react";
-import { SettingPageTitle } from "../setting_page_title";
+import { SettingPageTitle } from "../components/setting_page_title";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";

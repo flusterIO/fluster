@@ -12,7 +12,7 @@ export const Tag = ({ value }: TagProps): ReactNode => {
     return (
         <a
             href={`${AppRoutes.search}?${sp.toString()}`}
-            className="bg-primary text-primary-foreground no-underline p-1 rounded-sm cursor-pointer"
+            className="bg-primary text-primary-foreground no-underline p-1 rounded cursor-pointer"
         >
             <span>#</span>
             {value}

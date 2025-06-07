@@ -3,6 +3,14 @@
 @tailwind utilities;
 
 :root {
+  --info: 203 100% 49%;
+  --info-foreground: 298 100% 100%;
+  --success: 150 100% 50%;
+  --success-foreground: 298 100% 0%;
+  --error: 348 83.3% 47.1%;
+  --error-foreground: 298 100% 100%;
+  --warning: 60 100% 50%;
+  --warning-foreground: 298 100% 0%;
   font-family: Inter, Avenir, Helvetica, Arial, sans-serif;
   font-size: 16px;
   line-height: 24px;
