@@ -79,7 +79,7 @@ export const useCommandPaletteDispatch = () =>
 
 export const CommandPaletteContextReducer = (
     state: CommandPaletteState,
-    action: CommandPaletteContextActions,
+    action: CommandPaletteContextActions
 ): CommandPaletteState => {
     switch (action.type) {
         case CommandPaletteActionType.popCommandPaletteCategory: {
@@ -174,7 +174,7 @@ export const CommandPaletteProvider = ({
         CommandPaletteContextReducer,
         initialValues
             ? { ...initialValues, ...defaultInitialValues }
-            : defaultInitialValues,
+            : defaultInitialValues
     );
 
     return (
