@@ -16,22 +16,11 @@ import { commands, EquationModel } from "@/lib/bindings";
 import { requestEquationListRefresh } from "../../equations_list/equation_list_utils";
 import { connect } from "react-redux";
 import { AppState } from "@/state/initial_state";
+import { addEquationSchema } from "../types";
 
 const connector = connect((state: AppState) => ({
     panelOpen: state.panelLeft.open,
 }));
-
-const addEquationSchema = z.object({
-    id: z.string().nullable(),
-    user_provided_id: z.string(),
-    label: z
-        .string()
-        .min(2, "Your label needs to be at least 2 characters long."),
-    tags: z.string().array(),
-    desc: z.string(),
-    body: z.string().min(3, "Please add a body to this equation."),
-    snippet_ids: z.number().int().array().default([]),
-});
 
 export const AddEquationPanel = connector(
     ({ panelOpen }: { panelOpen: boolean }): ReactNode => {
@@ -59,8 +48,17 @@ export const AddEquationPanel = connector(
             },
         });
 
+        form.watch((formData) => {
+            window.dispatchEvent(
+                new CustomEvent("set-equation-preview-data", {
+                    detail: {
+                        data: formData,
+                    },
+                })
+            );
+        });
+
         const getEquationBeingEdited = async (id: string): Promise<void> => {
-            console.log("id: ", id);
             /* FIXME: Return the related tags and snippet_ids in the `get_equation_by_id` method and populate the form properly here. Make sure they are being saved as well. */
             const data = await commands.getEquationById(id);
             if (data.status === "ok") {
@@ -92,7 +90,7 @@ export const AddEquationPanel = connector(
         const handleSubmit = async (
             data: z.infer<typeof addEquationSchema>
         ): Promise<void> => {
-            const now = BigInt(new Date().valueOf());
+            const now = `${new Date().valueOf()}`;
             let _unique_id = "";
             if (data.id === null) {
                 _unique_id = await commands.getUniqueId();

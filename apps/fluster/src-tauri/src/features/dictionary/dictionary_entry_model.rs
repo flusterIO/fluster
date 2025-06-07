@@ -1,4 +1,3 @@
-use chrono::Utc;
 use regex::Regex;
 use serde::{Deserialize, Serialize};
 use specta::Type;
@@ -7,6 +6,7 @@ use specta::Type;
 pub struct DictionaryEntryModel {
     pub label: String,
     pub body: String,
+    #[serde(with = "crate::core::utils::stringify_i64::string")]
     pub ctime: i64,
 }
 

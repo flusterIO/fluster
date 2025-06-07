@@ -3,47 +3,51 @@ import { commands, EquationModel } from "@/lib/bindings";
 import React, { useEffect, useState, type ReactNode } from "react";
 import EquationListItem from "./equation_list_item";
 import { useEventListener } from "@fluster.io/dev";
+import NoEquationsFound from "./no_equations_found";
 
 declare global {
-  interface WindowEventMap {
-    "request-equation-list-refresh": CustomEvent<object>;
-  }
+    interface WindowEventMap {
+        "request-equation-list-refresh": CustomEvent<object>;
+    }
 }
 
 const EquationsList = (): ReactNode => {
-  const [items, setItems] = useState<EquationModel[] | null>(null);
+    const [items, setItems] = useState<EquationModel[] | null>(null);
 
-  const getItems = async (): Promise<void> => {
-    const res = await commands.getEquations();
-    if (res.status === "ok") {
-      setItems(res.data);
-    } else {
-      console.error("Get Equations response: ", res);
+    const getItems = async (): Promise<void> => {
+        const res = await commands.getEquations();
+        if (res.status === "ok") {
+            setItems(res.data);
+        } else {
+            console.error("Get Equations response: ", res);
+        }
+    };
+
+    useEventListener("request-equation-list-refresh", () => {
+        getItems();
+    });
+
+    useEffect(() => {
+        getItems();
+    }, []);
+
+    if (items === null) {
+        return (
+            <div className="w-full flex flex-col justify-center items-center min-h-[calc(100vh-4rem)] h-full min-w-full">
+                <LoadingComponent />
+            </div>
+        );
     }
-  };
-
-  useEventListener("request-equation-list-refresh", () => {
-    getItems();
-  });
-
-  useEffect(() => {
-    getItems();
-  }, []);
-
-  if (items === null) {
+    if (items.length === 0) {
+        return <NoEquationsFound />;
+    }
     return (
-      <div className="w-full flex flex-col justify-center items-center min-h-[calc(100vh-4rem)] h-full min-w-full">
-        <LoadingComponent />
-      </div>
+        <div className="w-full flex flex-col justify-start items-center gap-8">
+            {items.map((x) => (
+                <EquationListItem key={x.id} item={x} />
+            ))}
+        </div>
     );
-  }
-  return (
-    <div className="w-full flex flex-col justify-start items-center gap-8">
-      {items.map((x) => (
-        <EquationListItem key={x.id} item={x} />
-      ))}
-    </div>
-  );
 };
 
 EquationsList.displayName = "EquationsList";

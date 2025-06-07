@@ -8,8 +8,8 @@ export const snippetSchema = z.object({
     body: z.string().min(3, "Please add a body to this snippet."),
     desc: z.string(),
     tags: z.string().array(),
-    ctime: z.bigint(),
-    utime: z.bigint(),
+    ctime: z.string(),
+    utime: z.string(),
     id: z.string().uuid().nullable(),
 });
 

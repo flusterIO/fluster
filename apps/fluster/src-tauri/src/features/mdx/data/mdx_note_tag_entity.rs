@@ -18,7 +18,7 @@ use crate::core::{
     },
 };
 
-use super::{mdx_note_entity::MdxNoteEntity, mdx_note_tag_model::MdxNoteTagModel};
+use super::mdx_note_tag_model::MdxNoteTagModel;
 
 pub struct MdxNoteTagEntity {}
 
@@ -73,7 +73,7 @@ impl MdxNoteTagEntity {
         tbl.add(stream)
             .execute()
             .await
-            .map_err(|_| FlusterError::FailToCreateEntity);
+            .map_err(|_| FlusterError::FailToCreateEntity)?;
         Ok(())
     }
 }

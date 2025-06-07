@@ -83,7 +83,7 @@ pub fn run() {
         .typ::<SyncFilesystemDirectoryOptions>();
     #[cfg(debug_assertions)] // So we don't export types on release builds.
     cmds.export(
-        Typescript::default().bigint(specta_typescript::BigIntExportBehavior::BigInt),
+        Typescript::default().bigint(specta_typescript::BigIntExportBehavior::String),
         "../src/core/lib/bindings.ts",
     )
     .expect("Exports bindings to typescript.");

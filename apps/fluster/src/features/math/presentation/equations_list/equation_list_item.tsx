@@ -55,12 +55,14 @@ const EquationListItem = ({ item }: EquationListItemProps): ReactNode => {
                     <InlineMdxContent mdx={item.label} />
                 </CardTitle>
                 {item.desc?.length ? (
-                    <CardDescription>{item.desc}</CardDescription>
+                    <CardDescription className="[&_*]:text-muted-foreground">
+                        <InlineMdxContent mdx={item.desc} />
+                    </CardDescription>
                 ) : null}
             </CardHeader>
             <CardContent>
                 <MdxContent
-                    mdx={formatMathBlockString(item.body)}
+                    mdx={item.body.length ? formatMathBlockString(item.body) : ""}
                     className="w-full flex flex-col justify-center items-center"
                 />
             </CardContent>

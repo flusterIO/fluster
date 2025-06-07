@@ -1,6 +1,5 @@
-use arrow_array::{Date64Array, RecordBatch, RecordBatchIterator, TimestampMillisecondArray};
+use arrow_array::{RecordBatch, RecordBatchIterator, TimestampMillisecondArray};
 use arrow_schema::{ArrowError, DataType, Field, Schema};
-use chrono::Utc;
 use futures::TryStreamExt;
 use lancedb::query::{ExecutableQuery, QueryBase};
 use serde::{Deserialize, Serialize};
@@ -207,8 +206,12 @@ impl DbEntity<SnippetModel> for SnippetEntity {
     }
 
     fn to_record_batch(item: &SnippetModel, schema: Arc<Schema>) -> RecordBatch {
-        let ctime = TimestampMillisecondArray::from(vec![item.ctime]);
-        let utime = TimestampMillisecondArray::from(vec![item.utime]);
+        let ctime_value: i64 = item.ctime.parse().unwrap();
+        let utime_value: i64 = item.utime.parse().unwrap();
+        println!("ctime: {ctime_value}");
+        // TimestampSecondArray
+        let ctime = TimestampMillisecondArray::from(vec![ctime_value]);
+        let utime = TimestampMillisecondArray::from(vec![utime_value]);
         let body = arrow_array::StringArray::from(vec![item.body.clone()]);
         let id = arrow_array::StringArray::from(vec![item
             .id

@@ -16,9 +16,9 @@ pub struct SnippetModel {
     /// THe language of the snippet.
     pub lang: String,
     /// The time the snippet was created.
-    pub ctime: i64,
+    pub ctime: String,
     /// The time the snippet was last updated.
-    pub utime: i64,
+    pub utime: String,
 }
 
 impl SnippetModel {
@@ -29,14 +29,14 @@ impl SnippetModel {
         lang: String,
         desc: Option<String>,
     ) -> SnippetModel {
-        let now = Utc::now().timestamp_millis();
+        let now = Utc::now().timestamp_millis().to_string();
         SnippetModel {
             id: None,
             label,
             body,
             desc,
             lang,
-            utime: now,
+            utime: now.clone(),
             ctime: now,
         }
     }
