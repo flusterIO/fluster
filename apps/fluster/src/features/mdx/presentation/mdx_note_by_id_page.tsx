@@ -2,49 +2,46 @@ import { showToast } from "#/toast_notification/data/events/show_toast";
 import React, { useEffect, useState, type ReactNode } from "react";
 import { useSearchParams } from "react-router";
 import MdxNotePage from "./mdx_note_page";
+import { commands, MdxNoteGroup } from "@/lib/bindings";
+import { LoadingComponent } from "@/components/loading_screen";
 
-const MdxNoteByIdPage = (): ReactNode => {
-  const [searchParams] = useSearchParams();
-  const [content] = useState("");
-  const getNoteContentFromFs = async (fsPath: string): Promise<void> => {
-    console.log("fsPath: ", fsPath);
-    throw Error("Not implemented");
-  };
+const MdxNoteByFilePathPage = (): ReactNode => {
+    const [searchParams] = useSearchParams();
+    const [content, setContent] = useState<null | MdxNoteGroup>(null);
+    const readFromFileSystem = async (fsPath: string): Promise<void> => {
+        // RESUME: Create a new 'readMdxFile' command that returns the front matter and parsed note directly from the file system. Right now the front matter yaml is just being embedded in the note.
+        // RESUME: Fix scroll issue.
+        const res = await commands.readMdxFile(fsPath);
+        if (res.status === "ok") {
+            setContent(res.data);
+        }
+    };
 
-  const getNoteContentById = async (noteId: number): Promise<void> => {
-    console.log("noteId: ", noteId);
-    throw Error("Not implemented");
-  };
+    useEffect(() => {
+        const fsPath = searchParams.get("fsPath");
+        if (fsPath && fsPath.length) {
+            readFromFileSystem(fsPath).catch(() => {
+                showToast({
+                    title: "Oh no",
+                    body: "An error occurred while gathering your content.",
+                    duration: 5000,
+                    variant: "Error",
+                });
+            });
+        }
+    }, [searchParams]);
 
-  useEffect(() => {
-    const fsPath = searchParams.get("fsPath");
-    if (fsPath && fsPath.length) {
-      getNoteContentFromFs(fsPath).catch(() => {
-        showToast({
-          title: "Oh no",
-          body: "An error occurred while gathering your content.",
-          duration: 5000,
-          variant: "Error",
-        });
-      });
-    } else {
-      const noteId = searchParams.get("noteId");
-      if (noteId && noteId.length) {
-        getNoteContentById(parseInt(noteId)).catch(() => {
-          showToast({
-            title: "Oh no",
-            body: "An error occurred while gathering your content.",
-            duration: 5000,
-            variant: "Error",
-          });
-        });
-      }
+    if (content === null) {
+        return (
+            <div className="w-full h-full flex flex-col justify-center items-center">
+                <LoadingComponent />
+            </div>
+        );
     }
-  }, [searchParams]);
 
-  return <MdxNotePage content={content} />;
+    return <MdxNotePage mdxGroup={content} />;
 };
 
-MdxNoteByIdPage.displayName = "MdxNoteByIdPage";
+MdxNoteByFilePathPage.displayName = "MdxNoteByIdPage";
 
-export default MdxNoteByIdPage;
+export default MdxNoteByFilePathPage;

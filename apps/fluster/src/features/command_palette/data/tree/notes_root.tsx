@@ -8,6 +8,9 @@ export class NotesCommandPaletteRoot extends CommandPaletteCategory {
     constructor() {
         super("Notes");
     }
+    filterByLocation(): boolean {
+        return true;
+    }
     async getItems(): Promise<CommandPaletteAnyEntry[]> {
         const items = await commands.getNoteSummaries({
             per_page: 1000,
@@ -17,7 +20,7 @@ export class NotesCommandPaletteRoot extends CommandPaletteCategory {
             return items.data.map((x) => {
                 return new GeneralCommandPaletteItem(x.title, async (nav) => {
                     const sp = new URLSearchParams();
-                    sp.set("filepath", x.file_path);
+                    sp.set("fsPath", x.file_path);
                     nav(`${AppRoutes.viewMdxNote}?${sp.toString()}`);
                 });
             });

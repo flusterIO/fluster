@@ -10,13 +10,16 @@ use crate::core::utils::random_utils::get_unique_id;
 use crate::features::dashboard::get_dashboard_data::get_dashboard_data;
 use crate::features::dictionary::commands::get_dictionary_entries::get_dictionary_entries;
 use crate::features::dictionary::dictionary_entry_model::DictionaryEntryModel;
+use crate::features::editor::write_file::write_file;
 use crate::features::embedded_docs::get_embedded_doc_by_id::get_embedded_doc;
 use crate::features::math::commands::delete_equation_by_id::delete_equation_by_id;
 use crate::features::math::commands::get_equation_by_id::get_equation_by_id;
 use crate::features::math::commands::get_equations::get_equations;
 use crate::features::math::commands::read_mathjax_file::{read_mathjax, read_mathjax_font_file};
 use crate::features::math::commands::save_equation::save_equations;
+use crate::features::mdx::actions::read_mdx_file::read_mdx_file;
 use crate::features::mdx::read_mdx_from_fs::read_mdx_from_fs;
+use crate::features::search::commands::get_note_summaries::get_note_summaries;
 use crate::features::settings::delete_setting_state::delete_setting_state;
 use crate::features::settings::get_setting_state::get_setting_state;
 use crate::features::settings::save_setting_state::save_setting_state;
@@ -24,7 +27,6 @@ use crate::features::snippets::delete_snippet_by_id::delete_snippet_by_id;
 use crate::features::snippets::get_snippet_by_id::get_snippet_by_id;
 use crate::features::snippets::get_snippets::get_snippets;
 use crate::features::snippets::save_snippet::save_snippets;
-use crate::features::search::commands::get_note_summaries::get_note_summaries;
 use crate::features::snippets::snippet_model::SnippetModel;
 use core::sync::parse_directory::sync_fs_directory::models::sync_filesystem_options::SyncFilesystemDirectoryOptions;
 use core::{
@@ -67,7 +69,9 @@ pub fn run() {
             get_unique_id,
             read_mathjax_font_file,
             read_mathjax,
-            get_note_summaries
+            get_note_summaries,
+            read_mdx_file,
+            write_file
         ])
         .events(collect_events![ShowToast, SetDbConnectionUri])
         .typ::<FlusterError>()

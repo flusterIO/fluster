@@ -9,12 +9,15 @@ export class ThemeCommandPaletteRoot extends CommandPaletteCategory {
     constructor() {
         super("Themes");
     }
+    filterByLocation(): boolean {
+        return true;
+    }
     async getItems(): Promise<CommandPaletteAnyEntry[]> {
         return themes.map(
             (x) =>
                 new GeneralCommandPaletteItem(x, async () => {
                     store.dispatch(setTheme(x));
-                }),
+                })
         );
     }
 }

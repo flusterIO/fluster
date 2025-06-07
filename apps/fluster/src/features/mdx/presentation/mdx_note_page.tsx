@@ -1,6 +1,9 @@
 import React, { HTMLProps, type ReactNode } from "react";
 import { MdxContent } from "./mdx_content";
-import { cn } from "@fluster.io/dev";
+import { cn, useEventListener } from "@fluster.io/dev";
+import { MdxNoteGroup } from "@/lib/bindings";
+import { useNavigate } from "react-router";
+import { AppRoutes } from "#/router/data/app_routes";
 
 export interface MdxNotePageSearchParams {
     /** The absolute path to the note on the user's computer. If this is provided, the content will be loaded directly from the file system, by passing the database except when strictly required. */
@@ -9,20 +12,25 @@ export interface MdxNotePageSearchParams {
     noteId?: string;
 }
 
-const MdxNotePage = ({
-    content,
-    ...props
-}: HTMLProps<HTMLDivElement> & { content: string }): ReactNode => {
+type MdxNotePageProps = HTMLProps<HTMLDivElement> & { mdxGroup: MdxNoteGroup };
+
+const MdxNotePage = ({ mdxGroup, ...props }: MdxNotePageProps): ReactNode => {
+    const nav = useNavigate();
+    useEventListener("view-note-split-view", () => {
+        const sp = new URLSearchParams();
+        sp.set("fsPath", mdxGroup.mdx.file_path);
+        nav(`${AppRoutes.splitViewEditMdx}?${sp.toString()}`);
+    });
     return (
         <div
             {...props}
             className={cn(
-                "w-full min-h-screen overflow flex flex-col justify-start items-center py-12 px-6 md:px-8",
+                "w-full min-h-screen overflow flex flex-col justify-start items-center py-12 px-6 md:px-8 overflow-y-auto",
                 props.className
             )}
         >
-            <div className="max-w-[1080px] h-fit">
-                {content && <MdxContent mdx={content} />}
+            <div className="max-w-[1080px]">
+                <MdxContent mdx={mdxGroup.mdx.raw_body} />
             </div>
         </div>
     );

@@ -7,6 +7,10 @@ export class NavigationCommandPaletteItem extends CommandPaletteItem {
         super(label);
         this.href = href;
     }
+
+    filterByLocation(): boolean {
+        return true;
+    }
     async invoke(nav: NavigateFunction): Promise<void> {
         nav(this.href);
     }

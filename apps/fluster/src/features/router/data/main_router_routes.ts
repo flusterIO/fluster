@@ -13,10 +13,11 @@ import EmbeddedDocsDashboardPage from "#/embedded_docs/presentation/embedded_doc
 import BookmarksPage from "#/bookmark/presentation/bookmarks_page";
 import { TaskListsPage } from "#/task_manager/presentation/task_lists_page";
 import EmbeddedDocsByIdPage from "#/embedded_docs/presentation/embedded_docs_by_id/embbed_docs_by_id_page";
-import MdxNoteByIdPage from "#/mdx/presentation/mdx_note_by_id_page";
+import MdxNoteByFilePathPage from "#/mdx/presentation/mdx_note_by_id_page";
 import { InternalEmbeddedDocsId, commands } from "@/lib/bindings";
 import OnboardingPage from "#/onboarding/presentation/onboarding_page";
 import SettingsPage from "#/settings/presentation/settings_page";
+import SearchResultsPage from "#/search/presentation/search_results_page";
 
 export const getBrowserRouter = () => {
     return createBrowserRouter([
@@ -29,6 +30,11 @@ export const getBrowserRouter = () => {
             Component: DesktopScaffold,
             children: [
                 { index: true, Component: DashboardPage },
+
+                {
+                    path: AppRoutes.search,
+                    Component: SearchResultsPage,
+                },
                 {
                     path: AppRoutes.dashboard,
                     Component: DashboardPage,
@@ -82,7 +88,7 @@ export const getBrowserRouter = () => {
                         },
                         {
                             path: AppRoutes.viewMdxNote,
-                            Component: MdxNoteByIdPage,
+                            Component: MdxNoteByFilePathPage,
                         },
                         {
                             path: AppRoutes.equations,

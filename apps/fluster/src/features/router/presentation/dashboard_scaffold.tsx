@@ -10,7 +10,12 @@ export const ScaffoldWithSidePanels = (): ReactNode => {
         <PanelGroup autoSaveId={"scaffold-panels"} direction="horizontal">
             <SnippetProvider>
                 <PanelLeftDesktop />
-                <Panel id="main-panel" order={2} defaultSize={50}>
+                <Panel
+                    className="!overflow-y-auto"
+                    id="main-panel"
+                    order={2}
+                    defaultSize={50}
+                >
                     <Outlet />
                 </Panel>
                 <PanelRightDesktop />

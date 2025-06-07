@@ -10,6 +10,9 @@ pub enum FlusterError {
     #[error("Fluster failed to copy some necessary files. You might experience unexpected behavior until this is resolved.")]
     FailToCopyFiles,
 
+    #[error("Fluster could not write to the file system.")]
+    FailToWriteFile,
+
     #[error("Fluster failed while attempting to save your settings.")]
     FailToSaveSettings,
 

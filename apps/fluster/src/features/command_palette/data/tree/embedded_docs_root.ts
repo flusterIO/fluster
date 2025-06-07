@@ -5,16 +5,19 @@ import { CommandPaletteCategory } from "../models/command_palette_category";
 import { GeneralCommandPaletteItem } from "../models/command_palette_item";
 
 export class EmbeddedDocsCommandPaletteRoot extends CommandPaletteCategory {
-  constructor() {
-    super("Documentation");
-  }
-  async getItems(): Promise<CommandPaletteAnyEntry[]> {
-    return Object.entries(embeddedDocLabels).map((k) => {
-      const sp = new URLSearchParams();
-      sp.set("id", k[0]);
-      return new GeneralCommandPaletteItem(k[1], async (nav) => {
-        nav(`${AppRoutes.embeddedDocs.toString()}/${encodeURI(k[0])}`);
-      });
-    });
-  }
+    constructor() {
+        super("Documentation");
+    }
+    filterByLocation(): boolean {
+        return true;
+    }
+    async getItems(): Promise<CommandPaletteAnyEntry[]> {
+        return Object.entries(embeddedDocLabels).map((k) => {
+            const sp = new URLSearchParams();
+            sp.set("id", k[0]);
+            return new GeneralCommandPaletteItem(k[1], async (nav) => {
+                nav(`${AppRoutes.embeddedDocs.toString()}/${encodeURI(k[0])}`);
+            });
+        });
+    }
 }

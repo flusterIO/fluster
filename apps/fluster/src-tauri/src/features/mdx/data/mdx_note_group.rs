@@ -1,7 +1,6 @@
 use crate::core::models::taggable::shared_taggable_model::SharedTaggableModel;
 use crate::core::models::taggable::tag_entity::TagEntity;
 use crate::core::types::errors::errors::{FlusterError, FlusterResult};
-use crate::core::utils::random_utils::new_uuid;
 use chrono::Utc;
 use filetime::FileTime;
 use gray_matter::{engine::YAML, Matter};

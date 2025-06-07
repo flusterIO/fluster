@@ -6,6 +6,9 @@ export class NavigationCommandPaletteRoot extends CommandPaletteCategory {
     constructor() {
         super("Navigation");
     }
+    filterByLocation(): boolean {
+        return true;
+    }
     async getItems(): Promise<CommandPaletteAnyEntry[]> {
         return globalNavigationItems();
     }

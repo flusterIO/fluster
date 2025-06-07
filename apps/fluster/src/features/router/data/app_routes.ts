@@ -1,19 +1,4 @@
-export enum AppRoutes {
-    dashboard = "/",
-    settings = "/settings",
-    bibliography = "/bibliography",
-    dictionary = "/dictionary",
-    snippets = "/snippets",
-    kanbanBoards = "/kanban-boards",
-    equations = "/equations",
-    viewMdxNote = "/mdx",
-    splitViewEditMdx = "/mdx-split-view",
-    embeddedDocs = "/embedded_docs",
-    bookmarks = "/bookmarks",
-    taskLists = "/taskLists",
-    onboarding = "/onboarding",
-}
-
+export { type AppRoutes } from "@fluster.io/dev";
 export enum ResourceRoutes {
     mathjax = "/mathjax",
     mathjaxFonts = "/mathjax/output/chtml/fonts/woff-v2/",
