@@ -225,6 +225,14 @@ async writeFile(filePath: string, content: string) : Promise<Result<null, Fluste
     if(e instanceof Error) throw e;
     else return { status: "error", error: e  as any };
 }
+},
+async getBibEntries(predicate: string | null, pagination: PaginationProps) : Promise<Result<BibEntryModel[], FlusterError>> {
+    try {
+    return { status: "ok", data: await TAURI_INVOKE("get_bib_entries", { predicate, pagination }) };
+} catch (e) {
+    if(e instanceof Error) throw e;
+    else return { status: "error", error: e  as any };
+}
 }
 }
 
@@ -245,6 +253,11 @@ showToast: "show-toast"
 
 /** user-defined types **/
 
+export type BibEntryModel = { id: string; user_provided_id: string | null; 
+/**
+ * The json string representing this item's data.
+ */
+data: string; ctime: string }
 export type DashboardData = Record<string, never>
 export type DesktopHealthReport = { database_tables_exist: boolean; 
 /**

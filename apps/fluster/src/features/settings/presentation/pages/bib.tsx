@@ -25,7 +25,7 @@ export const BibliographySettingsPage = connector(
         const form = useForm({
             resolver: zodResolver(schema),
             defaultValues: {
-                bib_path: state?.bib_path ?? null,
+                bib_path: state?.bibPath ?? null,
             },
         });
 

@@ -8,12 +8,12 @@ const config: StorybookConfig = {
         "@chromatic-com/storybook",
         "@storybook/addon-vitest",
         "@storybook/addon-themes",
-        "@storybook/addon-docs"
+        "@storybook/addon-docs",
+        "storybook-addon-data-theme-switcher",
     ],
     framework: {
         name: "@storybook/react-vite",
-        options: {
-        },
+        options: {},
     },
 };
 export default config;

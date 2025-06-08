@@ -4,7 +4,9 @@ import {
     withThemeByClassName,
     withThemeByDataAttribute,
 } from "@storybook/addon-themes";
-import { themes } from "storybook/theming";
+import { themes } from "storybook/internal/theming";
+import { themes as flusterThemes } from "../src/utils/themes";
+import type { ThemeConfig } from "storybook-addon-data-theme-switcher";
 
 export const parameters = {
     darkMode: {
@@ -61,6 +63,21 @@ const preview: Preview = {
     },
     initialGlobals: {
         backgrounds: { value: "dark" },
+        dataTheme: "fluster",
+        dataThemes: {
+            list: flusterThemes.map((theme) => {
+                return {
+                    name: theme,
+                    dataTheme: theme,
+                };
+            }),
+            dataAttribute: "data-fluster-theme",
+            clearable: false,
+            toolbar: {
+                title: "Fluster theme",
+                icon: "PaintBrushIcon",
+            },
+        } satisfies ThemeConfig,
     },
     tags: ["autodocs"],
 };

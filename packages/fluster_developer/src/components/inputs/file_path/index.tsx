@@ -1,4 +1,4 @@
-import React, { type ReactNode } from "react";
+import React, { MouseEventHandler, type ReactNode } from "react";
 import { FormInputProps } from "../types";
 import { FieldValues, PathValue } from "react-hook-form";
 import { Input } from "../../shad/input";
@@ -50,7 +50,9 @@ export const FilePathInput = <T extends FieldValues>({
         }
     };
 
-    const openDialog = async (): Promise<void> => {
+    const openDialog: MouseEventHandler = async (e): Promise<void> => {
+        e.preventDefault();
+        e.stopPropagation();
         /* WITH_WIFI: Look up the docs for typing this `withGlobalTauri` option. */
         /* @ts-expect-error -- Dialog is not part of typescript type but exists as part of the object. Not worth it to mess with the type right now. */
         const { open } = window.__TAURI__.dialog;
@@ -83,24 +85,16 @@ export const FilePathInput = <T extends FieldValues>({
                                     <Input
                                         id={"equation-name-input"}
                                         value={typeof value === "string" ? value : ""}
-                                        onChange={
-                                            (e) => console.log("e: ", e.target.value)
-                                            /* form.setValue( */
-                                            /*     name, */
-                                            /*     e.target.value as Parameters<typeof form.setValue>[1] */
-                                            /* ) */
+                                        onChange={(e) =>
+                                            form.setValue(
+                                                name,
+                                                e.target.value as Parameters<typeof form.setValue>[1]
+                                            )
                                         }
                                         className={cn("flex-grow", classes.input)}
                                     />
                                     <Button onClick={openDialog} size={"icon"}>
-                                        <Tooltip>
-                                            <TooltipContent>
-                                                Use a file picker to select a file.
-                                            </TooltipContent>
-                                            <TooltipTrigger asChild>
-                                                <Icon />
-                                            </TooltipTrigger>
-                                        </Tooltip>
+                                        <Icon />
                                     </Button>
                                 </div>
                                 {desc?.length ? (

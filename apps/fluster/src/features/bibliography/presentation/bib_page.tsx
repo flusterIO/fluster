@@ -1,11 +1,13 @@
 import React, { type ReactNode } from "react";
-import BibliographyPageContent from "./bib_table";
 import PageContainer from "@/components/util/page_container";
+import { BibliographyTable } from "./bib_table/index";
 
 const BibliographyPage = (): ReactNode => {
     return (
         <PageContainer>
-            <BibliographyPageContent />
+            <div className="w-full px-8 mt-8">
+                <BibliographyTable />
+            </div>
         </PageContainer>
     );
 };

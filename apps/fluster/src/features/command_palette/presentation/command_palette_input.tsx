@@ -85,7 +85,6 @@ const CommandPaletteInput = forwardRef(
                     });
                 }
             } else if (e.key === "ArrowDown") {
-                console.log(`down arrow`);
                 dispatch({
                     type: CommandPaletteActionType.incrementFocusIndex,
                 });
@@ -96,14 +95,12 @@ const CommandPaletteInput = forwardRef(
             } else if (e.key === "Enter") {
                 const item = state.filteredItems[state.focusedIndex];
                 if (item instanceof CommandPaletteCategory) {
-                    console.log("here: ");
                     appendCommandPaletteCategory(item, location, dispatch);
                     setValue("");
                 } else if (
                     item instanceof CommandPaletteItemAbstract ||
                     "invoke" in item
                 ) {
-                    console.log(`or here`);
                     /* @ts-expect-error -- This is the only type of invoke function available. I'll clean this up later. */
                     item.invoke(nav);
                     dispatch({

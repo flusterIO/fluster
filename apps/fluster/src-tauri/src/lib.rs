@@ -8,6 +8,7 @@ use crate::core::utils::initialize::initialize_database::initialize_database;
 use crate::core::utils::initialize::initialize_desktop::initialize_desktop;
 use crate::core::utils::random_utils::get_unique_id;
 use crate::core::utils::search::get_text_similarity::get_text_similarity;
+use crate::features::bibliography::commands::get_bib_entries::get_bib_entries;
 use crate::features::dashboard::get_dashboard_data::get_dashboard_data;
 use crate::features::dictionary::commands::get_dictionary_entries::get_dictionary_entries;
 use crate::features::dictionary::dictionary_entry_model::DictionaryEntryModel;
@@ -73,7 +74,8 @@ pub fn run() {
             read_mathjax,
             get_note_summaries,
             read_mdx_file,
-            write_file
+            write_file,
+            get_bib_entries
         ])
         .events(collect_events![ShowToast, SetDbConnectionUri])
         .typ::<FlusterError>()

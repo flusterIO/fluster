@@ -1,10 +1,11 @@
-use std::ops::Index;
-
-use chrono::Utc;
 use regex::Regex;
+use serde::{Deserialize, Serialize};
+use specta::Type;
+use std::ops::Index;
 
 use crate::core::types::common_structs::parsed_content_result::ParsedContentResult;
 
+#[derive(Serialize, Deserialize, Type)]
 pub struct BibEntryModel {
     pub id: String,
     pub user_provided_id: Option<String>,
@@ -37,20 +38,5 @@ impl BibEntryModel {
             new_content,
             results: unique_ordered_bib_entries,
         }
-    }
-}
-
-#[cfg(test)]
-mod tests {
-    use super::*;
-
-    #[test]
-    fn parses_content_properly() {
-        let test_content = r#"
-# My test content
-
-Here is a [[cite:my_citation_id]] here.
-            "#;
-        let parsed_content = BibEntryModel::parse_content(test_content);
     }
 }

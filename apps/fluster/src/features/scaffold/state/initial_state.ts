@@ -1,24 +1,11 @@
+import {themes} from "@fluster.io/dev";
 export enum ThemeMode {
     light,
     dark,
     system,
 }
 
-export const themes = [
-    "blue",
-    "gray",
-    "green",
-    "neutral",
-    "orange",
-    "red",
-    "rose",
-    "slate",
-    "stone",
-    "violet",
-    "yellow",
-    "zinc",
-    "fluster",
-] as const;
+export {themes};
 
 export interface ScaffoldState {
     themeMode: ThemeMode;
