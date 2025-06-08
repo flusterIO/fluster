@@ -4,8 +4,9 @@ import { SettingPageTitle } from "../components/setting_page_title";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { connect } from "react-redux";
+import { connect, useDispatch } from "react-redux";
 import { AppState } from "@/state/initial_state";
+import { setNotesDirectory } from "#/settings/state/slice";
 
 const connector = connect((state: AppState) => ({
     state: state.core,
@@ -17,11 +18,17 @@ const schema = z.object({
 
 export const GeneralSettingsPage = connector(
     ({ state }: { state: AppState["core"] }): ReactNode => {
+        const dispatch = useDispatch();
         const form = useForm({
             resolver: zodResolver(schema),
             defaultValues: {
                 notesDirectory: state?.notesDirectory ?? "",
             },
+        });
+        form.watch((formData) => {
+            if (formData.notesDirectory) {
+                dispatch(setNotesDirectory(formData.notesDirectory));
+            }
         });
         return (
             <Form {...form}>

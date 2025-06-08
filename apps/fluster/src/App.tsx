@@ -2,10 +2,6 @@ import React, { useMemo, type ReactNode } from "react";
 import { useGlobalKeymap } from "#/keymap/state/hooks/use_global_keymap";
 import { getBrowserRouter } from "#/router/data/main_router_routes";
 import { RouterProvider } from "react-router";
-import { PersistGate } from "redux-persist/integration/react";
-import store from "@/state/store";
-import persistStore from "redux-persist/es/persistStore";
-import LoadingScreen from "@/components/loading_screen";
 import { ResourceRoutes } from "#/router/data/app_routes";
 
 const App = (): ReactNode => {
@@ -26,12 +22,7 @@ const App = (): ReactNode => {
     useGlobalKeymap();
 
     const router = useMemo(() => getBrowserRouter(), []);
-    const persistor = persistStore(store);
-    return (
-        <PersistGate persistor={persistor} loading={<LoadingScreen />}>
-            <RouterProvider router={router} />
-        </PersistGate>
-    );
+    return <RouterProvider router={router} />;
 };
 
 App.displayName = "App";

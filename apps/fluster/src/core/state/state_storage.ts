@@ -1,32 +1,29 @@
 import { commands } from "@/lib/bindings";
-import { Storage } from "redux-persist";
+import store from "./store";
+import { AppState } from "./initial_state";
 
-export const stateStorage: Storage = {
-    async setItem(storageId: string, value) {
-        const res = await commands.saveSettingState(
-            typeof value === "string" ? value : JSON.stringify(value),
-            storageId
-        );
-        if (res.status === "error") {
-            console.warn(
-                "An error occured while trying to save your settings. If this is your first time using Fluster, you can ignore this error. If this continues however, you may not be able to persist state between the state of your app between uses. If that is the case, submit an issue on Github."
-            );
-        }
-    },
-    async getItem(storageId) {
-        const res = await commands.getSettingState(storageId);
-        if (res.status === "ok") {
-            return JSON.parse(res.data);
-        } else {
-            return null;
-        }
-    },
-    async removeItem(storageId) {
-        const res = await commands.deleteSettingState(storageId);
-        if (res.status === "error") {
-            console.warn(
-                "An error occurred while deleting the existing setting state."
-            );
-        }
-    },
+export const appStateKey = "appState";
+
+export const saveSettingState = async (): Promise<boolean> => {
+    const state = store.getState();
+    const res = await commands.saveSettingState(
+        JSON.stringify(state),
+        appStateKey
+    );
+    if (res.status === "error") {
+        console.error("Could not save settings state.");
+        return false;
+    }
+    return true;
+};
+
+export const getSavedSettings = async (): Promise<AppState | null> => {
+    const res = await commands.getSettingState(appStateKey);
+    if (res.status === "ok") {
+        return JSON.parse(res.data) as AppState;
+    } else {
+        console.error("Could not read saved settings state.");
+        await saveSettingState(); // If it doesn't exist it is possibly the user's first time opening this application, and we should try to persist the default initial state.
+        return null;
+    }
 };

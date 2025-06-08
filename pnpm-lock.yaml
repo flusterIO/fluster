@@ -333,6 +333,9 @@ importers:
       '@types/react-resizable':
         specifier: 3.0.8
         version: 3.0.8
+      '@types/redux-logger':
+        specifier: ^3.0.13
+        version: 3.0.13
       '@vitejs/plugin-react':
         specifier: ^4.4.1
         version: 4.5.0(vite@6.3.5(@types/node@22.14.1)(jiti@2.4.2)(lightningcss@1.30.1)(sass-embedded@1.89.0)(sass@1.89.0)(yaml@2.8.0))
@@ -357,6 +360,9 @@ importers:
       pg-mermaid:
         specifier: 0.2.1
         version: 0.2.1(tslib@2.8.1)
+      redux-logger:
+        specifier: ^3.0.6
+        version: 3.0.6
       sass-embedded:
         specifier: 1.89.0
         version: 1.89.0
@@ -4578,6 +4584,9 @@ packages:
   '@types/react@19.1.5':
     resolution: {integrity: sha512-piErsCVVbpMMT2r7wbawdZsq4xMvIAhQuac2gedQHysu1TZYEigE6pnFfgZT+/jQnrRuF5r+SHzuehFjfRjr4g==}
 
+  '@types/redux-logger@3.0.13':
+    resolution: {integrity: sha512-jylqZXQfMxahkuPcO8J12AKSSCQngdEWQrw7UiLUJzMBcv1r4Qg77P6mjGLjM27e5gFQDPD8vwUMJ9AyVxFSsg==}
+
   '@types/resolve@1.20.6':
     resolution: {integrity: sha512-A4STmOXPhMUtHH+S6ymgE2GiBSMqf4oTvcQZMcHzokuTLVYzXTB8ttjcgxOVaAp2lGwEdzZ0J+cRbbeevQj1UQ==}
 
@@ -5706,6 +5715,9 @@ packages:
     peerDependenciesMeta:
       babel-plugin-macros:
         optional: true
+
+  deep-diff@0.3.8:
+    resolution: {integrity: sha512-yVn6RZmHiGnxRKR9sJb3iVV2XTF1Ghh2DiWRZ3dMnGc43yUdWWF/kX6lQyk3+P84iprfWKU/8zFTrlkvtFm1ug==}
 
   deep-eql@5.0.2:
     resolution: {integrity: sha512-h5k/5U50IJJFpzfL6nO9jaaumfjO/f2NjK/oYB2Djzm4p9L+3T9qWpZqZ2hAbLPuuYq9wrU08WQyBTL5GbPk5Q==}
@@ -8646,6 +8658,9 @@ packages:
   redent@3.0.0:
     resolution: {integrity: sha512-6tDA8g98We0zd0GvVeMT9arEOnTw9qM03L9cJXaCjrip1OO764RDBLBfrB4cwzNGDj5OA5ioymC9GkizgWJDUg==}
     engines: {node: '>=8'}
+
+  redux-logger@3.0.6:
+    resolution: {integrity: sha512-JoCIok7bg/XpqA1JqCqXFypuqBbQzGQySrhFzewB7ThcnysTO30l4VCst86AuB9T9tuT03MAA56Jw2PNhRSNCg==}
 
   redux-persist@6.0.0:
     resolution: {integrity: sha512-71LLMbUq2r02ng2We9S215LtPu3fY0KgaGE0k8WRgl6RkqxtGfl7HUozz1Dftwsb0D/5mZ8dwAaPbtnzfvbEwQ==}
@@ -13901,6 +13916,10 @@ snapshots:
     dependencies:
       csstype: 3.1.3
 
+  '@types/redux-logger@3.0.13':
+    dependencies:
+      redux: 5.0.1
+
   '@types/resolve@1.20.6': {}
 
   '@types/retry@0.12.0': {}
@@ -13917,10 +13936,10 @@ snapshots:
 
   '@types/uuid@10.0.0': {}
 
-  '@typescript-eslint/eslint-plugin@5.62.0(@typescript-eslint/parser@5.62.0(eslint@9.27.0(jiti@2.4.2))(typescript@5.8.3))(eslint@9.27.0(jiti@2.4.2))(typescript@5.8.3)':
+  '@typescript-eslint/eslint-plugin@5.62.0(@typescript-eslint/parser@8.33.0(eslint@9.27.0(jiti@2.4.2))(typescript@5.8.3))(eslint@9.27.0(jiti@2.4.2))(typescript@5.8.3)':
     dependencies:
       '@eslint-community/regexpp': 4.12.1
-      '@typescript-eslint/parser': 5.62.0(eslint@9.27.0(jiti@2.4.2))(typescript@5.8.3)
+      '@typescript-eslint/parser': 8.33.0(eslint@9.27.0(jiti@2.4.2))(typescript@5.8.3)
       '@typescript-eslint/scope-manager': 5.62.0
       '@typescript-eslint/type-utils': 5.62.0(eslint@9.27.0(jiti@2.4.2))(typescript@5.8.3)
       '@typescript-eslint/utils': 5.62.0(eslint@9.27.0(jiti@2.4.2))(typescript@5.8.3)
@@ -15212,6 +15231,8 @@ snapshots:
     optionalDependencies:
       babel-plugin-macros: 3.1.0
 
+  deep-diff@0.3.8: {}
+
   deep-eql@5.0.2: {}
 
   deep-extend@0.6.0:
@@ -15579,7 +15600,7 @@ snapshots:
       '@babel/core': 7.27.3
       '@babel/eslint-parser': 7.27.1(@babel/core@7.27.3)(eslint@9.27.0(jiti@2.4.2))
       '@rushstack/eslint-patch': 1.11.0
-      '@typescript-eslint/eslint-plugin': 5.62.0(@typescript-eslint/parser@5.62.0(eslint@9.27.0(jiti@2.4.2))(typescript@5.8.3))(eslint@9.27.0(jiti@2.4.2))(typescript@5.8.3)
+      '@typescript-eslint/eslint-plugin': 5.62.0(@typescript-eslint/parser@8.33.0(eslint@9.27.0(jiti@2.4.2))(typescript@5.8.3))(eslint@9.27.0(jiti@2.4.2))(typescript@5.8.3)
       '@typescript-eslint/parser': 5.62.0(eslint@9.27.0(jiti@2.4.2))(typescript@5.8.3)
       babel-preset-react-app: 10.1.0
       confusing-browser-globals: 1.0.11
@@ -15716,7 +15737,7 @@ snapshots:
       '@typescript-eslint/experimental-utils': 5.62.0(eslint@9.27.0(jiti@2.4.2))(typescript@5.8.3)
       eslint: 9.27.0(jiti@2.4.2)
     optionalDependencies:
-      '@typescript-eslint/eslint-plugin': 5.62.0(@typescript-eslint/parser@5.62.0(eslint@9.27.0(jiti@2.4.2))(typescript@5.8.3))(eslint@9.27.0(jiti@2.4.2))(typescript@5.8.3)
+      '@typescript-eslint/eslint-plugin': 5.62.0(@typescript-eslint/parser@8.33.0(eslint@9.27.0(jiti@2.4.2))(typescript@5.8.3))(eslint@9.27.0(jiti@2.4.2))(typescript@5.8.3)
     transitivePeerDependencies:
       - supports-color
       - typescript
@@ -18816,6 +18837,10 @@ snapshots:
     dependencies:
       indent-string: 4.0.0
       strip-indent: 3.0.0
+
+  redux-logger@3.0.6:
+    dependencies:
+      deep-diff: 0.3.8
 
   redux-persist@6.0.0(react@19.1.0)(redux@5.0.1):
     dependencies:
