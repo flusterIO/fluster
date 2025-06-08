@@ -3,13 +3,13 @@ import { AnimatePresence, motion } from "framer-motion";
 import { StaticImageData } from "next/image";
 import React, { useRef, useState } from "react";
 import NextImage from "next/image";
-const Image = motion(NextImage);
 import { wrap } from "popmotion";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import styles from "./styles.module.scss";
 import { swipeConfidenceThreshold, swipePower } from "#/core/utils/swipe_utils";
 import { cn } from "@fluster.io/dev";
 
+const Image = motion.create(NextImage);
 export type SlideShowImage = {
     src: StaticImageData;
     className?: string;

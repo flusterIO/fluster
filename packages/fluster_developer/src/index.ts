@@ -7,6 +7,7 @@ export { SyntaxSupportedLanguageSelect } from "./components/inputs/select/suppor
 export { SyntaxSupportedThemeSelect } from "./components/inputs/select/supported_syntax_theme/index";
 export { FilePathInput } from "./components/inputs/file_path/index";
 export { Tag } from "./embeddable_components/taggable/tag";
+export * from "./utils/route_utils";
 export * from "./components/inputs/select/general_select/index";
 export * from "./embeddable_components/admonition/index";
 export * from "./utils/bundled_languages";

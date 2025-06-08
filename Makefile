@@ -21,7 +21,11 @@ build_go:
 	cd ${FLUSTER_NATIVE_ROOT}/packages/fluster_go/; go build
 	cd ${FLUSTER_NATIVE_ROOT}/packages/fluster_internal_workspace/; go build
 test_go:
-	cd ${FLUSTER_NATIVE_ROOT}/packages/fluster_cli; go test -cover -coverprofile $FLUSTER_NATIVE_ROOT/packages/fluster_cli/.coverage/coverage.outj
+	cd ${FLUSTER_NATIVE_ROOT}/apps/fluster/src-tauri; cd ${FLUSTER_NATIVE_ROOT}/packages/fluster_cli; go test -cover -coverprofile $FLUSTER_NATIVE_ROOT/packages/fluster_cli/.coverage/coverage.outj
+generate_embedded_python_artifacts:
+	cd ${FLUSTER_NATIVE_ROOT}/apps/fluster/src-tauri; pyoxidizer generate-python-embedding-artifacts pyembedded
+build_embedded_python:
+	pyoxidizer build
 build_python:
 	cd ${FLUSTER_NATIVE_ROOT}/packages/fluster_py; python -m nuitka --follow-imports fluster_py
 distribute_python: build_python

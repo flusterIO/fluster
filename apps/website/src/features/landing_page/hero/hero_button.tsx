@@ -4,7 +4,7 @@ import NextLink from "next/link";
 import { motion } from "framer-motion";
 import { cn } from "@fluster.io/dev";
 
-const Link = motion(NextLink);
+const Link = motion.create(NextLink);
 
 interface HeroButtonProps extends ComponentProps<typeof Link> {
     delay?: number;

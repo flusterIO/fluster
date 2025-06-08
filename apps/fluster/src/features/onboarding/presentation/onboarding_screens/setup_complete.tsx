@@ -1,6 +1,6 @@
 import React, { type ReactNode } from "react";
 import { H1 } from "@/components/typography/typography";
-import { Button, buttonVariants, getEmbeddedDocUrl } from "@fluster.io/dev";
+import { Button, buttonVariants, cn, getEmbeddedDocUrl } from "@fluster.io/dev";
 import { incrementOnboardingPageIndex } from "#/onboarding/state/actions/onboarding_index_utils";
 import {
     useOnboardingStateContext,
@@ -25,14 +25,16 @@ const OnboardingSetupCompleteScreen = (): ReactNode => {
                 need inside of Fluster are available from the command palette, including
                 more documentation that will show you how to get the most from Fluster.
             </p>
-            <div className="w-full flex flex-row justify-end items-center">
+            <div className="w-full flex flex-col md:flex-row justify-end items-center gap-6">
                 <NavLink
-                    className={buttonVariants()}
+                    className={cn("w-full sm:w-fit", buttonVariants())}
                     to={getEmbeddedDocUrl("ModelIntro")}
                 >
                     Change the world
                 </NavLink>
-                <Button onClick={handleClick}>Go to Dashboard</Button>
+                <Button className="w-full sm:w-fit" onClick={handleClick}>
+                    Go to Dashboard
+                </Button>
             </div>
         </div>
     );

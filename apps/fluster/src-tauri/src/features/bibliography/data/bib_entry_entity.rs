@@ -1,12 +1,41 @@
+use super::bib_entry_model::BibEntryModel;
+use crate::core::{
+    database::{db::get_table, tables::table_paths::DatabaseTables},
+    types::{
+        errors::errors::{FlusterError, FlusterResult},
+        traits::db_entity::DbEntity,
+        FlusterDb,
+    },
+};
+use arrow_array::{RecordBatch, RecordBatchIterator, StringArray, TimestampMillisecondArray};
+use arrow_schema::{ArrowError, DataType, Field, Schema};
 use std::sync::Arc;
 
-use arrow_array::{RecordBatch, StringArray, TimestampMillisecondArray};
-use arrow_schema::{DataType, Field, Schema};
-
-use super::bib_entry_model::BibEntryModel;
-use crate::core::types::traits::db_entity::DbEntity;
-
 pub struct BibEntryEntity {}
+
+impl BibEntryEntity {
+    pub async fn save_many(db: &FlusterDb<'_>, entries: &Vec<BibEntryModel>) -> FlusterResult<()> {
+        let schema = BibEntryEntity::arrow_schema();
+        let tbl = get_table(db, DatabaseTables::BibEntry).await?;
+        let batches: Vec<Result<RecordBatch, ArrowError>> = entries
+            .iter()
+            .map(|x| Ok(BibEntryEntity::to_record_batch(x, schema.clone())))
+            .collect();
+        let stream = Box::new(RecordBatchIterator::new(
+            batches.into_iter(),
+            schema.clone(),
+        ));
+        let primary_key: &[&'static str; 1] = &["id"];
+        tbl.merge_insert(primary_key)
+            .when_matched_update_all(None)
+            .when_not_matched_insert_all()
+            .clone()
+            .execute(stream)
+            .await
+            .map_err(|_| FlusterError::FailToParseBibFile)?;
+        Ok(())
+    }
+}
 
 impl DbEntity<BibEntryModel> for BibEntryEntity {
     fn arrow_schema() -> std::sync::Arc<arrow_schema::Schema> {

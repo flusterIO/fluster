@@ -17,7 +17,7 @@ import shadIcon from "./shadcn.svg";
 import NextImage from "next/image";
 import { motion } from "framer-motion";
 import clsx from "clsx";
-const Image = motion(NextImage);
+const Image = motion.create(NextImage);
 
 export type TechIconType =
     | "next"

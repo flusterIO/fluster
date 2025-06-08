@@ -6,7 +6,7 @@ import { getTitleVariantClasses } from "./utils";
 import { ChevronUp as ChevronIcon } from "lucide-react";
 import { motion } from "framer-motion";
 
-const ChevronUp = motion(ChevronIcon);
+const ChevronUp = motion.create(ChevronIcon);
 
 interface Props extends AdmonitionTitleProps {
     open: boolean;

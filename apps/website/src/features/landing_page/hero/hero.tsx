@@ -7,7 +7,7 @@ import { Badge, buttonVariants, cn } from "@fluster.io/dev";
 import Link from "next/link";
 import { Brain, Download, Globe, Sparkles, Video, Zap } from "lucide-react";
 
-const MotionLink = motion(Link);
+const MotionLink = motion.create(Link);
 
 /* const  */
 

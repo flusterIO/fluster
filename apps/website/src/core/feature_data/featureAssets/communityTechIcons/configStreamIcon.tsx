@@ -11,7 +11,7 @@ import { Variants, motion, useAnimate } from "framer-motion";
 import clsx from "clsx";
 import { useViewport } from "@fluster.io/dev";
 
-const BoltIcon = motion(BoltIconComp);
+const BoltIcon = motion.create(BoltIconComp);
 
 interface ConfigStreamIconProps {
     show: boolean;
