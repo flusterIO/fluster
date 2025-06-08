@@ -6,8 +6,7 @@ use specta::Type;
 pub struct DictionaryEntryModel {
     pub label: String,
     pub body: String,
-    #[serde(with = "crate::core::utils::stringify_i64::string")]
-    pub ctime: i64,
+    pub ctime: String,
 }
 
 impl DictionaryEntryModel {

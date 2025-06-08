@@ -123,7 +123,7 @@ impl DbEntity<SharedTaggableModel> for TagEntity {
             Field::new("value", DataType::Utf8, false),
             Field::new(
                 "ctime",
-                DataType::Timestamp(arrow_schema::TimeUnit::Millisecond, Some("Utc".into())),
+                DataType::Timestamp(arrow_schema::TimeUnit::Millisecond, None),
                 false,
             ),
         ]))

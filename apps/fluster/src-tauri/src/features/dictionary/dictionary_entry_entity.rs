@@ -56,7 +56,7 @@ impl DbEntity<DictionaryEntryModel> for DictionaryEntryEntity {
             Field::new("body", DataType::Utf8, false),
             Field::new(
                 "ctime",
-                DataType::Timestamp(arrow_schema::TimeUnit::Millisecond, Some("Utc".into())),
+                DataType::Timestamp(arrow_schema::TimeUnit::Millisecond, None),
                 false,
             ),
         ]))
@@ -66,10 +66,10 @@ impl DbEntity<DictionaryEntryModel> for DictionaryEntryEntity {
         item: &DictionaryEntryModel,
         schema: std::sync::Arc<arrow_schema::Schema>,
     ) -> arrow_array::RecordBatch {
-        let now = Utc::now().timestamp_millis();
         let label = arrow_array::StringArray::from(vec![item.label.clone()]);
         let body = arrow_array::StringArray::from(vec![item.body.clone()]);
-        let ctime = TimestampMillisecondArray::from(vec![item.ctime]);
+        let ctime_value: i64 = item.ctime.parse().unwrap();
+        let ctime = TimestampMillisecondArray::from(vec![ctime_value]);
         RecordBatch::try_new(
             schema,
             vec![Arc::new(label), Arc::new(body), Arc::new(ctime)],

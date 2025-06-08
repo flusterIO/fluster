@@ -10,7 +10,7 @@ pub struct BibEntryModel {
     pub user_provided_id: Option<String>,
     /// The json string representing this item's data.
     pub data: String,
-    pub ctime: chrono::DateTime<Utc>,
+    pub ctime: String,
 }
 
 impl BibEntryModel {

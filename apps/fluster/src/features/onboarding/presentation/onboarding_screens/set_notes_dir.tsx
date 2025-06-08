@@ -40,13 +40,18 @@ If you do encounter issues with your database, please submit an issue on Github.
         <div className="max-w-[768px] flex flex-col justify-center items-start gap-8 px-8">
             <H1>Help us find your notes</H1>
             <p className="text-muted-foreground">
-                To better organize your notes while provided an added layer of security,
-                you should keep your notes within a single directory. They can be neste
-                in directories as deeply as you desire, but you need to provide a single
-                parent directory for Fluster to find your notes.
+                To better organize your notes while providing an added layer of
+                security, you should keep your notes within a single directory. They can
+                be nested in directories as deeply as you wish, but you need to provide
+                a single parent directory for Fluster to find your notes.
             </p>
             <Form {...form}>
-                <FilePathInput form={form} name="file_path" label="Directory" />
+                <FilePathInput
+                    directory
+                    form={form}
+                    name="file_path"
+                    label="Directory"
+                />
             </Form>
             <div className="w-full flex flex-row justify-end items-center">
                 <Button onClick={handleClick}>Create Database</Button>

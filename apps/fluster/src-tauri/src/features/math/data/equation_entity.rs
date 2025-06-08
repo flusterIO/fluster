@@ -114,12 +114,12 @@ impl DbEntity<EquationModel> for EquationEntity {
             Field::new("desc", DataType::Utf8, true),
             Field::new(
                 "ctime",
-                DataType::Timestamp(arrow_schema::TimeUnit::Millisecond, Some("Utc".into())),
+                DataType::Timestamp(arrow_schema::TimeUnit::Millisecond, None),
                 false,
             ),
             Field::new(
                 "utime",
-                DataType::Timestamp(arrow_schema::TimeUnit::Millisecond, Some("Utc".into())),
+                DataType::Timestamp(arrow_schema::TimeUnit::Millisecond, None),
                 false,
             ),
         ]))
@@ -134,8 +134,10 @@ impl DbEntity<EquationModel> for EquationEntity {
         let label = arrow_array::StringArray::from(vec![item.label.clone()]);
         let body = arrow_array::StringArray::from(vec![item.body.clone()]);
         let desc = arrow_array::StringArray::from(vec![item.desc.clone()]);
-        let ctime = TimestampMillisecondArray::from(vec![item.ctime]);
-        let utime = TimestampMillisecondArray::from(vec![item.utime]);
+        let ctime_value: i64 = item.ctime.parse().unwrap();
+        let utime_value: i64 = item.utime.parse().unwrap();
+        let ctime = TimestampMillisecondArray::from(vec![ctime_value]);
+        let utime = TimestampMillisecondArray::from(vec![utime_value]);
         RecordBatch::try_new(
             schema,
             vec![

@@ -33,7 +33,7 @@ impl MdxNoteGroup {
             Some(x) => chrono::DateTime::from_timestamp(x.unix_seconds(), 0).unwrap(),
             None => chrono::DateTime::from_timestamp(Utc::now().timestamp(), 0).unwrap(),
         };
-        note_data.mdx.ctime = ctime.timestamp_millis();
+        note_data.mdx.ctime = ctime.timestamp_millis().to_string();
         Ok(note_data)
     }
     pub fn from_file_system_path(file_path: String) -> FlusterResult<MdxNoteGroup> {
@@ -56,7 +56,7 @@ impl MdxNoteGroup {
         raw_file_content: String,
         file_path: String,
     ) -> FlusterResult<MdxNoteGroup> {
-        let now = Utc::now().timestamp_millis();
+        let now = Utc::now().timestamp_millis().to_string();
         let matter = Matter::<YAML>::new();
         let result = matter.parse(&raw_file_content);
         let post_tag_parse = TagEntity::from_mdx_content(&result);
@@ -66,7 +66,7 @@ impl MdxNoteGroup {
                 raw_body: post_tag_parse.parsed_content,
                 file_path,
                 ctime: now,
-                last_read: 0,
+                last_read: "0".to_string(),
             },
             //FIXME: The equation tags are not yet being parsed.
             equation_ids: Vec::new(),

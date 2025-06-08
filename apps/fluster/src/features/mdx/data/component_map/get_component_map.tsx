@@ -1,6 +1,6 @@
 /* eslint-disable  @typescript-eslint/no-explicit-any  --  */
 import { FC } from "react";
-import { Tag } from "@fluster.io/dev";
+import { Tag, Admonition } from "@fluster.io/dev";
 
 interface ComponentMapItem {
     /// A regex that will return true if this component is to be included in the component map.
@@ -12,6 +12,10 @@ const items: ComponentMapItem[] = [
     {
         query: "Tag",
         component: Tag,
+    },
+    {
+        query: "Admonition",
+        component: Admonition,
     },
 ];
 

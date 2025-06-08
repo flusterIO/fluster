@@ -79,8 +79,10 @@ impl DbEntity<MdxNoteModel> for MdxNoteEntity {
         let raw_body = StringArray::from(vec![item.raw_body.clone()]);
         let file_path = StringArray::from(vec![item.file_path.clone()]);
         let front_matter_id = StringArray::from(vec![item.file_path.clone()]);
-        let ctime = TimestampMillisecondArray::from(vec![item.ctime]);
-        let last_read = TimestampMillisecondArray::from(vec![item.last_read]);
+        let ctime_value: i64 = item.ctime.parse().unwrap();
+        let last_read_value: i64 = item.last_read.parse().unwrap();
+        let ctime = TimestampMillisecondArray::from(vec![ctime_value]);
+        let last_read = TimestampMillisecondArray::from(vec![last_read_value]);
         // Create the vector array
         RecordBatch::try_new(
             schema,

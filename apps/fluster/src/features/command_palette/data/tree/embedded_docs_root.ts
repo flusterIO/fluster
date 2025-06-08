@@ -13,8 +13,6 @@ export class EmbeddedDocsCommandPaletteRoot extends CommandPaletteCategory {
     }
     async getItems(): Promise<CommandPaletteAnyEntry[]> {
         return Object.entries(embeddedDocLabels).map((k) => {
-            const sp = new URLSearchParams();
-            sp.set("id", k[0]);
             return new GeneralCommandPaletteItem(k[1], k[1], async (nav) => {
                 nav(`${AppRoutes.embeddedDocs.toString()}/${encodeURI(k[0])}`);
             });

@@ -32,7 +32,6 @@ pub async fn sync_mdx_filesystem_notes(
         });
 
     drop(mdx_sender);
-    // let mut items: Vec<BTreeMap<&'static str, BTreeMap<&'static str, Value>>> = Vec::new();
     let mut items: Vec<MdxNoteGroup> = Vec::new();
     for x in mdx_receiver.iter() {
         println!("X: {:?}", x);

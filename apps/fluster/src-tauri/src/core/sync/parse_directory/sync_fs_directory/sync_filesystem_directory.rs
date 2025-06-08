@@ -2,13 +2,18 @@ use crate::core::types::errors::errors::FlusterError;
 
 use super::{
     models::sync_filesystem_options::SyncFilesystemDirectoryOptions,
-    sync_methods::sync_mdx_notes::sync_mdx_filesystem_notes,
+    sync_methods::{
+        sync_bibliography::sync_bibliography, sync_mdx_notes::sync_mdx_filesystem_notes,
+    },
 };
 
 // use super::sync_methods::sync_mdx_notes::sync_mdx_filesystem_notes;
 
 pub async fn sync_directory(opts: SyncFilesystemDirectoryOptions) -> Result<(), FlusterError> {
     sync_mdx_filesystem_notes(&opts).await?;
+    if opts.bib_path.is_some() {
+        sync_bibliography(&opts.bib_path.unwrap()).await?;
+    }
     Ok(())
 }
 
@@ -16,7 +21,6 @@ pub async fn sync_directory(opts: SyncFilesystemDirectoryOptions) -> Result<(), 
 #[cfg(test)]
 mod tests {
     use super::*;
-    use tauri::{App, AppHandle};
     #[tokio::test]
     async fn sync_returns_no_errors() {
         let opts = SyncFilesystemDirectoryOptions {

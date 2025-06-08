@@ -19,6 +19,9 @@ pub enum FlusterError {
     #[error("Fail to read settings from database.")]
     FailToReadSettings,
     // Bibliography Errors
+    #[error("Fluster could not parse your bibliography file.")]
+    FailToParseBibFile,
+
     #[error("Your specified bibliography path was not found.")]
     SettingsBibPathNotFound,
 

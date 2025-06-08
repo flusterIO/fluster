@@ -15,9 +15,7 @@ pub struct EquationModel {
     pub body: String,
     pub desc: String,
     /// Time snippet is initially created.
-    #[serde(with = "crate::core::utils::stringify_i64::string")]
-    pub ctime: i64,
+    pub ctime: String,
     /// Time snippet is last updated.
-    #[serde(with = "crate::core::utils::stringify_i64::string")]
-    pub utime: i64,
+    pub utime: String,
 }
