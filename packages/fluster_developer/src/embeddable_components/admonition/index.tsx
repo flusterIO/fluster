@@ -4,12 +4,12 @@ import AdmonitionTitle from "./admonition_title";
 import FoldableAdmonitionTitle from "./foldable_admonition_title";
 import { AdmonitionTitleProps, AdmonitionVariant } from "./types";
 
-interface AdmonitionProps extends AdmonitionTitleProps {
-    type: AdmonitionVariant;
+export interface AdmonitionProps extends Omit<AdmonitionTitleProps, "type"> {
+    type?: AdmonitionVariant;
     /// Start the admonition in a folded state.
-    folded: boolean;
+    folded?: boolean;
     /// Whether or not to make the admonition foldable.
-    foldable: boolean;
+    foldable?: boolean;
     children: ReactNode;
     /// If sidebar is et to true, the admonition will not occupy the entire width unless the screen is narrow.
     sidebar?: boolean;
@@ -20,7 +20,7 @@ interface AdmonitionProps extends AdmonitionTitleProps {
 export const Admonition = ({
     folded,
     children,
-    type,
+    type = "info",
     foldable,
     title,
     sidebar,
@@ -58,15 +58,32 @@ export const Admonition = ({
                 variants={{
                     folded: {
                         height: 0,
-                        opacity: 0,
+                        /* opacity: 0, */
                     },
                     open: {
-                        height: "auto",
-                        opacity: 1,
+                        height: "fit-content",
+                        /* opacity: 1, */
                     },
                 }}
+                transition={{
+                    bounce: 0,
+                }}
             >
-                <div className="p-4">{children}</div>
+                <motion.div
+                    variants={{
+                        folded: {
+                            y: "-100%",
+                            opacity: 0,
+                        },
+                        open: {
+                            y: 0,
+                            opacity: 1,
+                        },
+                    }}
+                    className="p-4 [&>p]:my-0"
+                >
+                    {children}
+                </motion.div>
             </motion.div>
         </motion.div>
     );

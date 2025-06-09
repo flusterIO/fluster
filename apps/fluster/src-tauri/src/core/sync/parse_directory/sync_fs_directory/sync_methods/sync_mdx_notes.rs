@@ -41,7 +41,6 @@ pub async fn sync_mdx_filesystem_notes(
             log::error!("Failed to create an MdxNoteGroup.")
         }
     }
-    println!("Data: {:?}", items);
     save_mdx_note_groups(items).await?;
     Ok(())
 }

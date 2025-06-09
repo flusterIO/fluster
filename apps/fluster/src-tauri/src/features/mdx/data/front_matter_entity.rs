@@ -59,7 +59,6 @@ impl FrontMatterEntity {
         pagination: &PaginationProps,
     ) -> FlusterResult<Vec<NoteSummary>> {
         let front_matter_table = get_table(db, DatabaseTables::FrontMatter).await?;
-        // WITH_WIFI: Figure out how to convert an i32 to usize to enable pagination.
         let offset = (pagination.per_page * (pagination.page_number - 1)) as usize;
         let items_batch = front_matter_table
             .query()

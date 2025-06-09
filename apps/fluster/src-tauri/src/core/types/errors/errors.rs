@@ -4,6 +4,8 @@ use thiserror::Error;
 
 #[derive(Debug, Error, Serialize, Deserialize, Type)]
 pub enum FlusterError {
+    #[error("Fluster could not create a QR code you requested.")]
+    FailToCreateQrCode,
     #[error("This error is entirely on us. If you continue to encounter this error, please submit an issue on Github.")]
     NotImplemented,
 

@@ -4602,6 +4602,12 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "95765f67b4b18863968b4a1bd5bb576f732b29a4a28c7cd84c09fa3e2875f33c"
 
 [[package]]
+name = "fast_qr"
+version = "0.13.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "ceb2b7f37970ac8e75a69a1c450336f9fc5b7101d4e8acba3da5140bc8d2cae3"
+
+[[package]]
 name = "fastdivide"
 version = "0.4.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -4715,6 +4721,7 @@ dependencies = [
  "dirs 6.0.0",
  "embed-file",
  "enum-iterator",
+ "fast_qr",
  "filetime",
  "fluster_test_utils",
  "futures",

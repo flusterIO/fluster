@@ -27,7 +27,6 @@ const OnBoardingSetDirectoryScreen = (): ReactNode => {
         },
     });
     const handleClick = async (): Promise<void> => {
-        /* RESUME: Pick back up here and run the necessary initialization steps one by one. */
         const res = await commands.initializeDatabase();
         if (res.status === "error") {
             console.warn(`Fluster encountered an error while attempting to initialize your database.

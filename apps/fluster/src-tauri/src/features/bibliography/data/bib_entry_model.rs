@@ -5,7 +5,7 @@ use std::ops::Index;
 
 use crate::core::types::common_structs::parsed_content_result::ParsedContentResult;
 
-#[derive(Serialize, Deserialize, Type)]
+#[derive(Serialize, Deserialize, Type, Debug)]
 pub struct BibEntryModel {
     pub id: String,
     pub user_provided_id: Option<String>,

@@ -12,7 +12,7 @@ use crate::{
 };
 use arrow_array::{RecordBatch, RecordBatchIterator, StringArray, TimestampMillisecondArray};
 use arrow_schema::{ArrowError, DataType, Field, Schema};
-use futures::{io::Flush, TryStreamExt};
+use futures::TryStreamExt;
 use lancedb::query::{ExecutableQuery, QueryBase};
 use serde_arrow::from_record_batch;
 use std::sync::Arc;
@@ -81,12 +81,12 @@ impl DbEntity<BibEntryModel> for BibEntryEntity {
     fn arrow_schema() -> std::sync::Arc<arrow_schema::Schema> {
         Arc::new(Schema::new(vec![
             Field::new("id", DataType::Utf8, false),
-            Field::new("user_provided_id", DataType::Utf8, false),
+            Field::new("user_provided_id", DataType::Utf8, true),
             Field::new("data", DataType::Utf8, false),
             Field::new(
                 "ctime",
                 DataType::Timestamp(arrow_schema::TimeUnit::Millisecond, None),
-                true,
+                false,
             ),
         ]))
     }

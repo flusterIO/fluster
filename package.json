@@ -1,5 +1,19 @@
 {
     "name": "fluster.io",
+    "funding": [
+        {
+            "type": "paypal",
+            "url": "https://www.paypal.com/donate/?hosted_button_id=W22RTUJ2RPZDU"
+        },
+        {
+            "type": "patreon",
+            "url": "https://www.patreon.com/uhlittlelessdum/about"
+        },
+        {
+            "type": "github",
+            "url": "https://github.com/flusterIO/fluster"
+        }
+    ],
     "scripts": {
         "ci:publish": "wireit",
         "release": "wireit"

@@ -19,9 +19,11 @@ use crate::features::math::commands::get_equation_by_id::get_equation_by_id;
 use crate::features::math::commands::get_equations::get_equations;
 use crate::features::math::commands::read_mathjax_file::{read_mathjax, read_mathjax_font_file};
 use crate::features::math::commands::save_equation::save_equations;
+use crate::features::mdx::actions::component_utils::generate_qr_code::get_qr_code_svg;
 use crate::features::mdx::actions::read_mdx_file::read_mdx_file;
 use crate::features::mdx::read_mdx_from_fs::read_mdx_from_fs;
 use crate::features::search::commands::get_note_summaries::get_note_summaries;
+use crate::features::search::data::search_params::{SearchOrder, SearchParams};
 use crate::features::settings::delete_setting_state::delete_setting_state;
 use crate::features::settings::get_setting_state::get_setting_state;
 use crate::features::settings::save_setting_state::save_setting_state;
@@ -75,12 +77,15 @@ pub fn run() {
             get_note_summaries,
             read_mdx_file,
             write_file,
-            get_bib_entries
+            get_bib_entries,
+            get_qr_code_svg
         ])
         .events(collect_events![ShowToast, SetDbConnectionUri])
         .typ::<FlusterError>()
         .typ::<DictionaryEntryModel>()
         .typ::<SnippetModel>()
+        .typ::<SearchParams>()
+        .typ::<SearchOrder>()
         .typ::<InternalEmbeddedDocsId>()
         .typ::<SyncFilesystemDirectoryOptions>();
     #[cfg(debug_assertions)] // So we don't export types on release builds.

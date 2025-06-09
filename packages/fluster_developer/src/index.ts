@@ -7,10 +7,16 @@ export { SyntaxSupportedLanguageSelect } from "./components/inputs/select/suppor
 export { SyntaxSupportedThemeSelect } from "./components/inputs/select/supported_syntax_theme/index";
 export { FilePathInput } from "./components/inputs/file_path/index";
 export { Tag } from "./embeddable_components/taggable/tag";
+export * from "./embeddable_components/text/underline/index";
+export * from "./embeddable_components/text/highlight/index";
 export * from "./utils/themes";
 export * from "./utils/route_utils";
 export * from "./components/inputs/select/general_select/index";
-export * from "./embeddable_components/admonition/index";
+export {
+    Admonition,
+    type AdmonitionProps,
+} from "./embeddable_components/admonition/index";
+export * from "./embeddable_components/qr_code/index";
 export * from "./utils/bundled_languages";
 export * from "./types/app_routes";
 export * from "./utils/bundled_syntax_themes";

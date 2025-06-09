@@ -1,26 +1,40 @@
 {
-  "name": "@fluster/plugin_template",
-  "version": "0.0.4",
-  "keywords": [
-    "fluster",
-    "plugin"
-  ],
-  "author": "Andrew Iglinski <fluster.eyeoh@gmail.com>",
-  "type": "module",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "main": "index.js",
-  "dependencies": {
-    "@fluster.io/fluster-ts": "workspace:*",
-    "react": "19.1.0",
-    "react-dom": "19.1.0"
-  },
-  "devDependencies": {
-    "@types/react": "19.1.5",
-    "@types/react-dom": "19.1.5",
-    "tsup": "8.4.0"
-  },
-  "license": "ISC",
-  "description": "A template for all Fluster plugins. "
+    "name": "@fluster/plugin_template",
+    "version": "0.0.4",
+    "keywords": [
+        "fluster",
+        "plugin"
+    ],
+    "funding": [
+        {
+            "type": "paypal",
+            "url": "https://www.paypal.com/donate/?hosted_button_id=W22RTUJ2RPZDU"
+        },
+        {
+            "type": "patreon",
+            "url": "https://www.patreon.com/uhlittlelessdum/about"
+        },
+        {
+            "type": "github",
+            "url": "https://github.com/flusterIO/fluster"
+        }
+    ],
+    "author": "Andrew Iglinski <fluster.eyeoh@gmail.com>",
+    "type": "module",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "main": "index.js",
+    "dependencies": {
+        "@fluster.io/fluster-ts": "workspace:*",
+        "react": "19.1.0",
+        "react-dom": "19.1.0"
+    },
+    "devDependencies": {
+        "@types/react": "19.1.5",
+        "@types/react-dom": "19.1.5",
+        "tsup": "8.4.0"
+    },
+    "license": "ISC",
+    "description": "A template for all Fluster plugins. "
 }

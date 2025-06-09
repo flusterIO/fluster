@@ -16,7 +16,7 @@ export const MdxContent = ({ mdx, className }: MdxContentProps): ReactNode => {
     return (
         <Component
             className={cn(
-                "prose dark:prose-invert prose-p:text-foreground w-full max-w-full @container/mdx",
+                "prose dark:prose-invert prose-p:text-foreground prose-code:before:content-none prose-code:after:content-none prose-code:bg-[--shiki-light-bg] dark:prose-code:bg-[--shiki-dark-bg] [&_code_*]:text-[--shiki-light] dark:[&_code_*]:text-[--shiki-dark] w-full  max-w-full @container/mdx",
                 className
             )}
         />

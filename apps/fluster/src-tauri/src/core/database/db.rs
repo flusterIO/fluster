@@ -23,7 +23,7 @@ pub fn get_data_dir() -> FlusterResult<PathBuf> {
         log::error!("Failed to get a databse path for your operating system. Something is likely configured terribly wrong.");
         return Err(FlusterError::FailToFindDataDirectory);
     }
-    return Ok(d.unwrap().join("Fluster").join("data"));
+    Ok(d.unwrap().join("Fluster").join("data"))
 }
 
 pub async fn get_table(conn: &FlusterDb<'_>, tbl: DatabaseTables) -> FlusterResult<Table> {
@@ -53,7 +53,8 @@ pub async fn get_database() -> Arc<Mutex<Connection>> {
 
 pub async fn clean_table(db: &FlusterDb<'_>, tb: DatabaseTables) -> FlusterResult<()> {
     let tbl = get_table(db, tb).await?;
-    tbl.delete("*")
+    // Pass in a predicate that always evaluates to true to delete all items.
+    tbl.delete("1 = 1")
         .await
         .map_err(|_| FlusterError::FailToDelete)?;
     Ok(())

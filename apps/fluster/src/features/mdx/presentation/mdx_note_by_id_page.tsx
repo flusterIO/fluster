@@ -9,8 +9,6 @@ const MdxNoteByFilePathPage = (): ReactNode => {
     const [searchParams] = useSearchParams();
     const [content, setContent] = useState<null | MdxNoteGroup>(null);
     const readFromFileSystem = async (fsPath: string): Promise<void> => {
-        // RESUME: Create a new 'readMdxFile' command that returns the front matter and parsed note directly from the file system. Right now the front matter yaml is just being embedded in the note.
-        // RESUME: Fix scroll issue.
         const res = await commands.readMdxFile(fsPath);
         if (res.status === "ok") {
             setContent(res.data);

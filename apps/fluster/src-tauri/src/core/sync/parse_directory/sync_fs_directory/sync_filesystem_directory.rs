@@ -11,6 +11,7 @@ use super::{
 
 pub async fn sync_directory(opts: SyncFilesystemDirectoryOptions) -> Result<(), FlusterError> {
     sync_mdx_filesystem_notes(&opts).await?;
+
     if opts.bib_path.is_some() {
         sync_bibliography(&opts.bib_path.unwrap()).await?;
     }

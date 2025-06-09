@@ -1,12 +1,12 @@
-use arrow_array::{
-    Date64Array, RecordBatch, RecordBatchIterator, StringArray, TimestampMillisecondArray,
-};
+use arrow_array::{RecordBatch, RecordBatchIterator, StringArray, TimestampMillisecondArray};
 use arrow_schema::{ArrowError, DataType, Field, Schema};
-use chrono::prelude::*;
 use std::sync::Arc;
 
 use crate::core::{
-    database::{db::get_table, tables::table_paths::DatabaseTables},
+    database::{
+        db::{clean_table, get_table},
+        tables::table_paths::DatabaseTables,
+    },
     types::{
         errors::errors::{FlusterError, FlusterResult},
         traits::db_entity::DbEntity,
@@ -20,11 +20,7 @@ pub struct MdxNoteEntity {}
 
 impl MdxNoteEntity {
     pub async fn clean(db: &FlusterDb<'_>) -> FlusterResult<()> {
-        let tbl = get_table(&db, DatabaseTables::MdxNote).await?;
-        tbl.delete("*")
-            .await
-            .map_err(|_| FlusterError::FailToClean)?;
-        Ok(())
+        clean_table(db, DatabaseTables::MdxNote).await
     }
     pub async fn save_many(items: Vec<MdxNoteModel>, db: &FlusterDb<'_>) -> FlusterResult<()> {
         let schema = MdxNoteEntity::arrow_schema();

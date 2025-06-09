@@ -1,6 +1,20 @@
 {
     "name": "fluster",
     "version": "0.1.4",
+    "funding": [
+        {
+            "type": "paypal",
+            "url": "https://www.paypal.com/donate/?hosted_button_id=W22RTUJ2RPZDU"
+        },
+        {
+            "type": "patreon",
+            "url": "https://www.patreon.com/uhlittlelessdum/about"
+        },
+        {
+            "type": "github",
+            "url": "https://github.com/flusterIO/fluster"
+        }
+    ],
     "type": "module",
     "private": true,
     "scripts": {
@@ -8,10 +22,10 @@
         "dev": "vite",
         "lint": "npx eslint",
         "lint:watch": "nodemon --exec 'npx eslint'",
+        "postinstall": "cp -r ../../node_modules/mathjax-full/es5/ ./public/mathjax",
         "preview": "vite preview",
         "tauri": "tauri",
-        "typecheck": "tsc --noEmit -p ./tsconfig.json",
-        "postinstall": "cp -r ../../node_modules/mathjax-full/es5/ ./public/mathjax"
+        "typecheck": "tsc --noEmit -p ./tsconfig.json"
     },
     "dependencies": {
         "@citation-js/plugin-bibtex": "0.7.18",

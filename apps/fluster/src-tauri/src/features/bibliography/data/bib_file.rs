@@ -21,7 +21,7 @@ impl BibtexFile {
     pub async fn from_raw_file_content(file_content: &str) -> Result<Self, FlusterError> {
         let bib = Bibliography::parse(file_content).unwrap();
         let mut items: Vec<BibEntryModel> = Vec::new();
-        let now = Utc::now().to_string();
+        let now = Utc::now().timestamp_millis().to_string();
         for entry in bib.iter() {
             println!("Entry: {:?}", entry);
             let json_string = serde_json::to_string_pretty(&entry)

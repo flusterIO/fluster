@@ -1,14 +1,14 @@
 {
   "name": "@fluster.io/config",
   "version": "0.0.4",
-  "publishConfig": {
-    "access": "public"
-  },
   "keywords": [
     "fluster"
   ],
   "author": "Andrew Iglinski <fluster.eyeoh@gmail.com>",
   "type": "module",
+  "publishConfig": {
+    "access": "public"
+  },
   "files": [
     "."
   ],

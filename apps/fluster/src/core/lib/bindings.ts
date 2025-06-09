@@ -233,6 +233,14 @@ async getBibEntries(predicate: string | null, pagination: PaginationProps) : Pro
     if(e instanceof Error) throw e;
     else return { status: "error", error: e  as any };
 }
+},
+async getQrCodeSvg(content: string) : Promise<Result<string, FlusterError>> {
+    try {
+    return { status: "ok", data: await TAURI_INVOKE("get_qr_code_svg", { content }) };
+} catch (e) {
+    if(e instanceof Error) throw e;
+    else return { status: "error", error: e  as any };
+}
 }
 }
 
@@ -293,7 +301,7 @@ ctime: string;
  * Time snippet is last updated.
  */
 utime: string }
-export type FlusterError = "NotImplemented" | "FailToCopyFiles" | "FailToWriteFile" | "FailToSaveSettings" | "FailToReadSettings" | "FailToParseBibFile" | "SettingsBibPathNotFound" | "CannotParseBibfile" | "FailToFindDataDirectory" | "FailToSerialize" | "DuplicateId" | "FailToDelete" | "FailToClean" | "FailToCreateTable" | "FailToOpenTable" | "FailToConnect" | "FailToStartDb" | "FailToStopDb" | "FailToCreateEntity" | "FailToCreateSnippet" | "FailToFind" | "FailToFindById" | "FailToCreatePath" | "FailToCreateTag" | "FailToCreateSubject" | { DataDirNotFound: [] } | { FailToClearDirectory: string } | "FailToCreateTopic" | "FailToLocateStorageDir" | { FailToReadFileSystemPath: string } | "FailToReadMathjaxFont" | { FailToSaveFile: string } | { MdxParsingError: string } | { NoTitleError: string } | { AttemptedToParseFileWasntFound: string } | { FailToSaveMdxNote: string } | 
+export type FlusterError = "FailToCreateQrCode" | "NotImplemented" | "FailToCopyFiles" | "FailToWriteFile" | "FailToSaveSettings" | "FailToReadSettings" | "FailToParseBibFile" | "SettingsBibPathNotFound" | "CannotParseBibfile" | "FailToFindDataDirectory" | "FailToSerialize" | "DuplicateId" | "FailToDelete" | "FailToClean" | "FailToCreateTable" | "FailToOpenTable" | "FailToConnect" | "FailToStartDb" | "FailToStopDb" | "FailToCreateEntity" | "FailToCreateSnippet" | "FailToFind" | "FailToFindById" | "FailToCreatePath" | "FailToCreateTag" | "FailToCreateSubject" | { DataDirNotFound: [] } | { FailToClearDirectory: string } | "FailToCreateTopic" | "FailToLocateStorageDir" | { FailToReadFileSystemPath: string } | "FailToReadMathjaxFont" | { FailToSaveFile: string } | { MdxParsingError: string } | { NoTitleError: string } | { AttemptedToParseFileWasntFound: string } | { FailToSaveMdxNote: string } | 
 /**
  * Taggables
  * 
@@ -321,7 +329,11 @@ export type InternalEmbeddedDocsId =
  * This is the somewhat academic version of the model. Not fully peer-review worthy, but
  * who gives a shit. It's right.
  */
-"ModelFull"
+"ModelFull" | 
+/**
+ * How to contribute
+ */
+"HowToContribute"
 export type MathjaxData = { root: string; main_path: string; font_path: string }
 export type MdxNoteGroup = { mdx: MdxNoteModel; front_matter: FrontMatterModel; tags: SharedTaggableModel[]; equation_ids: string[] }
 export type MdxNoteModel = { 
@@ -335,6 +347,8 @@ file_path: string; raw_body: string; ctime: string;
 last_read: string }
 export type NoteSummary = { title: string; file_path: string }
 export type PaginationProps = { per_page: number; page_number: number }
+export type SearchOrder = "Created"
+export type SearchParams = { order: SearchOrder | null; per_page: number | null; page: number | null }
 export type SetDbConnectionUri = { uri: string }
 export type SharedTaggableModel = { value: string; ctime: string }
 export type ShowToast = { title: string; body: string; duration: number; variant: ToastVariant; 
