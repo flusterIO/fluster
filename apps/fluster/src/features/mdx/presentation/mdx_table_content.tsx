@@ -6,7 +6,12 @@ interface MdxTableCellProps extends MdxContentProps {
 }
 
 export const MdxTableCell = (props: MdxTableCellProps): ReactNode => {
-    return <MdxContent className="[&>p]:m-0" {...props} />;
+    return (
+        <MdxContent
+            className="[&>p]:m-0 overflow-x-hidden inline-table"
+            {...props}
+        />
+    );
 };
 
 MdxTableCell.displayName = "MdxTableCell";

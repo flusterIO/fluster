@@ -13,12 +13,15 @@ export const bibFieldAbsentText = "--";
 
 export const parseBibEntry = (item: BibEntryModel): BibEntryParsed => {
     const jsonData = JSON.parse(item.data);
+    console.log("jsonData: ", jsonData.fields);
     return {
         model: item,
-        title: jsonData["title"] ?? bibFieldAbsentText,
-        author: jsonData["author"] ?? bibFieldAbsentText,
-        journal: jsonData["author"] ?? bibFieldAbsentText,
-        year: jsonData["year"] ?? bibFieldAbsentText,
-        url: jsonData["url"] ?? bibFieldAbsentText,
+        title: jsonData.fields["title"][0]?.["v"]?.["Normal"] ?? bibFieldAbsentText,
+        author:
+            jsonData.fields["author"][0]?.["v"]?.["Normal"] ?? bibFieldAbsentText,
+        journal:
+            jsonData.fields["author"][0]?.["v"]?.["Normal"] ?? bibFieldAbsentText,
+        year: jsonData.fields["year"][0]?.["v"]?.["Normal"] ?? bibFieldAbsentText,
+        url: jsonData.fields?.["url"]?.[0]?.["v"]?.["Normal"] ?? bibFieldAbsentText,
     };
 };

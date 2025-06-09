@@ -39,7 +39,6 @@ export const BibliographyTable = () => {
 
     const getData = async (_pagination: PaginationProps): Promise<void> => {
         const res = await commands.getBibEntries(null, _pagination);
-        console.log("res: ", res);
         if (res.status === "ok") {
             setEntries(res.data.map((entry) => parseBibEntry(entry)));
         } else {
