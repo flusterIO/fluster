@@ -10,6 +10,7 @@ pub fn get_embedded_doc(id: InternalEmbeddedDocsId) -> String {
     let _path = match id {
         InternalEmbeddedDocsId::ModelFull => "my_work/full_model.mdx",
         InternalEmbeddedDocsId::ModelIntro => "my_work/model_intro.mdx",
+        InternalEmbeddedDocsId::HowToContribute => "how_to_contribute.mdx",
     };
     let res = DOCS
         .get_file(_path)

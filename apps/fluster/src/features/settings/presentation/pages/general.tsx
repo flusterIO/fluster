@@ -7,6 +7,7 @@ import { z } from "zod";
 import { connect, useDispatch } from "react-redux";
 import { AppState } from "@/state/initial_state";
 import { setNotesDirectory } from "#/settings/state/slice";
+import { SettingPageContainer } from "../components/setting_page_container";
 
 const connector = connect((state: AppState) => ({
     state: state.core,
@@ -32,7 +33,7 @@ export const GeneralSettingsPage = connector(
         });
         return (
             <Form {...form}>
-                <form className="w-full space-y-6">
+                <SettingPageContainer>
                     <SettingPageTitle title="General Settings" />
                     <FilePathInput
                         label="Notes Directory"
@@ -40,7 +41,7 @@ export const GeneralSettingsPage = connector(
                         name="notesDirectory"
                         directory
                     />
-                </form>
+                </SettingPageContainer>
             </Form>
         );
     }

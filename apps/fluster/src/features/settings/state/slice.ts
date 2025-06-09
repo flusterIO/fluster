@@ -1,6 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { initialCoreSettings } from "./initial_core_settings";
-import { AppState } from "@/state/initial_state";
 
 const slice = createSlice({
     name: "core",
@@ -12,15 +11,15 @@ const slice = createSlice({
                 notesDirectory: action.payload,
             };
         },
-        applySavedState(state, action: PayloadAction<AppState["core"]>) {
+        savedStateApplied(state) {
             return {
                 ...state,
-                ...action.payload,
+                hasLoadedSavedState: true,
             };
         },
     },
 });
 
-export const { setNotesDirectory, applySavedState } = slice.actions;
+export const { setNotesDirectory, savedStateApplied } = slice.actions;
 
 export default slice.reducer;

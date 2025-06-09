@@ -15,4 +15,6 @@ pub enum InternalEmbeddedDocsId {
     /// This is the somewhat academic version of the model. Not fully peer-review worthy, but
     /// who gives a shit. It's right.
     ModelFull,
+    /// How to contribute
+    HowToContribute,
 }

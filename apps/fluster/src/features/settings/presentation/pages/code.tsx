@@ -13,6 +13,7 @@ import {
 import { setDefaultLanguage, setEditorKeymap } from "#/editor/state/slice";
 import { BundledLanguage } from "shiki";
 import { SettingPageTitle } from "../components/setting_page_title";
+import { SettingPageContainer } from "../components/setting_page_container";
 
 const connector = connect((state: AppState) => ({
     state: state.code,
@@ -63,14 +64,14 @@ export const CodeSettingsPage = connector(({ state }: Props): ReactNode => {
     /* FIX: Create the language and theme select inputs and implement them here. */
     return (
         <Form {...form}>
-            <form className="w-full space-y-6">
+            <SettingPageContainer>
                 <SettingPageTitle title="Code Settings" />
                 <SyntaxSupportedLanguageSelect
                     form={form}
                     name="defaultLanguage"
                     label="Default Language"
                     classes={{
-                        button: "w-[min(300px,80%)]",
+                        button: "w-full",
                     }}
                 />
                 <GeneralSelectInput
@@ -80,10 +81,10 @@ export const CodeSettingsPage = connector(({ state }: Props): ReactNode => {
                     name="keymap"
                     items={keymapOptions}
                     classes={{
-                        selectTrigger: "w-[min(300px,80%)]",
+                        selectTrigger: "w-full",
                     }}
                 />
-            </form>
+            </SettingPageContainer>
         </Form>
     );
 });

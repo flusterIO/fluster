@@ -7,7 +7,6 @@ use super::settings_entity::SettingsEntity;
 pub async fn save_setting_state(json_string: String, settings_id: String) -> FlusterResult<()> {
     let db_res = get_database().await;
     let db = db_res.lock().await;
-    let tbl_manager = SettingsEntity {};
-    tbl_manager.save(&db, json_string, settings_id).await?;
+    SettingsEntity::save(&db, json_string, settings_id).await?;
     Ok(())
 }

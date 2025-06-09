@@ -1,29 +1,28 @@
-import React, { ReactNode, useEffect, useState } from "react";
-import store, { getStoreWithPreloadedState } from "./store";
+import React, { ReactNode } from "react";
+import store from "./store";
 import { Provider } from "react-redux";
 import LoadingScreen from "@/components/loading_screen";
+import { PersistGate } from "redux-persist/integration/react";
+import persistStore from "redux-persist/es/persistStore";
+import { GlobalStateInitializer } from "./global_state_initializer";
 
 interface Props {
     children: ReactNode;
 }
 
 const ReduxProvider = ({ children }: Props) => {
-    const [_store, _setStore] = useState<typeof store | null>(null);
+    const persistor = persistStore(store);
 
-    const getStore = async (): Promise<void> => {
-        const storeRes = await getStoreWithPreloadedState();
-        _setStore(storeRes);
-    };
-
-    useEffect(() => {
-        getStore();
-    }, []);
-
-    if (_store === null) {
-        return <LoadingScreen />;
-    }
-
-    return <Provider store={_store}>{children}</Provider>;
+    return (
+        <Provider store={store}>
+            <PersistGate loading={<LoadingScreen />} persistor={persistor}>
+                <>
+                    <GlobalStateInitializer />
+                    {children}
+                </>
+            </PersistGate>
+        </Provider>
+    );
 };
 
 ReduxProvider.displayName = "ReduxProvider";

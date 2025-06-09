@@ -45,6 +45,10 @@ If you do encounter issues with your database, please submit an issue on Github.
                 be nested in directories as deeply as you wish, but you need to provide
                 a single parent directory for Fluster to find your notes.
             </p>
+            <div>
+                <span className="text-[#00ff00] font-bold">Hint:</span>
+                <span>This can be configured later on the settings page.</span>
+            </div>
             <Form {...form}>
                 <FilePathInput
                     directory
@@ -54,7 +58,7 @@ If you do encounter issues with your database, please submit an issue on Github.
                 />
             </Form>
             <div className="w-full flex flex-row justify-end items-center">
-                <Button onClick={handleClick}>Create Database</Button>
+                <Button onClick={handleClick}>Continue</Button>
             </div>
         </div>
     );

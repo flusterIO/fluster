@@ -25,6 +25,31 @@ const OnboardingSetupCompleteScreen = (): ReactNode => {
                 need inside of Fluster are available from the command palette, including
                 more documentation that will show you how to get the most from Fluster.
             </p>
+            <div>
+                <span className="text-primary font-bold">Important:</span>
+                <p className="inline ml-2">
+                    This app only exists to force a modified model of relativity into the
+                    physics debate. A general public summary of this model is available
+                    via the command palette or by clicking the button below.
+                </p>
+                <p className="indent-4">
+                    If you're a student or an academic, please consider sharing this model
+                    with others, along with where you found it. I've been homeless for
+                    more than 3 years after I gave up my career to work on this model
+                    after realizing the potential this model has to supersede general
+                    relativity.
+                </p>
+                <p className="indent-4">
+                    If you want to contribute to the{" "}
+                    <span className="italic">'make me less homeless'</span> fund directly,
+                    consider scanning the QR code below. There is also a page with more
+                    options available via the{" "}
+                    <span className="bg-gray-600 px-1">
+                        {"command palette > Documentation"}
+                    </span>
+                    .
+                </p>
+            </div>
             <div className="w-full flex flex-col md:flex-row justify-end items-center gap-6">
                 <NavLink
                     className={cn("w-full sm:w-fit", buttonVariants())}

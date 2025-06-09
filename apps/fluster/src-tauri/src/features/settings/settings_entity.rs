@@ -7,7 +7,7 @@ use serde_arrow::from_record_batch;
 use std::{ops::Index, sync::Arc};
 
 use crate::core::{
-    database::tables::table_paths::DatabaseTables,
+    database::{db::get_table, tables::table_paths::DatabaseTables},
     models::settings::settings::Settings,
     types::{
         errors::errors::{FlusterError, FlusterResult},
@@ -23,7 +23,6 @@ pub struct SettingsEntity {}
 
 impl SettingsEntity {
     pub async fn save(
-        &self,
         db: &FlusterDb<'_>,
         json_string: String,
         settings_id: String,
@@ -68,27 +67,33 @@ impl SettingsEntity {
     }
 
     pub async fn get_settings(db: &FlusterDb<'_>, settings_id: String) -> FlusterResult<String> {
-        let tbl = db
-            .open_table(DatabaseTables::Settings.to_string())
-            .execute()
-            .await
-            .map_err(|_| FlusterError::FailToSaveSettings)?;
+        let tbl = get_table(db, DatabaseTables::Settings).await?;
         let res = tbl
             .query()
-            .only_if(format!("id = {}", settings_id))
+            // .only_if(format!("id = {}", settings_id))
             .execute()
             .await
-            .map_err(|_| FlusterError::FailToFind)?
+            .map_err(|e| {
+                println!("Error: {:?}", e);
+                FlusterError::FailToFind
+            })?
             .try_collect::<Vec<_>>()
             .await
-            .map_err(|_| FlusterError::FailToFind)?;
+            .map_err(|e| {
+                println!("Error: {:?}", e);
+                FlusterError::FailToFind
+            })?;
 
         if res.is_empty() {
+            println!("No settings found.");
             return Err(FlusterError::FailToReadSettings);
         } else {
             let batch = res.index(0);
-            let items: Vec<SettingsModel> =
-                from_record_batch(batch).map_err(|_| FlusterError::FailToSerialize)?;
+            let items: Vec<SettingsModel> = from_record_batch(batch).map_err(|e| {
+                println!("Error: {:?}", e);
+                FlusterError::FailToSerialize
+            })?;
+            println!("Items: {:?}", items.len());
             if !items.is_empty() {
                 return Ok(items.index(0).body.clone());
             }
@@ -101,13 +106,31 @@ impl DbEntity<SettingsModel> for SettingsEntity {
     fn to_record_batch(item: &SettingsModel, schema: Arc<Schema>) -> RecordBatch {
         let id = StringArray::from(vec![item.id.clone()]);
         let body = StringArray::from(vec![item.body.clone()]);
-        // Create the vector array
         RecordBatch::try_new(schema, vec![Arc::new(id), Arc::new(body)]).unwrap()
     }
     fn arrow_schema() -> Arc<Schema> {
         Arc::new(Schema::new(vec![
             Field::new("id", DataType::Utf8, false),
-            Field::new("value", DataType::Utf8, false),
+            Field::new("body", DataType::Utf8, false),
         ]))
+    }
+}
+
+#[cfg(test)]
+mod tests {
+
+    use crate::core::database::db::get_database;
+
+    use super::*;
+
+    #[tokio::test]
+    async fn gets_settings() {
+        let db_res = get_database().await;
+        let db = db_res.lock().await;
+        let res = SettingsEntity::get_settings(&db, "appState".to_string()).await;
+
+        println!("Response: {:?}", res);
+
+        assert!(res.is_ok(), "Returns settings without throwing an error");
     }
 }

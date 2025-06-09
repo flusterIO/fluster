@@ -1,4 +1,4 @@
-import { Form } from "@fluster.io/dev";
+import { Button, Form } from "@fluster.io/dev";
 import { zodResolver } from "@hookform/resolvers/zod";
 import React, { type ReactNode } from "react";
 import { useForm } from "react-hook-form";
@@ -9,8 +9,8 @@ import { z } from "zod";
 import { setBibPath, setCslPath } from "#/bibliography/state/slice";
 import { FilePathInput } from "@fluster.io/dev";
 import { SettingPageTitle } from "../components/setting_page_title";
-import { Button } from "react-day-picker";
 import { saveSettingState } from "@/state/state_storage";
+import { SettingPageContainer } from "../components/setting_page_container";
 
 const connector = connect((state: AppState) => ({
     state: state.bib,
@@ -43,26 +43,24 @@ export const BibliographySettingsPage = connector(
 
         return (
             <Form {...form}>
-                <form className="space-y-6 w-full flex flex-col justify-center items-cemter">
-                    <div className="max-w-[768px]">
-                        <SettingPageTitle title="Bibliography Settings" />
-                        <FilePathInput
-                            form={form}
-                            name="bibPath"
-                            label="Bibliography File Path"
-                            desc="The path relative to your note's root directory that points to a .bib file."
-                        />
-                        <FilePathInput
-                            form={form}
-                            name="cslPath"
-                            label="CSL File Path"
-                            desc="The path relative to your note's root directory that points to a .csl file to be used for citation formatting."
-                        />
-                        <div>
-                            <Button onClick={saveSettingState}>Save</Button>
-                        </div>
+                <SettingPageContainer>
+                    <SettingPageTitle title="Bibliography Settings" />
+                    <FilePathInput
+                        form={form}
+                        name="bibPath"
+                        label="Bibliography File Path"
+                        desc="The path relative to your note's root directory that points to a .bib file."
+                    />
+                    <FilePathInput
+                        form={form}
+                        name="cslPath"
+                        label="CSL File Path"
+                        desc="The path relative to your note's root directory that points to a .csl file to be used for citation formatting."
+                    />
+                    <div>
+                        <Button onClick={saveSettingState}>Save</Button>
                     </div>
-                </form>
+                </SettingPageContainer>
             </Form>
         );
     }

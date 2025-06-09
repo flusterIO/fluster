@@ -16,14 +16,12 @@ const CommandPaletteResults = (): ReactNode => {
         cb: (loc: Location) => Promise<CommandPaletteAnyEntry[]>
     ): Promise<void> => {
         const items = await cb(location);
-        console.log("items: ", items);
         dispatch({
             type: CommandPaletteActionType.setCategoryItems,
             payload: items.filter((x) => x.label.length),
         });
     };
     useEffect(() => {
-        console.log("Gathering items...");
         getItems(state.navStack[state.navStack.length - 1].getItems);
         /* eslint-disable-next-line  --  */
     }, [state.navStack]);
