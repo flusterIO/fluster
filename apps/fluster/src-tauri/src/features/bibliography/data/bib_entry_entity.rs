@@ -8,18 +8,27 @@ use crate::{
             FlusterDb,
         },
     },
-    features::search::types::PaginationProps,
+    features::{ai::static_defaults::TEXT_EMBEDDING_MODEL, search::types::PaginationProps},
 };
 use arrow_array::{RecordBatch, RecordBatchIterator, StringArray, TimestampMillisecondArray};
 use arrow_schema::{ArrowError, DataType, Field, Schema};
 use futures::TryStreamExt;
 use lancedb::query::{ExecutableQuery, QueryBase};
+use ollama_rs::generation::embeddings::request::GenerateEmbeddingsRequest;
+use rig::embeddings::EmbeddingsBuilder;
+use sea_query::Iden;
 use serde_arrow::from_record_batch;
 use std::sync::Arc;
 
 pub struct BibEntryEntity {}
 
 impl BibEntryEntity {
+    pub async fn get_count(db: &FlusterDb<'_>, predicate: Option<String>) -> FlusterResult<usize> {
+        let tbl = get_table(db, DatabaseTables::BibEntry).await?;
+        tbl.count_rows(predicate)
+            .await
+            .map_err(|_| FlusterError::FailToCount)
+    }
     pub async fn get_many(
         db: &FlusterDb<'_>,
         predicate: &Option<String>,
@@ -56,6 +65,18 @@ impl BibEntryEntity {
     }
     pub async fn save_many(db: &FlusterDb<'_>, entries: &Vec<BibEntryModel>) -> FlusterResult<()> {
         let schema = BibEntryEntity::arrow_schema();
+        // Begin embeddings
+        let o = ollama::Client::new();
+        // let embedding_request = GenerateEmbeddingsRequest::new(
+        //     TEXT_EMBEDDING_MODEL.to_string(),
+        //     entries
+        //         .iter()
+        //         .map(|x| x.data)
+        //         .collect::<Vec<String>>()
+        //         .into(),
+        // );
+
+        // end embeddings
         let tbl = get_table(db, DatabaseTables::BibEntry).await?;
         let batches: Vec<Result<RecordBatch, ArrowError>> = entries
             .iter()

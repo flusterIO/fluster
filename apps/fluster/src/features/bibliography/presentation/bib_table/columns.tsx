@@ -5,61 +5,71 @@ import React from "react";
 import { Checkbox } from "@fluster.io/dev";
 import { MdxTableCell } from "#/mdx/presentation/mdx_table_content";
 
-export const bibTablColumnIds = {
-    select: "select",
-};
+export enum BibTableColumnId {
+  select = "select",
+  title = "title",
+  author = "author",
+  journal = "journal",
+  year = "year",
+}
 
 export const bibTableColumns: ColumnDef<BibEntryParsed>[] = [
-    {
-        id: bibTablColumnIds.select,
-        header: ({ table }) => (
-            <Checkbox
-                checked={table.getIsAllPageRowsSelected()}
-                onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
-                aria-label="Select all"
-            />
-        ),
-        cell: ({ row }) => (
-            <Checkbox
-                checked={row.getIsSelected()}
-                onCheckedChange={(value) => row.toggleSelected(!!value)}
-                aria-label="Select row"
-            />
-        ),
-        enableSorting: false,
-        /* enableHiding: false, */
-        size: 50,
-        minSize: 32,
-        maxSize: 60,
+  {
+    id: BibTableColumnId.select,
+    header: ({ table }) => (
+      <div className="w-8">
+        <Checkbox
+          checked={table.getIsAllPageRowsSelected()}
+          onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
+          aria-label="Select all"
+        />
+      </div>
+    ),
+    cell: ({ row }) => (
+      <Checkbox
+        checked={row.getIsSelected()}
+        onCheckedChange={(value) => row.toggleSelected(!!value)}
+        aria-label="Select row"
+      />
+    ),
+    enableSorting: false,
+    /* enableHiding: false, */
+    size: 50,
+    minSize: 32,
+    maxSize: 80,
+  },
+  {
+    id: BibTableColumnId.title,
+    accessorKey: "title",
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Title" />
+    ),
+    cell: ({ row }) => {
+      return <MdxTableCell mdx={(row.getValue("title") ?? "--") as string} />;
     },
-    {
-        accessorKey: "title",
-        header: ({ column }) => (
-            <DataTableColumnHeader column={column} title="Title" />
-        ),
-        cell: ({ row }) => {
-            return <MdxTableCell mdx={(row.getValue("title") ?? "--") as string} />;
-        },
-    },
-    {
-        accessorKey: "author",
-        enableHiding: true,
-        header: ({ column }) => (
-            <DataTableColumnHeader column={column} title="Author" />
-        ),
-    },
-    {
-        accessorKey: "journal",
-        enableHiding: true,
-        header: ({ column }) => (
-            <DataTableColumnHeader column={column} title="Journal" />
-        ),
-    },
-    {
-        accessorKey: "year",
-        enableHiding: true,
-        header: ({ column }) => (
-            <DataTableColumnHeader column={column} title="Year" />
-        ),
-    },
+  },
+  {
+    id: BibTableColumnId.author,
+    accessorKey: "author",
+    enableHiding: true,
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Author" />
+    ),
+  },
+  {
+    id: BibTableColumnId.journal,
+    accessorKey: "journal",
+    enableHiding: true,
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Journal" />
+    ),
+  },
+  {
+    id: BibTableColumnId.year,
+    accessorKey: "year",
+    enableHiding: true,
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Year" />
+    ),
+  },
 ];

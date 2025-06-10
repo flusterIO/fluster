@@ -1,3 +1,5 @@
+import { AiState } from "#/ai/state/ai_state";
+import { initialAiState } from "#/ai/state/initial_ai_state";
 import { BibliographyState } from "#/bibliography/state/bib_state";
 import { initialBibliographyState } from "#/bibliography/state/initial_state";
 import { CodeState } from "#/editor/state/code_state";
@@ -26,6 +28,7 @@ export interface AppState {
   code: CodeState;
   bib: BibliographyState;
   core: CoreSettings;
+  ai: AiState;
 }
 
 export const initialAppState: AppState = {
@@ -37,4 +40,5 @@ export const initialAppState: AppState = {
   code: initialCodeState,
   bib: initialBibliographyState,
   core: initialCoreSettings,
+  ai: initialAiState,
 };

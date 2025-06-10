@@ -9,6 +9,7 @@ use crate::core::utils::initialize::initialize_desktop::initialize_desktop;
 use crate::core::utils::random_utils::get_unique_id;
 use crate::core::utils::search::get_text_similarity::get_text_similarity;
 use crate::features::bibliography::commands::get_bib_entries::get_bib_entries;
+use crate::features::bibliography::commands::get_bib_entry_count::get_bib_entry_count;
 use crate::features::dashboard::get_dashboard_data::get_dashboard_data;
 use crate::features::dictionary::commands::get_dictionary_entries::get_dictionary_entries;
 use crate::features::dictionary::dictionary_entry_model::DictionaryEntryModel;
@@ -78,6 +79,7 @@ pub fn run() {
             read_mdx_file,
             write_file,
             get_bib_entries,
+            get_bib_entry_count,
             get_qr_code_svg
         ])
         .events(collect_events![ShowToast, SetDbConnectionUri])

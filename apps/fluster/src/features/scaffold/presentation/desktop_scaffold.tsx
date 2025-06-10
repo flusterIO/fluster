@@ -10,21 +10,24 @@ import MathjaxScript from "#/math/state/mathjax_script";
 import { useDevelopmentLogger } from "@/state/use_development_state_logger";
 
 const DesktopScaffold = (): ReactNode => {
-    useDevelopmentLogger();
-    return (
-        <PageContainer id="main-scaffold">
-            <MathjaxScript />
-            <DesktopSideNavigation />
-            <div className="flex-grow h-full w-full pt-8 overflow-y-auto">
-                <Outlet />
-            </div>
-            <ToastNotificationList />
-            <CommandPaletteProvider>
-                <CommandPalette />
-            </CommandPaletteProvider>
-            <ConfirmationModalContainer />
-        </PageContainer>
-    );
+  useDevelopmentLogger();
+  return (
+    <PageContainer id="main-scaffold">
+      <MathjaxScript />
+      <DesktopSideNavigation />
+      <div
+        id="scroll-target"
+        className="flex-grow h-full w-full pt-8 overflow-y-auto"
+      >
+        <Outlet />
+      </div>
+      <ToastNotificationList />
+      <CommandPaletteProvider>
+        <CommandPalette />
+      </CommandPaletteProvider>
+      <ConfirmationModalContainer />
+    </PageContainer>
+  );
 };
 
 DesktopScaffold.displayName = "DesktopScaffold";

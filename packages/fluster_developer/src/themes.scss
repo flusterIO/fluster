@@ -18,7 +18,7 @@
   }
 
 
-  div[data-fluster-theme="zinc"] {
+  body[data-fluster-theme="zinc"] {
     --background: 0 0% 100%;
     --foreground: 240 10% 3.9%;
     --card: 0 0% 100%;
@@ -48,7 +48,7 @@
 
     .dark:not(.light *),
     &.dark,
-    html.dark * {
+    body.dark * {
       --background: 240 10% 3.9%;
       --foreground: 0 0% 98%;
       --card: 240 10% 3.9%;
@@ -76,7 +76,7 @@
     }
   }
 
-  div[data-fluster-theme="yellow"] {
+  body[data-fluster-theme="yellow"] {
     --background: 0 0% 100%;
     --foreground: 20 14.3% 4.1%;
     --card: 0 0% 100%;
@@ -106,7 +106,7 @@
 
     .dark:not(.light *),
     &.dark,
-    html.dark * {
+    body.dark * {
       --background: 20 14.3% 4.1%;
       --foreground: 60 9.1% 97.8%;
       --card: 20 14.3% 4.1%;
@@ -134,7 +134,7 @@
     }
   }
 
-  div[data-fluster-theme="violet"] {
+  body[data-fluster-theme="violet"] {
     --background: 0 0% 100%;
     --foreground: 224 71.4% 4.1%;
     --card: 0 0% 100%;
@@ -164,7 +164,7 @@
 
     .dark:not(.light *),
     &.dark,
-    html.dark * {
+    body.dark * {
       --background: 224 71.4% 4.1%;
       --foreground: 210 20% 98%;
       --card: 224 71.4% 4.1%;
@@ -192,7 +192,7 @@
     }
   }
 
-  div[data-fluster-theme="fluster"] {
+  body[data-fluster-theme="fluster"] {
     --background: 0 0% 100%;
     --foreground: 222.2 84% 4.9%;
     --card: 0 0% 100%;
@@ -222,7 +222,7 @@
 
     .dark:not(.light *),
     &.dark,
-    html.dark * {
+    body.dark * {
       --background: 222.2 84% 4.9%;
       --foreground: 210 40% 98%;
       --card: 222.2 84% 4.9%;
@@ -249,7 +249,7 @@
     }
   }
 
-  div[data-fluster-theme="stone"] {
+  body[data-fluster-theme="stone"] {
     --background: 0 0% 100%;
     --foreground: 20 14.3% 4.1%;
     --card: 0 0% 100%;
@@ -279,7 +279,7 @@
 
     .dark:not(.light *),
     &.dark,
-    html.dark * {
+    body.dark * {
       --background: 20 14.3% 4.1%;
       --foreground: 60 9.1% 97.8%;
       --card: 20 14.3% 4.1%;
@@ -307,7 +307,7 @@
     }
   }
 
-  div[data-fluster-theme="slate"] {
+  body[data-fluster-theme="slate"] {
     --background: 0 0% 100%;
     --foreground: 222.2 84% 4.9%;
     --card: 0 0% 100%;
@@ -337,7 +337,7 @@
 
     .dark:not(.light *),
     &.dark,
-    html.dark * {
+    body.dark * {
       --background: 222.2 84% 4.9%;
       --foreground: 210 40% 98%;
       --card: 222.2 84% 4.9%;
@@ -365,7 +365,7 @@
     }
   }
 
-  div[data-fluster-theme="rose"] {
+  body[data-fluster-theme="rose"] {
     --background: 0 0% 100%;
     --foreground: 240 10% 3.9%;
     --card: 0 0% 100%;
@@ -395,7 +395,7 @@
 
     .dark:not(.light *),
     &.dark,
-    html.dark * {
+    body.dark * {
       --background: 20 14.3% 4.1%;
       --foreground: 0 0% 95%;
       --card: 24 9.8% 10%;
@@ -423,7 +423,7 @@
     }
   }
 
-  div[data-fluster-theme="red"] {
+  body[data-fluster-theme="red"] {
     --background: 0 0% 100%;
     --foreground: 0 0% 3.9%;
     --card: 0 0% 100%;
@@ -453,7 +453,7 @@
 
     .dark:not(.light *),
     &.dark,
-    html.dark * {
+    body.dark * {
       --background: 0 0% 3.9%;
       --foreground: 0 0% 98%;
       --card: 0 0% 3.9%;
@@ -481,7 +481,7 @@
     }
   }
 
-  div[data-fluster-theme="orange"] {
+  body[data-fluster-theme="orange"] {
     --background: 0 0% 100%;
     --foreground: 20 14.3% 4.1%;
     --card: 0 0% 100%;
@@ -511,7 +511,7 @@
 
     .dark:not(.light *),
     &.dark,
-    html.dark * {
+    body.dark * {
       --background: 20 14.3% 4.1%;
       --foreground: 60 9.1% 97.8%;
       --card: 20 14.3% 4.1%;
@@ -539,7 +539,7 @@
     }
   }
 
-  div[data-fluster-theme="neutral"] {
+  body[data-fluster-theme="neutral"] {
     --background: 0 0% 100%;
     --foreground: 0 0% 3.9%;
     --card: 0 0% 100%;
@@ -569,7 +569,7 @@
 
     .dark:not(.light *),
     &.dark,
-    html.dark * {
+    body.dark * {
       --background: 0 0% 3.9%;
       --foreground: 0 0% 98%;
       --card: 0 0% 3.9%;
@@ -597,7 +597,7 @@
     }
   }
 
-  div[data-fluster-theme="green"] {
+  body[data-fluster-theme="green"] {
     --background: 0 0% 100%;
     --foreground: 240 10% 3.9%;
     --card: 0 0% 100%;
@@ -627,7 +627,7 @@
 
     .dark:not(.light *),
     &.dark,
-    html.dark * {
+    body.dark * {
       --background: 20 14.3% 4.1%;
       --foreground: 0 0% 95%;
       --card: 24 9.8% 10%;
@@ -655,7 +655,7 @@
     }
   }
 
-  div[data-fluster-theme="gray"] {
+  body[data-fluster-theme="gray"] {
     --background: 0 0% 100%;
     --foreground: 224 71.4% 4.1%;
     --card: 0 0% 100%;
@@ -684,7 +684,7 @@
 
     .dark:not(.light *),
     &.dark,
-    html.dark * {
+    body.dark * {
       --background: 224 71.4% 4.1%;
       --foreground: 210 20% 98%;
       --card: 224 71.4% 4.1%;
@@ -712,7 +712,7 @@
     }
   }
 
-  div[data-fluster-theme="blue"] {
+  body[data-fluster-theme="blue"] {
     --background: 0 0% 100%;
     --foreground: 222.2 84% 4.9%;
     --card: 0 0% 100%;
@@ -742,7 +742,7 @@
 
     .dark:not(.light *),
     &.dark,
-    html.dark * {
+    body.dark * {
       --background: 222.2 84% 4.9%;
       --foreground: 210 40% 98%;
       --card: 222.2 84% 4.9%;

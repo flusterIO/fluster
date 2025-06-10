@@ -18,93 +18,98 @@ import { InternalEmbeddedDocsId, commands } from "@/lib/bindings";
 import OnboardingPage from "#/onboarding/presentation/onboarding_page";
 import SettingsPage from "#/settings/presentation/settings_page";
 import SearchResultsPage from "#/search/presentation/search_results_page";
+import { AiChatPage } from "#/ai/presentation/ai_chat_page";
 
 export const getBrowserRouter = () => {
-    return createBrowserRouter([
-        {
-            path: AppRoutes.onboarding,
-            Component: OnboardingPage,
-        },
-        {
-            path: AppRoutes.dashboard,
-            Component: DesktopScaffold,
-            children: [
-                { index: true, Component: DashboardPage },
+  return createBrowserRouter([
+    {
+      path: AppRoutes.onboarding,
+      Component: OnboardingPage,
+    },
+    {
+      path: AppRoutes.dashboard,
+      Component: DesktopScaffold,
+      children: [
+        { index: true, Component: DashboardPage },
 
-                {
-                    path: AppRoutes.search,
-                    Component: SearchResultsPage,
-                },
-                {
-                    path: AppRoutes.dashboard,
-                    Component: DashboardPage,
-                },
-                {
-                    path: AppRoutes.bibliography,
-                    Component: BibliographyPage,
-                },
-                {
-                    path: AppRoutes.dictionary,
-                    Component: DictionaryPage,
-                },
-                {
-                    path: AppRoutes.kanbanBoards,
-                    Component: KanbanBoardList,
-                },
-                {
-                    path: AppRoutes.embeddedDocs,
-                    children: [
-                        { index: true, Component: EmbeddedDocsDashboardPage },
-                        {
-                            path: ":id",
-                            loader: async ({ params }) => {
-                                const id = params.id as InternalEmbeddedDocsId;
-                                return {
-                                    content: await commands.getEmbeddedDoc(id),
-                                };
-                            },
-                            Component: EmbeddedDocsByIdPage,
-                        },
-                    ],
-                },
-                {
-                    path: AppRoutes.bookmarks,
-                    Component: BookmarksPage,
-                },
-                {
-                    path: AppRoutes.taskLists,
-                    Component: TaskListsPage,
-                },
-                {
-                    path: AppRoutes.taskLists,
-                    Component: TaskListsPage,
-                },
-                {
-                    Component: ScaffoldWithSidePanels,
-                    children: [
-                        {
-                            path: AppRoutes.settings,
-                            Component: SettingsPage,
-                        },
-                        {
-                            path: AppRoutes.viewMdxNote,
-                            Component: MdxNoteByFilePathPage,
-                        },
-                        {
-                            path: AppRoutes.equations,
-                            Component: EquationsPage,
-                        },
-                        {
-                            path: AppRoutes.splitViewEditMdx,
-                            Component: EditNoteSplitViewPage,
-                        },
-                        {
-                            path: AppRoutes.snippets,
-                            Component: SnippetsPage,
-                        },
-                    ],
-                },
-            ],
+        {
+          path: AppRoutes.search,
+          Component: SearchResultsPage,
         },
-    ]);
+        {
+          path: AppRoutes.dashboard,
+          Component: DashboardPage,
+        },
+        {
+          path: AppRoutes.bibliography,
+          Component: BibliographyPage,
+        },
+        {
+          path: AppRoutes.dictionary,
+          Component: DictionaryPage,
+        },
+        {
+          path: AppRoutes.kanbanBoards,
+          Component: KanbanBoardList,
+        },
+        {
+          path: AppRoutes.embeddedDocs,
+          children: [
+            { index: true, Component: EmbeddedDocsDashboardPage },
+            {
+              path: ":id",
+              loader: async ({ params }) => {
+                const id = params.id as InternalEmbeddedDocsId;
+                return {
+                  content: await commands.getEmbeddedDoc(id),
+                };
+              },
+              Component: EmbeddedDocsByIdPage,
+            },
+          ],
+        },
+        {
+          path: AppRoutes.bookmarks,
+          Component: BookmarksPage,
+        },
+        {
+          path: AppRoutes.taskLists,
+          Component: TaskListsPage,
+        },
+        {
+          path: AppRoutes.taskLists,
+          Component: TaskListsPage,
+        },
+        {
+          Component: ScaffoldWithSidePanels,
+          children: [
+            {
+              path: AppRoutes.settings,
+              Component: SettingsPage,
+            },
+            {
+              path: AppRoutes.viewMdxNote,
+              Component: MdxNoteByFilePathPage,
+            },
+            {
+              path: AppRoutes.aiChat,
+              Component: AiChatPage,
+            },
+            {
+              path: AppRoutes.equations,
+              Component: EquationsPage,
+            },
+            {
+              path: AppRoutes.splitViewEditMdx,
+              Component: EditNoteSplitViewPage,
+            },
+            {
+              path: AppRoutes.snippets,
+              Component: SnippetsPage,
+            },
+          ],
+        },
+      ],
+    },
+  ]);
 };
