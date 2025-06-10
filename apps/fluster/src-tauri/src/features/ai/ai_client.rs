@@ -1,8 +1,10 @@
 use crate::core::types::errors::errors::FlusterResult;
 
-use super::ai_providers::{ai_provider::AiProvider, ollama_provider::OllamaProvider};
+use super::ai_providers::ai_provider::AiProvider;
 
-pub struct AiClient {}
+pub struct AiClient {
+    pub provider: dyn AiProvider,
+}
 
 // FIXME: Add an onboarding screen and a field to the HealthReport struct that installs the text embedding model if it is not installed already.
 impl AiClient {
