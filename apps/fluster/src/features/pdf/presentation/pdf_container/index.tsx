@@ -8,19 +8,6 @@ import type { Source } from "react-pdf/dist/esm/shared/types.js";
 import { PdfSinglePageView } from "./pdf_views/single_page";
 import { PdfSinglePageViewWithToc } from "./pdf_views/with_toc";
 import { PdfGridView } from "./pdf_views/grid";
-<<<<<<< HEAD
-import {
-  PdfView,
-  usePdfContext,
-  usePdfDispatch,
-} from "#/pdf/state/provider/pdf_context";
-import { useSearchParams } from "react-router";
-import { Document } from "react-pdf";
-import { pdfOptions } from "#/pdf/data/utils/init_pdf";
-import { cn } from "@fluster.io/dev";
-||||||| f36a7f4
-import { PdfView, usePdfContext } from "#/pdf/state/provider/pdf_context";
-=======
 import {
     PdfView,
     usePdfContext,
@@ -30,7 +17,6 @@ import { Document } from "react-pdf";
 import { pdfOptions } from "#/pdf/data/utils/init_pdf";
 import { cn } from "@fluster.io/dev";
 import { useSearchParams } from "react-router";
->>>>>>> feat/pdf
 
 interface PdfContainerProps {
     fsPath: string;
@@ -47,51 +33,7 @@ declare global {
     }
 }
 
-declare global {
-  // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
-  interface WindowEventMap {
-    "pdf-loaded": CustomEvent<object>;
-  }
-}
-
 export const PdfContainer = ({ fsPath }: PdfContainerProps): ReactNode => {
-<<<<<<< HEAD
-  const [data, setData] = useState<Source | null>(null);
-  const { view } = usePdfContext();
-  const dispatch = usePdfDispatch();
-  const [searchParams] = useSearchParams();
-  const containerRef = useRef<HTMLDivElement>(null!);
-  const getData = async (_fsPath: string): Promise<void> => {
-    const res = await commands.readFileToBytes(_fsPath);
-    if (res.status === "ok") {
-      setData({
-        data: res.data,
-      });
-    } else {
-      console.error(
-        "An error occurred while attempting to gather pdf file data: ",
-        res.error
-      );
-    }
-  };
-||||||| f36a7f4
-  const [data, setData] = useState<Source | null>(null);
-  const { view } = usePdfContext();
-  const containerRef = useRef<HTMLDivElement>(null!);
-  const getData = async (_fsPath: string): Promise<void> => {
-    const res = await commands.readFileToBytes(_fsPath);
-    if (res.status === "ok") {
-      setData({
-        data: res.data,
-      });
-    } else {
-      console.error(
-        "An error occurred while attempting to gather pdf file data: ",
-        res.error
-      );
-    }
-  };
-=======
     const [data, setData] = useState<Source | null>(null);
     const { view } = usePdfContext();
     const viewRef = useRef(view);
@@ -120,95 +62,23 @@ export const PdfContainer = ({ fsPath }: PdfContainerProps): ReactNode => {
         }
         /* eslint-disable-next-line  --  */
     }, [view]);
->>>>>>> feat/pdf
+    const viewParam = searchParams.get("pdfView");
 
-<<<<<<< HEAD
-  const viewParam = searchParams.get("pdfView");
+    useEffect(() => {
+        if (viewParam) {
+            dispatch({
+                type: "setPdfView",
+                payload: viewParam as PdfView,
+            });
+        }
+    }, [viewParam]);
 
-  useEffect(() => {
-    if (viewParam) {
-      dispatch({
-        type: "setPdfView",
-        payload: viewParam as PdfView,
-      });
-    }
-  }, [viewParam]);
-
-  useEffect(() => {
-    getData(fsPath);
-  }, [fsPath]);
-||||||| f36a7f4
-  useEffect(() => {
-    getData(fsPath);
-  }, [fsPath]);
-=======
     useEffect(() => {
         getData(fsPath);
     }, [fsPath]);
->>>>>>> feat/pdf
-
-<<<<<<< HEAD
-  const onDocumentLoadSuccess = ({ numPages }: { numPages: number }): void => {
-    dispatch({
-      type: "setNumPages",
-      payload: numPages,
-    });
-    window.dispatchEvent(new CustomEvent("pdf-loaded"));
-  };
-
-  return (
-    <div
-      ref={containerRef}
-      className="@container/pdf w-full h-full min-h-[calc(100vh-4rem)] flex flex-col justify-center items-center"
-    >
-      <Document
-        file={data}
-        onLoadSuccess={onDocumentLoadSuccess}
-        onLoadError={(e) => console.error("Pdf Loading Error: ", e)}
-        onError={(e) => console.warn("Pdf Error: ", e)}
-        options={pdfOptions}
-        loading={<LoadingComponent />}
-        className={cn(
-          "max-w-[min(768px,90%)] max-h-screen",
-          view === PdfView.withToc && "flex flex-row"
-        )}
-      >
-        {data === null && (
-          <div>
-            <LoadingComponent />
-          </div>
-        )}
-        {data !== null && view === PdfView.singlePage && (
-          <PdfSinglePageView containerRef={containerRef} />
-        )}
-        {data !== null && view === PdfView.withToc && (
-          <PdfSinglePageViewWithToc containerRef={containerRef} />
-        )}
-        {data !== null && view === PdfView.grid && <PdfGridView />}
-      </Document>
-    </div>
-  );
-||||||| f36a7f4
-  return (
-    <div
-      ref={containerRef}
-      className="w-full h-full min-h-[calc(100vh-4rem)] flex flex-col justify-center items-center"
-    >
-      {data === null && (
-        <div>
-          <LoadingComponent />
-        </div>
-      )}
-      {data !== null && view === PdfView.singlePage && (
-        <PdfSinglePageView data={data} />
-      )}
-      {data !== null && view === PdfView.withToc && (
-        <PdfSinglePageViewWithToc containerRef={containerRef} data={data} />
-      )}
-      {data !== null && view === PdfView.grid && <PdfGridView data={data} />}
-    </div>
-  );
-=======
+    useEffect(() => {
+        getData(fsPath);
+    }, [fsPath]);
     const onDocumentLoadSuccess = ({ numPages }: { numPages: number }): void => {
         dispatch({
             type: "setNumPages",
@@ -219,7 +89,10 @@ export const PdfContainer = ({ fsPath }: PdfContainerProps): ReactNode => {
     return (
         <div
             ref={containerRef}
-            className="pdf-container w-full max-w-full h-full min-h-[calc(100vh-4rem)] flex flex-col justify-center items-center overflow-x-hidden [&_.react-pdf__Document]:max-w-full ppt-16 [&_.react-pdf__Page__canvas]:max-w-full [&_.react-pdf__Page__canvas]:h-auto"
+            className={cn(
+                "@container/pdf w-full max-w-full h-full min-h-[calc(100vh-4rem)] flex flex-col justify-center items-center overflow-x-hidden [&_.react-pdf__Document]:max-w-full [&_.react-pdf__Page__canvas]:max-w-full [&_.react-pdf__Page__canvas]:h-auto [&_.react-pdf__Page__canvas]:max-h-screen",
+                view === PdfView.grid && "w-full px-8"
+            )}
         >
             <Document
                 file={data}
@@ -229,8 +102,10 @@ export const PdfContainer = ({ fsPath }: PdfContainerProps): ReactNode => {
                 options={pdfOptions}
                 loading={<LoadingComponent />}
                 className={cn(
-                    "max-w-[min(768px,90%)] max-h-screen",
-                    view === PdfView.withToc && "flex flex-row"
+                    "max-h-screen",
+                    view === PdfView.grid && "w-full",
+                    view === PdfView.withToc && "flex flex-row",
+                    view === PdfView.singlePage && "max-w-[min(768px,90%)] "
                 )}
             >
                 {data === null && (
@@ -246,7 +121,6 @@ export const PdfContainer = ({ fsPath }: PdfContainerProps): ReactNode => {
             </Document>
         </div>
     );
->>>>>>> feat/pdf
 };
 
 PdfContainer.displayName = "PdfContainer";
