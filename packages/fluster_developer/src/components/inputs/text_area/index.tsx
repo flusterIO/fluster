@@ -17,6 +17,7 @@ interface TextAreaInputProps<T extends FieldValues> extends FormInputProps<T> {
         formItem?: string;
         textArea?: string;
         container?: string;
+        label?: string;
     };
     rows?: number;
 }
@@ -36,13 +37,16 @@ export const TextAreaInput = <T extends FieldValues>({
             render={({ field }) => {
                 return (
                     <FormItem className={cn("w-full max-w-[600px]", classes.formItem)}>
-                        <FormLabel>{label}</FormLabel>
+                        <FormLabel className={classes.label}>{label}</FormLabel>
                         <FormControl>
                             <div className={cn("w-full max-w-[600px]", classes.container)}>
                                 <Textarea
                                     value={field.value}
                                     onChange={(e) =>
-                                        form.setValue(field.name, e.target.value as any)
+                                        form.setValue(
+                                            field.name,
+                                            e.target.value as Parameters<typeof form.setValue>[1]
+                                        )
                                     }
                                     rows={rows}
                                     className={classes.textArea}

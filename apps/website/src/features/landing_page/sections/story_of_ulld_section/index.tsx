@@ -2,6 +2,7 @@ import React from "react";
 import clsx from "clsx";
 import StoryOfUlldHeading from "./story_of_ulld_heading";
 import PayPalLinkQr from "#/util_components/paypal_qr";
+import Link from "next/link";
 
 export const StoryOfFlusterSection = () => {
     return (
@@ -12,12 +13,14 @@ export const StoryOfFlusterSection = () => {
         >
             <StoryOfUlldHeading
                 heading="Just a minute..."
-                /* heading="The story of Fluster" */
+            /* heading="The story of Fluster" */
             />
             <div className="max-w-[min(768px,calc(100vw-4rem))] prose prose-invert">
-                <h3 className="underline decoration-lime-500 underline-offset-2">{"I'm homeless and I need your help."}</h3>
+                <h3 className="underline decoration-lime-500 underline-offset-2">
+                    {"I'm homeless and I need your help."}
+                </h3>
                 <p>
-                    {`I am plopping this section in here out of place to try and grab your
+                    {`I'm plopping this section in here out of place to try and grab your
           attention. This app is in it's final stages, but over the coming
           months while Fluster is in it's early days, I will follow an almost
           nightly release schedule.`}
@@ -45,8 +48,12 @@ export const StoryOfFlusterSection = () => {
                 </p>
                 <p>
                     No matter my own situation, Fluster is now and will always be free for
-                    anyone running it on their own system, no paid features or sign up
-                    required, ever.
+                    anyone running it on their own system, no sign up required, ever.
+                </p>
+                <p>
+                    You can visit the sponsor page <Link href={"/sponsor"}>here</Link>, or
+                    go directly to Fluster&apos;s paypal account by scanning the QR code
+                    below.
                 </p>
             </div>
             <PayPalLinkQr size={120} />
