@@ -19,5 +19,3 @@ export const JupyterIcon = (props: IconProps) => {
 };
 
 JupyterIcon.displayName = "JupyterIcon";
-
-export default JupyterIcon;

@@ -13,5 +13,3 @@ export const NPMIcon = (props: IconProps) => {
 
 NPMIcon.displayName = "NPMIcon"
 
-
-export default NPMIcon

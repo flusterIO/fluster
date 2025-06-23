@@ -2,6 +2,7 @@ import "@fluster.io/dev/themes.css";
 import "./globals.scss";
 import localFont from "next/font/local";
 import FumaDocsProvider from "#/features/docs/fuma_docs_provider";
+import Footer from "#/features/footer";
 
 const appFont = localFont({
     variable: "--ulld-app-font",
@@ -60,6 +61,7 @@ export default function RootLayout({
             <body className={`antialiased background`}>
                 <FumaDocsProvider>
                     <div>{children}</div>
+                    <Footer />
                 </FumaDocsProvider>
             </body>
         </html>

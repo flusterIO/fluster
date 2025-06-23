@@ -4,35 +4,24 @@
 
 const baseUrl = "https://fluster.vercel.app";
 
-export interface StaticWebsiteContent {
+export const staticContent = {
     links: {
+        comingSoon: "/coming_soon",
+        sponsor: "/sponsor",
+        social: {
+            github: "https://github.com/igloo1505/ulld",
+            twitter: "https://x.com/uhlittlelessdum",
+            discord: "https://discord.gg/FUA88wwqUM",
+        },
+        fund: {
+            paypalDonate:
+                "https://www.paypal.com/donate/?hosted_button_id=W22RTUJ2RPZDU",
+            patreon: "https://www.patreon.com/uhlittlelessdum/about",
+            github: "https://github.com/igloo1505/ulld",
+        },
         docs: {
             internal: {
-                /// Link to internal documentation on organizing notes inside of fluster.
-                organization_docs: string;
-                home: string;
-            };
-            external: {
-                jupyter: string;
-                python: string;
-                /// Link to a repo with a ton of popular csl citation formats.
-                cslRepo: string;
-                monaco: string;
-            };
-        };
-
-        demos: {
-            myNotes: string;
-        };
-        videoDemo: string;
-    };
-}
-
-export const staticContent: StaticWebsiteContent = {
-    links: {
-        docs: {
-            internal: {
-                home: baseUrl,
+                userHome: baseUrl,
                 organization_docs: baseUrl,
             },
             external: {
@@ -42,9 +31,8 @@ export const staticContent: StaticWebsiteContent = {
                 monaco: "https://microsoft.github.io/monaco-editor",
             },
         },
-        demos: {
-            myNotes: "/myWork",
-        },
         videoDemo: "https://www.youtube.com/watch?v=zzeE1sIphe0&t=4s",
     },
-};
+} as const;
+
+export type StaticWebsiteContent = typeof staticContent;

@@ -1,7 +1,7 @@
 import React, { type ReactNode } from "react";
 import { IconProps } from "../types";
 
-const RustIcon = (props: IconProps): ReactNode => {
+export const RustIcon = (props: IconProps): ReactNode => {
     return (
         <svg
             fill="none"
@@ -20,5 +20,3 @@ const RustIcon = (props: IconProps): ReactNode => {
 };
 
 RustIcon.displayName = "RustIcon";
-
-export default RustIcon;

@@ -7,5 +7,3 @@ export const MarkdownLogo = (props: IconProps) => {
 };
 
 MarkdownLogo.displayName = "MarkdownLogo";
-
-export default MarkdownLogo;

@@ -1,7 +1,7 @@
 import React, { type ReactNode } from "react";
 import { IconProps } from "../types";
 
-const GolangGopher = (props: IconProps): ReactNode => {
+export const GolangGopher = (props: IconProps): ReactNode => {
   return (
     <svg
       {...props}
@@ -38,5 +38,3 @@ const GolangGopher = (props: IconProps): ReactNode => {
 };
 
 GolangGopher.displayName = "GolangGopher";
-
-export default GolangGopher;

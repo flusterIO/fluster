@@ -7,5 +7,3 @@ export const CssIcon = (props: IconProps) => {
 };
 
 CssIcon.displayName = "CssIcon";
-
-export default CssIcon;

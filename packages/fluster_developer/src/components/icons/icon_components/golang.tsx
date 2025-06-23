@@ -1,7 +1,7 @@
 import React, { type ReactNode } from "react";
 import { IconProps } from "../types";
 
-const GolangIcon = (props: IconProps): ReactNode => {
+export const GolangIcon = (props: IconProps): ReactNode => {
   return (
     <svg
       {...props}
@@ -41,5 +41,3 @@ const GolangIcon = (props: IconProps): ReactNode => {
 };
 
 GolangIcon.displayName = "GolangIcon";
-
-export default GolangIcon;

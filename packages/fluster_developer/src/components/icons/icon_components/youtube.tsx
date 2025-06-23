@@ -12,6 +12,3 @@ export const YoutubeIcon = (props: IconProps) => {
 
 
 YoutubeIcon.displayName = "YoutubeIcon"
-
-
-export default YoutubeIcon

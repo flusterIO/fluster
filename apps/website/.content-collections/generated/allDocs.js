@@ -1,6 +1,97 @@
 
 export default [
   {
+    "title": "Developer Environment Setup",
+    "content": "> Documentation on this page pertains mostly to those looking to contribute to Fluster directly. If you are looking to build a plugin, you likely won't be required to setup your environment in this manner. A simple vite setup using the template package will do.\n\n# Developer Environment Setup\n\n## Requirements\n\n- [ ] Golang installed and available on the `Path`.\n- [ ] Rust installed and with all available cargo commands available on the `Path`.\n- [ ] [dotenvx](https://dotenvx.com/) installed. Available through Homebrew and a simple curl command.\n- [ ] The dart package `test_cov_console` is used in some scripts as a globally available package to create a decent cli output while running tests.\n- [ ] [Tsx](https://www.npmjs.com/package/tsx) is used during part of the build script to execute typescript files. It needs to be available on your path, as any globally installed npm package likely already is.\n- [ ] Use pnpm as your node package manager. This isn't really a strict requriement, but pnpm is referenced explictly in a few shebangs and package.json files, so it'll likely save you a headache.\n- [ ] The [typeshare](https://crates.io/crates/typeshare) cli is used to generate cross-language types from rust during the build process. That will need to be installed and available locally.\n- [ ] [gomarkdoc](https://github.com/princjef/gomarkdoc) is used to generate go documentation in markdown. Some build scripts will fail if this isnot installed globally.\n- [ ] To work with tests in the monorepo, you'll need to have `maturin` installed.\n\n## Environment Variables\n\n- [ ] Create an environment variable, `FLUSTER_NATIVE_ROOT` and point it to the root of your workspace. This is used throughout the build utilities.",
+    "_meta": {
+      "filePath": "developer/developer_setup.mdx",
+      "fileName": "developer_setup.mdx",
+      "directory": "developer",
+      "extension": "mdx",
+      "path": "developer/developer_setup"
+    },
+    "toc": [
+      {
+        "title": "Developer Environment Setup",
+        "url": "#developer-environment-setup",
+        "depth": 1
+      },
+      {
+        "title": "Requirements",
+        "url": "#requirements",
+        "depth": 2
+      },
+      {
+        "title": "Environment Variables",
+        "url": "#environment-variables",
+        "depth": 2
+      }
+    ],
+    "structuredData": {
+      "contents": [
+        {
+          "heading": "",
+          "content": "Documentation on this page pertains mostly to those looking to contribute to Fluster directly. If you are looking to build a plugin, you likely won't be required to setup your environment in this manner. A simple vite setup using the template package will do."
+        },
+        {
+          "heading": "requirements",
+          "content": "Golang installed and available on the Path."
+        },
+        {
+          "heading": "requirements",
+          "content": "Rust installed and with all available cargo commands available on the Path."
+        },
+        {
+          "heading": "requirements",
+          "content": "dotenvx installed. Available through Homebrew and a simple curl command."
+        },
+        {
+          "heading": "requirements",
+          "content": "The dart package test_cov_console is used in some scripts as a globally available package to create a decent cli output while running tests."
+        },
+        {
+          "heading": "requirements",
+          "content": "Tsx is used during part of the build script to execute typescript files. It needs to be available on your path, as any globally installed npm package likely already is."
+        },
+        {
+          "heading": "requirements",
+          "content": "Use pnpm as your node package manager. This isn't really a strict requriement, but pnpm is referenced explictly in a few shebangs and package.json files, so it'll likely save you a headache."
+        },
+        {
+          "heading": "requirements",
+          "content": "The typeshare cli is used to generate cross-language types from rust during the build process. That will need to be installed and available locally."
+        },
+        {
+          "heading": "requirements",
+          "content": "gomarkdoc is used to generate go documentation in markdown. Some build scripts will fail if this isnot installed globally."
+        },
+        {
+          "heading": "requirements",
+          "content": "To work with tests in the monorepo, you'll need to have maturin installed."
+        },
+        {
+          "heading": "environment-variables",
+          "content": "Create an environment variable, FLUSTER_NATIVE_ROOT and point it to the root of your workspace. This is used throughout the build utilities."
+        }
+      ],
+      "headings": [
+        {
+          "id": "developer-environment-setup",
+          "content": "Developer Environment Setup"
+        },
+        {
+          "id": "requirements",
+          "content": "Requirements"
+        },
+        {
+          "id": "environment-variables",
+          "content": "Environment Variables"
+        }
+      ]
+    },
+    "body": "var Component=(()=>{var u=Object.create;var l=Object.defineProperty;var p=Object.getOwnPropertyDescriptor;var m=Object.getOwnPropertyNames;var b=Object.getPrototypeOf,k=Object.prototype.hasOwnProperty;var y=(i,e)=>()=>(e||i((e={exports:{}}).exports,e),e.exports),g=(i,e)=>{for(var a in e)l(i,a,{get:e[a],enumerable:!0})},o=(i,e,a,s)=>{if(e&&typeof e==\"object\"||typeof e==\"function\")for(let n of m(e))!k.call(i,n)&&n!==a&&l(i,n,{get:()=>e[n],enumerable:!(s=p(e,n))||s.enumerable});return i};var x=(i,e,a)=>(a=i!=null?u(b(i)):{},o(e||!i||!i.__esModule?l(a,\"default\",{value:i,enumerable:!0}):a,i)),v=i=>o(l({},\"__esModule\",{value:!0}),i);var r=y((N,c)=>{c.exports=_jsx_runtime});var f={};g(f,{default:()=>h});var t=x(r());function d(i){let e={a:\"a\",blockquote:\"blockquote\",code:\"code\",h1:\"h1\",h2:\"h2\",input:\"input\",li:\"li\",p:\"p\",ul:\"ul\",...i.components};return(0,t.jsxs)(t.Fragment,{children:[(0,t.jsxs)(e.blockquote,{children:[`\n`,(0,t.jsx)(e.p,{children:\"Documentation on this page pertains mostly to those looking to contribute to Fluster directly. If you are looking to build a plugin, you likely won't be required to setup your environment in this manner. A simple vite setup using the template package will do.\"}),`\n`]}),`\n`,(0,t.jsx)(e.h1,{id:\"developer-environment-setup\",children:\"Developer Environment Setup\"}),`\n`,(0,t.jsx)(e.h2,{id:\"requirements\",children:\"Requirements\"}),`\n`,(0,t.jsxs)(e.ul,{className:\"contains-task-list\",children:[`\n`,(0,t.jsxs)(e.li,{className:\"task-list-item\",children:[(0,t.jsx)(e.input,{type:\"checkbox\",disabled:!0}),\" \",\"Golang installed and available on the \",(0,t.jsx)(e.code,{children:\"Path\"}),\".\"]}),`\n`,(0,t.jsxs)(e.li,{className:\"task-list-item\",children:[(0,t.jsx)(e.input,{type:\"checkbox\",disabled:!0}),\" \",\"Rust installed and with all available cargo commands available on the \",(0,t.jsx)(e.code,{children:\"Path\"}),\".\"]}),`\n`,(0,t.jsxs)(e.li,{className:\"task-list-item\",children:[(0,t.jsx)(e.input,{type:\"checkbox\",disabled:!0}),\" \",(0,t.jsx)(e.a,{href:\"https://dotenvx.com/\",children:\"dotenvx\"}),\" installed. Available through Homebrew and a simple curl command.\"]}),`\n`,(0,t.jsxs)(e.li,{className:\"task-list-item\",children:[(0,t.jsx)(e.input,{type:\"checkbox\",disabled:!0}),\" \",\"The dart package \",(0,t.jsx)(e.code,{children:\"test_cov_console\"}),\" is used in some scripts as a globally available package to create a decent cli output while running tests.\"]}),`\n`,(0,t.jsxs)(e.li,{className:\"task-list-item\",children:[(0,t.jsx)(e.input,{type:\"checkbox\",disabled:!0}),\" \",(0,t.jsx)(e.a,{href:\"https://www.npmjs.com/package/tsx\",children:\"Tsx\"}),\" is used during part of the build script to execute typescript files. It needs to be available on your path, as any globally installed npm package likely already is.\"]}),`\n`,(0,t.jsxs)(e.li,{className:\"task-list-item\",children:[(0,t.jsx)(e.input,{type:\"checkbox\",disabled:!0}),\" \",\"Use pnpm as your node package manager. This isn't really a strict requriement, but pnpm is referenced explictly in a few shebangs and package.json files, so it'll likely save you a headache.\"]}),`\n`,(0,t.jsxs)(e.li,{className:\"task-list-item\",children:[(0,t.jsx)(e.input,{type:\"checkbox\",disabled:!0}),\" \",\"The \",(0,t.jsx)(e.a,{href:\"https://crates.io/crates/typeshare\",children:\"typeshare\"}),\" cli is used to generate cross-language types from rust during the build process. That will need to be installed and available locally.\"]}),`\n`,(0,t.jsxs)(e.li,{className:\"task-list-item\",children:[(0,t.jsx)(e.input,{type:\"checkbox\",disabled:!0}),\" \",(0,t.jsx)(e.a,{href:\"https://github.com/princjef/gomarkdoc\",children:\"gomarkdoc\"}),\" is used to generate go documentation in markdown. Some build scripts will fail if this isnot installed globally.\"]}),`\n`,(0,t.jsxs)(e.li,{className:\"task-list-item\",children:[(0,t.jsx)(e.input,{type:\"checkbox\",disabled:!0}),\" \",\"To work with tests in the monorepo, you'll need to have \",(0,t.jsx)(e.code,{children:\"maturin\"}),\" installed.\"]}),`\n`]}),`\n`,(0,t.jsx)(e.h2,{id:\"environment-variables\",children:\"Environment Variables\"}),`\n`,(0,t.jsxs)(e.ul,{className:\"contains-task-list\",children:[`\n`,(0,t.jsxs)(e.li,{className:\"task-list-item\",children:[(0,t.jsx)(e.input,{type:\"checkbox\",disabled:!0}),\" \",\"Create an environment variable, \",(0,t.jsx)(e.code,{children:\"FLUSTER_NATIVE_ROOT\"}),\" and point it to the root of your workspace. This is used throughout the build utilities.\"]}),`\n`]})]})}function h(i={}){let{wrapper:e}=i.components||{};return e?(0,t.jsx)(e,{...i,children:(0,t.jsx)(d,{...i})}):d(i)}return v(f);})();\n;return Component;"
+  },
+  {
     "title": "Developer Documentation",
     "content": "Fluster was built extensibility being one of the primary concerns. Fluster provides a set of API's in typescript, Rust, Go and Python for you to build all of the tools necessary to make Fluster fit your workflow. This is made possible by the FFI/Rust ecosystem, meaning that your tools will execute Rust no matter the language you choose.\n\nWhile providing these API's to the developer community is a priority, I'm choosing to focus my attention to internal tools first. The architecture is in place to quickly generate these API's, but for now I will return to this when the core functionality of the application is out of $\\beta$.\n\n\nPlease be patient with my while I do my best to catch up on the documentation, and if you really want to speed up the process, consider becoming a sponsor! Nothing slows down progress more than being homeless in the middle of summer.",
     "_meta": {

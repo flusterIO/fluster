@@ -30,5 +30,3 @@ export const FlusterIcon = ({
 };
 
 FlusterIcon.displayName = "FlusterIcon";
-
-export default FlusterIcon;
