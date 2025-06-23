@@ -33,7 +33,7 @@ export const PdfSinglePageViewWithToc = (
     const mainPanelSize = useMainPanelSize();
     // Page width and page height are being mantained seperately because they play different roles. The pageHeight is used by the toc and is mostly a read only value, with the height determined by react-pdf.
     // Width on the otherhand is set to determine the size of the page and is derived from the coontainer size.
-    const [pageWidth, setPageWidth] = useState<number | undefined>(undefined);
+    /* const [pageWidth, setPageWidth] = useState<number | undefined>(undefined); */
     // The height of the pdf page, not the web page.
     const [pageHeight, setPageHeight] = useState(0);
     const fsPath = searchParams.get("fsPath");
@@ -94,16 +94,16 @@ export const PdfSinglePageViewWithToc = (
         if (!props.containerRef.current) {
             return;
         }
-        const containerRect = props.containerRef.current.getBoundingClientRect();
-        const containerRatio = containerRect.width / containerRect.height;
-        const maxWidth = containerRatio * containerRect.height - 64;
-        console.log("maxWidth: ", maxWidth);
-        console.log("containerRect: ", containerRect, maxWidth);
+        /* const containerRect = props.containerRef.current.getBoundingClientRect(); */
+        /* const containerRatio = containerRect.width / containerRect.height; */
+        /* const maxWidth = containerRatio * containerRect.height - 64; */
+        /* console.log("maxWidth: ", maxWidth); */
+        /* console.log("containerRect: ", containerRect, maxWidth); */
         /* const containerRatio = containerRect.width / containerRect.height; */
         /* if (containerRatio < canvasRatio) { */
         /*     setPageHeight; */
         /* } */
-        setPageWidth(Math.min(containerRect.width - 150, maxWidth));
+        /* setPageWidth(Math.min(containerRect.width - 150, maxWidth)); */
         handleHeight();
     };
     useEffect(() => {
@@ -151,7 +151,7 @@ export const PdfSinglePageViewWithToc = (
                     return <ThumbnailComponent active={pageNumber === i + 1} />;
                 })}
             </div>
-            <PdfSinglePageView width={pageWidth} onLoad={handleHeight} />
+            <PdfSinglePageView />
         </div>
     );
 };

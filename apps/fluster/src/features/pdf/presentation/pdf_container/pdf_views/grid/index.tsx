@@ -1,4 +1,5 @@
 import {
+    PdfView,
     usePdfContext,
     usePdfDispatch,
 } from "#/pdf/state/provider/pdf_context";
@@ -45,9 +46,16 @@ export const PdfGridView = (): ReactNode => {
                         pageNumber={i + 1}
                         onClick={() => {
                             dispatch({
-                                type: "setPageNumberAndNavigate",
+                                type: "setPageNumber",
                                 payload: i + 1,
                             });
+                            window.dispatchEvent(
+                                new CustomEvent("set-pdf-page-view", {
+                                    detail: {
+                                        view: PdfView.singlePage,
+                                    },
+                                })
+                            );
                         }}
                     />
                 );

@@ -1,52 +1,56 @@
 import React, { ReactNode, useReducer } from "react";
 import {
-  initialPdfState,
-  PdfContext,
-  PdfContextReducer,
-  PdfDispatchContext,
-  PdfState,
-  PdfView,
+    initialPdfState,
+    PdfContext,
+    PdfContextReducer,
+    PdfDispatchContext,
+    PdfState,
+    PdfView,
 } from "./pdf_context";
 import { AppRoutes, useEventListener } from "@fluster.io/dev";
-import { useMatch } from "react-router";
+import { useMatch, useSearchParams } from "react-router";
 
 interface PdfProviderProps {
-  children: ReactNode;
-  initialValues?: Partial<PdfState>;
+    children: ReactNode;
+    initialValues?: Partial<PdfState>;
 }
 
 interface SetPdfViewEventProps {
-  /// The id field of the pdf context.
-  view: PdfView;
+    /// The id field of the pdf context.
+    view: PdfView;
 }
 declare global {
-  interface WindowEventMap {
-    "set-pdf-page-view": CustomEvent<SetPdfViewEventProps>;
-  }
+    interface WindowEventMap {
+        "set-pdf-page-view": CustomEvent<SetPdfViewEventProps>;
+    }
 }
 
 export const PdfProvider = ({ children, initialValues }: PdfProviderProps) => {
-  const [state, dispatch] = useReducer(
-    PdfContextReducer,
-    initialValues ? { ...initialValues, ...initialPdfState } : initialPdfState
-  );
+    const [state, dispatch] = useReducer(
+        PdfContextReducer,
+        initialValues ? { ...initialValues, ...initialPdfState } : initialPdfState
+    );
 
-  const isPdfPage = useMatch(AppRoutes.pdf);
+    const [searchParams, setSearchParams] = useSearchParams();
 
-  useEventListener("set-pdf-page-view", (e) => {
-    if (isPdfPage) {
-      dispatch({
-        type: "setPdfView",
-        payload: e.detail.view,
-      });
-    }
-  });
+    const isPdfPage = useMatch(AppRoutes.pdf);
 
-  return (
-    <PdfContext.Provider value={state}>
-      <PdfDispatchContext.Provider value={dispatch}>
-        {children}
-      </PdfDispatchContext.Provider>
-    </PdfContext.Provider>
-  );
+    useEventListener("set-pdf-page-view", (e) => {
+        if (isPdfPage) {
+            dispatch({
+                type: "setPdfView",
+                payload: e.detail.view,
+            });
+            searchParams.set("pdfView", e.detail.view);
+            setSearchParams(searchParams);
+        }
+    });
+
+    return (
+        <PdfContext.Provider value={state}>
+            <PdfDispatchContext.Provider value={dispatch}>
+                {children}
+            </PdfDispatchContext.Provider>
+        </PdfContext.Provider>
+    );
 };

@@ -36,8 +36,8 @@ declare global {
 export const PdfContainer = ({ fsPath }: PdfContainerProps): ReactNode => {
     const [data, setData] = useState<Source | null>(null);
     const { view } = usePdfContext();
-    const viewRef = useRef(view);
-    const [searchParams, setSearchParams] = useSearchParams();
+    /* const viewRef = useRef(view); */
+    const [searchParams] = useSearchParams();
     const dispatch = usePdfDispatch();
     const containerRef = useRef<HTMLDivElement>(null!);
     const getData = async (_fsPath: string): Promise<void> => {
@@ -53,15 +53,15 @@ export const PdfContainer = ({ fsPath }: PdfContainerProps): ReactNode => {
             );
         }
     };
-    useEffect(() => {
-        viewRef.current = view;
-        const viewSp = searchParams.get("pdfView");
-        if (viewSp && view && viewSp !== view) {
-            searchParams.set("pdfView", view);
-            setSearchParams(viewSp);
-        }
-        /* eslint-disable-next-line  --  */
-    }, [view]);
+    /* useEffect(() => { */
+    /*     viewRef.current = view; */
+    /*     const viewSp = searchParams.get("pdfView"); */
+    /*     if (viewSp && view && viewSp !== view) { */
+    /*         console.log("settingSearchParams: "); */
+    /*         searchParams.set("pdfView", view); */
+    /*     } */
+    /* }, [view]); */
+
     const viewParam = searchParams.get("pdfView");
 
     useEffect(() => {
