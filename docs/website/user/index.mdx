@@ -1,0 +1,35 @@
+---
+title: User Documentation
+---
+
+
+Fluster aims to be an accessible presentation layer for whatever you need to jot down, organize and reference later. To accomplish this, Fluster relies on `.mdx` as the most commonly used input. [Mdx](https://mdxjs.com) works as a superset of markdown, allowing all of the familiar markdown features with the added support for React components.
+
+Fluster then embeds this React app in a Rust powered tauri application, stores your notes in a local vector database and uses (for now, local only) AI to provide you with insights into your data that no other app offers.
+
+
+## First Steps
+
+First, continue to our [downloads page](/downloads). This will install the core Fluster application, but Fluster will in turn install the models that it requires locally when you run Fluster for the first time.
+
+During this onboarding process, a screen should be presented asking among other things where you plan to keep your notes. For portability, Fluster insists that you keep all of your notes within a single parent directory, but notes can be organized within this directory however you like, including within deeply nested folders.
+
+### Create your first note
+
+<Hint>
+Fluster does provide a built in code editor with some additional features specific to the functionality of Fluster, but at the time of release _new_ notes must be created manually.
+</Hint>
+
+To create a note, you can use any code or text editor you like. Just create a file with the `.mdx` extension anywhere within the directory you provided to Fluster.
+
+### Front Matter
+
+Mdx uses a `yaml` like syntax to define what is known as _front matter_. You can read more about the specific front matter fields [here](/docs/user/front_matter).
+
+To define your own front matter, the title of your note in this case, start your note with:
+
+```mdx
+---
+title: "My title"
+---
+```

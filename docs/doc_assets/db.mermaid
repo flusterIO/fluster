@@ -1,0 +1,171 @@
+## Diagram
+
+```mermaid
+erDiagram
+
+    __diesel_schema_migrations {
+        version character_varying PK "not null"
+        run_on timestamp_without_time_zone "not null"
+    }
+
+    bib_entry {
+        id integer PK "not null"
+        read boolean "not null"
+        data json "not null"
+        pdf_path text "null"
+    }
+
+    equation {
+        id integer PK "not null"
+        content text "not null"
+        desc text "not null"
+        label text "not null"
+        eq_id character_varying "null"
+    }
+
+    equation_mdx_note_join {
+        id integer PK "not null"
+        equation_id integer FK "not null"
+        mdx_note_id integer FK "not null"
+    }
+
+    equation_snippet_join {
+        id integer PK "not null"
+        equation_id integer FK "not null"
+        snippet_id integer FK "not null"
+    }
+
+    front_matter {
+        id integer PK "not null"
+        mdx_note_id integer FK "not null"
+        title text "not null"
+        user_provided_id character_varying "null"
+        summary text "null"
+    }
+
+    front_matter_taggable_join {
+        id integer PK "not null"
+        front_matter_id integer FK "not null"
+        tag_id integer FK "not null"
+    }
+
+    log {
+        id integer PK "not null"
+        msg character_varying "not null"
+        ctime timestamp_without_time_zone "not null"
+    }
+
+    mdx_note {
+        id integer PK "not null"
+        raw_body text "not null"
+        last_sync timestamp_without_time_zone "not null"
+        file_path text "null"
+        atime timestamp_without_time_zone "null"
+        ctime timestamp_without_time_zone "null"
+        mtime timestamp_without_time_zone "null"
+    }
+
+    mdx_note_taggable_join {
+        id integer PK "not null"
+        mdx_note_id integer FK "not null"
+        taggable_id integer FK "not null"
+    }
+
+    reading_list {
+        id integer PK "not null"
+        label character_varying "not null"
+        desc text "not null"
+        ctime timestamp_without_time_zone "not null"
+    }
+
+    reading_list_bib_entry_join {
+        id integer PK "not null"
+        bib_entry_id integer FK "not null"
+        reading_list_id integer FK "not null"
+    }
+
+    snippet {
+        id integer PK "not null"
+        lang supported_language "not null"
+        body text "not null"
+        desc text "not null"
+        label text "not null"
+    }
+
+    taggable {
+        id integer PK "not null"
+        value character_varying "not null"
+        tag_type taggable_type "not null"
+    }
+
+    bib_entry ||--o{ reading_list_bib_entry_join : "reading_list_bib_entry_join(bib_entry_id) -> bib_entry(id)"
+    equation ||--o{ equation_mdx_note_join : "equation_mdx_note_join(equation_id) -> equation(id)"
+    equation ||--o{ equation_snippet_join : "equation_snippet_join(equation_id) -> equation(id)"
+    front_matter ||--o{ front_matter_taggable_join : "front_matter_taggable_join(front_matter_id) -> front_matter(id)"
+    mdx_note ||--o{ equation_mdx_note_join : "equation_mdx_note_join(mdx_note_id) -> mdx_note(id)"
+    mdx_note ||--o{ front_matter : "front_matter(mdx_note_id) -> mdx_note(id)"
+    mdx_note ||--o{ mdx_note_taggable_join : "mdx_note_taggable_join(mdx_note_id) -> mdx_note(id)"
+    reading_list ||--o{ reading_list_bib_entry_join : "reading_list_bib_entry_join(reading_list_id) -> reading_list(id)"
+    snippet ||--o{ equation_snippet_join : "equation_snippet_join(snippet_id) -> snippet(id)"
+    taggable ||--o{ front_matter_taggable_join : "front_matter_taggable_join(tag_id) -> taggable(id)"
+    taggable ||--o{ mdx_note_taggable_join : "mdx_note_taggable_join(taggable_id) -> taggable(id)"
+```
+
+## Indexes
+
+### `__diesel_schema_migrations`
+
+- `__diesel_schema_migrations_pkey`
+
+### `bib_entry`
+
+- `bib_entry_pkey`
+
+### `equation`
+
+- `equation_pkey`
+
+### `equation_mdx_note_join`
+
+- `equation_mdx_note_join_pkey`
+
+### `equation_snippet_join`
+
+- `equation_snippet_join_pkey`
+
+### `front_matter`
+
+- `front_matter_pkey`
+
+### `front_matter_taggable_join`
+
+- `front_matter_taggable_join_pkey`
+
+### `log`
+
+- `log_pkey`
+
+### `mdx_note`
+
+- `mdx_note_pkey`
+
+### `mdx_note_taggable_join`
+
+- `mdx_note_taggable_join_pkey`
+
+### `reading_list`
+
+- `reading_list_pkey`
+
+### `reading_list_bib_entry_join`
+
+- `reading_list_bib_entry_join_pkey`
+
+### `snippet`
+
+- `snippet_pkey`
+
+### `taggable`
+
+- `taggable_pkey`
+- `taggable_value_key`

@@ -1,0 +1,7 @@
+packages:
+  - "apps/fluster"
+  - "apps/plugin_template"
+  - "apps/website"
+  - "packages/fluster_ts"
+  - "packages/fluster_developer"
+  - "packages/fluster_config"

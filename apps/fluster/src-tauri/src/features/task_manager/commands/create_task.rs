@@ -1,0 +1,34 @@
+use chrono::Utc;
+
+use crate::{
+    core::{
+        database::db::get_database,
+        models::taggable::{shared_taggable_model::SharedTaggableModel, tag_entity::TagEntity},
+        types::errors::errors::FlusterResult,
+    },
+    features::task_manager::{
+        task_entity::TaskEntity, task_model::TaskModel, task_tag_entity::TaskTagEntity,
+        task_tag_model::TaskTagModel,
+    },
+};
+
+#[tauri::command]
+#[specta::specta]
+pub async fn create_task(task: TaskModel, tags: Vec<TaskTagModel>) -> FlusterResult<()> {
+    let db_res = get_database().await;
+    let db = db_res.lock().await;
+    TaskEntity::save_many(&db, vec![task]).await?;
+    let now = Utc::now();
+    TagEntity::save_many(
+        tags.iter()
+            .map(|x| SharedTaggableModel {
+                value: x.tag_value.clone(),
+                ctime: now,
+            })
+            .collect(),
+        &db,
+    )
+    .await?;
+    TaskTagEntity::create_many(&db, tags).await?;
+    Ok(())
+}

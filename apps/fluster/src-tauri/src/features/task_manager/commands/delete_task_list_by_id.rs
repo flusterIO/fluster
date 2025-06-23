@@ -1,0 +1,12 @@
+use crate::{
+    core::{database::db::get_database, types::errors::errors::FlusterResult},
+    features::task_manager::task_list_entity::TaskListEntity,
+};
+
+#[tauri::command]
+#[specta::specta]
+pub async fn delete_task_list_by_id(id: String) -> FlusterResult<()> {
+    let db_res = get_database().await;
+    let db = db_res.lock().await;
+    TaskListEntity::delete_by_id(&db, &id).await
+}

@@ -1,0 +1,33 @@
+---
+title: Supported Colors
+---
+
+# Color Properties
+
+When a component accepts a color property, you can provide a set of pre-defined colors as a boolean, or you can provide your own unique color as a string in any valid css format.
+
+The following table lists the pre-defined 
+
+<Hint>
+    Many of these values will change with each theme.
+</Hint>
+
+<ColorPalette />
+
+
+Each value from the table above can be passed in as a boolean. For example, to generate a highlighted bit of text in the theme's primary color using the `Hl` component, you can use:
+
+```tsx
+<Hl primary>This</Hl> is highlighted.
+```
+
+<Card title="Output">
+    <Hl primary>This</Hl> is highlighted.
+</Card>
+
+
+Or to specify a color as a string:
+
+```tsx
+<Hl color="#fff">This</Hl> is highlighted.
+```

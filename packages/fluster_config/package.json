@@ -1,0 +1,22 @@
+{
+  "name": "@fluster.io/config",
+  "version": "0.0.4",
+  "keywords": [
+    "fluster"
+  ],
+  "author": "Andrew Iglinski <fluster.eyeoh@gmail.com>",
+  "type": "module",
+  "publishConfig": {
+    "access": "public"
+  },
+  "files": [
+    "."
+  ],
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "main": "index.js",
+  "dependencies": {},
+  "license": "ISC",
+  "description": "Shared configs for the Fluster ecosystem."
+}

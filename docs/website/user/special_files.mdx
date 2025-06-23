@@ -1,0 +1,37 @@
+---
+title: Special Files
+---
+
+# Special Files
+
+## The Main Folder
+
+In the settings page and during the onboarding process, you can set the primary folder that your notes are contained in. This is used by several internal functions as a sort of container that Fluster should treat as it's data source.
+
+While not strictly required in all cases, these following files _should_ be nested within your _main folder_ for portability.
+
+### Ignoring Things
+
+```sh 
+<My Notes Directory>/.flusterIgnore
+```
+
+You can create a `.flusterIgnore` file in the root of your notes directory to specify file paths that fluster should, you know... ignore. The syntax is identical to that of a `.gitignore` file, with the docs available [here](https://git-scm.com/docs/gitignore);
+
+### Bibliography
+
+#### Bibtex file
+
+```sh 
+<My Notes Directory>/citations.bib
+```
+
+By default Fluster includes support for an embedded bibliography database. This database can work in sync with a local file, reading from this file to populate your database. You can still use this database without a local file, but if you have an existing bibliography file place it in your notes directory, and point Fluster to this file in your settings.
+
+#### Citation Format
+
+An optional file path to any valid `.csl` file. There is a great repo available [here](https://github.com/citation-style-language/styles) with the file to satisfy just about every popular format.
+
+```sh 
+<My Notes Directory>/aip.csl
+```

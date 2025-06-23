@@ -1,0 +1,41 @@
+{
+  "name": "@flusterio/flusterwin32-x64-msvc",
+  "description": "Prebuilt binary package for `fluster_ts` on `win32-x64-msvc`.",
+  "version": "0.0.1",
+  "os": [
+    "win32"
+  ],
+  "cpu": [
+    "x64"
+  ],
+  "main": "index.node",
+  "files": [
+    "index.node"
+  ],
+  "neon": {
+    "type": "binary",
+    "rust": "x86_64-pc-windows-msvc",
+    "node": "win32-x64-msvc",
+    "os": "win32",
+    "arch": "x64",
+    "abi": "msvc"
+  },
+  "author": "Andrew Mueller",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/flusterIO/fluster.git"
+  },
+  "keywords": [
+    "academic",
+    "note",
+    "taking",
+    "jupyter",
+    "markdown",
+    "mdx"
+  ],
+  "bugs": {
+    "url": "https://github.com/flusterIO/fluster/issues"
+  },
+  "homepage": "https://github.com/flusterIO/fluster#readme",
+  "license": "ISC"
+}

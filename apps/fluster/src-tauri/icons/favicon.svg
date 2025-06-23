@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="1000" height="1000"><style>
+    #light-icon {
+      display: inline;
+    }
+    #dark-icon {
+      display: none;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      #light-icon {
+        display: none;
+      }
+      #dark-icon {
+        display: inline;
+      }
+    }
+  </style><g id="light-icon"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="1000" height="1000"><g><g transform="matrix(3.7593984962406015,0,0,3.7593984962406015,176.69172932330827,0)"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="172" height="266"><svg width="172" height="266" viewBox="0 0 172 266" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M150.397 0.993164L170.958 37.7305L171.052 37.8994L171.009 38.0879L167.987 51.1133L167.897 51.501L167.5 51.5L76.4678 51.4746L71.5273 143.475H139.56L139.353 144.127L132.998 164.127L132.888 164.475H71.46L66.7295 243.636L93.8271 264.579L94.9844 265.474L93.5215 265.475L2.26074 265.549L0.481445 265.55L2 264.622L37.5508 242.896L47.501 62.8076L22.7783 46.6436L22.5215 46.4746L22.5557 46.1699L23.4717 37.9199L23.5215 37.4746H131.033L149.516 1.01172L149.939 0.174805L150.397 0.993164Z" fill="#1E88F9"></path>
+</svg></svg></g></g></svg></g><g id="dark-icon"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="1000" height="1000"><g clip-path="url(#SvgjsClipPath1834)"><rect width="1000" height="1000" fill="#000000"></rect><g transform="matrix(2.6315789473684212,0,0,2.6315789473684212,273.6842105263158,150)"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="172" height="266"><svg width="172" height="266" viewBox="0 0 172 266" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M150.397 0.993164L170.958 37.7305L171.052 37.8994L171.009 38.0879L167.987 51.1133L167.897 51.501L167.5 51.5L76.4678 51.4746L71.5273 143.475H139.56L139.353 144.127L132.998 164.127L132.888 164.475H71.46L66.7295 243.636L93.8271 264.579L94.9844 265.474L93.5215 265.475L2.26074 265.549L0.481445 265.55L2 264.622L37.5508 242.896L47.501 62.8076L22.7783 46.6436L22.5215 46.4746L22.5557 46.1699L23.4717 37.9199L23.5215 37.4746H131.033L149.516 1.01172L149.939 0.174805L150.397 0.993164Z" fill="#1E88F9"></path>
+</svg></svg></g></g><defs><clipPath id="SvgjsClipPath1834"><rect width="1000" height="1000" x="0" y="0" rx="350" ry="350"></rect></clipPath></defs></svg></g></svg>

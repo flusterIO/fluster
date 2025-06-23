@@ -1,0 +1,6 @@
+@import "fumadocs-ui/css/neutral.css";
+@import "fumadocs-ui/css/preset.css";
+
+div[data-radix-popper-content-wrapper] {
+  background-color: hsl(var(--popover));
+}

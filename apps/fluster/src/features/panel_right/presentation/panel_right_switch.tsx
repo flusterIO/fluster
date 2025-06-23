@@ -1,0 +1,33 @@
+import { type ReactNode } from "react";
+import { useRoutes } from "react-router";
+import { AppRoutes } from "#/router/data/app_routes";
+import SnippetsFilterPanel from "#/snippets/presentation/filter_snippets_panel/filter_snippets_panel";
+import { MdxTocPanelRight } from "#/mdx/presentation/panels/toc_panel_right";
+import { TaskDetailPanelRight } from "#/task_manager/presentation/task_detail_panel_right";
+import { PdfPagePanelRight } from "#/pdf/presentation/pdf_page_panel_right";
+
+const PanelRightSwitch = (): ReactNode => {
+  const n = useRoutes([
+    {
+      path: AppRoutes.snippets,
+      Component: SnippetsFilterPanel,
+    },
+    {
+      path: AppRoutes.viewMdxNote,
+      Component: MdxTocPanelRight,
+    },
+    {
+      path: AppRoutes.taskLists,
+      Component: TaskDetailPanelRight,
+    },
+    {
+      path: AppRoutes.pdf,
+      Component: PdfPagePanelRight,
+    },
+  ]);
+  return n;
+};
+
+PanelRightSwitch.displayName = "PanelRightSwitch";
+
+export default PanelRightSwitch;

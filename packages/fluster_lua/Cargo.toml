@@ -1,0 +1,10 @@
+[package]
+name = "fluster_lua"
+version.workspace = true
+authors.workspace = true
+description.workspace = true
+documentation.workspace = true
+edition.workspace = true
+
+[dependencies]
+mlua.workspace = true

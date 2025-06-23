@@ -1,0 +1,8 @@
+graph TD
+  A[User Interface] --> B{Local Grpc client}
+  A -->| Roadmap | C{Remote rust Grpc client}
+  B --> D(Local rust Grpc server)
+  C --> E(Remote rust Grpc server)
+  D --> F[User's file system directory]
+  E --> G[Remote virtual file system]
+

@@ -1,0 +1,23 @@
+import { ReactNode } from "react";
+
+export interface Size {
+    width: number;
+    height: number;
+}
+
+export interface ChildProps {
+    children: ReactNode;
+}
+
+export interface ClassNameProp {
+    className?: string;
+}
+
+interface PanelResizeEventProps {
+    panel: "left" | "right";
+}
+declare global {
+    interface WindowEventMap {
+        "panel-resize": CustomEvent<PanelResizeEventProps>;
+    }
+}
