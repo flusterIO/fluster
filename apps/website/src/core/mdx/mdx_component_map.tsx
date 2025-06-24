@@ -27,7 +27,7 @@ export function getMDXComponents(components?: MDXComponents): MDXComponents {
             return (
                 <div
                     className={
-                        "pl-4 border-l-4 border-l-primary [&_p]:before:content-none [&_p]:after:content-none"
+                        "pl-4 border-l-4 !border-l-primary [&_p]:before:content-none [&_p]:after:content-none"
                     }
                 >
                     {props.children}
