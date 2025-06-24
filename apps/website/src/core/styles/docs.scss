@@ -1,6 +1,34 @@
-@import "fumadocs-ui/css/neutral.css";
-@import "fumadocs-ui/css/preset.css";
-
 div[data-radix-popper-content-wrapper] {
   background-color: hsl(var(--popover));
+}
+
+aside#nd-sidebar {
+  height: 100%;
+
+  button[data-theme-toggle],
+  button[data-collapsed],
+  button[data-search-full] {
+    display: none;
+  }
+}
+
+div#nd-toc {
+  a {
+    transition-timing-function: cubic-bezier(0.39, 0.575, 0.565, 1);
+    transition-property: color;
+    transition-duration: 200ms;
+    color: hsl(var(--foreground) / 0.8);
+
+    &:hover {
+      color: hsl(var(--foreground));
+    }
+  }
+}
+
+div[data-toc-popover] {
+  background-color: hsl(var(--background));
+
+  a {
+    color: hsl(var(--foreground));
+  }
 }
