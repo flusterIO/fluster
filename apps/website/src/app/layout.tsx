@@ -1,5 +1,5 @@
 /* import "../core/styles/themes.scss"; */
-import "./globals.scss";
+import "../core/styles/globals.scss";
 import localFont from "next/font/local";
 import FumaDocsProvider from "#/features/docs/fuma_docs_provider";
 import Footer from "#/features/footer";

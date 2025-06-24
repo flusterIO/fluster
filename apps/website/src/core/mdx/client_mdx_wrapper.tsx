@@ -4,11 +4,11 @@ import { getMDXComponents } from "./mdx_component_map";
 import { MDXContent } from "@content-collections/mdx/react";
 
 interface ClientMdxWrapperProps {
-  body: string;
+    body: string;
 }
 
 export const ClientMdxWrapper = (props: ClientMdxWrapperProps): ReactNode => {
-  return <MDXContent code={props.body} components={getMDXComponents()} />;
+    return <MDXContent code={props.body} components={getMDXComponents()} />;
 };
 
 ClientMdxWrapper.displayName = "ClientMdxWrapper";
