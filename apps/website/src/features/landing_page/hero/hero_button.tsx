@@ -1,8 +1,8 @@
-"use client"
+"use client";
 import React, { ComponentProps } from "react";
 import NextLink from "next/link";
 import { motion } from "framer-motion";
-import { cn } from "@fluster.io/dev";
+import { cn } from "#/core/utils/cn";
 
 const Link = motion.create(NextLink);
 

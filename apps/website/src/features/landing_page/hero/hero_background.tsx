@@ -1,6 +1,6 @@
 "use client";
+import { cn } from "#/core/utils/cn";
 import PreventSharpEdges from "#/util_components/prevent_sharp_edges";
-import { cn } from "@fluster.io/dev";
 import {
     useMotionValue,
     motion,
@@ -41,6 +41,7 @@ export const HeroBackground = ({
         return () => {
             window.addEventListener("mousemove", handleMouseMove);
         };
+        /* eslint-disable-next-line  --  */
     }, []);
 
     useEffect(() => {

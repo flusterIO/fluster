@@ -1,7 +1,7 @@
-"use client"
-import { cn } from "@fluster.io/dev";
+"use client";
 import React from "react";
 import { useMediaQuery } from "react-responsive";
+import { cn } from "../utils/cn";
 
 interface LogoAsTextProps {
     fontSize?: number | "h1";

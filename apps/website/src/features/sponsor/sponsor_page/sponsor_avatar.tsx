@@ -1,6 +1,6 @@
+import { cn } from "#/core/utils/cn";
 import Image, { ImageProps } from "next/image";
 import React from "react";
-import { cn } from "@fluster.io/dev";
 
 interface SponsorAvatarProps extends Omit<ImageProps, "src" | "alt"> {
     avatarUrl: string;

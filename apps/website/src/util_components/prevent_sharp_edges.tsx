@@ -1,6 +1,6 @@
-"use client"
+"use client";
+import { cn } from "#/core/utils/cn";
 import React from "react";
-import { cn } from "@fluster.io/dev";
 
 interface PreventSharpEdgesProps {
     className?: string;

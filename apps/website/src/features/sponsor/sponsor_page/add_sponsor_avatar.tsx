@@ -1,12 +1,12 @@
 "use client";
-import { staticContent } from "#/core/static_content";
+import { PatreonIcon } from "#/core/icons/patreon";
+import { PaypalIcon } from "#/core/icons/paypal";
 import {
-    PaypalIcon,
-    PatreonIcon,
     DropdownMenu,
-    DropdownMenuTrigger,
     DropdownMenuContent,
-} from "@fluster.io/dev";
+    DropdownMenuTrigger,
+} from "#/core/shad/ui/dropdown-menu";
+import { staticContent } from "#/core/static_content";
 import { GithubIcon, PlusIcon } from "lucide-react";
 import React from "react";
 

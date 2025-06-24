@@ -9,7 +9,7 @@ import ResumeColumnZipper from "./resume_column_zipper";
 import ResumeProjectItem from "./resume_project_item";
 import WorkHistoryItem from "./resume_work_history";
 import ResumeGridColoumnWrapper from "./resume_grid_col_wrapper";
-import ResumeSection from "./resume_section"
+import ResumeSection from "./resume_section";
 
 const ResumePage = () => {
     const data = getResumeData();

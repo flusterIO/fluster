@@ -2,8 +2,8 @@
 import React from "react";
 import clsx from "clsx";
 import { motion } from "framer-motion";
-import { ResumeData } from "../resume_data";
 import { MapPinIcon } from "lucide-react";
+import { ResumeData } from "./resume_data";
 
 interface WorkHistoryItemProps {
     initialDelay: number;

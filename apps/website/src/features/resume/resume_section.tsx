@@ -2,7 +2,7 @@ import React, { ReactNode } from "react";
 import ResumeSectionLabel from "./resume_section_label";
 import clsx from "clsx";
 import ResumeSectionDescription from "./resume_section_description";
-import { cn } from "@fluster.io/dev";
+import { cn } from "#/core/utils/cn";
 
 interface ResumeSectionProps {
     label: ReactNode;

@@ -7,14 +7,12 @@ import {
     contactTypes,
     ValidatedBusinessInterest,
 } from "./formSchema";
-import {
-    TextInputGroup as TextInput,
-    TextAreaInput,
-    GeneralSelectInput,
-    Button,
-    Form,
-} from "@fluster.io/dev";
 import { useForm } from "react-hook-form";
+import { Form } from "#/core/shad/ui/form";
+import { TextInputGroup } from "#/core/inputs/text_input_group/main";
+import { Button } from "#/core/shad/ui/button";
+import { GeneralSelectInput } from "#/core/inputs/general_select";
+import { TextAreaInput } from "#/core/inputs/text_area";
 
 const BusinessInterestForm = () => {
     const form = useForm({
@@ -46,7 +44,7 @@ const BusinessInterestForm = () => {
                 onSubmit={form.handleSubmit(handleSubmit)}
             >
                 <div className="space-y-6 flex flex-col md:space-y-0 md:flex-row gap-x-4 w-full">
-                    <TextInput
+                    <TextInputGroup
                         form={form}
                         label="Company"
                         name="companyName"
@@ -54,7 +52,7 @@ const BusinessInterestForm = () => {
                             formItem: "w-full md:w-1/2",
                         }}
                     />
-                    <TextInput
+                    <TextInputGroup
                         form={form}
                         label="Name"
                         name="contactName"
@@ -108,8 +106,8 @@ const BusinessInterestForm = () => {
                 <div
                     className={"w-full grid grid-cols-1 md:grid-cols-2 gap-x-4 gap-y-6"}
                 >
-                    <TextInput form={form} name="email" label="Email" />
-                    <TextInput form={form} name="phone" label="Phone" />
+                    <TextInputGroup form={form} name="email" label="Email" />
+                    <TextInputGroup form={form} name="phone" label="Phone" />
                 </div>
                 <div className={"w-full flex flex-row justify-end items-center"}>
                     <Button type="submit">Submit</Button>

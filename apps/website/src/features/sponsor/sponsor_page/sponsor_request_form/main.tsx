@@ -1,6 +1,6 @@
-import { Separator } from "@fluster.io/dev";
 import React from "react";
 import BusinessInterestForm from "./form";
+import { Separator } from "#/core/shad/ui/separator";
 
 const SponsorshipRequestForm = () => {
     return (

@@ -3,9 +3,9 @@ import React, { FC } from "react";
 import NextImage from "next/image";
 import dayjs from "dayjs";
 import { motion } from "framer-motion";
-import { ResumeData } from "../resume_data";
-import { GithubIcon } from "@fluster.io/dev";
 import { CakeIcon, GlobeIcon, MailIcon, LinkedinIcon } from "lucide-react";
+import { ResumeData } from "./resume_data";
+import { GithubIcon } from "#/core/icons/github";
 
 const Image = motion(NextImage);
 

@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import { motion } from "framer-motion";
-import { ResumeData } from "../resume_data";
+import { ResumeData } from "./resume_data";
 
 type ResumeIntroProps = Pick<ResumeData, "intro">;
 

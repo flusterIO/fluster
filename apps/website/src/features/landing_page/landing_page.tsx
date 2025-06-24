@@ -5,7 +5,6 @@ import { HighlightedFeaturesSection } from "./sections/feature_section";
 import EverythingYouNeedSection from "./sections/everything_you_need_section";
 import { MainSponsorSection } from "./sections/sponsors_section";
 import { StoryOfFlusterSection } from "./sections/story_of_ulld_section/index";
-import Footer from "../footer";
 
 const LandingPage = (): ReactNode => {
     return (

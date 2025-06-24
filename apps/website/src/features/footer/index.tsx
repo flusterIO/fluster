@@ -2,11 +2,13 @@
 import { motion, useInView } from "framer-motion";
 import React, { useRef } from "react";
 import LinkGroup from "./link_group";
-import { GithubIcon, PaypalIcon, PatreonIcon } from "@fluster.io/dev";
 import FooterBanners from "./footer_banner";
 import clsx from "clsx";
 import { FooterLinkKeys, footerLinks } from "./data";
 import { staticContent } from "#/core/static_content";
+import { GithubIcon } from "#/core/icons/github";
+import { PaypalIcon } from "#/core/icons/paypal";
+import { PatreonIcon } from "#/core/icons/patreon";
 
 const copyRightString = `© Fluster ${new Date().getFullYear()} - All rights reserved, but do your thang`;
 

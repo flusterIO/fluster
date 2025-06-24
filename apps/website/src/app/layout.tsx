@@ -1,4 +1,4 @@
-import "@fluster.io/dev/themes.css";
+import "../core/styles/themes.scss";
 import "./globals.scss";
 import localFont from "next/font/local";
 import FumaDocsProvider from "#/features/docs/fuma_docs_provider";

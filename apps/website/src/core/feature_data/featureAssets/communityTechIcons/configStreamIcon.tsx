@@ -9,7 +9,7 @@ import React, {
 } from "react";
 import { Variants, motion, useAnimate } from "framer-motion";
 import clsx from "clsx";
-import { useViewport } from "@fluster.io/dev";
+import { useViewport } from "#/core/hooks/use_viewport";
 
 const BoltIcon = motion.create(BoltIconComp);
 
@@ -296,6 +296,7 @@ const ConfigStreamIcon = ({
         if (animFinished) {
             handleResize();
         }
+        /* eslint-disable-next-line  --  */
     }, [vp, animFinished]);
     useEffect(() => {
         if (show) {
@@ -311,6 +312,7 @@ const ConfigStreamIcon = ({
             }
             setStreamIndex("all");
         };
+        /* eslint-disable-next-line  --  */
     }, [show]);
 
     return (

@@ -5,7 +5,7 @@ import { TechIconLink } from "./featureAssets/communityTechIcons/techIconLink";
 import { techIconClasses } from "./pluginArchitecture";
 import { FeaturedContainerPropsRequired } from "#/features/landing_page/sections/feature_section/types";
 import { FeatureDescContainer } from "#/features/landing_page/sections/feature_section/feature_desc_container";
-import { buttonVariants } from "@fluster.io/dev";
+import { buttonVariants } from "../shad/ui/button";
 
 export const integrationsFeature: FeaturedContainerPropsRequired = {
     label: () => {

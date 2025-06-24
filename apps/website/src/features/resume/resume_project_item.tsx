@@ -4,7 +4,7 @@ import clsx from "clsx";
 import { motion } from "framer-motion";
 import { ResumeData } from "./resume_data";
 import { HouseIcon } from "lucide-react";
-import { GithubIcon } from "@fluster.io/dev";
+import { GithubIcon } from "#/core/icons/github";
 
 interface ResumeProjectItemProps {
     dir: "right" | "left";
