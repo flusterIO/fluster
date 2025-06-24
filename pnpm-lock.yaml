@@ -655,6 +655,9 @@ importers:
       recharts:
         specifier: ^3.0.0
         version: 3.0.0(@types/react@19.1.5)(react-dom@19.1.0(react@19.1.0))(react-is@19.1.0)(react@19.1.0)(redux@5.0.1)
+      rehype-mathjax:
+        specifier: 7.1.0
+        version: 7.1.0
       remark-emoji:
         specifier: 5.0.1
         version: 5.0.1
