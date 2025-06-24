@@ -37,7 +37,6 @@ export const PdfPagePanelRight = ({
 
     useEffect(() => {
         if (view && view !== form.getValues("view")) {
-            console.log("Setting value");
             form.setValue("view", view as PdfView);
         }
         /* eslint-disable-next-line  --  */

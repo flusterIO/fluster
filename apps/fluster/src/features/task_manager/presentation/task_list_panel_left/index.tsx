@@ -1,6 +1,7 @@
 import SidePanelContainer from "@/components/side_panel_container";
 import { commands, TaskListModel } from "@/lib/bindings";
 import {
+    AppRoutes,
     Button,
     Form,
     TextInputGroup,
@@ -11,6 +12,9 @@ import React, { useEffect, useRef, useState, type ReactNode } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { TaskListCard } from "./task_list_card";
+import { useMatch } from "react-router";
+import { connect } from "react-redux";
+import { AppState } from "@/state/initial_state";
 
 const schema = z.object({
     inputValue: z.string(),
@@ -22,87 +26,108 @@ declare global {
     }
 }
 
-export const TaskListPanelLeft = (): ReactNode => {
-    const [lists, setLists] = useState<TaskListModel[]>([]);
-    const inputValue = useRef("");
-    const form = useForm({
-        resolver: zodResolver(schema),
-        defaultValues: {
-            inputValue: "",
-        },
-    });
-    const isValidInput = (inputVal: string): boolean => {
-        const inputValLowercase = inputVal.toLowerCase();
-        return (
-            inputVal.length >= 3 &&
-            !lists.some((x) => x.label.toLowerCase() === inputValLowercase)
-        );
-    };
-    const _inputValue = form.watch("inputValue");
-    useEffect(() => {
-        inputValue.current = _inputValue;
-    }, [_inputValue]);
+const connector = connect((state: AppState) => ({
+    open: state.panelLeft.open,
+}));
 
-    const getListData = async (): Promise<void> => {
-        const res = await commands.getAllTaskLists();
-        if (res.status === "ok") {
-            setLists(res.data);
-        } else {
-            console.error(
-                "An error occurred while attempting to read tasks lists from the database: ",
-                res.error
+export const TaskListPanelLeft = connector(
+    ({ open }: { open: boolean }): ReactNode => {
+        const [lists, setLists] = useState<TaskListModel[]>([]);
+        const inputValue = useRef("");
+        const form = useForm({
+            resolver: zodResolver(schema),
+            defaultValues: {
+                inputValue: "",
+            },
+        });
+        const isTaskPage = useMatch(AppRoutes.taskLists);
+
+        useEffect(() => {
+            if (open && isTaskPage) {
+                document.getElementById("new-task-list-input")?.focus();
+            }
+        }, [open, isTaskPage]);
+
+        const isValidInput = (inputVal: string): boolean => {
+            const inputValLowercase = inputVal.toLowerCase();
+            return (
+                inputVal.length >= 3 &&
+                !lists.some((x) => x.label.toLowerCase() === inputValLowercase)
             );
-        }
-    };
-    useEffect(() => {
-        getListData();
-    }, []);
-    useEventListener("request-task-lists-refresh", () => {
-        getListData();
-    });
+        };
+        const _inputValue = form.watch("inputValue");
+        useEffect(() => {
+            inputValue.current = _inputValue;
+        }, [_inputValue]);
 
-    const handleCreateList = async (): Promise<void> => {
-        if (isValidInput(inputValue.current)) {
-            const now = new Date().valueOf().toString();
-            const id = await commands.getUniqueId();
-            const res = await commands.createTaskList({
-                label: inputValue.current,
-                ctime: now,
-                desc: "",
-                id,
-            });
+        const getListData = async (): Promise<void> => {
+            const res = await commands.getAllTaskLists();
             if (res.status === "ok") {
-                form.setValue("inputValue", "");
-                await getListData();
+                setLists(res.data);
             } else {
                 console.error(
-                    "An error occurred while creating this task list: ",
+                    "An error occurred while attempting to read tasks lists from the database: ",
                     res.error
                 );
             }
-        }
-    };
+        };
+        useEffect(() => {
+            getListData();
+        }, []);
+        useEventListener("request-task-lists-refresh", () => {
+            getListData();
+        });
 
-    return (
-        <SidePanelContainer className="px-4" label="Task Lists">
-            <Form {...form}>
-                <TextInputGroup label="New List" form={form} name="inputValue" />
-                <div className="w-full flex flex-row justify-end items-center">
-                    <Button
-                        disabled={!isValidInput(_inputValue)}
-                        onClick={handleCreateList}
-                    >
-                        Create
-                    </Button>
+        const handleCreateList = async (): Promise<void> => {
+            if (isValidInput(inputValue.current)) {
+                const now = new Date().valueOf().toString();
+                const id = await commands.getUniqueId();
+                const res = await commands.createTaskList({
+                    label: inputValue.current,
+                    ctime: now,
+                    desc: "",
+                    id,
+                });
+                if (res.status === "ok") {
+                    form.setValue("inputValue", "");
+                    await getListData();
+                } else {
+                    console.error(
+                        "An error occurred while creating this task list: ",
+                        res.error
+                    );
+                }
+            }
+        };
+
+        return (
+            <SidePanelContainer className="px-4" label="Task Lists">
+                <Form {...form}>
+                    <TextInputGroup
+                        ids={{
+                            input: "new-task-list-input",
+                        }}
+                        label="New List"
+                        form={form}
+                        name="inputValue"
+                    />
+                    <div className="w-full flex flex-row justify-end items-center">
+                        <Button
+                            disabled={!isValidInput(_inputValue)}
+                            onClick={handleCreateList}
+                        >
+                            Create
+                        </Button>
+                    </div>
+                </Form>
+                <div className="w-full flex flex-col justify-start items-start gap-4">
+                    {lists.map((l) => {
+                        return <TaskListCard key={l.id} item={l} />;
+                    })}
                 </div>
-            </Form>
-            <div className="w-full flex flex-col justify-start items-start gap-4">
-                {lists.map((l) => {
-                    return <TaskListCard key={l.id} item={l} />;
-                })}
-            </div>
-        </SidePanelContainer>
-    );
-};
+            </SidePanelContainer>
+        );
+    }
+);
 
 TaskListPanelLeft.displayName = "TaskListPanelLeft";

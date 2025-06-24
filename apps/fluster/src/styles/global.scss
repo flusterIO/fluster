@@ -200,3 +200,9 @@ figure[data-rehype-pretty-code-figure] {
     }
   }
 }
+
+span[data-rehype-pretty-code-figure] {
+  code {
+    border-radius: 4px;
+  }
+}

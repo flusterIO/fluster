@@ -1,10 +1,6 @@
-import React, { useEffect, useRef, type ReactNode } from "react";
+import React, { type ReactNode } from "react";
 import PanelRightSwitch from "./panel_right_switch";
-import {
-    ImperativePanelHandle,
-    Panel,
-    PanelResizeHandle,
-} from "react-resizable-panels";
+import { Panel, PanelResizeHandle } from "react-resizable-panels";
 import { connect } from "react-redux";
 import { AppState } from "@/state/initial_state";
 
@@ -19,10 +15,6 @@ interface PanelRightDesktopProps {
 
 const PanelRightDesktop = connector(
     ({ open, order = 3 }: PanelRightDesktopProps): ReactNode => {
-        const ref = useRef<ImperativePanelHandle>(null!);
-        useEffect(() => {
-            ref.current.getSize();
-        }, []);
         if (!open) {
             return null;
         }
@@ -30,7 +22,6 @@ const PanelRightDesktop = connector(
             <>
                 <PanelResizeHandle />
                 <Panel
-                    ref={ref}
                     id="panel-right"
                     defaultSize={25}
                     /* minSize={64} */

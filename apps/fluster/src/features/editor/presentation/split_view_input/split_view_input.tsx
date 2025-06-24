@@ -33,7 +33,7 @@ export const SplitViewTextAreaInput = <T extends FieldValues>({
     form,
     name,
     label,
-    desc = "Use cmd+shift+Enter to open a full screen editor.",
+    desc = "Use cmd+shift+Enter to open a full screen editor. Then use cmd+Enter to submit the editors value and return here.",
     rows = 5,
     language = "mdx",
     classes = {},
@@ -89,7 +89,7 @@ export const SplitViewTextAreaInput = <T extends FieldValues>({
                                         }}
                                     />
                                     {desc?.length ? (
-                                        <FormDescription>{desc}</FormDescription>
+                                        <FormDescription className="mt-2">{desc}</FormDescription>
                                     ) : null}
                                     <FormMessage />
                                 </div>

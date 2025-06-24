@@ -17,6 +17,11 @@ interface TextInputGroupProps<T extends FieldValues> extends FormInputProps<T> {
         ComponentProps<typeof Input>,
         "onChange" | "value" | "className"
     >;
+    ids?: {
+        formItem?: string;
+        container?: string;
+        input?: string;
+    };
     classes?: {
         formItem?: string;
         container?: string;
@@ -30,6 +35,7 @@ export const TextInputGroup = <T extends FieldValues>({
     name,
     desc,
     classes = {},
+    ids = {},
     inputProps,
 }: TextInputGroupProps<T>): ReactNode => {
     return (
@@ -38,13 +44,20 @@ export const TextInputGroup = <T extends FieldValues>({
             name={name}
             render={({ field }) => {
                 return (
-                    <FormItem className={cn("w-full max-w-[600px]", classes.formItem)}>
+                    <FormItem
+                        id={ids.formItem}
+                        className={cn("w-full max-w-[600px]", classes.formItem)}
+                    >
                         <FormLabel>{label}</FormLabel>
                         <FormControl>
-                            <div className={cn("w-full max-w-[600px]", classes.container)}>
+                            <div
+                                id={ids.container}
+                                className={cn("w-full max-w-[600px]", classes.container)}
+                            >
                                 <Input
                                     {...inputProps}
                                     value={field.value}
+                                    id={ids.input}
                                     onChange={(e) =>
                                         form.setValue(
                                             name,
