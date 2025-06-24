@@ -1,8 +1,8 @@
-@layer theme, base, components, utilities;
-@import "tailwindcss/theme.css" layer(theme);
-@import "tailwindcss/preflight.css" layer(base);
-@import "tailwindcss/utilities.css" layer(utilities);
-/* @import "tailwindcss"; */
+/* @layer theme, base, components, utilities; */
+/* @import "tailwindcss/theme.css" layer(theme); */
+/* @import "tailwindcss/preflight.css" layer(base); */
+/* @import "tailwindcss/utilities.css" layer(utilities); */
+@import "tailwindcss";
 @source "../../../node_modules/fumadocs-ui/dist/**/*.{js,ts,tsx,jsx,mdx}";
 @source "../../../../../docs/website/**/*.{mdx,tsx,jsx,ts,js}";
 @source "../../../content/**/*.mdx";
@@ -10,66 +10,68 @@
 /* @config "../../../.tailwind.config.cjs"; */
 @plugin "@tailwindcss/typography";
 @plugin "@tailwindcss/container-queries";
+@plugin "tailwindcss-animate";
 /* @pplugin */
 
-:root {
-  --radius: 0.5rem;
-  --brand: 198.6 88.7% 48.4%;
-  --background: 222.2 84% 4.9%;
-  --foreground: 210 40% 98%;
-  --card: 222.2 84% 4.9%;
-  --card-foreground: 210 40% 98%;
-  --popover: 222.2 84% 4.9%;
-  --primary: 217.2 91.2% 59.8%;
-  --primary-rgb: #0ba5e9;
-  --primary-h: 198.6;
-  --primary-s: 88.7%;
-  --primary-l: 48.4%;
-  --primary-foreground: 210 40% 98%;
-  --secondary: 217.2 32.6% 17.5%;
-  --secondary-foreground: 210 40% 98%;
-  --muted: 217.2 32.6% 17.5%;
-  --muted-foreground: 215 20.2% 65.1%;
-  --accent: 217.2 32.6% 17.5%;
-  --accent-foreground: 210 40% 98%;
-  --destructive: 0 62.8% 30.6%;
-  --destructive-foreground: 210 40% 98%;
-  --border: 217.2 32.6% 17.5%;
-  --input: 217.2 32.6% 17.5%;
-  --ring: 224.3 76.3% 48%;
-  --general-link-color: #1e90ff;
-  // Fluster specfic color variables. This is not the whole set, but just what's required for the website.
-  --fluster-hint: 120 100% 50%;
+@layer base {
+  :root {
+    --radius: 0.5rem;
+    --brand: 198.6 88.7% 48.4%;
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
+    --popover: hsl(222.2 84% 4.9%);
+    --primary: 217.2 91.2% 59.8%;
+    --primary-rgb: #0ba5e9;
+    --primary-h: 198.6;
+    --primary-s: 88.7%;
+    --primary-l: 48.4%;
+    --primary-foreground: 210 40% 98%;
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 224.3 76.3% 48%;
+    --general-link-color: #1e90ff;
+    // Fluster specfic color variables. This is not the whole set, but just what's required for the website.
+    --fluster-hint: 120 100% 50%;
+  }
 }
 
-@theme inline {
+@theme {
   --radius: hsl(var(--radius));
-  --brand: hsl(var(--brand));
-  --background: hsl(var(--background));
-  --foreground: hsl(var(--foreground));
-  --card: hsl(var(--card));
-  --card-foreground: hsl(var(--card-foreground));
-  --popover: hsl(var(--popover));
-  --primary: hsl(var(--primary));
-  --primary-rgb: hsl(var(--primary-rgb));
-  --primary-h: hsl(var(--primary-h));
-  --primary-s: hsl(var(--primary-s));
-  --primary-l: hsl(var(--primary-l));
-  --primary-foreground: hsl(var(--primary-foreground));
-  --secondary: 217.2 32.6% hsl(var(--secondary));
-  --secondary-foreground: hsl(var(--secondary-foreground));
-  --muted: hsl(var(--muted));
-  --muted-foreground: hsl(var(--muted-foreground));
-  --accent: hsl(var(--accent));
-  --accent-foreground: hsl(var(--accent-foreground));
-  --destructive: hsl(var(--destructive));
-  --destructive-foreground: hsl(var(--destructive-foreground));
-  --border: hsl(var(--border));
-  --input: hsl(var(--input));
-  --ring: hsl(var(--ring));
-  --general-link-color: hsl(var(--general-link-color));
-  // Fluster specfic color variables. This is not the whole set, but just what's required for the website.
-  --fluster-hint: hsl(var(--fluster-hint));
+  --color-brand: hsl(var(--brand));
+  --color-background: hsl(var(--background));
+  --color-foreground: hsl(var(--foreground));
+  --color-card: hsl(var(--card));
+  --color-card-foreground: hsl(var(--card-foreground));
+  --color-popover: hsl(var(--popover));
+  --color-primary: hsl(var(--primary));
+  --color-primary-rgb: hsl(var(--primary-rgb));
+  --color-primary-h: hsl(var(--primary-h));
+  --color-primary-s: hsl(var(--primary-s));
+  --color-primary-l: hsl(var(--primary-l));
+  --color-primary-foreground: hsl(var(--primary-foreground));
+  --color-secondary: 217.2 32.6% hsl(var(--secondary));
+  --color-secondary-foreground: hsl(var(--secondary-foreground));
+  --color-muted: hsl(var(--muted));
+  --color-muted-foreground: hsl(var(--muted-foreground));
+  --color-accent: hsl(var(--accent));
+  --color-accent-foreground: hsl(var(--accent-foreground));
+  --color-destructive: hsl(var(--destructive));
+  --color-destructive-foreground: hsl(var(--destructive-foreground));
+  --color-border: hsl(var(--border));
+  --color-input: hsl(var(--input));
+  --color-ring: hsl(var(--ring));
+  --color-general-link-color: hsl(var(--general-link-color));
+  --color-fluster-hint: hsl(var(--fluster-hint));
 }
 
 body {

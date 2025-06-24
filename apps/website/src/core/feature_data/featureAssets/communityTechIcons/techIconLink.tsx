@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import React from "react";
 import cssIcon from "./css.svg";
 import nextIcon from "./next.svg";
@@ -49,7 +49,7 @@ const icons: { [k in TechIconType]: typeof cssIcon } = {
     googleCalendar: googleCalIcon,
     latex: latexIcon,
     mdx: mdxIcon,
-    shad: shadIcon
+    shad: shadIcon,
 };
 
 const alt: { [k in TechIconType]: typeof cssIcon } = {
@@ -66,7 +66,7 @@ const alt: { [k in TechIconType]: typeof cssIcon } = {
     mdx: "MDX",
     google: "Google",
     googleCalendar: "Google Calendar",
-    shad: "shadcn"
+    shad: "shadcn",
 };
 
 const docs: { [k in TechIconType]: string } = {
@@ -79,11 +79,14 @@ const docs: { [k in TechIconType]: string } = {
     ts: "https://www.typescriptlang.org",
     redux: "https://redux.js.org",
     jupyter: "https://docs.jupyter.org/en/latest/",
-    google: "https://developers.google.com/identity/protocols/oauth://developers.google.com/identity/protocols/oauth2/",
-    googleCalendar: "https://developers.google.com/identity/protocols/oauth://developers.google.com/identity/protocols/oauth2/",
-    latex: "https://www.latex-project.org/help/documentation://www.latex-project.org/help/documentation/",
+    google:
+        "https://developers.google.com/identity/protocols/oauth://developers.google.com/identity/protocols/oauth2/",
+    googleCalendar:
+        "https://developers.google.com/identity/protocols/oauth://developers.google.com/identity/protocols/oauth2/",
+    latex:
+        "https://www.latex-project.org/help/documentation://www.latex-project.org/help/documentation/",
     mdx: "https://mdxjs.com/docs://mdxjs.com/docs/",
-    shad: "https://ui.shadcn.com/docs"
+    shad: "https://ui.shadcn.com/docs",
 };
 
 interface TechIconLinkProps {
@@ -102,7 +105,10 @@ export const TechIconLink = ({
     return (
         <motion.a
             href={docs[icon]}
-            className={clsx("relative tech-icon-link opacity-0 scale-0 max-w-[80px] max-h-[80px]", className)}
+            className={clsx(
+                "relative tech-icon-link max-w-[80px] max-h-[80px]",
+                className
+            )}
             initial="hide"
             animate={show ? "show" : "hide"}
             variants={{

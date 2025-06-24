@@ -14,6 +14,7 @@ const SponsorLogoSampleCard = ({ isPrimary }: SponsorLogoSampleCardProps) => {
             classes={{
                 container: clsx("w-full", isPrimary ? "" : "lg:w-[calc(50%-1rem)]"),
                 title: "text-3xl font-bold",
+                card: "bg-[hsl(var(--card))]",
             }}
             isPrimary={isPrimary}
             logo={

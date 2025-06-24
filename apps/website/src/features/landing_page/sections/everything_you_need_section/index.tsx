@@ -91,7 +91,7 @@ const EverythingYouNeedSection = (): ReactNode => {
                         return (
                             <Card
                                 key={d.title}
-                                className="border-2 hover:border-lightBlue-500 transition-colors"
+                                className="border-2 hover:border-sky-500 transition-colors"
                             >
                                 <CardHeader>
                                     <d.icon className="w-10 h-10 text-primary mb-2" />

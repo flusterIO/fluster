@@ -12,11 +12,13 @@ export const integrationsFeature: FeaturedContainerPropsRequired = {
         return (
             <span className={"relative"}>
                 <span
-                    className={"text-3xl absolute left-0 top-[50%] translate-y-[-50%]"}
+                    className={
+                        "text-3xl absolute left-0 top-[50%] translate-y-[-50%] contents"
+                    }
                 >
                     ∫
                 </span>
-                <span className={"pl-2"}>ntegration</span>
+                <span>ntegration</span>
             </span>
         );
     },

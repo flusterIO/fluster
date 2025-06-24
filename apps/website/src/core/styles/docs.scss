@@ -37,6 +37,7 @@ div[data-toc-popover] {
 code {
   span {
     color: var(--shiki-light);
+      font-weight: var(--shiki-light-font-weight);
   }
 }
 
@@ -44,6 +45,7 @@ code {
   code {
     span {
       color: var(--shiki-dark);
+      font-weight: var(--shiki-dark-font-weight);
     }
   }
 }

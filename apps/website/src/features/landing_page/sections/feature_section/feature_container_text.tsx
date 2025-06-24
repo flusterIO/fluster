@@ -36,8 +36,8 @@ const FeatureContainerText = ({
         >
             <motion.h3
                 className={clsx(
-                    "feature-animate opacity-0 text-muted-foreground text-2xl font-semibold mt-2",
-                    ltr ? "translate-x-[-100px]" : "translate-x-[100px]",
+                    "feature-animate opacity-0 text-muted-foreground text-2xl font-semibold mt-2"
+                    /* ltr ? "translate-x-[-100px]" : "translate-x-[100px]" */
                 )}
                 variants={{
                     show: {
@@ -45,7 +45,7 @@ const FeatureContainerText = ({
                         opacity: 1,
                         transition: {
                             duration: 0.5,
-                            delay
+                            delay,
                         },
                     },
                     hide: {
@@ -67,8 +67,8 @@ const FeatureContainerText = ({
             </motion.h3>
             <motion.h2
                 className={clsx(
-                    "feature-animate opacity-0 text-foreground text-4xl font-bold",
-                    ltr ? "translate-x-[-100px]" : "translate-x-[100px]",
+                    "feature-animate opacity-0 text-foreground text-4xl font-bold"
+                    /* ltr ? "translate-x-[-10x]" : "translate-x-[100px]" */
                 )}
                 initial={"hide"}
                 animate={shouldShow ? "show" : "hide"}
@@ -78,7 +78,7 @@ const FeatureContainerText = ({
                         opacity: 1,
                         transition: {
                             duration: 0.5,
-                            delay: delay + 0.25
+                            delay: delay + 0.25,
                         },
                     },
                     hide: {
@@ -98,7 +98,7 @@ const FeatureContainerText = ({
             </motion.h2>
             <motion.div
                 className={clsx(
-                    "feature-animate opacity-0 origin-center text-foreground text-lg mt-4",
+                    "feature-animate opacity-0 origin-center text-foreground text-lg mt-4"
                 )}
                 animate={shouldShow ? "show" : "hide"}
                 initial={"hide"}

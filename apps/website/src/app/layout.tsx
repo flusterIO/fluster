@@ -61,7 +61,6 @@ export default function RootLayout({
             <body className={`antialiased background`}>
                 <FumaDocsProvider>
                     <div>{children}</div>
-                    <Footer />
                 </FumaDocsProvider>
             </body>
         </html>
