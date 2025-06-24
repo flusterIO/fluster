@@ -2,7 +2,7 @@ import defaultMdxComponents from "fumadocs-ui/mdx";
 import type { MDXComponents } from "mdx/types";
 import { ReactNode } from "react";
 import { Hint } from "../components/hint";
-import { Mermaid } from "#/features/docs/embedded_components/mermaid";
+/* import { Mermaid } from "#/features/docs/embedded_components/mermaid"; */
 import { CodeBlock, Pre } from "fumadocs-ui/components/codeblock";
 
 export function getMDXComponents(components?: MDXComponents): MDXComponents {

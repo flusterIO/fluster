@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import { MotionProps, motion } from "framer-motion";
-import { HeroBackground } from "./hero_background";
+import { HeroBackground } from "./new_hero_background";
 import Link from "next/link";
 import { Book, Brain, Download, Globe, Sparkles, Zap } from "lucide-react";
 import { Badge } from "#/core/shad/ui/badge";
@@ -22,8 +22,6 @@ const variants: MotionProps["variants"] = {
         scale: 0,
     },
 };
-
-/* const buttonMotionVariants: Variants  = { */
 
 const HeroSection = () => {
     return (
@@ -81,7 +79,7 @@ const HeroSection = () => {
                     <MotionLink
                         href={"/downloads"}
                         className={cn(
-                            "bg-gradient-to-r from-blue-600 to-primary hover:from-blue-700 hover:to-primary",
+                            "z-10 bg-gradient-to-r from-blue-600 to-primary hover:from-blue-700 hover:to-primary",
                             buttonVariants()
                         )}
                         animate="show"
@@ -106,7 +104,7 @@ const HeroSection = () => {
                     <MotionLink
                         href={"/docs/user"}
                         className={cn(
-                            "bg-gradient-to-r from-blue-600 to-primary hover:from-blue-700 hover:to-primary",
+                            "z-10 bg-gradient-to-r from-blue-600 to-primary hover:from-blue-700 hover:to-primary",
                             buttonVariants()
                         )}
                         animate="show"
@@ -146,13 +144,13 @@ const HeroSection = () => {
                         transition={{
                             delay: 0.7,
                         }}
-                        className="flex items-center"
+                        className="z-10 flex items-center"
                     >
                         <Globe className="w-4 h-4 mr-2" />
                         Cross-Platform
                     </motion.div>
                     <motion.div
-                        className="flex items-center"
+                        className="z-10 flex items-center"
                         initial="initial"
                         animate="animate"
                         variants={{
@@ -173,7 +171,7 @@ const HeroSection = () => {
                         Rust Performance
                     </motion.div>
                     <motion.div
-                        className="flex items-center"
+                        className="z-10 flex items-center"
                         initial="initial"
                         animate="animate"
                         variants={{
