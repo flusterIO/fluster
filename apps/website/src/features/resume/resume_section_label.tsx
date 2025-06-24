@@ -16,7 +16,7 @@ const ResumeSectionLabel = ({
     dir,
     delay,
 }: ResumeSectionLabelProps) => {
-    const heightRatio = (labelHeight + 1.5) / Math.SQRT2;
+    const heightRatio = (labelHeight - 1.5) / Math.SQRT2;
 
     return (
         <>
@@ -65,16 +65,16 @@ const ResumeSectionLabel = ({
                     {children}
                 </div>
                 <div
-                    className={clsx("absolute top-[3.5px] rotate-45 bg-primary z-[-1]")}
+                    className={clsx("absolute top-[4.5px] rotate-45 bg-primary z-[-1]")}
                     style={{
                         height: `${heightRatio}px`,
                         width: `${heightRatio}px`,
                         ...(dir === "right"
                             ? {
-                                right: `-17px`,
+                                right: `-14px`,
                             }
                             : {
-                                left: `-17px`,
+                                left: `-14px`,
                             }),
                     }}
                 />
