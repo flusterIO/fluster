@@ -5,45 +5,41 @@ import { togglePanelRight } from "#/panel_right/state/slice";
 import { togglePanelLeft } from "#/panel_left/state/slice";
 
 export type GlobalKeymapActionId = Exclude<
-  KeymapId,
-  KeymapId.editorCommandPalette | KeymapId.selectLeft | KeymapId.selectRight
+    KeymapId,
+    KeymapId.editorCommandPalette | KeymapId.selectLeft | KeymapId.selectRight
 >;
 
 export const keymapActions: Record<GlobalKeymapActionId, () => Promise<void>> =
-  {
-    [KeymapId.syncDirectory]: async () => {},
+{
+    [KeymapId.syncDirectory]: async () => { },
     [KeymapId.showCommandPalette]: async () => {
-      window.dispatchEvent(
-        new CustomEvent("show_command_palette", {
-          detail: {},
-        })
-      );
-      // store.dispatch(setCommandPaletteOpen(true));
+        window.dispatchEvent(
+            new CustomEvent("show_command_palette", {
+                detail: {},
+            })
+        );
+        // store.dispatch(setCommandPaletteOpen(true));
     },
     [KeymapId.togglePanelBottom]: async () => {
-      store.dispatch(togglePanelBottom());
+        store.dispatch(togglePanelBottom());
     },
     [KeymapId.togglePanelLeft]: async () => {
-      store.dispatch(togglePanelLeft());
+        store.dispatch(togglePanelLeft());
     },
     [KeymapId.togglePanelRight]: async () => {
-      store.dispatch(togglePanelRight());
+        store.dispatch(togglePanelRight());
     },
     [KeymapId.scrollUp]: async () => {
-      console.log(`They see me scrollingggggg....`);
-      document.getElementById("scroll-target")?.scrollBy({
-        top: -window.innerHeight / 3,
-        behavior: "smooth",
-      });
+        document.getElementById("scroll-target")?.scrollBy({
+            top: -window.innerHeight / 3,
+            behavior: "smooth",
+        });
     },
     [KeymapId.scrollDown]: async () => {
-      console.log(`They hatinnnnnnn...`);
-      const em = document.getElementById("scroll-target");
-      console.log("em: ", em);
-      document.getElementById("scroll-target")?.scrollBy({
-        top: window.innerHeight / 3,
-        behavior: "smooth",
-      });
-      ///TODO: Get focused element and attemptp to scroll here.
+        document.getElementById("scroll-target")?.scrollBy({
+            top: window.innerHeight / 3,
+            behavior: "smooth",
+        });
+        ///TODO: Get focused element and attemptp to scroll here.
     },
-  };
+};

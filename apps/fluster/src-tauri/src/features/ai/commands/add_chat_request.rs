@@ -1,5 +1,6 @@
 use chrono::Utc;
 use kalosm::language::*;
+use log::error;
 
 use crate::{
     core::{
@@ -40,7 +41,7 @@ pub async fn add_ai_chat_request(
     };
     AiChatRequestEntity::save_chat_request(&db, outgoing_request.clone()).await?;
     let model = Llama::new_chat().await.map_err(|e| {
-        println!("Error: {:?}", e);
+        error!("Error: {:?}", e);
         FlusterError::FailToLoadModel
     })?;
     let system_prompt = get_embedded_system_prompt(EmbeddedSystemPromptId::DefaultSystemPrompt);
@@ -51,11 +52,9 @@ pub async fn add_ai_chat_request(
         chat = chat.with_session(session);
     }
     let res = chat.add_message(chat_input).await.map_err(|e| {
-        println!("Error: {:?}", e);
+        error!("Error: {:?}", e);
         FlusterError::FailToLoadModel
     })?;
-
-    println!("Res: {:?}", res);
 
     if let Ok(new_session) = chat.session() {
         if let Ok(session_bytes) = new_session.to_bytes() {

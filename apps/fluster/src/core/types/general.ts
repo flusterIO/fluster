@@ -12,12 +12,3 @@ export interface ChildProps {
 export interface ClassNameProp {
     className?: string;
 }
-
-interface PanelResizeEventProps {
-    panel: "left" | "right";
-}
-declare global {
-    interface WindowEventMap {
-        "panel-resize": CustomEvent<PanelResizeEventProps>;
-    }
-}

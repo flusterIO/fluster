@@ -1,7 +1,11 @@
 // TODO: Move all custom events to this file.
+interface PanelResizeEventProps {
+    panel: "left" | "right";
+}
+
 declare global {
     interface WindowEventMap {
-        "panel-resize": CustomEvent<object>;
+        "panel-resize": CustomEvent<PanelResizeEventProps>;
     }
 }
 

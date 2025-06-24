@@ -4,6 +4,7 @@ use crate::{
     core::types::errors::errors::{FlusterError, FlusterResult},
     features::ai::data::types::embeddings_result::EmbeddingResult,
 };
+use log::{error};
 
 pub struct LocalAiClient {}
 
@@ -11,7 +12,7 @@ pub struct LocalAiClient {}
 impl LocalAiClient {
     pub async fn get_text_embeddings(&self, dir_path: &str) -> FlusterResult<EmbeddingResult> {
         let _bert = Bert::new().await.map_err(|e| {
-            println!("Error: {:?}", e);
+            error!("Error: {:?}", e);
             FlusterError::FailToLoadModel
         })?;
         // if bert.

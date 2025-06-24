@@ -29,7 +29,6 @@ export const useDebounceMdxParse = (
         jsxDEV: devRuntime.jsxDEV,
         baseUrl: import.meta.url,
       });
-      console.log("res: ", res);
       if (res) {
         setMdxModule(res);
       }
