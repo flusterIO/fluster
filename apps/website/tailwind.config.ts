@@ -155,6 +155,7 @@ const tailwindCfg: Config = {
             },
         },
     },
+    presets: [createPreset()],
     plugins: [
         typography,
         containerQueries,
@@ -198,6 +199,7 @@ const tailwindCfg: Config = {
             );
         },
         tailwindAnimate,
+        // createPreset(),
     ],
     // presets: [createPreset()],
 };
