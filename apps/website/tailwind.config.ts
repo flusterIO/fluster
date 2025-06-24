@@ -155,7 +155,6 @@ const tailwindCfg: Config = {
             },
         },
     },
-    presets: [createPreset()],
     plugins: [
         typography,
         containerQueries,
