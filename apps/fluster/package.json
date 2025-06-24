@@ -22,7 +22,7 @@
         "dev": "vite",
         "lint": "npx eslint",
         "lint:watch": "nodemon --exec 'npx eslint'",
-        "postinstall": "wireit",
+        "manual_postinstall": "wireit",
         "preview": "vite preview",
         "tauri": "tauri",
         "typecheck": "tsc --noEmit -p ./tsconfig.json"
@@ -34,7 +34,7 @@
         "copy:pdf": {
             "command": "cp ../../node_modules/pdfjs-dist/build/pdf.worker.mjs ./public/pdf.worker.mjs"
         },
-        "postinstall": {
+        "manual_postinstall": {
             "dependencies": [
                 "copy:mathjax",
                 "copy:pdf"

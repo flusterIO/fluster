@@ -7,6 +7,8 @@ VERSION := $(shell git describe --tags --abbrev=0)
 
 format_package_jsons:
 	pnpm syncpack format
+manual_postinstall:
+	cd ${FLUSTER_NATIVE_ROOT}/apps/fluster; pnpm manual_postinstall
 format_everything: format_package_jsons
 syncpack_fix_mismatches:
 	npx syncpack fix-mismatches
