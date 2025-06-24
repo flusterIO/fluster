@@ -99,6 +99,7 @@
         "react-responsive": "10.0.1",
         "recharts": "^3.0.0",
         "remark-emoji": "5.0.1",
+        "remark-math": "6.0.0",
         "sass": "^1.89.0",
         "shiki": "3.3.0",
         "sonner": "^2.0.5",

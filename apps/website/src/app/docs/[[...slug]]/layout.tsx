@@ -13,8 +13,6 @@ export default function Layout({ children }: { children: ReactNode }) {
             {...baseOptions}
             containerProps={{
                 className: "[&_#nd-sidebar>div[data-fdid]]:w-full",
-                /* className: */
-                /* "relative [&_#nd-sidebar]:md:sticky [&_#nd-sidebar]:top-0 [&_#nd-sidebar]:bg-background [&_#nd-sidebar_div[data-fdid]]:w-full bg-background text-foreground [&_#nd-toc]:min-w-[200px] [&_#nd-toc_a[data-active]]:text-foreground/80 hover:[&_#nd-toc_a[data-active]]:text-foreground", */
             }}
             sidebar={{
                 banner: (
