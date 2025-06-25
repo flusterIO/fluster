@@ -91,9 +91,6 @@ impl SnippetEntity {
             batches.into_iter(),
             schema.clone(),
         ));
-        // RESUME: Come back here when back online and able to look at the docs for querying
-        // with strings. This needs to turn into an upsert statement.
-        // tbl.merge_insert(j)
         let primary_key: &[&str] = &["id"];
         tbl.merge_insert(primary_key)
             .when_matched_update_all(None)

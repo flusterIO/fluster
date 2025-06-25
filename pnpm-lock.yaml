@@ -592,11 +592,14 @@ importers:
       fumadocs-mdx:
         specifier: ^11.6.9
         version: 11.6.9(acorn@8.14.1)(fumadocs-core@15.5.4(@types/react@19.1.5)(next@15.3.2(@babel/core@7.27.3)(@playwright/test@1.52.0)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(sass@1.89.0))(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(next@15.3.2(@babel/core@7.27.3)(@playwright/test@1.52.0)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(sass@1.89.0))(vite@6.3.5(@types/node@20.17.52)(jiti@2.4.2)(lightningcss@1.30.1)(sass-embedded@1.89.0)(sass@1.89.0)(terser@5.43.1)(yaml@2.8.0))
+      fumadocs-python:
+        specifier: ^0.0.3
+        version: 0.0.3(@types/react@19.1.5)(fumadocs-core@15.5.4(@types/react@19.1.5)(next@15.3.2(@babel/core@7.27.3)(@playwright/test@1.52.0)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(sass@1.89.0))(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(fumadocs-ui@15.5.4(@types/react-dom@19.1.5(@types/react@19.1.5))(@types/react@19.1.5)(next@15.3.2(@babel/core@7.27.3)(@playwright/test@1.52.0)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(sass@1.89.0))(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(tailwindcss@4.1.10))
       fumadocs-twoslash:
         specifier: latest
         version: 3.1.4(@types/react-dom@19.1.5(@types/react@19.1.5))(@types/react@19.1.5)(fumadocs-ui@15.5.4(@types/react-dom@19.1.5(@types/react@19.1.5))(@types/react@19.1.5)(next@15.3.2(@babel/core@7.27.3)(@playwright/test@1.52.0)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(sass@1.89.0))(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(tailwindcss@4.1.10))(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(typescript@5.8.3)
       fumadocs-typescript:
-        specifier: latest
+        specifier: ^4.0.6
         version: 4.0.6(@types/react@19.1.5)(typescript@5.8.3)
       fumadocs-ui:
         specifier: latest
@@ -805,6 +808,9 @@ importers:
       '@radix-ui/react-tooltip':
         specifier: ^1.2.7
         version: 1.2.7(@types/react-dom@19.1.5(@types/react@19.1.5))(@types/react@19.1.5)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      '@tailwindcss/postcss':
+        specifier: ^4.1.10
+        version: 4.1.10
       '@tauri-apps/plugin-dialog':
         specifier: ~2
         version: 2.2.2
@@ -947,6 +953,9 @@ importers:
       storybook-dark-mode:
         specifier: ^4.0.2
         version: 4.0.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(storybook@9.0.4(@testing-library/dom@10.4.0)(bufferutil@4.0.9)(prettier@2.8.8)(utf-8-validate@6.0.5))
+      tailwindcss:
+        specifier: ^4.1.10
+        version: 4.1.10
       typedoc:
         specifier: 0.28.3
         version: 0.28.3(typescript@5.8.3)
@@ -8201,6 +8210,16 @@ packages:
       next:
         optional: true
       vite:
+        optional: true
+
+  fumadocs-python@0.0.3:
+    resolution: {integrity: sha512-1GBkcC3v4NofbyILcEL68MQNKaAm/V84EsmU8x4eMTrFOmSSpSwBEI/wSaJgf4jmGxQHLasGP6eOCqbd4cyDjQ==}
+    peerDependencies:
+      '@types/react': 19.1.5
+      fumadocs-core: 15.x.x
+      fumadocs-ui: 15.x.x
+    peerDependenciesMeta:
+      '@types/react':
         optional: true
 
   fumadocs-twoslash@3.1.4:
@@ -22447,6 +22466,15 @@ snapshots:
     transitivePeerDependencies:
       - acorn
       - supports-color
+
+  fumadocs-python@0.0.3(@types/react@19.1.5)(fumadocs-core@15.5.4(@types/react@19.1.5)(next@15.3.2(@babel/core@7.27.3)(@playwright/test@1.52.0)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(sass@1.89.0))(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(fumadocs-ui@15.5.4(@types/react-dom@19.1.5(@types/react@19.1.5))(@types/react@19.1.5)(next@15.3.2(@babel/core@7.27.3)(@playwright/test@1.52.0)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(sass@1.89.0))(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(tailwindcss@4.1.10)):
+    dependencies:
+      class-variance-authority: 0.7.1
+      fumadocs-core: 15.5.4(@types/react@19.1.5)(next@15.3.2(@babel/core@7.27.3)(@playwright/test@1.52.0)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(sass@1.89.0))(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      fumadocs-ui: 15.5.4(@types/react-dom@19.1.5(@types/react@19.1.5))(@types/react@19.1.5)(next@15.3.2(@babel/core@7.27.3)(@playwright/test@1.52.0)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(sass@1.89.0))(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(tailwindcss@4.1.10)
+      js-yaml: 4.1.0
+    optionalDependencies:
+      '@types/react': 19.1.5
 
   fumadocs-twoslash@3.1.4(@types/react-dom@19.1.5(@types/react@19.1.5))(@types/react@19.1.5)(fumadocs-ui@15.5.4(@types/react-dom@19.1.5(@types/react@19.1.5))(@types/react@19.1.5)(next@15.3.2(@babel/core@7.27.3)(@playwright/test@1.52.0)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(sass@1.89.0))(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(tailwindcss@4.1.10))(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(typescript@5.8.3):
     dependencies:

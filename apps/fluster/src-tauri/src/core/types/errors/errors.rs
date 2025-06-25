@@ -22,6 +22,9 @@ pub enum FlusterError {
     #[error("Fluster failed while attempting to load a required AI model.")]
     FailToLoadModel,
 
+    #[error("Fluster failed to generate an embedding vector for one of your notes.")]
+    FailToCreateEMbeddingVector,
+
     #[error("Fluster could not create a QR code you requested.")]
     FailToCreateQrCode,
 

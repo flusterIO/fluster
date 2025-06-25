@@ -20,7 +20,7 @@ pub async fn save_mdx_note_groups(
     let mut mdx_note_tag_models: Vec<MdxNoteTagModel> = Vec::new();
     let mut mdx_note_equations: Vec<MdxNoteEquationModel> = Vec::new();
     let mut notes: Vec<MdxNoteModel> = Vec::new();
-    // RESUME: Come back here and save the tag and mdxtag joining table to begin working on tag
+    // FIXME: Come back here and save the tag and mdxtag joining table to begin working on tag
     // based searching. That played a big part in the initial app.
     let mut front_matter: Vec<FrontMatterModel> = Vec::new();
     for item in groups {

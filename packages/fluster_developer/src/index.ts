@@ -18,6 +18,8 @@ export * from "./components/inputs/select/general_select/index";
 export * from "./embeddable_components/admonition/index";
 export * from "./embeddable_components/qr_code/index";
 export * from "./components/attention_getters/hint/index";
+//     -- Academic --
+export * from "./embeddable_components/academic/abstract/index";
 // -- Inputs --
 export * from "./components/inputs/select/file_extension_glob_select/index";
 export * from "./components/inputs/select/supported_programming_language/index";

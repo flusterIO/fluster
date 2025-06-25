@@ -86,6 +86,14 @@ export const PdfContainer = ({ fsPath }: PdfContainerProps): ReactNode => {
         });
     };
 
+    if (data === null) {
+        return (
+            <div className="w-full h-full flex flex-col justify-center items-center">
+                <LoadingComponent />
+            </div>
+        );
+    }
+
     return (
         <div
             ref={containerRef}

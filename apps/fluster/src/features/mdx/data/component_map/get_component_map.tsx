@@ -17,6 +17,7 @@ import {
     Grid,
     GridItem,
     MdxInput,
+    Abstract,
 } from "@fluster.io/dev";
 import { MDXComponents } from "mdx/types";
 import {
@@ -55,6 +56,11 @@ const items: ComponentMapItem[] = [
     {
         query: "Tag",
         component: Tag,
+    },
+    // -- Academic --
+    {
+        query: "Abstract",
+        component: Abstract,
     },
     // -- Layout --
     {

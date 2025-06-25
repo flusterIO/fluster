@@ -1,4 +1,7 @@
-use arrow_array::{RecordBatch, RecordBatchIterator, StringArray, TimestampMillisecondArray};
+use arrow_array::{
+    types::Float32Type, ListArray, RecordBatch, RecordBatchIterator, StringArray,
+    TimestampMillisecondArray,
+};
 use arrow_schema::{ArrowError, DataType, Field, Schema};
 use futures::TryStreamExt;
 use lancedb::{
@@ -149,6 +152,11 @@ impl DbEntity<MdxNoteModel> for MdxNoteEntity {
                 DataType::Timestamp(arrow_schema::TimeUnit::Millisecond, None),
                 false,
             ),
+            Field::new(
+                "vec",
+                DataType::List(Field::new("item", DataType::Float32, true).into()),
+                true,
+            ),
         ]))
     }
 
@@ -159,14 +167,13 @@ impl DbEntity<MdxNoteModel> for MdxNoteEntity {
         let raw_body = StringArray::from(vec![item.raw_body.clone()]);
         let file_path = StringArray::from(vec![item.file_path.clone()]);
         let front_matter_id = StringArray::from(vec![item.file_path.clone()]);
-        // RESUME: Error in compiled app is occurring on the following line.
-        // thread 'tokio-runtime-worker' panicked at
-        // apps/fluster/src-tauri/src/features/mdx/data/mdx_note_entity.rs:162:51:
-        // called `Result::unwrap()` on an `Err` value: ParseIntError { kind: InvalidDigit }
-        let ctime_value: i64 = item.ctime.parse().unwrap();
+        let ctime_value: i64 = item.ctime.parse().unwrap_or_else(|_| 0);
         let last_read_value: i64 = item.last_read.parse().unwrap();
         let ctime = TimestampMillisecondArray::from(vec![ctime_value]);
         let last_read = TimestampMillisecondArray::from(vec![last_read_value]);
+        let vec = ListArray::from_iter_primitive::<Float32Type, _, _>(vec![Some(
+            item.vec.iter().map(|x| Some(*x)),
+        )]);
         RecordBatch::try_new(
             schema,
             vec![
@@ -175,6 +182,7 @@ impl DbEntity<MdxNoteModel> for MdxNoteEntity {
                 Arc::new(front_matter_id),
                 Arc::new(ctime),
                 Arc::new(last_read),
+                Arc::new(vec),
             ],
         )
         .unwrap()

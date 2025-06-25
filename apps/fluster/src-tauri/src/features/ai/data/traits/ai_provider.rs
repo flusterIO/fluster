@@ -1,11 +1,10 @@
 use async_trait::async_trait;
 
 use crate::{
-    core::types::errors::errors::FlusterResult,
-    features::ai::data::types::embeddings_result::EmbeddingResult,
+    core::types::errors::errors::FlusterResult, features::mdx::data::mdx_note_group::MdxNoteGroup,
 };
 
 #[async_trait]
 pub trait AiProvider {
-    async fn get_text_embeddings(&self, dir_path: &str) -> FlusterResult<EmbeddingResult>;
+    async fn get_text_embeddings(&self, notes: &mut [MdxNoteGroup]) -> FlusterResult<()>;
 }

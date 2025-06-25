@@ -1,6 +1,7 @@
 use crate::core::database::db::get_database;
 use crate::core::sync::parse_directory::sync_fs_directory::models::sync_filesystem_options::SyncFilesystemDirectoryOptions;
 use crate::core::types::errors::errors::FlusterResult;
+use crate::features::ai::data::ai_providers::local_ai_provider::LocalAiClient;
 use crate::features::mdx::actions::save_mdx_note_groups::save_mdx_note_groups;
 use crate::features::mdx::data::mdx_note_group::MdxNoteGroup;
 use crossbeam_channel::unbounded;
@@ -44,6 +45,7 @@ pub async fn sync_mdx_filesystem_notes(opts: &SyncFilesystemDirectoryOptions) ->
         println!("Note Group: {:#?}", note_group);
         items.push(note_group);
     }
+    LocalAiClient {}.get_text_embeddings(&mut items).await;
     save_mdx_note_groups(&db, items).await?;
     Ok(())
 }
