@@ -64,14 +64,18 @@ impl MdxNoteEntity {
     pub async fn semantic_search(
         db: &FlusterDb<'_>,
         query: &Embedding,
+        pagination: &PaginationProps,
     ) -> FlusterResult<Vec<MdxNoteModel>> {
         let tbl = get_table(db, DatabaseTables::MdxNote).await?;
+        let offset = (pagination.per_page * (pagination.page_number - 1)) as usize;
         let items_batch = tbl
             .vector_search(query.vector())
             .map_err(|e| {
                 println!("Error: {:?}", e);
                 FlusterError::FailToGetSemanticResults
             })?
+            .limit(pagination.per_page as usize)
+            .offset(offset)
             .execute()
             .await
             .map_err(|e| {

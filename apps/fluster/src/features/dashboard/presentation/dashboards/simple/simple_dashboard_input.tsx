@@ -4,6 +4,14 @@ import { AppRoutes, Input } from "@fluster.io/dev";
 import React, { useEffect, useRef, useState, type ReactNode } from "react";
 import { useNavigate } from "react-router";
 
+const placeholders = [
+    "Find me notes about gravity",
+    "Find me notes with recipes",
+    "Notes with linear algebra",
+    "Notes with calculus and gravity",
+    "Semantic search",
+];
+
 const SimpleDashboardInput = (): ReactNode => {
     const [value, setValue] = useState("");
     const valueRef = useRef(value);
@@ -14,6 +22,9 @@ const SimpleDashboardInput = (): ReactNode => {
     const nav = useNavigate();
     return (
         <Input
+            placeholder={
+                placeholders[Math.floor(Math.random() * placeholders.length)]
+            }
             className="w-full !text-lg p-6 rounded-[80px]"
             value={value}
             onChange={(e) => setValue(e.target.value)}

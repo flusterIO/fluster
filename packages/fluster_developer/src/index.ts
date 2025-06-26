@@ -59,6 +59,7 @@ export * from "./components/icons/icon_components/youtube";
 export * from "./components/code/code_block";
 export * from "./components/code/snippet_modal/index";
 // -- Hooks --
+export * from "./hooks/use_pagination_search_params";
 export * from "./hooks/use_syncrhonized_value";
 export * from "./hooks/use_is_mounted";
 export * from "./hooks/use_local_storage";

@@ -6,10 +6,7 @@ use crate::{
         },
         types::errors::errors::{FlusterError, FlusterResult},
     },
-    features::{
-        mdx::data::{mdx_note_entity::MdxNoteEntity, mdx_note_group::MdxNoteGroup},
-        search::types::PaginationProps,
-    },
+    features::search::types::PaginationProps,
 };
 
 #[tauri::command]

@@ -1,20 +1,22 @@
 "use client";
-import React from "react";
+import React, { HTMLProps } from "react";
 import type { MDXContent } from "mdx/types";
 import { useComponentMap } from "@/hooks/use_component_map";
+
+interface Props extends HTMLProps<HTMLDivElement> {
+  MdxContentComponent: MDXContent;
+  raw: string;
+  className?: string;
+}
 
 export const ParsedMdxContent = ({
   MdxContentComponent,
   raw,
-  className,
-}: {
-  MdxContentComponent: MDXContent;
-  raw: string;
-  className?: string;
-}) => {
+  ...props
+}: Props) => {
   const componentMap = useComponentMap(raw);
   return (
-    <div className={className}>
+    <div {...props}>
       <MdxContentComponent components={componentMap} />
     </div>
   );

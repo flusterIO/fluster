@@ -2,7 +2,7 @@ import { CommandPaletteAnyEntry } from "../models/command_palette_any_entry";
 import { CommandPaletteCategory } from "../models/command_palette_category";
 import { commands } from "@/lib/bindings";
 import { GeneralCommandPaletteItem } from "../models/command_palette_item";
-import { AppRoutes } from "#/router/data/app_routes";
+import { getMdxNoteUrl } from "#/mdx/utils/get_mdx_note_url";
 
 export class NotesCommandPaletteRoot extends CommandPaletteCategory {
     constructor() {
@@ -22,9 +22,7 @@ export class NotesCommandPaletteRoot extends CommandPaletteCategory {
                     x.title,
                     `${x.title}-${x.file_path}`,
                     async (nav) => {
-                        const sp = new URLSearchParams();
-                        sp.set("fsPath", x.file_path);
-                        nav(`${AppRoutes.viewMdxNote}?${sp.toString()}`);
+                        nav(getMdxNoteUrl(x.file_path));
                     }
                 );
             });

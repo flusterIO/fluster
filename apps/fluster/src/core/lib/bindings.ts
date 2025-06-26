@@ -313,9 +313,9 @@ async deleteEquationById(id: string) : Promise<Result<null, FlusterError>> {
     else return { status: "error", error: e  as any };
 }
 },
-async semanticSearch(query: string) : Promise<Result<SemanticSearchResults, FlusterError>> {
+async semanticSearch(query: string, pagination: PaginationProps) : Promise<Result<SemanticSearchResults, FlusterError>> {
     try {
-    return { status: "ok", data: await TAURI_INVOKE("semantic_search", { query }) };
+    return { status: "ok", data: await TAURI_INVOKE("semantic_search", { query, pagination }) };
 } catch (e) {
     if(e instanceof Error) throw e;
     else return { status: "error", error: e  as any };

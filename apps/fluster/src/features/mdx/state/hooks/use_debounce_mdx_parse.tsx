@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState, Fragment } from "react";
+import React, { useEffect, useState, Fragment, HTMLProps } from "react";
 import { run } from "@mdx-js/mdx";
 import * as runtime from "react/jsx-runtime";
 import * as devRuntime from "react/jsx-dev-runtime";
@@ -52,10 +52,10 @@ export const useDebounceMdxParse = (
     /* eslint-disable-next-line  --  */
   }, [value]);
 
-  const Component = ({ className }: { className?: string }) =>
+  const Component = (props: HTMLProps<HTMLDivElement>) =>
     mdxModule ? (
       <ParsedMdxContent
-        className={className}
+        {...props}
         MdxContentComponent={mdxModule.default}
         raw={value}
       />

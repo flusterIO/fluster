@@ -1,7 +1,4 @@
-use lancedb::{
-    index::{scalar::FtsIndexBuilder, vector::IvfPqIndexBuilder},
-    Connection, DistanceType,
-};
+use lancedb::{index::vector::IvfPqIndexBuilder, Connection, DistanceType};
 
 use crate::core::{
     database::tables::table_paths::DatabaseTables,
@@ -17,17 +14,6 @@ pub async fn set_mdx_note_body_index(db: &Connection) -> FlusterResult<()> {
             println!("Error: {:?}", e);
             FlusterError::FailToCreateIndex
         })?;
-    // FtsIndexBuilder::
-    // tbl.create_index(
-    //     &["raw_body"],
-    //     lancedb::index::Index::FTS(FtsIndexBuilder::default()),
-    // )
-    // .execute()
-    // .await
-    // .map_err(|e| {
-    //     println!("Error: {:?}", e);
-    //     FlusterError::FailToCreateIndex
-    // })?;
     tbl.create_index(
         &["vec"],
         lancedb::index::Index::IvfPq(

@@ -3,9 +3,12 @@ use crate::{
         database::db::get_database,
         types::errors::errors::{FlusterError, FlusterResult},
     },
-    features::mdx::{
-        data::mdx_note_entity::MdxNoteEntity,
-        methods::mdx_note_models_to_mdx_note_groups::mdx_note_models_to_mdx_note_groups,
+    features::{
+        mdx::{
+            data::mdx_note_entity::MdxNoteEntity,
+            methods::mdx_note_models_to_mdx_note_groups::mdx_note_models_to_mdx_note_groups,
+        },
+        search::types::PaginationProps,
     },
 };
 use kalosm::language::{Bert, EmbedderExt};
@@ -15,7 +18,10 @@ use super::semantic_search_results::SemanticSearchResults;
 
 #[tauri::command]
 #[specta::specta]
-pub async fn semantic_search(query: String) -> FlusterResult<SemanticSearchResults> {
+pub async fn semantic_search(
+    query: String,
+    pagination: PaginationProps,
+) -> FlusterResult<SemanticSearchResults> {
     let db_res = get_database().await;
     let db = db_res.lock().await;
     let bert = Bert::new_for_search().await.map_err(|e| {
@@ -28,18 +34,13 @@ pub async fn semantic_search(query: String) -> FlusterResult<SemanticSearchResul
         FlusterError::FailToCreateEmbeddingVector
     })?;
 
-    let mdx_notes = MdxNoteEntity::semantic_search(&db, &query_vec).await?;
-
-    for note in mdx_notes.clone() {
-        println!("Note: {}", note.file_path);
-    }
+    let mdx_notes = MdxNoteEntity::semantic_search(&db, &query_vec, &pagination).await?;
 
     let mdx_note_groups = mdx_note_models_to_mdx_note_groups(&db, mdx_notes).await?;
 
     Ok(SemanticSearchResults {
         notes: mdx_note_groups,
     })
-    // let query_vec =
 }
 
 mod tests {
@@ -48,9 +49,15 @@ mod tests {
 
     #[tokio::test]
     async fn gets_semantic_search_results() {
-        let res = semantic_search("Find me notes about gravity.".to_string())
-            .await
-            .expect("Returns semantic results without throwing an error.");
+        let res = semantic_search(
+            "Find me notes about gravity.".to_string(),
+            PaginationProps {
+                per_page: 10,
+                page_number: 1,
+            },
+        )
+        .await
+        .expect("Returns semantic results without throwing an error.");
         assert!(!res.notes.is_empty(), "Returns a non-empty list.");
         // assert_eq!(result, 4);
     }

@@ -13,6 +13,7 @@ import { SettingPageContainer } from "../components/setting_page_container";
 
 const connector = connect((state: AppState) => ({
   state: state.bib,
+  rootDir: state.core.notesDirectory,
 }));
 
 const schema = z.object({
@@ -21,7 +22,13 @@ const schema = z.object({
 });
 
 export const BibliographySettingsPage = connector(
-  ({ state }: { state: AppState["bib"] }): ReactNode => {
+  ({
+    state,
+    rootDir,
+  }: {
+    state: AppState["bib"];
+    rootDir: AppState["core"]["notesDirectory"];
+  }): ReactNode => {
     const dispatch = useDispatch();
     const form = useForm({
       resolver: zodResolver(schema),
@@ -46,12 +53,14 @@ export const BibliographySettingsPage = connector(
           <SettingPageTitle title="Bibliography Settings" />
           <FilePathInput
             form={form}
+            defaultPath={rootDir}
             name="bibPath"
             label="Bibliography File Path"
             desc="The path relative to your note's root directory that points to a .bib file."
           />
           <FilePathInput
             form={form}
+            defaultPath={rootDir}
             name="cslPath"
             label="CSL File Path"
             desc="The path relative to your note's root directory that points to a .csl file to be used for citation formatting."

@@ -1,3 +1,5 @@
+use super::front_matter_model::FrontMatterModel;
+use super::mdx_note_model::MdxNoteModel;
 use crate::core::models::taggable::shared_taggable_model::SharedTaggableModel;
 use crate::core::models::taggable::tag_entity::TagEntity;
 use crate::core::types::errors::errors::{FlusterError, FlusterResult};
@@ -14,10 +16,6 @@ use serde::{Deserialize, Serialize};
 use specta::Type;
 use std::fs;
 use std::fs::Metadata;
-use std::str::FromStr;
-
-use super::front_matter_model::FrontMatterModel;
-use super::mdx_note_model::MdxNoteModel;
 
 #[derive(Debug, Clone, Serialize, Deserialize, Type)]
 pub struct MdxNoteGroup {

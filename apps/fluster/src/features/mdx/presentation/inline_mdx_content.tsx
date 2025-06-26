@@ -2,11 +2,19 @@ import React, { type ReactNode } from "react";
 import { MdxContentProps, MdxContent } from "./mdx_content";
 import { cn } from "@fluster.io/dev";
 
-export const InlineMdxContent = (props: MdxContentProps): ReactNode => {
+export const InlineMdxContent = (
+    props: MdxContentProps & {
+        abortIfNoMath?: boolean;
+    }
+): ReactNode => {
     if (!props.mdx) {
         return null;
     }
-    if (typeof props.mdx === "string" && !props.mdx?.includes("$")) {
+    if (
+        props.abortIfNoMath &&
+        typeof props.mdx === "string" &&
+        !props.mdx?.includes("$")
+    ) {
         return props.mdx;
     }
     return (

@@ -1,5 +1,3 @@
-use std::ops::Index;
-
 use crate::{
     core::{
         models::taggable::{
@@ -201,7 +199,16 @@ pub async fn mdx_note_models_to_mdx_note_groups(
         }
         drop(front_matter_tag_sender);
 
-        let base_front_matter = front_matter.index(0).clone();
+        let _base_front_matter = front_matter
+            .par_iter()
+            .find_first(|x| x.mdx_note_file_path == model.file_path);
+
+        if _base_front_matter.is_none() {
+            let _ = error_sender.send(FlusterError::FailToFindById);
+            return;
+        };
+
+        let base_front_matter = _base_front_matter.unwrap().clone();
 
         let subject = match base_front_matter.subject {
             None => None,

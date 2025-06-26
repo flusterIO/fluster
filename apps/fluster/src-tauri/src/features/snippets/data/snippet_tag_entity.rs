@@ -88,7 +88,6 @@ impl SnippetTagEntity {
             None,
         )
         .await?;
-        // TODO:  This can be collapsed into one loop.
         let filtered_tags: Vec<&T> = items
             .iter()
             .filter(|x| {
