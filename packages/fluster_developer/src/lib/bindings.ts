@@ -226,6 +226,14 @@ async mdxNoteFullTextSearch(query: string, pagination: PaginationProps) : Promis
     else return { status: "error", error: e  as any };
 }
 },
+async getNoteCount(predicate: string | null) : Promise<Result<string, FlusterError>> {
+    try {
+    return { status: "ok", data: await TAURI_INVOKE("get_note_count", { predicate }) };
+} catch (e) {
+    if(e instanceof Error) throw e;
+    else return { status: "error", error: e  as any };
+}
+},
 async deleteSettingState(settingsId: string) : Promise<Result<null, FlusterError>> {
     try {
     return { status: "ok", data: await TAURI_INVOKE("delete_setting_state", { settingsId }) };
@@ -499,6 +507,22 @@ async countTasksInList(id: string) : Promise<Result<string, FlusterError>> {
 async getAllTaskLists() : Promise<Result<TaskListModel[], FlusterError>> {
     try {
     return { status: "ok", data: await TAURI_INVOKE("get_all_task_lists") };
+} catch (e) {
+    if(e instanceof Error) throw e;
+    else return { status: "error", error: e  as any };
+}
+},
+async getTaskListCount(predicate: string | null) : Promise<Result<string, FlusterError>> {
+    try {
+    return { status: "ok", data: await TAURI_INVOKE("get_task_list_count", { predicate }) };
+} catch (e) {
+    if(e instanceof Error) throw e;
+    else return { status: "error", error: e  as any };
+}
+},
+async getTaskCount(predicate: string | null) : Promise<Result<string, FlusterError>> {
+    try {
+    return { status: "ok", data: await TAURI_INVOKE("get_task_count", { predicate }) };
 } catch (e) {
     if(e instanceof Error) throw e;
     else return { status: "error", error: e  as any };

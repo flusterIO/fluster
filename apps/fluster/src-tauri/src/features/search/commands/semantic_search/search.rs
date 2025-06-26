@@ -30,6 +30,10 @@ pub async fn semantic_search(query: String) -> FlusterResult<SemanticSearchResul
 
     let mdx_notes = MdxNoteEntity::semantic_search(&db, &query_vec).await?;
 
+    for note in mdx_notes.clone() {
+        println!("Note: {}", note.file_path);
+    }
+
     let mdx_note_groups = mdx_note_models_to_mdx_note_groups(&db, mdx_notes).await?;
 
     Ok(SemanticSearchResults {

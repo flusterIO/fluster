@@ -1,5 +1,6 @@
 pub mod component_utils;
 pub mod full_text_search;
+pub mod get_note_count;
 pub mod get_toc;
 pub mod parse_mdx_string;
 pub mod read_mdx_file;

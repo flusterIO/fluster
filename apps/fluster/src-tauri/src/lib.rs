@@ -37,6 +37,7 @@ use crate::features::math::commands::read_mathjax_file::{read_mathjax, read_math
 use crate::features::math::commands::save_equation::save_equations;
 use crate::features::mdx::actions::component_utils::generate_qr_code::get_qr_code_svg;
 use crate::features::mdx::actions::full_text_search::mdx_note_full_text_search;
+use crate::features::mdx::actions::get_note_count::get_note_count;
 use crate::features::mdx::actions::get_toc::{get_toc_from_fs_path, get_toc_from_markdown};
 use crate::features::mdx::actions::parse_mdx_string::parse_mdx_string;
 use crate::features::mdx::actions::read_mdx_file::read_mdx_file;
@@ -61,6 +62,8 @@ use crate::features::task_manager::commands::delete_task_by_id::delete_task_by_i
 use crate::features::task_manager::commands::delete_task_list_by_id::delete_task_list_by_id;
 use crate::features::task_manager::commands::get_all_task_lists::get_all_task_lists;
 use crate::features::task_manager::commands::get_task_by_id::get_task_by_id;
+use crate::features::task_manager::commands::get_task_count::get_task_count;
+use crate::features::task_manager::commands::get_task_list_count::get_task_list_count;
 use crate::features::task_manager::commands::get_task_list_data::get_task_list_data;
 use core::sync::parse_directory::sync_fs_directory::models::sync_filesystem_options::SyncFilesystemDirectoryOptions;
 use core::{
@@ -115,6 +118,7 @@ pub fn run() {
             get_toc_from_markdown,
             get_toc_from_fs_path,
             mdx_note_full_text_search,
+            get_note_count,
             // -- Settings --
             delete_setting_state,
             save_setting_state,
@@ -155,7 +159,9 @@ pub fn run() {
             get_task_by_id,
             get_task_list_data,
             count_tasks_in_list,
-            get_all_task_lists
+            get_all_task_lists,
+            get_task_list_count,
+            get_task_count,
         ])
         .events(collect_events![ShowToast, SetDbConnectionUri])
         .typ::<FlusterError>()
