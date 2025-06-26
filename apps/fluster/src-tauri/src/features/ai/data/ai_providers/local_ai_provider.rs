@@ -2,9 +2,7 @@ use kalosm::language::*;
 
 use crate::{
     core::types::errors::errors::{FlusterError, FlusterResult},
-    features::{
-        ai::data::traits::ai_provider::AiProvider, mdx::data::mdx_note_group::MdxNoteGroup,
-    },
+    features::mdx::data::mdx_note_group::MdxNoteGroup,
 };
 use log::error;
 
@@ -21,7 +19,7 @@ impl LocalAiClient {
         for note in notes.iter_mut() {
             let vector = bert.embed(note.mdx.raw_body.clone()).await.map_err(|e| {
                 println!("Error: {:?}", e);
-                FlusterError::FailToCreateEMbeddingVector
+                FlusterError::FailToCreateEmbeddingVector
             })?;
 
             note.mdx.vec = vector.vector().to_vec();
@@ -46,6 +44,7 @@ mod tests {
             &db,
             "/Users/bigsexy/Desktop/notes/content/physics/brainstorm/gravityBrainstorm.mdx"
                 .to_string(),
+            None,
         )
         .await
         .expect("Get's test mdx file without throwing an error.");

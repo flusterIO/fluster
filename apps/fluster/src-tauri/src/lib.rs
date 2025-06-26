@@ -44,6 +44,7 @@ use crate::features::mdx::actions::remove_front_matter::remove_front_matter;
 use crate::features::mdx::actions::set_last_read_by_file_path::set_last_read_by_file_path;
 use crate::features::mdx::read_mdx_from_fs::read_mdx_from_fs;
 use crate::features::search::commands::get_note_summaries::get_note_summaries;
+use crate::features::search::commands::semantic_search::search::semantic_search;
 use crate::features::search::data::search_params::{SearchOrder, SearchParams};
 use crate::features::settings::delete_setting_state::delete_setting_state;
 use crate::features::settings::get_setting_state::get_setting_state;
@@ -126,6 +127,8 @@ pub fn run() {
             save_equations,
             get_equation_by_id,
             delete_equation_by_id,
+            // -- Search --
+            semantic_search,
             // -- Snippets --
             save_snippets,
             get_snippets,

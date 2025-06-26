@@ -14,6 +14,7 @@ use serde::{Deserialize, Serialize};
 use specta::Type;
 use std::fs;
 use std::fs::Metadata;
+use std::str::FromStr;
 
 use super::front_matter_model::FrontMatterModel;
 use super::mdx_note_model::MdxNoteModel;
@@ -47,12 +48,26 @@ impl MdxNoteGroup {
     pub async fn from_file_system_path(
         db: &FlusterDb<'_>,
         file_path: String,
+        existing_note: Option<&MdxNoteModel>,
     ) -> FlusterResult<MdxNoteGroup> {
         let raw_file_content = fs::read_to_string(&file_path)
             .map_err(|_| FlusterError::FailToReadFileSystemPath(file_path.clone()))?;
         let file_meta = fs::metadata(&file_path)
             .map_err(|_| FlusterError::FailToReadFileSystemPath(file_path.clone()))?;
-        MdxNoteGroup::handle_fs_parse(db, raw_file_content, file_path, &file_meta).await
+        let note =
+            MdxNoteGroup::handle_fs_parse(db, raw_file_content, file_path, &file_meta).await?;
+        if existing_note.is_some() {
+            // NOTE: Set fields that should persist and cannot be derived from the file system here.
+            // &existing_note.unwrap().last_read
+            // FIXME: This last_read will not persist unless added here. It's currently failing
+            // to convert, but I'll fix this later.
+            // note.mdx.last_read =
+            //     chrono::DateTime::<Utc>::from_str(&existing_note.unwrap().last_read)
+            //         .unwrap()
+            //         .timestamp_millis()
+            //         .to_string();
+        }
+        Ok(note)
     }
     pub async fn from_file_system_path_async(
         db: &FlusterDb<'_>,
@@ -133,7 +148,8 @@ mod tests {
 
         let test_path = get_test_mdx_path();
         let note_data =
-            MdxNoteGroup::from_file_system_path(&db, test_path.to_str().unwrap().to_string()).await;
+            MdxNoteGroup::from_file_system_path(&db, test_path.to_str().unwrap().to_string(), None)
+                .await;
         assert_front_matter_good(note_data);
     }
 

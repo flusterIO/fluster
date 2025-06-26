@@ -19,7 +19,6 @@ export const sync = async (): Promise<void> => {
       });
     }
   }
-  console.log("syncing...");
   const res = await commands.syncLocalDatabase({
     dir_path: state.core.notesDirectory,
     bib_path: state.bib.bibPath,

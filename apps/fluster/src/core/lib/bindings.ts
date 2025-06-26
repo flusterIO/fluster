@@ -305,6 +305,14 @@ async deleteEquationById(id: string) : Promise<Result<null, FlusterError>> {
     else return { status: "error", error: e  as any };
 }
 },
+async semanticSearch(query: string) : Promise<Result<SemanticSearchResults, FlusterError>> {
+    try {
+    return { status: "ok", data: await TAURI_INVOKE("semantic_search", { query }) };
+} catch (e) {
+    if(e instanceof Error) throw e;
+    else return { status: "error", error: e  as any };
+}
+},
 /**
  * Note that the values are all in array's and that tags is a 2d array. This is so that for each
  * index in the snippets array, there is an array at that index in the tags array with the tags
@@ -594,7 +602,7 @@ ctime: string;
  * Time snippet is last updated.
  */
 utime: string }
-export type FlusterError = "OperatingSystemNotSupported" | "FailToWriteChatSession" | "FailToReadChatSession" | "NoAiProvidersConfigured" | "FailToGenerateChatResponse" | "FailToLoadModel" | "FailToCreateQrCode" | "FailToCount" | "NotImplemented" | "FailToCopyFiles" | "FailToWriteFile" | "FailToSaveSettings" | "FailToReadSettings" | "FailToParseBibFile" | "SettingsBibPathNotFound" | "CannotParseBibfile" | "FailToFindDataDirectory" | "FailToCreateIndex" | "FailToSerialize" | "NotFoundById" | "DuplicateId" | "FailToDelete" | "FailToClean" | "FailToCreateTable" | "FailToOpenTable" | "FailToConnect" | "FailToStartDb" | "FailToStopDb" | "FailToCreateEntity" | "FailToCreateSnippet" | "FailToFind" | "FailToFindById" | "FailToCreatePath" | "FailToCreateTag" | "FailToCreateSubject" | { DataDirNotFound: [] } | { FailToClearDirectory: string } | "FailToCreateTopic" | "FailToLocateStorageDir" | { FailToReadFileSystemPath: string } | "FailToReadMathjaxFont" | { FailToSaveFile: string } | { MdxParsingError: string } | { NoTitleError: string } | "FailToGatherMdxGroups" | { AttemptedToParseFileWasntFound: string } | { FailToSaveMdxNote: string } | 
+export type FlusterError = "OperatingSystemNotSupported" | "FailToWriteChatSession" | "FailToReadChatSession" | "NoAiProvidersConfigured" | "FailToGenerateChatResponse" | "FailToLoadModel" | "FailToCreateEmbeddingVector" | "FailToGetSemanticResults" | "FailToCreateQrCode" | "FailToCount" | "NotImplemented" | "FailToCopyFiles" | "FailToWriteFile" | "FailToSaveSettings" | "FailToReadSettings" | "FailToParseBibFile" | "SettingsBibPathNotFound" | "CannotParseBibfile" | "FailToFindDataDirectory" | "FailToCreateIndex" | "FailToSerialize" | "NotFoundById" | "DuplicateId" | "FailToDelete" | "FailToClean" | "FailToCreateTable" | "FailToOpenTable" | "FailToConnect" | "FailToStartDb" | "FailToStopDb" | "FailToCreateEntity" | "FailToCreateSnippet" | "FailToFind" | "FailToFindById" | "FailToCreatePath" | "FailToCreateTag" | "FailToCreateSubject" | { DataDirNotFound: [] } | { FailToClearDirectory: string } | "FailToCreateTopic" | "FailToLocateStorageDir" | { FailToReadFileSystemPath: string } | "FailToReadMathjaxFont" | { FailToSaveFile: string } | { MdxParsingError: string } | { NoTitleError: string } | "FailToGatherMdxGroups" | { AttemptedToParseFileWasntFound: string } | { FailToSaveMdxNote: string } | 
 /**
  * Taggables
  * 
@@ -649,11 +657,12 @@ file_path: string; raw_body: string; ctime: string;
 /**
  * This field is updated each time a note is accessed in milliseconds.
  */
-last_read: string }
+last_read: string; vec: number[] }
 export type NoteSummary = { title: string; file_path: string }
 export type PaginationProps = { per_page: number; page_number: number }
 export type SearchOrder = "Created"
 export type SearchParams = { order: SearchOrder | null; per_page: number | null; page: number | null }
+export type SemanticSearchResults = { notes: MdxNoteGroup[] }
 export type SetDbConnectionUri = { uri: string }
 export type SharedTaggableModel = { value: string; ctime: string }
 export type ShowToast = { title: string; body: string; duration: number; variant: ToastVariant; 

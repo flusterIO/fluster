@@ -9,10 +9,11 @@ export enum AppRoutes {
     equations = "/equations",
     viewMdxNote = "/mdx",
     splitViewEditMdx = "/mdx-split-view",
-    embeddedDocs = "/embedded_docs",
+    embeddedDocs = "/embedded-docs",
     bookmarks = "/bookmarks",
     taskLists = "/taskLists",
     search = "/search",
+    semanticSearch = "/semantic-search",
     onboarding = "/onboarding",
     aiMainChat = "/aiChat",
 }

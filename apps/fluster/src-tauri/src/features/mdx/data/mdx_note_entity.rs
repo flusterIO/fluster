@@ -1,9 +1,10 @@
 use arrow_array::{
-    types::Float32Type, ListArray, RecordBatch, RecordBatchIterator, StringArray,
+    types::Float32Type, FixedSizeListArray, RecordBatch, RecordBatchIterator, StringArray,
     TimestampMillisecondArray,
 };
 use arrow_schema::{ArrowError, DataType, Field, Schema};
 use futures::TryStreamExt;
+use kalosm::language::Embedding;
 use lancedb::{
     index::scalar::FullTextSearchQuery,
     query::{ExecutableQuery, QueryBase},
@@ -23,7 +24,7 @@ use crate::{
             FlusterDb,
         },
     },
-    features::search::types::PaginationProps,
+    features::{ai::data::constants::VECTOR_DIMENSIONS, search::types::PaginationProps},
 };
 
 use super::mdx_note_model::MdxNoteModel;
@@ -31,6 +32,73 @@ use super::mdx_note_model::MdxNoteModel;
 pub struct MdxNoteEntity {}
 
 impl MdxNoteEntity {
+    pub async fn get_all(db: &FlusterDb<'_>) -> FlusterResult<Vec<MdxNoteModel>> {
+        let tbl = get_table(db, DatabaseTables::MdxNote).await?;
+        let items_batch = tbl
+            .query()
+            .execute()
+            .await
+            .map_err(|e| {
+                println!("Error: {:?}", e);
+                FlusterError::FailToFind
+            })?
+            .try_collect::<Vec<_>>()
+            .await
+            .map_err(|e| {
+                println!("Error: {:?}", e);
+                FlusterError::FailToFind
+            })?;
+
+        let mut items: Vec<MdxNoteModel> = Vec::new();
+
+        for batch in items_batch.iter() {
+            let data: Vec<MdxNoteModel> = from_record_batch(batch).map_err(|e| {
+                println!("Error: {:?}", e);
+                FlusterError::FailToSerialize
+            })?;
+            items.extend(data);
+        }
+
+        Ok(items)
+    }
+    pub async fn semantic_search(
+        db: &FlusterDb<'_>,
+        query: &Embedding,
+    ) -> FlusterResult<Vec<MdxNoteModel>> {
+        let tbl = get_table(db, DatabaseTables::MdxNote).await?;
+        let items_batch = tbl
+            .vector_search(query.vector())
+            .map_err(|e| {
+                println!("Error: {:?}", e);
+                FlusterError::FailToGetSemanticResults
+            })?
+            .execute()
+            .await
+            .map_err(|e| {
+                println!("Error: {:?}", e);
+                FlusterError::FailToGetSemanticResults
+            })?
+            .try_collect::<Vec<_>>()
+            .await
+            .map_err(|e| {
+                println!("Error: {:?}", e);
+                FlusterError::FailToGetSemanticResults
+            })?;
+
+        if items_batch.is_empty() {
+            return Ok(Vec::new());
+        }
+
+        let mut items: Vec<MdxNoteModel> = Vec::new();
+
+        for batch in items_batch.iter() {
+            let data: Vec<MdxNoteModel> =
+                from_record_batch(batch).map_err(|_| FlusterError::FailToSerialize)?;
+            items.extend(data);
+        }
+
+        Ok(items)
+    }
     pub async fn full_text_search(
         db: &FlusterDb<'_>,
         query: &String,
@@ -154,7 +222,10 @@ impl DbEntity<MdxNoteModel> for MdxNoteEntity {
             ),
             Field::new(
                 "vec",
-                DataType::List(Field::new("item", DataType::Float32, true).into()),
+                DataType::FixedSizeList(
+                    Field::new("item", DataType::Float32, true).into(),
+                    VECTOR_DIMENSIONS,
+                ),
                 true,
             ),
         ]))
@@ -164,16 +235,18 @@ impl DbEntity<MdxNoteModel> for MdxNoteEntity {
         item: &MdxNoteModel,
         schema: std::sync::Arc<arrow_schema::Schema>,
     ) -> arrow_array::RecordBatch {
+        println!("Vec Length: {}", item.vec.len());
         let raw_body = StringArray::from(vec![item.raw_body.clone()]);
         let file_path = StringArray::from(vec![item.file_path.clone()]);
         let front_matter_id = StringArray::from(vec![item.file_path.clone()]);
-        let ctime_value: i64 = item.ctime.parse().unwrap_or_else(|_| 0);
+        let ctime_value: i64 = item.ctime.parse().unwrap_or(0);
         let last_read_value: i64 = item.last_read.parse().unwrap();
         let ctime = TimestampMillisecondArray::from(vec![ctime_value]);
         let last_read = TimestampMillisecondArray::from(vec![last_read_value]);
-        let vec = ListArray::from_iter_primitive::<Float32Type, _, _>(vec![Some(
-            item.vec.iter().map(|x| Some(*x)),
-        )]);
+        let vec = FixedSizeListArray::from_iter_primitive::<Float32Type, _, _>(
+            vec![Some(item.vec.iter().map(|x| Some(*x)))],
+            VECTOR_DIMENSIONS,
+        );
         RecordBatch::try_new(
             schema,
             vec![

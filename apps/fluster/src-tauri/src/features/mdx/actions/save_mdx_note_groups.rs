@@ -20,10 +20,9 @@ pub async fn save_mdx_note_groups(
     let mut mdx_note_tag_models: Vec<MdxNoteTagModel> = Vec::new();
     let mut mdx_note_equations: Vec<MdxNoteEquationModel> = Vec::new();
     let mut notes: Vec<MdxNoteModel> = Vec::new();
-    // FIXME: Come back here and save the tag and mdxtag joining table to begin working on tag
-    // based searching. That played a big part in the initial app.
+    // RESUME: based searching. That played a big part in the initial app.
     let mut front_matter: Vec<FrontMatterModel> = Vec::new();
-    for item in groups {
+    for item in groups.iter().filter(|x| !x.mdx.raw_body.is_empty()) {
         mdx_note_tag_models.extend(item.tags.iter().map(|x| MdxNoteTagModel {
             mdx_note_file_path: item.mdx.file_path.clone(),
             tag_value: x.value.clone(),
@@ -32,8 +31,8 @@ pub async fn save_mdx_note_groups(
             mdx_note_file_path: item.mdx.file_path.clone(),
             equation_id: x.id.clone(),
         }));
-        notes.push(item.mdx);
-        front_matter.push(item.front_matter);
+        notes.push(item.mdx.clone());
+        front_matter.push(item.front_matter.clone());
     }
     // Once everything is sorted and joining tables are created, save everything.
     MdxNoteEntity::save_many(notes, db).await?;

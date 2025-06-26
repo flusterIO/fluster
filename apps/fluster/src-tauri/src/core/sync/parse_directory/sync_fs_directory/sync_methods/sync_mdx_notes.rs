@@ -3,6 +3,7 @@ use crate::core::sync::parse_directory::sync_fs_directory::models::sync_filesyst
 use crate::core::types::errors::errors::FlusterResult;
 use crate::features::ai::data::ai_providers::local_ai_provider::LocalAiClient;
 use crate::features::mdx::actions::save_mdx_note_groups::save_mdx_note_groups;
+use crate::features::mdx::data::mdx_note_entity::MdxNoteEntity;
 use crate::features::mdx::data::mdx_note_group::MdxNoteGroup;
 use crossbeam_channel::unbounded;
 use ignore::WalkBuilder;
@@ -12,6 +13,8 @@ use ignore::{DirEntry, WalkState};
 pub async fn sync_mdx_filesystem_notes(opts: &SyncFilesystemDirectoryOptions) -> FlusterResult<()> {
     let db_res = get_database().await;
     let db = db_res.lock().await;
+
+    let existing_notes = MdxNoteEntity::get_all(&db).await?;
 
     let threads: usize = opts.n_threads.parse().unwrap();
     let (mdx_sender, mdx_receiver) = unbounded::<String>();
@@ -39,13 +42,14 @@ pub async fn sync_mdx_filesystem_notes(opts: &SyncFilesystemDirectoryOptions) ->
         });
 
     drop(mdx_sender);
+    // let (note_group_sender, note_group_receiver) = unbounded::<String>();
     let mut items: Vec<MdxNoteGroup> = Vec::new();
     for p in mdx_receiver.iter() {
-        let note_group = MdxNoteGroup::from_file_system_path(&db, p).await?;
-        println!("Note Group: {:#?}", note_group);
+        let existing_note = existing_notes.iter().find(|x| x.file_path == p);
+        let note_group = MdxNoteGroup::from_file_system_path(&db, p, existing_note).await?;
         items.push(note_group);
     }
-    LocalAiClient {}.get_text_embeddings(&mut items).await;
+    LocalAiClient {}.get_text_embeddings(&mut items).await?;
     save_mdx_note_groups(&db, items).await?;
     Ok(())
 }

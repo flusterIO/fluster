@@ -21,6 +21,7 @@ import { AiChatPage } from "#/ai/presentation/ai_chat_page";
 import { PdfPage } from "#/pdf/presentation/pdf_page";
 import { ScaffoldWithRightPanelOnly } from "../presentation/scaffold_right_panel_only";
 import SearchResultsPage from "#/search/presentation/search_results_page/index";
+import { SemanticSearchResultsPage } from "#/search/presentation/semantic_search_results_page";
 
 export const getBrowserRouter = () => {
     return createBrowserRouter([
@@ -87,6 +88,10 @@ export const getBrowserRouter = () => {
                         {
                             path: AppRoutes.pdf,
                             Component: PdfPage,
+                        },
+                        {
+                            path: AppRoutes.semanticSearch,
+                            Component: SemanticSearchResultsPage,
                         },
                     ],
                 },

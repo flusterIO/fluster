@@ -23,7 +23,10 @@ pub enum FlusterError {
     FailToLoadModel,
 
     #[error("Fluster failed to generate an embedding vector for one of your notes.")]
-    FailToCreateEMbeddingVector,
+    FailToCreateEmbeddingVector,
+
+    #[error("Fluster failed to perform a semantic search.")]
+    FailToGetSemanticResults,
 
     #[error("Fluster could not create a QR code you requested.")]
     FailToCreateQrCode,

@@ -243,7 +243,7 @@ pub async fn initialize_database() -> FlusterResult<()> {
         }
         // TODO: Move these index functions to the loop when on WIFI and able to look at the docs for this fucking type issue.
         set_bib_entry_index(&db).await?;
-        set_mdx_note_body_index(&db).await?;
+        // set_mdx_note_body_index(&db).await?;
     }
     Ok(())
 }
