@@ -195,17 +195,14 @@ pub async fn mdx_note_models_to_mdx_note_groups(
                     .par_iter()
                     .find_any(|x| x.value == front_matter_tag.tag_value)
                 {
-                    front_matter_tag_sender.send(tag_item.clone());
+                    let _ = front_matter_tag_sender.send(tag_item.clone());
                 }
             }
         }
         drop(front_matter_tag_sender);
 
         let base_front_matter = front_matter.index(0).clone();
-        let (front_matter_tag_sender, front_matter_tag_receiver) =
-            unbounded::<SharedTaggableModel>();
 
-        println!("Here 4");
         let subject = match base_front_matter.subject {
             None => None,
             Some(x) => subjects.iter().find(|y| x == y.value),
@@ -221,7 +218,7 @@ pub async fn mdx_note_models_to_mdx_note_groups(
         for tag in mdx_note_tags.clone() {
             if tag.mdx_note_file_path == model.file_path {
                 if let Some(tag_item) = tags.par_iter().find_any(|x| x.value == tag.tag_value) {
-                    tag_sender.send(tag_item.clone());
+                    let _ = tag_sender.send(tag_item.clone());
                 }
             }
         }
