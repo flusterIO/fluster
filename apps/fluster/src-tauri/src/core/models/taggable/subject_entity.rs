@@ -24,6 +24,9 @@ impl SubjectEntity {
         db: &FlusterDb<'_>,
         values: Vec<String>,
     ) -> FlusterResult<Vec<SharedTaggableModel>> {
+        if values.is_empty() {
+            return Ok(Vec::new());
+        }
         let tbl = get_table(
             db,
             crate::core::database::tables::table_paths::DatabaseTables::Subject,

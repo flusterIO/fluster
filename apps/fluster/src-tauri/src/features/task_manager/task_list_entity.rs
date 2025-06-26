@@ -84,7 +84,10 @@ impl TaskListEntity {
         match items_batch.len() {
             0 => Err(FlusterError::FailToFind),
             1 => Ok(items.index(0).clone()),
-            _ => Err(FlusterError::DuplicateId),
+            _ => {
+                println!("DuplicateId in TaskListEntity");
+                Err(FlusterError::DuplicateId)
+            }
         }
     }
     pub async fn delete_by_id(db: &FlusterDb<'_>, id: &str) -> FlusterResult<()> {

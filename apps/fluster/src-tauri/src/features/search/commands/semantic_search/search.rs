@@ -1,5 +1,3 @@
-use std::ops::Index;
-
 use crate::{
     core::{
         database::db::get_database,
@@ -32,8 +30,6 @@ pub async fn semantic_search(query: String) -> FlusterResult<SemanticSearchResul
 
     let mdx_notes = MdxNoteEntity::semantic_search(&db, &query_vec).await?;
 
-    println!("Mdx Notes: {:?}", mdx_notes.index(0));
-
     let mdx_note_groups = mdx_note_models_to_mdx_note_groups(&db, mdx_notes).await?;
 
     Ok(SemanticSearchResults {
@@ -42,10 +38,8 @@ pub async fn semantic_search(query: String) -> FlusterResult<SemanticSearchResul
     // let query_vec =
 }
 
-#[cfg(test)]
 mod tests {
-    use crate::features::search::commands::semantic_search;
-
+    #[cfg(test)]
     use super::*;
 
     #[tokio::test]

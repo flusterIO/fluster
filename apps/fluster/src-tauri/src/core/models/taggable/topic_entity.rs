@@ -24,6 +24,9 @@ impl TopicEntity {
         db: &FlusterDb<'_>,
         values: Vec<String>,
     ) -> FlusterResult<Vec<SharedTaggableModel>> {
+        if values.is_empty() {
+            return Ok(Vec::new());
+        }
         let tbl = get_table(db, DatabaseTables::Topic).await?;
         let values_string = values
             .iter()

@@ -45,6 +45,9 @@ impl FrontMatterEntity {
         db: &FlusterDb<'_>,
         file_paths: &[String],
     ) -> FlusterResult<Vec<FrontMatterBaseModel>> {
+        if file_paths.is_empty() {
+            return Ok(Vec::new());
+        }
         let tbl = get_table(db, DatabaseTables::FrontMatter).await?;
         let file_paths_string = file_paths
             .iter()

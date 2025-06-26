@@ -20,6 +20,7 @@ use crate::{
         math::data::{equation_entity::EquationEntity, equation_model::EquationModel},
         mdx::data::{
             front_matter_entity::FrontMatterEntity, front_matter_model::FrontMatterModel,
+            front_matter_tag_entity::FrontMatterTagEntity,
             mdx_note_bib_entry_entity::MdxNoteBibEntryEntity,
             mdx_note_dictionary_entry_entity::MdxNoteDictionaryEntity,
             mdx_note_equation_entity::MdxNoteEquationEntity, mdx_note_group::MdxNoteGroup,
@@ -41,6 +42,7 @@ pub async fn mdx_note_models_to_mdx_note_groups(
     let res = tokio::try_join!(
         MdxNoteTagEntity::get_by_file_paths(db, &file_paths),
         FrontMatterEntity::get_by_file_paths(db, &file_paths),
+        FrontMatterTagEntity::get_by_file_paths(db, &file_paths),
         MdxNoteEquationEntity::get_by_file_paths(db, &file_paths),
         MdxNoteBibEntryEntity::get_by_file_paths(db, &file_paths),
         MdxNoteDictionaryEntity::get_by_file_paths(db, &file_paths),
@@ -55,20 +57,13 @@ pub async fn mdx_note_models_to_mdx_note_groups(
     let (
         mdx_note_tags,
         front_matter,
+        front_matter_tags,
         mdx_note_equations,
         mdx_note_bib_entries,
         mdx_note_dictionary_entries,
         mdx_note_topics,
         mdx_note_subjects,
     ) = res.unwrap();
-    let l = front_matter.iter().len();
-    if l != 1 {
-        if l > 1 {
-            return Err(FlusterError::DuplicateId);
-        } else {
-            return Err(FlusterError::FailToFindById);
-        }
-    }
 
     let second_res = tokio::try_join!(
         TagEntity::get_by_values(
@@ -122,13 +117,10 @@ pub async fn mdx_note_models_to_mdx_note_groups(
 
     let (error_sender, error_receiver) = unbounded::<FlusterError>();
 
-    if let Some(err) = error_receiver.iter().next() {
-        return Err(err);
-    }
-
     // After all data has been gathered, collect it here.
 
     models.par_iter().for_each(|model| {
+        println!("Model: {}", model.file_path.clone());
         // -- Equations --
         let (equation_sender, equation_receiver) = unbounded::<EquationModel>();
         for eq in mdx_note_equations.clone() {
@@ -148,7 +140,8 @@ pub async fn mdx_note_models_to_mdx_note_groups(
                 }
             }
         }
-        // -- Citations --
+        drop(equation_sender);
+        // // -- Citations --
         let (citation_sender, citation_receiver) = unbounded::<BibEntryModel>();
         for cit in mdx_note_bib_entries.clone() {
             if cit.mdx_note_file_path == model.file_path {
@@ -169,7 +162,9 @@ pub async fn mdx_note_models_to_mdx_note_groups(
             }
         }
 
-        // -- Dictionary Entries --
+        drop(citation_sender);
+
+        // // -- Dictionary Entries --
         let (dictionary_sender, dictionary_receiver) = unbounded::<DictionaryEntryModel>();
         for cit in mdx_note_dictionary_entries.clone() {
             if cit.mdx_note_file_path == model.file_path {
@@ -190,11 +185,27 @@ pub async fn mdx_note_models_to_mdx_note_groups(
                 }
             }
         }
+        drop(dictionary_sender);
+
+        let (front_matter_tag_sender, front_matter_tag_receiver) =
+            unbounded::<SharedTaggableModel>();
+        for front_matter_tag in front_matter_tags.clone() {
+            if front_matter_tag.mdx_note_file_path == model.file_path {
+                if let Some(tag_item) = tags
+                    .par_iter()
+                    .find_any(|x| x.value == front_matter_tag.tag_value)
+                {
+                    front_matter_tag_sender.send(tag_item.clone());
+                }
+            }
+        }
+        drop(front_matter_tag_sender);
 
         let base_front_matter = front_matter.index(0).clone();
         let (front_matter_tag_sender, front_matter_tag_receiver) =
             unbounded::<SharedTaggableModel>();
 
+        println!("Here 4");
         let subject = match base_front_matter.subject {
             None => None,
             Some(x) => subjects.iter().find(|y| x == y.value),
@@ -204,8 +215,23 @@ pub async fn mdx_note_models_to_mdx_note_groups(
             None => None,
             Some(x) => topics.iter().find(|y| x == y.value),
         };
+        // println!("Here 5");
 
-        let fm = FrontMatterModel {
+        let (tag_sender, tag_receiver) = unbounded::<SharedTaggableModel>();
+        for tag in mdx_note_tags.clone() {
+            if tag.mdx_note_file_path == model.file_path {
+                if let Some(tag_item) = tags.par_iter().find_any(|x| x.value == tag.tag_value) {
+                    tag_sender.send(tag_item.clone());
+                }
+            }
+        }
+        drop(tag_sender);
+
+        let front_matter_tags = front_matter_tag_receiver
+            .iter()
+            .collect::<Vec<SharedTaggableModel>>();
+
+        let front_matter = FrontMatterModel {
             id: base_front_matter.id,
             mdx_note_file_path: base_front_matter.mdx_note_file_path,
             user_provided_id: base_front_matter.user_provided_id,
@@ -213,45 +239,24 @@ pub async fn mdx_note_models_to_mdx_note_groups(
             summary: base_front_matter.summary,
             list_id: base_front_matter.list_id,
             list_index: base_front_matter.list_index,
-            tags: front_matter_tag_receiver.iter().collect(),
+            tags: front_matter_tags,
             subject: subject.cloned(),
             topic: topic.cloned(),
         };
-
-        let (tag_sender, tag_receiver) = unbounded::<SharedTaggableModel>();
-        for t in mdx_note_tags.clone() {
-            if t.mdx_note_file_path == model.file_path {
-                if let Some(matched_tag) = tags.par_iter().find_any(|x| x.value == t.tag_value) {
-                    if fm.tags.iter().any(|x| x.value == t.tag_value) {
-                        if let Err(front_matter_tag_res) = front_matter_tag_sender
-                            .send(matched_tag.clone())
-                            .map_err(|e| {
-                                println!("Error: {:?}", e);
-                                FlusterError::FailToGatherMdxGroups
-                            })
-                        {
-                            let _ = error_sender.send(front_matter_tag_res);
-                        }
-                    } else if let Err(tag_res) = tag_sender.send(matched_tag.clone()).map_err(|e| {
-                        println!("Error: {:?}", e);
-                        FlusterError::FailToGatherMdxGroups
-                    }) {
-                        let _ = error_sender.send(tag_res);
-                    };
-                }
-                // if let Some(front_matter_matched_tag) = tags.par_iter()
-            }
-        }
-
-        // RESUME: Come back here and finish this when battery is charging.
+        let equations = equation_receiver.iter().collect::<Vec<EquationModel>>();
+        let citations = citation_receiver.iter().collect::<Vec<BibEntryModel>>();
+        let dictionary_entries = dictionary_receiver
+            .iter()
+            .collect::<Vec<DictionaryEntryModel>>();
+        let tags = tag_receiver.iter().collect::<Vec<SharedTaggableModel>>();
         if let Err(mdx_note_group_res) = sender
             .send(MdxNoteGroup {
                 mdx: model.clone(),
-                tags: tag_receiver.iter().collect(),
-                front_matter: fm,
-                equations: equation_receiver.iter().collect(),
-                citations: citation_receiver.iter().collect(),
-                dictionary_entries: dictionary_receiver.iter().collect(),
+                tags,
+                front_matter,
+                equations,
+                citations,
+                dictionary_entries,
             })
             .map_err(|e| {
                 println!("Error: {:?}", e);
@@ -262,11 +267,16 @@ pub async fn mdx_note_models_to_mdx_note_groups(
         }
     });
 
+    drop(sender);
+    drop(error_sender);
+
+    if let Some(err) = error_receiver.iter().next() {
+        return Err(err);
+    }
     let mut items: Vec<MdxNoteGroup> = Vec::new();
     for x in receiver.iter() {
         items.push(x)
     }
 
     Ok(items)
-    // Get front matter additional entities here.
 }

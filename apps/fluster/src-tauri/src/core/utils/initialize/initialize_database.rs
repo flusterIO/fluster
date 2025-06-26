@@ -24,6 +24,7 @@ use crate::{
         },
         mdx::data::{
             bookmark_entity::BookmarkEntity, front_matter_entity::FrontMatterEntity,
+            front_matter_tag_entity::FrontMatterTagEntity,
             mdx_note_bib_entry_entity::MdxNoteBibEntryEntity,
             mdx_note_dictionary_entry_entity::MdxNoteDictionaryEntity,
             mdx_note_entity::MdxNoteEntity, mdx_note_equation_entity::MdxNoteEquationEntity,
@@ -43,9 +44,7 @@ use arrow_schema::Schema;
 use lancedb::{connect, Table};
 use log::warn;
 
-use super::set_indices::{
-    set_bib_entry_index::set_bib_entry_index, set_mdx_note_index::set_mdx_note_body_index,
-};
+use super::set_indices::set_bib_entry_index::set_bib_entry_index;
 
 async fn create_table(
     db: &lancedb::Connection,
@@ -99,6 +98,11 @@ pub async fn initialize_database() -> FlusterResult<()> {
         TableInitData {
             table: DatabaseTables::FrontMatter,
             entity: FrontMatterEntity::arrow_schema(),
+            set_indices: None,
+        },
+        TableInitData {
+            table: DatabaseTables::FrontMatterTag,
+            entity: FrontMatterTagEntity::arrow_schema(),
             set_indices: None,
         },
         TableInitData {
@@ -243,6 +247,8 @@ pub async fn initialize_database() -> FlusterResult<()> {
         }
         // TODO: Move these index functions to the loop when on WIFI and able to look at the docs for this fucking type issue.
         set_bib_entry_index(&db).await?;
+        //TODO: Create the vector index. There's currently an error, and it's not worth the
+        //time to mess with this before launching when we're so close.
         // set_mdx_note_body_index(&db).await?;
     }
     Ok(())

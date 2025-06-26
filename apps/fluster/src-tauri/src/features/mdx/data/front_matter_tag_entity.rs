@@ -14,57 +14,58 @@ use crate::{
             traits::db_entity::DbEntity,
             FlusterDb,
         },
-        utils::database_utils::format_string_vec_for_query::format_string_vec_for_query,
     },
     features::search::types::PaginationProps,
 };
 
-use super::mdx_note_tag_model::MdxNoteTagModel;
+use super::front_matter_tag_model::FrontMatterTagModel;
 
-pub struct MdxNoteTagEntity {}
+pub struct FrontMatterTagEntity {}
 
-type T = MdxNoteTagModel;
+type T = FrontMatterTagModel;
 
-impl MdxNoteTagEntity {
+impl FrontMatterTagEntity {
     fn table() -> DatabaseTables {
-        DatabaseTables::MdxNoteTag
+        DatabaseTables::FrontMatterTag
     }
 
     pub async fn get_by_file_paths(
         db: &FlusterDb<'_>,
-        file_paths: &Vec<String>,
+        file_paths: &[String],
     ) -> FlusterResult<Vec<T>> {
         if file_paths.is_empty() {
             return Ok(Vec::new());
         }
-        let tbl = get_table(db, DatabaseTables::MdxNoteTag).await?;
-
+        let tbl = get_table(db, FrontMatterTagEntity::table()).await?;
+        let file_paths_string = file_paths
+            .iter()
+            .map(|x| format!("\"{}\"", x))
+            .collect::<Vec<String>>()
+            .join(", ");
         let items_batch = tbl
             .query()
-            .only_if(format!(
-                "mdx_note_file_path in ({})",
-                format_string_vec_for_query(file_paths)
-            ))
+            .only_if(format!("mdx_note_file_path in ({})", file_paths_string))
             .execute()
             .await
             .map_err(|e| {
-                println!("Error: {:?}", e);
-                FlusterError::FailToFind
+                println!("Error in FrontMatterTagEntity.get_by_file_paths: {:?}", e);
+                FlusterError::FailToConnect
             })?
             .try_collect::<Vec<_>>()
             .await
             .map_err(|e| {
-                println!("Error: {:?}", e);
+                println!("Error in FrontMatterTagEntity.get_by_file_paths: {:?}", e);
                 FlusterError::FailToFind
             })?;
-
+        // let batches = &items_batch;
         if items_batch.is_empty() {
             return Ok(Vec::new());
         }
         let mut items: Vec<T> = Vec::new();
+
         for batch in items_batch.iter() {
             let data: Vec<T> = from_record_batch(batch).map_err(|e| {
-                println!("Error: {:?}", e);
+                println!("Error in FrontMatterTagEntity.get_by_file_paths: {:?}", e);
                 FlusterError::FailToSerialize
             })?;
             items.extend(data);
@@ -76,7 +77,7 @@ impl MdxNoteTagEntity {
         pagination: PaginationProps,
         predicate: Option<String>,
     ) -> FlusterResult<Vec<T>> {
-        let tbl = get_table(db, MdxNoteTagEntity::table()).await?;
+        let tbl = get_table(db, FrontMatterTagEntity::table()).await?;
         let offset = (pagination.per_page * (pagination.page_number - 1)) as usize;
         let mut q = tbl.query();
         if predicate.is_some() {
@@ -111,7 +112,7 @@ impl MdxNoteTagEntity {
     }
 
     pub async fn delete(db: &FlusterDb<'_>, predicate: String) -> FlusterResult<()> {
-        let tbl = get_table(db, MdxNoteTagEntity::table()).await?;
+        let tbl = get_table(db, FrontMatterTagEntity::table()).await?;
         tbl.delete(&predicate).await.map_err(|e| {
             println!("Error: {:?}", e);
             FlusterError::FailToDelete
@@ -121,7 +122,7 @@ impl MdxNoteTagEntity {
     }
 
     pub async fn create_many(db: &FlusterDb<'_>, items: Vec<T>) -> FlusterResult<()> {
-        let all_note_tags = MdxNoteTagEntity::get_all(
+        let all_note_tags = FrontMatterTagEntity::get_all(
             db,
             PaginationProps {
                 per_page: 9999999,
@@ -139,11 +140,11 @@ impl MdxNoteTagEntity {
                 })
             })
             .collect();
-        let schema = MdxNoteTagEntity::arrow_schema();
-        let tbl = get_table(db, MdxNoteTagEntity::table()).await?;
+        let schema = FrontMatterTagEntity::arrow_schema();
+        let tbl = get_table(db, FrontMatterTagEntity::table()).await?;
         let batches: Vec<Result<RecordBatch, ArrowError>> = filtered_tags
             .iter()
-            .map(|x| Ok(MdxNoteTagEntity::to_record_batch(x, schema.clone())))
+            .map(|x| Ok(FrontMatterTagEntity::to_record_batch(x, schema.clone())))
             .collect();
         let stream = Box::new(RecordBatchIterator::new(
             batches.into_iter(),
@@ -157,7 +158,7 @@ impl MdxNoteTagEntity {
     }
 }
 
-impl DbEntity<MdxNoteTagModel> for MdxNoteTagEntity {
+impl DbEntity<T> for FrontMatterTagEntity {
     fn arrow_schema() -> std::sync::Arc<arrow_schema::Schema> {
         Arc::new(Schema::new(vec![
             Field::new("mdx_note_file_path", DataType::Utf8, false),
@@ -166,11 +167,11 @@ impl DbEntity<MdxNoteTagModel> for MdxNoteTagEntity {
     }
 
     fn to_record_batch(
-        item: &MdxNoteTagModel,
+        item: &T,
         schema: std::sync::Arc<arrow_schema::Schema>,
     ) -> arrow_array::RecordBatch {
-        let tag_value = StringArray::from(vec![item.tag_value.clone()]);
         let mdx_note_file_path = StringArray::from(vec![item.mdx_note_file_path.clone()]);
+        let tag_value = StringArray::from(vec![item.tag_value.clone()]);
 
         RecordBatch::try_new(
             schema,

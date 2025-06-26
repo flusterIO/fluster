@@ -112,7 +112,10 @@ impl AiChatEntity {
         match data.len() {
             0 => Err(FlusterError::FailToFind),
             1 => Ok(data.index(0).clone()),
-            _ => Err(FlusterError::DuplicateId),
+            _ => {
+                println!("DuplicateId in AiChatEntity");
+                Err(FlusterError::DuplicateId)
+            }
         }
     }
 }

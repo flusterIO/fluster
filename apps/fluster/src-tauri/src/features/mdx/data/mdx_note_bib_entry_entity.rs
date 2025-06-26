@@ -31,8 +31,11 @@ impl MdxNoteBibEntryEntity {
 
     pub async fn get_by_file_paths(
         db: &FlusterDb<'_>,
-        file_paths: &Vec<String>,
+        file_paths: &[String],
     ) -> FlusterResult<Vec<MdxNoteBibEntryModel>> {
+        if file_paths.is_empty() {
+            return Ok(Vec::new());
+        }
         let tbl = get_table(db, DatabaseTables::MdxNoteBibEntry).await?;
         let file_paths_string = file_paths
             .iter()

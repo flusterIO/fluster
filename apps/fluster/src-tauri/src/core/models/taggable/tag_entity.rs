@@ -30,6 +30,9 @@ impl TagEntity {
         db: &FlusterDb<'_>,
         ids: Vec<String>,
     ) -> FlusterResult<Vec<SharedTaggableModel>> {
+        if ids.is_empty() {
+            return Ok(Vec::new());
+        }
         let tbl = get_table(db, DatabaseTables::Tag).await?;
         let ids_string = ids
             .iter()
