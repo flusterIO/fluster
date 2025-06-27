@@ -57,7 +57,7 @@ impl SubjectEntity {
         // TODO:  This can be collapsed into one loop.
         let filtered_topics: Vec<&SharedTaggableModel> = items
             .iter()
-            .filter(|x| existing_topics.iter().any(|y| (x.value == y.value)))
+            .filter(|x| !existing_topics.iter().any(|y| (x.value == y.value)))
             .collect::<Vec<&SharedTaggableModel>>();
         let schema = SubjectEntity::arrow_schema();
         let tbl = get_table(db, DatabaseTables::Subject).await?;

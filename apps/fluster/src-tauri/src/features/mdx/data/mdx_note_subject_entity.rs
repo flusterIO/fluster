@@ -136,7 +136,7 @@ impl MdxNoteSubjectEntity {
         let filtered_tags: Vec<&T> = items
             .iter()
             .filter(|x| {
-                all_note_tags.iter().any(|y| {
+                !all_note_tags.iter().any(|y| {
                     (x.mdx_note_file_path == y.mdx_note_file_path)
                         && (x.subject_value == y.subject_value)
                 })
