@@ -117,3 +117,5 @@ export * from "./components/shad/toggle";
 export * from "./components/shad/tooltip";
 // -- Types --
 export * from "./types/general";
+// -- Plugin Stuff --
+export * from "./utils/plugin_utils/component_config";

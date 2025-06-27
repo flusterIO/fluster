@@ -65,7 +65,7 @@ export const Admonition = ({
                 </AdmonitionTitle>
             )}
             <motion.div
-                className="rounded-bl rounded-br border-l border-b border-r bg-card text-card-foreground"
+                className="rounded-bl rounded-br border-l border-b border-r bg-card text-card-foreground relative"
                 variants={{
                     folded: {
                         height: 0,
@@ -80,21 +80,7 @@ export const Admonition = ({
                     bounce: 0,
                 }}
             >
-                <motion.div
-                    variants={{
-                        folded: {
-                            y: "-100%",
-                            opacity: 0,
-                        },
-                        open: {
-                            y: 0,
-                            opacity: 1,
-                        },
-                    }}
-                    className="p-4 [&>p]:my-0"
-                >
-                    {children}
-                </motion.div>
+                <div className="p-4 [&>p]:my-0">{children}</div>
             </motion.div>
         </motion.div>
     );

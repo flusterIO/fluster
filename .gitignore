@@ -158,3 +158,4 @@ history.txt
 
 .wireit/
 .env**
+apps/local_plugin_template_example/

@@ -1,12 +1,9 @@
-use crate::{
-    core::{
-        database::{
-            db::{get_database, get_table},
-            tables::table_paths::DatabaseTables,
-        },
-        types::errors::errors::{FlusterError, FlusterResult},
+use crate::core::{
+    database::{
+        db::{get_database, get_table},
+        tables::table_paths::DatabaseTables,
     },
-    features::search::types::PaginationProps,
+    types::errors::errors::{FlusterError, FlusterResult},
 };
 
 #[tauri::command]

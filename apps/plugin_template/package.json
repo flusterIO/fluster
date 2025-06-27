@@ -24,9 +24,12 @@
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1"
     },
+    "files": [
+        "src"
+    ],
     "main": "index.js",
     "dependencies": {
-        "@fluster.io/fluster-ts": "workspace:*",
+        "@fluster.io/dev": "workspace:*",
         "react": "19.1.0",
         "react-dom": "19.1.0"
     },

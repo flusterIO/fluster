@@ -71,6 +71,7 @@ export const PdfContainer = ({ fsPath }: PdfContainerProps): ReactNode => {
                 payload: viewParam as PdfView,
             });
         }
+        /* eslint-disable-next-line  --  */
     }, [viewParam]);
 
     useEffect(() => {

@@ -1,1 +1,3 @@
-src/components/my_sample_component
+node_modules/
+dist/
+CHANGELOG.md

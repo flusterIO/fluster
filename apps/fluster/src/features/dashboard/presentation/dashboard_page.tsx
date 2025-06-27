@@ -1,13 +1,8 @@
-import PanelContainer from "@/components/util/panel_container";
 import React, { type ReactNode } from "react";
 import SimpleDashboard from "./dashboards/simple";
 
 const DashboardPage = (): ReactNode => {
-    return (
-        <PanelContainer>
-            <SimpleDashboard />
-        </PanelContainer>
-    );
+  return <SimpleDashboard />;
 };
 
 DashboardPage.displayName = "DashboardPage";
