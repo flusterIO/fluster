@@ -30,6 +30,46 @@ impl MdxNoteTagEntity {
         DatabaseTables::MdxNoteTag
     }
 
+    pub async fn get_by_tag_values(
+        db: &FlusterDb<'_>,
+        tag_values: &[String],
+    ) -> FlusterResult<Vec<MdxNoteTagModel>> {
+        let tbl = get_table(db, DatabaseTables::Topic).await?;
+
+        let values_string = tag_values
+            .iter()
+            .map(|x| format!("\"{}\"", x))
+            .collect::<Vec<String>>()
+            .join(", ");
+        let items_batch = tbl
+            .query()
+            .only_if(format!("tag_value in ({})", values_string))
+            .execute()
+            .await
+            .map_err(|e| {
+                println!("Error in MdxNoteTagEntity.get_all: {:?}", e);
+                FlusterError::FailToConnect
+            })?
+            .try_collect::<Vec<_>>()
+            .await
+            .map_err(|e| {
+                println!("Error in MdxNoteTagEntity.get_all: {:?}", e);
+                FlusterError::FailToCreateEntity
+            })?;
+        if items_batch.is_empty() {
+            return Ok(Vec::new());
+        }
+        let mut items: Vec<MdxNoteTagModel> = Vec::new();
+        for batch in items_batch.iter() {
+            let data: Vec<MdxNoteTagModel> = from_record_batch(batch).map_err(|e| {
+                println!("Error in MdxNoteTagEntity.get_all: {:?}", e);
+                FlusterError::FailToSerialize
+            })?;
+            items.extend(data);
+        }
+        Ok(items)
+    }
+
     pub async fn get_by_file_paths(
         db: &FlusterDb<'_>,
         file_paths: &Vec<String>,

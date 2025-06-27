@@ -1,7 +1,7 @@
 use std::sync::Arc;
 
-use arrow_array::{RecordBatch, TimestampMillisecondArray};
-use arrow_schema::{DataType, Field, Schema};
+use arrow_array::{RecordBatch, RecordBatchIterator, TimestampMillisecondArray};
+use arrow_schema::{ArrowError, DataType, Field, Schema};
 use futures::TryStreamExt;
 use lancedb::query::{ExecutableQuery, QueryBase};
 use serde_arrow::from_record_batch;
@@ -20,6 +20,62 @@ use crate::core::{
 pub struct TopicEntity {}
 
 impl TopicEntity {
+    pub async fn get_all(db: &FlusterDb<'_>) -> FlusterResult<Vec<SharedTaggableModel>> {
+        let tbl = get_table(db, DatabaseTables::Topic).await?;
+        let items_batch = tbl
+            .query()
+            .execute()
+            .await
+            .map_err(|e| {
+                println!("Error in TopicEntity.get_all: {:?}", e);
+                FlusterError::FailToConnect
+            })?
+            .try_collect::<Vec<_>>()
+            .await
+            .map_err(|e| {
+                println!("Error in TopicEntity.get_all: {:?}", e);
+                FlusterError::FailToCreateEntity
+            })?;
+        if items_batch.is_empty() {
+            return Ok(Vec::new());
+        }
+        let mut items: Vec<SharedTaggableModel> = Vec::new();
+        for batch in items_batch.iter() {
+            let data: Vec<SharedTaggableModel> = from_record_batch(batch).map_err(|e| {
+                println!("Error in TopicEntity.get_all: {:?}", e);
+                FlusterError::FailToSerialize
+            })?;
+            items.extend(data);
+        }
+        Ok(items)
+    }
+    pub async fn create_many(
+        db: &FlusterDb<'_>,
+        items: Vec<SharedTaggableModel>,
+    ) -> FlusterResult<()> {
+        let existing_topics = TopicEntity::get_all(db).await?;
+        // TODO:  This can be collapsed into one loop.
+        let filtered_topics: Vec<&SharedTaggableModel> = items
+            .iter()
+            .filter(|x| existing_topics.iter().any(|y| (x.value == y.value)))
+            .collect::<Vec<&SharedTaggableModel>>();
+        let schema = TopicEntity::arrow_schema();
+        let tbl = get_table(db, DatabaseTables::Topic).await?;
+        let batches: Vec<Result<RecordBatch, ArrowError>> = filtered_topics
+            .iter()
+            .map(|x| Ok(TopicEntity::to_record_batch(x, schema.clone())))
+            .collect();
+        let stream = Box::new(RecordBatchIterator::new(
+            batches.into_iter(),
+            schema.clone(),
+        ));
+        tbl.add(stream).execute().await.map_err(|e| {
+            println!("Error: {:?}", e);
+            FlusterError::FailToCreateEntity
+        })?;
+        Ok(())
+    }
+
     pub async fn get_by_values(
         db: &FlusterDb<'_>,
         values: Vec<String>,

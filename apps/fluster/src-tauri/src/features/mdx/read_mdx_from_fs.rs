@@ -9,5 +9,5 @@ use super::data::mdx_note_group::MdxNoteGroup;
 pub async fn read_mdx_from_fs(fs_path: String) -> FlusterResult<MdxNoteGroup> {
     let db_res = get_database().await;
     let db = db_res.lock().await;
-    MdxNoteGroup::from_file_system_path_async(&db, fs_path).await
+    MdxNoteGroup::from_file_system_path(&db, fs_path, None).await
 }

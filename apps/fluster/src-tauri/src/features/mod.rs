@@ -13,3 +13,4 @@ pub mod search;
 pub mod settings;
 pub mod snippets;
 pub mod task_manager;
+pub mod taggables;

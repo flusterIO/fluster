@@ -55,6 +55,7 @@ use crate::features::snippets::delete_snippet_by_id::delete_snippet_by_id;
 use crate::features::snippets::get_snippet_by_id::get_snippet_by_id;
 use crate::features::snippets::get_snippets::get_snippets;
 use crate::features::snippets::save_snippet::save_snippets;
+use crate::features::taggables::commands::get_tag_search_results::get_tag_search_results;
 use crate::features::task_manager::commands::count_tasks_in_list::count_tasks_in_list;
 use crate::features::task_manager::commands::create_task::create_task;
 use crate::features::task_manager::commands::create_task_list::create_task_list;
@@ -89,6 +90,7 @@ pub fn run() {
             // -- Search --
             get_text_similarity,
             get_unique_id,
+            get_tag_search_results,
             // -- File System --
             sync_local_database,
             save_utf8_file,

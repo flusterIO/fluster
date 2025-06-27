@@ -20,6 +20,50 @@ use super::equation_model::EquationModel;
 pub struct EquationEntity {}
 
 impl EquationEntity {
+    pub async fn get_by_user_provided_ids(
+        db: &FlusterDb<'_>,
+        ids: Vec<String>,
+    ) -> FlusterResult<Vec<EquationModel>> {
+        if ids.is_empty() {
+            return Ok(Vec::new());
+        }
+        let tbl = get_table(db, DatabaseTables::Equation).await?;
+        let ids_string = ids
+            .iter()
+            .map(|x| format!("\"{}\"", x))
+            .collect::<Vec<String>>()
+            .join(", ");
+        let items_batch = tbl
+            .query()
+            .only_if(format!("equation_id in ({})", ids_string))
+            .execute()
+            .await
+            .map_err(|e| {
+                println!("Error in EquationEntity.get_by_user_provided_ids: {:?}", e);
+                FlusterError::FailToConnect
+            })?
+            .try_collect::<Vec<_>>()
+            .await
+            .map_err(|e| {
+                println!("Error in EquationEntity.get_by_user_provided_ids: {:?}", e);
+                FlusterError::FailToFind
+            })?;
+        // let batches = &items_batch;
+        if items_batch.is_empty() {
+            return Ok(Vec::new());
+        }
+        let mut items: Vec<EquationModel> = Vec::new();
+
+        for batch in items_batch.iter() {
+            let data: Vec<EquationModel> = from_record_batch(batch).map_err(|e| {
+                println!("Error in EquationEntity.get_by_user_provided_ids: {:?}", e);
+                FlusterError::FailToSerialize
+            })?;
+            items.extend(data);
+        }
+        println!("Returning from get_by_user_provided_ids");
+        Ok(items)
+    }
     pub async fn get_by_ids(
         db: &FlusterDb<'_>,
         ids: Vec<String>,

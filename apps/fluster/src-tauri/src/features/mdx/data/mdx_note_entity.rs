@@ -141,6 +141,7 @@ impl MdxNoteEntity {
         }
         Ok(items)
     }
+
     pub async fn get_by_file_paths(
         db: &FlusterDb<'_>,
         file_paths: Vec<String>,
@@ -181,7 +182,7 @@ impl MdxNoteEntity {
     pub async fn clean(db: &FlusterDb<'_>) -> FlusterResult<()> {
         clean_table(db, DatabaseTables::MdxNote).await
     }
-    pub async fn save_many(items: Vec<MdxNoteModel>, db: &FlusterDb<'_>) -> FlusterResult<()> {
+    pub async fn save_many(db: &FlusterDb<'_>, items: Vec<MdxNoteModel>) -> FlusterResult<()> {
         let schema = MdxNoteEntity::arrow_schema();
         let tbl = get_table(db, DatabaseTables::MdxNote).await?;
         let batches: Vec<Result<RecordBatch, ArrowError>> = items
@@ -239,7 +240,6 @@ impl DbEntity<MdxNoteModel> for MdxNoteEntity {
         item: &MdxNoteModel,
         schema: std::sync::Arc<arrow_schema::Schema>,
     ) -> arrow_array::RecordBatch {
-        println!("Vec Length: {}", item.vec.len());
         let raw_body = StringArray::from(vec![item.raw_body.clone()]);
         let file_path = StringArray::from(vec![item.file_path.clone()]);
         let front_matter_id = StringArray::from(vec![item.file_path.clone()]);

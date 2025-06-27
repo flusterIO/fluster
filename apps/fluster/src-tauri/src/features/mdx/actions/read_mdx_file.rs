@@ -8,5 +8,5 @@ use crate::{
 pub async fn read_mdx_file(file_path: String) -> FlusterResult<MdxNoteGroup> {
     let db_res = get_database().await;
     let db = db_res.lock().await;
-    MdxNoteGroup::from_file_system_path_async(&db, file_path).await
+    MdxNoteGroup::from_file_system_path(&db, file_path, None).await
 }

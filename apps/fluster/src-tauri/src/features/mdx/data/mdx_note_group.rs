@@ -3,12 +3,16 @@ use super::mdx_note_model::MdxNoteModel;
 use crate::core::models::taggable::shared_taggable_model::SharedTaggableModel;
 use crate::core::models::taggable::tag_entity::TagEntity;
 use crate::core::types::errors::errors::{FlusterError, FlusterResult};
+use crate::core::types::traits::mdx_parser::MdxParser;
 use crate::core::types::FlusterDb;
 use crate::features::bibliography::data::bib_entry_entity::BibEntryEntity;
+use crate::features::bibliography::data::bib_entry_mdx_parser::BibEntryMdxParser;
 use crate::features::bibliography::data::bib_entry_model::BibEntryModel;
-use crate::features::dictionary::dictionary_entry_entity::DictionaryEntryEntity;
 use crate::features::dictionary::dictionary_entry_model::DictionaryEntryModel;
+use crate::features::dictionary::dictionary_entry_parser::DictionaryEntryMdxParser;
+use crate::features::math::data::equation_entity::EquationEntity;
 use crate::features::math::data::equation_model::EquationModel;
+use crate::features::math::data::equation_tag_mdx_parser::EquationTagMdxParser;
 use chrono::Utc;
 use filetime::FileTime;
 use gray_matter::{engine::YAML, Matter};
@@ -52,13 +56,11 @@ impl MdxNoteGroup {
             .map_err(|_| FlusterError::FailToReadFileSystemPath(file_path.clone()))?;
         let file_meta = fs::metadata(&file_path)
             .map_err(|_| FlusterError::FailToReadFileSystemPath(file_path.clone()))?;
-        let note =
+        let mut note =
             MdxNoteGroup::handle_fs_parse(db, raw_file_content, file_path, &file_meta).await?;
         if existing_note.is_some() {
-            // NOTE: Set fields that should persist and cannot be derived from the file system here.
+            // FIXME: Set fields that should persist and cannot be derived from the file system here. This is currently throwing an error.
             // &existing_note.unwrap().last_read
-            // FIXME: This last_read will not persist unless added here. It's currently failing
-            // to convert, but I'll fix this later.
             // note.mdx.last_read =
             //     chrono::DateTime::<Utc>::from_str(&existing_note.unwrap().last_read)
             //         .unwrap()
@@ -66,18 +68,6 @@ impl MdxNoteGroup {
             //         .to_string();
         }
         Ok(note)
-    }
-    pub async fn from_file_system_path_async(
-        db: &FlusterDb<'_>,
-        file_path: String,
-    ) -> FlusterResult<MdxNoteGroup> {
-        let raw_file_content = tokio::fs::read_to_string(&file_path)
-            .await
-            .map_err(|_| FlusterError::FailToReadFileSystemPath(file_path.clone()))?;
-        let file_meta = tokio::fs::metadata(&file_path)
-            .await
-            .map_err(|_| FlusterError::FailToReadFileSystemPath(file_path.clone()))?;
-        MdxNoteGroup::handle_fs_parse(db, raw_file_content, file_path, &file_meta).await
     }
     pub async fn from_raw_mdx_string(
         db: &FlusterDb<'_>,
@@ -90,24 +80,29 @@ impl MdxNoteGroup {
         // -- Begin Parsers --
         let post_tag_parse = TagEntity::from_mdx_content(&result);
         let post_dictionary_parse =
-            DictionaryEntryEntity::from_mdx_content(&post_tag_parse.new_content);
-        let post_bib_parse = BibEntryModel::parse_content(&post_dictionary_parse.new_content);
+            DictionaryEntryMdxParser {}.parse_mdx(&post_tag_parse.new_content);
+        let post_bib_parse = BibEntryMdxParser {}.parse_mdx(&post_dictionary_parse.new_content);
+        let post_equation_tag_parse =
+            EquationTagMdxParser {}.parse_mdx(&post_bib_parse.new_content);
+
+        // -- Gather parser data --
         let citations = BibEntryEntity::get_by_ids(db, post_bib_parse.results).await?;
-        // let post_
+        let equations =
+            EquationEntity::get_by_user_provided_ids(db, post_equation_tag_parse.results).await?;
         // -- End Parsers --
         Ok(MdxNoteGroup {
             dictionary_entries: post_dictionary_parse.results,
             front_matter: FrontMatterModel::from_gray_matter(result.data, &file_path),
             citations,
             mdx: MdxNoteModel {
-                raw_body: post_bib_parse.new_content,
+                raw_body: post_equation_tag_parse.new_content,
                 file_path,
                 ctime: now,
                 last_read: "0".to_string(),
                 vec: Vec::new(),
             },
             //RESUME: The equation tags are not yet being parsed.
-            equations: Vec::new(),
+            equations,
             tags: post_tag_parse.results,
         })
     }
@@ -147,17 +142,6 @@ mod tests {
         let test_path = get_test_mdx_path();
         let note_data =
             MdxNoteGroup::from_file_system_path(&db, test_path.to_str().unwrap().to_string(), None)
-                .await;
-        assert_front_matter_good(note_data);
-    }
-
-    #[tokio::test]
-    async fn from_file_system_path_async_parses_properly() {
-        let db_res = get_database().await;
-        let db = db_res.lock().await;
-        let test_path = get_test_mdx_path();
-        let note_data =
-            MdxNoteGroup::from_file_system_path_async(&db, test_path.to_str().unwrap().to_string())
                 .await;
         assert_front_matter_good(note_data);
     }

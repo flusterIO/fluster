@@ -4,24 +4,24 @@ import React, { type ReactNode } from "react";
 import { useNavigate } from "react-router";
 
 interface SimpleDashboardActionProps {
-    item: DashboardQuickAction;
+  item: DashboardQuickAction;
 }
 
 const SimpleDashboardAction = ({
-    item,
+  item,
 }: SimpleDashboardActionProps): ReactNode => {
-    const nav = useNavigate();
-    return (
-        <div
-            onClick={() => item.onClick(nav)}
-            className="p-6 flex flex-col justify-center items-center gap-4 rounded-lg border w-full hover:bg-muted transition-colors duration-150 cursor-pointer"
-        >
-            <div className={cn("rounded p-2", item.color)}>
-                <item.icon />
-            </div>
-            <div>{item.label}</div>
-        </div>
-    );
+  const nav = useNavigate();
+  return (
+    <div
+      onClick={() => item.onClick(nav)}
+      className="p-6 flex flex-col justify-center items-center gap-4 rounded-lg border w-full hover:bg-muted transition-colors duration-150 cursor-pointer"
+    >
+      <div className={cn("rounded p-2 text-white", item.color)}>
+        <item.icon />
+      </div>
+      <div>{item.label}</div>
+    </div>
+  );
 };
 
 SimpleDashboardAction.displayName = "SimpleDashboardAction";

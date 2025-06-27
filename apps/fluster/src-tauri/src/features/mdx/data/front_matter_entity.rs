@@ -87,7 +87,7 @@ impl FrontMatterEntity {
     pub async fn clean(db: &FlusterDb<'_>) -> FlusterResult<()> {
         clean_table(db, DatabaseTables::FrontMatter).await
     }
-    pub async fn save_many(items: Vec<FrontMatterModel>, db: &FlusterDb<'_>) -> FlusterResult<()> {
+    pub async fn save_many(db: &FlusterDb<'_>, items: Vec<FrontMatterModel>) -> FlusterResult<()> {
         // RESUME: Come back here to take care of the sync method.
         let schema = FrontMatterEntity::arrow_schema();
         let tbl = get_table(db, DatabaseTables::FrontMatter).await?;

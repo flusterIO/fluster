@@ -98,8 +98,8 @@ impl MdxNoteEquationEntity {
         clean_table(db, DatabaseTables::MdxNoteEquation).await
     }
     pub async fn save_many(
-        items: Vec<MdxNoteEquationModel>,
         db: &FlusterDb<'_>,
+        items: Vec<MdxNoteEquationModel>,
     ) -> FlusterResult<()> {
         let all_note_equations = MdxNoteEquationEntity::get_all(db).await?;
         // TODO:  This can be collapsed into one loop.
@@ -113,7 +113,7 @@ impl MdxNoteEquationEntity {
             })
             .collect();
         let schema = MdxNoteEquationEntity::arrow_schema();
-        let tbl = get_table(db, DatabaseTables::MdxNoteTag).await?;
+        let tbl = get_table(db, DatabaseTables::MdxNoteEquation).await?;
         let batches: Vec<Result<RecordBatch, ArrowError>> = filtered_equations
             .iter()
             .map(|x| Ok(MdxNoteEquationEntity::to_record_batch(x, schema.clone())))

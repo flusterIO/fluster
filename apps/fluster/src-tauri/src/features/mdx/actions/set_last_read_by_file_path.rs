@@ -21,6 +21,6 @@ pub async fn set_last_read_by_file_path(file_path: String) -> FlusterResult<()> 
     }
     let mut item = res.index(0).clone();
     item.last_read = Utc::now().timestamp_millis().to_string();
-    MdxNoteEntity::save_many(vec![item], &db).await?;
+    MdxNoteEntity::save_many(&db, vec![item]).await?;
     Ok(())
 }

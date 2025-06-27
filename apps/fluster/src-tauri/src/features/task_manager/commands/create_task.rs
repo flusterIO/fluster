@@ -20,13 +20,13 @@ pub async fn create_task(task: TaskModel, tags: Vec<TaskTagModel>) -> FlusterRes
     TaskEntity::save_many(&db, vec![task]).await?;
     let now = Utc::now();
     TagEntity::save_many(
+        &db,
         tags.iter()
             .map(|x| SharedTaggableModel {
                 value: x.tag_value.clone(),
                 ctime: now,
             })
             .collect(),
-        &db,
     )
     .await?;
     TaskTagEntity::create_many(&db, tags).await?;

@@ -36,7 +36,6 @@ export const AiChatContainer = (): ReactNode => {
   }, [context.inputValue]);
 
   const handleSubmitMessageRequest = async (val: string): Promise<void> => {
-    console.log("val: ", val);
     const chatId = searchParams.get("chat_id");
     if (chatId) {
       dispatch({
@@ -44,18 +43,22 @@ export const AiChatContainer = (): ReactNode => {
         payload: AiLoadingState.pending,
       });
       const res = await commands.addAiChatRequest(chatId, val);
-      console.log("res: ", res);
-      dispatch({
-        type: "chatRequestSuccess",
-        payload: null,
-      });
-      window.dispatchEvent(
-        new CustomEvent("request-chat-update", {
-          detail: {
-            chatId,
-          },
-        })
-      );
+      if (res.status === "ok") {
+        dispatch({
+          type: "chatRequestSuccess",
+          payload: null,
+        });
+        window.dispatchEvent(
+          new CustomEvent("request-chat-update", {
+            detail: {
+              chatId,
+            },
+          })
+        );
+        window.dispatchEvent(new CustomEvent("clear-ai-chat-input", {}));
+      } else {
+        console.error("An error occurred while generating a response message.");
+      }
     } else {
       console.log(`No chatId found`);
     }

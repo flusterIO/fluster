@@ -98,8 +98,8 @@ impl TagEntity {
         Ok(items)
     }
     pub async fn save_many(
-        items: Vec<SharedTaggableModel>,
         db: &FlusterDb<'_>,
+        items: Vec<SharedTaggableModel>,
     ) -> FlusterResult<()> {
         let schema = TagEntity::arrow_schema();
         let tbl = get_table(
@@ -180,7 +180,7 @@ impl TagEntity {
         }
         ParsedContentResult {
             results: tags,
-            new_content: new_content,
+            new_content,
         }
     }
 }

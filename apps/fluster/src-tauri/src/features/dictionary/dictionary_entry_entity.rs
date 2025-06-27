@@ -2,7 +2,6 @@ use std::sync::Arc;
 
 use arrow_array::{RecordBatch, TimestampMillisecondArray};
 use arrow_schema::{DataType, Field, Schema};
-use chrono::Utc;
 use futures::TryStreamExt;
 use lancedb::query::{ExecutableQuery, QueryBase};
 use serde_arrow::from_record_batch;
@@ -10,7 +9,6 @@ use serde_arrow::from_record_batch;
 use crate::core::{
     database::{db::get_table, tables::table_paths::DatabaseTables},
     types::{
-        common_structs::parsed_content_result::ParsedContentResult,
         errors::errors::{FlusterError, FlusterResult},
         traits::db_entity::DbEntity,
         FlusterDb,
@@ -91,38 +89,6 @@ impl DictionaryEntryEntity {
         }
         Ok(items)
     }
-    pub fn from_mdx_content(content: &str) -> ParsedContentResult<DictionaryEntryModel> {
-        let mut results: Vec<DictionaryEntryModel> = Vec::new();
-        let r = DictionaryEntryModel::get_regex();
-        let mut new_content = String::from(content);
-        let now = Utc::now().timestamp_millis().to_string();
-        for result in r.captures_iter(content) {
-            let complete_match = result.get(0);
-            let body_match = result.get(2);
-            let title_match = result.get(1);
-            if body_match.is_some() && title_match.is_some() {
-                results.push(DictionaryEntryModel {
-                    label: title_match.unwrap().as_str().to_string(),
-                    body: body_match.unwrap().as_str().to_string(),
-                    ctime: now.clone(),
-                });
-                new_content = new_content.replace(
-                    complete_match.unwrap().as_str(),
-                    &format!(
-                        r#"<DictionaryEntry label='{}'>
-{}
-</DictionaryEntry>"#,
-                        title_match.unwrap().as_str(),
-                        body_match.unwrap().as_str()
-                    ),
-                );
-            }
-        }
-        ParsedContentResult {
-            results,
-            new_content,
-        }
-    }
 }
 
 impl DbEntity<DictionaryEntryModel> for DictionaryEntryEntity {
@@ -160,7 +126,10 @@ mod tests {
 
     use gray_matter::{engine::YAML, Matter};
 
-    use super::*;
+    use crate::{
+        core::types::traits::mdx_parser::MdxParser,
+        features::dictionary::dictionary_entry_parser::DictionaryEntryMdxParser,
+    };
 
     #[test]
     fn parses_dictionary_entry() {
@@ -181,7 +150,7 @@ title: My note
 
         let matter = Matter::<YAML>::new();
         let result = matter.parse(&sample);
-        let res = DictionaryEntryEntity::from_mdx_content(&result.content);
+        let res = DictionaryEntryMdxParser {}.parse_mdx(&result.content);
         println!("Res: {:?}", res);
         assert!(
             res.results.len() == 2,

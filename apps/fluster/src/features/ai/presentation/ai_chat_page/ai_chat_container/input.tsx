@@ -5,12 +5,20 @@ import { TextInputType } from "#/ai/state/ai_state";
 import { AiChatCodeEditor } from "./inputs/ai_chat_code_editor";
 import { AiChatTextArea } from "./inputs/ai_chat_text_area";
 import { AiChatTextInput } from "./inputs/ai_chat_text_input";
+import { useEventListener } from "@fluster.io/dev";
 
 const connector = connect((state: AppState) => ({
   inputType: state.ai.aiChatInput,
   leftPanelOpen: state.panelLeft.open,
   rightPanelOpen: state.panelRight.open,
 }));
+
+declare global {
+   
+  interface WindowEventMap {
+    "clear-ai-chat-input": CustomEvent<object>;
+  }
+}
 
 export const AiChatInput = connector(
   ({
@@ -37,6 +45,7 @@ export const AiChatInput = connector(
         em?.focus();
       }
     }, [leftPanelOpen, rightPanelOpen]);
+    useEventListener("clear-ai-chat-input", () => setValue(""));
     switch (inputType) {
       case TextInputType.editor:
         return (
