@@ -11,6 +11,16 @@ const require = createRequire(import.meta.url);
 const pdfjsDistPath = path.dirname(require.resolve("pdfjs-dist/package.json"));
 const cMapsDir = normalizePath(path.join(pdfjsDistPath, "cmaps"));
 
+const rootDir = process.env.FLUSTER_NATIVE_ROOT;
+
+if (!rootDir) {
+  throw Error(
+    "Cannot continue without the FLUSTER_NATIVE_ROOT environment variable set to the root of the monorepo"
+  );
+}
+
+const publicDir = path.join(rootDir, "apps", "fluster", "public");
+
 export default defineConfig({
   plugins: [
     tailwindcss(),
@@ -22,11 +32,15 @@ export default defineConfig({
           src: cMapsDir,
           dest: "",
         },
+        {
+          src: publicDir,
+          dest: "",
+        },
       ],
     }),
   ],
   clearScreen: false,
-  assetsInclude: ["./public/mathjax/**"],
+  assetsInclude: ["./public/**"],
   server: {
     port: 1420,
     strictPort: true,

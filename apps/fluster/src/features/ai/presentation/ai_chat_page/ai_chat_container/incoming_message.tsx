@@ -41,7 +41,10 @@ export const AiChatIncomingMessage = ({
         <ContextMenuPortal>
           <ContextMenuContent>
             <ContextMenuGroup>
-              <ContextMenuItem onClick={() => handleCopy()}>
+              <ContextMenuItem
+                className="text-foreground"
+                onClick={() => handleCopy()}
+              >
                 Copy
               </ContextMenuItem>
             </ContextMenuGroup>

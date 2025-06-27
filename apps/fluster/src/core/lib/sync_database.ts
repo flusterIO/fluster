@@ -21,7 +21,7 @@ export const sync = async (): Promise<void> => {
   showToast({
     title: "Syncing...",
     body: "Fluster is synchronizing your database. Depending on your hardware, this may take some time while the AI related tasks run in the background. We'll send you another notification when the syncing is complete.",
-    duration: 5000,
+    duration: 10000,
     variant: "Info",
   });
   store.dispatch(setSyncingState(true));

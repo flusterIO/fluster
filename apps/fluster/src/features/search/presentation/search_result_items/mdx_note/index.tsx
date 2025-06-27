@@ -28,6 +28,12 @@ export const MdxNoteSearchResult = ({
     return null;
   }
 
+  console.log(
+    "item.mdx.ctime: ",
+    item.mdx.ctime,
+    new Date(item.mdx.ctime).valueOf()
+  );
+
   const url = getMdxNoteUrl(item.mdx.file_path);
 
   return (
