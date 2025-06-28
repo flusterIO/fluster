@@ -30,6 +30,7 @@ use crate::features::dictionary::commands::get_dictionary_entries::get_dictionar
 use crate::features::dictionary::dictionary_entry_model::DictionaryEntryModel;
 use crate::features::editor::write_file::write_file;
 use crate::features::embedded_docs::get_embedded_doc_by_id::get_embedded_doc;
+use crate::features::embedded_docs::get_embedded_doc_by_id::get_embedded_doc_by_relative_path;
 use crate::features::math::commands::delete_equation_by_id::delete_equation_by_id;
 use crate::features::math::commands::get_equation_by_id::get_equation_by_id;
 use crate::features::math::commands::get_equations::get_equations;
@@ -116,6 +117,7 @@ pub fn run() {
             // -- Docs & Health --
             get_embedded_doc,
             get_desktop_health_report,
+            get_embedded_doc_by_relative_path,
             // -- Bookmark --
             add_bookmark,
             remove_bookmark,

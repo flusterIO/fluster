@@ -22,6 +22,15 @@ pub fn get_embedded_doc(id: InternalEmbeddedDocsId) -> String {
         .to_string()
 }
 
+#[tauri::command]
+#[specta::specta]
+pub fn get_embedded_doc_by_relative_path(fp: String) -> String {
+    let res = DOCS.get_file(fp).expect("Did not successfully load docs.");
+    res.contents_utf8()
+        .expect("Failed to load contents from an embedded doc.")
+        .to_string()
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;

@@ -171,6 +171,9 @@ async getEmbeddedDoc(id: InternalEmbeddedDocsId) : Promise<string> {
 async getDesktopHealthReport() : Promise<DesktopHealthReport> {
     return await TAURI_INVOKE("get_desktop_health_report");
 },
+async getEmbeddedDocByRelativePath(fp: string) : Promise<string> {
+    return await TAURI_INVOKE("get_embedded_doc_by_relative_path", { fp });
+},
 async addBookmark(noteFilePath: string) : Promise<Result<null, FlusterError>> {
     try {
     return { status: "ok", data: await TAURI_INVOKE("add_bookmark", { noteFilePath }) };
