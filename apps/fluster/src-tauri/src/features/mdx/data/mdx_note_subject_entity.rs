@@ -29,6 +29,46 @@ impl MdxNoteSubjectEntity {
         DatabaseTables::MdxNoteSubject
     }
 
+    pub async fn get_by_values(
+        db: &FlusterDb<'_>,
+        topic_values: &[String],
+    ) -> FlusterResult<Vec<MdxNoteSubjectModel>> {
+        let tbl = get_table(db, DatabaseTables::MdxNoteSubject).await?;
+
+        let values_string = topic_values
+            .iter()
+            .map(|x| format!("\"{}\"", x))
+            .collect::<Vec<String>>()
+            .join(", ");
+        let items_batch = tbl
+            .query()
+            .only_if(format!("subject_value in ({})", values_string))
+            .execute()
+            .await
+            .map_err(|e| {
+                println!("Error in MdxNoteSubjectEntity.get_by_values: {:?}", e);
+                FlusterError::FailToConnect
+            })?
+            .try_collect::<Vec<_>>()
+            .await
+            .map_err(|e| {
+                println!("Error in MdxNoteSubjectEntity.get_by_values: {:?}", e);
+                FlusterError::FailToCreateEntity
+            })?;
+        if items_batch.is_empty() {
+            return Ok(Vec::new());
+        }
+        let mut items: Vec<MdxNoteSubjectModel> = Vec::new();
+        for batch in items_batch.iter() {
+            let data: Vec<MdxNoteSubjectModel> = from_record_batch(batch).map_err(|e| {
+                println!("Error in MdxNoteSubjectEntity.get_by_values: {:?}", e);
+                FlusterError::FailToSerialize
+            })?;
+            items.extend(data);
+        }
+        Ok(items)
+    }
+
     pub async fn get_by_file_paths(
         db: &FlusterDb<'_>,
         file_paths: &[String],

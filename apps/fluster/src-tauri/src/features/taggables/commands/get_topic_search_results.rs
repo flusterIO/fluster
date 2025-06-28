@@ -2,7 +2,10 @@ use crate::{
     core::{database::db::get_database, types::errors::errors::FlusterResult},
     features::{
         mdx::{
-            data::{mdx_note_entity::MdxNoteEntity, mdx_note_tag_entity::MdxNoteTagEntity},
+            data::{
+                mdx_note_entity::MdxNoteEntity, mdx_note_tag_entity::MdxNoteTagEntity,
+                mdx_note_topic_entity::MdxNoteTopicEntity,
+            },
             methods::mdx_note_models_to_mdx_note_groups::mdx_note_models_to_mdx_note_groups,
         },
         taggables::data::taggable_search_results::TraditionalSearchResults,
@@ -11,12 +14,12 @@ use crate::{
 
 #[tauri::command]
 #[specta::specta]
-pub async fn get_tag_search_results(
+pub async fn get_topic_search_results(
     tag_values: Vec<String>,
 ) -> FlusterResult<TraditionalSearchResults> {
     let db_res = get_database().await;
     let db = db_res.lock().await;
-    let mdx_note_tags = MdxNoteTagEntity::get_by_tag_values(&db, &tag_values).await?;
+    let mdx_note_tags = MdxNoteTopicEntity::get_by_values(&db, &tag_values).await?;
     if mdx_note_tags.is_empty() {
         return Ok(TraditionalSearchResults { notes: Vec::new() });
     }

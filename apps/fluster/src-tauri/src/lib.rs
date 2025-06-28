@@ -38,6 +38,7 @@ use crate::features::math::commands::save_equation::save_equations;
 use crate::features::mdx::actions::component_utils::generate_qr_code::get_qr_code_svg;
 use crate::features::mdx::actions::full_text_search::mdx_note_full_text_search;
 use crate::features::mdx::actions::get_note_count::get_note_count;
+use crate::features::mdx::actions::get_note_group_by_file_path::get_note_group_by_file_path;
 use crate::features::mdx::actions::get_toc::{get_toc_from_fs_path, get_toc_from_markdown};
 use crate::features::mdx::actions::parse_mdx_string::parse_mdx_string;
 use crate::features::mdx::actions::read_mdx_file::read_mdx_file;
@@ -55,7 +56,12 @@ use crate::features::snippets::delete_snippet_by_id::delete_snippet_by_id;
 use crate::features::snippets::get_snippet_by_id::get_snippet_by_id;
 use crate::features::snippets::get_snippets::get_snippets;
 use crate::features::snippets::save_snippet::save_snippets;
+use crate::features::taggables::commands::get_all_subjects::get_all_subjects;
+use crate::features::taggables::commands::get_all_tags::get_all_tags;
+use crate::features::taggables::commands::get_all_topics::get_all_topics;
+use crate::features::taggables::commands::get_subject_search_results::get_subject_search_results;
 use crate::features::taggables::commands::get_tag_search_results::get_tag_search_results;
+use crate::features::taggables::commands::get_topic_search_results::get_topic_search_results;
 use crate::features::task_manager::commands::count_tasks_in_list::count_tasks_in_list;
 use crate::features::task_manager::commands::create_task::create_task;
 use crate::features::task_manager::commands::create_task_list::create_task_list;
@@ -91,6 +97,12 @@ pub fn run() {
             get_text_similarity,
             get_unique_id,
             get_tag_search_results,
+            get_topic_search_results,
+            get_subject_search_results,
+            semantic_search,
+            get_all_tags,
+            get_all_subjects,
+            get_all_topics,
             // -- File System --
             sync_local_database,
             save_utf8_file,
@@ -121,6 +133,7 @@ pub fn run() {
             get_toc_from_fs_path,
             mdx_note_full_text_search,
             get_note_count,
+            get_note_group_by_file_path,
             // -- Settings --
             delete_setting_state,
             save_setting_state,
@@ -133,8 +146,6 @@ pub fn run() {
             save_equations,
             get_equation_by_id,
             delete_equation_by_id,
-            // -- Search --
-            semantic_search,
             // -- Snippets --
             save_snippets,
             get_snippets,

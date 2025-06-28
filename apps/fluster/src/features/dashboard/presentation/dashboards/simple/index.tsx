@@ -4,23 +4,23 @@ import { dashboardStaticData } from "#/dashboard/data/models/dashboard_static_da
 import SimpleDashboardAction from "./simple_dashboard_action";
 
 const SimpleDashboard = (): ReactNode => {
-  return (
-    <div className="@container/simple_dashboard w-full h-[calc(100vh-6rem)] flex flex-col justify-center items-center gap-12 overflow-y-auto py-16">
-      <div className="w-[min(90%,540px)] flex flex-col justify-center items-center gap-12 pt-[40vh] @[540px]/simple_dashboard:pt-0">
-        <div className="w-full flex flex-col justify-center items-center gap-2">
-          <SimpleDashboardInput />
-          <div className="text-sm text-muted-foreground">
-            Use cmd+p to open the command palette
-          </div>
+    return (
+        <div className="@container/simple_dashboard w-full h-full flex flex-col justify-center items-center gap-12 overflow-y-auto py-16">
+            <div className="w-[min(90%,540px)] flex flex-col justify-center items-center gap-12 pt-[40vh] @[540px]/simple_dashboard:pt-0">
+                <div className="w-full flex flex-col justify-center items-center gap-2">
+                    <SimpleDashboardInput />
+                    <div className="text-sm text-muted-foreground">
+                        Use cmd+p to open the command palette
+                    </div>
+                </div>
+            </div>
+            <div className="w-full max-w-[768px] grid @[540px]/simple_dashboard:grid-cols-2 @[768px]/simple_dashboard:grid-cols-3 gap-4 px-8">
+                {dashboardStaticData.quickCreateItems.map((c) => {
+                    return <SimpleDashboardAction key={c.id} item={c} />;
+                })}
+            </div>
         </div>
-      </div>
-      <div className="w-full max-w-[768px] grid @[540px]/simple_dashboard:grid-cols-2 @[768px]/simple_dashboard:grid-cols-3 gap-4 px-8">
-        {dashboardStaticData.quickCreateItems.map((c) => {
-          return <SimpleDashboardAction key={c.id} item={c} />;
-        })}
-      </div>
-    </div>
-  );
+    );
 };
 
 SimpleDashboard.displayName = "SimpleDashboard";

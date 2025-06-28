@@ -30,6 +30,62 @@ async getTextSimilarity(a: string, b: string) : Promise<number> {
 async getUniqueId() : Promise<string> {
     return await TAURI_INVOKE("get_unique_id");
 },
+async getTagSearchResults(tagValues: string[]) : Promise<Result<TraditionalSearchResults, FlusterError>> {
+    try {
+    return { status: "ok", data: await TAURI_INVOKE("get_tag_search_results", { tagValues }) };
+} catch (e) {
+    if(e instanceof Error) throw e;
+    else return { status: "error", error: e  as any };
+}
+},
+async getTopicSearchResults(tagValues: string[]) : Promise<Result<TraditionalSearchResults, FlusterError>> {
+    try {
+    return { status: "ok", data: await TAURI_INVOKE("get_topic_search_results", { tagValues }) };
+} catch (e) {
+    if(e instanceof Error) throw e;
+    else return { status: "error", error: e  as any };
+}
+},
+async getSubjectSearchResults(tagValues: string[]) : Promise<Result<TraditionalSearchResults, FlusterError>> {
+    try {
+    return { status: "ok", data: await TAURI_INVOKE("get_subject_search_results", { tagValues }) };
+} catch (e) {
+    if(e instanceof Error) throw e;
+    else return { status: "error", error: e  as any };
+}
+},
+async semanticSearch(query: string, pagination: PaginationProps) : Promise<Result<SemanticSearchResults, FlusterError>> {
+    try {
+    return { status: "ok", data: await TAURI_INVOKE("semantic_search", { query, pagination }) };
+} catch (e) {
+    if(e instanceof Error) throw e;
+    else return { status: "error", error: e  as any };
+}
+},
+async getAllTags() : Promise<Result<SharedTaggableModel[], FlusterError>> {
+    try {
+    return { status: "ok", data: await TAURI_INVOKE("get_all_tags") };
+} catch (e) {
+    if(e instanceof Error) throw e;
+    else return { status: "error", error: e  as any };
+}
+},
+async getAllSubjects() : Promise<Result<SharedTaggableModel[], FlusterError>> {
+    try {
+    return { status: "ok", data: await TAURI_INVOKE("get_all_subjects") };
+} catch (e) {
+    if(e instanceof Error) throw e;
+    else return { status: "error", error: e  as any };
+}
+},
+async getAllTopics() : Promise<Result<SharedTaggableModel[], FlusterError>> {
+    try {
+    return { status: "ok", data: await TAURI_INVOKE("get_all_topics") };
+} catch (e) {
+    if(e instanceof Error) throw e;
+    else return { status: "error", error: e  as any };
+}
+},
 /**
  * This wraps a series of functions handled by the fluster_native_interface package, conditionally
  * based on user settings and app state.
@@ -234,6 +290,14 @@ async getNoteCount(predicate: string | null) : Promise<Result<string, FlusterErr
     else return { status: "error", error: e  as any };
 }
 },
+async getNoteGroupByFilePath(filePath: string) : Promise<Result<MdxNoteGroup, FlusterError>> {
+    try {
+    return { status: "ok", data: await TAURI_INVOKE("get_note_group_by_file_path", { filePath }) };
+} catch (e) {
+    if(e instanceof Error) throw e;
+    else return { status: "error", error: e  as any };
+}
+},
 async deleteSettingState(settingsId: string) : Promise<Result<null, FlusterError>> {
     try {
     return { status: "ok", data: await TAURI_INVOKE("delete_setting_state", { settingsId }) };
@@ -308,14 +372,6 @@ async getEquationById(id: string) : Promise<Result<EquationModel, FlusterError>>
 async deleteEquationById(id: string) : Promise<Result<null, FlusterError>> {
     try {
     return { status: "ok", data: await TAURI_INVOKE("delete_equation_by_id", { id }) };
-} catch (e) {
-    if(e instanceof Error) throw e;
-    else return { status: "error", error: e  as any };
-}
-},
-async semanticSearch(query: string, pagination: PaginationProps) : Promise<Result<SemanticSearchResults, FlusterError>> {
-    try {
-    return { status: "ok", data: await TAURI_INVOKE("semantic_search", { query, pagination }) };
 } catch (e) {
     if(e instanceof Error) throw e;
     else return { status: "error", error: e  as any };
@@ -751,6 +807,10 @@ ctime: string; complete: boolean }
 export type TaskTagModel = { task_id: string; tag_value: string }
 export type ToastVariant = "Success" | "Info" | "Error"
 export type TocEntry = { depth: number; body: string }
+/**
+ * The search results returned froma  taggable input or via a traditional text based query.
+ */
+export type TraditionalSearchResults = { notes: MdxNoteGroup[] }
 
 /** tauri-specta globals **/
 

@@ -102,11 +102,7 @@ impl TagEntity {
         items: Vec<SharedTaggableModel>,
     ) -> FlusterResult<()> {
         let schema = TagEntity::arrow_schema();
-        let tbl = get_table(
-            db,
-            crate::core::database::tables::table_paths::DatabaseTables::Tag,
-        )
-        .await?;
+        let tbl = get_table(db, DatabaseTables::Tag).await?;
         let batches: Vec<Result<RecordBatch, ArrowError>> = items
             .iter()
             .map(|x| Ok(TagEntity::to_record_batch(x, schema.clone())))
@@ -187,7 +183,8 @@ impl TagEntity {
 
 impl DbEntity<SharedTaggableModel> for TagEntity {
     fn to_record_batch(item: &SharedTaggableModel, schema: Arc<Schema>) -> RecordBatch {
-        let ctime = TimestampMillisecondArray::from(vec![item.ctime.timestamp_millis()]);
+        let ctime_value: i64 = item.ctime.parse().unwrap();
+        let ctime = TimestampMillisecondArray::from(vec![ctime_value]);
         let text_array = arrow_array::StringArray::from(vec![item.value.clone()]);
         // Create the vector array
         RecordBatch::try_new(schema, vec![Arc::new(text_array), Arc::new(ctime)]).unwrap()

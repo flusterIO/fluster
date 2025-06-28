@@ -29,6 +29,46 @@ impl MdxNoteTopicEntity {
         DatabaseTables::MdxNoteTopic
     }
 
+    pub async fn get_by_values(
+        db: &FlusterDb<'_>,
+        topic_values: &[String],
+    ) -> FlusterResult<Vec<MdxNoteTopicModel>> {
+        let tbl = get_table(db, DatabaseTables::MdxNoteTopic).await?;
+
+        let values_string = topic_values
+            .iter()
+            .map(|x| format!("\"{}\"", x))
+            .collect::<Vec<String>>()
+            .join(", ");
+        let items_batch = tbl
+            .query()
+            .only_if(format!("topic_value in ({})", values_string))
+            .execute()
+            .await
+            .map_err(|e| {
+                println!("Error in MdxNoteTopicEntity.get_by_values: {:?}", e);
+                FlusterError::FailToConnect
+            })?
+            .try_collect::<Vec<_>>()
+            .await
+            .map_err(|e| {
+                println!("Error in MdxNoteTopicEntity.get_by_values: {:?}", e);
+                FlusterError::FailToCreateEntity
+            })?;
+        if items_batch.is_empty() {
+            return Ok(Vec::new());
+        }
+        let mut items: Vec<MdxNoteTopicModel> = Vec::new();
+        for batch in items_batch.iter() {
+            let data: Vec<MdxNoteTopicModel> = from_record_batch(batch).map_err(|e| {
+                println!("Error in MdxNoteTopicEntity.get_by_values: {:?}", e);
+                FlusterError::FailToSerialize
+            })?;
+            items.extend(data);
+        }
+        Ok(items)
+    }
+
     pub async fn get_by_file_paths(
         db: &FlusterDb<'_>,
         file_paths: &[String],
@@ -163,7 +203,7 @@ impl DbEntity<T> for MdxNoteTopicEntity {
     fn arrow_schema() -> std::sync::Arc<arrow_schema::Schema> {
         Arc::new(Schema::new(vec![
             Field::new("mdx_note_file_path", DataType::Utf8, false),
-            Field::new("subject_value", DataType::Utf8, false),
+            Field::new("topic_value", DataType::Utf8, false),
         ]))
     }
 

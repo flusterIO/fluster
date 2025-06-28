@@ -86,12 +86,12 @@ const DictionaryPage = (): ReactNode => {
     gatherData();
   }, []);
 
-  if (items === null) {
-    return null;
-  }
+  /* if (items === null) { */
+  /*   return null; */
+  /* } */
   return (
     <PanelContainer className="w-full flex flex-col justify-start items-center gap-6">
-      {items?.length === 0 ? (
+      {!items?.length ? (
         <NoDictionaryEntriesFound />
       ) : (
         Object.entries(groupDictionaryEntries(items)).map((l) => (

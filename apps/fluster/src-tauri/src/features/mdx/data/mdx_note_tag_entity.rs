@@ -34,7 +34,7 @@ impl MdxNoteTagEntity {
         db: &FlusterDb<'_>,
         tag_values: &[String],
     ) -> FlusterResult<Vec<MdxNoteTagModel>> {
-        let tbl = get_table(db, DatabaseTables::Topic).await?;
+        let tbl = get_table(db, DatabaseTables::MdxNoteTag).await?;
 
         let values_string = tag_values
             .iter()

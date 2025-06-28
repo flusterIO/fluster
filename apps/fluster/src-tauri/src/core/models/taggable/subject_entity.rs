@@ -126,7 +126,8 @@ impl SubjectEntity {
 
 impl DbEntity<SharedTaggableModel> for SubjectEntity {
     fn to_record_batch(item: &SharedTaggableModel, schema: Arc<Schema>) -> RecordBatch {
-        let ctime = TimestampMillisecondArray::from(vec![item.ctime.timestamp_millis()]);
+        let ctime_value: i64 = item.ctime.parse().unwrap();
+        let ctime = TimestampMillisecondArray::from(vec![ctime_value]);
         let text_array = arrow_array::StringArray::from(vec![item.value.clone()]);
         RecordBatch::try_new(schema, vec![Arc::new(text_array), Arc::new(ctime)]).unwrap()
     }

@@ -56,10 +56,6 @@ pub async fn save_mdx_note_groups(
             })
         }
         if item.front_matter.subject.is_some() {
-            println!(
-                "Item.front_matter.subject: {:?}",
-                item.front_matter.subject.clone()
-            );
             let s = item.front_matter.subject.as_ref().unwrap();
             subjects.push(s.clone());
             mdx_note_subjects.push(MdxNoteSubjectModel {
@@ -69,10 +65,6 @@ pub async fn save_mdx_note_groups(
         }
 
         if item.front_matter.topic.is_some() {
-            println!(
-                "Item.front_matter.topic: {:?}",
-                item.front_matter.topic.clone()
-            );
             let t = item.front_matter.topic.as_ref().unwrap();
             topics.push(t.clone());
             mdx_note_topics.push(MdxNoteTopicModel {
