@@ -39,6 +39,17 @@ export const getColorProp = (
     color: string;
     foreground?: string;
 } => {
+    if (
+        (props as { color?: string }).color &&
+        defaultBooleanColors.includes(
+            (props as { color: string })
+                .color as (typeof defaultBooleanColors)[number]
+        )
+    ) {
+        return {
+            color: `hsl(var(--${(props as { color: string }).color}))`,
+        };
+    }
     const keys = defaultBooleanColors.map((c) => {
         return {
             asKey: c.replaceAll("-", "_"),
@@ -82,12 +93,3 @@ export const getColorProp = (
         }),
     };
 };
-
-const val = getColorProp(
-    {
-        color: "secondary",
-    },
-    "primary"
-);
-
-console.log("val: ", val);

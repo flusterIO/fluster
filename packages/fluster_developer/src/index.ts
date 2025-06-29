@@ -20,6 +20,9 @@ export * from "./embeddable_components/qr_code/index";
 export * from "./components/attention_getters/hint/index";
 //     -- Academic --
 export * from "./embeddable_components/academic/abstract/index";
+//    -- Utility --
+export * from "./embeddable_components/util/div";
+export * from "./embeddable_components/util/equation_reference/eq_ref_wrapper";
 // -- Inputs --
 export * from "./components/inputs/select/file_extension_glob_select/index";
 export * from "./components/inputs/select/supported_programming_language/index";
@@ -70,6 +73,7 @@ export * from "./hooks/use_viewport";
 export * from "./hooks/use_measure";
 export * from "./hooks/use_viewport_proportional_position";
 export * from "./hooks/use_main_panel_size";
+export * from "./hooks/use_observe_children";
 // -- Shad --
 export * from "./components/shad/accordion";
 export * from "./components/shad/alert-dialog";

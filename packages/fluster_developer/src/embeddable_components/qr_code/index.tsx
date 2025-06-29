@@ -1,4 +1,5 @@
 import React, { HTMLProps, useEffect, useState, type ReactNode } from "react";
+import { cn } from "../../utils/cn";
 
 interface InternalQrCodeProps {
     getQrCodeSvg: (content: string) => Promise<
@@ -16,7 +17,6 @@ interface InternalQrCodeProps {
 
 export interface QrCodeProps extends HTMLProps<HTMLDivElement> {
     content: string;
-    container: HTMLProps<HTMLDivElement>;
 }
 
 export const QrCode = ({
@@ -37,7 +37,13 @@ export const QrCode = ({
         getQrData(content);
         /* eslint-disable-next-line  --  */
     }, [content]);
-    return <div {...props} dangerouslySetInnerHTML={{ __html: data }} />;
+    return (
+        <div
+            {...props}
+            className={cn("w-48 h-48", props.className)}
+            dangerouslySetInnerHTML={{ __html: data }}
+        />
+    );
 };
 
 QrCode.displayName = "QrCode";

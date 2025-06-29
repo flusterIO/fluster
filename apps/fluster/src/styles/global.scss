@@ -214,3 +214,9 @@ p {
     }
   }
 }
+
+.override-colors {
+  p {
+    color: inherit !important;
+  }
+}
