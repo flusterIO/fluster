@@ -109,7 +109,9 @@ export const AiChatContainer = (): ReactNode => {
                   </SelectGroup>
                 </SelectContent>
               </Select>
-              <Button onClick={() => handleSubmitMessageRequest()}>
+              <Button
+                onClick={() => handleSubmitMessageRequest(inputValue.current)}
+              >
                 Submit
               </Button>
             </div>

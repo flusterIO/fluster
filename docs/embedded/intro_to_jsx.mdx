@@ -4,6 +4,8 @@ id: introToJsx
 created: 6-10-24
 ---
 
+# Intro to Jsx
+
 
 **JSX** is an extension of javascript that's used by React as well as several other single page application frameworks. **TSX** is _almost_ identical, except **TSX** adds the ability to more strictly define types. For the purposes of using Fluster, **TSX** and **JSX** can be referenced interchangeably. 
 
@@ -11,10 +13,10 @@ The primary goal of **JSX** is to add the ability to write multiple different la
 
 Through the great work at the people over at [MDX](https://mdxjs.com), we can now embed entire React components directly in markdown files, with the `.mdx` file extension. All of the original functionality of markdown remains intact, and in Fluster is actually extended quite a bit, but users can now include neatly bundled **HTML**, **CSS**, and **Javascript** in pre-defined React components. 
 
-> All you need to know is how to properly pass in the data that these components need to calculate what they should return. If you're already familiar with **JSX**, you can move on to the [components documentation](/docs/user/components?category=Layout). Otherwise, a quick review of this documentation is important if you want to get the most from Fluster. Don't worry; It's incredibly simple.
+> All you need to know is how to properly pass in the data that these components need to calculate what they.
 
 
-## How to read documentation [#how-to-read-docs]
+## How to read documentation
 
 Regardless of whether or not a component is actually built using Typescript (**TSX**), a similar syntax is used to define the properties that any given component accepts. Because these types are often defined in the same file as regular javascript code, they use an intentionally similar syntax, but not an identical syntax to regular javascript.
 
@@ -35,7 +37,7 @@ Regardless of whether or not a component is actually built using Typescript (**T
 
 ### Children Property
 
-All properties are passed into the component using the [syntax below](#normal-jsx-prop-syntax), but children are passed in using a unique syntax.
+All properties are passed into the component using the syntax below, but children are passed in using a unique syntax.
 
 
 #### Self Closing Components
@@ -54,9 +56,9 @@ Components that do not accept `children` can also be closed using this syntax:
 </SomeComponent>
 ```
 
-While unnecessary, this follows an identical syntax to components that ***do*** accept children. Notice that when a component is self closing, there is a `/` just before the closing `>`, and only one instance of that component for each time it is rendered. When a component is _not_ self closing, the `/` follows the `<` in the _second_ tag for each element rendered.
+While unnecessary, this follows an identical syntax to components that ***do*** accept children. Notice that when a component is self closing, there is a `/` just before the closing `>`, and only one instance of that component for each time it is rendered. When a component is _not_ self closing, the `/` follows the `<` in the <Ul yellow>second</Ul> tag for each element rendered.
 
-In the example above, the property `name` follows a similar syntax to [other](#normal-jsx-prop-syntax) component properties, and it is possible to pass in `children` in the same manner, but `children` adds the additional ability to pass the value in as:
+In the example above, the property `name` follows a similar syntax to other component properties, and it is possible to pass in `children` in the same manner, but `children` adds the additional ability to pass the value in as:
 
 
 ```tsx
@@ -68,7 +70,7 @@ In the example above, the property `name` follows a similar syntax to [other](#n
 ```
 
 
-### Other Component Properties [#normal-jsx-prop-syntax]
+### Other Component Properties
 
 Passing in other properties to react components follows a similar syntax to that of the `name` property above, but there are slight variations for different ***types***. All properties can be wrapped in a pair of curly braces as:
 
@@ -76,7 +78,7 @@ Passing in other properties to react components follows a similar syntax to that
 <SomeComponent name={"Some name property"} />
 ```
 
-#### Strings [#jsx-string-props]
+#### Strings
 
 The use of curly braces is important for other value types, but is optional in _most_ cases for strings. Note that the `name` property in the example above has a value that is still wrapped in quotations along with the curly braces. There is no difference between single and double quotes, and backticks `` ` `` can also be used.[^2]
 
@@ -90,9 +92,9 @@ const validString2 = 'This is a "valid" string.'
 const validString3 = "And this is a \"valid\" string too!"
 ```
 
-##### String Literals [#jsx-string-literals]
+##### String Literals 
 
-> **Note:** String literals ***must*** be wrapped in curly braces when passed in as a component property. Curly braces are optional with both single and double quotes.
+> **Note:** String literals <Ul yellow>must</Ul> be wrapped in curly braces when passed in as a component property. Curly braces are optional with both single and double quotes.
 
 While single quotes and double quotes are interchangable apart from the ability to wrap that same character as described above, backticks add additional functionality. Where as **Python** has `f-strings` with the following syntax:
 
@@ -118,7 +120,7 @@ Note that `phi` inside of the `` `...${phi}` {:tsx}`` block is just regular java
     Note that all latex math in the example above is wrapped in single `$` symbols, since the math should appear _inline_, and the leading `\` that is part of Latex syntax is escaped with another `\`. Just like a `\` can escape other special characters, it can also escape itself. In this case, we are escaping the `\` with another `\` to tell Javascript that the first `\` is not intended to escape another character and should be treated as a literal `\`.
 </Hint>
 
-<Card title="Children String Properties">
+<Admonition title="Children String Properties" type="info" foldable>
 
    **MDX** and other markdown to html parsers wrap new lines, including the children property in a paragraph element. This can cause issues in cases where the `children` component is specifically of a type string. Fluster attempts to parse these paragraphs dynamically, but in cases of a parsing error where a property of type `string` is critical like in a **JupyterCell** component, you can wrap the `children` in a pair of curly braces with a pair of backticks inside. 
 
@@ -132,10 +134,10 @@ Note that `phi` inside of the `` `...${phi}` {:tsx}`` block is just regular java
     </SomeComponent>
     ````
 
-</Card>
+</Admonition>
 
 
-#### Numbers [#jsx-number-props]
+#### Numbers 
 
 As is the case in most programming languages, `"3.14"{:tsx}` is not the same as `3.14{:tsx}`. If a property requires a type of `number`, there is a significant chance that there will be some sort of mathematical operations taking place within that component. Ironically, strings also accept several mathematical functions, but they will return a significantly different value as demonstrated below:
 
@@ -165,10 +167,10 @@ To pass a number into a React component, simply wrap the value in curly braces *
 
 <Hint note>
     Many number and string properties are in the process of being converted to a format where they will also accept a function. That function will be provided a _greatly_ extended Math object as an argument, and will be able to be used to generate calculations directly in your markdown files, without requiring an entire Jupyter cell.  
-    Follow [this blog post](/blog/ulldPreBetaLaunch) to stay up to day on features coming to Fluster .
+    Follow [this blog post](/blog/ulldPreBetaLaunch) to stay up to day on features coming to Fluster.
 </Hint>
 
-#### Boolean Props [#jsx-boolean-props]
+#### Boolean Props 
 
 <Hint>
     If a value is passed in as just the key of that value without any actual value declared, it is interpreted as `true`. Therefore, if a component expects a value of `applyModal` to be of a type `boolean`, and you want that value to be `true`, `<ThatComponent applyModal={true} />{:tsx}` and `<ThatComponent applyModal />{:tsx}` are equivalent.
@@ -203,7 +205,7 @@ while <ToSquareOrNotToSquare valueIsSquared={false} value={2} /> will return 2.
 
 #### ReactNode Type
 
-React provides dozens of it's own types, but one that appears quite often is that of `ReactNode`. The `ReactNode` type is pretty much anything that React can render _as is_. It accepts a boolean, a string, a number, or another ***rendered*** component.
+React provides dozens of it's own types, but one that appears quite often is that of `ReactNode`. The `ReactNode` type is pretty much anything that React can render _as is_. It accepts a [boolean](#jsx-boolean-props), a [string](#jsx-string-props), a [number](#jsx-number-props), or another ***rendered*** component.
 
 ```tsx
 <SomeComponent 

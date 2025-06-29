@@ -1,0 +1,77 @@
+---
+title: Grid & Grid Item
+---
+
+
+# Grid
+
+## Props
+
+```tsx 
+interface ColumnMinMax {
+  min: string | number;
+  /// If true, will set columns to auto-fill instead of auto-fit
+  autoFill?: boolean;
+}
+
+interface GridProps {
+  children: ReactNode;
+  gap?: string | number;
+  cols: number | ColumnGroup | ColumnMinMax;
+}
+```
+
+
+| key | type | desc |
+| --- | ---- | ---- |
+| children | `ReactNode` | Grid items. | 
+| cols | `number | ColumnGroup | ColumnMinMax` | Grid items. | 
+| gap | `string | number` | An optional number (pixels) or a valid css string. | 
+
+
+# Grid Item
+
+## Props
+
+| key | type | desc |
+| --- | ---- | ---- |
+| children | `ReactNode` | Grid items. | 
+
+
+## Demo
+
+<Grid cols={{
+   min: 250,
+   autoFill: true
+}}>
+    <GridItem>
+        Grid item one
+    </GridItem>
+
+    <GridItem>
+        Grid item two
+    </GridItem>
+
+    <GridItem>
+        Grid item three
+    </GridItem>
+</Grid>
+
+```tsx
+<Grid cols={{
+   min: 250,
+   autoFill: true
+}}>
+    <GridItem>
+        Grid item one
+    </GridItem>
+
+    <GridItem>
+        Grid item two
+    </GridItem>
+
+    <GridItem>
+        Grid item three
+    </GridItem>
+</Grid>
+```

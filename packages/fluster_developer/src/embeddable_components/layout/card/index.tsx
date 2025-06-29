@@ -20,7 +20,7 @@ export const EmbeddableCard = ({
     InlineMdxContent,
 }: EmbeddableCardProps): ReactNode => {
     return (
-        <Card>
+        <Card className="gap-0">
             {Boolean(title || desc) && (
                 <CardHeader>
                     {title && (

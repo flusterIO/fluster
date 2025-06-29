@@ -206,3 +206,11 @@ span[data-rehype-pretty-code-figure] {
     border-radius: 4px;
   }
 }
+
+p {
+  sup {
+    a[data-footnote-ref] {
+      color: hsl(var(--primary));
+    }
+  }
+}

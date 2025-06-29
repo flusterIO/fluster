@@ -56,7 +56,7 @@ impl MdxNoteGroup {
             .map_err(|_| FlusterError::FailToReadFileSystemPath(file_path.clone()))?;
         let file_meta = fs::metadata(&file_path)
             .map_err(|_| FlusterError::FailToReadFileSystemPath(file_path.clone()))?;
-        let mut note =
+        let note =
             MdxNoteGroup::handle_fs_parse(db, raw_file_content, file_path, &file_meta).await?;
         if existing_note.is_some() {
             // FIXME: Set fields that should persist and cannot be derived from the file system here. This is currently throwing an error.

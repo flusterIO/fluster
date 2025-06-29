@@ -19,4 +19,5 @@ pub enum InternalEmbeddedDocsId {
     HowToContribute,
     GettingStarted,
     ColorProps,
+    IntroToJsx,
 }

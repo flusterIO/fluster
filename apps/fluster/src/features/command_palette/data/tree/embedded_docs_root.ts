@@ -22,6 +22,13 @@ export class EmbeddedDocsCommandPaletteRoot extends CommandPaletteCategory {
         });
 
         items.push(new ComponentDocsCommandPaletteRoot());
+        items.push(
+            new GeneralCommandPaletteItem(
+                "View all component docs",
+                "all-component-docs",
+                async (nav) => nav(AppRoutes.embeddedDocs)
+            )
+        );
         return items;
     }
 }

@@ -6,6 +6,8 @@ use thiserror::Error;
 pub enum FlusterError {
     #[error("Your operating system is not supported.")]
     OperatingSystemNotSupported,
+    #[error("Fluster failed to loaded embedded documentation.")]
+    FailToLoadDocs,
     // AI errors
     #[error("Fluster could not write the current chat session to disk.")]
     FailToWriteChatSession,

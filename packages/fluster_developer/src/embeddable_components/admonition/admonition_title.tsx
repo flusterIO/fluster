@@ -23,9 +23,7 @@ const AdmonitionTitle = (props: Props): ReactNode => {
                 className={admonitionTitleIconClasses}
                 variant={props.type}
             />
-            <span className="w-full inline-block w-[calc(100%-4rem)]">
-                {props.children}
-            </span>
+            <span className="inline-block w-[calc(100%-4rem)]">{props.children}</span>
         </div>
     );
 };

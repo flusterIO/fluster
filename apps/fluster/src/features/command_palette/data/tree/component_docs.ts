@@ -3,19 +3,7 @@ import { NavigateFunction } from "react-router";
 import { CommandPaletteAnyEntry } from "../models/command_palette_any_entry";
 import { CommandPaletteCategory } from "../models/command_palette_category";
 import { GeneralCommandPaletteItem } from "../models/command_palette_item";
-
-interface ComponentDocsEntry {
-    label: string;
-    /// The file path relative to docs/embbedded.
-    fp: string;
-}
-
-const componentDocs: ComponentDocsEntry[] = [
-    {
-        label: "Admonition",
-        fp: "component_docs/admonition.mdx",
-    },
-];
+import { componentDocItems } from "#/embedded_docs/data/component_docs";
 
 export class ComponentDocsCommandPaletteRoot extends CommandPaletteCategory {
     constructor() {
@@ -25,7 +13,7 @@ export class ComponentDocsCommandPaletteRoot extends CommandPaletteCategory {
         return true;
     }
     async getItems(): Promise<CommandPaletteAnyEntry[]> {
-        return componentDocs.map((c) => {
+        return componentDocItems.map((c) => {
             return new GeneralCommandPaletteItem(
                 c.label,
                 `component-${c.fp}`,

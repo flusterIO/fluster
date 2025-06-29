@@ -2,10 +2,7 @@ use crate::{
     core::{database::db::get_database, types::errors::errors::FlusterResult},
     features::{
         mdx::{
-            data::{
-                mdx_note_entity::MdxNoteEntity, mdx_note_tag_entity::MdxNoteTagEntity,
-                mdx_note_topic_entity::MdxNoteTopicEntity,
-            },
+            data::{mdx_note_entity::MdxNoteEntity, mdx_note_topic_entity::MdxNoteTopicEntity},
             methods::mdx_note_models_to_mdx_note_groups::mdx_note_models_to_mdx_note_groups,
         },
         taggables::data::taggable_search_results::TraditionalSearchResults,

@@ -1,5 +1,7 @@
 use include_dir::{include_dir, Dir};
 
+use crate::core::types::errors::errors::{FlusterError, FlusterResult};
+
 use super::data::internal_embedded_docs_id::InternalEmbeddedDocsId;
 
 static DOCS: Dir = include_dir!("$FLUSTER_NATIVE_ROOT/docs/embedded");
@@ -13,6 +15,7 @@ pub fn get_embedded_doc(id: InternalEmbeddedDocsId) -> String {
         InternalEmbeddedDocsId::HowToContribute => "how_to_contribute.mdx",
         InternalEmbeddedDocsId::GettingStarted => "getting_started.mdx",
         InternalEmbeddedDocsId::ColorProps => "color_props.mdx",
+        InternalEmbeddedDocsId::IntroToJsx => "intro_to_jsx.mdx",
     };
     let res = DOCS
         .get_file(_path)
@@ -24,11 +27,13 @@ pub fn get_embedded_doc(id: InternalEmbeddedDocsId) -> String {
 
 #[tauri::command]
 #[specta::specta]
-pub fn get_embedded_doc_by_relative_path(fp: String) -> String {
-    let res = DOCS.get_file(fp).expect("Did not successfully load docs.");
-    res.contents_utf8()
-        .expect("Failed to load contents from an embedded doc.")
-        .to_string()
+pub fn get_embedded_doc_by_relative_path(fp: String) -> FlusterResult<String> {
+    if let Some(res) = DOCS.get_file(fp) {
+        let string_res = res.contents_utf8().unwrap().to_string();
+        Ok(string_res)
+    } else {
+        Err(FlusterError::FailToLoadDocs)
+    }
 }
 
 #[cfg(test)]

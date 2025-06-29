@@ -8,7 +8,7 @@ const EmbeddedDocsByIdPage = (): ReactNode => {
         <div
             id="scroll-target"
             className={
-                "w-full h-screen flex flex-col justify-start items-center py-12 px-6 md:px-8 overflow-y-auto"
+                "w-full h-screen flex flex-col justify-start items-center py-16 px-6 md:px-8 overflow-y-auto"
             }
         >
             <div className="w-[min(1080px,90%)]">
