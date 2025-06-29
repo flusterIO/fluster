@@ -8,6 +8,10 @@
 }
 
 mjx-container {
+  min-width: 0 !important;
+  max-width: 100%;
+  overflow-x: auto;
+
   mjx-labels {
     font-size: 1rem;
   }
