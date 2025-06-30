@@ -33,6 +33,8 @@ pub enum DatabaseTables {
     MdxNoteSubject,
     #[strum(to_string = "mdx_note_dictionary_entry")]
     MdxNoteDictionaryEntry,
+    #[strum(to_string = "mdx_note_link")]
+    MdxNoteLink,
     // -- Dictionary --
     #[strum(to_string = "dictionary_entry")]
     DictionaryEntry,

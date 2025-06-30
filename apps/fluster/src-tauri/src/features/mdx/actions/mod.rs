@@ -1,5 +1,6 @@
 pub mod component_utils;
 pub mod full_text_search;
+pub mod get_note_by_user_provided_id;
 pub mod get_note_count;
 pub mod get_note_group_by_file_path;
 pub mod get_toc;

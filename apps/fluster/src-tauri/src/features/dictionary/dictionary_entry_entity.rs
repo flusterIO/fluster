@@ -1,7 +1,7 @@
 use std::sync::Arc;
 
-use arrow_array::{RecordBatch, TimestampMillisecondArray};
-use arrow_schema::{DataType, Field, Schema};
+use arrow_array::{RecordBatch, RecordBatchIterator, TimestampMillisecondArray};
+use arrow_schema::{ArrowError, DataType, Field, Schema};
 use futures::TryStreamExt;
 use lancedb::query::{ExecutableQuery, QueryBase};
 use serde_arrow::from_record_batch;
@@ -20,6 +20,26 @@ use super::dictionary_entry_model::DictionaryEntryModel;
 pub struct DictionaryEntryEntity {}
 
 impl DictionaryEntryEntity {
+    pub async fn create_many(
+        db: &FlusterDb<'_>,
+        items: Vec<DictionaryEntryModel>,
+    ) -> FlusterResult<()> {
+        let schema = DictionaryEntryEntity::arrow_schema();
+        let tbl = get_table(db, DatabaseTables::DictionaryEntry).await?;
+        let batches: Vec<Result<RecordBatch, ArrowError>> = items
+            .iter()
+            .map(|x| Ok(DictionaryEntryEntity::to_record_batch(x, schema.clone())))
+            .collect();
+        let stream = Box::new(RecordBatchIterator::new(
+            batches.into_iter(),
+            schema.clone(),
+        ));
+        tbl.add(stream).execute().await.map_err(|e| {
+            println!("Error: {:?}", e);
+            FlusterError::FailToCreateEntity
+        })?;
+        Ok(())
+    }
     pub async fn get_by_ids(
         db: &FlusterDb<'_>,
         ids: Vec<String>,

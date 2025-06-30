@@ -22,6 +22,7 @@ use crate::{
             mdx_note_bib_entry_entity::MdxNoteBibEntryEntity,
             mdx_note_dictionary_entry_entity::MdxNoteDictionaryEntity,
             mdx_note_equation_entity::MdxNoteEquationEntity, mdx_note_group::MdxNoteGroup,
+            mdx_note_link_entity::MdxNoteLinkEntity, mdx_note_link_model::MdxNoteLinkModel,
             mdx_note_model::MdxNoteModel, mdx_note_subject_entity::MdxNoteSubjectEntity,
             mdx_note_tag_entity::MdxNoteTagEntity, mdx_note_topic_entity::MdxNoteTopicEntity,
         },
@@ -46,6 +47,7 @@ pub async fn mdx_note_models_to_mdx_note_groups(
         MdxNoteDictionaryEntity::get_by_file_paths(db, &file_paths),
         MdxNoteTopicEntity::get_by_file_paths(db, &file_paths),
         MdxNoteSubjectEntity::get_by_file_paths(db, &file_paths),
+        MdxNoteLinkEntity::get_by_file_paths_from(db, &file_paths)
     );
 
     if res.is_err() {
@@ -61,6 +63,7 @@ pub async fn mdx_note_models_to_mdx_note_groups(
         mdx_note_dictionary_entries,
         mdx_note_topics,
         mdx_note_subjects,
+        mdx_note_links,
     ) = res.unwrap();
 
     let second_res = tokio::try_join!(
@@ -118,7 +121,18 @@ pub async fn mdx_note_models_to_mdx_note_groups(
     // After all data has been gathered, collect it here.
 
     models.par_iter().for_each(|model| {
-        println!("Model: {}", model.file_path.clone());
+        let (note_link_sender, note_link_receiver) = unbounded::<MdxNoteLinkModel>();
+        for note_link in mdx_note_links.clone() {
+            if note_link.mdx_note_file_path_from == model.file_path {
+                if let Err(note_link_error) = note_link_sender.send(note_link).map_err(|e| {
+                    println!("Error: {:?}", e);
+                    FlusterError::FailToGatherMdxGroups
+                }) {
+                    let _ = error_sender.send(note_link_error);
+                }
+            }
+        }
+        drop(note_link_sender);
         // -- Equations --
         let (equation_sender, equation_receiver) = unbounded::<EquationModel>();
         for eq in mdx_note_equations.clone() {
@@ -253,6 +267,7 @@ pub async fn mdx_note_models_to_mdx_note_groups(
             .iter()
             .collect::<Vec<DictionaryEntryModel>>();
         let tags = tag_receiver.iter().collect::<Vec<SharedTaggableModel>>();
+        let note_links = note_link_receiver.iter().collect::<Vec<MdxNoteLinkModel>>();
         if let Err(mdx_note_group_res) = sender
             .send(MdxNoteGroup {
                 mdx: model.clone(),
@@ -261,6 +276,7 @@ pub async fn mdx_note_models_to_mdx_note_groups(
                 equations,
                 citations,
                 dictionary_entries,
+                note_links,
             })
             .map_err(|e| {
                 println!("Error: {:?}", e);

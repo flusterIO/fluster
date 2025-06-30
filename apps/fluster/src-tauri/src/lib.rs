@@ -41,6 +41,7 @@ use crate::features::math::commands::read_mathjax_file::{read_mathjax, read_math
 use crate::features::math::commands::save_equation::save_equations;
 use crate::features::mdx::actions::component_utils::generate_qr_code::get_qr_code_svg;
 use crate::features::mdx::actions::full_text_search::mdx_note_full_text_search;
+use crate::features::mdx::actions::get_note_by_user_provided_id::get_note_by_user_provided_id;
 use crate::features::mdx::actions::get_note_count::get_note_count;
 use crate::features::mdx::actions::get_note_group_by_file_path::get_note_group_by_file_path;
 use crate::features::mdx::actions::get_toc::{get_toc_from_fs_path, get_toc_from_markdown};
@@ -144,6 +145,7 @@ pub fn run() {
             mdx_note_full_text_search,
             get_note_count,
             get_note_group_by_file_path,
+            get_note_by_user_provided_id,
             // -- Settings --
             delete_setting_state,
             save_setting_state,

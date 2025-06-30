@@ -333,6 +333,14 @@ async getNoteGroupByFilePath(filePath: string) : Promise<Result<MdxNoteGroup, Fl
     else return { status: "error", error: e  as any };
 }
 },
+async getNoteByUserProvidedId(userProvidedId: string) : Promise<Result<MdxNoteGroup, FlusterError>> {
+    try {
+    return { status: "ok", data: await TAURI_INVOKE("get_note_by_user_provided_id", { userProvidedId }) };
+} catch (e) {
+    if(e instanceof Error) throw e;
+    else return { status: "error", error: e  as any };
+}
+},
 async deleteSettingState(settingsId: string) : Promise<Result<null, FlusterError>> {
     try {
     return { status: "ok", data: await TAURI_INVOKE("delete_setting_state", { settingsId }) };
@@ -774,7 +782,8 @@ export type InternalEmbeddedDocsId =
 "HowToContribute" | "GettingStarted" | "ColorProps" | "IntroToJsx" | "JupyterSetup" | "QuickReference"
 export type MathjaxData = { root: string; main_path: string; font_path: string }
 export type MdxBookmarkData = { note: MdxNoteModel; front_matter: FrontMatterBaseModel }
-export type MdxNoteGroup = { mdx: MdxNoteModel; front_matter: FrontMatterModel; tags: SharedTaggableModel[]; equations: EquationModel[]; dictionary_entries: DictionaryEntryModel[]; citations: BibEntryModel[] }
+export type MdxNoteGroup = { mdx: MdxNoteModel; front_matter: FrontMatterModel; tags: SharedTaggableModel[]; equations: EquationModel[]; dictionary_entries: DictionaryEntryModel[]; citations: BibEntryModel[]; note_links: MdxNoteLinkModel[] }
+export type MdxNoteLinkModel = { mdx_note_file_path_from: string; mdx_user_provided_id_to: string }
 export type MdxNoteModel = { 
 /**
  * create a new model. This file_path becomes essentially the primary key.

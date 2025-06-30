@@ -1,4 +1,6 @@
 use super::front_matter_model::FrontMatterModel;
+use super::mdx_note_link_entity::MdxNoteLinkEntity;
+use super::mdx_note_link_model::MdxNoteLinkModel;
 use super::mdx_note_model::MdxNoteModel;
 use crate::core::models::taggable::shared_taggable_model::SharedTaggableModel;
 use crate::core::models::taggable::tag_entity::TagEntity;
@@ -29,6 +31,7 @@ pub struct MdxNoteGroup {
     pub equations: Vec<EquationModel>,
     pub dictionary_entries: Vec<DictionaryEntryModel>,
     pub citations: Vec<BibEntryModel>,
+    pub note_links: Vec<MdxNoteLinkModel>,
 }
 
 impl MdxNoteGroup {
@@ -84,6 +87,8 @@ impl MdxNoteGroup {
         let post_bib_parse = BibEntryMdxParser {}.parse_mdx(&post_dictionary_parse.new_content);
         let post_equation_tag_parse =
             EquationTagMdxParser {}.parse_mdx(&post_bib_parse.new_content);
+        let post_note_link_parse =
+            MdxNoteLinkEntity {}.parse_mdx(&post_equation_tag_parse.new_content, &file_path);
 
         // -- Gather parser data --
         let citations = BibEntryEntity::get_by_ids(db, post_bib_parse.results).await?;
@@ -95,7 +100,7 @@ impl MdxNoteGroup {
             front_matter: FrontMatterModel::from_gray_matter(result.data, &file_path),
             citations,
             mdx: MdxNoteModel {
-                raw_body: post_equation_tag_parse.new_content,
+                raw_body: post_note_link_parse.new_content,
                 file_path,
                 ctime: now,
                 last_read: "0".to_string(),
@@ -104,6 +109,7 @@ impl MdxNoteGroup {
             //RESUME: The equation tags are not yet being parsed.
             equations,
             tags: post_tag_parse.results,
+            note_links: post_note_link_parse.results,
         })
     }
 }

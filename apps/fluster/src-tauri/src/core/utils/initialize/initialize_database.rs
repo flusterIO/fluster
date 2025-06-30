@@ -28,7 +28,7 @@ use crate::{
             mdx_note_bib_entry_entity::MdxNoteBibEntryEntity,
             mdx_note_dictionary_entry_entity::MdxNoteDictionaryEntity,
             mdx_note_entity::MdxNoteEntity, mdx_note_equation_entity::MdxNoteEquationEntity,
-            mdx_note_snippet_entity::MdxNoteSnippetEntity,
+            mdx_note_link_entity::MdxNoteLinkEntity, mdx_note_snippet_entity::MdxNoteSnippetEntity,
             mdx_note_subject_entity::MdxNoteSubjectEntity, mdx_note_tag_entity::MdxNoteTagEntity,
             mdx_note_topic_entity::MdxNoteTopicEntity,
         },
@@ -128,6 +128,11 @@ pub async fn initialize_database() -> FlusterResult<()> {
         TableInitData {
             table: DatabaseTables::MdxNoteDictionaryEntry,
             entity: MdxNoteDictionaryEntity::arrow_schema(),
+            set_indices: None,
+        },
+        TableInitData {
+            table: DatabaseTables::MdxNoteLink,
+            entity: MdxNoteLinkEntity::arrow_schema(),
             set_indices: None,
         },
         // -- Snippets --

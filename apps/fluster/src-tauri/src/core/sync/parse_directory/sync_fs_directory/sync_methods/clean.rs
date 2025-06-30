@@ -18,8 +18,9 @@ pub async fn clean_database(db: &FlusterDb<'_>) -> FlusterResult<()> {
         clean_table(db, DatabaseTables::MdxNoteSnippet),
         clean_table(db, DatabaseTables::MdxNoteBibEntry),
         clean_table(db, DatabaseTables::MdxNoteEquation),
+        clean_table(db, DatabaseTables::MdxNoteLink),
     );
-    let (a, b, c, d, e, f, g, h, i, j, k) = res;
+    let (a, b, c, d, e, f, g, h, i, j, k, l) = res;
     if a.is_err() {
         return Err(a.err().unwrap());
     };
@@ -53,6 +54,9 @@ pub async fn clean_database(db: &FlusterDb<'_>) -> FlusterResult<()> {
     };
     if k.is_err() {
         return Err(k.err().unwrap());
+    };
+    if l.is_err() {
+        return Err(l.err().unwrap());
     };
     Ok(())
 }

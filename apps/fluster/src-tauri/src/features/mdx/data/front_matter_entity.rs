@@ -1,4 +1,4 @@
-use std::sync::Arc;
+use std::{ops::Index, sync::Arc};
 
 use arrow_array::{
     types::GenericStringType, GenericByteArray, Int64Array, RecordBatch, RecordBatchIterator,
@@ -41,6 +41,38 @@ fn optional_shared_taggable_to_arrow(
 }
 
 impl FrontMatterEntity {
+    pub async fn get_by_user_provided_id(
+        db: &FlusterDb<'_>,
+        user_provided_id: &str,
+    ) -> FlusterResult<FrontMatterModel> {
+        let tbl = get_table(db, DatabaseTables::MdxNote).await?;
+        let res = tbl
+            .query()
+            .only_if(format!("user_provided_id = \"{}\"", user_provided_id))
+            .execute()
+            .await
+            .map_err(|_| FlusterError::FailToFind)?
+            .try_collect::<Vec<_>>()
+            .await
+            .map_err(|_| FlusterError::FailToFind)?;
+        if res.is_empty() {
+            return Err(FlusterError::FailToFind);
+        }
+
+        if res.len() > 1 {
+            return Err(FlusterError::DuplicateId);
+        }
+
+        let batch = res.index(0);
+        let items: Vec<FrontMatterModel> =
+            from_record_batch(batch).map_err(|_| FlusterError::FailToSerialize)?;
+
+        match items.len() {
+            0 => Err(FlusterError::FailToFind),
+            1 => Ok(items.index(0).clone()),
+            _ => Err(FlusterError::DuplicateId),
+        }
+    }
     pub async fn get_by_file_paths(
         db: &FlusterDb<'_>,
         file_paths: &[String],

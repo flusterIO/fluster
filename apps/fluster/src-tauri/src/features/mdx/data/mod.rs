@@ -12,6 +12,8 @@ pub mod mdx_note_entity;
 pub mod mdx_note_equation_entity;
 pub mod mdx_note_equation_model;
 pub mod mdx_note_group;
+pub mod mdx_note_link_entity;
+pub mod mdx_note_link_model;
 pub mod mdx_note_model;
 pub mod mdx_note_snippet_entity;
 pub mod mdx_note_snippet_model;

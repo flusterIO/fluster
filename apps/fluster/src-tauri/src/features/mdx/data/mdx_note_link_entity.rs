@@ -1,38 +1,44 @@
-use std::sync::Arc;
+use std::{net::ToSocketAddrs, ops::Index, sync::Arc};
 
 use arrow_array::{RecordBatch, RecordBatchIterator, StringArray};
 use arrow_schema::{ArrowError, DataType, Field, Schema};
 use futures::TryStreamExt;
 use lancedb::query::{ExecutableQuery, QueryBase};
+use regex::Regex;
+use sea_query::Iden;
 use serde_arrow::from_record_batch;
 
 use crate::{
     core::{
         database::{db::get_table, tables::table_paths::DatabaseTables},
         types::{
+            common_structs::parsed_content_result::ParsedContentResult,
             errors::errors::{FlusterError, FlusterResult},
-            traits::db_entity::DbEntity,
+            traits::{db_entity::DbEntity, mdx_parser::MdxParser},
             FlusterDb,
         },
     },
     features::search::types::PaginationProps,
 };
 
-use super::mdx_note_dictionary_entry_model::MdxNoteDictionaryEntryModel;
+use super::mdx_note_link_model::MdxNoteLinkModel;
 
-pub struct MdxNoteDictionaryEntity {}
+pub struct MdxNoteLinkEntity {}
 
-type T = MdxNoteDictionaryEntryModel;
+impl MdxNoteLinkEntity {
+    pub fn get_regex(&self) -> Regex {
+        Regex::new(r#"\[eq:(?<equation_id>[^\]]+)\]\(note:(?<note_id>[^\)])\)"#)
+            .expect("Creates regex without throwing an error.")
+    }
 
-impl MdxNoteDictionaryEntity {
-    pub async fn get_by_file_paths(
+    pub async fn get_by_file_paths_from(
         db: &FlusterDb<'_>,
         file_paths: &[String],
     ) -> FlusterResult<Vec<T>> {
         if file_paths.is_empty() {
             return Ok(Vec::new());
         }
-        let tbl = get_table(db, MdxNoteDictionaryEntity::table()).await?;
+        let tbl = get_table(db, DatabaseTables::MdxNoteLink).await?;
         let file_paths_string = file_paths
             .iter()
             .map(|x| format!("\"{}\"", x))
@@ -40,24 +46,21 @@ impl MdxNoteDictionaryEntity {
             .join(", ");
         let items_batch = tbl
             .query()
-            .only_if(format!("mdx_note_file_path in ({})", file_paths_string))
+            .only_if(format!(
+                "mdx_note_file_path_from in ({})",
+                file_paths_string
+            ))
             .execute()
             .await
             .map_err(|e| {
-                println!(
-                    "Error in MdxNoteDictionaryEntity.get_by_file_paths: {:?}",
-                    e
-                );
+                println!("Error in MdxNoteLinkEntity.get_by_file_paths_from: {:?}", e);
                 FlusterError::FailToConnect
             })?
             .try_collect::<Vec<_>>()
             .await
             .map_err(|e| {
-                println!(
-                    "Error in MdxNoteDictionaryEntity.get_by_file_paths: {:?}",
-                    e
-                );
-                FlusterError::FailToFind
+                println!("Error in MdxNoteLinkEntity.get_by_file_paths_from: {:?}", e);
+                FlusterError::FailToConnect
             })?;
         // let batches = &items_batch;
         if items_batch.is_empty() {
@@ -67,21 +70,74 @@ impl MdxNoteDictionaryEntity {
 
         for batch in items_batch.iter() {
             let data: Vec<T> = from_record_batch(batch).map_err(|e| {
-                println!(
-                    "Error in MdxNoteDictionaryEntity.get_by_file_paths: {:?}",
-                    e
-                );
+                println!("Error in MdxNoteLinkEntity.get_by_file_paths_from: {:?}", e);
                 FlusterError::FailToSerialize
             })?;
             items.extend(data);
         }
         Ok(items)
     }
+    pub fn parse_mdx(
+        &self,
+        content: &str,
+        from_file_path: &str,
+    ) -> crate::core::types::common_structs::parsed_content_result::ParsedContentResult<
+        MdxNoteLinkModel,
+    > {
+        let regex = self.get_regex();
+        let mut new_content = content.to_string();
+        let mut note_links: Vec<MdxNoteLinkModel> = Vec::new();
+        for regex_match in regex.captures_iter(content) {
+            let (match_content, groups): (&str, [&str; 1]) = regex_match.extract();
+            let body = *groups.index(0);
+            let note_id = *groups.index(1);
+            if !body.is_empty() && !note_id.is_empty() {
+                new_content = new_content.replace(
+                    match_content,
+                    &format!(
+                        r#"<MdxNoteLinkById id='{}'>
+{}
+</MdxNoteLinkById>"#,
+                        note_id, body
+                    ),
+                );
+                note_links.push(MdxNoteLinkModel {
+                    mdx_note_file_path_from: from_file_path.to_string(),
+                    mdx_user_provided_id_to: note_id.to_string(),
+                })
+            }
+        }
+        ParsedContentResult {
+            new_content,
+            results: note_links,
+        }
+    }
 }
 
-impl MdxNoteDictionaryEntity {
+impl DbEntity<MdxNoteLinkModel> for MdxNoteLinkEntity {
+    fn arrow_schema() -> std::sync::Arc<arrow_schema::Schema> {
+        Arc::new(Schema::new(vec![
+            Field::new("mdx_note_file_path_from", DataType::Utf8, false),
+            Field::new("mdx_user_provided_id_to", DataType::Utf8, false),
+        ]))
+    }
+
+    fn to_record_batch(
+        item: &MdxNoteLinkModel,
+        schema: std::sync::Arc<arrow_schema::Schema>,
+    ) -> arrow_array::RecordBatch {
+        let mdx_note_from = StringArray::from(vec![item.mdx_note_file_path_from.clone()]);
+        let mdx_note_to = StringArray::from(vec![item.mdx_user_provided_id_to.clone()]);
+
+        RecordBatch::try_new(schema, vec![Arc::new(mdx_note_from), Arc::new(mdx_note_to)]).unwrap()
+    }
+}
+
+type T = MdxNoteLinkModel;
+
+impl MdxNoteLinkEntity {
     fn table() -> DatabaseTables {
-        DatabaseTables::MdxNoteDictionaryEntry
+        DatabaseTables::MdxNoteLink
     }
 
     pub async fn get_all(
@@ -89,7 +145,7 @@ impl MdxNoteDictionaryEntity {
         pagination: PaginationProps,
         predicate: Option<String>,
     ) -> FlusterResult<Vec<T>> {
-        let tbl = get_table(db, MdxNoteDictionaryEntity::table()).await?;
+        let tbl = get_table(db, MdxNoteLinkEntity::table()).await?;
         let offset = (pagination.per_page * (pagination.page_number - 1)) as usize;
         let mut q = tbl.query();
         if predicate.is_some() {
@@ -101,13 +157,13 @@ impl MdxNoteDictionaryEntity {
             .execute()
             .await
             .map_err(|e| {
-                println!("Error in MdxNoteDictionaryEntity.get_all: {:?}", e);
+                println!("Error: {:?}", e);
                 FlusterError::FailToFind
             })?
             .try_collect::<Vec<_>>()
             .await
             .map_err(|e| {
-                println!("Error in MdxNoteDictionaryEntity.get_all: {:?}", e);
+                println!("Error: {:?}", e);
                 FlusterError::FailToFind
             })?;
 
@@ -124,7 +180,7 @@ impl MdxNoteDictionaryEntity {
     }
 
     pub async fn delete(db: &FlusterDb<'_>, predicate: String) -> FlusterResult<()> {
-        let tbl = get_table(db, MdxNoteDictionaryEntity::table()).await?;
+        let tbl = get_table(db, MdxNoteLinkEntity::table()).await?;
         tbl.delete(&predicate).await.map_err(|e| {
             println!("Error: {:?}", e);
             FlusterError::FailToDelete
@@ -134,7 +190,7 @@ impl MdxNoteDictionaryEntity {
     }
 
     pub async fn create_many(db: &FlusterDb<'_>, items: Vec<T>) -> FlusterResult<()> {
-        let all_note_tags = MdxNoteDictionaryEntity::get_all(
+        let all_note_tags = MdxNoteLinkEntity::get_all(
             db,
             PaginationProps {
                 per_page: 9999999,
@@ -148,16 +204,16 @@ impl MdxNoteDictionaryEntity {
             .iter()
             .filter(|x| {
                 all_note_tags.iter().any(|y| {
-                    (x.dictionary_entry_label == y.dictionary_entry_label)
-                        && (x.mdx_note_file_path == y.mdx_note_file_path)
+                    (x.mdx_note_file_path_from == y.mdx_note_file_path_from)
+                        && (x.mdx_user_provided_id_to == y.mdx_user_provided_id_to)
                 })
             })
             .collect();
-        let schema = MdxNoteDictionaryEntity::arrow_schema();
-        let tbl = get_table(db, MdxNoteDictionaryEntity::table()).await?;
+        let schema = MdxNoteLinkEntity::arrow_schema();
+        let tbl = get_table(db, MdxNoteLinkEntity::table()).await?;
         let batches: Vec<Result<RecordBatch, ArrowError>> = filtered_items
             .iter()
-            .map(|x| Ok(MdxNoteDictionaryEntity::to_record_batch(x, schema.clone())))
+            .map(|x| Ok(MdxNoteLinkEntity::to_record_batch(x, schema.clone())))
             .collect();
         let stream = Box::new(RecordBatchIterator::new(
             batches.into_iter(),
@@ -168,31 +224,5 @@ impl MdxNoteDictionaryEntity {
             FlusterError::FailToCreateEntity
         })?;
         Ok(())
-    }
-}
-
-impl DbEntity<T> for MdxNoteDictionaryEntity {
-    fn arrow_schema() -> std::sync::Arc<arrow_schema::Schema> {
-        Arc::new(Schema::new(vec![
-            Field::new("mdx_note_file_path", DataType::Utf8, false),
-            Field::new("dictionary_entry_label", DataType::Utf8, false),
-        ]))
-    }
-
-    fn to_record_batch(
-        item: &T,
-        schema: std::sync::Arc<arrow_schema::Schema>,
-    ) -> arrow_array::RecordBatch {
-        let mdx_note_file_path = StringArray::from(vec![item.mdx_note_file_path.clone()]);
-        let dictionary_entry_label = StringArray::from(vec![item.dictionary_entry_label.clone()]);
-
-        RecordBatch::try_new(
-            schema,
-            vec![
-                Arc::new(mdx_note_file_path),
-                Arc::new(dictionary_entry_label),
-            ],
-        )
-        .unwrap()
     }
 }

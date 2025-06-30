@@ -8,11 +8,18 @@ use crate::{
         types::{errors::errors::FlusterResult, FlusterDb},
     },
     features::{
+        dictionary::{
+            dictionary_entry_entity::DictionaryEntryEntity,
+            dictionary_entry_model::DictionaryEntryModel,
+        },
         math::data::{equation_entity::EquationEntity, equation_model::EquationModel},
         mdx::data::{
             front_matter_entity::FrontMatterEntity, front_matter_model::FrontMatterModel,
+            mdx_note_dictionary_entry_entity::MdxNoteDictionaryEntity,
+            mdx_note_dictionary_entry_model::MdxNoteDictionaryEntryModel,
             mdx_note_entity::MdxNoteEntity, mdx_note_equation_entity::MdxNoteEquationEntity,
             mdx_note_equation_model::MdxNoteEquationModel, mdx_note_group::MdxNoteGroup,
+            mdx_note_link_entity::MdxNoteLinkEntity, mdx_note_link_model::MdxNoteLinkModel,
             mdx_note_model::MdxNoteModel, mdx_note_subject_entity::MdxNoteSubjectEntity,
             mdx_note_subject_model::MdxNoteSubjectModel, mdx_note_tag_entity::MdxNoteTagEntity,
             mdx_note_tag_model::MdxNoteTagModel, mdx_note_topic_entity::MdxNoteTopicEntity,
@@ -36,11 +43,24 @@ pub async fn save_mdx_note_groups(
     let mut mdx_note_subjects: Vec<MdxNoteSubjectModel> = Vec::new();
     let mut mdx_note_topics: Vec<MdxNoteTopicModel> = Vec::new();
     let mut notes: Vec<MdxNoteModel> = Vec::new();
+    let mut note_links: Vec<MdxNoteLinkModel> = Vec::new();
+    let mut mdx_note_dictionary_entries: Vec<MdxNoteDictionaryEntryModel> = Vec::new();
+    let mut dictionary_entries: Vec<DictionaryEntryModel> = Vec::new();
     // RESUME: based searching. That played a big part in the initial app.
     let mut front_matter: Vec<FrontMatterModel> = Vec::new();
     for item in groups.iter().filter(|x| !x.mdx.raw_body.is_empty()) {
+        for dict_entry in item.dictionary_entries.clone() {
+            mdx_note_dictionary_entries.push(MdxNoteDictionaryEntryModel {
+                mdx_note_file_path: item.mdx.file_path.clone(),
+                dictionary_entry_label: dict_entry.label.clone(),
+            });
+            dictionary_entries.push(dict_entry.clone());
+        }
         notes.push(item.mdx.clone());
         front_matter.push(item.front_matter.clone());
+        for note_link in item.note_links.clone() {
+            note_links.push(note_link.clone());
+        }
         for eq in item.equations.clone() {
             equations.push(eq.clone());
             if eq.equation_id.is_some() {
@@ -88,5 +108,8 @@ pub async fn save_mdx_note_groups(
     MdxNoteTopicEntity::create_many(db, mdx_note_topics).await?;
     MdxNoteEntity::save_many(db, notes).await?;
     FrontMatterEntity::save_many(db, front_matter).await?;
+    MdxNoteLinkEntity::create_many(db, note_links).await?;
+    DictionaryEntryEntity::create_many(db, dictionary_entries).await?;
+    MdxNoteDictionaryEntity::create_many(db, mdx_note_dictionary_entries).await?;
     Ok(())
 }
