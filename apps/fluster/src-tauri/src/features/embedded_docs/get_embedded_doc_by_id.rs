@@ -16,6 +16,8 @@ pub fn get_embedded_doc(id: InternalEmbeddedDocsId) -> String {
         InternalEmbeddedDocsId::GettingStarted => "getting_started.mdx",
         InternalEmbeddedDocsId::ColorProps => "color_props.mdx",
         InternalEmbeddedDocsId::IntroToJsx => "intro_to_jsx.mdx",
+        InternalEmbeddedDocsId::JupyterSetup => "jupyter_setup.mdx",
+        InternalEmbeddedDocsId::QuickReference => "quick_ref.mdx",
     };
     let res = DOCS
         .get_file(_path)

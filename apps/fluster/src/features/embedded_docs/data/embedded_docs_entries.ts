@@ -7,4 +7,6 @@ export const embeddedDocLabels: { [K in InternalEmbeddedDocsId]: string } = {
     HowToContribute: "How to contribute",
     GettingStarted: "Getting Started",
     ColorProps: "Working with colors",
+    JupyterSetup: "Setting up Jupyter",
+    QuickReference: "Quick Reference",
 };

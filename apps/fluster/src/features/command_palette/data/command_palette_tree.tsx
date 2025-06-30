@@ -17,38 +17,40 @@ import { PdfFilesCommandPaletteRoot } from "./tree/pdfs";
 import { TopicsCommandPaletteRoot } from "./tree/topics";
 import { SubjectsCommandPaletteRoot } from "./tree/subjects";
 import { TagsCommandPaletteRoot } from "./tree/tags";
+import { IpynbFilesCommandPaletteRoot } from "./tree/notebooks";
 
 export class CommandPaletteRoot extends CommandPaletteCategory {
-  constructor() {
-    super("Home", "cmd-palete-root");
-  }
+    constructor() {
+        super("Home", "cmd-palete-root");
+    }
 
-  filterByLocation(): boolean {
-    return true;
-  }
-  async getItems(location: Location): Promise<CommandPaletteAnyEntry[]> {
-    return [
-      new NavigationCommandPaletteRoot(),
-      new TagsCommandPaletteRoot(),
-      new TopicsCommandPaletteRoot(),
-      new SubjectsCommandPaletteRoot(),
-      new GeneralCommandPaletteItem(
-        "Toggle Dark Mode",
-        "toggle_dark_mode",
-        async () => {
-          toggleDarkMode();
-        }
-      ),
-      new BookmarksCommandPaletteRoot(),
-      new ThemeCommandPaletteRoot(),
-      new CodeThemeCommandPaletteRoot(),
-      new EditInSplitViewCommandEntry(),
-      new GeneralCommandPaletteItem("Sync database", "sync_db", sync),
-      new NotesCommandPaletteRoot(),
-      new PdfFilesCommandPaletteRoot(),
-      new TaskListsCommandPaletteRoot(),
-      new AiChatsCommandPaletteRoot(),
-      new EmbeddedDocsCommandPaletteRoot(),
-    ].filter((x) => x.filterByLocation(location));
-  }
+    filterByLocation(): boolean {
+        return true;
+    }
+    async getItems(location: Location): Promise<CommandPaletteAnyEntry[]> {
+        return [
+            new NavigationCommandPaletteRoot(),
+            new TagsCommandPaletteRoot(),
+            new TopicsCommandPaletteRoot(),
+            new SubjectsCommandPaletteRoot(),
+            new GeneralCommandPaletteItem(
+                "Toggle Dark Mode",
+                "toggle_dark_mode",
+                async () => {
+                    toggleDarkMode();
+                }
+            ),
+            new BookmarksCommandPaletteRoot(),
+            new ThemeCommandPaletteRoot(),
+            new CodeThemeCommandPaletteRoot(),
+            new EditInSplitViewCommandEntry(),
+            new GeneralCommandPaletteItem("Sync database", "sync_db", sync),
+            new NotesCommandPaletteRoot(),
+            new PdfFilesCommandPaletteRoot(),
+            new IpynbFilesCommandPaletteRoot(),
+            new TaskListsCommandPaletteRoot(),
+            new AiChatsCommandPaletteRoot(),
+            new EmbeddedDocsCommandPaletteRoot(),
+        ].filter((x) => x.filterByLocation(location));
+    }
 }

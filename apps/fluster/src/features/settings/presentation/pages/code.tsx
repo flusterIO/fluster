@@ -5,15 +5,24 @@ import { z } from "zod";
 import { connect, useDispatch } from "react-redux";
 import { AppState } from "@/state/initial_state";
 import {
+    Button,
     Form,
     GeneralSelectInput,
     SelectOption,
     SyntaxSupportedLanguageSelect,
+    TextAreaInput,
+    TextInputGroup,
 } from "@fluster.io/dev";
-import { setDefaultLanguage, setEditorKeymap } from "#/editor/state/slice";
+import {
+    setDefaultLanguage,
+    setEditorKeymap,
+    setJupyterState,
+} from "#/editor/state/slice";
 import { BundledLanguage } from "shiki";
 import { SettingPageTitle } from "../components/setting_page_title";
 import { SettingPageContainer } from "../components/setting_page_container";
+import { H2 } from "@/components/typography/typography";
+import { commands } from "@/lib/bindings";
 
 const connector = connect((state: AppState) => ({
     state: state.code,
@@ -26,6 +35,9 @@ interface Props {
 const schema = z.object({
     defaultLanguage: z.string(),
     keymap: z.literal("vim").or(z.literal("standard")),
+    port: z.coerce.number().int(),
+    kernel: z.string(),
+    token: z.string(),
 });
 
 const keymapOptions: SelectOption<AppState["code"]["keymap"]>[] = [
@@ -46,11 +58,13 @@ export const CodeSettingsPage = connector(({ state }: Props): ReactNode => {
         defaultValues: {
             defaultLanguage: state.defaultLanguage,
             keymap: state.keymap,
+            port: state.jupyter.port,
+            token: state.jupyter.token,
+            kernel: state.jupyter.defaultKernelName,
         },
     });
 
     form.watch((formState) => {
-        console.log("formState: ", formState);
         if (formState.defaultLanguage) {
             dispatch(
                 setDefaultLanguage(formState.defaultLanguage as BundledLanguage)
@@ -60,7 +74,34 @@ export const CodeSettingsPage = connector(({ state }: Props): ReactNode => {
             console.log("setting keymap: ");
             dispatch(setEditorKeymap(formState.keymap));
         }
+        if (formState.token) {
+            dispatch(
+                setJupyterState({
+                    token: formState.token,
+                })
+            );
+        }
+        if (formState.kernel) {
+            dispatch(
+                setJupyterState({
+                    defaultKernelName: formState.kernel,
+                })
+            );
+        }
+        if (formState.port) {
+            dispatch(
+                setJupyterState({
+                    port: formState.port,
+                })
+            );
+        }
     });
+
+    const generateToken = async (): Promise<void> => {
+        // Had to apply this bandaid because of improperly generated types by specta.
+        const res = await commands.generateNewToken(64 as unknown as string);
+        form.setValue("token", res);
+    };
 
     /* FIX: Create the language and theme select inputs and implement them here. */
     return (
@@ -85,6 +126,33 @@ export const CodeSettingsPage = connector(({ state }: Props): ReactNode => {
                         selectTrigger: "w-full",
                     }}
                 />
+                <H2>Jupyter</H2>
+                <div className="@[768px]/settings:grid @[768px]/settings:grid-cols-2 gap-x-4 gap-y-6 flex flex-col justify-start items-start">
+                    <TextInputGroup label="Port" form={form} name="port" />
+                    <TextInputGroup label="Kernel Name" form={form} name="kernel" />
+                </div>
+                <TextAreaInput
+                    classes={{
+                        container: "w-full max-w-full",
+                        textArea: "w-full max-w-full",
+                        formItem: "w-full max-w-full",
+                    }}
+                    rows={2}
+                    label="Token"
+                    form={form}
+                    name="token"
+                />
+                <div className="flex flex-row justify-end items-center">
+                    <Button
+                        onClick={(e) => {
+                            e.preventDefault();
+                            e.stopPropagation();
+                            generateToken();
+                        }}
+                    >
+                        Generate new token
+                    </Button>
+                </div>
             </SettingPageContainer>
         </Form>
     );

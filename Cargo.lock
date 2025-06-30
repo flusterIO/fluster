@@ -4738,6 +4738,7 @@ dependencies = [
  "log",
  "ollama-rs",
  "plotly",
+ "rand 0.9.1",
  "rayon",
  "regex",
  "rig-lancedb",

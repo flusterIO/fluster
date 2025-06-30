@@ -14,7 +14,15 @@ declare global {
 }
 
 const EquationPreview = (): ReactNode => {
-    const [data, setData] = useState<EquationSchemaData | null>(null);
+    const [data, setData] = useState<EquationSchemaData>({
+        body: "",
+        desc: "",
+        id: "",
+        label: "",
+        snippet_ids: [],
+        tags: [],
+        user_provided_id: "",
+    });
 
     useEventListener("set-equation-preview-data", (e) => setData(e.detail.data));
 

@@ -10,46 +10,47 @@ import BibReducer from "#/bibliography/state/slice";
 import AiReducer from "#/ai/state/slice";
 import { AppState } from "./initial_state";
 import {
-  persistReducer,
-  PersistConfig,
-  FLUSH,
-  REHYDRATE,
-  PAUSE,
-  PERSIST,
-  PURGE,
-  REGISTER,
+    persistReducer,
+    PersistConfig,
+    FLUSH,
+    REHYDRATE,
+    PAUSE,
+    PERSIST,
+    PURGE,
+    REGISTER,
 } from "redux-persist";
 import { stateStorage } from "./state_storage";
 
 const reducers: Record<keyof AppState, Reducer> = {
-  ai: AiReducer,
-  scaffold: ScaffoldReducer,
-  keymap: KeymapReducer,
-  panelLeft: PanelLeftReducer,
-  panelRight: PanelRightReducer,
-  panelBottom: PanelBottomReducer,
-  code: CodeReducer,
-  core: CoreReducer,
-  bib: BibReducer,
+    ai: AiReducer,
+    scaffold: ScaffoldReducer,
+    keymap: KeymapReducer,
+    panelLeft: PanelLeftReducer,
+    panelRight: PanelRightReducer,
+    panelBottom: PanelBottomReducer,
+    code: CodeReducer,
+    core: CoreReducer,
+    bib: BibReducer,
 };
 
 const rootReducer = combineReducers(reducers);
 
 const persistConfig: PersistConfig<AppState> = {
-  key: "root",
-  storage: stateStorage,
+    key: "root",
+    storage: stateStorage,
+    blacklist: ["core.syncing"],
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 const store = configureStore({
-  reducer: persistedReducer,
-  middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware({
-      serializableCheck: {
-        ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
-      },
-    }),
+    reducer: persistedReducer,
+    middleware: (getDefaultMiddleware) =>
+        getDefaultMiddleware({
+            serializableCheck: {
+                ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+            },
+        }),
 });
 
 export default store;

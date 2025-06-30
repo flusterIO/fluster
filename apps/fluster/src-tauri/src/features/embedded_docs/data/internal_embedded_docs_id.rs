@@ -20,4 +20,6 @@ pub enum InternalEmbeddedDocsId {
     GettingStarted,
     ColorProps,
     IntroToJsx,
+    JupyterSetup,
+    QuickReference,
 }

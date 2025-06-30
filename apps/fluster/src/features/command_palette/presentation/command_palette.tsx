@@ -23,9 +23,9 @@ const CommandPalette = (): ReactNode => {
     const handleResize = () => setWidth(getWidth());
     const state = useCommandPaletteContext();
 
-    useEventListener("log-state", () => {
-        console.log(state);
-    });
+    /* useEventListener("log-state", () => { */
+    /*     console.log(state); */
+    /* }); */
     useEffect(() => {
         window.addEventListener("resize", handleResize);
         return () => window.removeEventListener("resize", handleResize);
@@ -33,7 +33,6 @@ const CommandPalette = (): ReactNode => {
     useEventListener("show_command_palette", async () => {
         const cat = new CommandPaletteRoot();
         const items = await cat.getItems(loc);
-        console.log("items here: ", items);
         dispatch({
             type: CommandPaletteActionType.appendCommandPaletteCategory,
             payload: {

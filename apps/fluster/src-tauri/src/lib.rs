@@ -2,6 +2,7 @@
 pub mod core;
 pub mod features;
 use crate::core::sync::sync_local_database::sync_local_database;
+use crate::core::utils::commands::get_env_variable::get_environment_variable;
 use crate::core::utils::commands::get_operating_system::get_operating_system;
 use crate::core::utils::file_system::fs_commands::{
     fs_file_extension_glob, fs_glob, read_file_to_bytes, read_utf8_file, save_utf8_file,
@@ -31,6 +32,7 @@ use crate::features::dictionary::dictionary_entry_model::DictionaryEntryModel;
 use crate::features::editor::write_file::write_file;
 use crate::features::embedded_docs::get_embedded_doc_by_id::get_embedded_doc;
 use crate::features::embedded_docs::get_embedded_doc_by_id::get_embedded_doc_by_relative_path;
+use crate::features::jupyter::commands::generate_new_jupyter_token::generate_new_token;
 use crate::features::math::commands::delete_equation_by_id::delete_equation_by_id;
 use crate::features::math::commands::get_equation_by_id::get_equation_by_id;
 use crate::features::math::commands::get_equations::get_equations;
@@ -94,6 +96,7 @@ pub fn run() {
             // -- Component Utils --
             get_dashboard_data,
             get_qr_code_svg,
+            get_environment_variable,
             // -- Search --
             get_text_similarity,
             get_unique_id,
@@ -177,6 +180,8 @@ pub fn run() {
             get_all_task_lists,
             get_task_list_count,
             get_task_count,
+            // -- Jupyter --
+            generate_new_token,
         ])
         .events(collect_events![ShowToast, SetDbConnectionUri])
         .typ::<FlusterError>()

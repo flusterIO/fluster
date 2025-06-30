@@ -38,9 +38,11 @@ const EquationsList = (): ReactNode => {
             </div>
         );
     }
+
     if (items.length === 0) {
         return <NoEquationsFound />;
     }
+
     return (
         <div className="w-full flex flex-col justify-start items-center gap-8">
             {items.map((x) => (

@@ -22,6 +22,12 @@ export const onBoardingPageData: OnBoardingPageData[] = [
     },
     {
         sidebar: {
+            title: "Wait... this important",
+            body: "We need to download some large files before your dadtabase can be synchronized.",
+        },
+    },
+    {
+        sidebar: {
             title: "Whewww...",
             body: "We're all done! Make sure to checkout the documentation, and share this app to spread the word.",
         },

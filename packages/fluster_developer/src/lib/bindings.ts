@@ -24,6 +24,14 @@ async getQrCodeSvg(content: string) : Promise<Result<string, FlusterError>> {
     else return { status: "error", error: e  as any };
 }
 },
+async getEnvironmentVariable(key: string) : Promise<Result<string, FlusterError>> {
+    try {
+    return { status: "ok", data: await TAURI_INVOKE("get_environment_variable", { key }) };
+} catch (e) {
+    if(e instanceof Error) throw e;
+    else return { status: "error", error: e  as any };
+}
+},
 async getTextSimilarity(a: string, b: string) : Promise<number> {
     return await TAURI_INVOKE("get_text_similarity", { a, b });
 },
@@ -591,6 +599,9 @@ async getTaskCount(predicate: string | null) : Promise<Result<string, FlusterErr
     if(e instanceof Error) throw e;
     else return { status: "error", error: e  as any };
 }
+},
+async generateNewToken(length: string) : Promise<string> {
+    return await TAURI_INVOKE("generate_new_token", { length });
 }
 }
 
@@ -690,7 +701,7 @@ ctime: string;
  * Time snippet is last updated.
  */
 utime: string }
-export type FlusterError = "OperatingSystemNotSupported" | "FailToLoadDocs" | "FailToWriteChatSession" | "FailToReadChatSession" | "NoAiProvidersConfigured" | "FailToGenerateChatResponse" | "FailToLoadModel" | "FailToCreateEmbeddingVector" | "FailToGetSemanticResults" | "FailToCreateQrCode" | "FailToCount" | "NotImplemented" | "FailToCopyFiles" | "FailToWriteFile" | "FailToSaveSettings" | "FailToReadSettings" | "FailToParseBibFile" | "SettingsBibPathNotFound" | "CannotParseBibfile" | "FailToFindDataDirectory" | "FailToCreateIndex" | "FailToSerialize" | "NotFoundById" | "DuplicateId" | "FailToDelete" | "FailToClean" | "FailToCreateTable" | "FailToOpenTable" | "FailToConnect" | "FailToStartDb" | "FailToStopDb" | "FailToCreateEntity" | "FailToCreateSnippet" | "FailToFind" | "FailToFindById" | "FailToCreatePath" | "FailToCreateTag" | "FailToCreateSubject" | { DataDirNotFound: [] } | { FailToClearDirectory: string } | "FailToCreateTopic" | "FailToLocateStorageDir" | { FailToReadFileSystemPath: string } | "FailToReadMathjaxFont" | { FailToSaveFile: string } | { MdxParsingError: string } | { NoTitleError: string } | "FailToGatherMdxGroups" | { AttemptedToParseFileWasntFound: string } | { FailToSaveMdxNote: string } | 
+export type FlusterError = "OperatingSystemNotSupported" | "FailToLoadDocs" | { FailToLoadEnvironmentVariable: string } | "FailToWriteChatSession" | "FailToReadChatSession" | "NoAiProvidersConfigured" | "FailToGenerateChatResponse" | "FailToLoadModel" | "FailToCreateEmbeddingVector" | "FailToGetSemanticResults" | "FailToCreateQrCode" | "FailToCount" | "NotImplemented" | "FailToCopyFiles" | "FailToWriteFile" | "FailToSaveSettings" | "FailToReadSettings" | "FailToParseBibFile" | "SettingsBibPathNotFound" | "CannotParseBibfile" | "FailToFindDataDirectory" | "FailToCreateIndex" | "FailToSerialize" | "NotFoundById" | "DuplicateId" | "FailToDelete" | "FailToClean" | "FailToCreateTable" | "FailToOpenTable" | "FailToConnect" | "FailToStartDb" | "FailToStopDb" | "FailToCreateEntity" | "FailToCreateSnippet" | "FailToFind" | "FailToFindById" | "FailToCreatePath" | "FailToCreateTag" | "FailToCreateSubject" | { DataDirNotFound: [] } | { FailToClearDirectory: string } | "FailToCreateTopic" | "FailToLocateStorageDir" | { FailToReadFileSystemPath: string } | "FailToReadMathjaxFont" | { FailToSaveFile: string } | { MdxParsingError: string } | { NoTitleError: string } | "FailToGatherMdxGroups" | { AttemptedToParseFileWasntFound: string } | { FailToSaveMdxNote: string } | 
 /**
  * Taggables
  * 
@@ -733,7 +744,7 @@ export type InternalEmbeddedDocsId =
 /**
  * How to contribute
  */
-"HowToContribute" | "GettingStarted" | "ColorProps" | "IntroToJsx"
+"HowToContribute" | "GettingStarted" | "ColorProps" | "IntroToJsx" | "JupyterSetup" | "QuickReference"
 export type MathjaxData = { root: string; main_path: string; font_path: string }
 export type MdxBookmarkData = { note: MdxNoteModel; front_matter: FrontMatterBaseModel }
 export type MdxNoteGroup = { mdx: MdxNoteModel; front_matter: FrontMatterModel; tags: SharedTaggableModel[]; equations: EquationModel[]; dictionary_entries: DictionaryEntryModel[]; citations: BibEntryModel[] }

@@ -49,6 +49,12 @@ export default defineConfig({
     //     minify: !process.env.TAURI_ENV_DEBUG ? "esbuild" : false,
     //     sourcemap: !!process.env.TAURI_ENV_DEBUG,
     // },
+    build: {
+        copyPublicDir: true,
+        minify: !process.env.TAURI_ENV_DEBUG ? "esbuild" : false,
+        sourcemap: !!process.env.TAURI_ENV_DEBUG,
+    },
+
     server: {
         port: 1420,
         strictPort: true,

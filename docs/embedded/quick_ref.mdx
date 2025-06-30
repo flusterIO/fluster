@@ -7,10 +7,10 @@ title: Quick Reference
 | Function | Default Keymap |
 | -------- | -------------- |
 | Toggle Command Palette | `cmd+p` |
-| Toggle Editor Command Palette | `cmd+shift+p` |
+| Toggle Editor Command Palette (in editor only) | `cmd+shift+p` |
 | Toggle Left Panel | `cmd+shift+l` |
 | Toggle Right Panel | `cmd+shift+r` |
-
+j
 ## Syntax Reference
 
 ### Tag
@@ -30,3 +30,16 @@ This will embed a citation in your note formatted according to the optional `.cs
 This is my [[cite:my_citation_id]] here.
 ```
 
+### Equation Tag
+
+```mdx
+This is equation [[eq:my_equation_id]] is important here.
+```
+
+### Dictionary Entry
+
+````mdx 
+```dictionary -- My Dictionary Entry 
+The body of my dictionary Entry
+```
+````

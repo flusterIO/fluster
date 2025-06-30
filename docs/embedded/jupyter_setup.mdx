@@ -1,0 +1,55 @@
+---
+title: Jupyter Setup
+---
+
+
+# Setting up Jupyter
+
+To setup jupyter, first find or create your `jupyter_server_config.py`. On a Mac (and likely linux) this is located at `~/.jupyter/jupyter_server_config.py`.
+
+To connect Fluster to Jupyter, you'll need to add a few properties to this file:
+
+> Keep in mind, this is insecure. When both Fluster and Jupyter are running on your own machine you'll be fine, but do _not_ apply these settings blindly to a remote Jupyter server config.
+
+```python
+c.IdentityProvider.token = (
+    "my-random-alpha-numeric-64-character-token"
+)
+
+c.ServerApp.root_dir = "/Users/bigsexy/Desktop/notes/content" 
+c.ServerApp.port = 21521
+c.ServerApp.disable_check_xsrf = False
+c.ServerApp.allow_origin_pat = ".*"
+c.ServerApp.allow_credentials = True
+c.ServerApp.tornado_settings = {
+    "headers": {
+        #    'Access-Control-Allow-Origin': ORIGIN,  # Best to restrict the ORIGIN
+        "Access-Control-Allow-Methods": "*",
+        "Access-Control-Allow-Headers": "Accept, Accept-Encoding, Accept-Language, Authorization, Cache-Control, Connection, Content-Type, Host, Origin, Pragma, Referer, sec-ch-ua, sec-ch-ua-mobile, sec-ch-ua-platform, Sec-Fetch-Dest, Sec-Fetch-Mode, Sec-Fetch-Site, Upgrade, User-Agent, X-XSRFToken, X-Datalayer, Expires",
+        "Access-Control-Allow-Credentials": "true",
+        "Content-Security-Policy": f"frame-ancestors 'self' {ORIGIN} ",
+    },
+    "cookie_options": {"SameSite": "None", "Secure": True},
+}
+c.IdentityProvider.cookie_options = {
+    "SameSite": "None",
+    "Secure": True,
+}
+```
+
+### Token 
+
+Here the `c.IdentityProvider.token` is a secure token that will be passed between Fluster and Jupyter to ensure only you can execute code inside of Jupyter. If you don't have a token, Fluster can generate one for you in the settings page, which will then need to be copied and pasted here.
+
+### Port
+
+The port is also set inside of Fluster, and must match the `c.ServerApp.port` field. This can be any open port.
+
+---
+
+The rest, apart from the `root_dir` field is required to allow communication between Fluster and Jupyter. The `root_dir` field is just an optional convience field to save you some clicking around when you're looking for your notebooks.
+
+
+## That's it
+
+That's all there is to it. Just start your Jupyter server in the background with `jupyter server`, and Fluster will be able to load and execute interactive Jupyter cells directly in your notes!

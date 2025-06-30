@@ -9,15 +9,17 @@ pub async fn clean_database(db: &FlusterDb<'_>) -> FlusterResult<()> {
     let res = tokio::join!(
         clean_table(db, DatabaseTables::MdxNote),
         clean_table(db, DatabaseTables::FrontMatter),
+        clean_table(db, DatabaseTables::FrontMatterTag),
         clean_table(db, DatabaseTables::DictionaryEntry),
+        clean_table(db, DatabaseTables::MdxNoteDictionaryEntry),
         clean_table(db, DatabaseTables::MdxNoteTag),
         clean_table(db, DatabaseTables::MdxNoteTopic),
         clean_table(db, DatabaseTables::MdxNoteSubject),
         clean_table(db, DatabaseTables::MdxNoteSnippet),
-        clean_table(db, DatabaseTables::MdxNoteSnippet),
+        clean_table(db, DatabaseTables::MdxNoteBibEntry),
         clean_table(db, DatabaseTables::MdxNoteEquation),
     );
-    let (a, b, c, d, e, f, g, h, i) = res;
+    let (a, b, c, d, e, f, g, h, i, j, k) = res;
     if a.is_err() {
         return Err(a.err().unwrap());
     };
@@ -45,6 +47,12 @@ pub async fn clean_database(db: &FlusterDb<'_>) -> FlusterResult<()> {
     };
     if i.is_err() {
         return Err(i.err().unwrap());
+    };
+    if j.is_err() {
+        return Err(j.err().unwrap());
+    };
+    if k.is_err() {
+        return Err(k.err().unwrap());
     };
     Ok(())
 }

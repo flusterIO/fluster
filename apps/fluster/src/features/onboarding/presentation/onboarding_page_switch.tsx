@@ -3,6 +3,7 @@ import OnboardingCreateDatabaseScreen from "./onboarding_screens/creating_databa
 import { useOnboardingStateContext } from "../state/onboarding_context";
 import OnboardingSetupCompleteScreen from "./onboarding_screens/setup_complete";
 import OnBoardingSetDirectoryScreen from "./onboarding_screens/set_notes_dir";
+import { OnboardingNotifyOfModelsDownloading } from "./onboarding_screens/notify_models_downloading";
 
 const OnboardingPageSwitch = (): ReactNode => {
     useEffect(() => {
@@ -21,6 +22,9 @@ const OnboardingPageSwitch = (): ReactNode => {
             return <OnBoardingSetDirectoryScreen />;
         }
         case 2: {
+            return <OnboardingNotifyOfModelsDownloading />;
+        }
+        case 3: {
             return <OnboardingSetupCompleteScreen />;
         }
     }

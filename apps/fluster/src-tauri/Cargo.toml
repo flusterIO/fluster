@@ -90,6 +90,7 @@ sysinfo = { version = "0.35.2", features = [
 langchain-rust = "4.6.0"
 rig-lancedb = "0.2.11"
 tantivy = "0.22.0"
+rand = "0.9.1"
 
 
 [target.'cfg(not(any(target_os = "android", target_os = "ios")))'.dependencies]

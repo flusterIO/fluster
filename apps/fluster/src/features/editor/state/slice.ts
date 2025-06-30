@@ -2,6 +2,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { initialCodeState } from "./initial_state";
 import { BundledLanguage, BundledTheme } from "shiki";
 import { AppState } from "@/state/initial_state";
+import { JupyterConfigState } from "./code_state";
 
 const slice = createSlice({
     name: "code",
@@ -34,10 +35,23 @@ const slice = createSlice({
                 },
             };
         },
+        setJupyterState(state, action: PayloadAction<Partial<JupyterConfigState>>) {
+            return {
+                ...state,
+                jupyter: {
+                    ...state.jupyter,
+                    ...action.payload,
+                },
+            };
+        },
     },
 });
 
-export const { setCodeTheme, setDefaultLanguage, setEditorKeymap } =
-    slice.actions;
+export const {
+    setCodeTheme,
+    setDefaultLanguage,
+    setEditorKeymap,
+    setJupyterState,
+} = slice.actions;
 
 export default slice.reducer;

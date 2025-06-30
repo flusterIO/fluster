@@ -22,6 +22,7 @@ import { PdfPage } from "#/pdf/presentation/pdf_page";
 import { ScaffoldWithRightPanelOnly } from "../presentation/scaffold_right_panel_only";
 import SearchResultsPage from "#/search/presentation/search_results_page/index";
 import { SemanticSearchResultsPage } from "#/search/presentation/semantic_search_results_page";
+import { NotebookPage } from "#/jupyter/presentation/notebook_page";
 
 export const getBrowserRouter = () => {
   return createBrowserRouter([
@@ -61,6 +62,10 @@ export const getBrowserRouter = () => {
         {
           path: AppRoutes.splitViewEditMdx,
           Component: EditNoteSplitViewPage,
+        },
+        {
+          path: AppRoutes.notebookInteractive,
+          Component: NotebookPage,
         },
         {
           path: AppRoutes.embeddedDocs,

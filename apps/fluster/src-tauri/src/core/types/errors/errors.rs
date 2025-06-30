@@ -8,6 +8,8 @@ pub enum FlusterError {
     OperatingSystemNotSupported,
     #[error("Fluster failed to loaded embedded documentation.")]
     FailToLoadDocs,
+    #[error("Fluster failed to find the {0} environment variable.")]
+    FailToLoadEnvironmentVariable(String),
     // AI errors
     #[error("Fluster could not write the current chat session to disk.")]
     FailToWriteChatSession,
