@@ -3,7 +3,7 @@ import { getMdxNoteUrl } from "#/mdx/utils/get_mdx_note_url";
 import { MdxNoteGroup } from "@/lib/bindings";
 import { buttonVariants, Badge, AppRoutes } from "@fluster.io/dev";
 import dayjs from "dayjs";
-import React, { HTMLProps, type ReactNode } from "react";
+import React, { HTMLProps, useMemo, type ReactNode } from "react";
 import { NavLink, useNavigate } from "react-router";
 
 interface MdxNoteSearchResultProps extends HTMLProps<HTMLDivElement> {
@@ -14,6 +14,15 @@ export const MdxNoteSearchResult = ({
     item,
 }: MdxNoteSearchResultProps): ReactNode => {
     const nav = useNavigate();
+
+    const ctime = useMemo(() => {
+        if (item.mdx.ctime === "1970-01-01T00:00:00") {
+            return null;
+        } else {
+            return dayjs(item.mdx.ctime).format("MM/DD/YYYY");
+        }
+    }, [item.mdx.ctime]);
+
     if (!item.front_matter.title.length) {
         console.warn(
             `A note without a title was found at ${item.front_matter.mdx_note_file_path}`
@@ -27,12 +36,6 @@ export const MdxNoteSearchResult = ({
         );
         return null;
     }
-
-    console.log(
-        "item.mdx.ctime: ",
-        item.mdx.ctime,
-        new Date(item.mdx.ctime).valueOf()
-    );
 
     const url = getMdxNoteUrl(item.mdx.file_path);
 
@@ -85,11 +88,7 @@ export const MdxNoteSearchResult = ({
                 />
             ) : null}
             <div className="w-full flex flex-row justify-between items-center">
-                <div className="text-muted-foreground text-sm">
-                    {new Date(item.mdx.ctime).valueOf() === 0
-                        ? ""
-                        : dayjs(item.mdx.ctime).format("MM/DD/YYYY")}
-                </div>
+                <div className="text-muted-foreground text-sm">{ctime}</div>
                 <NavLink className={buttonVariants()} to={url}>
                     View
                 </NavLink>

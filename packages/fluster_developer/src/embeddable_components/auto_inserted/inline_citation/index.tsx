@@ -1,5 +1,9 @@
 import React, { type ReactNode } from "react";
-import { getFormattedCitationAnchorId } from "./get_formatted_id";
+import {
+    getFormattedCitationAnchorId,
+    getFormattedCitationFooterId,
+} from "./get_formatted_id";
+import { scrollToId } from "../../../utils/scroll_to_id";
 
 interface InlineCitationProps {
     idx: number;
@@ -8,7 +12,17 @@ interface InlineCitationProps {
 }
 
 export const InlineCitation = (props: InlineCitationProps): ReactNode => {
-    return <sup id={getFormattedCitationAnchorId(props.id)}>{props.idx + 1}</sup>;
+    return (
+        <sup
+            className="cursor-pointer"
+            onClick={() => {
+                scrollToId(getFormattedCitationFooterId(props.id));
+            }}
+            id={getFormattedCitationAnchorId(props.id, props.idx)}
+        >
+            {props.idx + 1}
+        </sup>
+    );
 };
 
 InlineCitation.displayName = "InlineCitation";

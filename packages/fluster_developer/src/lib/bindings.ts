@@ -94,6 +94,25 @@ async getAllTopics() : Promise<Result<SharedTaggableModel[], FlusterError>> {
     else return { status: "error", error: e  as any };
 }
 },
+async getNotesByBibEntryId(bibEntryId: string) : Promise<Result<TraditionalSearchResults, FlusterError>> {
+    try {
+    return { status: "ok", data: await TAURI_INVOKE("get_notes_by_bib_entry_id", { bibEntryId }) };
+} catch (e) {
+    if(e instanceof Error) throw e;
+    else return { status: "error", error: e  as any };
+}
+},
+/**
+ * Accepts the user defined equation_id field, not the auto-generated id.
+ */
+async getNotesByEquationId(equationId: string) : Promise<Result<TraditionalSearchResults, FlusterError>> {
+    try {
+    return { status: "ok", data: await TAURI_INVOKE("get_notes_by_equation_id", { equationId }) };
+} catch (e) {
+    if(e instanceof Error) throw e;
+    else return { status: "error", error: e  as any };
+}
+},
 /**
  * This wraps a series of functions handled by the fluster_native_interface package, conditionally
  * based on user settings and app state.
@@ -388,6 +407,14 @@ async getEquationById(id: string) : Promise<Result<EquationModel, FlusterError>>
 async deleteEquationById(id: string) : Promise<Result<null, FlusterError>> {
     try {
     return { status: "ok", data: await TAURI_INVOKE("delete_equation_by_id", { id }) };
+} catch (e) {
+    if(e instanceof Error) throw e;
+    else return { status: "error", error: e  as any };
+}
+},
+async getEquationByUserProvidedId(id: string[]) : Promise<Result<EquationModel[], FlusterError>> {
+    try {
+    return { status: "ok", data: await TAURI_INVOKE("get_equation_by_user_provided_id", { id }) };
 } catch (e) {
     if(e instanceof Error) throw e;
     else return { status: "error", error: e  as any };

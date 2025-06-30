@@ -36,7 +36,6 @@ impl BibEntryEntity {
             .map(|x| format!("\"{}\"", x))
             .collect::<Vec<String>>()
             .join(", ");
-        println!("ids_string: {}", ids_string);
         let items_batch = tbl
             .query()
             .only_if(format!("id in ({})", ids_string))

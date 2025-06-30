@@ -4,6 +4,7 @@ import { cn, useEventListener } from "@fluster.io/dev";
 import { MdxNoteGroup } from "@/lib/bindings";
 import { useNavigate } from "react-router";
 import { AppRoutes } from "#/router/data/app_routes";
+import { MdxNoteBibliography } from "#/bibliography/presentation/note_bibliography";
 
 export interface MdxNotePageSearchParams {
     /** The absolute path to the note on the user's computer. If this is provided, the content will be loaded directly from the file system, by passing the database except when strictly required. */
@@ -31,6 +32,7 @@ const MdxNotePage = ({ mdxGroup, ...props }: MdxNotePageProps): ReactNode => {
         >
             <div className="w-[min(1080px,90%)]">
                 <MdxContent mdx={mdxGroup.mdx.raw_body} />
+                <MdxNoteBibliography citations={mdxGroup.citations} />
             </div>
         </div>
     );

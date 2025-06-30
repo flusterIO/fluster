@@ -2,7 +2,7 @@ import { BibEntryParsed } from "#/bibliography/data/models/bib_entry_parsed";
 import { getPdfUrl } from "#/pdf/data/utils/get_pdf_url";
 import { showToast } from "#/toast_notification/data/events/show_toast";
 import { BibEntryModel, commands } from "@/lib/bindings";
-import { Button } from "@fluster.io/dev";
+import { Button, cn } from "@fluster.io/dev";
 import { XIcon } from "lucide-react";
 import React, { type ReactNode } from "react";
 import { NavLink } from "react-router";
@@ -10,6 +10,7 @@ import { NavLink } from "react-router";
 interface LinkedPdfBibButtonProps {
     item: BibEntryParsed;
     setItem: (newItem: BibEntryParsed) => void;
+    className?: string;
 }
 
 interface UpdateBibEntryEventProps {
@@ -17,7 +18,6 @@ interface UpdateBibEntryEventProps {
 }
 
 declare global {
-    // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
     interface WindowEventMap {
         "update-bib-entry": CustomEvent<UpdateBibEntryEventProps>;
     }
@@ -26,10 +26,12 @@ declare global {
 export const LinkedPdfBibButton = ({
     item,
     setItem,
+    className,
 }: LinkedPdfBibButtonProps): ReactNode => {
     if (!item.model.pdf_path) {
         return (
             <Button
+                className={className}
                 onClick={() => {
                     window.dispatchEvent(new CustomEvent("show-link-pdf-modal", {}));
                 }}
@@ -68,7 +70,12 @@ export const LinkedPdfBibButton = ({
         }
     };
     return (
-        <div className="w-full border rounded px-4 py-2 grid grid-cols-[auto_1fr] gap-2 mt-4">
+        <div
+            className={cn(
+                "w-full border rounded-lg px-4 py-2 grid grid-cols-[auto_1fr] gap-2 mt-4 bg-secondary text-secondary-foreground"
+                /* className */
+            )}
+        >
             <XIcon
                 className="w-4 h-4 place-self-center cursor-pointer"
                 onClick={clearPdfPath}

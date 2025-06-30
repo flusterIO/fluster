@@ -7,7 +7,7 @@ export const InlineMdxContent = (
         abortIfNoMath?: boolean;
     }
 ): ReactNode => {
-    if (!props.mdx) {
+    if (!props.mdx || props.mdx.trim() === "") {
         return null;
     }
     if (

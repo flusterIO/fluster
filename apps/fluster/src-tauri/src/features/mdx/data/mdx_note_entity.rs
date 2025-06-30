@@ -146,6 +146,9 @@ impl MdxNoteEntity {
         db: &FlusterDb<'_>,
         file_paths: Vec<String>,
     ) -> FlusterResult<Vec<MdxNoteModel>> {
+        if file_paths.is_empty() {
+            return Ok(Vec::new());
+        }
         let tbl = get_table(db, DatabaseTables::MdxNote).await?;
         let file_paths_string = file_paths
             .iter()
@@ -158,7 +161,7 @@ impl MdxNoteEntity {
             .execute()
             .await
             .map_err(|e| {
-                println!("Error in MdxNoteEntity.get_bu_file_paths: {:?}", e);
+                println!("Error in MdxNoteEntity.get_by_file_paths: {:?}", e);
                 FlusterError::FailToConnect
             })?
             .try_collect::<Vec<_>>()

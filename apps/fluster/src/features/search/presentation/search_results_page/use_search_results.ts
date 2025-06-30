@@ -1,3 +1,4 @@
+import { showToast } from "#/toast_notification/data/events/show_toast";
 import { commands, TraditionalSearchResults } from "@/lib/bindings";
 import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router";
@@ -5,6 +6,21 @@ import { useSearchParams } from "react-router";
 export const useSearchResults = (): TraditionalSearchResults | null => {
     const [searchParams] = useSearchParams();
     const [data, setData] = useState<TraditionalSearchResults | null>(null);
+
+    const getByBibEntry = async (bibEntryId: string): Promise<void> => {
+        const res = await commands.getNotesByBibEntryId(bibEntryId);
+        console.log("res: ", res);
+        if (res.status === "ok") {
+            setData(res.data);
+        } else {
+            showToast({
+                title: "Something went wrong",
+                body: "We could not find that bib entry. Did you sync your database since you added that bibliography entry?",
+                duration: 10000,
+                variant: "Error",
+            });
+        }
+    };
 
     const getByTag = async (val: string): Promise<void> => {
         const res = await commands.getTagSearchResults([val]);
@@ -45,6 +61,8 @@ export const useSearchResults = (): TraditionalSearchResults | null => {
             getByTopic(searchParams.get("by_topic")!);
         } else if (searchParams.has("by_subject")!) {
             getBySubject(searchParams.get("by_subject")!);
+        } else if (searchParams.has("by_bib")) {
+            getByBibEntry(searchParams.get("by_bib")!);
         }
     }, [searchParams]);
     return data;

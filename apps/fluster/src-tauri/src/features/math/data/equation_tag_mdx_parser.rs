@@ -31,7 +31,7 @@ impl MdxParser<String> for EquationTagMdxParser {
                 unique_ordered_bib_entries.push(id.to_string());
             }
             new_content =
-                new_content.replace(match_content, &format!(r#"<EquationTag id=\"{}\" />"#, id));
+                new_content.replace(match_content, &format!(r#"<EquationTag id='{}' />"#, id));
         }
         ParsedContentResult {
             new_content,

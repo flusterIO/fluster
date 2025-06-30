@@ -18,6 +18,7 @@ import { TopicsCommandPaletteRoot } from "./tree/topics";
 import { SubjectsCommandPaletteRoot } from "./tree/subjects";
 import { TagsCommandPaletteRoot } from "./tree/tags";
 import { IpynbFilesCommandPaletteRoot } from "./tree/notebooks";
+import { MdxFilesCommandPaletteRoot } from "./tree/by_file_path";
 
 export class CommandPaletteRoot extends CommandPaletteCategory {
     constructor() {
@@ -48,6 +49,7 @@ export class CommandPaletteRoot extends CommandPaletteCategory {
             new NotesCommandPaletteRoot(),
             new PdfFilesCommandPaletteRoot(),
             new IpynbFilesCommandPaletteRoot(),
+            new MdxFilesCommandPaletteRoot(),
             new TaskListsCommandPaletteRoot(),
             new AiChatsCommandPaletteRoot(),
             new EmbeddedDocsCommandPaletteRoot(),

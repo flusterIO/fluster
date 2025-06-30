@@ -35,6 +35,7 @@ use crate::features::embedded_docs::get_embedded_doc_by_id::get_embedded_doc_by_
 use crate::features::jupyter::commands::generate_new_jupyter_token::generate_new_token;
 use crate::features::math::commands::delete_equation_by_id::delete_equation_by_id;
 use crate::features::math::commands::get_equation_by_id::get_equation_by_id;
+use crate::features::math::commands::get_equation_by_id::get_equation_by_user_provided_id;
 use crate::features::math::commands::get_equations::get_equations;
 use crate::features::math::commands::read_mathjax_file::{read_mathjax, read_mathjax_font_file};
 use crate::features::math::commands::save_equation::save_equations;
@@ -49,6 +50,8 @@ use crate::features::mdx::actions::remove_front_matter::remove_front_matter;
 use crate::features::mdx::actions::set_last_read_by_file_path::set_last_read_by_file_path;
 use crate::features::mdx::read_mdx_from_fs::read_mdx_from_fs;
 use crate::features::search::commands::get_note_summaries::get_note_summaries;
+use crate::features::search::commands::get_notes_by_bib_entry::get_notes_by_bib_entry_id;
+use crate::features::search::commands::get_notes_by_equation_id::get_notes_by_equation_id;
 use crate::features::search::commands::semantic_search::search::semantic_search;
 use crate::features::search::data::search_params::{SearchOrder, SearchParams};
 use crate::features::settings::delete_setting_state::delete_setting_state;
@@ -107,6 +110,8 @@ pub fn run() {
             get_all_tags,
             get_all_subjects,
             get_all_topics,
+            get_notes_by_bib_entry_id,
+            get_notes_by_equation_id,
             // -- File System --
             sync_local_database,
             save_utf8_file,
@@ -151,6 +156,7 @@ pub fn run() {
             save_equations,
             get_equation_by_id,
             delete_equation_by_id,
+            get_equation_by_user_provided_id,
             // -- Snippets --
             save_snippets,
             get_snippets,

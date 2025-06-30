@@ -29,6 +29,51 @@ impl MdxNoteBibEntryEntity {
         DatabaseTables::MdxNoteBibEntry
     }
 
+    pub async fn get_by_bib_entry_id(
+        db: &FlusterDb<'_>,
+        bib_entry_id: &str,
+    ) -> FlusterResult<Vec<MdxNoteBibEntryModel>> {
+        let tbl = get_table(db, DatabaseTables::MdxNoteBibEntry).await?;
+        let items_batch = tbl
+            .query()
+            .only_if(format!("bib_entry_id = \"{}\"", bib_entry_id))
+            .execute()
+            .await
+            .map_err(|e| {
+                println!(
+                    "Error in MdxNoteBibEntryEntity.get_by_bib_entry_id: {:?}",
+                    e
+                );
+                FlusterError::FailToConnect
+            })?
+            .try_collect::<Vec<_>>()
+            .await
+            .map_err(|e| {
+                println!(
+                    "Error in MdxNoteBibEntryEntity.get_by_bib_entry_id: {:?}",
+                    e
+                );
+                FlusterError::FailToFind
+            })?;
+        // let batches = &items_batch;
+        if items_batch.is_empty() {
+            return Ok(Vec::new());
+        }
+        let mut items: Vec<MdxNoteBibEntryModel> = Vec::new();
+
+        for batch in items_batch.iter() {
+            let data: Vec<MdxNoteBibEntryModel> = from_record_batch(batch).map_err(|e| {
+                println!(
+                    "Error in MdxNoteBibEntryEntity.get_by_bib_entry_id: {:?}",
+                    e
+                );
+                FlusterError::FailToSerialize
+            })?;
+            items.extend(data);
+        }
+        Ok(items)
+    }
+
     pub async fn get_by_file_paths(
         db: &FlusterDb<'_>,
         file_paths: &[String],
@@ -109,6 +154,7 @@ impl MdxNoteBibEntryEntity {
                 from_record_batch(batch).map_err(|_| FlusterError::FailToSerialize)?;
             items.extend(data);
         }
+
         Ok(items)
     }
 

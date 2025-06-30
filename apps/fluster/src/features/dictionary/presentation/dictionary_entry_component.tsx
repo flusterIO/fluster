@@ -1,5 +1,5 @@
 import { MdxContent } from "#/mdx/presentation/mdx_content";
-import { type ReactNode } from "react";
+import React, { type ReactNode } from "react";
 import { DictionaryEntryWithIdx } from "../types";
 
 interface DictionaryEntryComponentProps {

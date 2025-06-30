@@ -43,10 +43,14 @@ pub async fn save_mdx_note_groups(
         front_matter.push(item.front_matter.clone());
         for eq in item.equations.clone() {
             equations.push(eq.clone());
-            mdx_note_equations.push(MdxNoteEquationModel {
-                mdx_note_file_path: item.mdx.file_path.clone(),
-                equation_id: eq.id,
-            })
+            if eq.equation_id.is_some() {
+                mdx_note_equations.push(MdxNoteEquationModel {
+                    mdx_note_file_path: item.mdx.file_path.clone(),
+                    equation_id: eq.equation_id.unwrap(),
+                })
+            } else {
+                log::error!("Attempted to link an equation without a user defined id.")
+            }
         }
         for t in item.tags.clone() {
             tags.push(t.clone());

@@ -22,7 +22,7 @@ impl MdxParser<String> for BibEntryMdxParser {
             new_content = new_content.replace(
                 match_content,
                 &format!(
-                    r#"<InlineCitation idx={{{}}} id=\"{}\" />"#,
+                    r#"<InlineCitation idx={{{}}} id='{}' />"#,
                     unique_ordered_bib_entries.len() - 1,
                     id
                 ),

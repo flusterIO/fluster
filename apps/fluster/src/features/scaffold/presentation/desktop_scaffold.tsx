@@ -9,6 +9,7 @@ import PageContainer from "@/components/util/page_container";
 import MathjaxScript from "#/math/state/mathjax_script";
 import { useDevelopmentLogger } from "@/state/use_development_state_logger";
 import { DarkModeObserver } from "../state/dark_mode_observer";
+import { EquationDetailModal } from "#/math/presentation/equation_detail_modal";
 
 const DesktopScaffold = (): ReactNode => {
     useDevelopmentLogger();
@@ -18,6 +19,7 @@ const DesktopScaffold = (): ReactNode => {
             <DarkModeObserver />
             <DesktopSideNavigation />
             <Outlet />
+            <EquationDetailModal />
             <ToastNotificationList />
             <CommandPaletteProvider>
                 <CommandPalette />

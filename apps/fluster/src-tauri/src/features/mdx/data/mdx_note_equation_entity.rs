@@ -22,6 +22,42 @@ use super::mdx_note_equation_model::MdxNoteEquationModel;
 pub struct MdxNoteEquationEntity {}
 
 impl MdxNoteEquationEntity {
+    pub async fn get_by_equation_entry_id(
+        db: &FlusterDb<'_>,
+        bib_entry_id: &str,
+    ) -> FlusterResult<Vec<MdxNoteEquationModel>> {
+        let tbl = get_table(db, DatabaseTables::MdxNoteEquation).await?;
+        let items_batch = tbl
+            .query()
+            .only_if(format!("equation_id = \"{}\"", bib_entry_id))
+            .execute()
+            .await
+            .map_err(|e| {
+                println!("Error in MxNoteEquationEntitty.get_by_equation_id: {:?}", e);
+                FlusterError::FailToConnect
+            })?
+            .try_collect::<Vec<_>>()
+            .await
+            .map_err(|e| {
+                println!("Error in MxNoteEquationEntitty.get_by_equation_id: {:?}", e);
+                FlusterError::FailToFind
+            })?;
+        // let batches = &items_batch;
+        if items_batch.is_empty() {
+            return Ok(Vec::new());
+        }
+        let mut items: Vec<MdxNoteEquationModel> = Vec::new();
+
+        for batch in items_batch.iter() {
+            let data: Vec<MdxNoteEquationModel> = from_record_batch(batch).map_err(|e| {
+                println!("Error in MxNoteEquationEntitty.get_by_equation_id: {:?}", e);
+                FlusterError::FailToSerialize
+            })?;
+            items.extend(data);
+        }
+        Ok(items)
+    }
+
     pub async fn get_by_file_paths(
         db: &FlusterDb<'_>,
         file_paths: &[String],

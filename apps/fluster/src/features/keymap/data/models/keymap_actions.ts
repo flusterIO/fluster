@@ -40,6 +40,8 @@ export const keymapActions: Record<GlobalKeymapActionId, () => Promise<void>> =
             top: window.innerHeight / 3,
             behavior: "smooth",
         });
-        ///TODO: Get focused element and attemptp to scroll here.
+    },
+    [KeymapId.refresh]: async () => {
+        window.location.reload();
     },
 };
