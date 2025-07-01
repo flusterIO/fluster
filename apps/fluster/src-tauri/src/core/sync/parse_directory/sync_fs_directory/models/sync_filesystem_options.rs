@@ -8,6 +8,8 @@ pub struct SyncFilesystemDirectoryOptions {
     /// The stringified integer representing the number of threads.
     pub n_threads: String,
     pub use_git_ignore: bool,
+    /// defaults to true
+    pub with_ai: bool,
 }
 
 impl Default for SyncFilesystemDirectoryOptions {
@@ -17,6 +19,7 @@ impl Default for SyncFilesystemDirectoryOptions {
             bib_path: Default::default(),
             n_threads: "8".to_string(),
             use_git_ignore: false,
+            with_ai: true,
         }
     }
 }

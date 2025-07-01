@@ -7,6 +7,7 @@ import {
     ComponentDocsEntry,
 } from "#/embedded_docs/data/component_docs";
 import { AppRoutes } from "@fluster.io/dev";
+import { motion } from "motion/react";
 
 const ComponentDocItemCard = ({
     item,
@@ -15,17 +16,23 @@ const ComponentDocItemCard = ({
 }): ReactNode => {
     const nav = useNavigate();
     return (
-        <div
+        <motion.div
             onClick={() => {
                 const sp = new URLSearchParams();
                 sp.set("fsPath", item.fp);
                 nav(`${AppRoutes.embeddedDocs}?${sp.toString()}`);
             }}
+            initial={{
+                borderColor: "hsl(var(--border))",
+            }}
+            whileHover={{
+                borderColor: "hsl(var(--primary))",
+            }}
             role="button"
-            className="w-full h-full flex flex-col justify-center items-center rounded border py-16 hover:bg-muted transition-colors duration-300 cursor-pointer"
+            className="w-full h-full flex flex-col justify-center items-center rounded border py-16 hover:bg-muted/40 transition-colors duration-300 cursor-pointer"
         >
             <div className="text-2xl font-bold">{item.label}</div>
-        </div>
+        </motion.div>
     );
 };
 
@@ -37,7 +44,7 @@ const EmbeddedDocsDashboardPage = (): ReactNode => {
     }
     return (
         <PanelContainer>
-            <div className="grid grid-cols-1 @[450px]/panel:grid-cols-2 @[640px]/panel:grid-cols-3 gap-6 px-8 py-16">
+            <div className="grid grid-cols-1 @[540px]/panel:grid-cols-2 @[768px]/panel:grid-cols-3 gap-6 px-8 py-16">
                 {componentDocItems.map((c) => {
                     return <ComponentDocItemCard item={c} key={`doc-${c.fp}`} />;
                 })}

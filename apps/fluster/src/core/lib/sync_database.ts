@@ -1,5 +1,5 @@
 import store from "@/state/store.ts";
-import { commands } from "./bindings.ts";
+import { commands, SyncFilesystemDirectoryOptions } from "./bindings.ts";
 import { showToast } from "#/toast_notification/data/events/show_toast.ts";
 import { syncBib } from "#/bibliography/data/methods/sync_bib.ts";
 import { AppState } from "@/state/initial_state.ts";
@@ -7,7 +7,12 @@ import { setSyncingState } from "#/settings/state/slice.ts";
 
 // TODO: Move this to a Promises.all
 
-export const sync = async (): Promise<void> => {
+export const sync = async (
+    opts: Omit<
+        SyncFilesystemDirectoryOptions,
+        "dir_path" | "bib_path" | "n_threads" | "use_git_ignore"
+    >
+): Promise<void> => {
     const state: AppState = store.getState();
     if (!state.core.notesDirectory.trim().length) {
         showToast({
@@ -39,8 +44,10 @@ export const sync = async (): Promise<void> => {
     }
     showToast({
         title: "Syncing...",
-        body: "Fluster is synchronizing your database. Depending on your hardware, this may take some time while the AI related tasks run in the background. We'll send you another notification when the syncing is complete.",
-        duration: 10000,
+        body: opts.with_ai
+            ? "Fluster is synchronizing your database. Depending on your hardware, this may take some time while the AI related tasks run in the background. We'll send you another notification when the syncing is complete."
+            : "Fluster is synchronizing your database without invoking AI related tasks.",
+        duration: opts.with_ai ? 10000 : 5000,
         variant: "Info",
     });
     store.dispatch(setSyncingState(true));
@@ -60,6 +67,7 @@ export const sync = async (): Promise<void> => {
         bib_path: state.bib.bibPath,
         n_threads: (state.core.nThreads ?? 8).toString(),
         use_git_ignore: state.core.useGitIgnore,
+        ...opts,
     });
     if (res.status === "ok") {
         showToast({

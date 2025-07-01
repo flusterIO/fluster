@@ -3,6 +3,7 @@ import { KeymapId } from "./keymap_ids";
 import { togglePanelBottom } from "#/panel_bottom/state/slice";
 import { togglePanelRight } from "#/panel_right/state/slice";
 import { togglePanelLeft } from "#/panel_left/state/slice";
+import { sync } from "@/lib/sync_database";
 
 export type GlobalKeymapActionId = Exclude<
     KeymapId,
@@ -11,7 +12,11 @@ export type GlobalKeymapActionId = Exclude<
 
 export const keymapActions: Record<GlobalKeymapActionId, () => Promise<void>> =
 {
-    [KeymapId.syncDirectory]: async () => { },
+    [KeymapId.syncDirectory]: async () => {
+        await sync({
+            with_ai: false,
+        });
+    },
     [KeymapId.showCommandPalette]: async () => {
         window.dispatchEvent(
             new CustomEvent("show_command_palette", {

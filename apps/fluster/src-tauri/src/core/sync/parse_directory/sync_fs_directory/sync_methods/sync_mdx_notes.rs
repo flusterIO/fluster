@@ -50,7 +50,9 @@ pub async fn sync_mdx_filesystem_notes(opts: &SyncFilesystemDirectoryOptions) ->
         items.push(note_group);
     }
 
-    LocalAiClient {}.get_text_embeddings(&mut items).await?;
+    LocalAiClient {}
+        .get_text_embeddings(&mut items, opts.with_ai)
+        .await?;
     save_mdx_note_groups(&db, items).await?;
     Ok(())
 }
