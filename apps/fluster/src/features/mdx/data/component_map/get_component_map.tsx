@@ -34,6 +34,7 @@ import {
 } from "@/components/typography/typography";
 import { InlineMdxContent } from "#/mdx/presentation/inline_mdx_content";
 import { commands } from "@/lib/bindings";
+import { WrappedCodeBlock } from "#/mdx/presentation/wrapped_components/code";
 
 interface ComponentMapItem {
     /// A regex that will return true if this component is to be included in the component map. This will be prepended with a `<`, so the name should match the component as it will be used in the user's note.
@@ -50,6 +51,7 @@ export const componentOverrides: MDXComponents = {
     p: P,
     blockquote: BlockQuote,
     mark: Hl,
+    code: WrappedCodeBlock,
     /* hr: Hr, */
     /* a: A, */
     input: MdxInput,

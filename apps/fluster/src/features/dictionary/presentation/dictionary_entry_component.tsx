@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState, type ReactNode } from "react";
+import React, { useEffect, useState, type ReactNode } from "react";
 import { DictionaryEntryWithIdx } from "../types";
 import { H3 } from "@/components/typography/typography";
 import { InlineMdxContent } from "#/mdx/presentation/inline_mdx_content";
