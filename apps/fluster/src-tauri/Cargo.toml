@@ -33,7 +33,7 @@ tauri-plugin-deep-link = "2"
 tauri-plugin-macos-permissions = "2.3.0"
 tauri-plugin-dialog = "2"
 tauri-plugin-devtools = "2.0.0"
-typeshare.workspace = true
+typeshare = "1.0.4"
 tauri-specta = { version = "=2.0.0-rc.21", features = ["derive", "typescript"] }
 specta = { version = "=2.0.0-rc.22", features = ["chrono", "derive"] }
 fluster_test_utils = { path = "../../../packages/fluster_test_utils/" }
@@ -48,21 +48,21 @@ crossbeam = { version = "0.8.4", features = [
 enum-iterator = "2.1.0"
 regex = "1.11.1"
 biblatex = { version = "0.10.0", features = ["serde"] }
-dirs.workspace = true
+dirs = "6.0.0"
 tokio = { version = "1.45.0", features = ["fs", "full"] }
-thiserror.workspace = true
+thiserror = "2.0.12"
 # chrono = { features = ["serde"] }
-gray_matter.workspace = true
+gray_matter = "0.2.8"
 ignore = "0.4.23"
 filetime = "0.2.25"
 strsim = "0.11.1"
 crossbeam-channel = "0.5.15"
-rayon.workspace = true
+rayon = "1.10.0"
 strum = "0.27.1"
 strum_macros = "0.27.1"
 sea-query = "0.32.5"
 embed-file = "0.2.0"
-include_dir.workspace = true
+include_dir = "0.7.4"
 uuid = { version = "1.17.0", features = ["v4"] }
 lancedb = { version = "0.19", features = ["polars"] }
 chrono = { version = "0.4", features = ["now", "serde"] }
