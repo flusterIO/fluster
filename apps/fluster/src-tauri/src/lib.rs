@@ -4,6 +4,7 @@ pub mod features;
 use crate::core::sync::sync_local_database::sync_local_database;
 use crate::core::utils::commands::get_env_variable::get_environment_variable;
 use crate::core::utils::commands::get_operating_system::get_operating_system;
+use crate::core::utils::file_system::fs_commands::path_exists;
 use crate::core::utils::file_system::fs_commands::{
     fs_file_extension_glob, fs_glob, read_file_to_bytes, read_utf8_file, save_utf8_file,
 };
@@ -98,6 +99,7 @@ pub fn run() {
         .commands(collect_commands![
             // -- General Utils --
             get_operating_system,
+            path_exists,
             // -- Component Utils --
             get_dashboard_data,
             get_qr_code_svg,

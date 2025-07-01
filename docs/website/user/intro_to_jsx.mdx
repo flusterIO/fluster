@@ -195,13 +195,13 @@ While the example above is intentionally over simplified and almost entirely use
 while <ToSquareOrNotToSquare valueIsSquared={false} value={2} /> will return 2.
 ```
 
-###### Output
+**Output**
 
 4 will return 4, while 2 will return 2
 
 
 
-#### ReactNode Type
+### ReactNode Type
 
 React provides dozens of it's own types, but one that appears quite often is that of `ReactNode`. The `ReactNode` type is pretty much anything that React can render _as is_. It accepts a boolean, a string, a number, or another ***rendered*** component.
 
@@ -219,18 +219,18 @@ React provides dozens of it's own types, but one that appears quite often is tha
 ```
 
 
-#### Extended Types
+### Extended Types
 
 _"Extending"_ types is almost universal among programming languages as well. If type `A` extends type `B`, then type `A` will have all of the same properties as `B`, and any extra properties that are unique to `A`. If `A` and `B` have a property in common, the property of `A` will overwrite that of `B`.  
 
 Fluster takes advantage of this structure throughout it's **MDX** interface, but two instances are currently the most common. 
 
 
-##### Extending ColorProps
+#### Extending ColorProps
 
 Many components like the `Ul`, `Color` and `Hl` components accept props that extend the `ColorProps` type. You can review that documentation [here](/docs/user/components?category=Colors). This is a single object that has a set of default boolean values. Those default values can be overridden in your configuration file, where new ones can be added as well. Despite the fact that those properties are not explicitly described in the documentation of those components, the **Extends: ...** implies that all properties of the extended type are also accepted.
 
-##### Extending HTML Attributes
+#### Extending HTML Attributes
 
 For those familiar with **HTML** or **CSS**, most components extend the **HTML** attributes of the outer most element. This wasn't documented intentionally to avoid complicating the documentation for those without developer experience. However, be aware that while Fluster relies on Tailwind for it's theme-ability, `.mdx` files are currently not evaluated for their `className` content. 
 

@@ -1,14 +1,19 @@
 import { cn } from "@/lib/utils";
-import React, { ReactNode } from "react";
+import React, { HTMLProps, ReactNode } from "react";
 
 interface TypographyProps {
     className?: string;
     children: ReactNode;
 }
 
-export function H1({ children, className }: TypographyProps) {
+export function H1({
+    children,
+    className,
+    ...props
+}: TypographyProps & HTMLProps<HTMLHeadingElement>) {
     return (
         <h1
+            {...props}
             className={cn(
                 "scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl",
                 className
@@ -19,9 +24,14 @@ export function H1({ children, className }: TypographyProps) {
     );
 }
 
-export function H2({ children, className }: TypographyProps) {
+export function H2({
+    children,
+    className,
+    ...props
+}: TypographyProps & HTMLProps<HTMLHeadingElement>) {
     return (
         <h2
+            {...props}
             className={cn(
                 "scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight first:mt-0",
                 className
@@ -32,9 +42,14 @@ export function H2({ children, className }: TypographyProps) {
     );
 }
 
-export function H3({ children, className }: TypographyProps) {
+export function H3({
+    children,
+    className,
+    ...props
+}: TypographyProps & HTMLProps<HTMLHeadingElement>) {
     return (
         <h3
+            {...props}
             className={cn(
                 "scroll-m-20 text-2xl font-semibold tracking-tight",
                 className
@@ -45,9 +60,14 @@ export function H3({ children, className }: TypographyProps) {
     );
 }
 
-export function H4({ children, className }: TypographyProps) {
+export function H4({
+    children,
+    className,
+    ...props
+}: TypographyProps & HTMLProps<HTMLHeadingElement>) {
     return (
         <h4
+            {...props}
             className={cn(
                 "scroll-m-20 text-xl font-semibold tracking-tight",
                 className

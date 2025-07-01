@@ -3,8 +3,22 @@
   p,
   table {
     code {
-      padding-top: 0.25;
-      padding-bottom: 0.25;
+      padding-top: 0.15rem;
+      padding-bottom: 0.15rem;
+      border: 1px solid hsl(var(--border));
+    }
+  }
+
+  section[data-footnotes] {
+    h2 {
+      display: block;
+      width: 100%;
+      height: fit-content;
+      color: hsl(var(--foreground));
+      background-color: hsl(var(--background));
+      font-size: 1.2rem;
+      font-weight: 600;
+      position: initial;
     }
   }
 }

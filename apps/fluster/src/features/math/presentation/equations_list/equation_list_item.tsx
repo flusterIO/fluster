@@ -13,8 +13,11 @@ import {
     CardHeader,
     CardTitle,
     cn,
+    Tooltip,
+    TooltipContent,
+    TooltipTrigger,
 } from "@fluster.io/dev";
-import React, { type ReactNode } from "react";
+import React, { useEffect, useMemo, useState, type ReactNode } from "react";
 import { requestEquationListRefresh } from "./equation_list_utils";
 import { useDispatch } from "react-redux";
 import { setPanelLeftOpen } from "#/panel_left/state/slice";
@@ -25,8 +28,29 @@ interface EquationListItemProps {
     item: EquationModel;
 }
 
+export const useEquationHasNotes = (equationId: string): boolean => {
+    const [hasNotes, setHasNotes] = useState(false);
+
+    const getHasNotes = async (eqId: string): Promise<void> => {
+        const res = await commands.getNotesByEquationId(eqId);
+        setHasNotes(res.status === "ok" ? res.data.notes.length > 0 : false);
+    };
+
+    useEffect(() => {
+        getHasNotes(equationId);
+    }, [equationId]);
+
+    return hasNotes;
+};
+
 const EquationListItem = ({ item }: EquationListItemProps): ReactNode => {
     const dispatch = useDispatch();
+    const byEquationUrl = useMemo(() => {
+        const sp = new URLSearchParams();
+        sp.set("by_equation", item.id);
+        return `${AppRoutes.search}?${sp.toString()}`;
+    }, [item]);
+    const hasNotes = useEquationHasNotes(item.id);
     const handleLatexCopy = (): void => {
         copyStringToClipboard(item.body);
         showToast({
@@ -66,18 +90,46 @@ const EquationListItem = ({ item }: EquationListItemProps): ReactNode => {
                     className="w-full flex flex-col justify-center items-center"
                 />
             </CardContent>
-            <div className="w-full flex flex-col justify-between items-center gap-4 @[300px]/equation_item:gap-6 @[300px]/equation_item:flex-row mt-4 px-6">
+            <div className="w-full flex flex-col justify-between items-center gap-4 @[450px]/equation_item:gap-6 @[450px]/equation_item:flex-row mt-4 px-6">
                 <Button
                     variant={"destructive"}
                     onClick={() => handleDelete(item.id!)}
-                    className="w-full @[300px]/equation_item:w-fit"
+                    className="w-full @[450px]/equation_item:w-fit"
                 >
                     Delete
                 </Button>
-                <div className="flex flex-col justify-end items-center gap-4 w-full @[300px]/equation_item:flex-row">
+                <div className="flex flex-col justify-end items-center gap-4 w-full @[450px]/equation_item:flex-row">
+                    {hasNotes ? (
+                        <NavLink
+                            className={cn(
+                                "w-full @[450px]/equation_item:w-fit",
+                                buttonVariants({
+                                    variant: "outline",
+                                })
+                            )}
+                            to={byEquationUrl}
+                        >
+                            Notes
+                        </NavLink>
+                    ) : (
+                        <Tooltip>
+                            <TooltipContent>No notes found.</TooltipContent>
+                            <TooltipTrigger>
+                                <Button
+                                    disabled
+                                    variant={"outline"}
+                                    className={
+                                        "w-full @[450px]/equation_item:w-fit cursor-default"
+                                    }
+                                >
+                                    Notes
+                                </Button>
+                            </TooltipTrigger>
+                        </Tooltip>
+                    )}
                     <NavLink
                         className={cn(
-                            "w-full @[300px]/equation_item:w-fit",
+                            "w-full @[450px]/equation_item:w-fit",
                             buttonVariants({
                                 variant: "outline",
                             })
@@ -88,7 +140,7 @@ const EquationListItem = ({ item }: EquationListItemProps): ReactNode => {
                         Edit
                     </NavLink>
                     <Button
-                        className="w-full @[300px]/equation_item:w-fit"
+                        className="w-full @[450px]/equation_item:w-fit"
                         onClick={handleLatexCopy}
                     >
                         Copy Latex

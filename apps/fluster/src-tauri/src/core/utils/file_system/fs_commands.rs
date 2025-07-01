@@ -3,6 +3,12 @@ use crossbeam_channel::unbounded;
 use glob::MatchOptions;
 use ignore::{DirEntry, WalkBuilder, WalkState};
 
+#[tauri::command]
+#[specta::specta]
+pub async fn path_exists(file_path: String) -> bool {
+    std::fs::exists(file_path).is_ok_and(|x| x)
+}
+
 /// Make sure to enforce the root directory as a base for globs on the front end, otherwise the
 /// entire computer will be searched.
 #[tauri::command]

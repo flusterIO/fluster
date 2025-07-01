@@ -13,6 +13,9 @@ async getOperatingSystem() : Promise<Result<SupportedOperatingSystem, FlusterErr
     else return { status: "error", error: e  as any };
 }
 },
+async pathExists(filePath: string) : Promise<boolean> {
+    return await TAURI_INVOKE("path_exists", { filePath });
+},
 async getDashboardData() : Promise<DashboardData> {
     return await TAURI_INVOKE("get_dashboard_data");
 },

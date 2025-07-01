@@ -1,3 +1,5 @@
+import { ResourceRoutes } from "#/router/data/app_routes";
+
 export interface MermaidConfigType {
     output: "svg" | "ast";
     theme?: {
@@ -65,9 +67,10 @@ export const mathOptions: MathOptionsType = {
         processEnvironments: true,
     },
     chtml: {
-        // fontURL: ResourceRoutes.mathjaxFonts,
         fontURL:
-            "https://cdn.jsdelivr.net/npm/mathjax@3/es5/output/chtml/fonts/woff-v2",
+            process.env.NODE_ENV === "development"
+                ? ResourceRoutes.mathjaxFonts
+                : "https://cdn.jsdelivr.net/npm/mathjax@3/es5/output/chtml/fonts/woff-v2",
         adaptiveCSS: true,
     },
 };
