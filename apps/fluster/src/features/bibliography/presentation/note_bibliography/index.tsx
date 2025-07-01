@@ -18,7 +18,7 @@ export const MdxNoteBibliography = ({
     return (
         <>
             <div className="w-full h-fit mt-12">
-                <H4 className="mb-4">Bibliography</H4>
+                <H4 className="mb-4">Citations</H4>
                 {citations.map((c, i) => {
                     return <BibliographyCitation key={c.id} citation={c} idx={i} />;
                 })}

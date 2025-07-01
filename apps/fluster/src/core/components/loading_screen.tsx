@@ -9,7 +9,7 @@ export const LoadingComponent = (
 
 const LoadingScreen = (): ReactNode => {
     return (
-        <div className="w-screen h-screen flex flex-col justify-center items-center">
+        <div className="w-screen h-screen flex flex-col justify-center items-center bg-background">
             <LoadingComponent />
         </div>
     );

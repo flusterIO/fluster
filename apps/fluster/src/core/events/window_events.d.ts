@@ -1,3 +1,4 @@
+import { BundledTheme } from "shiki";
 import { ShowCommandPaletteEventProps } from "./show_command_palette";
 
 export interface BibEntryDetailsProps {
@@ -18,5 +19,6 @@ declare global {
         show_command_palette: CustomEvent<ShowCommandPaletteEventProps>;
         "show-bib-entry-details": CustomEvent<BibEntryDetailsProps>;
         "show-equation-detail-modal": CustomEvent<ShowEquationDetailModalEventProps>;
+        "refresh-mdx": CustomEvent<object>;
     }
 }

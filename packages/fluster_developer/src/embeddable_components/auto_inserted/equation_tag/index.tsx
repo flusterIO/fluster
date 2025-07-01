@@ -2,6 +2,12 @@ import React, { useEffect, useRef, useState, type ReactNode } from "react";
 import { showEquationDetailModal } from "../../../utils/event_utils";
 import { commands } from "../../../lib/bindings";
 import { showToast } from "../../../utils/show_toast";
+import { cn } from "../../../utils/cn";
+import {
+    Tooltip,
+    TooltipContent,
+    TooltipTrigger,
+} from "../../../components/shad/tooltip";
 
 interface EquationTagProps {
     /// The user provided id of the equation
@@ -47,10 +53,33 @@ export const EquationTag = (props: EquationTagProps): ReactNode => {
         getData(props.id);
     }, [props.id]);
 
+    if (!equationId) {
+        return (
+            <Tooltip>
+                <TooltipContent>Equation id not found</TooltipContent>
+                <TooltipTrigger asChild>
+                    <span
+                        onClick={() => handleClick(equationIdRef.current)}
+                        className={cn(
+                            "rounded p-1 cursor-default bg-secondary text-secondary-foreground"
+                        )}
+                    >
+                        {`#${props.id}`}
+                    </span>
+                </TooltipTrigger>
+            </Tooltip>
+        );
+    }
+
     return (
         <span
             onClick={() => handleClick(equationIdRef.current)}
-            className="bg-primary rounded text-primary-foreground p-1 cursor-pointer"
+            className={cn(
+                "rounded p-1",
+                equationId
+                    ? "cursor-pointer bg-primary text-primary-foreground"
+                    : "cursor-default bg-secondary text-secondary-foreground"
+            )}
         >
             {`#${props.id}`}
         </span>

@@ -66,6 +66,7 @@ export * from "./components/icons/icon_components/swift";
 export * from "./components/icons/icon_components/vercel";
 export * from "./components/icons/icon_components/youtube";
 export * from "./components/code/code_block";
+export * from "./components/code/use_parsed_code";
 export * from "./components/code/snippet_modal/index";
 // -- Hooks --
 export * from "./hooks/use_pagination_search_params";

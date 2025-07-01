@@ -1,7 +1,4 @@
-import { useDarkMode } from "@/hooks/use_dark_mode";
 import {
-    Code,
-    CodeBlock,
     ContextMenu,
     ContextMenuContent,
     ContextMenuGroup,
@@ -14,24 +11,23 @@ import React, { HTMLProps, useRef, type ReactNode } from "react";
 import { connect } from "react-redux";
 import { AppState } from "@/state/initial_state";
 import { copyStringToClipboard } from "@/lib/copy_string_to_clipboard";
+import { BundledLanguage } from "shiki";
 
 const connector = connect((state: AppState) => ({
-    themes: state.code.theme,
-    defaultLang: state.code.defaultLanguage,
+    /* themes: state.code.theme, */
+    /* defaultLang: state.code.defaultLanguage, */
 }));
 
-interface WrappedCodeBlockProps extends HTMLProps<HTMLElement> {
+interface WrappedCodeBlockProps extends HTMLProps<HTMLPreElement> {
     code: string;
     defaultLanguage: AppState["code"]["defaultLanguage"];
     themes: AppState["code"]["theme"];
+    "data-language": BundledLanguage;
 }
 
 export const WrappedCodeBlock = connector(
-    ({ themes, defaultLanguage, ...props }: WrappedCodeBlockProps): ReactNode => {
-        console.log("props: ", props);
-        const ref = useRef<HTMLDivElement>(null);
-        /* const darkMode = useDarkMode(); */
-        /* console.log("children: ", children); */
+    ({ ...props }: WrappedCodeBlockProps): ReactNode => {
+        const ref = useRef<HTMLPreElement>(null);
         return (
             <ContextMenu>
                 <ContextMenuContent>
@@ -61,7 +57,11 @@ export const WrappedCodeBlock = connector(
                     </ContextMenuGroup>
                 </ContextMenuContent>
                 <ContextMenuTrigger>
-                    <code {...props} ref={ref} />
+                    <pre
+                        {...props}
+                        className="mdx-code overflow-auto text-sm !bg-[var(--shiki-light-bg)] dark:!bg-[var(--shiki-dark-bg)] [&_code]:bg-transparent mt-2"
+                        ref={ref}
+                    />
                 </ContextMenuTrigger>
             </ContextMenu>
         );

@@ -10,6 +10,8 @@ import {
     ContextMenuLabel,
 } from "../shad/context-menu";
 import { showToast } from "../../utils/show_toast";
+import { AppRoutes } from "../../types/app_routes";
+import { useParsedCode } from "./use_parsed_code";
 
 export interface CodeBlockProps {
     code: string;
@@ -26,7 +28,7 @@ export const Code = (props: { parsedHtml: string; className?: string }) => {
     return (
         <div
             className={cn(
-                "[&>pre]:p-3 [&>pre]:overflow-auto text-sm",
+                "[&>pre]:p-3 [&>pre]:overflow-auto text-sm [&_pre]:bg-[var(--shiki-light-bg)] [&_pre]:dark:bg-[var(--shiki-dark-bg)] [&_code]:bg-transparent",
                 props.className
             )}
             dangerouslySetInnerHTML={{ __html: props.parsedHtml }}
@@ -35,30 +37,7 @@ export const Code = (props: { parsedHtml: string; className?: string }) => {
 };
 
 export const CodeBlock = (props: CodeBlockProps): ReactNode => {
-    const [parsedHtml, setParsedHtml] = useState("");
-    const handleCodeParsing = async (
-        code: string,
-        lang: string,
-        isDark: boolean,
-        themes: typeof props.themes
-    ): Promise<void> => {
-        const html = await codeToHtml(code, {
-            lang: lang,
-            theme: isDark ? themes.dark : themes.light,
-        });
-        setParsedHtml(html);
-    };
-    useEffect(() => {
-        handleCodeParsing(
-            props.code,
-            props.lang,
-            props.darkMode,
-            props.themes
-        ).catch(() => {
-            console.error("Something went wrong while parsing a code block.");
-        });
-        /* eslint-disable-next-line  --  */
-    }, [props.lang, props.code, props.darkMode, props.themes]);
+    const [parsedHtml] = useParsedCode(props);
     return (
         <div className={cn("w-full overflow-x-auto", props.className)}>
             <ContextMenu>

@@ -4,59 +4,70 @@ import { GeneralCommandPaletteItem } from "#/command_palette/data/models/command
 import { setCodeTheme } from "#/editor/state/slice";
 import store from "@/state/store";
 import { bundledSyntaxThemes } from "@fluster.io/dev";
+import { ReactNode } from "react";
 
 class CommandPaletteDarkTheme extends CommandPaletteCategory {
-  constructor() {
-    super("Dark Mode", "theme-dark-mode");
-  }
-  filterByLocation(): boolean {
-    return true;
-  }
-  async getItems(): Promise<CommandPaletteAnyEntry[]> {
-    return bundledSyntaxThemes.map((x) => {
-      return new GeneralCommandPaletteItem(x, `dark_${x}`, async () => {
-        store.dispatch(
-          setCodeTheme({
-            themeMode: "dark",
-            value: x,
-          })
-        );
-      });
-    });
-  }
+    constructor() {
+        super("Dark Mode", "theme-dark-mode");
+    }
+    filterByLocation(): boolean {
+        return true;
+    }
+
+    bottomBar(): ReactNode {
+        return null;
+    }
+    async getItems(): Promise<CommandPaletteAnyEntry[]> {
+        return bundledSyntaxThemes.map((x) => {
+            return new GeneralCommandPaletteItem(x, `dark_${x}`, async () => {
+                store.dispatch(
+                    setCodeTheme({
+                        themeMode: "dark",
+                        value: x,
+                    })
+                );
+            });
+        });
+    }
 }
 
 class CommandPaletteLightTheme extends CommandPaletteCategory {
-  constructor() {
-    super("Light Mode", "theme-light-mode");
-  }
+    constructor() {
+        super("Light Mode", "theme-light-mode");
+    }
 
-  filterByLocation(): boolean {
-    return true;
-  }
-  async getItems(): Promise<CommandPaletteAnyEntry[]> {
-    return bundledSyntaxThemes.map((x) => {
-      return new GeneralCommandPaletteItem(x, `light-${x}`, async () => {
-        store.dispatch(
-          setCodeTheme({
-            themeMode: "light",
-            value: x,
-          })
-        );
-      });
-    });
-  }
+    bottomBar(): ReactNode {
+        return null;
+    }
+    filterByLocation(): boolean {
+        return true;
+    }
+    async getItems(): Promise<CommandPaletteAnyEntry[]> {
+        return bundledSyntaxThemes.map((x) => {
+            return new GeneralCommandPaletteItem(x, `light-${x}`, async () => {
+                store.dispatch(
+                    setCodeTheme({
+                        themeMode: "light",
+                        value: x,
+                    })
+                );
+            });
+        });
+    }
 }
 
 export class CodeThemeCommandPaletteRoot extends CommandPaletteCategory {
-  constructor() {
-    super("Syntax Theme", "syntax-theme");
-  }
+    constructor() {
+        super("Syntax Theme", "syntax-theme");
+    }
 
-  filterByLocation(): boolean {
-    return true;
-  }
-  async getItems(): Promise<CommandPaletteAnyEntry[]> {
-    return [new CommandPaletteDarkTheme(), new CommandPaletteLightTheme()];
-  }
+    bottomBar(): ReactNode {
+        return null;
+    }
+    filterByLocation(): boolean {
+        return true;
+    }
+    async getItems(): Promise<CommandPaletteAnyEntry[]> {
+        return [new CommandPaletteDarkTheme(), new CommandPaletteLightTheme()];
+    }
 }

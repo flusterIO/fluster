@@ -51,7 +51,7 @@ export const componentOverrides: MDXComponents = {
     p: P,
     blockquote: BlockQuote,
     mark: Hl,
-    code: WrappedCodeBlock,
+    pre: WrappedCodeBlock,
     /* hr: Hr, */
     /* a: A, */
     input: MdxInput,

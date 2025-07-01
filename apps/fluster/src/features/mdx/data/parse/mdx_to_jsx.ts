@@ -15,6 +15,8 @@ import {
     mermaidTheme,
 } from "./static_mdx_options";
 import { ParseMdxStringOptions } from "../types";
+import store from "@/state/store";
+import { AppState } from "@/state/initial_state";
 
 export const mermaidConfig: MermaidConfigType = {
     output: "svg",
@@ -27,6 +29,7 @@ export const mermaidConfig: MermaidConfigType = {
 
 const rehypePlugins = (): CompileOptions["rehypePlugins"] => {
     // let shikiTransformers = await getShikiTransformers(config)
+    const state: AppState = store.getState();
     return [
         /* TODO: Add an embeded video component for this rehypeVideo that then utilizes the existing video element. */
         [
@@ -42,8 +45,8 @@ const rehypePlugins = (): CompileOptions["rehypePlugins"] => {
             {
                 keepBackground: true,
                 theme: {
-                    light: "material-theme-lighter",
-                    dark: "dracula",
+                    light: state.code.theme.light ?? "material-theme-lighter",
+                    dark: state.code.theme.dark ?? "dracula",
                 },
                 onVisitLine(node: any) {
                     if (node.children.length === 0) {
@@ -58,7 +61,7 @@ const rehypePlugins = (): CompileOptions["rehypePlugins"] => {
                 },
                 // transformers: shikiTransformers,
                 defaultLang: {
-                    block: "python",
+                    block: state.code.defaultLanguage ?? "python",
                     inline: "zsh",
                 },
             },
