@@ -21,7 +21,7 @@ import {
 import { BundledLanguage } from "shiki";
 import { SettingPageTitle } from "../components/setting_page_title";
 import { SettingPageContainer } from "../components/setting_page_container";
-import { H2 } from "@/components/typography/typography";
+import { H3 } from "@/components/typography/typography";
 import { commands } from "@/lib/bindings";
 
 const connector = connect((state: AppState) => ({
@@ -103,7 +103,6 @@ export const CodeSettingsPage = connector(({ state }: Props): ReactNode => {
         form.setValue("token", res);
     };
 
-    /* FIX: Create the language and theme select inputs and implement them here. */
     return (
         <Form {...form}>
             <SettingPageContainer>
@@ -126,7 +125,7 @@ export const CodeSettingsPage = connector(({ state }: Props): ReactNode => {
                         selectTrigger: "w-full",
                     }}
                 />
-                <H2>Jupyter</H2>
+                <H3>Jupyter</H3>
                 <div className="@[768px]/settings:grid @[768px]/settings:grid-cols-2 gap-x-4 gap-y-6 flex flex-col justify-start items-start">
                     <TextInputGroup label="Port" form={form} name="port" />
                     <TextInputGroup label="Kernel Name" form={form} name="kernel" />

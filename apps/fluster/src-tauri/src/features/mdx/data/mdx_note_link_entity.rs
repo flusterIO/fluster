@@ -1,11 +1,10 @@
-use std::{net::ToSocketAddrs, ops::Index, sync::Arc};
+use std::{ops::Index, sync::Arc};
 
 use arrow_array::{RecordBatch, RecordBatchIterator, StringArray};
 use arrow_schema::{ArrowError, DataType, Field, Schema};
 use futures::TryStreamExt;
 use lancedb::query::{ExecutableQuery, QueryBase};
 use regex::Regex;
-use sea_query::Iden;
 use serde_arrow::from_record_batch;
 
 use crate::{
@@ -14,7 +13,7 @@ use crate::{
         types::{
             common_structs::parsed_content_result::ParsedContentResult,
             errors::errors::{FlusterError, FlusterResult},
-            traits::{db_entity::DbEntity, mdx_parser::MdxParser},
+            traits::db_entity::DbEntity,
             FlusterDb,
         },
     },

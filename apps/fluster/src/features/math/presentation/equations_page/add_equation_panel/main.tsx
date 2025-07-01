@@ -132,6 +132,9 @@ export const AddEquationPanel = connector(
                             form={form}
                             label="Name"
                             desc="This can include mdx, but all math must be wrapped with the '$' notation."
+                            ids={{
+                                input: "equation-name-input",
+                            }}
                         />
                         <TextInputGroup
                             name="user_provided_id"

@@ -1,7 +1,5 @@
 use std::ops::Index;
 
-use chrono::Utc;
-
 use crate::{
     core::{
         database::db::get_database,
@@ -10,7 +8,7 @@ use crate::{
     features::mdx::{
         data::{
             front_matter_entity::FrontMatterEntity, mdx_note_entity::MdxNoteEntity,
-            mdx_note_group::MdxNoteGroup, mdx_note_model::MdxNoteModel,
+            mdx_note_group::MdxNoteGroup,
         },
         methods::mdx_note_models_to_mdx_note_groups::mdx_note_models_to_mdx_note_groups,
     },

@@ -75,6 +75,9 @@ export default defineConfig({
         alias: {
             "@": path.resolve(__dirname, "./src/core/"),
             "#": path.resolve(__dirname, "./src/features/"),
+            // Need to copy the pypi and services from the jupyter-ui package to the public directory.
+            // "/build/pypi": "/pypi",
+            // "/services.js": "/services.jsj",
         },
     },
 });
