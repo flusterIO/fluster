@@ -183,28 +183,9 @@ impl MdxNoteDictionaryEntryEntity {
     }
 
     pub async fn create_many(db: &FlusterDb<'_>, items: Vec<T>) -> FlusterResult<()> {
-        let all_note_tags = MdxNoteDictionaryEntryEntity::get_all(
-            db,
-            PaginationProps {
-                per_page: 9999999,
-                page_number: 1,
-            },
-            None,
-        )
-        .await?;
-        // TODO:  This can be collapsed into one loop.
-        let filtered_items: Vec<&T> = items
-            .iter()
-            .filter(|x| {
-                all_note_tags.iter().any(|y| {
-                    (x.dictionary_entry_label == y.dictionary_entry_label)
-                        && (x.mdx_note_file_path == y.mdx_note_file_path)
-                })
-            })
-            .collect();
         let schema = MdxNoteDictionaryEntryEntity::arrow_schema();
         let tbl = get_table(db, MdxNoteDictionaryEntryEntity::table()).await?;
-        let batches: Vec<Result<RecordBatch, ArrowError>> = filtered_items
+        let batches: Vec<Result<RecordBatch, ArrowError>> = items
             .iter()
             .map(|x| {
                 Ok(MdxNoteDictionaryEntryEntity::to_record_batch(

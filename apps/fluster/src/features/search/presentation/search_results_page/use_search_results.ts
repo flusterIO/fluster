@@ -12,6 +12,7 @@ export const useSearchResults = (): TraditionalSearchResults | null => {
     if (res.status === "ok") {
       setData(res.data);
     } else {
+      console.error("Error: ", res.error);
       showToast({
         title: "Something went wrong",
         body: "We could not find that dictionary entry. Have you sync'd your database since you added that entry?",
