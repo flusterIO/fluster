@@ -6,27 +6,31 @@ import { getPdfUrl } from "#/pdf/data/utils/get_pdf_url";
 import { NavigateFunction } from "react-router";
 import store from "@/state/store";
 import { AppState } from "@/state/initial_state";
+import { ReactNode } from "react";
 
 export class PdfFilesCommandPaletteRoot extends CommandPaletteCategory {
-    constructor() {
-        super("Pdf's", "pdfs");
-    }
-    filterByLocation(): boolean {
-        return true;
-    }
-    async getItems(): Promise<CommandPaletteAnyEntry[]> {
-        const res = await fsFileExtensionGlob("pdf");
-        const notesDir = (store.getState() as AppState).core.notesDirectory ?? "";
-        return res.map((s) => {
-            const item = new GeneralCommandPaletteItem(
-                notesDir.length && s.startsWith(notesDir) ? s.replace(notesDir, "") : s,
-                `pdf-${s}`,
-                async (nav: NavigateFunction) => {
-                    nav(getPdfUrl(s));
-                }
-            );
-            item.itemClasses = "text-sm [&_p]:text-sm";
-            return item;
-        });
-    }
+  constructor() {
+    super("Pdf's", "pdfs");
+  }
+  filterByLocation(): boolean {
+    return true;
+  }
+  bottomBar(): ReactNode {
+    return null;
+  }
+  async getItems(): Promise<CommandPaletteAnyEntry[]> {
+    const res = await fsFileExtensionGlob("pdf");
+    const notesDir = (store.getState() as AppState).core.notesDirectory ?? "";
+    return res.map((s) => {
+      const item = new GeneralCommandPaletteItem(
+        notesDir.length && s.startsWith(notesDir) ? s.replace(notesDir, "") : s,
+        `pdf-${s}`,
+        async (nav: NavigateFunction) => {
+          nav(getPdfUrl(s));
+        }
+      );
+      item.itemClasses = "text-sm [&_p]:text-sm";
+      return item;
+    });
+  }
 }

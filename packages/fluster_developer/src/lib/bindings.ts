@@ -113,6 +113,14 @@ async getNotesByEquationId(equationId: string) : Promise<Result<TraditionalSearc
     else return { status: "error", error: e  as any };
 }
 },
+async getNoteByDictEntryLabel(dictEntryLabel: string) : Promise<Result<TraditionalSearchResults, FlusterError>> {
+    try {
+    return { status: "ok", data: await TAURI_INVOKE("get_note_by_dict_entry_label", { dictEntryLabel }) };
+} catch (e) {
+    if(e instanceof Error) throw e;
+    else return { status: "error", error: e  as any };
+}
+},
 /**
  * This wraps a series of functions handled by the fluster_native_interface package, conditionally
  * based on user settings and app state.

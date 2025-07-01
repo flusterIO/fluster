@@ -20,7 +20,7 @@ use crate::{
             front_matter_entity::FrontMatterEntity, front_matter_model::FrontMatterModel,
             front_matter_tag_entity::FrontMatterTagEntity,
             mdx_note_bib_entry_entity::MdxNoteBibEntryEntity,
-            mdx_note_dictionary_entry_entity::MdxNoteDictionaryEntity,
+            mdx_note_dictionary_entry_entity::MdxNoteDictionaryEntryEntity,
             mdx_note_equation_entity::MdxNoteEquationEntity, mdx_note_group::MdxNoteGroup,
             mdx_note_link_entity::MdxNoteLinkEntity, mdx_note_link_model::MdxNoteLinkModel,
             mdx_note_model::MdxNoteModel, mdx_note_subject_entity::MdxNoteSubjectEntity,
@@ -44,7 +44,7 @@ pub async fn mdx_note_models_to_mdx_note_groups(
         FrontMatterTagEntity::get_by_file_paths(db, &file_paths),
         MdxNoteEquationEntity::get_by_file_paths(db, &file_paths),
         MdxNoteBibEntryEntity::get_by_file_paths(db, &file_paths),
-        MdxNoteDictionaryEntity::get_by_file_paths(db, &file_paths),
+        MdxNoteDictionaryEntryEntity::get_by_file_paths(db, &file_paths),
         MdxNoteTopicEntity::get_by_file_paths(db, &file_paths),
         MdxNoteSubjectEntity::get_by_file_paths(db, &file_paths),
         MdxNoteLinkEntity::get_by_file_paths_from(db, &file_paths)

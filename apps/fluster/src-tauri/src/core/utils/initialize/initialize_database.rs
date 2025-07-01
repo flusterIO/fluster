@@ -26,7 +26,7 @@ use crate::{
             bookmark_entity::BookmarkEntity, front_matter_entity::FrontMatterEntity,
             front_matter_tag_entity::FrontMatterTagEntity,
             mdx_note_bib_entry_entity::MdxNoteBibEntryEntity,
-            mdx_note_dictionary_entry_entity::MdxNoteDictionaryEntity,
+            mdx_note_dictionary_entry_entity::MdxNoteDictionaryEntryEntity,
             mdx_note_entity::MdxNoteEntity, mdx_note_equation_entity::MdxNoteEquationEntity,
             mdx_note_link_entity::MdxNoteLinkEntity, mdx_note_snippet_entity::MdxNoteSnippetEntity,
             mdx_note_subject_entity::MdxNoteSubjectEntity, mdx_note_tag_entity::MdxNoteTagEntity,
@@ -127,7 +127,7 @@ pub async fn initialize_database() -> FlusterResult<()> {
         },
         TableInitData {
             table: DatabaseTables::MdxNoteDictionaryEntry,
-            entity: MdxNoteDictionaryEntity::arrow_schema(),
+            entity: MdxNoteDictionaryEntryEntity::arrow_schema(),
             set_indices: None,
         },
         TableInitData {

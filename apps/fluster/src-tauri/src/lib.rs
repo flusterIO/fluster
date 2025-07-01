@@ -50,6 +50,7 @@ use crate::features::mdx::actions::read_mdx_file::read_mdx_file;
 use crate::features::mdx::actions::remove_front_matter::remove_front_matter;
 use crate::features::mdx::actions::set_last_read_by_file_path::set_last_read_by_file_path;
 use crate::features::mdx::read_mdx_from_fs::read_mdx_from_fs;
+use crate::features::search::commands::get_note_by_dict_entry::get_note_by_dict_entry_label;
 use crate::features::search::commands::get_note_summaries::get_note_summaries;
 use crate::features::search::commands::get_notes_by_bib_entry::get_notes_by_bib_entry_id;
 use crate::features::search::commands::get_notes_by_equation_id::get_notes_by_equation_id;
@@ -113,6 +114,7 @@ pub fn run() {
             get_all_topics,
             get_notes_by_bib_entry_id,
             get_notes_by_equation_id,
+            get_note_by_dict_entry_label,
             // -- File System --
             sync_local_database,
             save_utf8_file,

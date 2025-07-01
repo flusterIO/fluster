@@ -15,7 +15,7 @@ use crate::{
         math::data::{equation_entity::EquationEntity, equation_model::EquationModel},
         mdx::data::{
             front_matter_entity::FrontMatterEntity, front_matter_model::FrontMatterModel,
-            mdx_note_dictionary_entry_entity::MdxNoteDictionaryEntity,
+            mdx_note_dictionary_entry_entity::MdxNoteDictionaryEntryEntity,
             mdx_note_dictionary_entry_model::MdxNoteDictionaryEntryModel,
             mdx_note_entity::MdxNoteEntity, mdx_note_equation_entity::MdxNoteEquationEntity,
             mdx_note_equation_model::MdxNoteEquationModel, mdx_note_group::MdxNoteGroup,
@@ -110,6 +110,6 @@ pub async fn save_mdx_note_groups(
     FrontMatterEntity::save_many(db, front_matter).await?;
     MdxNoteLinkEntity::create_many(db, note_links).await?;
     DictionaryEntryEntity::create_many(db, dictionary_entries).await?;
-    MdxNoteDictionaryEntity::create_many(db, mdx_note_dictionary_entries).await?;
+    MdxNoteDictionaryEntryEntity::create_many(db, mdx_note_dictionary_entries).await?;
     Ok(())
 }

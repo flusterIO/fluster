@@ -3,6 +3,7 @@ import { CommandPaletteCategory } from "../models/command_palette_category";
 import { commands } from "@/lib/bindings";
 import { GeneralCommandPaletteItem } from "../models/command_palette_item";
 import { AppRoutes } from "@fluster.io/dev";
+import { ReactNode } from "react";
 
 export class TagsCommandPaletteRoot extends CommandPaletteCategory {
   constructor() {
@@ -10,6 +11,9 @@ export class TagsCommandPaletteRoot extends CommandPaletteCategory {
   }
   filterByLocation(): boolean {
     return true;
+  }
+  bottomBar(): ReactNode {
+    return null;
   }
   async getItems(): Promise<CommandPaletteAnyEntry[]> {
     const res = await commands.getAllTags();

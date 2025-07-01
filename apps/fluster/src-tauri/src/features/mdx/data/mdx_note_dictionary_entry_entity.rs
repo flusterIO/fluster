@@ -20,11 +20,60 @@ use crate::{
 
 use super::mdx_note_dictionary_entry_model::MdxNoteDictionaryEntryModel;
 
-pub struct MdxNoteDictionaryEntity {}
+pub struct MdxNoteDictionaryEntryEntity {}
 
 type T = MdxNoteDictionaryEntryModel;
 
-impl MdxNoteDictionaryEntity {
+impl MdxNoteDictionaryEntryEntity {
+    pub async fn get_by_labels(db: &FlusterDb<'_>, labels: &[String]) -> FlusterResult<Vec<T>> {
+        if labels.is_empty() {
+            return Ok(Vec::new());
+        }
+        let tbl = get_table(db, MdxNoteDictionaryEntryEntity::table()).await?;
+        let labels_string = labels
+            .iter()
+            .map(|x| format!("\"{}\"", x))
+            .collect::<Vec<String>>()
+            .join(", ");
+        let items_batch = tbl
+            .query()
+            .only_if(format!("dictionary_entry_label in ({})", labels_string))
+            .execute()
+            .await
+            .map_err(|e| {
+                println!(
+                    "Error in MdxNoteDictionaryEntity.get_by_file_paths: {:?}",
+                    e
+                );
+                FlusterError::FailToConnect
+            })?
+            .try_collect::<Vec<_>>()
+            .await
+            .map_err(|e| {
+                println!(
+                    "Error in MdxNoteDictionaryEntity.get_by_file_paths: {:?}",
+                    e
+                );
+                FlusterError::FailToFind
+            })?;
+        // let batches = &items_batch;
+        if items_batch.is_empty() {
+            return Ok(Vec::new());
+        }
+        let mut items: Vec<T> = Vec::new();
+
+        for batch in items_batch.iter() {
+            let data: Vec<T> = from_record_batch(batch).map_err(|e| {
+                println!(
+                    "Error in MdxNoteDictionaryEntity.get_by_file_paths: {:?}",
+                    e
+                );
+                FlusterError::FailToSerialize
+            })?;
+            items.extend(data);
+        }
+        Ok(items)
+    }
     pub async fn get_by_file_paths(
         db: &FlusterDb<'_>,
         file_paths: &[String],
@@ -32,7 +81,7 @@ impl MdxNoteDictionaryEntity {
         if file_paths.is_empty() {
             return Ok(Vec::new());
         }
-        let tbl = get_table(db, MdxNoteDictionaryEntity::table()).await?;
+        let tbl = get_table(db, MdxNoteDictionaryEntryEntity::table()).await?;
         let file_paths_string = file_paths
             .iter()
             .map(|x| format!("\"{}\"", x))
@@ -79,7 +128,7 @@ impl MdxNoteDictionaryEntity {
     }
 }
 
-impl MdxNoteDictionaryEntity {
+impl MdxNoteDictionaryEntryEntity {
     fn table() -> DatabaseTables {
         DatabaseTables::MdxNoteDictionaryEntry
     }
@@ -89,7 +138,7 @@ impl MdxNoteDictionaryEntity {
         pagination: PaginationProps,
         predicate: Option<String>,
     ) -> FlusterResult<Vec<T>> {
-        let tbl = get_table(db, MdxNoteDictionaryEntity::table()).await?;
+        let tbl = get_table(db, MdxNoteDictionaryEntryEntity::table()).await?;
         let offset = (pagination.per_page * (pagination.page_number - 1)) as usize;
         let mut q = tbl.query();
         if predicate.is_some() {
@@ -124,7 +173,7 @@ impl MdxNoteDictionaryEntity {
     }
 
     pub async fn delete(db: &FlusterDb<'_>, predicate: String) -> FlusterResult<()> {
-        let tbl = get_table(db, MdxNoteDictionaryEntity::table()).await?;
+        let tbl = get_table(db, MdxNoteDictionaryEntryEntity::table()).await?;
         tbl.delete(&predicate).await.map_err(|e| {
             println!("Error: {:?}", e);
             FlusterError::FailToDelete
@@ -134,7 +183,7 @@ impl MdxNoteDictionaryEntity {
     }
 
     pub async fn create_many(db: &FlusterDb<'_>, items: Vec<T>) -> FlusterResult<()> {
-        let all_note_tags = MdxNoteDictionaryEntity::get_all(
+        let all_note_tags = MdxNoteDictionaryEntryEntity::get_all(
             db,
             PaginationProps {
                 per_page: 9999999,
@@ -153,11 +202,16 @@ impl MdxNoteDictionaryEntity {
                 })
             })
             .collect();
-        let schema = MdxNoteDictionaryEntity::arrow_schema();
-        let tbl = get_table(db, MdxNoteDictionaryEntity::table()).await?;
+        let schema = MdxNoteDictionaryEntryEntity::arrow_schema();
+        let tbl = get_table(db, MdxNoteDictionaryEntryEntity::table()).await?;
         let batches: Vec<Result<RecordBatch, ArrowError>> = filtered_items
             .iter()
-            .map(|x| Ok(MdxNoteDictionaryEntity::to_record_batch(x, schema.clone())))
+            .map(|x| {
+                Ok(MdxNoteDictionaryEntryEntity::to_record_batch(
+                    x,
+                    schema.clone(),
+                ))
+            })
             .collect();
         let stream = Box::new(RecordBatchIterator::new(
             batches.into_iter(),
@@ -171,7 +225,7 @@ impl MdxNoteDictionaryEntity {
     }
 }
 
-impl DbEntity<T> for MdxNoteDictionaryEntity {
+impl DbEntity<T> for MdxNoteDictionaryEntryEntity {
     fn arrow_schema() -> std::sync::Arc<arrow_schema::Schema> {
         Arc::new(Schema::new(vec![
             Field::new("mdx_note_file_path", DataType::Utf8, false),

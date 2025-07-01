@@ -4,66 +4,82 @@ import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router";
 
 export const useSearchResults = (): TraditionalSearchResults | null => {
-    const [searchParams] = useSearchParams();
-    const [data, setData] = useState<TraditionalSearchResults | null>(null);
+  const [searchParams] = useSearchParams();
+  const [data, setData] = useState<TraditionalSearchResults | null>(null);
 
-    const getByBibEntry = async (bibEntryId: string): Promise<void> => {
-        const res = await commands.getNotesByBibEntryId(bibEntryId);
-        console.log("res: ", res);
-        if (res.status === "ok") {
-            setData(res.data);
-        } else {
-            showToast({
-                title: "Something went wrong",
-                body: "We could not find that bib entry. Did you sync your database since you added that bibliography entry?",
-                duration: 10000,
-                variant: "Error",
-            });
-        }
-    };
+  const getByDict = async (by_dict: string): Promise<void> => {
+    const res = await commands.getNoteByDictEntryLabel(by_dict);
+    if (res.status === "ok") {
+      setData(res.data);
+    } else {
+      showToast({
+        title: "Something went wrong",
+        body: "We could not find that dictionary entry. Have you sync'd your database since you added that entry?",
+        duration: 10000,
+        variant: "Error",
+      });
+    }
+  };
 
-    const getByTag = async (val: string): Promise<void> => {
-        const res = await commands.getTagSearchResults([val]);
-        if (res.status === "ok") {
-            setData(res.data);
-        } else {
-            console.error(
-                `An error occurred while attempting to gather search results by tag.`
-            );
-        }
-    };
+  const getByBibEntry = async (bibEntryId: string): Promise<void> => {
+    const res = await commands.getNotesByBibEntryId(bibEntryId);
+    console.log("res: ", res);
+    if (res.status === "ok") {
+      setData(res.data);
+    } else {
+      showToast({
+        title: "Something went wrong",
+        body: "We could not find that bib entry. Did you sync your database since you added that bibliography entry?",
+        duration: 10000,
+        variant: "Error",
+      });
+    }
+  };
 
-    const getByTopic = async (val: string): Promise<void> => {
-        const res = await commands.getTopicSearchResults([val]);
-        if (res.status === "ok") {
-            setData(res.data);
-        } else {
-            console.error(
-                `An error occurred while attempting to gather search results by topic.`
-            );
-        }
-    };
-    const getBySubject = async (val: string): Promise<void> => {
-        const res = await commands.getSubjectSearchResults([val]);
-        if (res.status === "ok") {
-            setData(res.data);
-        } else {
-            console.error(
-                `An error occurred while attempting to gather search results by subject.`
-            );
-        }
-    };
+  const getByTag = async (val: string): Promise<void> => {
+    const res = await commands.getTagSearchResults([val]);
+    if (res.status === "ok") {
+      setData(res.data);
+    } else {
+      console.error(
+        `An error occurred while attempting to gather search results by tag.`
+      );
+    }
+  };
 
-    useEffect(() => {
-        if (searchParams.has("by_tag")) {
-            getByTag(searchParams.get("by_tag")!);
-        } else if (searchParams.has("by_topic")) {
-            getByTopic(searchParams.get("by_topic")!);
-        } else if (searchParams.has("by_subject")!) {
-            getBySubject(searchParams.get("by_subject")!);
-        } else if (searchParams.has("by_bib")) {
-            getByBibEntry(searchParams.get("by_bib")!);
-        }
-    }, [searchParams]);
-    return data;
+  const getByTopic = async (val: string): Promise<void> => {
+    const res = await commands.getTopicSearchResults([val]);
+    if (res.status === "ok") {
+      setData(res.data);
+    } else {
+      console.error(
+        `An error occurred while attempting to gather search results by topic.`
+      );
+    }
+  };
+  const getBySubject = async (val: string): Promise<void> => {
+    const res = await commands.getSubjectSearchResults([val]);
+    if (res.status === "ok") {
+      setData(res.data);
+    } else {
+      console.error(
+        `An error occurred while attempting to gather search results by subject.`
+      );
+    }
+  };
+
+  useEffect(() => {
+    if (searchParams.has("by_tag")) {
+      getByTag(searchParams.get("by_tag")!);
+    } else if (searchParams.has("by_topic")) {
+      getByTopic(searchParams.get("by_topic")!);
+    } else if (searchParams.has("by_subject")!) {
+      getBySubject(searchParams.get("by_subject")!);
+    } else if (searchParams.has("by_bib")) {
+      getByBibEntry(searchParams.get("by_bib")!);
+    } else if (searchParams.has("by_dict")) {
+      getByDict(searchParams.get("by_dict")!);
+    }
+  }, [searchParams]);
+  return data;
 };
