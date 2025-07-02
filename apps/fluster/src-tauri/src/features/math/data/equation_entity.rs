@@ -12,7 +12,7 @@ use arrow_schema::{ArrowError, DataType, Field, Schema};
 use futures::TryStreamExt;
 use lancedb::query::{ExecutableQuery, QueryBase};
 use serde_arrow::from_record_batch;
-use std::{ops::Index, str::FromStr, sync::Arc};
+use std::{ops::Index, sync::Arc};
 
 use super::equation_model::EquationModel;
 

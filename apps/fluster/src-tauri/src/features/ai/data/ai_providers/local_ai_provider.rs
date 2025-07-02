@@ -19,7 +19,7 @@ impl LocalAiClient {
             FlusterError::FailToLoadModel
         })?;
 
-        let vec_default = (1..VECTOR_DIMENSIONS).map(|_| 0.0).collect::<Vec<f32>>();
+        let vec_default = (0..VECTOR_DIMENSIONS).map(|_| 0.0).collect::<Vec<f32>>();
 
         for note in notes.iter_mut() {
             if with_ai {

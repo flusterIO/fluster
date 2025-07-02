@@ -12,7 +12,7 @@ use crate::{
             dictionary_entry_entity::DictionaryEntryEntity,
             dictionary_entry_model::DictionaryEntryModel,
         },
-        math::data::{equation_entity::EquationEntity, equation_model::EquationModel},
+        math::data::equation_model::EquationModel,
         mdx::data::{
             front_matter_entity::FrontMatterEntity, front_matter_model::FrontMatterModel,
             mdx_note_dictionary_entry_entity::MdxNoteDictionaryEntryEntity,
