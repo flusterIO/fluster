@@ -23,7 +23,7 @@
             "command": "changeset publish",
             "clean": false,
             "dependencies": [
-                "build:all"
+                "build"
             ]
         },
         "publish:fluster_ts": {
