@@ -2,6 +2,8 @@
 
 ## Release Node Packages
 
+> Make sure you're on the main branch.
+
 - Create a changeset with `pnpm changeset`
 - Version all packages with `pnpm changeset version`
 - Update lock files with `pnpm install`
@@ -11,5 +13,7 @@
   - This should publish the changes to the npm registry, making the tauri build possible without running into pnpm workspace issues.
 
 ## Release Tauri app
+
+> Make sure you're on the release branch.
 
 - Manually update version of `@fluster.io/dev` to match recently published version to get around issue with pnpm workspace dependencies.
