@@ -7,7 +7,6 @@ use crate::core::models::taggable::tag_entity::TagEntity;
 use crate::core::types::errors::errors::{FlusterError, FlusterResult};
 use crate::core::types::traits::mdx_parser::MdxParser;
 use crate::core::types::FlusterDb;
-use crate::core::utils::date_utils::parse_date;
 use crate::features::bibliography::data::bib_entry_entity::BibEntryEntity;
 use crate::features::bibliography::data::bib_entry_mdx_parser::BibEntryMdxParser;
 use crate::features::bibliography::data::bib_entry_model::BibEntryModel;
@@ -23,7 +22,6 @@ use serde::{Deserialize, Serialize};
 use specta::Type;
 use std::fs;
 use std::fs::Metadata;
-use std::str::FromStr;
 
 #[derive(Debug, Clone, Serialize, Deserialize, Type)]
 pub struct MdxNoteGroup {

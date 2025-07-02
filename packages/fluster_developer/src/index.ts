@@ -25,6 +25,8 @@ export * from "./embeddable_components/qr_code/index";
 export * from "./components/attention_getters/hint/index";
 //     -- Academic --
 export * from "./embeddable_components/academic/abstract/index";
+//    -- Math --
+export * from "./math/numpy/index";
 //    -- Utility --
 export * from "./embeddable_components/util/div";
 export * from "./embeddable_components/util/equation_reference/eq_ref_wrapper";

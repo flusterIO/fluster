@@ -21,13 +21,8 @@ unused_crate_dependencies = "warn"
 [workspace.dependencies]
 serde = "1.0.219"
 serde_json = "1.0.140"
-gray_matter = "0.2.8"
-typeshare = "1.0.4"
-rayon = "1.10.0"
 include_dir = "0.7.4"
-dirs = "6.0.0"
 mlua = { version = "0.10", features = ["lua54", "vendored"] }
-thiserror = "2.0.12"
 
 # TODO: Remove this and the reliance on console_subscriber when actually building for production.
 # TEMP: Move this to each nested project if necessary
