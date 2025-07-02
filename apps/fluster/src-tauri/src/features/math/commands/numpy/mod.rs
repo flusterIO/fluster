@@ -1,3 +1,4 @@
 pub mod arange;
+pub mod grid;
 pub mod linspace;
-pub mod meshgrid;
+pub mod logspace;

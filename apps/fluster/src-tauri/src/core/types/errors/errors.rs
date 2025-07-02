@@ -164,6 +164,9 @@ pub enum FlusterError {
         "We couldn't save some tags. If this occurs frequently, please file an issue on Github."
     )]
     FailToUpsertTags,
+    // -- Python --
+    #[error("Failed to execute python via rust.")]
+    FailToExecutePython,
 }
 
 pub type FlusterResult<T> = Result<T, FlusterError>;

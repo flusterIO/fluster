@@ -3,9 +3,6 @@ on:
   push:
     branches:
       - release
-defaults:
-  run:
-    working-directory: ./apps/fluster
 # This is the example from the readme.
 # On each push to the `release` branch it will create or update a GitHub release, build your app, and upload the artifacts to the release.
 
@@ -53,6 +50,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
+          projectPath: apps/fluster
+          distPath: apps/fluster/dist
           tagName: app-v__VERSION__ # the action automatically replaces \_\_VERSION\_\_ with the app version.
           releaseName: "App v__VERSION__"
           releaseBody: "See the assets to download this version and install."

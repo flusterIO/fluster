@@ -89,6 +89,9 @@ use core::{
 pub use features::dashboard;
 use features::embedded_docs::data::internal_embedded_docs_id::InternalEmbeddedDocsId;
 pub use features::health::get_health_report::get_desktop_health_report;
+use features::math::commands::numpy::{
+    arange::arange, grid::axis_grid, grid::grid_2d, linspace::linspace, logspace::logspace,
+};
 use features::math::get_mathjax_path::get_mathjax_path;
 use specta_typescript::Typescript;
 use tauri_specta::{collect_commands, collect_events, Builder};
@@ -163,6 +166,12 @@ pub fn run() {
             get_equation_by_id,
             delete_equation_by_id,
             get_equation_by_user_provided_id,
+            //     -- Numpy --
+            grid_2d,
+            logspace,
+            arange,
+            linspace,
+            axis_grid,
             // -- Snippets --
             save_snippets,
             get_snippets,

@@ -841,6 +841,9 @@ importers:
       lucide-react:
         specifier: 0.510.0
         version: 0.510.0(react@19.1.0)
+      plotly.js:
+        specifier: ^3.0.1
+        version: 3.0.1(mapbox-gl@1.13.3)(webpack@5.99.9(esbuild@0.25.5))
       react:
         specifier: 19.1.0
         version: 19.1.0
@@ -859,6 +862,9 @@ importers:
       react-mathquill:
         specifier: ^1.0.3
         version: 1.0.3(react@19.1.0)
+      react-plotly.js:
+        specifier: ^2.6.0
+        version: 2.6.0(plotly.js@3.0.1(mapbox-gl@1.13.3)(webpack@5.99.9(esbuild@0.25.5)))(react@19.1.0)
       react-resizable-panels:
         specifier: 3.0.2
         version: 3.0.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
@@ -926,6 +932,9 @@ importers:
       '@types/react-dom':
         specifier: 19.1.5
         version: 19.1.5(@types/react@19.1.5)
+      '@types/react-plotly.js':
+        specifier: ^2.6.3
+        version: 2.6.3
       '@vitejs/plugin-react':
         specifier: ^4.4.1
         version: 4.5.0(vite@6.3.5(@types/node@24.0.4)(jiti@2.4.2)(lightningcss@1.30.1)(sass-embedded@1.89.0)(sass@1.89.0)(terser@5.43.1)(yaml@2.8.0))
@@ -5773,6 +5782,9 @@ packages:
   '@types/pg@8.15.2':
     resolution: {integrity: sha512-+BKxo5mM6+/A1soSHBI7ufUglqYXntChLDyTbvcAn1Lawi9J7J9Ok3jt6w7I0+T/UDJ4CyhHk66+GZbwmkYxSg==}
 
+  '@types/plotly.js@3.0.0':
+    resolution: {integrity: sha512-WiUzfUh5Mn7+ySbuh2j0fIr7AtLmPzfu/zjtjVx4mftbuZonkQ6UqwylO9F1LqM9+PXZM8XYtyovIHw8cE+4ug==}
+
   '@types/react-dom@19.1.5':
     resolution: {integrity: sha512-CMCjrWucUBZvohgZxkjd6S9h0nZxXjzus6yDfUb+xLxYM7VvjKNH1tQrE9GWLql1XoOP4/Ds3bwFqShHUYraGg==}
     peerDependencies:
@@ -5780,6 +5792,9 @@ packages:
 
   '@types/react-is@18.3.1':
     resolution: {integrity: sha512-zts4lhQn5ia0cF/y2+3V6Riu0MAfez9/LJYavdM8TvcVl+S91A/7VWxyBT8hbRuWspmuCaiGI0F41OJYGrKhRA==}
+
+  '@types/react-plotly.js@2.6.3':
+    resolution: {integrity: sha512-HBQwyGuu/dGXDsWhnQrhH+xcJSsHvjkwfSRjP+YpOsCCWryIuXF78ZCBjpfgO3sCc0Jo8sYp4NOGtqT7Cn3epQ==}
 
   '@types/react-resizable@3.0.8':
     resolution: {integrity: sha512-Pcvt2eGA7KNXldt1hkhVhAgZ8hK41m0mp89mFgQi7LAAEZiaLgm4fHJ5zbJZ/4m2LVaAyYrrRRv1LHDcrGQanA==}
@@ -19560,12 +19575,19 @@ snapshots:
       pg-protocol: 1.10.0
       pg-types: 4.0.2
 
+  '@types/plotly.js@3.0.0': {}
+
   '@types/react-dom@19.1.5(@types/react@19.1.5)':
     dependencies:
       '@types/react': 19.1.5
 
   '@types/react-is@18.3.1':
     dependencies:
+      '@types/react': 19.1.5
+
+  '@types/react-plotly.js@2.6.3':
+    dependencies:
+      '@types/plotly.js': 3.0.0
       '@types/react': 19.1.5
 
   '@types/react-resizable@3.0.8':
@@ -19624,10 +19646,10 @@ snapshots:
 
   '@types/uuid@10.0.0': {}
 
-  '@typescript-eslint/eslint-plugin@5.62.0(@typescript-eslint/parser@8.33.0(eslint@9.27.0(jiti@2.4.2))(typescript@5.8.3))(eslint@9.27.0(jiti@2.4.2))(typescript@5.8.3)':
+  '@typescript-eslint/eslint-plugin@5.62.0(@typescript-eslint/parser@5.62.0(eslint@9.27.0(jiti@2.4.2))(typescript@5.8.3))(eslint@9.27.0(jiti@2.4.2))(typescript@5.8.3)':
     dependencies:
       '@eslint-community/regexpp': 4.12.1
-      '@typescript-eslint/parser': 8.33.0(eslint@9.27.0(jiti@2.4.2))(typescript@5.8.3)
+      '@typescript-eslint/parser': 5.62.0(eslint@9.27.0(jiti@2.4.2))(typescript@5.8.3)
       '@typescript-eslint/scope-manager': 5.62.0
       '@typescript-eslint/type-utils': 5.62.0(eslint@9.27.0(jiti@2.4.2))(typescript@5.8.3)
       '@typescript-eslint/utils': 5.62.0(eslint@9.27.0(jiti@2.4.2))(typescript@5.8.3)
@@ -21969,7 +21991,7 @@ snapshots:
       '@babel/core': 7.27.3
       '@babel/eslint-parser': 7.27.1(@babel/core@7.27.3)(eslint@9.27.0(jiti@2.4.2))
       '@rushstack/eslint-patch': 1.11.0
-      '@typescript-eslint/eslint-plugin': 5.62.0(@typescript-eslint/parser@8.33.0(eslint@9.27.0(jiti@2.4.2))(typescript@5.8.3))(eslint@9.27.0(jiti@2.4.2))(typescript@5.8.3)
+      '@typescript-eslint/eslint-plugin': 5.62.0(@typescript-eslint/parser@5.62.0(eslint@9.27.0(jiti@2.4.2))(typescript@5.8.3))(eslint@9.27.0(jiti@2.4.2))(typescript@5.8.3)
       '@typescript-eslint/parser': 5.62.0(eslint@9.27.0(jiti@2.4.2))(typescript@5.8.3)
       babel-preset-react-app: 10.1.0
       confusing-browser-globals: 1.0.11
@@ -22106,7 +22128,7 @@ snapshots:
       '@typescript-eslint/experimental-utils': 5.62.0(eslint@9.27.0(jiti@2.4.2))(typescript@5.8.3)
       eslint: 9.27.0(jiti@2.4.2)
     optionalDependencies:
-      '@typescript-eslint/eslint-plugin': 5.62.0(@typescript-eslint/parser@8.33.0(eslint@9.27.0(jiti@2.4.2))(typescript@5.8.3))(eslint@9.27.0(jiti@2.4.2))(typescript@5.8.3)
+      '@typescript-eslint/eslint-plugin': 5.62.0(@typescript-eslint/parser@5.62.0(eslint@9.27.0(jiti@2.4.2))(typescript@5.8.3))(eslint@9.27.0(jiti@2.4.2))(typescript@5.8.3)
     transitivePeerDependencies:
       - supports-color
       - typescript

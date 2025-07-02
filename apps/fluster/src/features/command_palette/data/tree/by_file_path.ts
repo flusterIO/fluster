@@ -28,7 +28,7 @@ export class MdxFilesCommandPaletteRoot extends CommandPaletteCategory {
         async (nav: NavigateFunction) => {
           const sp = new URLSearchParams();
           sp.set("fsPath", s);
-          nav(`${AppRoutes.viewMdxNote}?${s.toString()}`);
+          nav(`${AppRoutes.viewMdxNote}?${sp.toString()}`);
         }
       );
       item.itemClasses = "text-sm [&_p]:text-sm";

@@ -439,6 +439,21 @@ async getEquationByUserProvidedId(id: string[]) : Promise<Result<EquationModel[]
     else return { status: "error", error: e  as any };
 }
 },
+async grid2d(x: ArrayGeneratorProps, y: ArrayGeneratorProps) : Promise<number[][][]> {
+    return await TAURI_INVOKE("grid_2d", { x, y });
+},
+async logspace(base: number, a: number, b: number, n: string) : Promise<number[]> {
+    return await TAURI_INVOKE("logspace", { base, a, b, n });
+},
+async arange(from: number, to: number, step: number) : Promise<number[]> {
+    return await TAURI_INVOKE("arange", { from, to, step });
+},
+async linspace(from: number, to: number, nItems: string) : Promise<number[]> {
+    return await TAURI_INVOKE("linspace", { from, to, nItems });
+},
+async axisGrid(axis: ArrayGeneratorProps) : Promise<number[][]> {
+    return await TAURI_INVOKE("axis_grid", { axis });
+},
 /**
  * Note that the values are all in array's and that tags is a 2d array. This is so that for each
  * index in the snippets array, there is an array at that index in the tags array with the tags
@@ -703,6 +718,7 @@ body: string;
  * The stringified unix timestamp of the time the message was received.
  */
 received_at: string }
+export type ArrayGeneratorProps = { min: number; max: number; count: string }
 export type BibEntryModel = { id: string; user_provided_id: string | null; 
 /**
  * The json string representing this item's data.
@@ -752,7 +768,7 @@ export type FlusterError = "OperatingSystemNotSupported" | "FailToLoadDocs" | { 
  * Taggables
  * 
  */
-"FailToUpsertTags"
+"FailToUpsertTags" | "FailToExecutePython"
 /**
  * This is the model as it exists in the database. All related external tables can be combined to form a
  * `FrontMatterModel` struct, which more closely represents the front matter as it appears in a
