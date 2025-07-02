@@ -5,12 +5,6 @@ const slice = createSlice({
     name: "core",
     initialState: initialCoreSettings,
     reducers: {
-        setSyncingState(state, action: PayloadAction<boolean>) {
-            return {
-                ...state,
-                syncing: action.payload,
-            };
-        },
         setNotesDirectory(state, action: PayloadAction<string>) {
             return {
                 ...state,
@@ -26,7 +20,6 @@ const slice = createSlice({
     },
 });
 
-export const { setNotesDirectory, savedStateApplied, setSyncingState } =
-    slice.actions;
+export const { setNotesDirectory, savedStateApplied } = slice.actions;
 
 export default slice.reducer;

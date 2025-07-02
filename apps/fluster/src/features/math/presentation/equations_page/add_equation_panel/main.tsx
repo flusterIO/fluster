@@ -90,7 +90,7 @@ export const AddEquationPanel = connector(
         const handleSubmit = async (
             data: z.infer<typeof addEquationSchema>
         ): Promise<void> => {
-            const now = `${new Date().valueOf()}`;
+            const now = new Date().valueOf().toString();
             let _unique_id = "";
             if (data.id === null) {
                 _unique_id = await commands.getUniqueId();

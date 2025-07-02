@@ -850,7 +850,11 @@ export type SyncFilesystemDirectoryOptions = { dir_path: string; bib_path: strin
 /**
  * The stringified integer representing the number of threads.
  */
-n_threads: string; use_git_ignore: boolean }
+n_threads: string; use_git_ignore: boolean; 
+/**
+ * defaults to true
+ */
+with_ai: boolean }
 export type TaskListData = { list: TaskListModel; items: TaskModel[] }
 export type TaskListModel = { id: string; label: string; desc: string | null; ctime: string }
 export type TaskModel = { id: string; 

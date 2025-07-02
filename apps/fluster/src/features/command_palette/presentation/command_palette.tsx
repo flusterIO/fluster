@@ -24,10 +24,7 @@ const CommandPalette = (): ReactNode => {
   const handleResize = () => setWidth(getWidth());
   const state = useCommandPaletteContext();
 
-  /* useEventListener("log-state", () => { */
-  /*     console.log(state); */
-  /* }); */
-  useEffect(() => {
+ useEffect(() => {
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);

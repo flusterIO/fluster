@@ -5,13 +5,14 @@ use crate::core::{
         traits::db_entity::DbEntity,
         FlusterDb,
     },
+    utils::date_utils::parse_date,
 };
 use arrow_array::{RecordBatch, RecordBatchIterator, StringArray, TimestampMillisecondArray};
 use arrow_schema::{ArrowError, DataType, Field, Schema};
 use futures::TryStreamExt;
 use lancedb::query::{ExecutableQuery, QueryBase};
 use serde_arrow::from_record_batch;
-use std::{ops::Index, sync::Arc};
+use std::{ops::Index, str::FromStr, sync::Arc};
 
 use super::equation_model::EquationModel;
 
@@ -61,7 +62,6 @@ impl EquationEntity {
             })?;
             items.extend(data);
         }
-        println!("Returning from get_by_user_provided_ids");
         Ok(items)
     }
     pub async fn get_by_ids(
@@ -219,7 +219,7 @@ impl DbEntity<EquationModel> for EquationEntity {
         let label = arrow_array::StringArray::from(vec![item.label.clone()]);
         let body = arrow_array::StringArray::from(vec![item.body.clone()]);
         let desc = arrow_array::StringArray::from(vec![item.desc.clone()]);
-        let ctime_value: i64 = item.ctime.parse().unwrap();
+        let ctime_value: i64 = parse_date(&item.ctime).unwrap();
         let utime_value: i64 = item.utime.parse().unwrap();
         let ctime = TimestampMillisecondArray::from(vec![ctime_value]);
         let utime = TimestampMillisecondArray::from(vec![utime_value]);

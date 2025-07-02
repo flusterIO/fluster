@@ -98,7 +98,10 @@ pub async fn save_mdx_note_groups(
         }
     }
     // Once everything is sorted and joining tables are created, save everything.
-    EquationEntity::save_many(db, equations).await?;
+    // Removed equationEntity syncing because it was causing a build error, and they're being
+    // inserted by the user anyways. This was ust updating something that wasn't changing like
+    // an idiot.
+    // EquationEntity::save_many(db, equations).await?;
     MdxNoteEquationEntity::save_many(db, mdx_note_equations).await?;
     TagEntity::save_many(db, tags).await?;
     SubjectEntity::create_many(db, subjects).await?;

@@ -8,7 +8,6 @@ use log::error;
 
 pub struct LocalAiClient {}
 
-// FIX: Move this all to a trait once this is in order to allow for a remote client as well.
 impl LocalAiClient {
     pub async fn get_text_embeddings(
         &self,

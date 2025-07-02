@@ -17,8 +17,6 @@ export const useDebounceMdxParse = (
     const [timer, setTimer] = useState<NodeJS.Timeout | null>(null);
 
     const handleParse = async (_value: string) => {
-        /* TODO: Add function param and modify this to add the ability to format mdx content with internal parser. */
-        console.log("_value: ", _value);
         try {
             const compiled = await parseMdxString({
                 content: _value,
