@@ -161,5 +161,6 @@
             "plugin:storybook/recommended"
         ]
     },
-    "module": "./dist/index.es.js"
+    "module": "./dist/index.es.js",
+    "packageManager": "pnpm@9.7.1"
 }
