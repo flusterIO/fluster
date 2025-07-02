@@ -1,5 +1,11 @@
 # @fluster.io/dev
 
+## 0.0.7
+
+### Patch Changes
+
+- f300ce3: Update to release beta.
+
 ## 0.0.6
 
 ### Patch Changes
