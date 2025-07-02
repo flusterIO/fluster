@@ -1,5 +1,7 @@
 # Release
 
+> None of this is working yet. These docs are a work in progress, right now just helping me to not forget what I did in case one of them accidentally works.
+
 ## Release Node Packages
 
 > Make sure you're on the main branch.
