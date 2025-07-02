@@ -29,17 +29,9 @@
         "build-storybook": "storybook build",
         "dev": "storybook dev -p 6006",
         "lint": "eslint .",
-        "preview": "vite preview",
-        "release": "wireit"
+        "preview": "vite preview"
     },
     "wireit": {
-        "release": {
-            "clean": false,
-            "dependencies": [
-                "build"
-            ],
-            "command": "pnpm changeset release"
-        },
         "build": {
             "clean": false,
             "command": "tsc && vite build",
