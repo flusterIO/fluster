@@ -1,5 +1,13 @@
 # fluster
 
+## 0.1.5
+
+### Patch Changes
+
+- Push to attempt release.
+- Updated dependencies
+  - @fluster.io/dev@0.0.5
+
 ## 0.1.4
 
 ### Patch Changes
