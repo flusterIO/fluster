@@ -1,5 +1,11 @@
 # @fluster.io/dev
 
+## 0.0.6
+
+### Patch Changes
+
+- Update to release beta.
+
 ## 0.0.5
 
 ### Patch Changes

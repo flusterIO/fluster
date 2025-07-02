@@ -1,6 +1,6 @@
 {
     "name": "@fluster.io/dev",
-    "version": "0.0.5",
+    "version": "0.0.6",
     "funding": [
         {
             "type": "paypal",
@@ -30,9 +30,16 @@
         "dev": "storybook dev -p 6006",
         "lint": "eslint .",
         "preview": "vite preview",
-        "ci:publish": "pnpm changeset publish"
+        "release": "wireit"
     },
     "wireit": {
+        "release": {
+            "clean": false,
+            "dependencies": [
+                "build"
+            ],
+            "command": "pnpm changeset release"
+        },
         "build": {
             "clean": false,
             "command": "tsc && vite build",
