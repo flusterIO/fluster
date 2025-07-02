@@ -29,7 +29,8 @@
         "build-storybook": "storybook build",
         "dev": "storybook dev -p 6006",
         "lint": "eslint .",
-        "preview": "vite preview"
+        "preview": "vite preview",
+        "ci:publish": "pnpm changeset publish"
     },
     "wireit": {
         "build": {

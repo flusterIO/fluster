@@ -125,7 +125,6 @@ app.*.map.json
 /target
 **/node_modules
 codecov.*
-docs/internal
 **/.wireit/
 history.txt
 

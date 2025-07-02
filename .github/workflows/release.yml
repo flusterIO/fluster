@@ -2,7 +2,7 @@ name: Changesets
 on:
   push:
     branches:
-      - main
+      - release
 env:
   CI: true
 jobs:
