@@ -16,7 +16,8 @@
     ],
     "scripts": {
         "ci:publish": "wireit",
-        "release": "wireit"
+        "release": "wireit",
+        "build": "pnpm build"
     },
     "wireit": {
         "release": {
