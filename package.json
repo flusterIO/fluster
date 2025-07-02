@@ -21,7 +21,7 @@
     },
     "wireit": {
         "release": {
-            "command": "changeset publish",
+            "command": "pnpm changeset publish",
             "clean": false,
             "dependencies": [
                 "build"
