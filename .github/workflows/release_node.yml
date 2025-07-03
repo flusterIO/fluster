@@ -22,12 +22,12 @@ jobs:
         run: pnpm install
       - name: Build packages
         run: pnpm build
-      - name: Create Release Pull Request or Publish to npm
-        id: changesets
+      - name: Create and publish versions
         uses: changesets/action@v1
         with:
-          # This expects you to have a script called release which does a build for your packages and calls changeset publish
-          publish: pnpm run release
+          commit: "chore: update versions"
+          title: "chore: update versions"
+          publish: pnpm ci:release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.FLUSTER_NPM_TOKEN }}

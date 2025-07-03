@@ -20,8 +20,8 @@
         "build": "pnpm build"
     },
     "wireit": {
-        "release": {
-            "command": "pnpm changeset publish",
+        "ci:release": {
+            "command": "pnpm publish -r",
             "clean": false,
             "dependencies": [
                 "build"
