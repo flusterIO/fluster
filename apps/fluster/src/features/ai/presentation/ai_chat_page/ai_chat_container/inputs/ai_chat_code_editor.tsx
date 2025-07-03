@@ -17,7 +17,6 @@ export const AiChatCodeEditor = ({
   return (
     <div id={id} className="w-full h-[200px]">
       <CodeEditor
-        isModal={false}
         value={value}
         onChange={onChange}
         language="mdx"
