@@ -9,6 +9,7 @@ interface Props extends HTMLProps<HTMLDivElement> {
   className?: string;
 }
 
+/* TODO: Add error boundary component here to gracefully fail when mdx has a typo. */
 export const ParsedMdxContent = ({
   MdxContentComponent,
   raw,

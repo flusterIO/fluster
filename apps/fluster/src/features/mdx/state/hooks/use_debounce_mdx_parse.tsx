@@ -21,7 +21,6 @@ export const useDebounceMdxParse = (
       const compiled = await parseMdxString({
         content: _value,
       });
-      console.log("compiled: ", compiled);
       const res = await run(compiled, {
         Fragment: Fragment,
         jsx: runtime.jsx,
@@ -29,8 +28,8 @@ export const useDebounceMdxParse = (
         jsxDEV: devRuntime.jsxDEV,
         baseUrl: import.meta.url,
       });
-      console.log("res: ", res.default);
-      if (res.default.caller) {
+      console.log("Here: ", res.default.toString());
+      if (res.default.name === "MDXContent") {
         setMdxModule(res);
       } else {
         setMdxModule(null);
