@@ -18,4 +18,8 @@
 
 > Make sure you're on the release branch.
 
-- Manually update version of `@fluster.io/dev` to match recently published version to get around issue with pnpm workspace dependencies.
+- `git checkout release` to switch to release branch
+- `git merge main` to merge main branch with release branch after pushing packages on main branch.
+- Manually update version of `@fluster.io/dev` in `apps/fluster/package.json` to match recently published version to get around issue with pnpm workspace dependencies.
+- `pnpm install` to update lock files to match the remote version.
+- Add, commit and push to trigger release.

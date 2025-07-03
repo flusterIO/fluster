@@ -23,12 +23,13 @@ import { useDispatch } from "react-redux";
 import { setPanelLeftOpen } from "#/panel_left/state/slice";
 import { NavLink } from "react-router";
 import { AppRoutes } from "#/router/data/app_routes";
+import { secondaryToolTip } from "../../../../styles/classes";
 
 interface EquationListItemProps {
     item: EquationModel;
 }
 
-export const useEquationHasNotes = (equationId: string): boolean => {
+const useEquationHasNotes = (equationId: string): boolean => {
     const [hasNotes, setHasNotes] = useState(false);
 
     const getHasNotes = async (eqId: string): Promise<void> => {
@@ -113,7 +114,10 @@ const EquationListItem = ({ item }: EquationListItemProps): ReactNode => {
                         </NavLink>
                     ) : (
                         <Tooltip>
-                            <TooltipContent>No notes found.</TooltipContent>
+                            <TooltipContent
+                                className={secondaryToolTip}
+                                color="hsl(var(--secondary))"
+                            >No notes found.</TooltipContent>
                             <TooltipTrigger>
                                 <Button
                                     disabled

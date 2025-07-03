@@ -1,0 +1,22 @@
+.js-plotly-plot {
+  max-width: 1080px;
+  width: 100%;
+}
+
+.plot-container.plotly {
+  border-radius: var(--radius);
+  background-color: hsl(var(--card));
+  max-width: 100%;
+  height: auto;
+
+  div.svg-container {
+    max-width: 1080px;
+    width: 100% !important;
+  }
+
+  svg {
+    max-width: 100%;
+    max-height: 100%;
+    height: auto;
+  }
+}
