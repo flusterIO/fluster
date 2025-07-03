@@ -50,7 +50,6 @@ export interface CodeEditorProps {
   onChange: (newVal: string) => void;
   language: string;
   themes: AppState["code"]["theme"];
-  isModal: boolean;
   onCmdEnter?: () => void;
   actions?: EditorAction[];
   disabled?: boolean;
@@ -87,7 +86,6 @@ const CodeEditor = connector(
     value,
     language,
     themes,
-    isModal,
     onCmdEnter,
     disabled,
     actions = [],
@@ -124,23 +122,7 @@ const CodeEditor = connector(
       applyNestedMathLsp(monaco);
       editorRef.current = editor;
       editorRef.current.focus();
-      if (isModal) {
-        editorRef.current.addAction({
-          // an unique identifier of the contributed action
-          id: "submit-monaco-modal",
-          // a label of the action that will be presented to the user
-          label: "Submit Monaco Modal",
-          keybindings: [
-            monaco.KeyMod.CtrlCmd | monaco.KeyMod.Shift | monaco.KeyCode.Enter,
-          ],
-          // the method that will be executed when the action is triggered.
-          run: function () {
-            console.log(`Submitting modal data...`);
-            /* TODO: Handle closing of the modal here. */
-            /* opts.onAccept(editorState.getValue()); */
-          },
-        });
-      } else if (onCmdEnter) {
+      if (onCmdEnter) {
         editorRef.current.addAction({
           // an unique identifier of the contributed action
           id: "submit-monaco-input",

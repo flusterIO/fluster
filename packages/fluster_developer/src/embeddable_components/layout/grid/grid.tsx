@@ -8,12 +8,15 @@ interface ColumnMinMax {
 }
 
 interface GridProps {
-  children: ReactNode;
+  children?: ReactNode | null;
   gap?: string | number;
-  cols: number | ColumnGroup | ColumnMinMax;
+  cols?: number | ColumnGroup | ColumnMinMax | null;
 }
 
 export const Grid = (props: GridProps): ReactNode => {
+  if (!props.cols) {
+    return null;
+  }
   const { children, gap = "16px", cols } = props;
   if (typeof cols === "number") {
     return (
@@ -29,6 +32,9 @@ export const Grid = (props: GridProps): ReactNode => {
     );
   }
   if ("min" in cols) {
+    if (!["string", "number"].includes(typeof cols.min)) {
+      return null;
+    }
     return (
       <div
         className="w-full grid"

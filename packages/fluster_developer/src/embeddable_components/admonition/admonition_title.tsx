@@ -5,27 +5,27 @@ import { AdmonitionTitleProps } from "./types";
 import { cn } from "../../utils/cn";
 
 interface Props extends AdmonitionTitleProps {
-    children: ReactNode;
+  children: ReactNode;
 }
 
 export const admonitionTitleIconClasses =
-    "inline-block mr-2 mt-[0.4rem] float-left w-4 h-4";
+  "inline-block mr-2 mt-[0.4rem] float-left w-4 h-4";
 
 const AdmonitionTitle = (props: Props): ReactNode => {
-    return (
-        <div
-            className={cn(
-                "w-full pl-2 pr-4 pt-2 rounded-tl rounded-tr relative z-[1]",
-                getTitleVariantClasses(props.type)
-            )}
-        >
-            <AdmonitionVariantIcon
-                className={admonitionTitleIconClasses}
-                variant={props.type}
-            />
-            <span className="inline-block w-[calc(100%-4rem)]">{props.children}</span>
-        </div>
-    );
+  return (
+    <div
+      className={cn(
+        "w-full pl-2 pr-4 pt-2 rounded-tl rounded-tr relative z-[1] min-h-[42px]",
+        getTitleVariantClasses(props.type)
+      )}
+    >
+      <AdmonitionVariantIcon
+        className={admonitionTitleIconClasses}
+        variant={props.type}
+      />
+      <span className="inline-block w-[calc(100%-4rem)]">{props.children}</span>
+    </div>
+  );
 };
 
 AdmonitionTitle.displayName = "AdmonitionTitle";
