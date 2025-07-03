@@ -22,8 +22,6 @@ jobs:
         run: npm config set '//registry.npmjs.org/:_authToken' "${NPM_TOKEN}"
       - name: Install Dependencies
         run: pnpm install
-      - name: Build packages
-        run: pnpm run -r build
       - name: Create and publish versions
         uses: changesets/action@v1
         with:

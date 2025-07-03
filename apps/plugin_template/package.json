@@ -5,6 +5,7 @@
         "fluster",
         "plugin"
     ],
+    "private": true,
     "funding": [
         {
             "type": "paypal",
