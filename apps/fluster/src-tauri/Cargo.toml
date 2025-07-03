@@ -91,6 +91,7 @@ rand = "0.9.1"
 pyo3 = "0.25.1"
 ndarray = { version = "0.16.1", features = ["rayon", "serde"] }
 numpy = "0.25.0"
+protoc = "2.28.0"
 
 
 [target.'cfg(not(any(target_os = "android", target_os = "ios")))'.dependencies]
