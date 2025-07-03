@@ -11,15 +11,9 @@ const require = createRequire(import.meta.url);
 const pdfjsDistPath = path.dirname(require.resolve("pdfjs-dist/package.json"));
 const cMapsDir = normalizePath(path.join(pdfjsDistPath, "cmaps"));
 
-const rootDir = process.env.FLUSTER_NATIVE_ROOT;
+// const rootDir = path.resolve(__dirname, "../../");
 
-if (!rootDir) {
-    throw Error(
-        "Cannot continue without the FLUSTER_NATIVE_ROOT environment variable set to the root of the monorepo"
-    );
-}
-
-const publicDir = path.join(rootDir, "apps", "fluster", "public");
+// const publicDir = path.join(rootDir, "apps", "fluster", "public");
 
 export default defineConfig({
     plugins: [
