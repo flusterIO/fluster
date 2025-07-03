@@ -22,7 +22,6 @@ import {
     EqRef,
     DictionaryEntry,
     EquationTag,
-    LinePlotComponent,
 } from "@fluster.io/dev";
 import { MDXComponents } from "mdx/types";
 import {

@@ -6,6 +6,7 @@
 
 > Make sure you're on the main branch.
 
+- 'FlusterMake -> nocheck bindings' to get around typescript error in generated file.
 - Create a changeset with `pnpm changeset`
 - Version all packages with `pnpm changeset version`
 - Update lock files with `pnpm install`
@@ -23,3 +24,9 @@
 - Manually update version of `@fluster.io/dev` in `apps/fluster/package.json` to match recently published version to get around issue with pnpm workspace dependencies.
 - `pnpm install` to update lock files to match the remote version.
 - Add, commit and push to trigger release.
+
+## Revert back to local development
+
+- Change `@fluster.io/dev` dependency to `workspace:*`.
+- `pnpm install` to change lock files to using local version.
+- `git add --all` & `git commit -m "back to local dev"`
