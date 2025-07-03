@@ -1,5 +1,12 @@
 # fluster
 
+## 0.1.7
+
+### Patch Changes
+
+- Updated dependencies [f300ce3]
+  - @fluster.io/dev@0.0.7
+
 ## 0.1.6
 
 ### Patch Changes
