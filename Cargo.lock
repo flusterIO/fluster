@@ -4724,7 +4724,6 @@ dependencies = [
  "enum-iterator",
  "fast_qr",
  "filetime",
- "fluster_test_utils",
  "futures",
  "futures-util",
  "glob",

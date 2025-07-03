@@ -36,7 +36,7 @@ tauri-plugin-devtools = "2.0.0"
 typeshare = "1.0.4"
 tauri-specta = { version = "=2.0.0-rc.21", features = ["derive", "typescript"] }
 specta = { version = "=2.0.0-rc.22", features = ["chrono", "derive"] }
-fluster_test_utils = { path = "../../../packages/fluster_test_utils/" }
+# fluster_test_utils = { path = "../../../packages/fluster_test_utils/" }
 tauri-plugin-log = "2"
 specta-typescript = "0.0.9"
 log = "0.4.27"

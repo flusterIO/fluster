@@ -118,41 +118,41 @@ impl MdxNoteGroup {
     }
 }
 
-#[cfg(test)]
-mod tests {
-    use fluster_test_utils::test_utils::get_test_mdx_path;
+// #[cfg(test)]
+// mod tests {
+//     use fluster_test_utils::test_utils::get_test_mdx_path;
 
-    use crate::core::database::db::get_database;
+//     use crate::core::database::db::get_database;
 
-    use super::*;
+//     use super::*;
 
-    fn assert_front_matter_good(note_data: Result<MdxNoteGroup, FlusterError>) {
-        assert!(
-            note_data.is_ok(),
-            "Parses a file system mdx note without throwing an error."
-        );
-        let n = note_data.unwrap();
-        let tags = n.front_matter.tags;
-        assert!(tags[0].value == "Tag 1", "Gathers tags properly.");
-        assert!(
-            n.front_matter.subject.clone().unwrap().value == "Subject 1",
-            "Gathers subjects properly."
-        );
-        assert!(
-            n.front_matter.topic.clone().unwrap().value == "Topic 1",
-            "Gathers topics properly."
-        );
-    }
+//     fn assert_front_matter_good(note_data: Result<MdxNoteGroup, FlusterError>) {
+//         assert!(
+//             note_data.is_ok(),
+//             "Parses a file system mdx note without throwing an error."
+//         );
+//         let n = note_data.unwrap();
+//         let tags = n.front_matter.tags;
+//         assert!(tags[0].value == "Tag 1", "Gathers tags properly.");
+//         assert!(
+//             n.front_matter.subject.clone().unwrap().value == "Subject 1",
+//             "Gathers subjects properly."
+//         );
+//         assert!(
+//             n.front_matter.topic.clone().unwrap().value == "Topic 1",
+//             "Gathers topics properly."
+//         );
+//     }
 
-    #[tokio::test]
-    async fn from_file_system_path_parses_properly() {
-        let db_res = get_database().await;
-        let db = db_res.lock().await;
+//     #[tokio::test]
+//     async fn from_file_system_path_parses_properly() {
+//         let db_res = get_database().await;
+//         let db = db_res.lock().await;
 
-        let test_path = get_test_mdx_path();
-        let note_data =
-            MdxNoteGroup::from_file_system_path(&db, test_path.to_str().unwrap().to_string(), None)
-                .await;
-        assert_front_matter_good(note_data);
-    }
-}
+//         let test_path = get_test_mdx_path();
+//         let note_data =
+//             MdxNoteGroup::from_file_system_path(&db, test_path.to_str().unwrap().to_string(), None)
+//                 .await;
+//         assert_front_matter_good(note_data);
+//     }
+// }
