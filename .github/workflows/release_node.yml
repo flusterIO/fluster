@@ -18,6 +18,8 @@ jobs:
         with:
           node-version: 20.x
           cache: "pnpm"
+      - name: Set npm token
+        run: npm config set '//registry.npmjs.org/:_authToken' "${NPM_TOKEN}"
       - name: Install Dependencies
         run: pnpm install
       - name: Build packages
