@@ -4,7 +4,6 @@ use include_dir::{include_dir, Dir};
 
 use crate::core::types::errors::errors::{FlusterError, FlusterResult};
 
-pub static MATHJAX: Dir = include_dir!("$FLUSTER_NATIVE_ROOT/node_modules/mathjax-full/es5");
 
 #[tauri::command]
 #[specta::specta]
