@@ -4739,7 +4739,6 @@ dependencies = [
  "numpy",
  "ollama-rs",
  "plotly",
- "protoc",
  "pyo3",
  "rand 0.9.1",
  "rayon",
@@ -11223,16 +11222,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "52c2c1bf36ddb1a1c396b3601a3cec27c2462e45f07c386894ec3ccf5332bd16"
 dependencies = [
  "prost 0.13.5",
-]
-
-[[package]]
-name = "protoc"
-version = "2.28.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "a0218039c514f9e14a5060742ecd50427f8ac4f85a6dc58f2ddb806e318c55ee"
-dependencies = [
- "log",
- "which 4.4.2",
 ]
 
 [[package]]
