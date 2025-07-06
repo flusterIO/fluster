@@ -1,5 +1,20 @@
 # fluster
 
+## 0.1.7
+
+### Patch Changes
+
+- ba87646: Update packages to attempt initial release.
+- Update to attempt npm publish.
+- 959f8b0: Update to fix broken lock file.
+- 6369e37: Update to fix workspace dependency.
+- Updated dependencies [f300ce3]
+- Updated dependencies [ba87646]
+- Updated dependencies
+- Updated dependencies [959f8b0]
+- Updated dependencies [6369e37]
+  - @fluster.io/dev@0.0.8
+
 ## 0.1.6
 
 ### Patch Changes
