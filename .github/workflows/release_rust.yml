@@ -46,6 +46,10 @@ jobs:
           install: git mingw-w64-ucrt-x86_64-libgcrypt mingw-w64-ucrt-x86_64-gcc
           # webkitgtk 4.0 is for Tauri v1 - webkitgtk 4.1 is for Tauri v2.
           # You can remove the one that doesn't apply to your app to speed up the workflow a bit.
+      - name: Install build dependencies (windows only)
+        if: matrix.platform == 'windows-latest'
+        run: |
+          winget install protobuf
       - name: install dependencies (mac only)
         if: matrix.platform == 'macos-latest' # This must match the platform value defined above.
         run: brew install protobuf libiconv
