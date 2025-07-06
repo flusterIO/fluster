@@ -1,5 +1,14 @@
 # fluster
 
+## 0.1.7
+
+### Patch Changes
+
+- ba87646: Update packages to attempt initial release.
+- Updated dependencies [f300ce3]
+- Updated dependencies [ba87646]
+  - @fluster.io/dev@0.0.7
+
 ## 0.1.6
 
 ### Patch Changes
