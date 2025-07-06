@@ -2,7 +2,6 @@ import React, { HTMLProps, useEffect, type ReactNode } from "react";
 import { useDebounceMdxParse } from "../state/hooks/use_debounce_mdx_parse";
 import { cn } from "@/lib/utils";
 import { commands } from "@/lib/bindings";
-import { MdxProvidersGroup } from "./mdx_provider_group";
 
 export interface MdxContentProps extends HTMLProps<HTMLDivElement> {
     mdx: string;
@@ -37,14 +36,13 @@ export const MdxContent = ({
     }, [mdx]);
 
     return (
-    
-            <Component
-                {...props}
-                className={cn(
-                    "mdx-content prose dark:prose-invert prose-p:text-foreground prose-code:before:content-none prose-code:after:content-none prose-code:bg-[--shiki-light-bg] dark:prose-code:bg-[--shiki-dark-bg] [&_code_*]:text-[--shiki-light] dark:[&_code_*]:text-[--shiki-dark] w-full  max-w-full @container/mdx prose-code:p-2 prose-pre:bg-transparent dark:prose-pre:bg-transparent",
-                    className
-                )}
-            />
+        <Component
+            {...props}
+            className={cn(
+                "mdx-content prose dark:prose-invert prose-p:text-foreground prose-code:before:content-none prose-code:after:content-none prose-code:bg-[--shiki-light-bg] dark:prose-code:bg-[--shiki-dark-bg] [&_code_*]:text-[--shiki-light] dark:[&_code_*]:text-[--shiki-dark] w-full  max-w-full @container/mdx prose-code:p-2 prose-pre:bg-transparent dark:prose-pre:bg-transparent",
+                className
+            )}
+        />
     );
 };
 
