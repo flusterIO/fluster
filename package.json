@@ -17,13 +17,27 @@
     "scripts": {
         "ci:publish": "wireit",
         "ci:release": "wireit",
-        "ci:build": "pnpm run -r build"
+        "ci:build": "pnpm run -r build",
+        "npm_release": "wireit"
     },
     "wireit": {
+        "build_npm_packages": {
+            "clean": false,
+            "command": "pnpm -C packages/fluster_developer"
+        },
+        "npm_release": {
+            "command": "pnpm changeset publish",
+            "clean": false,
+            "dependencies": [
+                "build_npm_packages"
+            ]
+        },
         "ci:release": {
             "command": "pnpm publish -r",
             "clean": false,
-            "dependencies": ["ci:build"]
+            "dependencies": [
+                "ci:build"
+            ]
         },
         "publish:fluster_ts": {
             "command": "cd packages/fluster_ts && pnpm run build && pnpm publish --access public ./ --no-git-checks"

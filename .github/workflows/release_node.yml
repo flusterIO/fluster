@@ -27,7 +27,7 @@ jobs:
         with:
           commit: "chore: update versions"
           title: "chore: update versions"
-          publish: pnpm ci:release
+          publish: pnpm npm_release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.FLUSTER_NPM_TOKEN }}
