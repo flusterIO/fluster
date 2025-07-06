@@ -23,7 +23,7 @@
     "wireit": {
         "build_npm_packages": {
             "clean": false,
-            "command": "pnpm run build -C packages/fluster_developer"
+            "command": "pnpm -C ./packages/fluster_developer run build"
         },
         "npm_release": {
             "command": "pnpm changeset publish",

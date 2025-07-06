@@ -1,5 +1,15 @@
 # fluster
 
+## 0.1.9
+
+### Patch Changes
+
+- Update build script.
+- Update broken build script.
+- Updated dependencies
+- Updated dependencies
+  - @fluster.io/dev@0.0.10
+
 ## 0.1.8
 
 ### Patch Changes
