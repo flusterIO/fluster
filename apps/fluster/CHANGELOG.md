@@ -1,5 +1,13 @@
 # fluster
 
+## 0.1.8
+
+### Patch Changes
+
+- Update build script to only build npm packages.
+- Updated dependencies
+  - @fluster.io/dev@0.0.9
+
 ## 0.1.7
 
 ### Patch Changes
