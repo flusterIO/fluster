@@ -4,6 +4,7 @@ import { useSearchParams } from "react-router";
 import MdxNotePage from "./mdx_note_page";
 import { commands, MdxNoteGroup } from "@/lib/bindings";
 import { LoadingComponent } from "@/components/loading_screen";
+import { MdxProvidersGroup } from "./mdx_provider_group";
 
 const MdxNoteByFilePathPage = (): ReactNode => {
     const [searchParams] = useSearchParams();
@@ -39,8 +40,11 @@ const MdxNoteByFilePathPage = (): ReactNode => {
             </div>
         );
     }
-
-    return <MdxNotePage mdxGroup={content} />;
+    return (
+        <MdxProvidersGroup>
+            <MdxNotePage mdxGroup={content} />
+        </MdxProvidersGroup>
+    );
 };
 
 MdxNoteByFilePathPage.displayName = "MdxNoteByIdPage";

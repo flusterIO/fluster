@@ -58,7 +58,7 @@ export const MdxTocPanelRight = (): ReactNode => {
     };
     useEffect(() => {
         itemRef.current = item;
-    }, [item])
+    }, [item]);
     const getItem = async (fs_path: string): Promise<void> => {
         const res = await commands.getNoteGroupByFilePath(fs_path);
         if (res.status === "ok") {
@@ -81,22 +81,22 @@ export const MdxTocPanelRight = (): ReactNode => {
     const update = async (): Promise<void> => {
         const fsPath = searchParams.get("fsPath");
         if (!fsPath) {
-            return
+            return;
         }
         getItem(fsPath);
         getToc(fsPath);
         getBookmarked(fsPath);
-    }
+    };
 
     useEventListener("database-sync-success", () => {
         if (!itemRef.current) {
             update();
         }
-        update()
-    })
+        update();
+    });
 
     useEffect(() => {
-        update()
+        update();
         /* eslint-disable-next-line  --  */
     }, [fsPath]);
 
@@ -160,8 +160,8 @@ export const MdxTocPanelRight = (): ReactNode => {
                     <MdxTocPanelTagList tags={item.tags} />
                     <SingleTaggable item={item.front_matter.subject} taggable="Subject" />
                     <SingleTaggable item={item.front_matter.topic} taggable="Topic" />
+                    <H4 className="mb-2 w-full">Table of Contents</H4>
                     <div className="w-full max-w-full flex flex-col justfy-start items-start flex-grow overflow-y-auto overflow-x-hidden">
-                        <H4 className="mb-4">Table of Contents</H4>
                         {(Array.isArray(toc) ? toc : []).map((t) => {
                             return (
                                 <TocEntryComponent key={`${t.depth}-${t.body}`} depth={t.depth}>

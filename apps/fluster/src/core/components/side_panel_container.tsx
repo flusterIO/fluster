@@ -20,7 +20,7 @@ const SidePanelContainer = ({
         <div
             {...props}
             className={cn(
-                "px-0 py-4 flex flex-col justify-center items-center gap-6",
+                "px-0 pt-4 pb-2 flex flex-col justify-center items-center gap-6",
                 className
             )}
         >

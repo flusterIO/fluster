@@ -9,15 +9,21 @@ import { PlotContainer } from "../../plot_container";
 import Plot, { PlotParams } from "react-plotly.js";
 import { useAxisData } from "../../hooks/use_axis_data";
 import { useAxisDataWithXInput } from "../../hooks/use_axis_data_with_inputs";
+import { useMainPanelSize } from "../../../../../hooks/use_main_panel_size";
+import { sharedLayoutProps } from "../../shared_data/shared_layout_props";
+import { sharedPlotConfig } from "../../shared_data/shared_plot_config";
+import { usePlot } from "../../hooks/use_plot";
 
 export interface LinePlotProps extends GeneralPlotProps {
     x: AxisData<MathFunction, number[]>;
     y: AxisData<MathFunctionXDependent, number[]>;
 }
 
-export const LinePlotComponent = (props: LinePlotProps): ReactNode => {
+export const LinePlot = (props: LinePlotProps): ReactNode => {
     const x = useAxisData(props.x);
     const y = useAxisDataWithXInput(props.y, x);
+    const mainPanelSize = useMainPanelSize();
+    const ref = usePlot(props);
     const data: PlotParams | null = useMemo(() => {
         if (!x || !y) {
             return null;
@@ -34,62 +40,17 @@ export const LinePlotComponent = (props: LinePlotProps): ReactNode => {
             ],
             className: "rounded-xl",
             layout: {
-                autosize: true,
-                paper_bgcolor: "hsl(var(--background))",
-                plot_bgcolor: "hsl(var(--background))",
-                modebar: {
-                    remove: [
-                        "lasso2d",
-                        "select2d",
-                        "sendDataToCloud",
-                        "zoom2d",
-                        "pan2d",
-                        "zoomIn2d",
-                        "zoomOut2d",
-                        "autoScale2d",
-                        "resetScale2d",
-                        "hoverClosestCartesian",
-                        "hoverCompareCartesian",
-                        "zoom3d",
-                        "pan3d",
-                        "orbitRotation",
-                        "tableRotation",
-                        "handleDrag3d",
-                        "resetCameraDefault3d",
-                        "resetCameraLastSave3d",
-                        "hoverClosest3d",
-                        "zoomInGeo",
-                        "zoomOutGeo",
-                        "resetGeo",
-                        "hoverClosestGeo",
-                        "hoverClosestGl2d",
-                        "hoverClosestPie",
-                        "toggleHover",
-                        "toImage",
-                        "resetViews",
-                        "toggleSpikelines",
-                        "zoomInMapbox",
-                        "zoomOutMapbox",
-                        "resetViewMapbox",
-                        "togglespikelines",
-                        "togglehover",
-                        "hovercompare",
-                        "hoverclosest",
-                        "v1hovermode",
-                    ],
-                },
+                ...sharedLayoutProps,
+                width: Math.min(mainPanelSize?.width ?? 768, 1080),
             },
-            config: {
-                watermark: false,
-                showEditInChartStudio: false,
-                showSendToCloud: false,
-                showTips: false,
-                showLink: false,
-                modeBarButtons: false,
-                displayModeBar: false,
+            config: sharedPlotConfig,
+            style: {
+                width: "100%",
+                height: "auto",
             },
+            useResizeHandler: true,
         } satisfies PlotParams;
-    }, [x, y]);
+    }, [x, y, mainPanelSize]);
     if (!data) {
         return null;
     }
@@ -98,10 +59,11 @@ export const LinePlotComponent = (props: LinePlotProps): ReactNode => {
             InlineMdxContent={props.InlineMdxContent}
             title={props.title}
             desc={props.desc}
+            id={props.id}
         >
-            <Plot {...data} />
+            <Plot {...data} ref={ref} />
         </PlotContainer>
     );
 };
 
-LinePlotComponent.displayName = "LinePlot";
+LinePlot.displayName = "LinePlot";

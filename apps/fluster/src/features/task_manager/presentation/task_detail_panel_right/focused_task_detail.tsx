@@ -21,7 +21,7 @@ export const FocusedTaskDetail = ({
             {data.notes.trim().length ? (
                 <>
                     <div className="text-foreground/80 mt-4">Notes:</div>
-                    <div className="ml-6 h-full max-h-full overflow-y-auto">
+                    <div className="task-details-panel ml-6 h-full max-h-full overflow-y-auto">
                         <MdxContent mdx={data.notes} />
                     </div>
                     <div className="mt-4 w-full flex flex-row justify-end items-center">

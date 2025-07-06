@@ -7,32 +7,39 @@ import { GeneralCommandPaletteItem } from "../models/command_palette_item";
 import { ComponentDocsCommandPaletteRoot } from "./component_docs";
 
 export class EmbeddedDocsCommandPaletteRoot extends CommandPaletteCategory {
-  constructor() {
-    super("Documentation", "cmd-palette-docs");
-  }
-  filterByLocation(): boolean {
-    return true;
-  }
-  bottomBar(): ReactNode {
-    return null;
-  }
-  async getItems(): Promise<CommandPaletteAnyEntry[]> {
-    const items: CommandPaletteAnyEntry[] = Object.entries(
-      embeddedDocLabels
-    ).map((k) => {
-      return new GeneralCommandPaletteItem(k[1], k[1], async (nav) => {
-        nav(`${AppRoutes.embeddedDocs.toString()}/${encodeURI(k[0])}`);
-      });
-    });
+    constructor() {
+        super("Documentation", "cmd-palette-docs");
+    }
+    filterByLocation(): boolean {
+        return true;
+    }
+    bottomBar(): ReactNode {
+        return null;
+    }
+    async getItems(): Promise<CommandPaletteAnyEntry[]> {
+        const items: CommandPaletteAnyEntry[] = Object.entries(
+            embeddedDocLabels
+        ).map((k) => {
+            return new GeneralCommandPaletteItem(k[1], k[1], async (nav) => {
+                nav(`${AppRoutes.embeddedDocs.toString()}/${encodeURI(k[0])}`);
+            });
+        });
 
-    items.push(new ComponentDocsCommandPaletteRoot());
-    items.push(
-      new GeneralCommandPaletteItem(
-        "View all component docs",
-        "all-component-docs",
-        async (nav) => nav(AppRoutes.embeddedDocs)
-      )
-    );
-    return items;
-  }
+        items.push(new ComponentDocsCommandPaletteRoot());
+        items.push(
+            new GeneralCommandPaletteItem(
+                "Constants",
+                "constants-docs",
+                async (nav) => nav(AppRoutes.constantsTable)
+            )
+        );
+        items.push(
+            new GeneralCommandPaletteItem(
+                "View all component docs",
+                "all-component-docs",
+                async (nav) => nav(AppRoutes.embeddedDocs)
+            )
+        );
+        return items;
+    }
 }

@@ -378,22 +378,6 @@ async getSettingState() : Promise<Result<string, FlusterError>> {
     else return { status: "error", error: e  as any };
 }
 },
-async readMathjaxFontFile(subPath: string) : Promise<Result<string, FlusterError>> {
-    try {
-    return { status: "ok", data: await TAURI_INVOKE("read_mathjax_font_file", { subPath }) };
-} catch (e) {
-    if(e instanceof Error) throw e;
-    else return { status: "error", error: e  as any };
-}
-},
-async readMathjax(subPath: string) : Promise<Result<string, FlusterError>> {
-    try {
-    return { status: "ok", data: await TAURI_INVOKE("read_mathjax", { subPath }) };
-} catch (e) {
-    if(e instanceof Error) throw e;
-    else return { status: "error", error: e  as any };
-}
-},
 /**
  * Returns the string which points the location of mathjax that needs to be passed to the front
  * end. This is the location that mathjax is copied *to*, not from.

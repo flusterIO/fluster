@@ -22,6 +22,8 @@ import {
     EqRef,
     DictionaryEntry,
     EquationTag,
+    PlotRef,
+    AppRoute,
 } from "@fluster.io/dev";
 import { MDXComponents } from "mdx/types";
 import {
@@ -36,6 +38,7 @@ import { InlineMdxContent } from "#/mdx/presentation/inline_mdx_content";
 import { commands } from "@/lib/bindings";
 import { WrappedCodeBlock } from "#/mdx/presentation/wrapped_components/code";
 import { WrappedLinePlot } from "#/mdx/presentation/wrapped_components/plots/line_plot";
+import { WrappedScatterPlot } from "#/mdx/presentation/wrapped_components/plots/scatter_plot";
 
 interface ComponentMapItem {
     /// A regex that will return true if this component is to be included in the component map. This will be prepended with a `<`, so the name should match the component as it will be used in the user's note.
@@ -74,9 +77,19 @@ const items: ComponentMapItem[] = [
         query: "Abstract",
         component: Abstract,
     },
+    //    -- Plots --
+    {
+        query: "ScatterPlot",
+        component: WrappedScatterPlot,
+    },
     {
         query: "LinePlot",
         component: WrappedLinePlot,
+    },
+
+    {
+        query: "PlotRef",
+        component: PlotRef,
     },
     // -- Layout --
     {
@@ -151,6 +164,11 @@ const items: ComponentMapItem[] = [
     {
         query: "EquationTag",
         component: EquationTag,
+    },
+    // -- Documentation Only --
+    {
+        query: "AppRoute",
+        component: AppRoute,
     },
 ];
 

@@ -19,11 +19,12 @@ export const useAxisDataWithXInput = (
         d: AxisData<MathFunctionXDependent, XReturn>,
         x: ArrayDataWithProps<XReturn> | null
     ): Promise<void> => {
+        if (!x) {
+            return;
+        }
         if (typeof d === "function") {
             const mathProps = getMathProps();
-            const res = x?.data.map((_x) =>
-                (d as MathFunctionXDependent)(mathProps, _x)
-            );
+            const res = (d as MathFunctionXDependent)(mathProps, x?.data);
             if (Array.isArray(res)) {
                 return setValue({
                     data: res,

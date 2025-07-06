@@ -10,40 +10,40 @@ import { admonitionTitleIconClasses } from "./admonition_title";
 const ChevronUp = motion.create(ChevronIcon);
 
 interface Props extends AdmonitionTitleProps {
-  open: boolean;
-  setOpen: (newOpen: boolean) => void;
-  children: ReactNode;
+    open: boolean;
+    setOpen: (newOpen: boolean) => void;
+    children: ReactNode;
 }
 
 const FoldableAdmonitionTitle = (props: Props): ReactNode => {
-  return (
-    <div
-      className={cn(
-        "w-full pl-2 pr-4 pt-2 rounded-tl rounded-tr relative cursor-pointer z-[1] min-h-[42px]",
-        getTitleVariantClasses(props.type)
-      )}
-      onClick={() => props.setOpen(!props.open)}
-    >
-      <AdmonitionVariantIcon
-        className={admonitionTitleIconClasses}
-        variant={props.type}
-      />
-      <span className="mr-6 inline-block w-[calc(100%-4rem)]">
-        {props.children}
-      </span>
-      <ChevronUp
-        className="absolute top-2 right-2"
-        variants={{
-          folded: {
-            rotate: 0,
-          },
-          open: {
-            rotate: 180,
-          },
-        }}
-      />
-    </div>
-  );
+    return (
+        <div
+            className={cn(
+                "w-full pl-2 pr-4 pt-2 rounded-tl rounded-tr relative cursor-pointer z-[1] min-h-[42px] font-semibold",
+                getTitleVariantClasses(props.type)
+            )}
+            onClick={() => props.setOpen(!props.open)}
+        >
+            <AdmonitionVariantIcon
+                className={admonitionTitleIconClasses}
+                variant={props.type}
+            />
+            <span className="mr-6 inline-block w-[calc(100%-4rem)]">
+                {props.children}
+            </span>
+            <ChevronUp
+                className="absolute top-2 right-2"
+                variants={{
+                    folded: {
+                        rotate: 0,
+                    },
+                    open: {
+                        rotate: 180,
+                    },
+                }}
+            />
+        </div>
+    );
 };
 
 FoldableAdmonitionTitle.displayName = "FoldableAdmonitionTitle";

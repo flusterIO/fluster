@@ -1,0 +1,49 @@
+# [build-system]
+# build-backend = "nuitka"
+# requires = ["nuitka"]
+
+
+[project]
+name = "fluster-py"
+dynamic = ["version"]
+authors = [{ name = "Andrew Mueller", email = "aiglinski414@gmail.com" }]
+description = "Provides an interface to data held by the Fluster ecosystem."
+keywords = [
+    "note taking",
+    "jupyter",
+    "mdx",
+    "STEM",
+    "physics",
+    "math",
+    "science",
+    "academic",
+]
+
+readme = { file = "README.md" }
+requires-python = ">=3.12"
+dependencies = [
+    "langchain>=0.3.25",
+    "langchain-community>=0.3.23",
+    "neo4j>=5.28.1",
+    "python-dotenv>=1.1.0",
+]
+
+[tool.setuptools_scm]
+version_file = "pkg/_version.py"
+
+[project.urls]
+Homepage = "https://ulld.vercel.app"
+Documentation = "https://ulld.vercel.app"
+Repository = "https://github.com/Uh-little-less-dum/fluster"
+Changelog = "https://github.com/Uh-little-less-dum/fluster/blob/main/CHANGELOG.md"
+
+
+[tool.setuptools.packages.find]
+where = ["./src"]
+
+[tool.setuptools.dynamic]
+version = { attr = "fluster_py.__version__" }
+
+# [[tool.uv.index]]
+# url = "https://test.pypi.org/simple"
+# default = true

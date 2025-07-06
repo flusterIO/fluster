@@ -1,6 +1,6 @@
 import { FC } from "react";
 import { AxisGeneratorProps } from "../../../../lib/bindings";
-import { Numpy } from "../../../../math/numpy";
+import { FlusterArray } from "../../../../math/numpy";
 import { Constants } from "../../../../math/constants";
 
 export type ArrayData = number[] | number[][] | number[][][];
@@ -8,6 +8,7 @@ export type ArrayData = number[] | number[][] | number[][][];
 export interface PlotContainerProps {
     title?: string;
     desc?: string;
+    id?: string;
     InlineMdxContent: FC<{ mdx: string }>;
 }
 
@@ -16,8 +17,10 @@ export type ArrayDataWithProps<T extends ArrayData> = Omit<
     "min" | "max" | "count"
 > & { data: T };
 
-export interface MathFunctionProps {
-    np: () => Numpy;
+export interface ExtendedMath {
+    arr: () => FlusterArray;
+    arrOfLength: (length: number) => FlusterArray;
+    arrFromData: (data: number[]) => FlusterArray;
     constants: () => Constants;
 }
 
@@ -27,16 +30,16 @@ export type MathFunctionReturn<T extends ArrayData> =
     | ArrayDataWithProps<T>;
 
 export type MathFunction = <T extends ArrayData>(
-    props: MathFunctionProps
+    props: ExtendedMath
 ) => MathFunctionReturn<T>;
 
 export type MathFunctionXDependent = (
-    props: MathFunctionProps,
-    x: number
-) => number;
+    props: ExtendedMath,
+    x: number[]
+) => number[];
 
 export type MathFunctionXYDependent = (
-    props: MathFunctionProps,
+    props: ExtendedMath,
     x: number,
     y: number
 ) => number;

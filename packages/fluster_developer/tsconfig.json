@@ -8,6 +8,7 @@
         "allowUmdGlobalAccess": true,
         "resolveJsonModule": true,
         "isolatedModules": true,
+        "sourceMap": true,
         "noEmit": true,
         "allowJs": false,
         "skipLibCheck": true,

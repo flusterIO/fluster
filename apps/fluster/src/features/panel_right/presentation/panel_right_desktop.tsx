@@ -24,9 +24,9 @@ const PanelRightDesktop = connector(
                 <Panel
                     id="panel-right"
                     defaultSize={25}
-                    /* minSize={64} */
+                    maxSize={50}
                     order={order}
-                    className="border-l h-full pt-8 px-6 pb-6 relative origin-right !overflow-y-auto"
+                    className="border-l h-full pt-8 px-6 pb-2 relative origin-right !overflow-y-auto"
                     onResize={() => {
                         window.dispatchEvent(
                             new CustomEvent("panel-resize", {

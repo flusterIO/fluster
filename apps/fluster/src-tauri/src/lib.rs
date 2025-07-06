@@ -209,10 +209,10 @@ pub fn run() {
         .typ::<SearchOrder>()
         .typ::<InternalEmbeddedDocsId>()
         .typ::<SyncFilesystemDirectoryOptions>();
-    #[cfg(target_os = "macos")]
-    {
-        println!("cargo:rustc-link-arg=-Wl,-rpath,/opt/homebrew/Cellar/libiconv/1.18/lib");
-    }
+    // #[cfg(target_os = "macos")]
+    // {
+    //     println!("cargo:rustc-link-arg=-Wl,-rpath,/opt/homebrew/Cellar/libiconv/1.18/lib");
+    // }
     #[cfg(debug_assertions)] // So we don't export types on release builds.
     cmds.export(
         Typescript::default().bigint(specta_typescript::BigIntExportBehavior::String),

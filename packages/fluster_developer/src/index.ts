@@ -26,9 +26,14 @@ export * from "./components/attention_getters/hint/index";
 //     -- Academic --
 export * from "./embeddable_components/academic/abstract/index";
 //     -- Plot --
+export * from "./embeddable_components/academic/plots/utils/plots_provider/provider";
+export * from "./embeddable_components/academic/plots/utils/plots_provider/context";
 export * from "./embeddable_components/academic/plots/2d/line_plot/index";
+export * from "./embeddable_components/academic/plots/2d/scatter_plot/index";
+export * from "./embeddable_components/academic/plots/utils/plot_ref";
 //     -- Math --
 export * from "./math/numpy/index";
+export * from "./math/constants/index";
 //    -- Utility --
 export * from "./embeddable_components/util/div";
 export * from "./embeddable_components/util/equation_reference/eq_ref_wrapper";
@@ -132,5 +137,7 @@ export * from "./components/shad/toggle";
 export * from "./components/shad/tooltip";
 // -- Types --
 export * from "./types/general";
+//  -- Utility and Documentation Components --
+export * from "./utils/embedded_app_route";
 // -- Plugin Stuff --
 export * from "./utils/plugin_utils/component_config";

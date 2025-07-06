@@ -1,10 +1,12 @@
 import { Constants } from "../../../../math/constants";
-import { Numpy } from "../../../../math/numpy";
-import { MathFunctionProps } from "../types/plot_types";
+import { FlusterArray } from "../../../../math/numpy";
+import { ExtendedMath } from "../types/plot_types";
 
-export const getMathProps = (): MathFunctionProps => {
+export const getMathProps = (): ExtendedMath => {
     return {
-        np: () => new Numpy(),
+        arr: () => new FlusterArray(),
+        arrOfLength: (length: number) => FlusterArray.fromLength(length),
+        arrFromData: (data: number[]) => FlusterArray.fromData(data),
         constants: () => new Constants(),
     };
 };

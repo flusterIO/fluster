@@ -23,113 +23,118 @@ import { ScaffoldWithRightPanelOnly } from "../presentation/scaffold_right_panel
 import SearchResultsPage from "#/search/presentation/search_results_page/index";
 import { SemanticSearchResultsPage } from "#/search/presentation/semantic_search_results_page";
 import { NotebookPage } from "#/jupyter/presentation/notebook_page";
+import { ConstantsPage } from "#/math/presentation/constants_page/constants_page";
 
 export const getBrowserRouter = () => {
-  return createBrowserRouter([
-    {
-      path: AppRoutes.onboarding,
-      Component: OnboardingPage,
-    },
-    {
-      Component: DesktopScaffold,
-      children: [
-        { index: true, Component: DashboardPage },
+    return createBrowserRouter([
+        {
+            path: AppRoutes.onboarding,
+            Component: OnboardingPage,
+        },
+        {
+            Component: DesktopScaffold,
+            children: [
+                { index: true, Component: DashboardPage },
 
-        {
-          path: AppRoutes.search,
-          Component: SearchResultsPage,
+                {
+                    path: AppRoutes.search,
+                    Component: SearchResultsPage,
+                },
+                {
+                    path: AppRoutes.dashboard,
+                    Component: DashboardPage,
+                },
+                {
+                    path: AppRoutes.settings,
+                    Component: SettingsPage,
+                },
+                {
+                    path: AppRoutes.bibliography,
+                    Component: BibliographyPage,
+                },
+                {
+                    path: AppRoutes.dictionary,
+                    Component: DictionaryPage,
+                },
+                {
+                    path: AppRoutes.kanbanBoards,
+                    Component: KanbanBoardList,
+                },
+                {
+                    path: AppRoutes.splitViewEditMdx,
+                    Component: EditNoteSplitViewPage,
+                },
+                {
+                    path: AppRoutes.notebookInteractive,
+                    Component: NotebookPage,
+                },
+                {
+                    path: AppRoutes.constantsTable,
+                    Component: ConstantsPage,
+                },
+                {
+                    path: AppRoutes.embeddedDocs,
+                    children: [
+                        { index: true, Component: EmbeddedDocsDashboardPage },
+                        {
+                            path: ":id",
+                            loader: async ({ params }) => {
+                                const id = params.id as InternalEmbeddedDocsId;
+                                const res = await commands.getEmbeddedDoc(id);
+                                const withoutFrontMatter = await commands.removeFrontMatter(
+                                    res
+                                );
+                                return {
+                                    content: withoutFrontMatter,
+                                };
+                            },
+                            Component: EmbeddedDocsByIdPage,
+                        },
+                    ],
+                },
+                {
+                    path: AppRoutes.bookmarks,
+                    Component: BookmarksPage,
+                },
+                {
+                    Component: ScaffoldWithRightPanelOnly,
+                    children: [
+                        {
+                            path: AppRoutes.pdf,
+                            Component: PdfPage,
+                        },
+                        {
+                            path: AppRoutes.semanticSearch,
+                            Component: SemanticSearchResultsPage,
+                        },
+                    ],
+                },
+                {
+                    Component: ScaffoldWithSidePanels,
+                    children: [
+                        {
+                            path: AppRoutes.taskLists,
+                            Component: TaskListsPage,
+                        },
+                        {
+                            path: AppRoutes.viewMdxNote,
+                            Component: MdxNoteByFilePathPage,
+                        },
+                        {
+                            path: AppRoutes.aiMainChat,
+                            Component: AiChatPage,
+                        },
+                        {
+                            path: AppRoutes.equations,
+                            Component: EquationsPage,
+                        },
+                        {
+                            path: AppRoutes.snippets,
+                            Component: SnippetsPage,
+                        },
+                    ],
+                },
+            ],
         },
-        {
-          path: AppRoutes.dashboard,
-          Component: DashboardPage,
-        },
-        {
-          path: AppRoutes.settings,
-          Component: SettingsPage,
-        },
-        {
-          path: AppRoutes.bibliography,
-          Component: BibliographyPage,
-        },
-        {
-          path: AppRoutes.dictionary,
-          Component: DictionaryPage,
-        },
-        {
-          path: AppRoutes.kanbanBoards,
-          Component: KanbanBoardList,
-        },
-        {
-          path: AppRoutes.splitViewEditMdx,
-          Component: EditNoteSplitViewPage,
-        },
-        {
-          path: AppRoutes.notebookInteractive,
-          Component: NotebookPage,
-        },
-        {
-          path: AppRoutes.embeddedDocs,
-          children: [
-            { index: true, Component: EmbeddedDocsDashboardPage },
-            {
-              path: ":id",
-              loader: async ({ params }) => {
-                const id = params.id as InternalEmbeddedDocsId;
-                const res = await commands.getEmbeddedDoc(id);
-                const withoutFrontMatter = await commands.removeFrontMatter(
-                  res
-                );
-                return {
-                  content: withoutFrontMatter,
-                };
-              },
-              Component: EmbeddedDocsByIdPage,
-            },
-          ],
-        },
-        {
-          path: AppRoutes.bookmarks,
-          Component: BookmarksPage,
-        },
-        {
-          Component: ScaffoldWithRightPanelOnly,
-          children: [
-            {
-              path: AppRoutes.pdf,
-              Component: PdfPage,
-            },
-            {
-              path: AppRoutes.semanticSearch,
-              Component: SemanticSearchResultsPage,
-            },
-          ],
-        },
-        {
-          Component: ScaffoldWithSidePanels,
-          children: [
-            {
-              path: AppRoutes.taskLists,
-              Component: TaskListsPage,
-            },
-            {
-              path: AppRoutes.viewMdxNote,
-              Component: MdxNoteByFilePathPage,
-            },
-            {
-              path: AppRoutes.aiMainChat,
-              Component: AiChatPage,
-            },
-            {
-              path: AppRoutes.equations,
-              Component: EquationsPage,
-            },
-            {
-              path: AppRoutes.snippets,
-              Component: SnippetsPage,
-            },
-          ],
-        },
-      ],
-    },
-  ]);
+    ]);
 };

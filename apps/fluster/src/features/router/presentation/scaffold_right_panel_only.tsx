@@ -9,7 +9,19 @@ export const ScaffoldWithRightPanelOnly = (): ReactNode => {
             autoSaveId={"scaffold-panels-right-only"}
             direction="horizontal"
         >
-            <Panel order={1} defaultSize={50}>
+            <Panel
+                order={1}
+                defaultSize={50}
+                onResize={(s) =>
+                    window.dispatchEvent(
+                        new CustomEvent("main-panel-resize", {
+                            detail: {
+                                width: s,
+                            },
+                        })
+                    )
+                }
+            >
                 <div
                     data-main-panel
                     id="scroll-target"

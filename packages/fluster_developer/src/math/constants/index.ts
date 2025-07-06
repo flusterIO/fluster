@@ -1,4 +1,4 @@
-class ConstantValue {
+export class ConstantValue {
     label: string;
     value: number;
     unit: string;

@@ -1,4 +1,5 @@
 import { MdxContent } from "#/mdx/presentation/mdx_content";
+import { MdxProvidersGroup } from "#/mdx/presentation/mdx_provider_group";
 import React, { type ReactNode } from "react";
 import { useLoaderData } from "react-router";
 
@@ -12,7 +13,9 @@ const EmbeddedDocsByIdPage = (): ReactNode => {
             }
         >
             <div className="w-[min(1080px,90%)]">
-                <MdxContent mdx={data.content} />
+                <MdxProvidersGroup>
+                    <MdxContent mdx={data.content} />
+                </MdxProvidersGroup>
             </div>
         </div>
     );

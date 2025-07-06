@@ -10,7 +10,19 @@ export const ScaffoldWithSidePanels = (): ReactNode => {
         <PanelGroup autoSaveId={"scaffold-panels"} direction="horizontal">
             <SnippetProvider>
                 <PanelLeftDesktop />
-                <Panel order={2} defaultSize={50}>
+                <Panel
+                    order={2}
+                    defaultSize={50}
+                    onResize={(s) =>
+                        window.dispatchEvent(
+                            new CustomEvent("main-panel-resize", {
+                                detail: {
+                                    width: s,
+                                },
+                            })
+                        )
+                    }
+                >
                     <div
                         data-main-panel
                         id="scroll-target"

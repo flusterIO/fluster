@@ -23,16 +23,14 @@ export const useMainPanelSize = (): Size | null => {
             height: rect.height,
         });
     };
-    useEventListener("panel-resize", () => {
+    useEventListener("main-panel-resize", () => {
         handleSize();
     });
 
     useEffect(() => {
         const em = getEm();
         handleSize();
-        if (!em) {
-            return;
-        } else {
+        if (em) {
             em.addEventListener("resize", handleSize);
         }
         window.addEventListener("resize", handleSize);
