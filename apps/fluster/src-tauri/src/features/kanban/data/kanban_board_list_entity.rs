@@ -18,7 +18,7 @@ use crate::{
     features::search::types::PaginationProps,
 };
 
-use super::kanban_board_entry_model::KanbanBoardListModel;
+use super::kanban_board_list_model::KanbanBoardListModel;
 
 pub struct KanbanBoardListEntity {}
 
