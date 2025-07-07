@@ -43,7 +43,7 @@ jobs:
       - name: Install build dependencies (windows only)
         if: matrix.platform == 'windows-latest'
         run: |
-          winget install protobuf
+          winget install protobuf --accept-source-agreements --accept-package-agreements
       - name: install dependencies (mac only)
         if: matrix.platform == 'macos-latest' # This must match the platform value defined above.
         run: brew install protobuf libiconv
