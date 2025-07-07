@@ -1,6 +1,10 @@
 # Release
 
-> None of this is working yet. These docs are a work in progress, right now just helping me to not forget what I did in case one of them accidentally works.
+## Preparing for release
+
+- [ ] `FlusterMake -> nocheck bindings file` to tackle error in generated binding files.
+- [ ] `pnpm typecheck` to check typescript errors.
+- [ ] `cargo check` to check rust errors
 
 ## Release Node Packages
 
