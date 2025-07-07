@@ -1,5 +1,11 @@
 # @fluster.io/dev
 
+## 0.0.11
+
+### Patch Changes
+
+- Update to force release.
+
 ## 0.0.10
 
 ### Patch Changes

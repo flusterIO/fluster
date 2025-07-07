@@ -1,6 +1,6 @@
 {
     "name": "fluster",
-    "version": "0.1.9",
+    "version": "0.1.10",
     "funding": [
         {
             "type": "paypal",
@@ -45,7 +45,7 @@
         "@citation-js/plugin-bibtex": "0.7.18",
         "@citation-js/plugin-csl": "0.7.18",
         "@datalayer/jupyter-react": "^1.0.1",
-        "@fluster.io/dev": "0.0.10",
+        "@fluster.io/dev": "0.0.11",
         "@google/model-viewer": "^4.1.0",
         "@hookform/resolvers": "5.0.1",
         "@lancedb/lancedb": "^0.19.1",
