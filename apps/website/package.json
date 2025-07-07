@@ -20,7 +20,6 @@
         "build": "next build",
         "dev": "next dev",
         "lint": "next lint",
-        "postinstall": "fumadocs-mdx",
         "transpileTailwind": "tsc -p ./tsconfig.tailwind.json",
         "start": "next start",
         "typecheck": "tsc --noEmit -p ./tsconfig.json"

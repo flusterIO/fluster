@@ -71,7 +71,15 @@ jobs:
           distPath: apps/fluster/dist
           tagName: app-v__VERSION__ # the action automatically replaces \_\_VERSION\_\_ with the app version.
           releaseName: "App v__VERSION__"
-          releaseBody: "See the assets to download this version and install. Use aarch64 for a mac with an apple chip, x64.dmg for an intel based mac, .deb or .AppImage for linux,  and .exe or .msi for Windows."
+          releaseBody: |
+            See the assets to download this version and install.
+
+            | Architecture | File |
+            | ------------ | ---- |
+            | Mac (Apple chip) | Fluster_aarch64.app.tar.gz |
+            | Mac (intel chip) | Fluster_x64.app.tar.gz |
+            | Windows | .msi or .exe |
+            | Linux | .deb or .AppImage |
           releaseDraft: true
           prerelease: false
           tauriScript: pnpm tauri

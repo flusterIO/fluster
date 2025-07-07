@@ -7,6 +7,7 @@ import { Book, Brain, Download, Globe, Sparkles, Zap } from "lucide-react";
 import { Badge } from "#/core/shad/ui/badge";
 import { cn } from "#/core/utils/cn";
 import { buttonVariants } from "#/core/shad/ui/button";
+import { staticContent } from "#/core/static_content";
 
 const MotionLink = motion.create(Link);
 
@@ -77,7 +78,7 @@ const HeroSection = () => {
                     }
                 >
                     <MotionLink
-                        href={"/downloads"}
+                        href={staticContent.links.github.releases}
                         className={cn(
                             "z-10 bg-gradient-to-r from-blue-600 to-primary hover:from-blue-700 hover:to-primary",
                             buttonVariants()

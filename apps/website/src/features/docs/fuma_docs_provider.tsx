@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import { RootProvider } from "fumadocs-ui/provider";
 import React, { type ReactNode } from "react";
 

@@ -13,6 +13,9 @@ export const staticContent = {
             twitter: "https://x.com/uhlittlelessdum",
             discord: "https://discord.gg/FUA88wwqUM",
         },
+        github: {
+            releases: "https://github.com/flusterIO/fluster/releases",
+        },
         fund: {
             paypalDonate:
                 "https://www.paypal.com/donate/?hosted_button_id=W22RTUJ2RPZDU",
