@@ -71,7 +71,7 @@ jobs:
           distPath: apps/fluster/dist
           tagName: app-v__VERSION__ # the action automatically replaces \_\_VERSION\_\_ with the app version.
           releaseName: "App v__VERSION__"
-          releaseBody: "See the assets to download this version and install."
+          releaseBody: "See the assets to download this version and install. Use aarch64 for a mac with an apple chip, x64.dmg for an intel based mac, .deb or .AppImage for linux,  and .exe or .msi for Windows."
           releaseDraft: true
           prerelease: false
           tauriScript: pnpm tauri
