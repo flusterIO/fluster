@@ -37,15 +37,6 @@ jobs:
         with:
           # Those targets are only used on macos runners so it's in an `if` to slightly speed up windows and linux builds.
           targets: ${{ matrix.platform == 'macos-latest' && 'aarch64-apple-darwin,x86_64-apple-darwin' || '' }}
-      - name: install dependencies (windows only)
-        uses: msys2/setup-msys2@v2
-        if: matrix.platform == 'windows-latest' # This must match the platform value defined above.
-        with:
-          msystem: UCRT64
-          update: true
-          install: git mingw-w64-ucrt-x86_64-libgcrypt mingw-w64-ucrt-x86_64-gcc
-          # webkitgtk 4.0 is for Tauri v1 - webkitgtk 4.1 is for Tauri v2.
-          # You can remove the one that doesn't apply to your app to speed up the workflow a bit.
       - name: Install winget
         uses: Cyberboss/install-winget@v1
         if: matrix.platform == 'windows-latest'
