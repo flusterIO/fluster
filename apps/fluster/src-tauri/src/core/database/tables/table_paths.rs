@@ -69,4 +69,13 @@ pub enum DatabaseTables {
     AiChatRequest,
     #[strum(to_string = "ai_chat_response")]
     AiChatResponse,
+    // -- Kanban Boards --
+    #[strum(to_string = "kanban_board")]
+    KanbanBoard,
+    #[strum(to_string = "kanban_board_task_list")]
+    KanbanBoardTaskList,
+    #[strum(to_string = "kanban_board_entry")]
+    KanbanBoardEntry,
+    #[strum(to_string = "kanban_board_list")]
+    KanbanBoardList,
 }

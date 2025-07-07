@@ -22,7 +22,7 @@
 - `git merge main` to merge main branch with release branch after pushing packages on main branch.
 - Manually update version of `@fluster.io/dev` in `apps/fluster/package.json` to match recently published version to get around issue with pnpm workspace dependencies.
 - `pnpm install` to update lock files to match the remote version.
-- Add, commit and push to trigger release.
+- `git add --all` & `git commit -m "Push release"`
 
 ## Revert back to local development
 

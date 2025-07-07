@@ -68,7 +68,6 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NODE_OPTIONS: "--max_old_space_size=4096"
-          FLUSTER_NATIVE_ROOT: /Users/runner/work/fluster/fluster
         with:
           projectPath: apps/fluster
           distPath: apps/fluster/dist

@@ -4,7 +4,7 @@ use crate::core::types::errors::errors::{FlusterError, FlusterResult};
 
 use super::data::internal_embedded_docs_id::InternalEmbeddedDocsId;
 
-static DOCS: Dir = include_dir!("$FLUSTER_NATIVE_ROOT/docs/embedded");
+static DOCS: Dir = include_dir!("$CARGO_MANIFEST_DIR/src/features/embedded_docs/embedded_docs");
 
 #[tauri::command]
 #[specta::specta]

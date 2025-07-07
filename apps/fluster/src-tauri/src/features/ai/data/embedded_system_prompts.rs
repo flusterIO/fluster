@@ -10,7 +10,7 @@ pub enum EmbeddedSystemPromptId {
 }
 
 static EMBEDDED_SYSTEM_PROMPTS: Dir =
-    include_dir!("$FLUSTER_NATIVE_ROOT/apps/fluster/src-tauri/src/features/ai/data/system_prompts");
+    include_dir!("$CARGO_MANIFEST_DIR/src/features/ai/data/system_prompts");
 
 pub fn get_embedded_system_prompt(id: EmbeddedSystemPromptId) -> String {
     match id {

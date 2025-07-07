@@ -1,0 +1,30 @@
+---
+title: Admonition
+---
+
+
+# Admonition
+
+
+<Admonition title="The title will always be visible" foldable>
+   Draw attention to your most important content!
+</Admonition>
+
+
+## Props
+
+| key | type | desc |
+| --- | ---- | ---- |
+| title | `string` | The title shown in the colored bar. | 
+| foldable | `boolean?` | Wehther not the admonition should be collapsible. | 
+| folded | `boolean?` | If true, the admontion will started in a folded position. This has no effect if `foldable` is not also set. | 
+| variant | `AdmonitionVariant` | The variant to be used. Defaults to 'primary' |
+
+
+### AdmonitionVariant
+
+Admonition variant is an enum (a string, but a specific set of strings). These are the currently supported values.
+
+```ts
+type AdmonitionVariant = "info" | "error" | "warn" | "success"
+```

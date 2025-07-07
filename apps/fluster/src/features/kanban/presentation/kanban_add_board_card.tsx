@@ -5,7 +5,7 @@ import { KanbanActions, useKanbanDispatch } from "../state/kanban_provider";
 const KanbanAddBoardCard = (): ReactNode => {
     const dispatch = useKanbanDispatch();
     return (
-        <div className="w-full h-fit p-6">
+        <div className="w-full h-full p-6 border rounded">
             <Button
                 onClick={() => {
                     dispatch({

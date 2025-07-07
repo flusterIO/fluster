@@ -1,0 +1,242 @@
+---
+title: Quick Reference
+---
+
+## Default Keymaps
+
+| Function | Default Keymap |
+| -------- | -------------- |
+| Toggle Command Palette | `cmd+p` |
+| Toggle Editor Command Palette (in editor only) | `cmd+shift+p` |
+| Scroll main panel down | `j` |
+| Scroll main panel up | `k` |
+| Toggle Left Panel | `cmd+shift+l` |
+| Toggle Right Panel | `cmd+shift+r` |
+| Refresh | `cmd+r` |
+| Sync without AI | `cmd+b` |
+j
+## Syntax Reference
+
+### Text & Markdown Reference
+
+> `*` and `_` characters are actually interchangable.
+
+| Description | Syntax | Example |
+| ----------- | ------ | ------- |
+| Italic | `_italic text_{:mdx}` | _italic text_ |
+| Bold | `**bold text**{:mdx}` | **bold text** |
+| Bold & Italic | `**_bold & italic text_**{:mdx}` | **_bold & italic text_** |
+| Strikethrough | `~~strikethrough~~{:mdx}` | ~~strikethrough~~ |
+
+Start a line with 1-6 `#` symbols to create a title; 1 being the largest title, and 6 the smallest.
+
+Start a file with `yaml` content to define your note's front matter by placing that `yaml` content between dashed lines:
+
+```yaml
+---
+title: Quick Reference
+id: myNoteId
+---
+```
+
+### Code
+
+Define a code block with 3 or more backticks and the language:
+
+````mdx
+```python
+def gamma():
+    return 1 / np.sqrt(1 - v**2 / spc.c**2)
+```
+````
+
+You can optionally define a title with:
+
+````mdx
+```python title="gamma.py"
+def gamma():
+    return 1 / np.sqrt(1 - v**2 / spc.c**2)
+```
+````
+
+which will then output 
+
+```python title="gamma.py"
+def gamma():
+    return 1 / np.sqrt(1 - v**2 / spc.c**2)
+```
+
+
+You can highlight a piece of code based on a regular expression using:
+
+````mdx
+```python "spc"
+def gamma():
+    return 1 / np.sqrt(1 - v**2 / spc.c**2)
+```
+````
+
+Which then gives:
+
+```python "spc"
+def gamma():
+    return 1 / np.sqrt(1 - v**2 / spc.c**2)
+```
+
+
+#### Inline Code
+
+You can define a bit of inline code using single backticks, `` `my_code.py` ``, and you can optionally provide the language with the following syntax:
+
+````mdx
+My inline python code `import numpy{:python}`
+````
+
+Which will then output:
+
+My inline python code `import numpy{:python}`
+
+
+
+#### Markdown
+
+All github flavor markdown features are supported, and quite a few additional features including support for emojis.
+
+For example, to add a table you can use the following syntax
+
+````mdx
+| Description | Syntax | Example |
+| ----------- | ------ | ------- |
+| Italic | `_italic text_{:mdx}` | _italic text_ |
+| Bold | `**bold text**{:mdx}` | **bold text** |
+````
+
+Which will generate a table identical to what is at the top of this reference note.
+
+Make a piece of text stand out as a `blockquote` with a leading `>` character, to get:
+
+```mdx 
+> My block quote
+```
+
+> My block quote
+
+Or add a horizontal splitter with three dashed lines or three underscores:
+
+```mdx 
+---
+```
+
+Which gives the following line:
+
+---
+
+
+<Admonition title="Don't forget the 'x' in mdx">
+    All of the features described here are part of the markdown functionality Fluster supports. One of the primary features Fluster offers over alternative applications is the ability to support React components through mdx. A growing list of these components is provided for you, and support for plugins to expand upon this list will be available this fall.
+
+    To get the most from Fluster, explore the component documentation where examples of every component are given, along with the props you can provide to change the look and behavior of your notes. This extends the functionality of Fluster far beyond what markdown alone is capable of.
+    
+    If you are new to React or `jsx`, checkout the _Intro to jsx_ article in the embedded documentation. You don't need to know how to create your own components, just how to insert them where you need them. It's just as simple as markdown.
+</Admonition>
+
+## Fluster Specific Syntax
+
+### Tag
+
+This will generate a tag in your mdx note that can be used to group related thoughts. This is useful both for navigation and for providing valuable information to Fluster's AI.
+
+```mdx
+This is my [[#my_tag]] here.
+```
+
+When you create tags in this manner, your notes are linked in a web of references which is then passed to AI & search features. There are 3 entities that occupy _mostly_ the same functionality: 
+
+- Topic
+- Subject
+- Tag
+
+All 3 of these entities are passed to Fluster's AI, saved in the database, and used for search & navigation, but they differ in how they are applied. Any note can have as many tags as it needs, while each note can have at most 1 topic and 1 subject. This makes topics and subjects ideal for being set automatically based on file globs (feature available in coming weeks) or via the `topic` and `subject` field in a note's front matter, while tags are best defined directly within your mdx using the syntax above.
+
+All 3 of these entities are then searchable via the command palette, and all 3 are available within the side panel of a note for easy navigation if a note contains the field in question.
+
+
+### Citation
+
+This will embed a citation in your note formatted according to the optional `.csl` file in your notes directory. 
+
+```mdx
+This is my [[cite:Pound_Rebka]] here.
+```
+
+The id field in this syntax, `Pound_Rebka` in this case, must match the key in the `.bib` file provided to Fluster on the settings page:
+
+```bibtex title="citations.bib"
+@article{Pound_Rebka,
+    author = {{R. V. Pound and G. A. Rebka, Jr.}},
+    journal = {{Physical Review Letters}},
+    number = {9},
+    title = {{Gravitational Red-Shift in Nuclear Resonance}},
+    volume = {3},
+    pages = {439-441},
+    year = {1959},
+    month = {{November}},
+}
+```
+
+Fluster will then make notes searchable by citation, give you the ability to link pdf's to each citiation and more. Simpy click on a citation at the bottom of any note for more information about that entry, find related notes, or view linked pdfs.
+
+### Equation Tag
+
+This is similar to a regular tag, but this tag specifically references an equation. When you create an equation on the equations page, there is an optional id field. You can then reference your equation in your note using the following syntax. This tag, like other tags, is saved in your database and used for searching and navigation, but unlike normal tags this tag offers information about the equation in question when clicked.
+
+```mdx
+This is equation [[eq:my_equation_id]] is important here.
+```
+
+### Dictionary Entry
+
+<Hint>
+    Each dictionary entry links back to the note where it was created, making these a useful tool for navigation.
+</Hint>
+
+You can add an entry in your dictionary using the following syntax anywhere within your note. All fields accept the same mdx that is applied elsewhere throughout your note. The dictionary will then be updated when you synchronize your notes, with or without generating vectors.
+
+````mdx 
+```dictionary -- My Dictionary Entry 
+The body of my dictionary Entry
+```
+````
+
+
+### Note Reference
+
+Link to a note by the `id` field in that note's front matter. Be aware that this note will not be found until your database is synchronized (cmd+b by default).
+
+```mdx
+This is a link to a [note by id](note:myNotesId)
+```
+
+---
+
+### Tips
+
+#### Synchronizing
+
+Many of Fluster's search features are reliant on database data which is only generated when you synchronize your directory. Fluster gives two methods for syncing your data, 1 which generates vector data for all of your notes, and 1 that doesn't.
+
+To summarize, generating vector embeddings is slow. Like _painfully_ slow on even the best personal hardware. To get around this, Fluster offers a second method that will either generate a dummy vector or use an existing vector if one exists when you choose to sync without AI. This can usually be ran in a few seconds, even for hundreds of notes on modest hardware, while generating the vector embeddings can take upwards of 10-15 minutes for the same set of notes.
+
+Sync your notes with AI as much as you feel necessary. While far slower and less accurate than enterprise models, you can regenerate your vector data as often as you like, for free. Once RAG features are enabled (fall 2025), this will be more of a crucial step, but even semantic search is completely dependent upon this vector data, but traditional search methods will work just fine without it.
+
+These are some of the core features and the sync methods that are required to generate the data they depend on.
+
+
+| Feature | Requirement |
+| ------- | ----------- |
+| Semantic Search | Sync with AI |
+| AI Chat | -- |
+| RAG | Sync with AI (upcoming feature) |
+| Title based search | Sync with/without AI |
+| Dictionary | Sync with/without AI |
+| File path based search | -- |

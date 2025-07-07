@@ -92,7 +92,6 @@ use features::math::commands::numpy::{
     arange::arange, grid::axis_grid, grid::grid_2d, linspace::linspace, logspace::logspace,
 };
 use features::math::get_mathjax_path::get_mathjax_path;
-use specta_typescript::Typescript;
 use tauri_specta::{collect_commands, collect_events, Builder};
 
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
@@ -215,13 +214,15 @@ pub fn run() {
     // }
     #[cfg(debug_assertions)] // So we don't export types on release builds.
     cmds.export(
-        Typescript::default().bigint(specta_typescript::BigIntExportBehavior::String),
+        specta_typescript::Typescript::default()
+            .bigint(specta_typescript::BigIntExportBehavior::String),
         "../../../packages/fluster_developer/src/lib/bindings.ts",
     )
     .expect("Exports bindings to typescript.");
     #[cfg(debug_assertions)] // So we don't export types on release builds.
     cmds.export(
-        Typescript::default().bigint(specta_typescript::BigIntExportBehavior::String),
+        specta_typescript::Typescript::default()
+            .bigint(specta_typescript::BigIntExportBehavior::String),
         "../src/core/lib/bindings.ts",
     )
     .expect("Exports bindings to typescript.");

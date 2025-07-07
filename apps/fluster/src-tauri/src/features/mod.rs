@@ -15,3 +15,4 @@ pub mod settings;
 pub mod snippets;
 pub mod taggables;
 pub mod task_manager;
+pub mod kanban;
