@@ -40,10 +40,14 @@ jobs:
       - name: Install winget
         uses: Cyberboss/install-winget@v1
         if: matrix.platform == 'windows-latest'
-      - name: Install build dependencies (windows only)
-        if: matrix.platform == 'windows-latest'
-        run: |
-          winget install protobuf --accept-source-agreements --accept-package-agreements
+      - name: Install Protoc
+        uses: arduino/setup-protoc@v3
+        with:
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+      # - name: Install build dependencies (windows only)
+      #   if: matrix.platform == 'windows-latest'
+      #   run: |
+      #     winget install protobuf --accept-source-agreements --accept-package-agreements
       - name: install dependencies (mac only)
         if: matrix.platform == 'macos-latest' # This must match the platform value defined above.
         run: brew install protobuf libiconv
