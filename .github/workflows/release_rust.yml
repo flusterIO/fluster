@@ -74,6 +74,8 @@ jobs:
           releaseBody: |
             See the assets to download this version and install.
 
+            > If you're on a mac, you'll have to open your system settings and approve Fluster before you can open it because I'm far too poor to afford an Apple developer account.
+
             | Architecture | File |
             | ------------ | ---- |
             | Mac (Apple chip) | Fluster_aarch64.app.tar.gz |

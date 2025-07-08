@@ -123,5 +123,6 @@
         "tailwindcss-animate": "^1.0.7",
         "typescript": "^5",
         "wireit": "0.14.12"
-    }
+    },
+    "packageManager": "pnpm@9.7.1"
 }
