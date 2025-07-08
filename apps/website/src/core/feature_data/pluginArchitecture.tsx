@@ -35,8 +35,11 @@ export const pluginArchitectureFeature: FeaturedContainerPropsRequired = {
                 <TechIconLink
                     show={shouldShow}
                     index={1}
-                    className={clsx(techIconClasses, "bg-white rounded-lg")}
-                    icon="prisma"
+                    className={clsx(
+                        techIconClasses,
+                        "bg-background [&_svg]:fill-white rounded-lg"
+                    )}
+                    icon="rust"
                 />
                 <TechIconLink
                     show={shouldShow}

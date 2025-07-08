@@ -3,6 +3,7 @@ import React from "react";
 import cssIcon from "./css.svg";
 import nextIcon from "./next.svg";
 import prismaIcon from "./prisma.svg";
+import rustIcon from "./rust.svg";
 import reactIcon from "./react.svg";
 import scssIcon from "./scss.svg";
 import tailwindIcon from "./tailwind.svg";
@@ -26,7 +27,7 @@ export type TechIconType =
     | "tailwind"
     | "css"
     | "scss"
-    | "prisma"
+    | "rust"
     | "redux"
     | "jupyter"
     | "googleCalendar"
@@ -37,7 +38,7 @@ export type TechIconType =
 
 const icons: { [k in TechIconType]: typeof cssIcon } = {
     next: nextIcon,
-    prisma: prismaIcon,
+    rust: rustIcon,
     css: cssIcon,
     react: reactIcon,
     scss: scssIcon,
@@ -54,7 +55,7 @@ const icons: { [k in TechIconType]: typeof cssIcon } = {
 
 const alt: { [k in TechIconType]: typeof cssIcon } = {
     next: "Next.js",
-    prisma: "Prisma",
+    rust: "Prisma",
     css: "CSS",
     react: "React",
     scss: "SCSS",
@@ -71,7 +72,7 @@ const alt: { [k in TechIconType]: typeof cssIcon } = {
 
 const docs: { [k in TechIconType]: string } = {
     next: "https://nextjs.org/docs",
-    prisma: "https://www.prisma.io/docs",
+    rust: "https://www.rust-lang.org",
     css: "https://developer.mozilla.org/en-US/docs/Web/CSS",
     react: "https://react.dev",
     scss: "https://sass-lang.com/documentation/",
