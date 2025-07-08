@@ -1,5 +1,11 @@
 # fluster
 
+## 0.0.2
+
+### Patch Changes
+
+- 89f6754: Update to force release.
+
 ## 0.1.10
 
 ### Patch Changes
