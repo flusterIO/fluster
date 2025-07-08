@@ -2,7 +2,6 @@
 import React from "react";
 import cssIcon from "./css.svg";
 import nextIcon from "./next.svg";
-import prismaIcon from "./prisma.svg";
 import rustIcon from "./rust.svg";
 import reactIcon from "./react.svg";
 import scssIcon from "./scss.svg";
