@@ -20,7 +20,7 @@ use crate::{
         dictionary::dictionary_entry_entity::DictionaryEntryEntity,
         kanban::data::{
             kanban_board_entity::KanbanBoardEntity,
-            kanban_board_entry_entity::{KanbanBoardEntity, KanbanBoardEntryEntity},
+            kanban_board_entry_entity::KanbanBoardEntryEntity,
             kanban_board_list_entity::KanbanBoardListEntity,
             kanban_board_task_list_entity::KanbanBoardTaskListEntity,
         },
