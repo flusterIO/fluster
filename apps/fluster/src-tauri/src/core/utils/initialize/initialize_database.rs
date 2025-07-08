@@ -18,6 +18,12 @@ use crate::{
         },
         bibliography::data::bib_entry_entity::BibEntryEntity,
         dictionary::dictionary_entry_entity::DictionaryEntryEntity,
+        kanban::data::{
+            kanban_board_entity::KanbanBoardEntity,
+            kanban_board_entry_entity::{KanbanBoardEntity, KanbanBoardEntryEntity},
+            kanban_board_list_entity::KanbanBoardListEntity,
+            kanban_board_task_list_entity::KanbanBoardTaskListEntity,
+        },
         math::data::{
             equation_entity::EquationEntity, equation_snippet_entity::EquationSnippetEntity,
             equation_tag_entity::EquationTagEntity,
@@ -224,6 +230,27 @@ pub async fn initialize_database() -> FlusterResult<()> {
         TableInitData {
             table: DatabaseTables::AiChatResponse,
             entity: AiChatResponseEntity::arrow_schema(),
+            set_indices: None,
+        },
+        // -- Kanban Boards --
+        TableInitData {
+            table: DatabaseTables::KanbanBoard,
+            entity: KanbanBoardEntity::arrow_schema(),
+            set_indices: None,
+        },
+        TableInitData {
+            table: DatabaseTables::KanbanBoardTaskList,
+            entity: KanbanBoardTaskListEntity::arrow_schema(),
+            set_indices: None,
+        },
+        TableInitData {
+            table: DatabaseTables::KanbanBoardEntry,
+            entity: KanbanBoardEntryEntity::arrow_schema(),
+            set_indices: None,
+        },
+        TableInitData {
+            table: DatabaseTables::KanbanBoardList,
+            entity: KanbanBoardListEntity::arrow_schema(),
             set_indices: None,
         },
     ];

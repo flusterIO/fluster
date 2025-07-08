@@ -20,9 +20,9 @@ use crate::{
 
 use super::kanban_board_entry_model::KanbanBoardEntryModel;
 
-pub struct KanbanBoardEntity {}
+pub struct KanbanBoardEntryEntity {}
 
-impl KanbanBoardEntity {
+impl KanbanBoardEntryEntity {
     pub async fn delete_by_id(db: &FlusterDb<'_>, file_path: String) -> FlusterResult<()> {
         let tbl = get_table(db, DatabaseTables::KanbanBoardEntry).await?;
         tbl.delete(&format!("id = \"{}\"", file_path))
@@ -50,13 +50,13 @@ impl KanbanBoardEntity {
             .execute()
             .await
             .map_err(|e| {
-                println!("Error in KanbanBoardEntity.get_many: {:?}", e);
+                println!("Error in KanbanBoardEntryEntity.get_many: {:?}", e);
                 FlusterError::FailToConnect
             })?
             .try_collect::<Vec<_>>()
             .await
             .map_err(|e| {
-                println!("Error in KanbanBoardEntity.get_many: {:?}", e);
+                println!("Error in KanbanBoardEntryEntity.get_many: {:?}", e);
                 FlusterError::FailToFind
             })?;
 
@@ -79,11 +79,11 @@ impl KanbanBoardEntity {
         db: &FlusterDb<'_>,
         entries: &[KanbanBoardEntryModel],
     ) -> FlusterResult<()> {
-        let schema = KanbanBoardEntity::arrow_schema();
+        let schema = KanbanBoardEntryEntity::arrow_schema();
         let tbl = get_table(db, DatabaseTables::KanbanBoardEntry).await?;
         let batches: Vec<Result<RecordBatch, ArrowError>> = entries
             .iter()
-            .map(|x| Ok(KanbanBoardEntity::to_record_batch(x, schema.clone())))
+            .map(|x| Ok(KanbanBoardEntryEntity::to_record_batch(x, schema.clone())))
             .collect();
         let stream = Box::new(RecordBatchIterator::new(
             batches.into_iter(),
@@ -104,7 +104,7 @@ impl KanbanBoardEntity {
     }
 }
 
-impl DbEntity<KanbanBoardEntryModel> for KanbanBoardEntity {
+impl DbEntity<KanbanBoardEntryModel> for KanbanBoardEntryEntity {
     fn arrow_schema() -> std::sync::Arc<arrow_schema::Schema> {
         Arc::new(Schema::new(vec![
             Field::new("id", DataType::Utf8, false),
