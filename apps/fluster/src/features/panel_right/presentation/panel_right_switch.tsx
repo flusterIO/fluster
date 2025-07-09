@@ -6,6 +6,7 @@ import { MdxTocPanelRight } from "#/mdx/presentation/panels/toc_panel_right";
 import { TaskDetailPanelRight } from "#/task_manager/presentation/task_detail_panel_right";
 import { PdfPagePanelRight } from "#/pdf/presentation/pdf_page_panel_right";
 import { EquationSearchPanelRight } from "#/math/presentation/equation_search_panel_right";
+import { AiChatSettingsPanelRight } from "#/ai/presentation/ai_chat_settings_panel_right";
 
 const PanelRightSwitch = (): ReactNode => {
     const n = useRoutes([
@@ -28,6 +29,10 @@ const PanelRightSwitch = (): ReactNode => {
         {
             path: AppRoutes.equations,
             Component: EquationSearchPanelRight,
+        },
+        {
+            path: AppRoutes.aiMainChat,
+            Component: AiChatSettingsPanelRight,
         },
     ]);
     return n;

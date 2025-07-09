@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
     Table,
     TableBody,
@@ -10,9 +10,14 @@ import {
     useEventListener,
 } from "@fluster.io/dev";
 import {
+    ColumnFiltersState,
     flexRender,
     getCoreRowModel,
+    getFilteredRowModel,
     getPaginationRowModel,
+    getSortedRowModel,
+    PaginationState,
+    SortingState,
     useReactTable,
 } from "@tanstack/react-table";
 import { bibTableColumns } from "./columns";
@@ -22,6 +27,7 @@ import {
 } from "#/bibliography/state/bib_table_context";
 import { useBibTableSearchParams } from "#/bibliography/state/use_bib_table_search_params";
 import { showBibEntryDetails } from "#/bibliography/data/methods/show_bib_entry_details";
+import { DataTablePagination } from "@/components/table/table_pagination";
 
 export interface BibTableProps {
     predicate?: string;
@@ -37,115 +43,127 @@ declare global {
 }
 
 export const BibliographyTable = () => {
-    const { entries, filteredEntries, count, columnVisibility } =
-        useBibTableContext();
+    const { filteredEntries, count, columnVisibility } = useBibTableContext();
     const dispatch = useBibTableDispatch();
-
+    const tableContainer = useRef<HTMLTableSectionElement>(null!);
+    const [sorting, setSorting] = useState<SortingState>([]);
     useBibTableSearchParams();
-
+    const [minHeight, setMinHeight] = useState<string | undefined>(undefined);
+    const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
+    const [pagination, setPagination] = useState<PaginationState>({
+        pageIndex: 1,
+        pageSize: 10,
+    });
     const table = useReactTable({
-        data: filteredEntries,
+        autoResetPageIndex: true,
         columns: bibTableColumns,
+        data: filteredEntries,
         getCoreRowModel: getCoreRowModel(),
-        manualPagination: true,
         rowCount: count,
+        onSortingChange: setSorting,
+        getSortedRowModel: getSortedRowModel(),
         getPaginationRowModel: getPaginationRowModel(),
+        onColumnFiltersChange: setColumnFilters,
+        getFilteredRowModel: getFilteredRowModel(),
+        onPaginationChange: setPagination,
+        onColumnVisibilityChange: (newVisiblity) =>
+            dispatch({
+                type: "setColumnVisibility",
+                payload: newVisiblity as typeof columnVisibility,
+            }),
         state: {
             columnVisibility,
+            sorting,
+            columnFilters,
+            pagination,
         },
     });
 
+    useEffect(() => {
+        if (table.getPaginationRowModel().rows.length === pagination.pageSize) {
+            const h = tableContainer.current.getBoundingClientRect().height;
+            if (h) {
+                setMinHeight(`${h}px`);
+            }
+        }
+    }, [pagination]);
+
     useEventListener("set-bib-table-filter", (e) => {
-        dispatch({
-            type: "setFilteredEntries",
-            payload:
-                e.detail.query.trim() === ""
-                    ? entries
-                    : entries.filter((x) => {
-                        if (x.title.includes(e.detail.query)) {
-                            return true;
-                        }
-                        if (x.author.includes(e.detail.query)) {
-                            return true;
-                        }
-                        if (x.url.includes(e.detail.query)) {
-                            return true;
-                        }
-                        if (x.journal.includes(e.detail.query)) {
-                            return true;
-                        }
-                        if (x.model.user_provided_id?.includes(e.detail.query)) {
-                            return true;
-                        }
-                        return false;
-                    }),
-        });
+        table.getColumn("title")?.setFilterValue(e.detail.query);
     });
 
     return (
-        <Table>
-            <TableHeader>
-                {table.getHeaderGroups().map((headerGroup) => (
-                    <TableRow key={headerGroup.id}>
-                        {headerGroup.headers.map((header) => {
-                            return (
-                                <TableHead key={header.id}>
-                                    {header.isPlaceholder
-                                        ? null
-                                        : flexRender(
-                                            header.column.columnDef.header,
-                                            header.getContext()
-                                        )}
-                                </TableHead>
-                            );
-                        })}
-                    </TableRow>
-                ))}
-            </TableHeader>
-            <TableBody>
-                {table.getRowModel().rows?.length ? (
-                    table.getRowModel().rows.map((row) => (
-                        <TableRow
-                            key={row.id}
-                            data-state={row.getIsSelected() && "selected"}
-                            onClick={() => {
-                                const _id: string = (
-                                    row.getValue("id") as string
-                                )?.toLowerCase();
-                                if (!_id) {
-                                    return;
-                                }
-                                const entry = filteredEntries.find(
-                                    (f) => f.model.id.toLowerCase() === _id
+        <>
+            <Table>
+                <TableHeader>
+                    {table.getHeaderGroups().map((headerGroup) => (
+                        <TableRow key={headerGroup.id}>
+                            {headerGroup.headers.map((header) => {
+                                return (
+                                    <TableHead key={header.id}>
+                                        {header.isPlaceholder
+                                            ? null
+                                            : flexRender(
+                                                header.column.columnDef.header,
+                                                header.getContext()
+                                            )}
+                                    </TableHead>
                                 );
-                                if (!entry) {
-                                    console.error(
-                                        "Could not find the entry while attempting to view bib entry details."
-                                    );
-                                    return;
-                                } else {
-                                    showBibEntryDetails(entry);
-                                }
-                            }}
-                        >
-                            {row.getVisibleCells().map((cell) => (
-                                <TableCell key={cell.id}>
-                                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                                </TableCell>
-                            ))}
+                            })}
                         </TableRow>
-                    ))
-                ) : (
-                    <TableRow>
-                        <TableCell
-                            colSpan={bibTableColumns.length}
-                            className="h-24 text-center"
-                        >
-                            No results.
-                        </TableCell>
-                    </TableRow>
-                )}
-            </TableBody>
-        </Table>
+                    ))}
+                </TableHeader>
+                <TableBody
+                    ref={tableContainer}
+                    style={{
+                        minHeight,
+                    }}
+                >
+                    {table.getPaginationRowModel().rows?.length ? (
+                        table.getPaginationRowModel().rows.map((row) => (
+                            <TableRow
+                                key={row.id}
+                                data-state={row.getIsSelected() && "selected"}
+                                onClick={() => {
+                                    const _id: string = (
+                                        row.getValue("id") as string
+                                    )?.toLowerCase();
+                                    if (!_id) {
+                                        return;
+                                    }
+                                    const entry = filteredEntries.find(
+                                        (f) => f.model.id.toLowerCase() === _id
+                                    );
+                                    if (!entry) {
+                                        console.error(
+                                            "Could not find the entry while attempting to view bib entry details."
+                                        );
+                                        return;
+                                    } else {
+                                        showBibEntryDetails(entry);
+                                    }
+                                }}
+                            >
+                                {row.getVisibleCells().map((cell) => (
+                                    <TableCell key={cell.id}>
+                                        {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                                    </TableCell>
+                                ))}
+                            </TableRow>
+                        ))
+                    ) : (
+                        <TableRow>
+                            <TableCell
+                                colSpan={bibTableColumns.length}
+                                className="h-24 text-center"
+                            >
+                                No results.
+                            </TableCell>
+                        </TableRow>
+                    )}
+                </TableBody>
+            </Table>
+            <DataTablePagination table={table} />
+        </>
     );
 };

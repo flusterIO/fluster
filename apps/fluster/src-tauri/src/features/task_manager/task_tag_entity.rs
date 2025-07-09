@@ -35,14 +35,14 @@ impl TaskTagEntity {
         predicate: Option<String>,
     ) -> FlusterResult<Vec<T>> {
         let tbl = get_table(db, TaskTagEntity::table()).await?;
-        let offset = (pagination.per_page * (pagination.page_number - 1)) as usize;
+        let offset = pagination.per_page * (pagination.page_number - 1);
         let mut q = tbl.query();
         if predicate.is_some() {
             q = q.only_if(predicate.unwrap());
         }
         let items_batch = q
             .offset(offset)
-            .limit(pagination.per_page as usize)
+            .limit(pagination.per_page)
             .execute()
             .await
             .map_err(|e| {

@@ -7,6 +7,7 @@ import BibTableTitleBar from "./bib_table/top_title_bar";
 import { BibTableFilterRow } from "./bib_table/bib_table_filter_row";
 import { BibEntryDetailSheet } from "./bib_entry_detail_pane";
 import { BodyPortal } from "@/components/body_portal";
+import { DataTablePagination } from "@/components/table/table_pagination";
 
 const BibliographyPage = (): ReactNode => {
     return (
@@ -19,7 +20,6 @@ const BibliographyPage = (): ReactNode => {
                     <BibTableTitleBar />
                     <BibTableFilterRow />
                     <BibliographyTable />
-                    <BibTableButtomButtons />
                     <BodyPortal>
                         <BibEntryDetailSheet />
                     </BodyPortal>

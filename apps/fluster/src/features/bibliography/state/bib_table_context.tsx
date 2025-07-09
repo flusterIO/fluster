@@ -1,11 +1,9 @@
 "use client";
-import { PaginationProps } from "@/lib/bindings";
 import { ReactNode, createContext, useContext } from "react";
 import { BibEntryParsed } from "../data/models/bib_entry_parsed";
 import { BibTableColumnId } from "../presentation/bib_table/columns";
 
 export interface BibTableState {
-    pagination: PaginationProps;
     /// An optional predicate passed to the database.
     predicate?: string;
     entries: BibEntryParsed[];
@@ -16,10 +14,6 @@ export interface BibTableState {
 }
 
 export const defaultInitialBibTableState: BibTableState = {
-    pagination: {
-        page_number: 1,
-        per_page: 10,
-    },
     entries: [],
     filteredEntries: [],
     count: 0,
@@ -79,32 +73,17 @@ export const BibTableContextReducer = (
         case "setEntries": {
             return {
                 ...state,
+                count: action.payload.length,
                 entries: action.payload,
-                filteredEntries: action.payload
+                filteredEntries: action.payload,
             };
         }
         case "setFilteredEntries": {
             return {
                 ...state,
-                filteredEntries: action.payload
+                filteredEntries: action.payload,
             };
         }
-        case "incrementPage":
-            return {
-                ...state,
-                pagination: {
-                    ...state.pagination,
-                    page_number: state.pagination.page_number + 1,
-                },
-            };
-        case "decrementPage":
-            return {
-                ...state,
-                pagination: {
-                    ...state.pagination,
-                    page_number: state.pagination.page_number - 1,
-                },
-            };
         case "setItemCount":
             return {
                 ...state,

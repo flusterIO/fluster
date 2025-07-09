@@ -1,9 +1,10 @@
 import { BibEntryParsed } from "#/bibliography/data/models/bib_entry_parsed";
 import { ColumnDef } from "@tanstack/react-table";
-import { DataTableColumnHeader } from "./sort_header";
+import { DataTableSortHeader } from "./sort_header";
 import React from "react";
-import { Checkbox } from "@fluster.io/dev";
+import { Checkbox, showToast } from "@fluster.io/dev";
 import { MdxTableCell } from "#/mdx/presentation/mdx_table_content";
+import { copyStringToClipboard } from "@/lib/copy_string_to_clipboard";
 
 export enum BibTableColumnId {
     select = "select",
@@ -43,15 +44,37 @@ export const bibTableColumns: ColumnDef<BibEntryParsed>[] = [
         id: BibTableColumnId.id,
         accessorKey: "id",
         enableHiding: true,
-        header: ({ column }) => (
-            <DataTableColumnHeader column={column} title="Id" />
-        ),
+        enableSorting: true,
+        header: ({ column }) => <DataTableSortHeader column={column} title="Id" />,
+        cell: ({ row }) => {
+            return (
+                <div
+                    className="cursor-pointer"
+                    onClick={async (e) => {
+                        e.stopPropagation();
+                        e.preventDefault();
+                        const res = await copyStringToClipboard(row.getValue("id"));
+                        if (res) {
+                            showToast({
+                                title: "Success",
+                                body: "Your bibliography entry's id has been copied to your clipboard. Click on a different column if you intended to open the details panel.",
+                                variant: "Success",
+                                duration: 5000,
+                            });
+                        }
+                    }}
+                >
+                    {row.getValue("id")}
+                </div>
+            );
+        },
     },
     {
         id: BibTableColumnId.title,
         accessorKey: "title",
+        enableSorting: true,
         header: ({ column }) => (
-            <DataTableColumnHeader column={column} title="Title" />
+            <DataTableSortHeader column={column} title="Title" />
         ),
         cell: ({ row }) => {
             return <MdxTableCell mdx={(row.getValue("title") ?? "--") as string} />;
@@ -61,24 +84,27 @@ export const bibTableColumns: ColumnDef<BibEntryParsed>[] = [
         id: BibTableColumnId.author,
         accessorKey: "author",
         enableHiding: true,
+        enableSorting: true,
         header: ({ column }) => (
-            <DataTableColumnHeader column={column} title="Author" />
+            <DataTableSortHeader column={column} title="Author" />
         ),
     },
     {
         id: BibTableColumnId.journal,
         accessorKey: "journal",
         enableHiding: true,
+        enableSorting: true,
         header: ({ column }) => (
-            <DataTableColumnHeader column={column} title="Journal" />
+            <DataTableSortHeader column={column} title="Journal" />
         ),
     },
     {
         id: BibTableColumnId.year,
         accessorKey: "year",
         enableHiding: true,
+        enableSorting: true,
         header: ({ column }) => (
-            <DataTableColumnHeader column={column} title="Year" />
+            <DataTableSortHeader column={column} title="Year" />
         ),
     },
 ];

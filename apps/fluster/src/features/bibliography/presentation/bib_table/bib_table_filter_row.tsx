@@ -35,7 +35,7 @@ export const BibTableFilterRow = (): ReactNode => {
     });
     form.watch((formState) => {
         window.dispatchEvent(
-            new CustomEvent("request-bib-table-refresh", {
+            new CustomEvent("set-bib-table-filter", {
                 detail: {
                     query: formState.query ?? "",
                 },

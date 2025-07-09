@@ -9,8 +9,8 @@ pub struct NoteSummary {
 
 #[derive(Serialize, Deserialize, Type)]
 pub struct PaginationProps {
-    pub per_page: i32,
-    pub page_number: i32,
+    pub per_page: usize,
+    pub page_number: usize,
 }
 
 impl PaginationProps {

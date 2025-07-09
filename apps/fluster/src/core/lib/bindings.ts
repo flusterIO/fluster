@@ -861,7 +861,7 @@ file_path: string; raw_body: string; ctime: string;
  */
 last_read: string; vec: number[] }
 export type NoteSummary = { title: string; file_path: string }
-export type PaginationProps = { per_page: number; page_number: number }
+export type PaginationProps = { per_page: string; page_number: string }
 export type SearchOrder = "Created"
 export type SearchParams = { order: SearchOrder | null; per_page: number | null; page: number | null }
 export type SemanticSearchResults = { notes: MdxNoteGroup[] }
