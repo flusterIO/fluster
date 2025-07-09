@@ -16,132 +16,139 @@ import { SnippetItem } from "./types/general_code_types";
 import { useDarkMode } from "@/hooks/use_dark_mode";
 import { connect } from "react-redux";
 import { AppState } from "@/state/initial_state";
+import { InlineMdxContent } from "#/mdx/presentation/inline_mdx_content";
+import { MdxH3 } from "@/components/typography/mdx_typography";
 
 const connector = connect((state: AppState) => ({
-    themes: state.code.theme,
+  themes: state.code.theme,
 }));
 
 interface SnippetItemComponentProps {
-    item: SnippetItem;
-    idx: number;
-    themes: AppState["code"]["theme"];
+  item: SnippetItem;
+  idx: number;
+  themes: AppState["code"]["theme"];
+  preview?: boolean;
 }
 
 const SnippetListItem = connector(
-    ({ item, idx, themes }: SnippetItemComponentProps): ReactNode => {
-        const confirmationId = `delete-snippet-${item.id}`;
-        const darkMode = useDarkMode();
-        const handleDelete = async (): Promise<void> => {
-            if (item.id) {
-                const res = await commands.deleteSnippetById(item.id);
-                if (res.status === "ok") {
-                    reloadSnippetList();
-                }
-            }
-        };
-        const confirm = useConfirmation(
-            {
-                id: confirmationId,
-                acceptButtonText: "Delete",
-                denyButtonText: "Cancel",
-                title: "Are you sure?",
-                body: "Deleting this snippet is irreversable.",
-                confirmationVariant: "destructive",
-            },
-            () => {
-                handleDelete().catch(() => {
-                    showToast({
-                        title: "Oh no",
-                        body: "Something went wrong while deleting this snippet.",
-                        variant: "Error",
-                        duration: 5000,
-                    });
-                });
-            }
-        );
+  ({ item, idx, themes, preview }: SnippetItemComponentProps): ReactNode => {
+    const confirmationId = `delete-snippet-${item.id}`;
+    const darkMode = useDarkMode();
+    const handleDelete = async (): Promise<void> => {
+      if (item.id) {
+        const res = await commands.deleteSnippetById(item.id);
+        if (res.status === "ok") {
+          reloadSnippetList();
+        }
+      }
+    };
+    const confirm = useConfirmation(
+      {
+        id: confirmationId,
+        acceptButtonText: "Delete",
+        denyButtonText: "Cancel",
+        title: "Are you sure?",
+        body: "Deleting this snippet is irreversable.",
+        confirmationVariant: "destructive",
+      },
+      () => {
+        handleDelete().catch(() => {
+          showToast({
+            title: "Oh no",
+            body: "Something went wrong while deleting this snippet.",
+            variant: "Error",
+            duration: 5000,
+          });
+        });
+      }
+    );
 
-        const handleDeleteClick = (): void => {
-            confirm.setVisible(true);
-        };
+    const handleDeleteClick = (): void => {
+      confirm.setVisible(true);
+    };
 
-        const handleCopyClick = async () => {
-            const res = await copyStringToClipboard(item.body);
-            if (res) {
-                showToast({
-                    title: "Success",
-                    body: `Your ${item.lang} code has been copied to your clipboard.`,
-                    duration: 5000,
-                    variant: "Success",
-                });
-            }
-        };
+    const handleCopyClick = async () => {
+      const res = await copyStringToClipboard(item.body);
+      if (res) {
+        showToast({
+          title: "Success",
+          body: `Your ${item.lang} code has been copied to your clipboard.`,
+          duration: 5000,
+          variant: "Success",
+        });
+      }
+    };
 
-        const handleEditClick = (): void => {
-            store.dispatch(setPanelLeftOpen(true));
-        };
+    const handleEditClick = (): void => {
+      store.dispatch(setPanelLeftOpen(true));
+    };
 
-        return (
-            <motion.div
-                className="w-[min(90%,1080px)] h-fit px-6 pb-6 pt-4 border rounded @container/snippet_item"
-                initial="initial"
-                animate="show"
-                transition={{
-                    delay: idx * 0.1,
-                }}
-                variants={{
-                    initial: {
-                        x: idx % 2 === 0 ? -200 : 200,
-                        opacity: 0,
-                    },
-                    show: {
-                        x: 0,
-                        opacity: 1,
-                    },
-                }}
+    return (
+      <motion.div
+        className="w-[min(90%,1080px)] h-fit px-6 pb-6 pt-4 border rounded @container/snippet_item"
+        initial="initial"
+        animate="show"
+        transition={{
+          delay: idx * 0.1,
+        }}
+        variants={{
+          initial: {
+            x: idx % 2 === 0 ? -200 : 200,
+            opacity: 0,
+          },
+          show: {
+            x: 0,
+            opacity: 1,
+          },
+        }}
+      >
+        <MdxH3 className="mb-2" mdx={item.label} />
+        <div className="text-sm text-muted-foreground mb-3">{item.lang}</div>
+        {item.desc && item.desc !== "" && (
+          <div className="mb-3">
+            <InlineMdxContent mdx={item.desc} />
+          </div>
+        )}
+        <CodeBlock
+          darkMode={darkMode}
+          lang={item.lang}
+          code={item.body}
+          themes={themes}
+        />
+        <div className="w-full flex flex-col justify-between items-center gap-4 @[300px]/snippet_item:gap-6 @[300px]/snippet_item:flex-row mt-4">
+          <Button
+            className="w-full @[300px]/snippet_item:w-fit"
+            variant={"destructive"}
+            onClick={handleDeleteClick}
+            disabled={preview}
+          >
+            Delete
+          </Button>
+          <div className="flex flex-col justify-end items-center gap-4 w-full @[300px]/snippet_item:flex-row">
+            <NavLink
+              className={cn(
+                "w-full @[300px]/snippet_item:w-fit",
+                buttonVariants({
+                  variant: "outline",
+                }),
+                preview && "hidden"
+              )}
+              onClick={preview ? undefined : handleEditClick}
+              to={`${AppRoutes.snippets}?editing=${item.id}`}
             >
-                <H3 className="mb-2">{item.label}</H3>
-                <div className="text-sm text-muted-foreground mb-3">{item.lang}</div>
-                {item.desc && item.desc !== "" && (
-                    <div className="mb-3">{item.desc}</div>
-                )}
-                <CodeBlock
-                    darkMode={darkMode}
-                    lang={item.lang}
-                    code={item.body}
-                    themes={themes}
-                />
-                <div className="w-full flex flex-col justify-between items-center gap-4 @[300px]/snippet_item:gap-6 @[300px]/snippet_item:flex-row mt-4">
-                    <Button
-                        className="w-full @[300px]/snippet_item:w-fit"
-                        variant={"destructive"}
-                        onClick={handleDeleteClick}
-                    >
-                        Delete
-                    </Button>
-                    <div className="flex flex-col justify-end items-center gap-4 w-full @[300px]/snippet_item:flex-row">
-                        <NavLink
-                            className={cn(
-                                "w-full @[300px]/snippet_item:w-fit",
-                                buttonVariants({
-                                    variant: "outline",
-                                })
-                            )}
-                            onClick={handleEditClick}
-                            to={`${AppRoutes.snippets}?editing=${item.id}`}
-                        >
-                            Edit
-                        </NavLink>
-                        <Button
-                            className="w-full @[300px]/snippet_item:w-fit"
-                            onClick={() => handleCopyClick()}
-                        >
-                            Copy
-                        </Button>
-                    </div>
-                </div>
-            </motion.div>
-        );
-    }
+              Edit
+            </NavLink>
+            <Button
+              className="w-full @[300px]/snippet_item:w-fit"
+              onClick={() => handleCopyClick()}
+            >
+              Copy
+            </Button>
+          </div>
+        </div>
+      </motion.div>
+    );
+  }
 );
 
 SnippetListItem.displayName = "SnippetListItem";
