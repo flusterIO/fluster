@@ -28,6 +28,7 @@ import {
 import { useBibTableSearchParams } from "#/bibliography/state/use_bib_table_search_params";
 import { showBibEntryDetails } from "#/bibliography/data/methods/show_bib_entry_details";
 import { DataTablePagination } from "@/components/table/table_pagination";
+import { fuzzyFilter } from "@/lib/table_utils/fuzzy_filter";
 
 export interface BibTableProps {
     predicate?: string;
@@ -50,6 +51,7 @@ export const BibliographyTable = () => {
     useBibTableSearchParams();
     const [minHeight, setMinHeight] = useState<string | undefined>(undefined);
     const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
+    const [globalFilter, setGlobalFilter] = useState<any>("");
     const [pagination, setPagination] = useState<PaginationState>({
         pageIndex: 1,
         pageSize: 10,
@@ -66,6 +68,8 @@ export const BibliographyTable = () => {
         onColumnFiltersChange: setColumnFilters,
         getFilteredRowModel: getFilteredRowModel(),
         onPaginationChange: setPagination,
+        globalFilterFn: fuzzyFilter,
+        onGlobalFilterChange: setGlobalFilter,
         onColumnVisibilityChange: (newVisiblity) =>
             dispatch({
                 type: "setColumnVisibility",
@@ -74,7 +78,8 @@ export const BibliographyTable = () => {
         state: {
             columnVisibility,
             sorting,
-            columnFilters,
+            /* columnFilters, */
+            globalFilter,
             pagination,
         },
     });
@@ -89,7 +94,8 @@ export const BibliographyTable = () => {
     }, [pagination]);
 
     useEventListener("set-bib-table-filter", (e) => {
-        table.getColumn("title")?.setFilterValue(e.detail.query);
+        /* table.getColumn("title")?.setFilterValue(e.detail.query); */
+        table.setGlobalFilter(e.detail.query);
     });
 
     return (
