@@ -38,7 +38,7 @@ export const TaskList = (): ReactNode => {
         };
     }, [items]);
     return (
-        <div className="@container/task_list w-full h-fit gap-2">
+        <div id="scroll-target-task-manager" className="@container/task_list w-full h-full gap-2 overflow-y-auto">
             {items.length === 0 ? (
                 <NoTasksFoundBanner />
             ) : (

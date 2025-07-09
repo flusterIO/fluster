@@ -235,3 +235,9 @@ p {
     font-size: 1.5rem;
   }
 }
+
+.hide-math-labels {
+  mjx-labels {
+    display: none;
+  }
+}

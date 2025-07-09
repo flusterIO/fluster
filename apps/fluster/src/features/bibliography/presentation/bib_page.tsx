@@ -10,7 +10,10 @@ import { BodyPortal } from "@/components/body_portal";
 
 const BibliographyPage = (): ReactNode => {
     return (
-        <PanelContainer>
+        <PanelContainer
+            id="scroll-target-bib"
+            className="h-full inline overflow-y-auto"
+        >
             <BibTableProvider>
                 <div className="w-full min-w-full px-8 mt-8 flex flex-col justify-start items-center max-w-[1080px]">
                     <BibTableTitleBar />

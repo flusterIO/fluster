@@ -1,6 +1,6 @@
 import { createBrowserRouter } from "react-router";
 import DesktopScaffold from "../../scaffold/presentation/desktop_scaffold";
-import { ScaffoldWithSidePanels } from "../presentation/dashboard_scaffold";
+import { ScaffoldWithSidePanels } from "../presentation/scaffold_with_panels";
 import SnippetsPage from "#/snippets/presentation/snippets_page";
 import DictionaryPage from "#/dictionary/presentation/dictionary_page";
 import DashboardPage from "#/dashboard/presentation/dashboard_page";

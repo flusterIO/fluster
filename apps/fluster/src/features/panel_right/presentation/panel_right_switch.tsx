@@ -5,27 +5,32 @@ import SnippetsFilterPanel from "#/snippets/presentation/filter_snippets_panel/f
 import { MdxTocPanelRight } from "#/mdx/presentation/panels/toc_panel_right";
 import { TaskDetailPanelRight } from "#/task_manager/presentation/task_detail_panel_right";
 import { PdfPagePanelRight } from "#/pdf/presentation/pdf_page_panel_right";
+import { EquationSearchPanelRight } from "#/math/presentation/equation_search_panel_right";
 
 const PanelRightSwitch = (): ReactNode => {
-  const n = useRoutes([
-    {
-      path: AppRoutes.snippets,
-      Component: SnippetsFilterPanel,
-    },
-    {
-      path: AppRoutes.viewMdxNote,
-      Component: MdxTocPanelRight,
-    },
-    {
-      path: AppRoutes.taskLists,
-      Component: TaskDetailPanelRight,
-    },
-    {
-      path: AppRoutes.pdf,
-      Component: PdfPagePanelRight,
-    },
-  ]);
-  return n;
+    const n = useRoutes([
+        {
+            path: AppRoutes.snippets,
+            Component: SnippetsFilterPanel,
+        },
+        {
+            path: AppRoutes.viewMdxNote,
+            Component: MdxTocPanelRight,
+        },
+        {
+            path: AppRoutes.taskLists,
+            Component: TaskDetailPanelRight,
+        },
+        {
+            path: AppRoutes.pdf,
+            Component: PdfPagePanelRight,
+        },
+        {
+            path: AppRoutes.equations,
+            Component: EquationSearchPanelRight,
+        },
+    ]);
+    return n;
 };
 
 PanelRightSwitch.displayName = "PanelRightSwitch";

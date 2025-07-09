@@ -1,6 +1,6 @@
 import { InlineMdxContent } from "#/mdx/presentation/inline_mdx_content";
 import { useTaskListContext } from "#/task_manager/state/task_list_context";
-import { Button } from "@fluster.io/dev";
+import { Button, MdxH3 } from "@fluster.io/dev";
 import React, { type ReactNode } from "react";
 
 export const TaskListButtonBar = (): ReactNode => {
@@ -10,10 +10,8 @@ export const TaskListButtonBar = (): ReactNode => {
     }
     return (
         <div className="w-full flex flex-row justify-between items-center py-8">
-            <div>
-                <div className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl">
-                    <InlineMdxContent mdx={focusedTaskList?.label} />
-                </div>
+            <div className="w-full">
+                <MdxH3 className="w-full" mdx={focusedTaskList.label} InlineMdxContent={InlineMdxContent}/>
                 <div className="text-sm mt-2">{`Found ${items.length} tasks.`}</div>
             </div>
             <div>

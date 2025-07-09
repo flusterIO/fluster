@@ -12,22 +12,24 @@ export const TaskListsPage = (): ReactNode => {
     const [searchParams] = useSearchParams();
     const taskListId = searchParams.get("listId");
     return (
-        <PanelContainer className="flex flex-col justify-start items-center">
+        <div className="flex flex-col justify-start items-center h-[calc(100vh-4rem)]">
             <TaskListProvider>
                 <TaskListSearchParamHandler />
                 <AddTaskModal />
-                <div className="w-[min(768px,90%)]">
+                <div className="w-[min(768px,90%)] h-full">
                     {taskListId ? (
-                        <>
+                        <div
+                            className="grid grid-cols-1 w-full h-full max-h-screen"
+                        >
                             <TaskListButtonBar />
                             <TaskList />
-                        </>
+                        </div>
                     ) : (
                         <NoSelectedTaskList />
                     )}
                 </div>
             </TaskListProvider>
-        </PanelContainer>
+        </div>
     );
 };
 

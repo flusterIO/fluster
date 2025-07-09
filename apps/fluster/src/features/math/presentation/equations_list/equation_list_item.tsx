@@ -11,8 +11,8 @@ import {
     CardContent,
     CardDescription,
     CardHeader,
-    CardTitle,
     cn,
+    MdxH3,
     Tooltip,
     TooltipContent,
     TooltipTrigger,
@@ -76,9 +76,7 @@ const EquationListItem = ({ item }: EquationListItemProps): ReactNode => {
     return (
         <Card className="@container/equation_item w-[min(768px,90%)]">
             <CardHeader>
-                <CardTitle>
-                    <InlineMdxContent mdx={item.label} />
-                </CardTitle>
+                <MdxH3 mdx={item.label} InlineMdxContent={InlineMdxContent} />
                 {item.desc?.length ? (
                     <CardDescription className="[&_*]:text-muted-foreground">
                         <InlineMdxContent mdx={item.desc} />
@@ -88,7 +86,7 @@ const EquationListItem = ({ item }: EquationListItemProps): ReactNode => {
             <CardContent>
                 <MdxContent
                     mdx={item.body.length ? formatMathBlockString(item.body) : ""}
-                    className="w-full flex flex-col justify-center items-center"
+                    className="hide-math-labels w-full flex flex-col justify-center items-center"
                 />
             </CardContent>
             <div className="w-full flex flex-col justify-between items-center gap-4 @[450px]/equation_item:gap-6 @[450px]/equation_item:flex-row mt-4 px-6">
@@ -117,7 +115,9 @@ const EquationListItem = ({ item }: EquationListItemProps): ReactNode => {
                             <TooltipContent
                                 className={secondaryToolTip}
                                 color="hsl(var(--secondary))"
-                            >No notes found.</TooltipContent>
+                            >
+                                No notes found.
+                            </TooltipContent>
                             <TooltipTrigger>
                                 <Button
                                     disabled

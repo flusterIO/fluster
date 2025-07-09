@@ -14,7 +14,7 @@ const PanelContainer = ({
         <div
             {...props}
             className={cn(
-                "@container/panel p-6 max-h-full overflow-y-auto no-scrollbar-all flex-grow",
+                "@container/panel p-6 max-h-full no-scrollbar-all flex-grow h-full inline",
                 className
             )}
         >
