@@ -57,6 +57,8 @@ export * from "./utils/bundled_syntax_themes";
 export * from "./themes.scss";
 export * from "./utils/cn";
 export * from "./utils/scroll_to_id";
+export * from "./components/typography/typography";
+export * from "./components/typography/mdx_typography";
 // -- Icons --
 export * from "./components/icons/icon_components/fluster";
 export * from "./components/icons/icon_components/github";

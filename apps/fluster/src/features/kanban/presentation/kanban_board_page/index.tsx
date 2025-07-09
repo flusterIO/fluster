@@ -3,6 +3,7 @@ import { useLoaderData } from "react-router";
 
 export const KanbanBoardPage = (): ReactNode => {
     const data = useLoaderData();
+    console.log("data: ", data);
     return <div>Here</div>;
 };
 

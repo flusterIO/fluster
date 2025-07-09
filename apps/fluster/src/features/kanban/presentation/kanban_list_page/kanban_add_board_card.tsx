@@ -1,7 +1,7 @@
 import { Button } from "@fluster.io/dev";
 import React, { type ReactNode } from "react";
 import { KanbanActions, useKanbanDispatch } from "../../state/kanban_provider";
-import { H3 } from "@/components/typography/typography";
+import { H3 } from "@fluster.io/dev";
 
 const KanbanAddBoardCard = (): ReactNode => {
     const dispatch = useKanbanDispatch();

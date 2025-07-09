@@ -1,5 +1,5 @@
 import React, { HTMLProps, type ReactNode } from "react";
-import { H4 } from "./typography/typography";
+import { H4 } from "@fluster.io/dev";
 import { cn } from "@/lib/utils";
 
 interface SidePanelContainerProps extends HTMLProps<HTMLDivElement> {

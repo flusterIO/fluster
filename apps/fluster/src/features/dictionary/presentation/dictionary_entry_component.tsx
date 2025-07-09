@@ -1,6 +1,6 @@
 import React, { useEffect, useState, type ReactNode } from "react";
 import { DictionaryEntryWithIdx } from "../types";
-import { H3 } from "@/components/typography/typography";
+import { H3 } from "@fluster.io/dev";
 import { InlineMdxContent } from "#/mdx/presentation/inline_mdx_content";
 import { NavLink } from "react-router";
 import { AppRoutes } from "@fluster.io/dev";

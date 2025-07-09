@@ -1,23 +1,13 @@
 "use client";
 import React, { type ReactNode } from "react";
-import { motion } from "motion/react";
-import KanbanCard from "./kanban_card";
-import { LargeText } from "@/components/typography/typography";
-import { KanbanListManager } from "../state/classes/kanban_list";
 
 interface KanbanListlProps {
-  item: KanbanListManager;
+    item: object;
 }
 
-const KanbanList = ({ item }: KanbanListlProps): ReactNode => {
-  return (
-    <motion.div className="w-fit p-4 flex flex-col justify-start items-center gap-6">
-      <LargeText>{item.label}</LargeText>
-      {item.items.map((x) => (
-        <KanbanCard item={x} key={x.id} />
-      ))}
-    </motion.div>
-  );
+const KanbanList = (props: KanbanListlProps): ReactNode => {
+    console.log("props: ", props);
+    return <div>Not Implemented</div>;
 };
 
 KanbanList.displayName = "KanbanList";

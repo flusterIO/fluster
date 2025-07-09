@@ -1,5 +1,5 @@
 import React, { type ReactNode } from "react";
-import { H1 } from "@/components/typography/typography";
+import { H1 } from "@fluster.io/dev";
 import { Button, buttonVariants, cn, getEmbeddedDocUrl } from "@fluster.io/dev";
 import { incrementOnboardingPageIndex } from "#/onboarding/state/actions/onboarding_index_utils";
 import {

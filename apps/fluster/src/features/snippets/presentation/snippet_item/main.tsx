@@ -1,7 +1,6 @@
-import { H3 } from "@/components/typography/typography";
 import { commands } from "@/lib/bindings";
 import React, { type ReactNode } from "react";
-import { Button, buttonVariants, CodeBlock } from "@fluster.io/dev";
+import { Button, buttonVariants, CodeBlock, MdxH3 } from "@fluster.io/dev";
 import { useConfirmation } from "#/confirmation_modal/state/hooks/use_confirmation";
 import { reloadSnippetList } from "#/snippets/data/events/reload_snippet_list";
 import { copyStringToClipboard } from "@/lib/copy_string_to_clipboard";
@@ -17,7 +16,6 @@ import { useDarkMode } from "@/hooks/use_dark_mode";
 import { connect } from "react-redux";
 import { AppState } from "@/state/initial_state";
 import { InlineMdxContent } from "#/mdx/presentation/inline_mdx_content";
-import { MdxH3 } from "@/components/typography/mdx_typography";
 
 const connector = connect((state: AppState) => ({
   themes: state.code.theme,
@@ -102,7 +100,11 @@ const SnippetListItem = connector(
           },
         }}
       >
-        <MdxH3 className="mb-2" mdx={item.label} />
+        <MdxH3
+          className="mb-2"
+          mdx={item.label}
+          InlineMdxContent={InlineMdxContent}
+        />
         <div className="text-sm text-muted-foreground mb-3">{item.lang}</div>
         {item.desc && item.desc !== "" && (
           <div className="mb-3">

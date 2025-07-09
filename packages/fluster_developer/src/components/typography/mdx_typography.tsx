@@ -1,8 +1,8 @@
-import { InlineMdxContent } from "#/mdx/presentation/inline_mdx_content";
-import { cn } from "@/lib/utils";
 import React, { HTMLProps } from "react";
+import { cn } from "../../utils/cn";
+import { WithInlineMdxProp } from "../../embeddable_components/types";
 
-interface MdxTypographyProps {
+interface MdxTypographyProps extends WithInlineMdxProp {
   className?: string;
   mdx: string;
 }
@@ -10,6 +10,7 @@ interface MdxTypographyProps {
 export function MdxH1({
   mdx,
   className,
+  InlineMdxContent,
   ...props
 }: MdxTypographyProps & HTMLProps<HTMLHeadingElement>) {
   return (
@@ -28,6 +29,7 @@ export function MdxH1({
 export function MdxH2({
   mdx,
   className,
+  InlineMdxContent,
   ...props
 }: MdxTypographyProps & HTMLProps<HTMLHeadingElement>) {
   return (
@@ -46,6 +48,7 @@ export function MdxH2({
 export function MdxH3({
   mdx,
   className,
+  InlineMdxContent,
   ...props
 }: MdxTypographyProps & HTMLProps<HTMLHeadingElement>) {
   return (
@@ -64,6 +67,7 @@ export function MdxH3({
 export function MdxH4({
   mdx,
   className,
+  InlineMdxContent,
   ...props
 }: MdxTypographyProps & HTMLProps<HTMLHeadingElement>) {
   return (
@@ -79,7 +83,7 @@ export function MdxH4({
   );
 }
 
-export function MdxP({ mdx, className }: MdxTypographyProps) {
+export function MdxP({ mdx, className, InlineMdxContent }: MdxTypographyProps) {
   return (
     <p className={cn("leading-7 [&:not(:first-child)]:mt-6", className)}>
       <InlineMdxContent mdx={mdx} />
@@ -87,7 +91,11 @@ export function MdxP({ mdx, className }: MdxTypographyProps) {
   );
 }
 
-export function MdxBlockquote({ mdx, className }: MdxTypographyProps) {
+export function MdxBlockquote({
+  mdx,
+  className,
+  InlineMdxContent,
+}: MdxTypographyProps) {
   return (
     <blockquote className={cn("mt-6 border-l-2 pl-6 italic", className)}>
       <InlineMdxContent mdx={mdx} />
@@ -95,7 +103,11 @@ export function MdxBlockquote({ mdx, className }: MdxTypographyProps) {
   );
 }
 
-export function MdxInlineCode({ mdx, className }: MdxTypographyProps) {
+export function MdxInlineCode({
+  mdx,
+  className,
+  InlineMdxContent,
+}: MdxTypographyProps) {
   return (
     <code
       className={cn(
@@ -108,7 +120,11 @@ export function MdxInlineCode({ mdx, className }: MdxTypographyProps) {
   );
 }
 
-export function MdxLargeText({ mdx, className }: MdxTypographyProps) {
+export function MdxLargeText({
+  mdx,
+  className,
+  InlineMdxContent,
+}: MdxTypographyProps) {
   return (
     <div className={cn("[&_p]:text-lg [&_p]:font-semibold", className)}>
       <InlineMdxContent mdx={mdx} />
@@ -116,7 +132,11 @@ export function MdxLargeText({ mdx, className }: MdxTypographyProps) {
   );
 }
 
-export function MdxSmallText({ mdx, className }: MdxTypographyProps) {
+export function MdxSmallText({
+  mdx,
+  className,
+  InlineMdxContent,
+}: MdxTypographyProps) {
   return (
     <small
       className={cn("[&_p]:text-sm [&_p]:font-medium leading-none", className)}

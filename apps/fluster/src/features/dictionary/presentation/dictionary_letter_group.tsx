@@ -1,4 +1,4 @@
-import { H3 } from "@/components/typography/typography";
+import { H3 } from "@fluster.io/dev";
 import { useMemo, type ReactNode } from "react";
 import DictionaryEntryComponent from "./dictionary_entry_component";
 import { DictionaryEntryWithIdx } from "../types";

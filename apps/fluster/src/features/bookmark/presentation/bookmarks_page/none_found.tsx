@@ -1,4 +1,4 @@
-import { H2 } from "@/components/typography/typography";
+import { H2 } from "@fluster.io/dev";
 import React, { type ReactNode } from "react";
 
 export const NoBookmarksFound = (): ReactNode => {

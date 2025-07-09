@@ -1,4 +1,4 @@
-import { H4 } from "@/components/typography/typography";
+import { H4 } from "@fluster.io/dev";
 import { MdxNoteGroup } from "@/lib/bindings";
 import { BibliographyCitation } from "@fluster.io/dev";
 import React, { type ReactNode } from "react";

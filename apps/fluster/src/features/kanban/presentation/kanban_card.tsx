@@ -1,12 +1,13 @@
 import React, { type ReactNode } from "react";
-import { KanbanItemManager } from "../state/classes/kanban_item";
 
 interface KanbanCardProps {
-    item: KanbanItemManager;
+    /* item: KanbanListItem; */
+    item: null;
 }
 
 const KanbanCard = ({ item }: KanbanCardProps): ReactNode => {
-    return <div className="w-fit h-fit p-4 border rounded-lg">{item.label}</div>;
+    console.log("item: ", item);
+    return <div>Not Implemented</div>;
 };
 
 KanbanCard.displayName = "KanbanCard";
