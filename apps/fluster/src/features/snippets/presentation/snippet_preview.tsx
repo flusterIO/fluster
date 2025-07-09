@@ -13,9 +13,11 @@ declare global {
 
 const SnippetPreview = (): ReactNode => {
   const [data, setData] = useState<SnippetSchema | null>(null);
+
   useEventListener("set-snippet-preview", (e) => {
     setData(e.detail.data);
   });
+
   return (
     <div className="@container/snippet_preview w-full flex flex-col justify-center items-center px-8 py-6">
       {data && (
