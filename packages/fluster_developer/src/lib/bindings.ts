@@ -645,6 +645,54 @@ async getTaskCount(predicate: string | null) : Promise<Result<string, FlusterErr
     else return { status: "error", error: e  as any };
 }
 },
+async createNewKanbanBoard(item: KanbanBoardModel) : Promise<Result<null, FlusterError>> {
+    try {
+    return { status: "ok", data: await TAURI_INVOKE("create_new_kanban_board", { item }) };
+} catch (e) {
+    if(e instanceof Error) throw e;
+    else return { status: "error", error: e  as any };
+}
+},
+async deleteKanbanBoardById(id: string) : Promise<Result<null, FlusterError>> {
+    try {
+    return { status: "ok", data: await TAURI_INVOKE("delete_kanban_board_by_id", { id }) };
+} catch (e) {
+    if(e instanceof Error) throw e;
+    else return { status: "error", error: e  as any };
+}
+},
+async deleteKanbanBoardCardById(id: string) : Promise<Result<null, FlusterError>> {
+    try {
+    return { status: "ok", data: await TAURI_INVOKE("delete_kanban_board_card_by_id", { id }) };
+} catch (e) {
+    if(e instanceof Error) throw e;
+    else return { status: "error", error: e  as any };
+}
+},
+async createNewKanbanBoardCard(item: KanbanBoardEntryModel) : Promise<Result<null, FlusterError>> {
+    try {
+    return { status: "ok", data: await TAURI_INVOKE("create_new_kanban_board_card", { item }) };
+} catch (e) {
+    if(e instanceof Error) throw e;
+    else return { status: "error", error: e  as any };
+}
+},
+async getKanbanBoardById(id: string) : Promise<Result<KanbanBoardData, FlusterError>> {
+    try {
+    return { status: "ok", data: await TAURI_INVOKE("get_kanban_board_by_id", { id }) };
+} catch (e) {
+    if(e instanceof Error) throw e;
+    else return { status: "error", error: e  as any };
+}
+},
+async getKanbanBoardList(predicate: string | null, pagination: PaginationProps | null) : Promise<Result<KanbanBoardListData, FlusterError>> {
+    try {
+    return { status: "ok", data: await TAURI_INVOKE("get_kanban_board_list", { predicate, pagination }) };
+} catch (e) {
+    if(e instanceof Error) throw e;
+    else return { status: "error", error: e  as any };
+}
+},
 async generateNewToken(length: string) : Promise<string> {
     return await TAURI_INVOKE("generate_new_token", { length });
 }
@@ -791,6 +839,14 @@ export type InternalEmbeddedDocsId =
  * How to contribute
  */
 "HowToContribute" | "GettingStarted" | "ColorProps" | "IntroToJsx" | "JupyterSetup" | "QuickReference"
+export type KanbanBoardData = { board: KanbanBoardModel }
+export type KanbanBoardEntryModel = { id: string; label: string; desc: string | null; body: string | null; 
+/**
+ * The id field of the KanbanBoardListModel that contains this entry.
+ */
+list_id: string }
+export type KanbanBoardListData = { boards: KanbanBoardModel[] }
+export type KanbanBoardModel = { id: string; label: string; desc: string | null }
 export type MathjaxData = { root: string; main_path: string; font_path: string }
 export type MdxBookmarkData = { note: MdxNoteModel; front_matter: FrontMatterBaseModel }
 export type MdxNoteGroup = { mdx: MdxNoteModel; front_matter: FrontMatterModel; tags: SharedTaggableModel[]; equations: EquationModel[]; dictionary_entries: DictionaryEntryModel[]; citations: BibEntryModel[]; note_links: MdxNoteLinkModel[] }

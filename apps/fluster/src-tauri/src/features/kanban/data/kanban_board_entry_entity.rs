@@ -23,14 +23,12 @@ use super::kanban_board_entry_model::KanbanBoardEntryModel;
 pub struct KanbanBoardEntryEntity {}
 
 impl KanbanBoardEntryEntity {
-    pub async fn delete_by_id(db: &FlusterDb<'_>, file_path: String) -> FlusterResult<()> {
+    pub async fn delete_by_id(db: &FlusterDb<'_>, id: &str) -> FlusterResult<()> {
         let tbl = get_table(db, DatabaseTables::KanbanBoardEntry).await?;
-        tbl.delete(&format!("id = \"{}\"", file_path))
-            .await
-            .map_err(|e| {
-                println!("Error: {:?}", e);
-                FlusterError::FailToDelete
-            })?;
+        tbl.delete(&format!("id = \"{}\"", id)).await.map_err(|e| {
+            println!("Error: {:?}", e);
+            FlusterError::FailToDelete
+        })?;
         Ok(())
     }
     pub async fn get_many(

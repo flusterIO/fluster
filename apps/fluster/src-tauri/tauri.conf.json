@@ -45,6 +45,7 @@
         "active": true,
         "targets": "all",
         "category": "Education",
+        "createUpdaterArtifacts": true,
         "shortDescription": "Free & open source academic note taking.",
         "publisher": "Fluster",
         "icon": [

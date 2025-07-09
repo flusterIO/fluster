@@ -1,0 +1,26 @@
+{
+  "template": {
+    "data": {
+      "pie": [
+        {
+          "automargin": true,
+          "type": "pie"
+        }
+      ]
+    },
+    "layout": {
+      "xaxis": {
+        "showgrid": true,
+        "title": {
+          "standoff": 15
+        }
+      },
+      "yaxis": {
+        "showgrid": true,
+        "title": {
+          "standoff": 15
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "template": {
+    "data": {
+      "pie": [
+        {
+          "automargin": true,
+          "type": "pie"
+        }
+      ]
+    },
+    "layout": {
+      "yaxis": {
+        "showgrid": false
+      }
+    }
+  }
+}

@@ -6,7 +6,6 @@ import DictionaryPage from "#/dictionary/presentation/dictionary_page";
 import DashboardPage from "#/dashboard/presentation/dashboard_page";
 import BibliographyPage from "#/bibliography/presentation/bib_page";
 import { AppRoutes } from "./app_routes";
-import KanbanBoardList from "#/kanban/presentation/kanban_board_list";
 import EditNoteSplitViewPage from "#/editor/presentation/split_view/edit_note_split_view_page";
 import EquationsPage from "#/math/presentation/equations_page/main";
 import EmbeddedDocsDashboardPage from "#/embedded_docs/presentation/embedded_docs_dashboard";
@@ -24,6 +23,8 @@ import SearchResultsPage from "#/search/presentation/search_results_page/index";
 import { SemanticSearchResultsPage } from "#/search/presentation/semantic_search_results_page";
 import { NotebookPage } from "#/jupyter/presentation/notebook_page";
 import { ConstantsPage } from "#/math/presentation/constants_page/constants_page";
+import { KanbanPage } from "#/kanban/presentation/kanban_list_page/kanban_page";
+import { KanbanBoardPage } from "#/kanban/presentation/kanban_board_page";
 
 export const getBrowserRouter = () => {
     return createBrowserRouter([
@@ -58,7 +59,44 @@ export const getBrowserRouter = () => {
                 },
                 {
                     path: AppRoutes.kanbanBoards,
-                    Component: KanbanBoardList,
+                    Component: KanbanPage,
+                    loader: async ({ params }) => {
+                        const res = await commands.getKanbanBoardList(null, {
+                            page_number: params.page ? parseInt(params.page) : 1,
+                            per_page: params.per_page ? parseInt(params.per_page) : 99999,
+                        });
+                        if (res.status === "ok") {
+                            return {
+                                data: res.data,
+                            };
+                        } else {
+                            throw Error("Could not find kanban board with the provided id");
+                        }
+                    },
+                    children: [
+                        {
+                            path: ":id",
+                            Component: KanbanBoardPage,
+                            loader: async ({ params }) => {
+                                const id = params.id;
+                                if (!id) {
+                                    throw Error(
+                                        "Attempted to access a kanban board without providing an id"
+                                    );
+                                }
+                                const res = await commands.getKanbanBoardById(id);
+                                if (res.status === "ok") {
+                                    return {
+                                        data: res.data,
+                                    };
+                                } else {
+                                    throw Error(
+                                        "Could not find kanban board with the provided id"
+                                    );
+                                }
+                            },
+                        },
+                    ],
                 },
                 {
                     path: AppRoutes.splitViewEditMdx,

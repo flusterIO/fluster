@@ -20,5 +20,6 @@ declare global {
         "show-equation-detail-modal": CustomEvent<ShowEquationDetailModalEventProps>;
         "database-sync-success": CustomEvent<object>;
         "refresh-mdx": CustomEvent<object>;
+        "refresh-kanban-board-list": CustomEvent<object>;
     }
 }

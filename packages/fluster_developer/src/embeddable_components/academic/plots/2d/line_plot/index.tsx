@@ -51,9 +51,11 @@ export const LinePlot = (props: LinePlotProps): ReactNode => {
             useResizeHandler: true,
         } satisfies PlotParams;
     }, [x, y, mainPanelSize]);
+
     if (!data) {
         return null;
     }
+
     return (
         <PlotContainer
             InlineMdxContent={props.InlineMdxContent}

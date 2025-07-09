@@ -13,6 +13,15 @@ pub struct PaginationProps {
     pub page_number: i32,
 }
 
+impl PaginationProps {
+    pub fn take_all() -> Self {
+        Self {
+            per_page: 999999,
+            page_number: 1,
+        }
+    }
+}
+
 impl Default for PaginationProps {
     fn default() -> Self {
         Self {

@@ -1,12 +1,15 @@
 import { Button } from "@fluster.io/dev";
 import React, { type ReactNode } from "react";
-import { KanbanActions, useKanbanDispatch } from "../state/kanban_provider";
+import { KanbanActions, useKanbanDispatch } from "../../state/kanban_provider";
+import { H3 } from "@/components/typography/typography";
 
 const KanbanAddBoardCard = (): ReactNode => {
     const dispatch = useKanbanDispatch();
     return (
-        <div className="w-full h-full p-6 border rounded">
+        <div className="w-full h-full max-w-[300px-6 border rounded space-y-6 py-6 px-8">
+            <H3 className="w-full text-center">Create a new board</H3>
             <Button
+                className="w-full"
                 onClick={() => {
                     dispatch({
                         type: KanbanActions.showAddBoardModal,
@@ -14,7 +17,7 @@ const KanbanAddBoardCard = (): ReactNode => {
                     });
                 }}
             >
-                Create new board
+                Create
             </Button>
         </div>
     );

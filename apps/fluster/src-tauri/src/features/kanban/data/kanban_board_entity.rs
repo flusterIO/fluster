@@ -18,27 +18,68 @@ use crate::{
     features::search::types::PaginationProps,
 };
 
-use super::kanban_board_entry_model::KanbanBoardEntryModel;
+use super::kanban_board_model::KanbanBoardModel;
 
 pub struct KanbanBoardEntity {}
 
 impl KanbanBoardEntity {
-    pub async fn delete_by_id(db: &FlusterDb<'_>, file_path: String) -> FlusterResult<()> {
-        let tbl = get_table(db, DatabaseTables::KanbanBoardEntry).await?;
-        tbl.delete(&format!("id = \"{}\"", file_path))
+    pub async fn get_by_ids(
+        db: &FlusterDb<'_>,
+        ids: Vec<String>,
+    ) -> FlusterResult<Vec<KanbanBoardModel>> {
+        if ids.is_empty() {
+            return Ok(Vec::new());
+        }
+        let tbl = get_table(db, DatabaseTables::KanbanBoard).await?;
+        let ids_string = ids
+            .iter()
+            .map(|x| format!("\"{}\"", x))
+            .collect::<Vec<String>>()
+            .join(", ");
+        let items_batch = tbl
+            .query()
+            .only_if(format!("id in ({})", ids_string))
+            .execute()
             .await
             .map_err(|e| {
-                println!("Error: {:?}", e);
-                FlusterError::FailToDelete
+                println!("Error in KanbanBoardEntity.get_by_ids: {:?}", e);
+                FlusterError::FailToConnect
+            })?
+            .try_collect::<Vec<_>>()
+            .await
+            .map_err(|e| {
+                println!("Error in KanbanBoardEntity.get_by_ids: {:?}", e);
+                FlusterError::FailToFind
             })?;
+        // let batches = &items_batch;
+        if items_batch.is_empty() {
+            return Ok(Vec::new());
+        }
+        let mut items: Vec<KanbanBoardModel> = Vec::new();
+
+        for batch in items_batch.iter() {
+            let data: Vec<KanbanBoardModel> = from_record_batch(batch).map_err(|e| {
+                println!("Error in KanbanBoardEntity.get_by_ids: {:?}", e);
+                FlusterError::FailToSerialize
+            })?;
+            items.extend(data);
+        }
+        Ok(items)
+    }
+    pub async fn delete_by_id(db: &FlusterDb<'_>, id: &str) -> FlusterResult<()> {
+        let tbl = get_table(db, DatabaseTables::KanbanBoard).await?;
+        tbl.delete(&format!("id = \"{}\"", id)).await.map_err(|e| {
+            println!("Error: {:?}", e);
+            FlusterError::FailToDelete
+        })?;
         Ok(())
     }
     pub async fn get_many(
         db: &FlusterDb<'_>,
         predicate: &Option<String>,
         pagination: &PaginationProps,
-    ) -> FlusterResult<Vec<KanbanBoardEntryModel>> {
-        let tbl = get_table(db, DatabaseTables::KanbanBoardEntry).await?;
+    ) -> FlusterResult<Vec<KanbanBoardModel>> {
+        let tbl = get_table(db, DatabaseTables::KanbanBoard).await?;
 
         let query = match predicate {
             None => tbl.query(),
@@ -64,10 +105,10 @@ impl KanbanBoardEntity {
             return Ok(Vec::new());
         }
 
-        let mut items: Vec<KanbanBoardEntryModel> = Vec::new();
+        let mut items: Vec<KanbanBoardModel> = Vec::new();
 
         for batch in items_batch.iter() {
-            let data: Vec<KanbanBoardEntryModel> = from_record_batch(batch).map_err(|e| {
+            let data: Vec<KanbanBoardModel> = from_record_batch(batch).map_err(|e| {
                 println!("Error: {:?}", e);
                 FlusterError::FailToSerialize
             })?;
@@ -75,12 +116,9 @@ impl KanbanBoardEntity {
         }
         Ok(items)
     }
-    pub async fn save_many(
-        db: &FlusterDb<'_>,
-        entries: &[KanbanBoardEntryModel],
-    ) -> FlusterResult<()> {
+    pub async fn save_many(db: &FlusterDb<'_>, entries: &[KanbanBoardModel]) -> FlusterResult<()> {
         let schema = KanbanBoardEntity::arrow_schema();
-        let tbl = get_table(db, DatabaseTables::KanbanBoardEntry).await?;
+        let tbl = get_table(db, DatabaseTables::KanbanBoard).await?;
         let batches: Vec<Result<RecordBatch, ArrowError>> = entries
             .iter()
             .map(|x| Ok(KanbanBoardEntity::to_record_batch(x, schema.clone())))
@@ -104,7 +142,7 @@ impl KanbanBoardEntity {
     }
 }
 
-impl DbEntity<KanbanBoardEntryModel> for KanbanBoardEntity {
+impl DbEntity<KanbanBoardModel> for KanbanBoardEntity {
     fn arrow_schema() -> std::sync::Arc<arrow_schema::Schema> {
         Arc::new(Schema::new(vec![
             Field::new("id", DataType::Utf8, false),
@@ -114,7 +152,7 @@ impl DbEntity<KanbanBoardEntryModel> for KanbanBoardEntity {
     }
 
     fn to_record_batch(
-        item: &KanbanBoardEntryModel,
+        item: &KanbanBoardModel,
         schema: std::sync::Arc<arrow_schema::Schema>,
     ) -> arrow_array::RecordBatch {
         let id = StringArray::from(vec![item.id.clone()]);

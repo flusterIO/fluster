@@ -26,6 +26,8 @@ build_go:
 	cd ${FLUSTER_NATIVE_ROOT}/packages/fluster_internal_workspace/; go build
 test_go:
 	cd ${FLUSTER_NATIVE_ROOT}/apps/fluster/src-tauri; cd ${FLUSTER_NATIVE_ROOT}/packages/fluster_cli; go test -cover -coverprofile $FLUSTER_NATIVE_ROOT/packages/fluster_cli/.coverage/coverage.outj
+generate_plotly_themes_from_python:
+	python ./scripts/generate_plotly_themes.py
 generate_embedded_python_artifacts:
 	cd ${FLUSTER_NATIVE_ROOT}/apps/fluster/src-tauri; pyoxidizer generate-python-embedding-artifacts pyembedded
 build_embedded_python:

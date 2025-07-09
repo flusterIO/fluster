@@ -34,6 +34,12 @@ use crate::features::editor::write_file::write_file;
 use crate::features::embedded_docs::get_embedded_doc_by_id::get_embedded_doc;
 use crate::features::embedded_docs::get_embedded_doc_by_id::get_embedded_doc_by_relative_path;
 use crate::features::jupyter::commands::generate_new_jupyter_token::generate_new_token;
+use crate::features::kanban::commands::create_kanban_board_card::create_new_kanban_board_card;
+use crate::features::kanban::commands::create_new_kanban_board::create_new_kanban_board;
+use crate::features::kanban::commands::delete_kanban_board::delete_kanban_board_by_id;
+use crate::features::kanban::commands::delete_kanban_board_card::delete_kanban_board_card_by_id;
+use crate::features::kanban::commands::get_kanban_board_by_id::get_kanban_board_by_id;
+use crate::features::kanban::commands::get_kanban_board_list::get_kanban_board_list;
 use crate::features::math::commands::delete_equation_by_id::delete_equation_by_id;
 use crate::features::math::commands::get_equation_by_id::get_equation_by_id;
 use crate::features::math::commands::get_equation_by_id::get_equation_by_user_provided_id;
@@ -197,6 +203,13 @@ pub fn run() {
             get_all_task_lists,
             get_task_list_count,
             get_task_count,
+            // -- Kanban Board --
+            create_new_kanban_board,
+            delete_kanban_board_by_id,
+            delete_kanban_board_card_by_id,
+            create_new_kanban_board_card,
+            get_kanban_board_by_id,
+            get_kanban_board_list,
             // -- Jupyter --
             generate_new_token,
         ])

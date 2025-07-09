@@ -20,6 +20,7 @@ interface TextAreaInputProps<T extends FieldValues> extends FormInputProps<T> {
         label?: string;
     };
     rows?: number;
+    placeholder?: string;
 }
 
 export const TextAreaInput = <T extends FieldValues>({
@@ -27,6 +28,7 @@ export const TextAreaInput = <T extends FieldValues>({
     form,
     name,
     desc,
+    placeholder,
     rows = 4,
     classes = {},
 }: TextAreaInputProps<T>): ReactNode => {
@@ -42,6 +44,7 @@ export const TextAreaInput = <T extends FieldValues>({
                             <div className={cn("w-full max-w-[600px]", classes.container)}>
                                 <Textarea
                                     value={field.value}
+                                    placeholder={placeholder}
                                     onChange={(e) =>
                                         form.setValue(
                                             field.name,

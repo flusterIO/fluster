@@ -70,7 +70,7 @@ jobs:
           projectPath: apps/fluster
           distPath: apps/fluster/dist
           tagName: app-v__VERSION__ # the action automatically replaces \_\_VERSION\_\_ with the app version.
-          releaseName: "App v__VERSION__"
+          releaseName: "Fluster v__VERSION__"
           releaseBody: |
             See the assets to download this version and install.
 
@@ -82,7 +82,7 @@ jobs:
             | Mac (intel chip) | Fluster_x64.app.tar.gz |
             | Windows | .msi or .exe |
             | Linux | .deb or .AppImage |
-          releaseDraft: true
+          releaseDraft: false
           prerelease: false
           tauriScript: pnpm tauri
           args: ${{ matrix.args }}

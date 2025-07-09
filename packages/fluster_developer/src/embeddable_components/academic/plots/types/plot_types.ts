@@ -2,6 +2,7 @@ import { FC } from "react";
 import { AxisGeneratorProps } from "../../../../lib/bindings";
 import { FlusterArray } from "../../../../math/numpy";
 import { Constants } from "../../../../math/constants";
+import { PlotState } from "../types";
 
 export type ArrayData = number[] | number[][] | number[][][];
 
@@ -54,4 +55,5 @@ export type AxisData<T extends AnyMathFunction, J extends ArrayData> =
 
 export interface GeneralPlotProps extends PlotContainerProps {
     darkMode: boolean;
+    plotProps: PlotState;
 }

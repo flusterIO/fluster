@@ -39,12 +39,15 @@ import { commands } from "@/lib/bindings";
 import { WrappedCodeBlock } from "#/mdx/presentation/wrapped_components/code";
 import { WrappedLinePlot } from "#/mdx/presentation/wrapped_components/plots/line_plot";
 import { WrappedScatterPlot } from "#/mdx/presentation/wrapped_components/plots/scatter_plot";
+import store from "@/state/store";
+import { AppState } from "@/state/initial_state";
 
 interface ComponentMapItem {
     /// A regex that will return true if this component is to be included in the component map. This will be prepended with a `<`, so the name should match the component as it will be used in the user's note.
     query: string;
     component: FC<any>;
     requiresInlineMdx?: boolean;
+    requiresPlotProps?: boolean;
 }
 
 export const componentOverrides: MDXComponents = {
@@ -81,10 +84,12 @@ const items: ComponentMapItem[] = [
     {
         query: "ScatterPlot",
         component: WrappedScatterPlot,
+        requiresPlotProps: true,
     },
     {
         query: "LinePlot",
         component: WrappedLinePlot,
+        requiresPlotProps: true,
     },
 
     {
@@ -174,14 +179,15 @@ const items: ComponentMapItem[] = [
 
 export const getComponentMap = (mdxContent: string): MDXComponents => {
     const components: MDXComponents = componentOverrides;
+    const plotProps = (store.getState() as AppState).scaffold.plot;
     for (const item of items) {
         if (mdxContent.includes(`<${item.query}`)) {
             const C = item.component;
-            components[item.query] = item.requiresInlineMdx
-                ? (props: object) => (
-                    <C {...props} InlineMdxContent={InlineMdxContent} />
-                )
-                : item.component;
+            const props = {
+                InlineMdxContent: item.requiresInlineMdx ? InlineMdxContent : undefined,
+                plotProps: item.requiresPlotProps ? plotProps : undefined,
+            };
+            components[item.query] = (_props: object) => <C {...props} {..._props} />;
         }
     }
     return components;

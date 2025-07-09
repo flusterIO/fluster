@@ -19,16 +19,20 @@ const EditNoteSplitViewPage = (): ReactNode => {
       ? "split-view-file-editor"
       : "split-view-new-file-editor"
   ) as [string, (newString: string) => void];
+
   const valueRef = useRef(value);
+
   useEffect(() => {
     valueRef.current = value;
   }, [value]);
+
   const getFileContent = async (fsPath: string): Promise<void> => {
     const res = await commands.readUtf8File(fsPath);
     if (res.status === "ok") {
       setValue(res.data);
     }
   };
+
   useIsomorphicLayoutEffect(() => {
     const fsPath = searchParams.get("fsPath");
     if (fsPath) {
@@ -38,6 +42,7 @@ const EditNoteSplitViewPage = (): ReactNode => {
       getFileContent(fsPath);
     }
   }, [searchParams]);
+
   return (
     <SplitViewContainer
       actions={[

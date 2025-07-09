@@ -44,6 +44,9 @@ export const ScatterPlot = (props: ScatterPlotProps): ReactNode => {
             layout: {
                 ...sharedLayoutProps,
                 width: Math.min(mainPanelSize?.width ?? 768, 1080),
+                /* template: props.darkMode */
+                /*     ? props.plotProps.darkTheme */
+                /*     : props.plotProps.lightTheme, */
             },
             config: sharedPlotConfig,
             style: {
@@ -52,7 +55,7 @@ export const ScatterPlot = (props: ScatterPlotProps): ReactNode => {
             },
             useResizeHandler: true,
         } satisfies PlotParams;
-    }, [x, y, mainPanelSize]);
+    }, [x, y, mainPanelSize, props.plotProps, props.darkMode]);
     if (!data) {
         return null;
     }
