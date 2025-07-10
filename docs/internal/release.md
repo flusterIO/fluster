@@ -20,6 +20,7 @@
 
 > Make sure you're on the release branch.
 
+- Update version manually in the `tauri.conf.json` file.
 - `git checkout release` to switch to release branch
 - `git merge main` to merge main branch with release branch after pushing packages on main branch.
 - Manually update version of `@fluster.io/dev` in `apps/fluster/package.json` to match recently published version to get around issue with pnpm workspace dependencies.
