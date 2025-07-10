@@ -1,4 +1,3 @@
-import PanelContainer from "@/components/util/panel_container";
 import React, { type ReactNode } from "react";
 import { useSearchParams } from "react-router";
 import { TaskList } from "./task_list";
@@ -18,9 +17,7 @@ export const TaskListsPage = (): ReactNode => {
                 <AddTaskModal />
                 <div className="w-[min(768px,90%)] h-full">
                     {taskListId ? (
-                        <div
-                            className="grid grid-cols-1 w-full h-full max-h-screen"
-                        >
+                        <div className="grid grid-cols-1 w-full h-full max-h-screen">
                             <TaskListButtonBar />
                             <TaskList />
                         </div>

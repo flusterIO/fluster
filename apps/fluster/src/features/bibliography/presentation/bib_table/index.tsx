@@ -10,7 +10,6 @@ import {
     useEventListener,
 } from "@fluster.io/dev";
 import {
-    ColumnFiltersState,
     flexRender,
     getCoreRowModel,
     getFilteredRowModel,
@@ -50,7 +49,6 @@ export const BibliographyTable = () => {
     const [sorting, setSorting] = useState<SortingState>([]);
     useBibTableSearchParams();
     const [minHeight, setMinHeight] = useState<string | undefined>(undefined);
-    const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
     const [globalFilter, setGlobalFilter] = useState<any>("");
     const [pagination, setPagination] = useState<PaginationState>({
         pageIndex: 1,
@@ -65,7 +63,6 @@ export const BibliographyTable = () => {
         onSortingChange: setSorting,
         getSortedRowModel: getSortedRowModel(),
         getPaginationRowModel: getPaginationRowModel(),
-        onColumnFiltersChange: setColumnFilters,
         getFilteredRowModel: getFilteredRowModel(),
         onPaginationChange: setPagination,
         globalFilterFn: fuzzyFilter,
@@ -94,7 +91,6 @@ export const BibliographyTable = () => {
     }, [pagination]);
 
     useEventListener("set-bib-table-filter", (e) => {
-        /* table.getColumn("title")?.setFilterValue(e.detail.query); */
         table.setGlobalFilter(e.detail.query);
     });
 

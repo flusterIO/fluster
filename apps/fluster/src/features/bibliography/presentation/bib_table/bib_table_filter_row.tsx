@@ -45,10 +45,10 @@ export const BibTableFilterRow = (): ReactNode => {
     return (
         <Form {...form}>
             <div className="flex flex-row justify-between items-end w-full px-8 mb-6">
-                <div>
+                <div className="flex-grow">
                     <TextInputGroup
                         classes={{
-                            input: "bg-input",
+                            input: "bg-input w-[min(100%,350px)]",
                         }}
                         form={form}
                         label="Search"
