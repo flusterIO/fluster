@@ -17,8 +17,8 @@ export class NotesCommandPaletteRoot extends CommandPaletteCategory {
   }
   async getItems(): Promise<CommandPaletteAnyEntry[]> {
     const items = await commands.getNoteSummaries({
-      per_page: 1000,
-      page_number: 1,
+      per_page: 1000 as unknown as string,
+      page_number: 1 as unknown as string,
     });
     if (items.status === "ok") {
       return items.data.map((x) => {

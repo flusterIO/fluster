@@ -21,8 +21,8 @@ const getPagination = (sp: URLSearchParams): PaginationProps => {
   const _page = sp.get("page");
   const _per_page = sp.get("per_page");
   return {
-    page_number: _page ? parseInt(_page) : 1,
-    per_page: _per_page ? parseInt(_per_page) : 50,
+    page_number: (_page ? parseInt(_page) : 1) as unknown as string,
+    per_page: (_per_page ? parseInt(_per_page) : 50) as unknown as string,
   };
 };
 
