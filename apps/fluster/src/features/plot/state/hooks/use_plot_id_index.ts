@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { usePlotsContext } from "../utils/plots_provider/context";
+import { usePlotsContext } from "../../utils/plots_provider/context";
 
 export const usePlotIdIndex = (plotId?: string | null) => {
     const state = usePlotsContext();

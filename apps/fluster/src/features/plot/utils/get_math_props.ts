@@ -1,5 +1,4 @@
-import { Constants } from "../../../../math/constants";
-import { FlusterArray } from "../../../../math/numpy";
+import { Constants, FlusterArray } from "@fluster.io/dev";
 import { ExtendedMath } from "../types/plot_types";
 
 export const getMathProps = (): ExtendedMath => {

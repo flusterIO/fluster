@@ -26,12 +26,7 @@ export * from "./components/attention_getters/hint/index";
 //     -- Academic --
 export * from "./embeddable_components/academic/abstract/index";
 //     -- Plot --
-export * from "./embeddable_components/academic/plots/utils/plots_provider/provider";
-export * from "./embeddable_components/academic/plots/utils/plots_provider/context";
-export * from "./embeddable_components/academic/plots/2d/line_plot/index";
-export * from "./embeddable_components/academic/plots/2d/scatter_plot/index";
-export * from "./embeddable_components/academic/plots/utils/plot_ref";
-export * from "./embeddable_components/academic/plots/types";
+export * from "./hooks/use_plot_themes";
 //     -- Math --
 export * from "./math/numpy/index";
 export * from "./math/constants/index";

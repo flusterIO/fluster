@@ -1,5 +1,5 @@
 import { type ReactNode } from "react";
-import { usePlotIdIndex } from "../hooks/use_plot_id_index";
+import { usePlotIdIndex } from "../state/hooks/use_plot_id_index";
 
 interface PlotRefProps {
     id?: string | null;

@@ -4,12 +4,12 @@ import {
     AxisData,
     MathFunction,
     MathFunctionReturn,
-} from "../types/plot_types";
-import { getMathProps } from "../utils/get_math_props";
+} from "../../types/plot_types";
+import { getMathProps } from "../../utils/get_math_props";
 import {
     axisGeneratorPropsToArray,
     OneDimensionalArrayDataType,
-} from "../utils/axis_utils";
+} from "../../utils/axis_utils";
 
 const getIndependentDataFromAxisData = async (
     data:

@@ -1,11 +1,11 @@
+import { commands } from "@/lib/bindings";
 import {
     ArrayDataWithProps,
     AxisData,
     MathFunctionXDependent,
-} from "../types/plot_types";
-import { getMathProps } from "../utils/get_math_props";
+} from "../../types/plot_types";
+import { getMathProps } from "../../utils/get_math_props";
 import { useEffect, useState } from "react";
-import { commands } from "../../../../lib/bindings";
 
 type XReturn = number[];
 

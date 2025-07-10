@@ -22,7 +22,6 @@ import {
     EqRef,
     DictionaryEntry,
     EquationTag,
-    PlotRef,
     AppRoute,
     Blockquote,
     H1,
@@ -35,10 +34,11 @@ import { MDXComponents } from "mdx/types";
 import { InlineMdxContent } from "#/mdx/presentation/inline_mdx_content";
 import { commands } from "@/lib/bindings";
 import { WrappedCodeBlock } from "#/mdx/presentation/wrapped_components/code";
-import { WrappedLinePlot } from "#/mdx/presentation/wrapped_components/plots/line_plot";
-import { WrappedScatterPlot } from "#/mdx/presentation/wrapped_components/plots/scatter_plot";
 import store from "@/state/store";
 import { AppState } from "@/state/initial_state";
+import { ScatterPlot } from "#/plot/presentation/plots/2d/scatter_plot";
+import { LinePlot } from "#/plot/presentation/plots/2d/line_plot";
+import { PlotRef } from "#/plot/utils/plot_ref";
 
 interface ComponentMapItem {
     /// A regex that will return true if this component is to be included in the component map. This will be prepended with a `<`, so the name should match the component as it will be used in the user's note.
@@ -81,12 +81,12 @@ const items: ComponentMapItem[] = [
     //    -- Plots --
     {
         query: "ScatterPlot",
-        component: WrappedScatterPlot,
+        component: ScatterPlot,
         requiresPlotProps: true,
     },
     {
         query: "LinePlot",
-        component: WrappedLinePlot,
+        component: LinePlot,
         requiresPlotProps: true,
     },
 

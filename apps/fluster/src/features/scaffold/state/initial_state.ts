@@ -1,10 +1,18 @@
-import { PlotState, themes } from "@fluster.io/dev";
+import { PlotlyTheme } from "@/lib/bindings";
+import { themes } from "@fluster.io/dev";
 
 export { themes };
 export enum ThemeMode {
     light,
     dark,
     system,
+}
+
+export interface PlotState {
+    themes: {
+        dark: PlotlyTheme;
+        light: PlotlyTheme;
+    };
 }
 
 export interface ScaffoldState {
@@ -17,7 +25,9 @@ export const initialScaffoldState: ScaffoldState = {
     themeMode: ThemeMode.system,
     theme: "fluster",
     plot: {
-        darkTheme: "plotly_dark",
-        lightTheme: "seaborn",
+        themes: {
+            dark: "plotly_dark",
+            light: "seaborn",
+        },
     },
 };

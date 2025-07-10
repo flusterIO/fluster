@@ -1,5 +1,5 @@
+import { PlotsProvider } from "#/plot/utils/plots_provider/provider";
 import React, { type ReactNode } from "react";
-import { PlotsProvider } from "@fluster.io/dev";
 
 interface MdxProvidersGroupProps {
     children: ReactNode;

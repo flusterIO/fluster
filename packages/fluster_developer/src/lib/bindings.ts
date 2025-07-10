@@ -695,6 +695,9 @@ async getKanbanBoardList(predicate: string | null, pagination: PaginationProps |
 },
 async generateNewToken(length: string) : Promise<string> {
     return await TAURI_INVOKE("generate_new_token", { length });
+},
+async getPlotlyTheme(themeId: PlotlyTheme) : Promise<string> {
+    return await TAURI_INVOKE("get_plotly_theme", { themeId });
 }
 }
 
@@ -862,6 +865,7 @@ file_path: string; raw_body: string; ctime: string;
 last_read: string; vec: number[] }
 export type NoteSummary = { title: string; file_path: string }
 export type PaginationProps = { per_page: string; page_number: string }
+export type PlotlyTheme = "ggplot2" | "seaborn" | "simple_white" | "plotly" | "plotly_white" | "plotly_dark" | "presentation" | "xgridoff" | "ygridoff" | "gridon" | "none"
 export type SearchOrder = "Created"
 export type SearchParams = { order: SearchOrder | null; per_page: number | null; page: number | null }
 export type SemanticSearchResults = { notes: MdxNoteGroup[] }

@@ -98,6 +98,7 @@ use features::math::commands::numpy::{
     arange::arange, grid::axis_grid, grid::grid_2d, linspace::linspace, logspace::logspace,
 };
 use features::math::get_mathjax_path::get_mathjax_path;
+use features::plot::commands::get_plotly_theme::get_plotly_theme;
 use tauri_specta::{collect_commands, collect_events, Builder};
 
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
@@ -212,6 +213,8 @@ pub fn run() {
             get_kanban_board_list,
             // -- Jupyter --
             generate_new_token,
+            // -- Plotting --
+            get_plotly_theme,
         ])
         .events(collect_events![ShowToast, SetDbConnectionUri])
         .typ::<FlusterError>()

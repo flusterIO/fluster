@@ -1,8 +1,6 @@
+import { AxisGeneratorProps } from "@/lib/bindings";
+import { Constants, FlusterArray } from "@fluster.io/dev";
 import { FC } from "react";
-import { AxisGeneratorProps } from "../../../../lib/bindings";
-import { FlusterArray } from "../../../../math/numpy";
-import { Constants } from "../../../../math/constants";
-import { PlotState } from "../types";
 
 export type ArrayData = number[] | number[][] | number[][][];
 
@@ -53,7 +51,4 @@ export type AxisData<T extends AnyMathFunction, J extends ArrayData> =
     | AxisGeneratorProps
     | ArrayDataWithProps<J>;
 
-export interface GeneralPlotProps extends PlotContainerProps {
-    darkMode: boolean;
-    plotProps: PlotState;
-}
+export type GeneralPlotProps = PlotContainerProps;

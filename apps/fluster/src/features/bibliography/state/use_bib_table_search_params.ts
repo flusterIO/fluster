@@ -9,8 +9,8 @@ export const useBibTableSearchParams = () => {
     const dispatch = useBibTableDispatch();
     const getData = async (): Promise<void> => {
         const res = await commands.getBibEntries(null, {
-            page_number: 1,
-            per_page: Number.MAX_SAFE_INTEGER,
+            page_number: 1 as unknown as string,
+            per_page: Number.MAX_SAFE_INTEGER as unknown as string,
         });
         if (res.status === "ok") {
             dispatch({

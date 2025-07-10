@@ -1,4 +1,4 @@
-import { AxisGeneratorProps, commands } from "../../../../lib/bindings";
+import { AxisGeneratorProps, commands } from "@/lib/bindings";
 import { ArrayDataWithProps } from "../types/plot_types";
 
 export type OneDimensionalArrayDataType = number[];
