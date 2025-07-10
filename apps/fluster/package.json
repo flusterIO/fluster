@@ -25,7 +25,7 @@
         "manual_postinstall": "wireit",
         "preview": "vite preview",
         "tauri": "tauri",
-        "typecheck": "tsc --noEmit -p ./tsconfig.json"
+        "typecheck": "tsc --noEmit -p ./tsconfig_dev.json"
     },
     "wireit": {
         "copy:mathjax": {
