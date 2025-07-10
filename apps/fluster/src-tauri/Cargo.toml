@@ -97,3 +97,4 @@ numpy = "0.25.0"
 tauri-plugin-global-shortcut = "2"
 tauri-plugin-single-instance = "2"
 tauri-plugin-window-state = "2"
+
