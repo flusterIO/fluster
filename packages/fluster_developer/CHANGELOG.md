@@ -1,5 +1,11 @@
 # @fluster.io/dev
 
+## 0.0.12
+
+### Patch Changes
+
+- Improvements to bib table, some overflow fixes and other UI improvements.
+
 ## 0.0.11
 
 ### Patch Changes

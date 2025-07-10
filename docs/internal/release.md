@@ -10,8 +10,6 @@
 
 > Make sure you're on the main branch.
 
-- Commit everything on whichever branch you're working on, switch to main and merge latest changes.
-- 'FlusterMake -> nocheck bindings' to get around typescript error in generated file.
 - Create a changeset with `pnpm changeset`
 - Version all packages with `pnpm changeset version` -- This skips the stage of generating a pull request with the merge and handles everything in one workflow.
 - Update lock files with `pnpm install`
