@@ -5,6 +5,7 @@
 - [ ] `FlusterMake -> nocheck bindings file` to tackle error in generated binding files.
 - [ ] `pnpm typecheck` to check typescript errors.
 - [ ] `cargo check` to check rust errors
+- [ ] Create tag with `git tag -a v0.0.x`
 
 ## Release Node Packages
 
@@ -25,6 +26,7 @@
 - `git merge main` to merge main branch with release branch after pushing packages on main branch.
 - Manually update version of `@fluster.io/dev` in `apps/fluster/package.json` to match recently published version to get around issue with pnpm workspace dependencies.
 - `pnpm install` to update lock files to match the remote version.
+- Push created tag with `git push --tag`
 - `git add --all` & `git commit -m "Push release"`
 
 ## Revert back to local development
