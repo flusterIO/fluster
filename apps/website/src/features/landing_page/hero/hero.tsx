@@ -26,7 +26,7 @@ const variants: MotionProps["variants"] = {
 
 const HeroSection = () => {
     return (
-        <HeroBackground containerClassName="min-h-screen w-full">
+        <HeroBackground containerClassName="dark min-h-screen w-full">
             <div
                 className={
                     "min-h-[calc(100vh-76px)] w-full flex flex-col justify-center items-center"
