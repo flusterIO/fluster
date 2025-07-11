@@ -44,7 +44,7 @@ const EquationsList = (): ReactNode => {
     }
 
     return (
-        <div className="w-full flex flex-col justify-start items-center gap-8">
+        <div className="w-full flex flex-col justify-start items-center gap-8 mb-16">
             {items.map((x) => (
                 <EquationListItem key={x.id} item={x} />
             ))}

@@ -24,6 +24,7 @@ import { setPanelLeftOpen } from "#/panel_left/state/slice";
 import { NavLink } from "react-router";
 import { AppRoutes } from "#/router/data/app_routes";
 import { secondaryToolTip } from "../../../../styles/classes";
+import { useConfirmation } from "#/confirmation_modal/state/hooks/use_confirmation";
 
 interface EquationListItemProps {
     item: EquationModel;
@@ -45,6 +46,7 @@ const useEquationHasNotes = (equationId: string): boolean => {
 };
 
 const EquationListItem = ({ item }: EquationListItemProps): ReactNode => {
+    const confirmationId = "confirm-equation-delete"
     const dispatch = useDispatch();
     const byEquationUrl = useMemo(() => {
         const sp = new URLSearchParams();
@@ -69,6 +71,28 @@ const EquationListItem = ({ item }: EquationListItemProps): ReactNode => {
         }
     };
 
+    const confirm = useConfirmation(
+        {
+            id: confirmationId,
+            acceptButtonText: "Delete",
+            denyButtonText: "Cancel",
+            title: "Are you sure?",
+            body: "This will permanently delete this chat.",
+            confirmationVariant: "destructive",
+        },
+        () => {
+            handleDelete(item.id).catch(() => {
+                showToast({
+                    title: "Oh no",
+                    body: "Something went wrong while deleting this chat.",
+                    variant: "Error",
+                    duration: 5000,
+                });
+            });
+        }
+    );
+
+
     const handleEditClick = (): void => {
         dispatch(setPanelLeftOpen(true));
     };
@@ -92,7 +116,7 @@ const EquationListItem = ({ item }: EquationListItemProps): ReactNode => {
             <div className="w-full flex flex-col justify-between items-center gap-4 @[450px]/equation_item:gap-6 @[450px]/equation_item:flex-row mt-4 px-6">
                 <Button
                     variant={"destructive"}
-                    onClick={() => handleDelete(item.id!)}
+                    onClick={() => confirm.setVisible(true)}
                     className="w-full @[450px]/equation_item:w-fit"
                 >
                     Delete

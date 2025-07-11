@@ -49,6 +49,7 @@ export const BibliographyTable = () => {
     const [sorting, setSorting] = useState<SortingState>([]);
     useBibTableSearchParams();
     const [minHeight, setMinHeight] = useState<string | undefined>(undefined);
+    /* eslint-disable-next-line  --  */
     const [globalFilter, setGlobalFilter] = useState<any>("");
     const [pagination, setPagination] = useState<PaginationState>({
         pageIndex: 1,
@@ -88,6 +89,7 @@ export const BibliographyTable = () => {
                 setMinHeight(`${h}px`);
             }
         }
+        /* eslint-disable-next-line  --  */
     }, [pagination]);
 
     useEventListener("set-bib-table-filter", (e) => {
