@@ -1,9 +1,9 @@
 import React, { useMemo, type ReactNode } from "react";
 import {
-    AxisData,
-    GeneralPlotProps,
-    MathFunction,
-    MathFunctionXDependent,
+  AxisData,
+  GeneralPlotProps,
+  MathFunction,
+  MathFunctionXDependent,
 } from "../../../../types/plot_types";
 import { PlotContainer } from "../../../plot_container/index";
 import Plot, { PlotParams } from "react-plotly.js";
@@ -12,74 +12,68 @@ import { useAxisDataWithXInput } from "../../../../state/hooks/use_axis_data_wit
 import { sharedLayoutProps } from "../../../../data/shared_data/shared_layout_props";
 import { sharedPlotConfig } from "../../../../data/shared_data/shared_plot_config";
 import { usePlot } from "../../../../state/hooks/use_plot";
-import { useMainPanelSize, usePlotThemes } from "@fluster.io/dev";
+import { useMainPanelSize } from "@fluster.io/dev";
 import { connect } from "react-redux";
 import { AppState } from "@/state/initial_state";
 import { useDarkMode } from "@/hooks/use_dark_mode";
+import { usePlotThemes } from "#/plot/state/hooks/use_plot_themes";
+import { Layout } from "plotly.js";
 
 const connector = connect((state: AppState) => ({
-    state: state.scaffold.plot,
+  state: state.plot,
 }));
 
 export interface LinePlotProps extends GeneralPlotProps {
-    x: AxisData<MathFunction, number[]>;
-    y: AxisData<MathFunctionXDependent, number[]>;
-    state: AppState["scaffold"]["plot"];
+  x: AxisData<MathFunction, number[]>;
+  y: AxisData<MathFunctionXDependent, number[]>;
+  state: AppState["plot"];
 }
 
 export const LinePlot = connector((props: LinePlotProps): ReactNode => {
-    const x = useAxisData(props.x);
-    const y = useAxisDataWithXInput(props.y, x);
-    const mainPanelSize = useMainPanelSize();
-    const darkMode = useDarkMode();
-    const ref = usePlot(props);
-    const themes = usePlotThemes({
-        dark: props.state.themes.dark,
-        light: props.state.themes.light,
-    });
-    const data: PlotParams | null = useMemo(() => {
-        if (!x || !y) {
-            return null;
-        }
-        return {
-            data: [
-                {
-                    title: {
-                        text: y.label ?? undefined,
-                    },
-                    x: x.data,
-                    y: y.data,
-                },
-            ],
-            className: "rounded-xl",
-            layout: {
-                ...sharedLayoutProps,
-                template: darkMode ? themes?.dark : themes?.light,
-                width: Math.min(mainPanelSize?.width ?? 768, 1080),
-            },
-            config: sharedPlotConfig,
-            style: {
-                width: "100%",
-                height: "auto",
-            },
-            useResizeHandler: true,
-        } satisfies PlotParams;
-    }, [x, y, mainPanelSize, themes, darkMode]);
+  const x = useAxisData(props.x);
+  const y = useAxisDataWithXInput(props.y, x);
+  const mainPanelSize = useMainPanelSize();
+  const darkMode = useDarkMode();
+  const ref = usePlot(props);
+  const themes = usePlotThemes();
 
-    if (!data) {
-        return null;
-    }
+  const layout = useMemo(() => {
+    console.log("themes: ", themes);
+    return {
+      ...(themes ? (darkMode ? themes.dark.layout : themes.light.layout) : {}),
+      /* ...sharedLayoutProps, */
+      template: darkMode ? themes?.dark : themes?.light,
+      autosize: false,
+      width: Math.min(mainPanelSize?.width ?? 768, 1080),
+    } satisfies Partial<Layout>;
+    /* eslint-disable-next-line  --  */
+  }, [themes]);
 
-    return (
-        <PlotContainer
-            InlineMdxContent={props.InlineMdxContent}
-            title={props.title}
-            desc={props.desc}
-            id={props.id}
-        >
-            <Plot {...data} ref={ref} />
-        </PlotContainer>
-    );
+  console.log("layout: ", layout);
+  return (
+    <PlotContainer title={props.title} desc={props.desc} id={props.id}>
+      <Plot
+        data={[
+          {
+            title: {
+              text: y?.label ?? undefined,
+            },
+            x: x?.data,
+            y: y?.data,
+          },
+        ]}
+        className="rounded-xl"
+        layout={layout}
+        config={sharedPlotConfig}
+        style={{
+          width: "100%",
+          height: "auto",
+        }}
+        useResizeHandler={true}
+        ref={ref}
+      />
+    </PlotContainer>
+  );
 });
 
 LinePlot.displayName = "LinePlot";

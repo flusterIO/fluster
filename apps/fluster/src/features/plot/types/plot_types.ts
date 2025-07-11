@@ -1,6 +1,5 @@
 import { AxisGeneratorProps } from "@/lib/bindings";
 import { Constants, FlusterArray } from "@fluster.io/dev";
-import { FC } from "react";
 
 export type ArrayData = number[] | number[][] | number[][][];
 
@@ -8,7 +7,6 @@ export interface PlotContainerProps {
     title?: string;
     desc?: string;
     id?: string;
-    InlineMdxContent: FC<{ mdx: string }>;
 }
 
 export type ArrayDataWithProps<T extends ArrayData> = Omit<

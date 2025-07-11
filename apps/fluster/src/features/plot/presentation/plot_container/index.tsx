@@ -1,16 +1,15 @@
+import { InlineMdxContent } from "#/mdx/presentation/inline_mdx_content";
 import { usePlotIdIndex } from "#/plot/state/hooks/use_plot_id_index";
 import { PlotContainerProps } from "#/plot/types/plot_types";
 import { MdxH3 } from "@fluster.io/dev";
-import React, { FC, type ReactNode } from "react";
+import React, { type ReactNode } from "react";
 
 export const PlotContainer = ({
-    InlineMdxContent,
     title,
     children,
     desc,
     id,
 }: PlotContainerProps & {
-    InlineMdxContent: FC<{ mdx: string }>;
     children: ReactNode;
 }): ReactNode => {
     const idx = usePlotIdIndex(id);
