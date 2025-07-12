@@ -18,8 +18,8 @@ export const syncBib = async (
 > => {
     const res = await commands.readUtf8File(bibPath);
     const existingEntries = await commands.getBibEntries(null, {
-        per_page: 9999999,
-        page_number: 1,
+        per_page: 9999999 as unknown as string,
+        page_number: 1 as unknown as string,
     });
     if (res.status === "error") {
         console.error(

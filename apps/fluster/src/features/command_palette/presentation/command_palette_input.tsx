@@ -16,7 +16,7 @@ import { CommandPaletteCategory } from "../data/models/command_palette_category"
 import { CommandPaletteItem as CommandPaletteItemAbstract } from "../data/models/command_palette_item.ts";
 import { appendCommandPaletteCategory } from "../state/actions/appendCommandPaletteCategory";
 import { SearchIcon } from "lucide-react";
-import { useLocation, useNavigate } from "react-router";
+import { NavigateFunction, useLocation, useNavigate } from "react-router";
 import { useEventListener } from "@fluster.io/dev";
 
 declare global {
@@ -94,7 +94,13 @@ const CommandPaletteInput = forwardRef(
                 });
             } else if (e.key === "Enter") {
                 const item = state.filteredItems[state.focusedIndex];
-                if (item instanceof CommandPaletteCategory) {
+                if (e.metaKey && "onCmdEnter" in item) {
+                    (item.onCmdEnter as (nav: NavigateFunction) => Promise<void>)(nav);
+                    dispatch({
+                        type: CommandPaletteActionType.setCommandPaletteOpen,
+                        payload: false,
+                    });
+                } else if (item instanceof CommandPaletteCategory) {
                     appendCommandPaletteCategory(item, location, dispatch);
                     setValue("");
                 } else if (

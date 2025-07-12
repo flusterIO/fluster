@@ -8,6 +8,7 @@ import CodeReducer from "#/editor/state/slice";
 import CoreReducer from "#/settings/state/slice";
 import BibReducer from "#/bibliography/state/slice";
 import AiReducer from "#/ai/state/slice";
+import PlotReducer from "#/plot/state/slice";
 import { AppState } from "./initial_state";
 import {
     persistReducer,
@@ -31,6 +32,7 @@ const reducers: Record<keyof AppState, Reducer> = {
     code: CodeReducer,
     core: CoreReducer,
     bib: BibReducer,
+    plot: PlotReducer,
 };
 
 const rootReducer = combineReducers(reducers);

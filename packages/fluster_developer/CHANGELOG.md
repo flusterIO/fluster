@@ -1,5 +1,11 @@
 # @fluster.io/dev
 
+## 0.1.0
+
+### Minor Changes
+
+- Add interactive plots via plotly.
+
 ## 0.0.12
 
 ### Patch Changes

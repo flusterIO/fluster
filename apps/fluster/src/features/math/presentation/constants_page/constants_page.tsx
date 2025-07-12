@@ -7,7 +7,7 @@ export const ConstantsPage = (): ReactNode => {
         let s = `| Key | Text | Value | Unit |
 | --- | ---- | ----- | ---- |
 `;
-        Object.entries(new Constants()).map((c) => {
+        Object.entries(new Constants()).forEach((c) => {
             const val = c[1] as ConstantValue;
             console.log("val: ", val);
             if ("unit" in val) {

@@ -1,0 +1,378 @@
+---
+title: Plots & 3-d
+created: 7-2-25
+---
+
+# Plots & 3D
+
+<Admonition title="PlotRef" sidebar right>
+   A utility `PlotRef` component is provided for dynamically referencing your plots. Simply provide your plot with an `id` field, and provide that id to the `PlotRef` component as `<PlotRef id="my_plots_id" />` to insert that plot's figure number. 
+</Admonition>
+
+## Properties
+
+### General Plot Params
+
+> The properties for all plots extend this `GeneralPlotParams` object:
+
+| Key | Type | Description |
+| --- | ---- | ----------- |
+| title | `string?` | An optional mdx string used as the title for the plot. |
+| desc | `string?` | An optional mdx string used as a caption for the plot. |
+| id | `string?` | An optional, **unique** string that can be used in the `PlotRef` component to dynamically reference plots within your note. |
+
+
+### Axis Data
+
+Every axis can be provided in several ways. 
+
+1. As an `AxisGeneratorProps` object. This will generate an array of $n$ evenly spaced numbers between _min_ and _max_, where $n = $ _count_. The label is an optional mdx string that will be used in a legend if one exists.
+2. An n-dimensional array of numbers. This is unlikely to be used in mdx as the data can't be imported directly, but a function returning this numerical data is also available.
+3. A function that returns an `ArrayDataWithProps` object. This object is identical to the `AxisGeneratorProps` object, but with _max_, _min_ and _count_ replaced by a _data_ field that contains the generated numerical data.
+    - This function accepts a series of 1 or more props. The first of which is an `ExtendedMath` object that contains a rapidly growing set of functions and constants that you may find useful when generating your plot. The remaining props depend upon the dimensionality of your plot. For the y axis, the second parameter will be a number representing an x coordinate. When generating a surface plot, the z axis will accept 3 parameters: the `ExtendedMath` object, an x coordinate and a y coordinate.
+
+
+```tsx
+export type AxisGeneratorProps = { 
+    min: number;
+    max: number;
+    count: string;
+    label: string | null
+}
+```
+
+```ts
+export type ArrayDataWithProps<T extends ArrayData> = Omit<
+    AxisGeneratorProps,
+    "min" | "max" | "count"
+> & { data: T };
+```
+
+
+### Extended Math
+
+When generating plot data via a function, an `ExtendedMath` object is passed as the first argument. This object currently has these methods:
+
+<Admonition title="Important" foldable>
+    Fluster exposes a growing set of utility methods for generating your data that are implemented in Rust. Since all Rust functions called from the front-end are asynchronous, you will need to use Typescript's `async` & `await` syntax. 
+
+    This syntax is required to allow your computer to continue to execute while we wait for a response from Rust. This will improve performance and the speed of Fluster, but it requires you to implement asynchronous methods in the following manner:
+n
+    ```tsx title="my_note.mdx" "async" "await"
+    <LinePlot 
+        // x={(props) => props.linspace(0, 10, 1000)} // <- this won't work.
+        x={async (props) => await props.linspace(0, 10, 1000)}
+    />
+    ```
+</Admonition>
+
+
+```tsx
+export interface ExtendedMath {
+    linspace: (min: number, max: number, count: number) => Promise<FlusterArray>;
+    arange: (min: number, max: number, gap: number) => Promise<FlusterArray>;
+    arr: () => FlusterArray;
+    arrOfLength: (length: number) => FlusterArray;
+    arrFromData: (data: number[]) => FlusterArray;
+    constants: () => Constants;
+}
+```
+
+All `ExtendedMath` methods, apart from the `constants` method, will return a `FlusterArray`. This array modifies it's `data` field in place with the following methods:
+
+```tsx
+export declare class FlusterArray {
+    data: number[];
+    constructor();
+    length(): number;
+    sin(): void;
+    sinh(): void;
+    cos(): void;
+    cosh(): void;
+    tan(): void;
+    tanh(): void;
+    absolute(): void;
+    power(n: number): void;
+    acos(): void;
+    asin(): void;
+    atan(): void;
+    naturalLog(): void;
+    exp(): void;
+    round(): void;
+    roundDown(): void;
+    roundUp(): void;
+    random(): void;
+    multiply(n: number): void;
+    divide(n: number): void;
+    subtract(n: number): void;
+    add(n: number): void;
+    map(callback: (n: number) => number): void;
+    static fromLength(length: number): FlusterArray;
+    static fromData(data: number[]): FlusterArray;
+}
+```
+
+Above, the `Constants` class is a map of constants as defined in the popular scipy library. A list of these constants is available via the command palette or by clicking <AppRoute route="constantsTable">here</AppRoute>. Each value within that `Constants` map is a `ConstantValue` class with 3 properties:
+
+
+| Key | Type | 
+| --- | ---- | 
+| label | `string` | 
+| value | `number` | 
+| unit | `string` | 
+
+This means that a constant can be accessed with:
+
+```tsx
+<LinePlot 
+    x={(props) => {
+        const constants = props.constants();
+        return {
+            min: 0,
+            count: 1000,
+            // This key must match the key in the constants table above.
+            max: constants.speed_of_light_in_vacuum,
+        }
+    }}
+/>
+```
+
+The `arr` methods generate a class that wraps a typescript array with a series of methods where expensive tasks are implemented in Rust. The class is mutable, meaning that calls to the methods of the class modify the data in place instead of returning a new class. An example usage might look like:
+
+```tsx
+<LinePlot 
+  x={{
+   min: 0,
+   max: 10,
+   count: 500
+  }}
+  y={(props, x) => {
+        const arr = props.arrOfLength(500);
+        arr.random();
+        arr.exp();
+        arr.sin();
+        return {
+            label: "Sin of x",
+            data: arr.data
+        }
+    }}
+/>
+```
+
+## Two Dimensional Plots
+
+
+### Line Plot
+
+```mdx
+<LinePlot 
+  title={"This is my line plot"}
+  desc="This is an optional description of my plot."
+  id="my_unique_plot_id"
+  x={{
+   min: 0,
+   max: 10,
+   count: 500
+  }}
+  y={(props, x) => Math.sin(x)}
+/>
+
+```
+
+<LinePlot 
+  title={"This is my line plot"}
+  desc="This is an optional description of my plot."
+  id="my_unique_plot_id"
+  x={{
+   min: 0,
+   max: 10,
+   count: 500
+  }}
+  y={(props, x) => Math.sin(x)}
+/>
+
+
+
+### Scatter Plot
+
+Scatter plots, both 2d and 3d accept an additional `marker` property of the type:
+
+| Key | Type | Description |
+| --- | ---- | ----------- |
+| size | `number?` | An optional size for the point marker. |
+| opacity | `number?` | An optional number between 0 and 1 that sets the point marker opacity. |
+
+```tsx
+<ScatterPlot 
+    title={"My scatter plot $\\delta$"} // Remember to use 2 \ in strings
+    desc="This is a test scatter plot without many points to distinguish it from a line plot."
+    x={{
+        min: 0,
+        max: 10,
+        count: 10
+    }}
+    y={(props, x) => Math.sin(x)}
+/>
+```
+
+<ScatterPlot 
+    title={"My scatter plot $\\delta$"}
+    desc="This is a test scatter plot without many points to distinguish it from a line plot."
+    x={{
+        min: 0,
+        max: 10,
+        count: 10
+    }}
+    y={(props, x) => Math.sin(x)}
+/>
+
+### Pie Chart
+
+Providing props to a pie chart is slightly different than other plots, given the proportional nature of the data. The `PieChart` component accepts an array of items with the following keys:
+
+
+| Key | Type | 
+| --- | ---- | 
+| label | `string` | 
+| value | `number` | 
+
+
+<PieChart
+    data={[{
+            label: "Hotdogs",
+            value: 42
+        },
+        {
+            label: "Pickles",
+            value: 12
+        }, 
+        {
+            label: "Salad",
+            value: 21
+        }
+    ]}
+/>
+
+## Three Dimensional Plots
+
+### Line Plot
+
+```tsx
+<LinePlot3d 
+    title="My 3-d line plot"
+    x={async (props) => {
+        const res = await props.linspace(0, Math.PI * 2, 100);
+        res.sin()
+        return res
+    }}
+    y={async (props) => {
+        const res = await props.linspace(0, Math.PI * 2, 100);
+        res.cos()
+        return res
+    }}
+    z={async (props, x, y) => {
+        return await props.linspace(0, 10, 100);
+    }}
+/>
+```
+
+<LinePlot3d 
+    title="My 3-d line plot"
+    x={async (props) => {
+        const res = await props.linspace(0, Math.PI * 2, 100);
+        res.sin()
+        return res
+    }}
+    y={async (props) => {
+        const res = await props.linspace(0, Math.PI * 2, 100);
+        res.cos()
+        return res
+    }}
+    z={async (props, x, y) => {
+        return await props.linspace(0, 10, 100);
+    }}
+/>
+
+
+### Scatter Plot
+
+```tsx
+<ScatterPlot3d 
+    title="My 3-d scatter plot"
+    x={async (props) => {
+        const res = await props.linspace(0, Math.PI * 2, 30);
+        res.sin()
+        return res
+    }}
+    y={async (props) => {
+        const res = await props.linspace(0, Math.PI * 2, 30);
+        res.cos()
+        return res
+    }}
+    z={async (props, x, y) => {
+        return await props.linspace(0, 10, 30);
+    }}
+    marker={{
+        size: 3,
+        opacity: 0.5
+    }}
+/>
+```
+
+<ScatterPlot3d 
+    title="My 3-d scatter plot"
+    x={async (props) => {
+        const res = await props.linspace(0, Math.PI * 2, 30);
+        res.sin()
+        return res
+    }}
+    y={async (props) => {
+        const res = await props.linspace(0, Math.PI * 2, 30);
+        res.cos()
+        return res
+    }}
+    z={async (props, x, y) => {
+        return await props.linspace(0, 10, 30);
+    }}
+/>
+
+
+### Surface Plot
+
+```tsx
+<SurfacePlot 
+    title="My Surface Plot: $\frac{\sin{(d)}}{d}$"
+    x={{
+        min: -20,
+        max: 20,
+        count: 100
+    }}
+    y={{
+        min: -20,
+        max: 20,
+        count: 100
+    }}
+    z={(props, x, y) => {
+    const distance = Math.sqrt(x**2 + y**2);
+    return Math.sin(distance) / distance
+    }}
+/>
+```
+
+<SurfacePlot 
+    title="My Surface Plot: $\frac{\sin{(d)}}{d}$"
+    x={{
+        min: -20,
+        max: 20,
+        count: 100
+    }}
+    y={{
+        min: -20,
+        max: 20,
+        count: 100
+    }}
+    z={(props, x, y) => {
+    const distance = Math.sqrt(x**2 + y**2);
+    return Math.sin(distance) / distance
+    }}
+/>

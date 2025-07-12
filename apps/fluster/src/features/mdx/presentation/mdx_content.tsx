@@ -7,12 +7,14 @@ export interface MdxContentProps extends HTMLProps<HTMLDivElement> {
     mdx: string;
     className?: string;
     removeGrayMatter?: boolean;
+    abortIfNoMath?: boolean;
 }
 
 export const MdxContent = ({
     mdx,
     className,
     removeGrayMatter,
+    abortIfNoMath,
     ...props
 }: MdxContentProps): ReactNode => {
     const { Component, setValue } = useDebounceMdxParse();
@@ -37,6 +39,10 @@ export const MdxContent = ({
         }
         /* eslint-disable-next-line  --  */
     }, [mdx]);
+
+    if (abortIfNoMath && !mdx.includes("$")) {
+        return mdx;
+    }
 
     return (
         <Component

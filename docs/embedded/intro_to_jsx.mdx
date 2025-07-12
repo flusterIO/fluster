@@ -80,6 +80,8 @@ Passing in other properties to react components follows a similar syntax to that
 
 #### Strings
 
+> **Note**: The `\` character signifies an 'escape character' in most programming languages, including inside of Fluster. For this reason, it is sometimes required to use 2 `\` characters when writing math inside of a string, to give `title="my title $\\delta$$"{:mdx}`.
+
 The use of curly braces is important for other value types, but is optional in _most_ cases for strings. Note that the `name` property in the example above has a value that is still wrapped in quotations along with the curly braces. There is no difference between single and double quotes, and backticks `` ` `` can also be used.[^2]
 
 <Hint>
@@ -202,8 +204,34 @@ while <ToSquareOrNotToSquare valueIsSquared={false} value={2} /> will return 2.
 4 will return 4, while 2 will return 2
 
 
+#### Arrays / Lists
 
-#### ReactNode Type
+An array, if you're unfamiliar, from a high level is just another name for a list of data. Arrays in Typescript, which is the syntax used by the **x** in mdx, are denoted by surrounding a list of values with `[]` brackets, and seperating the items by commas. 
+
+In the `PieChart` component for example, instead of providing a single `x` and `y` field, it accepts an array of objects:
+
+
+```tsx 
+<PieChart
+    data={[{
+            label: "Hotdogs",
+            value: 42
+        },
+        {
+            label: "Pickles",
+            value: 12
+        }, 
+        {
+            label: "Salad",
+            value: 21
+        }
+    ]}
+/>
+```
+
+Note, however, that the array must be wrapped in `{}` braces the same way a boolean field is wrapped in these braces. While optional for some data types, if you're unsure, just surround the value with curly braces. The only downside is an additional couple bytes of data.
+
+#### reactnode type
 
 React provides dozens of it's own types, but one that appears quite often is that of `ReactNode`. The `ReactNode` type is pretty much anything that React can render _as is_. It accepts a [boolean](#jsx-boolean-props), a [string](#jsx-string-props), a [number](#jsx-number-props), or another ***rendered*** component.
 

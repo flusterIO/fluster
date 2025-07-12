@@ -3,6 +3,7 @@ import React, { HTMLProps } from "react";
 import type { MDXContent } from "mdx/types";
 import { useComponentMap } from "@/hooks/use_component_map";
 import { ErrorBoundary } from "react-error-boundary";
+import { error } from "@tauri-apps/plugin-log";
 import { H2 } from "@fluster.io/dev";
 
 interface Props extends HTMLProps<HTMLDivElement> {
@@ -21,7 +22,7 @@ export const ParsedMdxContent = ({
         <div {...props}>
             <ErrorBoundary
                 onError={(e) => {
-                    console.error("Mdx Error: ", e);
+                    error(`Mdx Error: ${e}`);
                 }}
                 fallback={
                     <div className="w-full h-full flex flex-col justify-center items-center">

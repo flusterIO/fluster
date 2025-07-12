@@ -6,32 +6,32 @@ import { getMdxNoteUrl } from "#/mdx/utils/get_mdx_note_url";
 import { ReactNode } from "react";
 
 export class NotesCommandPaletteRoot extends CommandPaletteCategory {
-  constructor() {
-    super("Notes", "cmd-palette-notes");
-  }
-  filterByLocation(): boolean {
-    return true;
-  }
-  bottomBar(): ReactNode {
-    return null;
-  }
-  async getItems(): Promise<CommandPaletteAnyEntry[]> {
-    const items = await commands.getNoteSummaries({
-      per_page: 1000,
-      page_number: 1,
-    });
-    if (items.status === "ok") {
-      return items.data.map((x) => {
-        return new GeneralCommandPaletteItem(
-          x.title,
-          `${x.title}-${x.file_path}`,
-          async (nav) => {
-            nav(getMdxNoteUrl(x.file_path));
-          }
-        );
-      });
-    } else {
-      return [];
+    constructor() {
+        super("Notes", "cmd-palette-notes");
     }
-  }
+    filterByLocation(): boolean {
+        return true;
+    }
+    bottomBar(): ReactNode {
+        return null;
+    }
+    async getItems(): Promise<CommandPaletteAnyEntry[]> {
+        const items = await commands.getNoteSummaries({
+            per_page: 1000 as unknown as string,
+            page_number: 1 as unknown as string,
+        });
+        if (items.status === "ok") {
+            return items.data.map((x) => {
+                return new GeneralCommandPaletteItem(
+                    x.title,
+                    `${x.title}-${x.file_path}`,
+                    async (nav) => {
+                        nav(getMdxNoteUrl(x.file_path));
+                    }
+                );
+            });
+        } else {
+            return [];
+        }
+    }
 }

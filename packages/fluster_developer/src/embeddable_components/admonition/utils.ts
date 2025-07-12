@@ -10,5 +10,7 @@ export const getTitleVariantClasses = (variant: AdmonitionVariant): string => {
             return "bg-[hsl(var(--error))] text-[hsl(var(--error-foreground))] [&_p]:text-[hsl(var(--error-foreground))]";
         case "warn":
             return "bg-[hsl(var(--warning))] text-[hsl(var(--warning-foreground))] [&_p]:text-[hsl(var(--warning-foreground))]";
+        case "primary":
+            return "bg-[hsl(var(--primary))] text-[hsl(var(--primary-foreground))] [&_p]:text-[hsl(var(--primary-foreground))]";
     }
 };

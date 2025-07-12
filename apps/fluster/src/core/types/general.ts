@@ -12,3 +12,8 @@ export interface ChildProps {
 export interface ClassNameProp {
     className?: string;
 }
+
+export interface PaginationPropsAsNumber {
+    per_page: number;
+    page_number: number;
+}

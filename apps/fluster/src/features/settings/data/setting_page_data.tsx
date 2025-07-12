@@ -1,9 +1,10 @@
-import { Book, Code, Settings } from "lucide-react";
+import { Book, Code, FunctionSquareIcon, Settings } from "lucide-react";
 
 export enum CategoryId {
     general = "General",
     code = "Code",
     bib = "Bibliography",
+    math = "Math",
 }
 
 export interface SettingPageData {
@@ -19,14 +20,18 @@ export const settingPages: SettingPageData[] = [
         icon: Settings,
     },
     {
+        label: "Bibliography",
+        category_id: CategoryId.bib,
+        icon: Book,
+    },
+    {
         label: "Code",
         category_id: CategoryId.code,
         icon: Code,
     },
-
     {
-        label: "Bibliography",
-        category_id: CategoryId.bib,
-        icon: Book,
+        label: "Math",
+        category_id: CategoryId.math,
+        icon: FunctionSquareIcon,
     },
 ];

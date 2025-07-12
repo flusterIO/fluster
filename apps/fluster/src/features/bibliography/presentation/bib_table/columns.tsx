@@ -77,7 +77,12 @@ export const bibTableColumns: ColumnDef<BibEntryParsed>[] = [
             <DataTableSortHeader column={column} title="Title" />
         ),
         cell: ({ row }) => {
-            return <MdxTableCell mdx={(row.getValue("title") ?? "--") as string} />;
+            return (
+                <MdxTableCell
+                    abortIfNoMath
+                    mdx={(row.getValue("title") ?? "--") as string}
+                />
+            );
         },
     },
     {

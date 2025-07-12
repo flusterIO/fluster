@@ -92,7 +92,7 @@ const validString2 = 'This is a "valid" string.'
 const validString3 = "And this is a \"valid\" string too!"
 ```
 
-##### String Literals 
+**String Literals **
 
 > **Note:** String literals <Ul yellow>must</Ul> be wrapped in curly braces when passed in as a component property. Curly braces are optional with both single and double quotes.
 
@@ -197,7 +197,7 @@ While the example above is intentionally over simplified and almost entirely use
 while <ToSquareOrNotToSquare valueIsSquared={false} value={2} /> will return 2.
 ```
 
-###### Output
+**Output**
 
 4 will return 4, while 2 will return 2
 
@@ -215,7 +215,10 @@ React provides dozens of it's own types, but one that appears quite often is tha
     someReactElementProp={<SomeOtherComponent name="Some property of SomeOtherComponent." />}
     // Do NOT do this:
     // This is actually of type Component.
-    // It is valid typescript, but not part of the ReactNode type. While externally developed plugins are free to build for their own use case, internally developed components will never use this type in user accessible components.
+    // It is valid typescript, but not part of the ReactNode type.
+    // While externally developed plugins are free to build for 
+    // their own use case, internally developed components will never 
+    // use this type in user accessible components.
     someIncorrectElementProp={SomeOtherComponent} 
 />
 ```
@@ -228,11 +231,11 @@ _"Extending"_ types is almost universal among programming languages as well. If 
 Fluster takes advantage of this structure throughout it's **MDX** interface, but two instances are currently the most common. 
 
 
-##### Extending ColorProps
+**Extending ColorProps**
 
 Many components like the `Ul`, `Color` and `Hl` components accept props that extend the `ColorProps` type. You can review that documentation [here](/docs/user/components?category=Colors). This is a single object that has a set of default boolean values. Those default values can be overridden in your configuration file, where new ones can be added as well. Despite the fact that those properties are not explicitly described in the documentation of those components, the **Extends: ...** implies that all properties of the extended type are also accepted.
 
-##### Extending HTML Attributes
+**Extending HTML Attributes**
 
 For those familiar with **HTML** or **CSS**, most components extend the **HTML** attributes of the outer most element. This wasn't documented intentionally to avoid complicating the documentation for those without developer experience. However, be aware that while Fluster relies on Tailwind for it's theme-ability, `.mdx` files are currently not evaluated for their `className` content. 
 
