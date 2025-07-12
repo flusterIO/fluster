@@ -15,6 +15,8 @@ export type ArrayDataWithProps<T extends ArrayData> = Omit<
 > & { data: T };
 
 export interface ExtendedMath {
+    linspace: (min: number, max: number, count: number) => Promise<FlusterArray>;
+    arange: (min: number, max: number, gap: number) => Promise<FlusterArray>;
     arr: () => FlusterArray;
     arrOfLength: (length: number) => FlusterArray;
     arrFromData: (data: number[]) => FlusterArray;

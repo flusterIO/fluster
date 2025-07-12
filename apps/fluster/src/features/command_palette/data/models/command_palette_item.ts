@@ -12,13 +12,16 @@ export abstract class CommandPaletteItem extends CommandPaletteAnyEntry {
 
 export class GeneralCommandPaletteItem extends CommandPaletteItem {
     onInvoke: (nav: NavigateFunction) => Promise<void>;
+    onCmdEnter?: (nav: NavigateFunction) => Promise<void>;
     constructor(
         label: string,
         id: string,
-        invoke: (nav: NavigateFunction) => Promise<void>
+        invoke: (nav: NavigateFunction) => Promise<void>,
+        onCmdEnter?: (nav: NavigateFunction) => Promise<void>
     ) {
         super(label, id);
         this.onInvoke = invoke;
+        this.onCmdEnter = onCmdEnter;
     }
     filterByLocation(): boolean {
         return true;

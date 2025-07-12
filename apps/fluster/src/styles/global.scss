@@ -198,6 +198,10 @@ figure[data-rehype-pretty-code-figure] {
 
     code {
       overflow: auto;
+
+      span[data-highlighted-chars] * {
+        color: hsl(var(--primary-foreground)) !important;
+      }
     }
   }
 }

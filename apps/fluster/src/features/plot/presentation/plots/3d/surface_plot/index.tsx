@@ -17,8 +17,8 @@ import {
     MathFunctionXYDependent,
 } from "#/plot/types/plot_types";
 import Plot from "react-plotly.js";
-import { PlotContainer } from "../../plot_container";
-import { useAxisDataWithXYInput } from "#/plot/state/hooks/use_axis_data_with_xy_input";
+import { PlotContainer } from "../../../plot_container";
+import { useAxisDataWithXYInput } from "#/plot/state/hooks/use_data_with_x_y_input";
 import { sharedLayoutProps } from "#/plot/data/shared_data/shared_layout_props";
 
 const connector = connect((state: AppState) => ({

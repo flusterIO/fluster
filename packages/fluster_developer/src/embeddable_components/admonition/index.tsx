@@ -23,7 +23,7 @@ export interface AdmonitionProps extends Omit<AdmonitionTitleProps, "type"> {
 export const Admonition = ({
     folded,
     children,
-    type = "info",
+    type = "primary",
     right,
     foldable,
     title: _title,
