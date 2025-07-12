@@ -2,7 +2,7 @@
 import "../core/styles/globals.scss";
 import localFont from "next/font/local";
 import FumaDocsProvider from "#/features/docs/fuma_docs_provider";
-import { GoogleAnalytics } from "@next/third-parties";
+import { GoogleAnalytics } from "@next/third-parties/google";
 
 const appFont = localFont({
     variable: "--ulld-app-font",
