@@ -10,6 +10,7 @@ import {
     axisGeneratorPropsToArray,
     OneDimensionalArrayDataType,
 } from "../../utils/axis_utils";
+import { FlusterArray } from "@fluster.io/dev";
 
 const getIndependentDataFromAxisData = async (
     data:
@@ -23,7 +24,13 @@ const getIndependentDataFromAxisData = async (
         };
     }
     if (typeof data === "function") {
-        const res = data(getMathProps());
+        const res = await data(getMathProps());
+        if (res instanceof FlusterArray) {
+            return {
+                data: res.data,
+                label: null,
+            };
+        }
         if (Array.isArray(res)) {
             return {
                 data: res as OneDimensionalArrayDataType,

@@ -40,6 +40,8 @@ import { PlotRef } from "#/plot/utils/plot_ref";
 import { PieChart } from "#/plot/presentation/plots/2d/pie_chart";
 import { SurfacePlot } from "#/plot/presentation/plots/3d/surface_plot/index";
 import { LinePlot3d } from "#/plot/presentation/plots/3d/line_plot/index";
+import { ScatterPlot3d } from "#/plot/presentation/plots/3d/scatter_plot";
+import { PlotBareAss } from "#/plot/presentation/plots/bare_ass";
 
 interface ComponentMapItem {
     /// A regex that will return true if this component is to be included in the component map. This will be prepended with a `<`, so the name should match the component as it will be used in the user's note.
@@ -80,6 +82,10 @@ const items: ComponentMapItem[] = [
     },
     //    -- Plots --
     {
+        query: "Plot",
+        component: PlotBareAss,
+    },
+    {
         query: "ScatterPlot",
         component: ScatterPlot,
     },
@@ -103,6 +109,10 @@ const items: ComponentMapItem[] = [
     {
         query: "LinePlot3d",
         component: LinePlot3d,
+    },
+    {
+        query: "ScatterPlot3d",
+        component: ScatterPlot3d,
     },
     //    -- Plot Utils --
     {

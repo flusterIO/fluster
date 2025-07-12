@@ -6,6 +6,7 @@ import {
 } from "../../types/plot_types";
 import { getMathProps } from "../../utils/get_math_props";
 import { useEffect, useState } from "react";
+import { FlusterArray } from "@fluster.io/dev";
 
 type XReturn = number[];
 
@@ -24,7 +25,20 @@ export const useAxisDataWithXInput = (
         }
         if (typeof d === "function") {
             const mathProps = getMathProps();
-            const res = (d as MathFunctionXDependent)(mathProps, x?.data);
+            const res: number[] = [];
+            for (const __x of x.data) {
+                const n: number[] | FlusterArray | number = await (
+                    d as MathFunctionXDependent
+                )(mathProps, __x);
+                /* eslint-disable-next-line  --  */
+                if ((n as any) instanceof FlusterArray) {
+                    return setValue({
+                        data: (n as unknown as FlusterArray).data,
+                        label: null,
+                    });
+                }
+                res.push(n);
+            }
             if (Array.isArray(res)) {
                 return setValue({
                     data: res,

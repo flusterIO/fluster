@@ -46,8 +46,8 @@ export const Admonition = ({
             animate={open ? "open" : "folded"}
             className={cn(
                 "my-4 overflow-hidden",
-                sidebar && "w-full @[768px]/mdx:w-1/3 mr-4",
-                sidebar && right && "float-right ml-4"
+                sidebar && "w-full @[768px]/mdx:w-1/3 mr-4 ml-0",
+                sidebar && right && "float-right ml-4 mr-0"
             )}
         >
             {foldable ? (

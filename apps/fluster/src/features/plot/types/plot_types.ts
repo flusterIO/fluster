@@ -30,18 +30,18 @@ export type MathFunctionReturn<T extends ArrayData> =
 
 export type MathFunction = <T extends ArrayData>(
     props: ExtendedMath
-) => MathFunctionReturn<T>;
+) => Promise<MathFunctionReturn<T>>;
 
 export type MathFunctionXDependent = (
     props: ExtendedMath,
-    x: number[]
-) => number[];
+    x: number
+) => Promise<number>;
 
 export type MathFunctionXYDependent = (
     props: ExtendedMath,
     x: number,
     y: number
-) => number;
+) => Promise<number>;
 
 export type AnyMathFunction =
     | MathFunction

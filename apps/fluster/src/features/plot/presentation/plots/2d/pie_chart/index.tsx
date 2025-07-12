@@ -39,15 +39,21 @@ export const PieChart = ({
     const data = useMemo(() => {
         const text = [];
         const values = [];
+        const hovertemplate: string[] = [];
+        const total = items.map((x) => x.value).reduce((a, b) => a + b);
         for (const item of items) {
             text.push(item.label);
             values.push(item.value);
+            hovertemplate.push(`${item.label}
+${item.value}
+${Math.round((item.value / total) * 100)}%`);
         }
         return {
             type: "pie",
             text,
             labels: text,
             values,
+            hovertemplate,
             hole: 5,
         } satisfies Partial<PieData>;
     }, [items]);
