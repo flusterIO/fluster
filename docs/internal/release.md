@@ -30,6 +30,10 @@
 - Push created tag with `git push --tag`
 - `git add --all` & `git commit -m "Push release"`
 
+### After Build
+
+- Verify the release is not a draft. The release workflow is still generating drafts in some cases for some reason, perhaps when a minor or major bump occurs, but not a patch?
+
 ## Revert back to local development
 
 - Change `@fluster.io/dev` dependency to `workspace:*`.
