@@ -14,7 +14,7 @@ export const SettingPageContainer = ({
             {...props}
             className="space-y-6 w-full flex flex-col justify-center items-cemter"
         >
-            <div className="w-[min(768px,90%)] space-y-6 ml-auto mr-auto">
+            <div className="@container/settings_page w-[min(768px,90%)] space-y-6 ml-auto mr-auto">
                 {children}
             </div>
         </form>

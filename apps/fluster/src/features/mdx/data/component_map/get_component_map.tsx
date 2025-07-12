@@ -34,18 +34,17 @@ import { MDXComponents } from "mdx/types";
 import { InlineMdxContent } from "#/mdx/presentation/inline_mdx_content";
 import { commands } from "@/lib/bindings";
 import { WrappedCodeBlock } from "#/mdx/presentation/wrapped_components/code";
-import store from "@/state/store";
-import { AppState } from "@/state/initial_state";
 import { ScatterPlot } from "#/plot/presentation/plots/2d/scatter_plot";
 import { LinePlot } from "#/plot/presentation/plots/2d/line_plot";
 import { PlotRef } from "#/plot/utils/plot_ref";
+import { PieChart } from "#/plot/presentation/plots/2d/pie_chart";
+import { SurfacePlot } from "#/plot/presentation/plots/3d/surface_plot";
 
 interface ComponentMapItem {
     /// A regex that will return true if this component is to be included in the component map. This will be prepended with a `<`, so the name should match the component as it will be used in the user's note.
     query: string;
     component: FC<any>;
     requiresInlineMdx?: boolean;
-    requiresPlotProps?: boolean;
 }
 
 export const componentOverrides: MDXComponents = {
@@ -82,14 +81,24 @@ const items: ComponentMapItem[] = [
     {
         query: "ScatterPlot",
         component: ScatterPlot,
-        requiresPlotProps: true,
     },
     {
         query: "LinePlot",
         component: LinePlot,
-        requiresPlotProps: true,
     },
-
+    {
+        query: "PieChart",
+        component: PieChart,
+    },
+    //     -- 3d --
+    {
+        query: "SurfacePlot",
+        component: SurfacePlot,
+    },
+    {
+        query: "PieChart",
+        component: PieChart,
+    },
     {
         query: "PlotRef",
         component: PlotRef,
@@ -177,13 +186,11 @@ const items: ComponentMapItem[] = [
 
 export const getComponentMap = (mdxContent: string): MDXComponents => {
     const components: MDXComponents = componentOverrides;
-    const plotProps = (store.getState() as AppState).scaffold.plot;
     for (const item of items) {
         if (mdxContent.includes(`<${item.query}`)) {
             const C = item.component;
             const props = {
                 InlineMdxContent: item.requiresInlineMdx ? InlineMdxContent : undefined,
-                plotProps: item.requiresPlotProps ? plotProps : undefined,
             };
             components[item.query] = (_props: object) => <C {...props} {..._props} />;
         }

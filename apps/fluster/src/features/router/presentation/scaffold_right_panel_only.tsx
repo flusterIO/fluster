@@ -25,7 +25,7 @@ export const ScaffoldWithRightPanelOnly = (): ReactNode => {
                 <div
                     data-main-panel
                     id="scroll-target"
-                    className="flex-grow h-full w-full pt-8 overflow-y-auto"
+                    className="@container/main-panel flex-grow h-full w-full pt-8 overflow-y-auto"
                 >
                     <Outlet />
                 </div>

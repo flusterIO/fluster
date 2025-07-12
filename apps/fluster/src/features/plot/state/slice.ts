@@ -6,7 +6,7 @@ const slice = createSlice({
     name: "plot",
     initialState: initialPlotState,
     reducers: {
-        setThemes(state, action: PayloadAction<PlotState["themes"]>) {
+        setPlotThemes(state, action: PayloadAction<PlotState["themes"]>) {
             return {
                 ...state,
                 themes: action.payload,
@@ -15,6 +15,6 @@ const slice = createSlice({
     },
 });
 
-export const { setThemes } = slice.actions;
+export const { setPlotThemes } = slice.actions;
 
 export default slice.reducer;

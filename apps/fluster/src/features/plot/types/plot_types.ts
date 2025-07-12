@@ -41,7 +41,10 @@ export type MathFunctionXYDependent = (
     y: number
 ) => number;
 
-export type AnyMathFunction = MathFunction | MathFunctionXDependent;
+export type AnyMathFunction =
+    | MathFunction
+    | MathFunctionXDependent
+    | MathFunctionXYDependent;
 
 export type AxisData<T extends AnyMathFunction, J extends ArrayData> =
     | J

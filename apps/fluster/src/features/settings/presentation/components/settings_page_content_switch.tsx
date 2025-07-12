@@ -4,6 +4,7 @@ import { useSearchParams } from "react-router";
 import { GeneralSettingsPage } from "../pages/general";
 import { CodeSettingsPage } from "../pages/code";
 import { BibliographySettingsPage } from "../pages/bib";
+import { MathSettingsPage } from "../pages/math";
 
 const SettingsPageContentSwitch = (): ReactNode => {
     const [searchParams] = useSearchParams();
@@ -15,6 +16,8 @@ const SettingsPageContentSwitch = (): ReactNode => {
             return <CodeSettingsPage />;
         case CategoryId.bib:
             return <BibliographySettingsPage />;
+        case CategoryId.math:
+            return <MathSettingsPage />;
     }
 };
 
