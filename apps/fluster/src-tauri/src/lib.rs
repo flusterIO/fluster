@@ -13,6 +13,8 @@ use crate::core::utils::initialize::initialize_desktop::initialize_desktop;
 use crate::core::utils::random_utils::get_unique_id;
 use crate::core::utils::search::get_text_similarity::get_text_similarity;
 use crate::features::ai::commands::add_chat_request::add_ai_chat_request;
+use crate::features::ai::commands::begin_embedding_model_download::begin_embedding_model_download;
+use crate::features::ai::commands::begin_language_model_download::begin_language_model_download;
 use crate::features::ai::commands::create_ai_chat::create_new_ai_chat;
 use crate::features::ai::commands::delete_chat_by_id::delete_chat_by_id;
 use crate::features::ai::commands::get_ai_chat_by_id::get_ai_chat_by_id;
@@ -91,6 +93,7 @@ use core::{
     events::{set_db_connection_uri::SetDbConnectionUri, show_toast::ShowToast},
     types::errors::errors::FlusterError,
 };
+use features::ai::commands::begin_language_model_download::DownloadingStatus;
 pub use features::dashboard;
 use features::embedded_docs::data::internal_embedded_docs_id::InternalEmbeddedDocsId;
 pub use features::health::get_health_report::get_desktop_health_report;
@@ -98,6 +101,7 @@ use features::math::commands::numpy::{
     arange::arange, grid::axis_grid, grid::grid_2d, linspace::linspace, logspace::logspace,
 };
 use features::math::get_mathjax_path::get_mathjax_path;
+use features::plot::commands::get_plotly_theme::get_plotly_theme;
 use tauri_specta::{collect_commands, collect_events, Builder};
 
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
@@ -192,6 +196,8 @@ pub fn run() {
             get_all_ai_chats,
             delete_chat_by_id,
             add_ai_chat_request,
+            begin_embedding_model_download,
+            begin_language_model_download,
             // -- Task Manager --
             create_task,
             create_task_list,
@@ -212,6 +218,8 @@ pub fn run() {
             get_kanban_board_list,
             // -- Jupyter --
             generate_new_token,
+            // -- Plotting --
+            get_plotly_theme,
         ])
         .events(collect_events![ShowToast, SetDbConnectionUri])
         .typ::<FlusterError>()
@@ -220,6 +228,7 @@ pub fn run() {
         .typ::<SearchParams>()
         .typ::<SearchOrder>()
         .typ::<InternalEmbeddedDocsId>()
+        .typ::<DownloadingStatus>()
         .typ::<SyncFilesystemDirectoryOptions>();
     // #[cfg(target_os = "macos")]
     // {

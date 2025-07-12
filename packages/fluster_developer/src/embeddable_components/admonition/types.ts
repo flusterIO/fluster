@@ -3,4 +3,9 @@ export interface AdmonitionTitleProps {
     title: string;
 }
 
-export type AdmonitionVariant = "info" | "error" | "warn" | "success";
+export type AdmonitionVariant =
+    | "info"
+    | "error"
+    | "warn"
+    | "success"
+    | "primary";

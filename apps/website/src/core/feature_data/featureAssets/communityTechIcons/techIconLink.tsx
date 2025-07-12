@@ -54,7 +54,7 @@ const icons: { [k in TechIconType]: typeof cssIcon } = {
 
 const alt: { [k in TechIconType]: typeof cssIcon } = {
     next: "Next.js",
-    rust: "Prisma",
+    rust: "Rust",
     css: "CSS",
     react: "React",
     scss: "SCSS",

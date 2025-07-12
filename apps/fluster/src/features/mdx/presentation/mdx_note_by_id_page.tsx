@@ -5,6 +5,7 @@ import MdxNotePage from "./mdx_note_page";
 import { commands, MdxNoteGroup } from "@/lib/bindings";
 import { LoadingComponent } from "@/components/loading_screen";
 import { MdxProvidersGroup } from "./mdx_provider_group";
+import { useMdxNoteSetLastRead } from "../state/hooks/use_mdx_set_last_read";
 
 const MdxNoteByFilePathPage = (): ReactNode => {
     const [searchParams] = useSearchParams();
@@ -16,12 +17,11 @@ const MdxNoteByFilePathPage = (): ReactNode => {
         }
     };
 
+    useMdxNoteSetLastRead()
+
     useEffect(() => {
         const fsPath = searchParams.get("fsPath");
         if (fsPath && fsPath.length) {
-            commands.setLastReadByFilePath(fsPath).catch((e) => {
-                console.error(`An error occurred while setting last_read: ${e}`);
-            });
             readFromFileSystem(fsPath).catch(() => {
                 showToast({
                     title: "Oh no",

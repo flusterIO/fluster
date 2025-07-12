@@ -220,6 +220,7 @@ export class Constants {
         299792458.0,
         "m s^-1"
     );
+    c = new ConstantValue("speed of light in vacuum", 299792458.0, "m s^-1");
     proton_gyromagn_ratio = new ConstantValue(
         "proton gyromagn. ratio",
         267522187.44,
@@ -602,6 +603,7 @@ export class Constants {
         9.80665,
         "m s^-2"
     );
+    g = new ConstantValue("standard acceleration of gravity", 9.80665, "m s^-2");
     neutron_muon_mass_ratio = new ConstantValue(
         "neutron-muon mass ratio",
         8.89248406,
@@ -1288,6 +1290,11 @@ export class Constants {
     );
     Angstrom_star = new ConstantValue("Angstrom star", 1.00001495e-10, "m");
     Newtonian_constant_of_gravitation = new ConstantValue(
+        "Newtonian constant of gravitation",
+        6.6743e-11,
+        "m^3 kg^-1 s^-2"
+    );
+    G = new ConstantValue(
         "Newtonian constant of gravitation",
         6.6743e-11,
         "m^3 kg^-1 s^-2"

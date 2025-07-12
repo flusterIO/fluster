@@ -1,6 +1,6 @@
+"use client";
 import { cn } from "#/core/utils/cn";
-import React, { type ReactNode } from "react";
-import { motion } from "framer-motion";
+import React, { useEffect, useState, type ReactNode } from "react";
 
 interface HeroBackgroundProps {
     children: ReactNode;
@@ -8,41 +8,35 @@ interface HeroBackgroundProps {
 }
 
 export const HeroBackground = (props: HeroBackgroundProps): ReactNode => {
+    const [scrollPortion, setScrollPortion] = useState(1);
+    const handleScroll = (): void => {
+        setScrollPortion(1 - (window.scrollY / window.innerHeight) * 2);
+    };
+    useEffect(() => {
+        window.addEventListener("scroll", handleScroll);
+        return () => window.removeEventListener("scroll", handleScroll);
+    }, []);
     return (
-        <motion.div
+        <div
             className={cn(
                 "relative flex h-[50rem] w-full items-center justify-center bg-background",
                 props.containerClassName
             )}
-        /*   style={{ */
-        /*       WebkitMaskImage: useMotionTemplate` */
-        /*   radial-gradient( */
-        /*     200px circle at ${mouseX}px ${mouseY}px, */
-        /*     black 0%, */
-        /*     transparent 100% */
-        /*   ) */
-        /* `, */
-        /*       maskImage: useMotionTemplate` */
-        /*   radial-gradient( */
-        /*     200px circle at ${mouseX}px ${mouseY}px, */
-        /*     black 0%, */
-        /*     transparent 100% */
-        /*   ) */
-        /* `, */
-        /*   }} */
         >
             <div
                 className={cn(
                     "absolute inset-0",
                     "[background-size:20px_20px]",
-                    "[background-image:radial-gradient(#0ba5e9_1px,transparent_1px)]",
-                    "dark:[background-image:radial-gradient(#0ba5e9bb_1px,transparent_1px)]"
+                    "[background-image:radial-gradient(#0ba5e9bb_1px,transparent_1px)]"
                 )}
+                style={{
+                    opacity: scrollPortion,
+                }}
             />
             {/* Radial gradient for the container to give a faded look */}
-            <div className="pointer-events-none absolute inset-0 flex items-center justify-center bg-white [mask-image:radial-gradient(ellipse_at_center,transparent_10%,black)] dark:bg-black"></div>
+            <div className="pointer-events-none absolute inset-0 flex items-center justify-center [mask-image:radial-gradient(ellipse_at_center,transparent_10%,black)] bg-background" />
             {props.children}
-        </motion.div>
+        </div>
     );
 };
 

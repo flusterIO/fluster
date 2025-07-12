@@ -62,8 +62,12 @@ export const getBrowserRouter = () => {
                     Component: KanbanPage,
                     loader: async ({ params }) => {
                         const res = await commands.getKanbanBoardList(null, {
-                            page_number: (params.page ? parseInt(params.page) : 1) as unknown as string,
-                            per_page: (params.per_page ? parseInt(params.per_page) : 99999) as unknown as string,
+                            page_number: (params.page
+                                ? parseInt(params.page)
+                                : 1) as unknown as string,
+                            per_page: (params.per_page
+                                ? parseInt(params.per_page)
+                                : 99999) as unknown as string,
                         });
                         if (res.status === "ok") {
                             return {

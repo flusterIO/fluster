@@ -53,7 +53,7 @@ const CommandPaletteItem = ({
                 }
             }}
         >
-            <InlineMdxContent mdx={item.label} />
+            <InlineMdxContent abortIfNoMath mdx={item.label} />
         </div>
     );
 };

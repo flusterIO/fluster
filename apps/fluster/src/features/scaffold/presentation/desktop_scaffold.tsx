@@ -14,11 +14,13 @@ import { EquationDetailModal } from "#/math/presentation/equation_detail_modal";
 const DesktopScaffold = (): ReactNode => {
     useDevelopmentLogger();
     return (
-        <PageContainer id="main-panel">
+        <PageContainer>
             <MathjaxScript />
             <DarkModeObserver />
             <DesktopSideNavigation />
-            <Outlet />
+            <div className="@container/main-panel flex-grow h-full w-full pt-8 overflow-y-auto">
+                <Outlet />
+            </div>
             <EquationDetailModal />
             <ToastNotificationList />
             <CommandPaletteProvider>

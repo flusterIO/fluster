@@ -5,6 +5,7 @@
 
 
 export const commands = {
+<<<<<<< HEAD
 async getOperatingSystem() : Promise<Result<SupportedOperatingSystem, FlusterError>> {
     try {
     return { status: "ok", data: await TAURI_INVOKE("get_operating_system") };
@@ -697,6 +698,1750 @@ async generateNewToken(length: string) : Promise<string> {
     return await TAURI_INVOKE("generate_new_token", { length });
 }
 }
+||||||| 0b739d4
+    async getOperatingSystem(): Promise<
+        Result<SupportedOperatingSystem, FlusterError>
+    > {
+        try {
+            return { status: "ok", data: await TAURI_INVOKE("get_operating_system") };
+        } catch (e) {
+            if (e instanceof Error) throw e;
+            else return { status: "error", error: e as any };
+        }
+    },
+    async pathExists(filePath: string): Promise<boolean> {
+        return await TAURI_INVOKE("path_exists", { filePath });
+    },
+    async getDashboardData(): Promise<DashboardData> {
+        return await TAURI_INVOKE("get_dashboard_data");
+    },
+    async getQrCodeSvg(content: string): Promise<Result<string, FlusterError>> {
+        try {
+            return {
+                status: "ok",
+                data: await TAURI_INVOKE("get_qr_code_svg", { content }),
+            };
+        } catch (e) {
+            if (e instanceof Error) throw e;
+            else return { status: "error", error: e as any };
+        }
+    },
+    async getEnvironmentVariable(
+        key: string
+    ): Promise<Result<string, FlusterError>> {
+        try {
+            return {
+                status: "ok",
+                data: await TAURI_INVOKE("get_environment_variable", { key }),
+            };
+        } catch (e) {
+            if (e instanceof Error) throw e;
+            else return { status: "error", error: e as any };
+        }
+    },
+    async getTextSimilarity(a: string, b: string): Promise<number> {
+        return await TAURI_INVOKE("get_text_similarity", { a, b });
+    },
+    async getUniqueId(): Promise<string> {
+        return await TAURI_INVOKE("get_unique_id");
+    },
+    async getTagSearchResults(
+        tagValues: string[]
+    ): Promise<Result<TraditionalSearchResults, FlusterError>> {
+        try {
+            return {
+                status: "ok",
+                data: await TAURI_INVOKE("get_tag_search_results", { tagValues }),
+            };
+        } catch (e) {
+            if (e instanceof Error) throw e;
+            else return { status: "error", error: e as any };
+        }
+    },
+    async getTopicSearchResults(
+        tagValues: string[]
+    ): Promise<Result<TraditionalSearchResults, FlusterError>> {
+        try {
+            return {
+                status: "ok",
+                data: await TAURI_INVOKE("get_topic_search_results", { tagValues }),
+            };
+        } catch (e) {
+            if (e instanceof Error) throw e;
+            else return { status: "error", error: e as any };
+        }
+    },
+    async getSubjectSearchResults(
+        tagValues: string[]
+    ): Promise<Result<TraditionalSearchResults, FlusterError>> {
+        try {
+            return {
+                status: "ok",
+                data: await TAURI_INVOKE("get_subject_search_results", { tagValues }),
+            };
+        } catch (e) {
+            if (e instanceof Error) throw e;
+            else return { status: "error", error: e as any };
+        }
+    },
+    async semanticSearch(
+        query: string,
+        pagination: PaginationProps
+    ): Promise<Result<SemanticSearchResults, FlusterError>> {
+        try {
+            return {
+                status: "ok",
+                data: await TAURI_INVOKE("semantic_search", { query, pagination }),
+            };
+        } catch (e) {
+            if (e instanceof Error) throw e;
+            else return { status: "error", error: e as any };
+        }
+    },
+    async getAllTags(): Promise<Result<SharedTaggableModel[], FlusterError>> {
+        try {
+            return { status: "ok", data: await TAURI_INVOKE("get_all_tags") };
+        } catch (e) {
+            if (e instanceof Error) throw e;
+            else return { status: "error", error: e as any };
+        }
+    },
+    async getAllSubjects(): Promise<Result<SharedTaggableModel[], FlusterError>> {
+        try {
+            return { status: "ok", data: await TAURI_INVOKE("get_all_subjects") };
+        } catch (e) {
+            if (e instanceof Error) throw e;
+            else return { status: "error", error: e as any };
+        }
+    },
+    async getAllTopics(): Promise<Result<SharedTaggableModel[], FlusterError>> {
+        try {
+            return { status: "ok", data: await TAURI_INVOKE("get_all_topics") };
+        } catch (e) {
+            if (e instanceof Error) throw e;
+            else return { status: "error", error: e as any };
+        }
+    },
+    async getNotesByBibEntryId(
+        bibEntryId: string
+    ): Promise<Result<TraditionalSearchResults, FlusterError>> {
+        try {
+            return {
+                status: "ok",
+                data: await TAURI_INVOKE("get_notes_by_bib_entry_id", { bibEntryId }),
+            };
+        } catch (e) {
+            if (e instanceof Error) throw e;
+            else return { status: "error", error: e as any };
+        }
+    },
+    /**
+     * Accepts the user defined equation_id field, not the auto-generated id.
+     */
+    async getNotesByEquationId(
+        equationId: string
+    ): Promise<Result<TraditionalSearchResults, FlusterError>> {
+        try {
+            return {
+                status: "ok",
+                data: await TAURI_INVOKE("get_notes_by_equation_id", { equationId }),
+            };
+        } catch (e) {
+            if (e instanceof Error) throw e;
+            else return { status: "error", error: e as any };
+        }
+    },
+    async getNoteByDictEntryLabel(
+        dictEntryLabel: string
+    ): Promise<Result<TraditionalSearchResults, FlusterError>> {
+        try {
+            return {
+                status: "ok",
+                data: await TAURI_INVOKE("get_note_by_dict_entry_label", {
+                    dictEntryLabel,
+                }),
+            };
+        } catch (e) {
+            if (e instanceof Error) throw e;
+            else return { status: "error", error: e as any };
+        }
+    },
+    /**
+     * This wraps a series of functions handled by the fluster_native_interface package, conditionally
+     * based on user settings and app state.
+     */
+    async syncLocalDatabase(
+        opts: SyncFilesystemDirectoryOptions
+    ): Promise<Result<null, FlusterError>> {
+        try {
+            return {
+                status: "ok",
+                data: await TAURI_INVOKE("sync_local_database", { opts }),
+            };
+        } catch (e) {
+            if (e instanceof Error) throw e;
+            else return { status: "error", error: e as any };
+        }
+    },
+    async saveUtf8File(
+        fsPath: string,
+        fileContent: string
+    ): Promise<Result<null, FlusterError>> {
+        try {
+            return {
+                status: "ok",
+                data: await TAURI_INVOKE("save_utf8_file", { fsPath, fileContent }),
+            };
+        } catch (e) {
+            if (e instanceof Error) throw e;
+            else return { status: "error", error: e as any };
+        }
+    },
+    async readUtf8File(fsPath: string): Promise<Result<string, FlusterError>> {
+        try {
+            return {
+                status: "ok",
+                data: await TAURI_INVOKE("read_utf8_file", { fsPath }),
+            };
+        } catch (e) {
+            if (e instanceof Error) throw e;
+            else return { status: "error", error: e as any };
+        }
+    },
+    async readFileToBytes(
+        fsPath: string
+    ): Promise<Result<number[], FlusterError>> {
+        try {
+            return {
+                status: "ok",
+                data: await TAURI_INVOKE("read_file_to_bytes", { fsPath }),
+            };
+        } catch (e) {
+            if (e instanceof Error) throw e;
+            else return { status: "error", error: e as any };
+        }
+    },
+    async writeFile(
+        filePath: string,
+        content: string
+    ): Promise<Result<null, FlusterError>> {
+        try {
+            return {
+                status: "ok",
+                data: await TAURI_INVOKE("write_file", { filePath, content }),
+            };
+        } catch (e) {
+            if (e instanceof Error) throw e;
+            else return { status: "error", error: e as any };
+        }
+    },
+    /**
+     * Make sure to enforce the root directory as a base for globs on the front end, otherwise the
+     * entire computer will be searched.
+     */
+    async fsGlob(globString: string, basePath: string): Promise<string[]> {
+        return await TAURI_INVOKE("fs_glob", { globString, basePath });
+    },
+    /**
+     * This a file extension, without a leading '.'. For regular globs use fs_glob.
+     * The n_threads field is a stringified integer representing the number of threads.
+     */
+    async fsFileExtensionGlob(
+        fileExtension: string,
+        basePath: string,
+        nThreads: string
+    ): Promise<Result<string[], FlusterError>> {
+        try {
+            return {
+                status: "ok",
+                data: await TAURI_INVOKE("fs_file_extension_glob", {
+                    fileExtension,
+                    basePath,
+                    nThreads,
+                }),
+            };
+        } catch (e) {
+            if (e instanceof Error) throw e;
+            else return { status: "error", error: e as any };
+        }
+    },
+    async initializeDatabase(): Promise<Result<null, FlusterError>> {
+        try {
+            return { status: "ok", data: await TAURI_INVOKE("initialize_database") };
+        } catch (e) {
+            if (e instanceof Error) throw e;
+            else return { status: "error", error: e as any };
+        }
+    },
+    async initializeDesktop(): Promise<Result<null, FlusterError>> {
+        try {
+            return { status: "ok", data: await TAURI_INVOKE("initialize_desktop") };
+        } catch (e) {
+            if (e instanceof Error) throw e;
+            else return { status: "error", error: e as any };
+        }
+    },
+    async getEmbeddedDoc(id: InternalEmbeddedDocsId): Promise<string> {
+        return await TAURI_INVOKE("get_embedded_doc", { id });
+    },
+    async getDesktopHealthReport(): Promise<DesktopHealthReport> {
+        return await TAURI_INVOKE("get_desktop_health_report");
+    },
+    async getEmbeddedDocByRelativePath(
+        fp: string
+    ): Promise<Result<string, FlusterError>> {
+        try {
+            return {
+                status: "ok",
+                data: await TAURI_INVOKE("get_embedded_doc_by_relative_path", { fp }),
+            };
+        } catch (e) {
+            if (e instanceof Error) throw e;
+            else return { status: "error", error: e as any };
+        }
+    },
+    async addBookmark(noteFilePath: string): Promise<Result<null, FlusterError>> {
+        try {
+            return {
+                status: "ok",
+                data: await TAURI_INVOKE("add_bookmark", { noteFilePath }),
+            };
+        } catch (e) {
+            if (e instanceof Error) throw e;
+            else return { status: "error", error: e as any };
+        }
+    },
+    async removeBookmark(
+        noteFilePath: string
+    ): Promise<Result<null, FlusterError>> {
+        try {
+            return {
+                status: "ok",
+                data: await TAURI_INVOKE("remove_bookmark", { noteFilePath }),
+            };
+        } catch (e) {
+            if (e instanceof Error) throw e;
+            else return { status: "error", error: e as any };
+        }
+    },
+    async getBookmarkedNotes(): Promise<Result<MdxBookmarkData[], FlusterError>> {
+        try {
+            return { status: "ok", data: await TAURI_INVOKE("get_bookmarked_notes") };
+        } catch (e) {
+            if (e instanceof Error) throw e;
+            else return { status: "error", error: e as any };
+        }
+    },
+    async filePathIsBookmarked(
+        noteFilePath: string
+    ): Promise<Result<boolean, FlusterError>> {
+        try {
+            return {
+                status: "ok",
+                data: await TAURI_INVOKE("file_path_is_bookmarked", { noteFilePath }),
+            };
+        } catch (e) {
+            if (e instanceof Error) throw e;
+            else return { status: "error", error: e as any };
+        }
+    },
+    async getDictionaryEntries(): Promise<
+        Result<DictionaryEntryModel[], FlusterError>
+    > {
+        try {
+            return {
+                status: "ok",
+                data: await TAURI_INVOKE("get_dictionary_entries"),
+            };
+        } catch (e) {
+            if (e instanceof Error) throw e;
+            else return { status: "error", error: e as any };
+        }
+    },
+    /**
+     * This method is used when the search param fsPath is set. This is similar to the way the app
+     * worked in the previous rendtion when 'prefer fs' was enabled by the user.
+     */
+    async readMdxFromFs(
+        fsPath: string
+    ): Promise<Result<MdxNoteGroup, FlusterError>> {
+        try {
+            return {
+                status: "ok",
+                data: await TAURI_INVOKE("read_mdx_from_fs", { fsPath }),
+            };
+        } catch (e) {
+            if (e instanceof Error) throw e;
+            else return { status: "error", error: e as any };
+        }
+    },
+    async readMdxFile(
+        filePath: string
+    ): Promise<Result<MdxNoteGroup, FlusterError>> {
+        try {
+            return {
+                status: "ok",
+                data: await TAURI_INVOKE("read_mdx_file", { filePath }),
+            };
+        } catch (e) {
+            if (e instanceof Error) throw e;
+            else return { status: "error", error: e as any };
+        }
+    },
+    async parseMdxString(
+        mdxContent: string,
+        filePath: string | null
+    ): Promise<Result<MdxNoteGroup, FlusterError>> {
+        try {
+            return {
+                status: "ok",
+                data: await TAURI_INVOKE("parse_mdx_string", { mdxContent, filePath }),
+            };
+        } catch (e) {
+            if (e instanceof Error) throw e;
+            else return { status: "error", error: e as any };
+        }
+    },
+    async setLastReadByFilePath(
+        filePath: string
+    ): Promise<Result<null, FlusterError>> {
+        try {
+            return {
+                status: "ok",
+                data: await TAURI_INVOKE("set_last_read_by_file_path", { filePath }),
+            };
+        } catch (e) {
+            if (e instanceof Error) throw e;
+            else return { status: "error", error: e as any };
+        }
+    },
+    async removeFrontMatter(mdxContent: string): Promise<string> {
+        return await TAURI_INVOKE("remove_front_matter", { mdxContent });
+    },
+    async getNoteSummaries(
+        pagination: PaginationProps
+    ): Promise<Result<NoteSummary[], FlusterError>> {
+        try {
+            return {
+                status: "ok",
+                data: await TAURI_INVOKE("get_note_summaries", { pagination }),
+            };
+        } catch (e) {
+            if (e instanceof Error) throw e;
+            else return { status: "error", error: e as any };
+        }
+    },
+    async getTocFromMarkdown(
+        markdownContent: string
+    ): Promise<Result<TocEntry[], FlusterError>> {
+        try {
+            return {
+                status: "ok",
+                data: await TAURI_INVOKE("get_toc_from_markdown", { markdownContent }),
+            };
+        } catch (e) {
+            if (e instanceof Error) throw e;
+            else return { status: "error", error: e as any };
+        }
+    },
+    async getTocFromFsPath(
+        fsPath: string
+    ): Promise<Result<TocEntry[], FlusterError>> {
+        try {
+            return {
+                status: "ok",
+                data: await TAURI_INVOKE("get_toc_from_fs_path", { fsPath }),
+            };
+        } catch (e) {
+            if (e instanceof Error) throw e;
+            else return { status: "error", error: e as any };
+        }
+    },
+    async mdxNoteFullTextSearch(
+        query: string,
+        pagination: PaginationProps
+    ): Promise<Result<MdxNoteGroup[], FlusterError>> {
+        try {
+            return {
+                status: "ok",
+                data: await TAURI_INVOKE("mdx_note_full_text_search", {
+                    query,
+                    pagination,
+                }),
+            };
+        } catch (e) {
+            if (e instanceof Error) throw e;
+            else return { status: "error", error: e as any };
+        }
+    },
+    async getNoteCount(
+        predicate: string | null
+    ): Promise<Result<string, FlusterError>> {
+        try {
+            return {
+                status: "ok",
+                data: await TAURI_INVOKE("get_note_count", { predicate }),
+            };
+        } catch (e) {
+            if (e instanceof Error) throw e;
+            else return { status: "error", error: e as any };
+        }
+    },
+    async getNoteGroupByFilePath(
+        filePath: string
+    ): Promise<Result<MdxNoteGroup, FlusterError>> {
+        try {
+            return {
+                status: "ok",
+                data: await TAURI_INVOKE("get_note_group_by_file_path", { filePath }),
+            };
+        } catch (e) {
+            if (e instanceof Error) throw e;
+            else return { status: "error", error: e as any };
+        }
+    },
+    async getNoteByUserProvidedId(
+        userProvidedId: string
+    ): Promise<Result<MdxNoteGroup, FlusterError>> {
+        try {
+            return {
+                status: "ok",
+                data: await TAURI_INVOKE("get_note_by_user_provided_id", {
+                    userProvidedId,
+                }),
+            };
+        } catch (e) {
+            if (e instanceof Error) throw e;
+            else return { status: "error", error: e as any };
+        }
+    },
+    async deleteSettingState(
+        settingsId: string
+    ): Promise<Result<null, FlusterError>> {
+        try {
+            return {
+                status: "ok",
+                data: await TAURI_INVOKE("delete_setting_state", { settingsId }),
+            };
+        } catch (e) {
+            if (e instanceof Error) throw e;
+            else return { status: "error", error: e as any };
+        }
+    },
+    async saveSettingState(
+        jsonString: string,
+        settingsId: string
+    ): Promise<Result<null, FlusterError>> {
+        try {
+            return {
+                status: "ok",
+                data: await TAURI_INVOKE("save_setting_state", {
+                    jsonString,
+                    settingsId,
+                }),
+            };
+        } catch (e) {
+            if (e instanceof Error) throw e;
+            else return { status: "error", error: e as any };
+        }
+    },
+    async getSettingState(): Promise<Result<string, FlusterError>> {
+        try {
+            return { status: "ok", data: await TAURI_INVOKE("get_setting_state") };
+        } catch (e) {
+            if (e instanceof Error) throw e;
+            else return { status: "error", error: e as any };
+        }
+    },
+    /**
+     * Returns the string which points the location of mathjax that needs to be passed to the front
+     * end. This is the location that mathjax is copied *to*, not from.
+     */
+    async getMathjaxPath(): Promise<MathjaxData> {
+        return await TAURI_INVOKE("get_mathjax_path");
+    },
+    async getEquations(): Promise<Result<EquationModel[], FlusterError>> {
+        try {
+            return { status: "ok", data: await TAURI_INVOKE("get_equations") };
+        } catch (e) {
+            if (e instanceof Error) throw e;
+            else return { status: "error", error: e as any };
+        }
+    },
+    async saveEquations(
+        data: EquationModel[]
+    ): Promise<Result<null, FlusterError>> {
+        try {
+            return {
+                status: "ok",
+                data: await TAURI_INVOKE("save_equations", { data }),
+            };
+        } catch (e) {
+            if (e instanceof Error) throw e;
+            else return { status: "error", error: e as any };
+        }
+    },
+    async getEquationById(
+        id: string
+    ): Promise<Result<EquationModel, FlusterError>> {
+        try {
+            return {
+                status: "ok",
+                data: await TAURI_INVOKE("get_equation_by_id", { id }),
+            };
+        } catch (e) {
+            if (e instanceof Error) throw e;
+            else return { status: "error", error: e as any };
+        }
+    },
+    async deleteEquationById(id: string): Promise<Result<null, FlusterError>> {
+        try {
+            return {
+                status: "ok",
+                data: await TAURI_INVOKE("delete_equation_by_id", { id }),
+            };
+        } catch (e) {
+            if (e instanceof Error) throw e;
+            else return { status: "error", error: e as any };
+        }
+    },
+    async getEquationByUserProvidedId(
+        id: string[]
+    ): Promise<Result<EquationModel[], FlusterError>> {
+        try {
+            return {
+                status: "ok",
+                data: await TAURI_INVOKE("get_equation_by_user_provided_id", { id }),
+            };
+        } catch (e) {
+            if (e instanceof Error) throw e;
+            else return { status: "error", error: e as any };
+        }
+    },
+    async grid2d(
+        x: AxisGeneratorProps,
+        y: AxisGeneratorProps
+    ): Promise<number[][][]> {
+        return await TAURI_INVOKE("grid_2d", { x, y });
+    },
+    async logspace(
+        base: number,
+        a: number,
+        b: number,
+        n: string
+    ): Promise<number[]> {
+        return await TAURI_INVOKE("logspace", { base, a, b, n });
+    },
+    async arange(from: number, to: number, step: number): Promise<number[]> {
+        return await TAURI_INVOKE("arange", { from, to, step });
+    },
+    async linspace(from: number, to: number, nItems: string): Promise<number[]> {
+        return await TAURI_INVOKE("linspace", { from, to, nItems });
+    },
+    async axisGrid(axis: AxisGeneratorProps): Promise<number[][]> {
+        return await TAURI_INVOKE("axis_grid", { axis });
+    },
+    /**
+     * Note that the values are all in array's and that tags is a 2d array. This is so that for each
+     * index in the snippets array, there is an array at that index in the tags array with the tags
+     * the snippet at that index contains.
+     * While it's weird to think about a database's data in this way, this very similar to how pandas and
+     * polars handle their data.
+     */
+    async saveSnippets(
+        items: SnippetModel[],
+        tags: string[][]
+    ): Promise<Result<null, FlusterError>> {
+        try {
+            return {
+                status: "ok",
+                data: await TAURI_INVOKE("save_snippets", { items, tags }),
+            };
+        } catch (e) {
+            if (e instanceof Error) throw e;
+            else return { status: "error", error: e as any };
+        }
+    },
+    async getSnippets(
+        opts: GetSnippetsParams
+    ): Promise<Result<SnippetModel[], FlusterError>> {
+        try {
+            return {
+                status: "ok",
+                data: await TAURI_INVOKE("get_snippets", { opts }),
+            };
+        } catch (e) {
+            if (e instanceof Error) throw e;
+            else return { status: "error", error: e as any };
+        }
+    },
+    async deleteSnippetById(id: string): Promise<Result<null, FlusterError>> {
+        try {
+            return {
+                status: "ok",
+                data: await TAURI_INVOKE("delete_snippet_by_id", { id }),
+            };
+        } catch (e) {
+            if (e instanceof Error) throw e;
+            else return { status: "error", error: e as any };
+        }
+    },
+    async getSnippetById(
+        id: string
+    ): Promise<Result<[SnippetModel, SharedTaggableModel[]], FlusterError>> {
+        try {
+            return {
+                status: "ok",
+                data: await TAURI_INVOKE("get_snippet_by_id", { id }),
+            };
+        } catch (e) {
+            if (e instanceof Error) throw e;
+            else return { status: "error", error: e as any };
+        }
+    },
+    async getBibEntries(
+        predicate: string | null,
+        pagination: PaginationProps
+    ): Promise<Result<BibEntryModel[], FlusterError>> {
+        try {
+            return {
+                status: "ok",
+                data: await TAURI_INVOKE("get_bib_entries", { predicate, pagination }),
+            };
+        } catch (e) {
+            if (e instanceof Error) throw e;
+            else return { status: "error", error: e as any };
+        }
+    },
+    async getBibEntryCount(
+        predicate: string | null
+    ): Promise<Result<string, FlusterError>> {
+        try {
+            return {
+                status: "ok",
+                data: await TAURI_INVOKE("get_bib_entry_count", { predicate }),
+            };
+        } catch (e) {
+            if (e instanceof Error) throw e;
+            else return { status: "error", error: e as any };
+        }
+    },
+    async syncBib(entries: BibEntryModel[]): Promise<Result<null, FlusterError>> {
+        try {
+            return {
+                status: "ok",
+                data: await TAURI_INVOKE("sync_bib", { entries }),
+            };
+        } catch (e) {
+            if (e instanceof Error) throw e;
+            else return { status: "error", error: e as any };
+        }
+    },
+    async saveBibEntries(
+        entries: BibEntryModel[]
+    ): Promise<Result<null, FlusterError>> {
+        try {
+            return {
+                status: "ok",
+                data: await TAURI_INVOKE("save_bib_entries", { entries }),
+            };
+        } catch (e) {
+            if (e instanceof Error) throw e;
+            else return { status: "error", error: e as any };
+        }
+    },
+    async getBibEntryById(
+        id: string
+    ): Promise<Result<BibEntryModel, FlusterError>> {
+        try {
+            return {
+                status: "ok",
+                data: await TAURI_INVOKE("get_bib_entry_by_id", { id }),
+            };
+        } catch (e) {
+            if (e instanceof Error) throw e;
+            else return { status: "error", error: e as any };
+        }
+    },
+    async bibEntriesFullTextSearch(
+        query: string,
+        pagination: PaginationProps
+    ): Promise<Result<BibEntryModel[], FlusterError>> {
+        try {
+            return {
+                status: "ok",
+                data: await TAURI_INVOKE("bib_entries_full_text_search", {
+                    query,
+                    pagination,
+                }),
+            };
+        } catch (e) {
+            if (e instanceof Error) throw e;
+            else return { status: "error", error: e as any };
+        }
+    },
+    async getAiChatById(
+        chatId: string
+    ): Promise<Result<AiChatData, FlusterError>> {
+        try {
+            return {
+                status: "ok",
+                data: await TAURI_INVOKE("get_ai_chat_by_id", { chatId }),
+            };
+        } catch (e) {
+            if (e instanceof Error) throw e;
+            else return { status: "error", error: e as any };
+        }
+    },
+    async createNewAiChat(label: string): Promise<Result<null, FlusterError>> {
+        try {
+            return {
+                status: "ok",
+                data: await TAURI_INVOKE("create_new_ai_chat", { label }),
+            };
+        } catch (e) {
+            if (e instanceof Error) throw e;
+            else return { status: "error", error: e as any };
+        }
+    },
+    async getAllAiChats(): Promise<Result<AiChatModel[], FlusterError>> {
+        try {
+            return { status: "ok", data: await TAURI_INVOKE("get_all_ai_chats") };
+        } catch (e) {
+            if (e instanceof Error) throw e;
+            else return { status: "error", error: e as any };
+        }
+    },
+    async deleteChatById(chatId: string): Promise<Result<null, FlusterError>> {
+        try {
+            return {
+                status: "ok",
+                data: await TAURI_INVOKE("delete_chat_by_id", { chatId }),
+            };
+        } catch (e) {
+            if (e instanceof Error) throw e;
+            else return { status: "error", error: e as any };
+        }
+    },
+    async addAiChatRequest(
+        chatId: string,
+        chatInput: string
+    ): Promise<Result<AiChatResponseMessageModel, FlusterError>> {
+        try {
+            return {
+                status: "ok",
+                data: await TAURI_INVOKE("add_ai_chat_request", { chatId, chatInput }),
+            };
+        } catch (e) {
+            if (e instanceof Error) throw e;
+            else return { status: "error", error: e as any };
+        }
+    },
+    async createTask(
+        task: TaskModel,
+        tags: TaskTagModel[]
+    ): Promise<Result<null, FlusterError>> {
+        try {
+            return {
+                status: "ok",
+                data: await TAURI_INVOKE("create_task", { task, tags }),
+            };
+        } catch (e) {
+            if (e instanceof Error) throw e;
+            else return { status: "error", error: e as any };
+        }
+    },
+    async createTaskList(
+        taskList: TaskListModel
+    ): Promise<Result<null, FlusterError>> {
+        try {
+            return {
+                status: "ok",
+                data: await TAURI_INVOKE("create_task_list", { taskList }),
+            };
+        } catch (e) {
+            if (e instanceof Error) throw e;
+            else return { status: "error", error: e as any };
+        }
+    },
+    async deleteTaskById(id: string): Promise<Result<null, FlusterError>> {
+        try {
+            return {
+                status: "ok",
+                data: await TAURI_INVOKE("delete_task_by_id", { id }),
+            };
+        } catch (e) {
+            if (e instanceof Error) throw e;
+            else return { status: "error", error: e as any };
+        }
+    },
+    async deleteTaskListById(id: string): Promise<Result<null, FlusterError>> {
+        try {
+            return {
+                status: "ok",
+                data: await TAURI_INVOKE("delete_task_list_by_id", { id }),
+            };
+        } catch (e) {
+            if (e instanceof Error) throw e;
+            else return { status: "error", error: e as any };
+        }
+    },
+    async getTaskById(id: string): Promise<Result<TaskModel, FlusterError>> {
+        try {
+            return {
+                status: "ok",
+                data: await TAURI_INVOKE("get_task_by_id", { id }),
+            };
+        } catch (e) {
+            if (e instanceof Error) throw e;
+            else return { status: "error", error: e as any };
+        }
+    },
+    async getTaskListData(
+        listId: string
+    ): Promise<Result<TaskListData, FlusterError>> {
+        try {
+            return {
+                status: "ok",
+                data: await TAURI_INVOKE("get_task_list_data", { listId }),
+            };
+        } catch (e) {
+            if (e instanceof Error) throw e;
+            else return { status: "error", error: e as any };
+        }
+    },
+    async countTasksInList(id: string): Promise<Result<string, FlusterError>> {
+        try {
+            return {
+                status: "ok",
+                data: await TAURI_INVOKE("count_tasks_in_list", { id }),
+            };
+        } catch (e) {
+            if (e instanceof Error) throw e;
+            else return { status: "error", error: e as any };
+        }
+    },
+    async getAllTaskLists(): Promise<Result<TaskListModel[], FlusterError>> {
+        try {
+            return { status: "ok", data: await TAURI_INVOKE("get_all_task_lists") };
+        } catch (e) {
+            if (e instanceof Error) throw e;
+            else return { status: "error", error: e as any };
+        }
+    },
+    async getTaskListCount(
+        predicate: string | null
+    ): Promise<Result<string, FlusterError>> {
+        try {
+            return {
+                status: "ok",
+                data: await TAURI_INVOKE("get_task_list_count", { predicate }),
+            };
+        } catch (e) {
+            if (e instanceof Error) throw e;
+            else return { status: "error", error: e as any };
+        }
+    },
+    async getTaskCount(
+        predicate: string | null
+    ): Promise<Result<string, FlusterError>> {
+        try {
+            return {
+                status: "ok",
+                data: await TAURI_INVOKE("get_task_count", { predicate }),
+            };
+        } catch (e) {
+            if (e instanceof Error) throw e;
+            else return { status: "error", error: e as any };
+        }
+    },
+    async createNewKanbanBoard(
+        item: KanbanBoardModel
+    ): Promise<Result<null, FlusterError>> {
+        try {
+            return {
+                status: "ok",
+                data: await TAURI_INVOKE("create_new_kanban_board", { item }),
+            };
+        } catch (e) {
+            if (e instanceof Error) throw e;
+            else return { status: "error", error: e as any };
+        }
+    },
+    async deleteKanbanBoardById(id: string): Promise<Result<null, FlusterError>> {
+        try {
+            return {
+                status: "ok",
+                data: await TAURI_INVOKE("delete_kanban_board_by_id", { id }),
+            };
+        } catch (e) {
+            if (e instanceof Error) throw e;
+            else return { status: "error", error: e as any };
+        }
+    },
+    async deleteKanbanBoardCardById(
+        id: string
+    ): Promise<Result<null, FlusterError>> {
+        try {
+            return {
+                status: "ok",
+                data: await TAURI_INVOKE("delete_kanban_board_card_by_id", { id }),
+            };
+        } catch (e) {
+            if (e instanceof Error) throw e;
+            else return { status: "error", error: e as any };
+        }
+    },
+    async createNewKanbanBoardCard(
+        item: KanbanBoardEntryModel
+    ): Promise<Result<null, FlusterError>> {
+        try {
+            return {
+                status: "ok",
+                data: await TAURI_INVOKE("create_new_kanban_board_card", { item }),
+            };
+        } catch (e) {
+            if (e instanceof Error) throw e;
+            else return { status: "error", error: e as any };
+        }
+    },
+    async getKanbanBoardById(
+        id: string
+    ): Promise<Result<KanbanBoardData, FlusterError>> {
+        try {
+            return {
+                status: "ok",
+                data: await TAURI_INVOKE("get_kanban_board_by_id", { id }),
+            };
+        } catch (e) {
+            if (e instanceof Error) throw e;
+            else return { status: "error", error: e as any };
+        }
+    },
+    async getKanbanBoardList(
+        predicate: string | null,
+        pagination: PaginationProps | null
+    ): Promise<Result<KanbanBoardListData, FlusterError>> {
+        try {
+            return {
+                status: "ok",
+                data: await TAURI_INVOKE("get_kanban_board_list", {
+                    predicate,
+                    pagination,
+                }),
+            };
+        } catch (e) {
+            if (e instanceof Error) throw e;
+            else return { status: "error", error: e as any };
+        }
+    },
+    async generateNewToken(length: string): Promise<string> {
+        return await TAURI_INVOKE("generate_new_token", { length });
+    },
+};
+=======
+async getOperatingSystem() : Promise<Result<SupportedOperatingSystem, FlusterError>> {
+    try {
+    return { status: "ok", data: await TAURI_INVOKE("get_operating_system") };
+} catch (e) {
+    if(e instanceof Error) throw e;
+    else return { status: "error", error: e  as any };
+}
+},
+async pathExists(filePath: string) : Promise<boolean> {
+    return await TAURI_INVOKE("path_exists", { filePath });
+},
+async getDashboardData() : Promise<DashboardData> {
+    return await TAURI_INVOKE("get_dashboard_data");
+},
+async getQrCodeSvg(content: string) : Promise<Result<string, FlusterError>> {
+    try {
+    return { status: "ok", data: await TAURI_INVOKE("get_qr_code_svg", { content }) };
+} catch (e) {
+    if(e instanceof Error) throw e;
+    else return { status: "error", error: e  as any };
+}
+},
+async getEnvironmentVariable(key: string) : Promise<Result<string, FlusterError>> {
+    try {
+    return { status: "ok", data: await TAURI_INVOKE("get_environment_variable", { key }) };
+} catch (e) {
+    if(e instanceof Error) throw e;
+    else return { status: "error", error: e  as any };
+}
+},
+async getTextSimilarity(a: string, b: string) : Promise<number> {
+    return await TAURI_INVOKE("get_text_similarity", { a, b });
+},
+async getUniqueId() : Promise<string> {
+    return await TAURI_INVOKE("get_unique_id");
+},
+async getTagSearchResults(tagValues: string[]) : Promise<Result<TraditionalSearchResults, FlusterError>> {
+    try {
+    return { status: "ok", data: await TAURI_INVOKE("get_tag_search_results", { tagValues }) };
+} catch (e) {
+    if(e instanceof Error) throw e;
+    else return { status: "error", error: e  as any };
+}
+},
+async getTopicSearchResults(tagValues: string[]) : Promise<Result<TraditionalSearchResults, FlusterError>> {
+    try {
+    return { status: "ok", data: await TAURI_INVOKE("get_topic_search_results", { tagValues }) };
+} catch (e) {
+    if(e instanceof Error) throw e;
+    else return { status: "error", error: e  as any };
+}
+},
+async getSubjectSearchResults(tagValues: string[]) : Promise<Result<TraditionalSearchResults, FlusterError>> {
+    try {
+    return { status: "ok", data: await TAURI_INVOKE("get_subject_search_results", { tagValues }) };
+} catch (e) {
+    if(e instanceof Error) throw e;
+    else return { status: "error", error: e  as any };
+}
+},
+async semanticSearch(query: string, pagination: PaginationProps) : Promise<Result<SemanticSearchResults, FlusterError>> {
+    try {
+    return { status: "ok", data: await TAURI_INVOKE("semantic_search", { query, pagination }) };
+} catch (e) {
+    if(e instanceof Error) throw e;
+    else return { status: "error", error: e  as any };
+}
+},
+async getAllTags() : Promise<Result<SharedTaggableModel[], FlusterError>> {
+    try {
+    return { status: "ok", data: await TAURI_INVOKE("get_all_tags") };
+} catch (e) {
+    if(e instanceof Error) throw e;
+    else return { status: "error", error: e  as any };
+}
+},
+async getAllSubjects() : Promise<Result<SharedTaggableModel[], FlusterError>> {
+    try {
+    return { status: "ok", data: await TAURI_INVOKE("get_all_subjects") };
+} catch (e) {
+    if(e instanceof Error) throw e;
+    else return { status: "error", error: e  as any };
+}
+},
+async getAllTopics() : Promise<Result<SharedTaggableModel[], FlusterError>> {
+    try {
+    return { status: "ok", data: await TAURI_INVOKE("get_all_topics") };
+} catch (e) {
+    if(e instanceof Error) throw e;
+    else return { status: "error", error: e  as any };
+}
+},
+async getNotesByBibEntryId(bibEntryId: string) : Promise<Result<TraditionalSearchResults, FlusterError>> {
+    try {
+    return { status: "ok", data: await TAURI_INVOKE("get_notes_by_bib_entry_id", { bibEntryId }) };
+} catch (e) {
+    if(e instanceof Error) throw e;
+    else return { status: "error", error: e  as any };
+}
+},
+/**
+ * Accepts the user defined equation_id field, not the auto-generated id.
+ */
+async getNotesByEquationId(equationId: string) : Promise<Result<TraditionalSearchResults, FlusterError>> {
+    try {
+    return { status: "ok", data: await TAURI_INVOKE("get_notes_by_equation_id", { equationId }) };
+} catch (e) {
+    if(e instanceof Error) throw e;
+    else return { status: "error", error: e  as any };
+}
+},
+async getNoteByDictEntryLabel(dictEntryLabel: string) : Promise<Result<TraditionalSearchResults, FlusterError>> {
+    try {
+    return { status: "ok", data: await TAURI_INVOKE("get_note_by_dict_entry_label", { dictEntryLabel }) };
+} catch (e) {
+    if(e instanceof Error) throw e;
+    else return { status: "error", error: e  as any };
+}
+},
+/**
+ * This wraps a series of functions handled by the fluster_native_interface package, conditionally
+ * based on user settings and app state.
+ */
+async syncLocalDatabase(opts: SyncFilesystemDirectoryOptions) : Promise<Result<null, FlusterError>> {
+    try {
+    return { status: "ok", data: await TAURI_INVOKE("sync_local_database", { opts }) };
+} catch (e) {
+    if(e instanceof Error) throw e;
+    else return { status: "error", error: e  as any };
+}
+},
+async saveUtf8File(fsPath: string, fileContent: string) : Promise<Result<null, FlusterError>> {
+    try {
+    return { status: "ok", data: await TAURI_INVOKE("save_utf8_file", { fsPath, fileContent }) };
+} catch (e) {
+    if(e instanceof Error) throw e;
+    else return { status: "error", error: e  as any };
+}
+},
+async readUtf8File(fsPath: string) : Promise<Result<string, FlusterError>> {
+    try {
+    return { status: "ok", data: await TAURI_INVOKE("read_utf8_file", { fsPath }) };
+} catch (e) {
+    if(e instanceof Error) throw e;
+    else return { status: "error", error: e  as any };
+}
+},
+async readFileToBytes(fsPath: string) : Promise<Result<number[], FlusterError>> {
+    try {
+    return { status: "ok", data: await TAURI_INVOKE("read_file_to_bytes", { fsPath }) };
+} catch (e) {
+    if(e instanceof Error) throw e;
+    else return { status: "error", error: e  as any };
+}
+},
+async writeFile(filePath: string, content: string) : Promise<Result<null, FlusterError>> {
+    try {
+    return { status: "ok", data: await TAURI_INVOKE("write_file", { filePath, content }) };
+} catch (e) {
+    if(e instanceof Error) throw e;
+    else return { status: "error", error: e  as any };
+}
+},
+/**
+ * Make sure to enforce the root directory as a base for globs on the front end, otherwise the
+ * entire computer will be searched.
+ */
+async fsGlob(globString: string, basePath: string) : Promise<string[]> {
+    return await TAURI_INVOKE("fs_glob", { globString, basePath });
+},
+/**
+ * This a file extension, without a leading '.'. For regular globs use fs_glob.
+ * The n_threads field is a stringified integer representing the number of threads.
+ */
+async fsFileExtensionGlob(fileExtension: string, basePath: string, nThreads: string) : Promise<Result<string[], FlusterError>> {
+    try {
+    return { status: "ok", data: await TAURI_INVOKE("fs_file_extension_glob", { fileExtension, basePath, nThreads }) };
+} catch (e) {
+    if(e instanceof Error) throw e;
+    else return { status: "error", error: e  as any };
+}
+},
+async initializeDatabase() : Promise<Result<null, FlusterError>> {
+    try {
+    return { status: "ok", data: await TAURI_INVOKE("initialize_database") };
+} catch (e) {
+    if(e instanceof Error) throw e;
+    else return { status: "error", error: e  as any };
+}
+},
+async initializeDesktop() : Promise<Result<null, FlusterError>> {
+    try {
+    return { status: "ok", data: await TAURI_INVOKE("initialize_desktop") };
+} catch (e) {
+    if(e instanceof Error) throw e;
+    else return { status: "error", error: e  as any };
+}
+},
+async getEmbeddedDoc(id: InternalEmbeddedDocsId) : Promise<string> {
+    return await TAURI_INVOKE("get_embedded_doc", { id });
+},
+async getDesktopHealthReport() : Promise<DesktopHealthReport> {
+    return await TAURI_INVOKE("get_desktop_health_report");
+},
+async getEmbeddedDocByRelativePath(fp: string) : Promise<Result<string, FlusterError>> {
+    try {
+    return { status: "ok", data: await TAURI_INVOKE("get_embedded_doc_by_relative_path", { fp }) };
+} catch (e) {
+    if(e instanceof Error) throw e;
+    else return { status: "error", error: e  as any };
+}
+},
+async addBookmark(noteFilePath: string) : Promise<Result<null, FlusterError>> {
+    try {
+    return { status: "ok", data: await TAURI_INVOKE("add_bookmark", { noteFilePath }) };
+} catch (e) {
+    if(e instanceof Error) throw e;
+    else return { status: "error", error: e  as any };
+}
+},
+async removeBookmark(noteFilePath: string) : Promise<Result<null, FlusterError>> {
+    try {
+    return { status: "ok", data: await TAURI_INVOKE("remove_bookmark", { noteFilePath }) };
+} catch (e) {
+    if(e instanceof Error) throw e;
+    else return { status: "error", error: e  as any };
+}
+},
+async getBookmarkedNotes() : Promise<Result<MdxBookmarkData[], FlusterError>> {
+    try {
+    return { status: "ok", data: await TAURI_INVOKE("get_bookmarked_notes") };
+} catch (e) {
+    if(e instanceof Error) throw e;
+    else return { status: "error", error: e  as any };
+}
+},
+async filePathIsBookmarked(noteFilePath: string) : Promise<Result<boolean, FlusterError>> {
+    try {
+    return { status: "ok", data: await TAURI_INVOKE("file_path_is_bookmarked", { noteFilePath }) };
+} catch (e) {
+    if(e instanceof Error) throw e;
+    else return { status: "error", error: e  as any };
+}
+},
+async getDictionaryEntries() : Promise<Result<DictionaryEntryModel[], FlusterError>> {
+    try {
+    return { status: "ok", data: await TAURI_INVOKE("get_dictionary_entries") };
+} catch (e) {
+    if(e instanceof Error) throw e;
+    else return { status: "error", error: e  as any };
+}
+},
+/**
+ * This method is used when the search param fsPath is set. This is similar to the way the app
+ * worked in the previous rendtion when 'prefer fs' was enabled by the user.
+ */
+async readMdxFromFs(fsPath: string) : Promise<Result<MdxNoteGroup, FlusterError>> {
+    try {
+    return { status: "ok", data: await TAURI_INVOKE("read_mdx_from_fs", { fsPath }) };
+} catch (e) {
+    if(e instanceof Error) throw e;
+    else return { status: "error", error: e  as any };
+}
+},
+async readMdxFile(filePath: string) : Promise<Result<MdxNoteGroup, FlusterError>> {
+    try {
+    return { status: "ok", data: await TAURI_INVOKE("read_mdx_file", { filePath }) };
+} catch (e) {
+    if(e instanceof Error) throw e;
+    else return { status: "error", error: e  as any };
+}
+},
+async parseMdxString(mdxContent: string, filePath: string | null) : Promise<Result<MdxNoteGroup, FlusterError>> {
+    try {
+    return { status: "ok", data: await TAURI_INVOKE("parse_mdx_string", { mdxContent, filePath }) };
+} catch (e) {
+    if(e instanceof Error) throw e;
+    else return { status: "error", error: e  as any };
+}
+},
+async setLastReadByFilePath(filePath: string) : Promise<Result<null, FlusterError>> {
+    try {
+    return { status: "ok", data: await TAURI_INVOKE("set_last_read_by_file_path", { filePath }) };
+} catch (e) {
+    if(e instanceof Error) throw e;
+    else return { status: "error", error: e  as any };
+}
+},
+async removeFrontMatter(mdxContent: string) : Promise<string> {
+    return await TAURI_INVOKE("remove_front_matter", { mdxContent });
+},
+async getNoteSummaries(pagination: PaginationProps) : Promise<Result<NoteSummary[], FlusterError>> {
+    try {
+    return { status: "ok", data: await TAURI_INVOKE("get_note_summaries", { pagination }) };
+} catch (e) {
+    if(e instanceof Error) throw e;
+    else return { status: "error", error: e  as any };
+}
+},
+async getTocFromMarkdown(markdownContent: string) : Promise<Result<TocEntry[], FlusterError>> {
+    try {
+    return { status: "ok", data: await TAURI_INVOKE("get_toc_from_markdown", { markdownContent }) };
+} catch (e) {
+    if(e instanceof Error) throw e;
+    else return { status: "error", error: e  as any };
+}
+},
+async getTocFromFsPath(fsPath: string) : Promise<Result<TocEntry[], FlusterError>> {
+    try {
+    return { status: "ok", data: await TAURI_INVOKE("get_toc_from_fs_path", { fsPath }) };
+} catch (e) {
+    if(e instanceof Error) throw e;
+    else return { status: "error", error: e  as any };
+}
+},
+async mdxNoteFullTextSearch(query: string, pagination: PaginationProps) : Promise<Result<MdxNoteGroup[], FlusterError>> {
+    try {
+    return { status: "ok", data: await TAURI_INVOKE("mdx_note_full_text_search", { query, pagination }) };
+} catch (e) {
+    if(e instanceof Error) throw e;
+    else return { status: "error", error: e  as any };
+}
+},
+async getNoteCount(predicate: string | null) : Promise<Result<string, FlusterError>> {
+    try {
+    return { status: "ok", data: await TAURI_INVOKE("get_note_count", { predicate }) };
+} catch (e) {
+    if(e instanceof Error) throw e;
+    else return { status: "error", error: e  as any };
+}
+},
+async getNoteGroupByFilePath(filePath: string) : Promise<Result<MdxNoteGroup, FlusterError>> {
+    try {
+    return { status: "ok", data: await TAURI_INVOKE("get_note_group_by_file_path", { filePath }) };
+} catch (e) {
+    if(e instanceof Error) throw e;
+    else return { status: "error", error: e  as any };
+}
+},
+async getNoteByUserProvidedId(userProvidedId: string) : Promise<Result<MdxNoteGroup, FlusterError>> {
+    try {
+    return { status: "ok", data: await TAURI_INVOKE("get_note_by_user_provided_id", { userProvidedId }) };
+} catch (e) {
+    if(e instanceof Error) throw e;
+    else return { status: "error", error: e  as any };
+}
+},
+async deleteSettingState(settingsId: string) : Promise<Result<null, FlusterError>> {
+    try {
+    return { status: "ok", data: await TAURI_INVOKE("delete_setting_state", { settingsId }) };
+} catch (e) {
+    if(e instanceof Error) throw e;
+    else return { status: "error", error: e  as any };
+}
+},
+async saveSettingState(jsonString: string, settingsId: string) : Promise<Result<null, FlusterError>> {
+    try {
+    return { status: "ok", data: await TAURI_INVOKE("save_setting_state", { jsonString, settingsId }) };
+} catch (e) {
+    if(e instanceof Error) throw e;
+    else return { status: "error", error: e  as any };
+}
+},
+async getSettingState() : Promise<Result<string, FlusterError>> {
+    try {
+    return { status: "ok", data: await TAURI_INVOKE("get_setting_state") };
+} catch (e) {
+    if(e instanceof Error) throw e;
+    else return { status: "error", error: e  as any };
+}
+},
+/**
+ * Returns the string which points the location of mathjax that needs to be passed to the front
+ * end. This is the location that mathjax is copied *to*, not from.
+ */
+async getMathjaxPath() : Promise<MathjaxData> {
+    return await TAURI_INVOKE("get_mathjax_path");
+},
+async getEquations() : Promise<Result<EquationModel[], FlusterError>> {
+    try {
+    return { status: "ok", data: await TAURI_INVOKE("get_equations") };
+} catch (e) {
+    if(e instanceof Error) throw e;
+    else return { status: "error", error: e  as any };
+}
+},
+async saveEquations(data: EquationModel[]) : Promise<Result<null, FlusterError>> {
+    try {
+    return { status: "ok", data: await TAURI_INVOKE("save_equations", { data }) };
+} catch (e) {
+    if(e instanceof Error) throw e;
+    else return { status: "error", error: e  as any };
+}
+},
+async getEquationById(id: string) : Promise<Result<EquationModel, FlusterError>> {
+    try {
+    return { status: "ok", data: await TAURI_INVOKE("get_equation_by_id", { id }) };
+} catch (e) {
+    if(e instanceof Error) throw e;
+    else return { status: "error", error: e  as any };
+}
+},
+async deleteEquationById(id: string) : Promise<Result<null, FlusterError>> {
+    try {
+    return { status: "ok", data: await TAURI_INVOKE("delete_equation_by_id", { id }) };
+} catch (e) {
+    if(e instanceof Error) throw e;
+    else return { status: "error", error: e  as any };
+}
+},
+async getEquationByUserProvidedId(id: string[]) : Promise<Result<EquationModel[], FlusterError>> {
+    try {
+    return { status: "ok", data: await TAURI_INVOKE("get_equation_by_user_provided_id", { id }) };
+} catch (e) {
+    if(e instanceof Error) throw e;
+    else return { status: "error", error: e  as any };
+}
+},
+async grid2d(x: AxisGeneratorProps, y: AxisGeneratorProps) : Promise<number[][][]> {
+    return await TAURI_INVOKE("grid_2d", { x, y });
+},
+async logspace(base: number, a: number, b: number, n: string) : Promise<number[]> {
+    return await TAURI_INVOKE("logspace", { base, a, b, n });
+},
+async arange(from: number, to: number, step: number) : Promise<number[]> {
+    return await TAURI_INVOKE("arange", { from, to, step });
+},
+async linspace(from: number, to: number, nItems: string) : Promise<number[]> {
+    return await TAURI_INVOKE("linspace", { from, to, nItems });
+},
+async axisGrid(axis: AxisGeneratorProps) : Promise<number[][]> {
+    return await TAURI_INVOKE("axis_grid", { axis });
+},
+/**
+ * Note that the values are all in array's and that tags is a 2d array. This is so that for each
+ * index in the snippets array, there is an array at that index in the tags array with the tags
+ * the snippet at that index contains.
+ * While it's weird to think about a database's data in this way, this very similar to how pandas and
+ * polars handle their data.
+ */
+async saveSnippets(items: SnippetModel[], tags: string[][]) : Promise<Result<null, FlusterError>> {
+    try {
+    return { status: "ok", data: await TAURI_INVOKE("save_snippets", { items, tags }) };
+} catch (e) {
+    if(e instanceof Error) throw e;
+    else return { status: "error", error: e  as any };
+}
+},
+async getSnippets(opts: GetSnippetsParams) : Promise<Result<SnippetModel[], FlusterError>> {
+    try {
+    return { status: "ok", data: await TAURI_INVOKE("get_snippets", { opts }) };
+} catch (e) {
+    if(e instanceof Error) throw e;
+    else return { status: "error", error: e  as any };
+}
+},
+async deleteSnippetById(id: string) : Promise<Result<null, FlusterError>> {
+    try {
+    return { status: "ok", data: await TAURI_INVOKE("delete_snippet_by_id", { id }) };
+} catch (e) {
+    if(e instanceof Error) throw e;
+    else return { status: "error", error: e  as any };
+}
+},
+async getSnippetById(id: string) : Promise<Result<[SnippetModel, SharedTaggableModel[]], FlusterError>> {
+    try {
+    return { status: "ok", data: await TAURI_INVOKE("get_snippet_by_id", { id }) };
+} catch (e) {
+    if(e instanceof Error) throw e;
+    else return { status: "error", error: e  as any };
+}
+},
+async getBibEntries(predicate: string | null, pagination: PaginationProps) : Promise<Result<BibEntryModel[], FlusterError>> {
+    try {
+    return { status: "ok", data: await TAURI_INVOKE("get_bib_entries", { predicate, pagination }) };
+} catch (e) {
+    if(e instanceof Error) throw e;
+    else return { status: "error", error: e  as any };
+}
+},
+async getBibEntryCount(predicate: string | null) : Promise<Result<string, FlusterError>> {
+    try {
+    return { status: "ok", data: await TAURI_INVOKE("get_bib_entry_count", { predicate }) };
+} catch (e) {
+    if(e instanceof Error) throw e;
+    else return { status: "error", error: e  as any };
+}
+},
+async syncBib(entries: BibEntryModel[]) : Promise<Result<null, FlusterError>> {
+    try {
+    return { status: "ok", data: await TAURI_INVOKE("sync_bib", { entries }) };
+} catch (e) {
+    if(e instanceof Error) throw e;
+    else return { status: "error", error: e  as any };
+}
+},
+async saveBibEntries(entries: BibEntryModel[]) : Promise<Result<null, FlusterError>> {
+    try {
+    return { status: "ok", data: await TAURI_INVOKE("save_bib_entries", { entries }) };
+} catch (e) {
+    if(e instanceof Error) throw e;
+    else return { status: "error", error: e  as any };
+}
+},
+async getBibEntryById(id: string) : Promise<Result<BibEntryModel, FlusterError>> {
+    try {
+    return { status: "ok", data: await TAURI_INVOKE("get_bib_entry_by_id", { id }) };
+} catch (e) {
+    if(e instanceof Error) throw e;
+    else return { status: "error", error: e  as any };
+}
+},
+async bibEntriesFullTextSearch(query: string, pagination: PaginationProps) : Promise<Result<BibEntryModel[], FlusterError>> {
+    try {
+    return { status: "ok", data: await TAURI_INVOKE("bib_entries_full_text_search", { query, pagination }) };
+} catch (e) {
+    if(e instanceof Error) throw e;
+    else return { status: "error", error: e  as any };
+}
+},
+async getAiChatById(chatId: string) : Promise<Result<AiChatData, FlusterError>> {
+    try {
+    return { status: "ok", data: await TAURI_INVOKE("get_ai_chat_by_id", { chatId }) };
+} catch (e) {
+    if(e instanceof Error) throw e;
+    else return { status: "error", error: e  as any };
+}
+},
+async createNewAiChat(label: string) : Promise<Result<null, FlusterError>> {
+    try {
+    return { status: "ok", data: await TAURI_INVOKE("create_new_ai_chat", { label }) };
+} catch (e) {
+    if(e instanceof Error) throw e;
+    else return { status: "error", error: e  as any };
+}
+},
+async getAllAiChats() : Promise<Result<AiChatModel[], FlusterError>> {
+    try {
+    return { status: "ok", data: await TAURI_INVOKE("get_all_ai_chats") };
+} catch (e) {
+    if(e instanceof Error) throw e;
+    else return { status: "error", error: e  as any };
+}
+},
+async deleteChatById(chatId: string) : Promise<Result<null, FlusterError>> {
+    try {
+    return { status: "ok", data: await TAURI_INVOKE("delete_chat_by_id", { chatId }) };
+} catch (e) {
+    if(e instanceof Error) throw e;
+    else return { status: "error", error: e  as any };
+}
+},
+async addAiChatRequest(chatId: string, chatInput: string) : Promise<Result<AiChatResponseMessageModel, FlusterError>> {
+    try {
+    return { status: "ok", data: await TAURI_INVOKE("add_ai_chat_request", { chatId, chatInput }) };
+} catch (e) {
+    if(e instanceof Error) throw e;
+    else return { status: "error", error: e  as any };
+}
+},
+async beginEmbeddingModelDownload() : Promise<void> {
+    await TAURI_INVOKE("begin_embedding_model_download");
+},
+async beginLanguageModelDownload() : Promise<void> {
+    await TAURI_INVOKE("begin_language_model_download");
+},
+async createTask(task: TaskModel, tags: TaskTagModel[]) : Promise<Result<null, FlusterError>> {
+    try {
+    return { status: "ok", data: await TAURI_INVOKE("create_task", { task, tags }) };
+} catch (e) {
+    if(e instanceof Error) throw e;
+    else return { status: "error", error: e  as any };
+}
+},
+async createTaskList(taskList: TaskListModel) : Promise<Result<null, FlusterError>> {
+    try {
+    return { status: "ok", data: await TAURI_INVOKE("create_task_list", { taskList }) };
+} catch (e) {
+    if(e instanceof Error) throw e;
+    else return { status: "error", error: e  as any };
+}
+},
+async deleteTaskById(id: string) : Promise<Result<null, FlusterError>> {
+    try {
+    return { status: "ok", data: await TAURI_INVOKE("delete_task_by_id", { id }) };
+} catch (e) {
+    if(e instanceof Error) throw e;
+    else return { status: "error", error: e  as any };
+}
+},
+async deleteTaskListById(id: string) : Promise<Result<null, FlusterError>> {
+    try {
+    return { status: "ok", data: await TAURI_INVOKE("delete_task_list_by_id", { id }) };
+} catch (e) {
+    if(e instanceof Error) throw e;
+    else return { status: "error", error: e  as any };
+}
+},
+async getTaskById(id: string) : Promise<Result<TaskModel, FlusterError>> {
+    try {
+    return { status: "ok", data: await TAURI_INVOKE("get_task_by_id", { id }) };
+} catch (e) {
+    if(e instanceof Error) throw e;
+    else return { status: "error", error: e  as any };
+}
+},
+async getTaskListData(listId: string) : Promise<Result<TaskListData, FlusterError>> {
+    try {
+    return { status: "ok", data: await TAURI_INVOKE("get_task_list_data", { listId }) };
+} catch (e) {
+    if(e instanceof Error) throw e;
+    else return { status: "error", error: e  as any };
+}
+},
+async countTasksInList(id: string) : Promise<Result<string, FlusterError>> {
+    try {
+    return { status: "ok", data: await TAURI_INVOKE("count_tasks_in_list", { id }) };
+} catch (e) {
+    if(e instanceof Error) throw e;
+    else return { status: "error", error: e  as any };
+}
+},
+async getAllTaskLists() : Promise<Result<TaskListModel[], FlusterError>> {
+    try {
+    return { status: "ok", data: await TAURI_INVOKE("get_all_task_lists") };
+} catch (e) {
+    if(e instanceof Error) throw e;
+    else return { status: "error", error: e  as any };
+}
+},
+async getTaskListCount(predicate: string | null) : Promise<Result<string, FlusterError>> {
+    try {
+    return { status: "ok", data: await TAURI_INVOKE("get_task_list_count", { predicate }) };
+} catch (e) {
+    if(e instanceof Error) throw e;
+    else return { status: "error", error: e  as any };
+}
+},
+async getTaskCount(predicate: string | null) : Promise<Result<string, FlusterError>> {
+    try {
+    return { status: "ok", data: await TAURI_INVOKE("get_task_count", { predicate }) };
+} catch (e) {
+    if(e instanceof Error) throw e;
+    else return { status: "error", error: e  as any };
+}
+},
+async createNewKanbanBoard(item: KanbanBoardModel) : Promise<Result<null, FlusterError>> {
+    try {
+    return { status: "ok", data: await TAURI_INVOKE("create_new_kanban_board", { item }) };
+} catch (e) {
+    if(e instanceof Error) throw e;
+    else return { status: "error", error: e  as any };
+}
+},
+async deleteKanbanBoardById(id: string) : Promise<Result<null, FlusterError>> {
+    try {
+    return { status: "ok", data: await TAURI_INVOKE("delete_kanban_board_by_id", { id }) };
+} catch (e) {
+    if(e instanceof Error) throw e;
+    else return { status: "error", error: e  as any };
+}
+},
+async deleteKanbanBoardCardById(id: string) : Promise<Result<null, FlusterError>> {
+    try {
+    return { status: "ok", data: await TAURI_INVOKE("delete_kanban_board_card_by_id", { id }) };
+} catch (e) {
+    if(e instanceof Error) throw e;
+    else return { status: "error", error: e  as any };
+}
+},
+async createNewKanbanBoardCard(item: KanbanBoardEntryModel) : Promise<Result<null, FlusterError>> {
+    try {
+    return { status: "ok", data: await TAURI_INVOKE("create_new_kanban_board_card", { item }) };
+} catch (e) {
+    if(e instanceof Error) throw e;
+    else return { status: "error", error: e  as any };
+}
+},
+async getKanbanBoardById(id: string) : Promise<Result<KanbanBoardData, FlusterError>> {
+    try {
+    return { status: "ok", data: await TAURI_INVOKE("get_kanban_board_by_id", { id }) };
+} catch (e) {
+    if(e instanceof Error) throw e;
+    else return { status: "error", error: e  as any };
+}
+},
+async getKanbanBoardList(predicate: string | null, pagination: PaginationProps | null) : Promise<Result<KanbanBoardListData, FlusterError>> {
+    try {
+    return { status: "ok", data: await TAURI_INVOKE("get_kanban_board_list", { predicate, pagination }) };
+} catch (e) {
+    if(e instanceof Error) throw e;
+    else return { status: "error", error: e  as any };
+}
+},
+async generateNewToken(length: string) : Promise<string> {
+    return await TAURI_INVOKE("generate_new_token", { length });
+},
+async getPlotlyTheme(themeId: PlotlyTheme) : Promise<string> {
+    return await TAURI_INVOKE("get_plotly_theme", { themeId });
+}
+}
+>>>>>>> main
 
 /** user-defined events **/
 
@@ -723,6 +2468,7 @@ export type AiChatData = { chat: AiChatModel; outgoing: AiChatRequestMessageMode
 /**
  * The database entity representing a specific chat historys
  */
+<<<<<<< HEAD
 export type AiChatModel = { id: string; label: string; ctime: string }
 export type AiChatRequestMessageModel = { id: string; 
 /**
@@ -801,6 +2547,249 @@ export type FlusterError = "OperatingSystemNotSupported" | "FailToLoadDocs" | { 
  * 
  */
 "FailToUpsertTags" | "FailToExecutePython"
+||||||| 0b739d4
+export type AiChatModel = { id: string; label: string; ctime: string };
+export type AiChatRequestMessageModel = {
+    id: string;
+    /**
+     * The id of the accompanying AiChatModel row.
+     */
+    chat_id: string;
+    /**
+     * The user's input as the request body.
+     */
+    body: string;
+    /**
+     * The stringified unix timestamp of the time the message was sent.
+     */
+    sent_at: string;
+};
+export type AiChatResponseMessageModel = {
+    id: string;
+    /**
+     * The id of the accompanying AiChatModel row.
+     */
+    chat_id: string;
+    /**
+     * The user's input as the request body.
+     */
+    body: string;
+    /**
+     * The stringified unix timestamp of the time the message was received.
+     */
+    received_at: string;
+};
+export type AxisGeneratorProps = {
+    min: number;
+    max: number;
+    count: string;
+    label: string | null;
+};
+export type BibEntryModel = {
+    id: string;
+    user_provided_id: string | null;
+    /**
+     * The json string representing this item's data.
+     */
+    data: string;
+    ctime: string;
+    html_citation: string;
+    pdf_path: string | null;
+};
+export type DashboardData = Record<string, never>;
+export type DesktopHealthReport = {
+    database_tables_exist: boolean;
+    /**
+     * This boolean describes the overall health of the desktop app. If any inidividual field
+     * that warrents re-initializing is false, this field will be false.
+     */
+    healthy: boolean;
+};
+export type DictionaryEntryModel = {
+    /**
+     * Primary Key
+     */
+    label: string;
+    body: string;
+    ctime: string;
+};
+export type EquationModel = {
+    /**
+     * This is the traditional id field, generated by uuid.
+     */
+    id: string;
+    /**
+     * The equation_id field is the 'id' field as provided from the user. This is used to
+     * reference equations throughout their notes in a way that makes sense to the user as
+     * opposed to an arbitrary string.
+     */
+    equation_id: string | null;
+    /**
+     * The title or label for the equation.
+     */
+    label: string;
+    /**
+     * The equation latex string.
+     */
+    body: string;
+    desc: string;
+    /**
+     * Time snippet is initially created.
+     */
+    ctime: string;
+    /**
+     * Time snippet is last updated.
+     */
+    utime: string;
+};
+export type FlusterError =
+    | "OperatingSystemNotSupported"
+    | "FailToLoadDocs"
+    | { FailToLoadEnvironmentVariable: string }
+    | "FailToParseDate"
+    | "FailToWriteChatSession"
+    | "FailToReadChatSession"
+    | "NoAiProvidersConfigured"
+    | "FailToGenerateChatResponse"
+    | "FailToLoadModel"
+    | "FailToCreateEmbeddingVector"
+    | "FailToGetSemanticResults"
+    | "FailToCreateQrCode"
+    | "FailToCount"
+    | "NotImplemented"
+    | "FailToCopyFiles"
+    | "FailToWriteFile"
+    | "FailToSaveSettings"
+    | "FailToReadSettings"
+    | "FailToParseBibFile"
+    | "SettingsBibPathNotFound"
+    | "CannotParseBibfile"
+    | "FailToFindDataDirectory"
+    | "FailToCreateIndex"
+    | "FailToSerialize"
+    | "NotFoundById"
+    | "DuplicateId"
+    | "FailToDelete"
+    | "FailToClean"
+    | "FailToCreateTable"
+    | "FailToOpenTable"
+    | "FailToConnect"
+    | "FailToStartDb"
+    | "FailToStopDb"
+    | "FailToCreateEntity"
+    | "FailToCreateSnippet"
+    | "FailToFind"
+    | "FailToFindById"
+    | "FailToCreatePath"
+    | "FailToCreateTag"
+    | "FailToCreateSubject"
+    | { DataDirNotFound: [] }
+    | { FailToClearDirectory: string }
+    | "FailToCreateTopic"
+    | "FailToLocateStorageDir"
+    | { FailToReadFileSystemPath: string }
+    | "FailToReadMathjaxFont"
+    | { FailToSaveFile: string }
+    | { MdxParsingError: string }
+    | { NoTitleError: string }
+    | "FailToGatherMdxGroups"
+    | { AttemptedToParseFileWasntFound: string }
+    | { FailToSaveMdxNote: string }
+    /**
+     * Taggables
+     *
+     */
+    | "FailToUpsertTags"
+    | "FailToExecutePython";
+=======
+export type AiChatModel = { id: string; label: string; ctime: string }
+export type AiChatRequestMessageModel = { id: string; 
+/**
+ * The id of the accompanying AiChatModel row.
+ */
+chat_id: string; 
+/**
+ * The user's input as the request body.
+ */
+body: string; 
+/**
+ * The stringified unix timestamp of the time the message was sent.
+ */
+sent_at: string }
+export type AiChatResponseMessageModel = { id: string; 
+/**
+ * The id of the accompanying AiChatModel row.
+ */
+chat_id: string; 
+/**
+ * The user's input as the request body.
+ */
+body: string; 
+/**
+ * The stringified unix timestamp of the time the message was received.
+ */
+received_at: string }
+export type AxisGeneratorProps = { min: number; max: number; count: string; label: string | null }
+export type BibEntryModel = { id: string; user_provided_id: string | null; 
+/**
+ * The json string representing this item's data.
+ */
+data: string; ctime: string; html_citation: string; pdf_path: string | null }
+export type DashboardData = Record<string, never>
+export type DesktopHealthReport = { database_tables_exist: boolean; 
+/**
+ * This boolean describes the overall health of the desktop app. If any inidividual field
+ * that warrents re-initializing is false, this field will be false.
+ */
+healthy: boolean }
+export type DictionaryEntryModel = { 
+/**
+ * Primary Key
+ */
+label: string; body: string; ctime: string }
+export type DownloadingStatus = { 
+/**
+ * The proportion of the app downloaded, between 0 and 1.
+ */
+portion: string; 
+/**
+ * The elapsed time in seconds.
+ */
+elapsedTime: number }
+export type EquationModel = { 
+/**
+ * This is the traditional id field, generated by uuid.
+ */
+id: string; 
+/**
+ * The equation_id field is the 'id' field as provided from the user. This is used to
+ * reference equations throughout their notes in a way that makes sense to the user as
+ * opposed to an arbitrary string.
+ */
+equation_id: string | null; 
+/**
+ * The title or label for the equation.
+ */
+label: string; 
+/**
+ * The equation latex string.
+ */
+body: string; desc: string; 
+/**
+ * Time snippet is initially created.
+ */
+ctime: string; 
+/**
+ * Time snippet is last updated.
+ */
+utime: string }
+export type FlusterError = "OperatingSystemNotSupported" | "FailToLoadDocs" | { FailToLoadEnvironmentVariable: string } | "FailToParseDate" | "FailToWriteChatSession" | "FailToReadChatSession" | "NoAiProvidersConfigured" | "FailToGenerateChatResponse" | "FailToLoadModel" | "FailToCreateEmbeddingVector" | "FailToGetSemanticResults" | "FailToCreateQrCode" | "FailToCount" | "NotImplemented" | "FailToCopyFiles" | "FailToWriteFile" | "FailToSaveSettings" | "FailToReadSettings" | "FailToParseBibFile" | "SettingsBibPathNotFound" | "CannotParseBibfile" | "FailToFindDataDirectory" | "FailToCreateIndex" | "FailToSerialize" | "NotFoundById" | "DuplicateId" | "FailToDelete" | "FailToClean" | "FailToCreateTable" | "FailToOpenTable" | "FailToConnect" | "FailToStartDb" | "FailToStopDb" | "FailToCreateEntity" | "FailToCreateSnippet" | "FailToFind" | "FailToFindById" | "FailToCreatePath" | "FailToCreateTag" | "FailToCreateSubject" | { DataDirNotFound: [] } | { FailToClearDirectory: string } | "FailToCreateTopic" | "FailToLocateStorageDir" | { FailToReadFileSystemPath: string } | "FailToReadMathjaxFont" | { FailToSaveFile: string } | { MdxParsingError: string } | { NoTitleError: string } | "FailToGatherMdxGroups" | { AttemptedToParseFileWasntFound: string } | { FailToSaveMdxNote: string } | 
+/**
+ * Taggables
+ * 
+ */
+"FailToUpsertTags" | "FailToExecutePython"
+>>>>>>> main
 /**
  * This is the model as it exists in the database. All related external tables can be combined to form a
  * `FrontMatterModel` struct, which more closely represents the front matter as it appears in a
@@ -817,6 +2806,7 @@ user_provided_id: string | null; title: string; summary: string | null; list_id:
  * nested entities represent the data as it is stored in the database. This model should handle
  * all parsing and saving of all nested models.
  */
+<<<<<<< HEAD
 export type FrontMatterModel = { id: string; mdx_note_file_path: string; 
 /**
  * The user_provided_id is the id field as it appears in the user's note.  The id field in
@@ -872,6 +2862,175 @@ export type ShowToast = { title: string; body: string; duration: number; variant
  * id is required to allow items to be removed reliably. It just needs to be unique.
  */
 id: string }
+||||||| 0b739d4
+export type FrontMatterModel = {
+    id: string;
+    mdx_note_file_path: string;
+    /**
+     * The user_provided_id is the id field as it appears in the user's note.  The id field in
+     * this struct is generated by Surreal.
+     */
+    user_provided_id: string | null;
+    title: string;
+    summary: string | null;
+    list_id: string | null;
+    list_index: string | null;
+    tags: SharedTaggableModel[];
+    subject: SharedTaggableModel | null;
+    topic: SharedTaggableModel | null;
+};
+export type GetSnippetsParams = { langs: string[] | null };
+export type InternalEmbeddedDocsId =
+    /**
+     * This is the super general public version of the model, designed to peak interest, not
+     * prove the model.
+     */
+    | "ModelIntro"
+    /**
+     * This is the somewhat academic version of the model. Not fully peer-review worthy, but
+     * who gives a shit. It's right.
+     */
+    | "ModelFull"
+    /**
+     * How to contribute
+     */
+    | "HowToContribute"
+    | "GettingStarted"
+    | "ColorProps"
+    | "IntroToJsx"
+    | "JupyterSetup"
+    | "QuickReference";
+export type KanbanBoardData = { board: KanbanBoardModel };
+export type KanbanBoardEntryModel = {
+    id: string;
+    label: string;
+    desc: string | null;
+    body: string | null;
+    /**
+     * The id field of the KanbanBoardListModel that contains this entry.
+     */
+    list_id: string;
+};
+export type KanbanBoardListData = { boards: KanbanBoardModel[] };
+export type KanbanBoardModel = {
+    id: string;
+    label: string;
+    desc: string | null;
+};
+export type MathjaxData = {
+    root: string;
+    main_path: string;
+    font_path: string;
+};
+export type MdxBookmarkData = {
+    note: MdxNoteModel;
+    front_matter: FrontMatterBaseModel;
+};
+export type MdxNoteGroup = {
+    mdx: MdxNoteModel;
+    front_matter: FrontMatterModel;
+    tags: SharedTaggableModel[];
+    equations: EquationModel[];
+    dictionary_entries: DictionaryEntryModel[];
+    citations: BibEntryModel[];
+    note_links: MdxNoteLinkModel[];
+};
+export type MdxNoteLinkModel = {
+    mdx_note_file_path_from: string;
+    mdx_user_provided_id_to: string;
+};
+export type MdxNoteModel = {
+    /**
+     * create a new model. This file_path becomes essentially the primary key.
+     */
+    file_path: string;
+    raw_body: string;
+    ctime: string;
+    /**
+     * This field is updated each time a note is accessed in milliseconds.
+     */
+    last_read: string;
+    vec: number[];
+};
+export type NoteSummary = { title: string; file_path: string };
+export type PaginationProps = { per_page: number; page_number: number };
+export type SearchOrder = "Created";
+export type SearchParams = {
+    order: SearchOrder | null;
+    per_page: number | null;
+    page: number | null;
+};
+export type SemanticSearchResults = { notes: MdxNoteGroup[] };
+export type SetDbConnectionUri = { uri: string };
+export type SharedTaggableModel = { value: string; ctime: string };
+export type ShowToast = {
+    title: string;
+    body: string;
+    duration: number;
+    variant: ToastVariant;
+    /**
+     * id is required to allow items to be removed reliably. It just needs to be unique.
+     */
+    id: string;
+};
+=======
+export type FrontMatterModel = { id: string; mdx_note_file_path: string; 
+/**
+ * The user_provided_id is the id field as it appears in the user's note.  The id field in
+ * this struct is generated by Surreal.
+ */
+user_provided_id: string | null; title: string; summary: string | null; list_id: string | null; list_index: string | null; tags: SharedTaggableModel[]; subject: SharedTaggableModel | null; topic: SharedTaggableModel | null }
+export type GetSnippetsParams = { langs: string[] | null }
+export type InternalEmbeddedDocsId = 
+/**
+ * This is the super general public version of the model, designed to peak interest, not
+ * prove the model.
+ */
+"ModelIntro" | 
+/**
+ * This is the somewhat academic version of the model. Not fully peer-review worthy, but
+ * who gives a shit. It's right.
+ */
+"ModelFull" | 
+/**
+ * How to contribute
+ */
+"HowToContribute" | "GettingStarted" | "ColorProps" | "IntroToJsx" | "JupyterSetup" | "QuickReference"
+export type KanbanBoardData = { board: KanbanBoardModel }
+export type KanbanBoardEntryModel = { id: string; label: string; desc: string | null; body: string | null; 
+/**
+ * The id field of the KanbanBoardListModel that contains this entry.
+ */
+list_id: string }
+export type KanbanBoardListData = { boards: KanbanBoardModel[] }
+export type KanbanBoardModel = { id: string; label: string; desc: string | null }
+export type MathjaxData = { root: string; main_path: string; font_path: string }
+export type MdxBookmarkData = { note: MdxNoteModel; front_matter: FrontMatterBaseModel }
+export type MdxNoteGroup = { mdx: MdxNoteModel; front_matter: FrontMatterModel; tags: SharedTaggableModel[]; equations: EquationModel[]; dictionary_entries: DictionaryEntryModel[]; citations: BibEntryModel[]; note_links: MdxNoteLinkModel[] }
+export type MdxNoteLinkModel = { mdx_note_file_path_from: string; mdx_user_provided_id_to: string }
+export type MdxNoteModel = { 
+/**
+ * create a new model. This file_path becomes essentially the primary key.
+ */
+file_path: string; raw_body: string; ctime: string; 
+/**
+ * This field is updated each time a note is accessed in milliseconds.
+ */
+last_read: string; vec: number[] }
+export type NoteSummary = { title: string; file_path: string }
+export type PaginationProps = { per_page: string; page_number: string }
+export type PlotlyTheme = "ggplot2" | "seaborn" | "simple_white" | "plotly" | "plotly_white" | "plotly_dark" | "presentation" | "xgridoff" | "ygridoff" | "gridon" | "none"
+export type SearchOrder = "Created"
+export type SearchParams = { order: SearchOrder | null; per_page: number | null; page: number | null }
+export type SemanticSearchResults = { notes: MdxNoteGroup[] }
+export type SetDbConnectionUri = { uri: string }
+export type SharedTaggableModel = { value: string; ctime: string }
+export type ShowToast = { title: string; body: string; duration: number; variant: ToastVariant; 
+/**
+ * id is required to allow items to be removed reliably. It just needs to be unique.
+ */
+id: string }
+>>>>>>> main
 /**
  * The SnippetModel is the snippet representation that is passed back and forth across language
  * boundries to get around serialization issues with the SnippetEntity methods.

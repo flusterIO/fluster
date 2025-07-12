@@ -19,6 +19,8 @@ const AdmonitionVariantIcon = (
             return <CircleX className={props.className} />;
         case "success":
             return <CircleCheck className={props.className} />;
+        case "primary":
+            return <Info className={props.className} />;
     }
 };
 

@@ -26,4 +26,3 @@ pub enum PlotlyTheme {
     #[serde(rename = "none")]
     None,
 }
-

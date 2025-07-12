@@ -12,33 +12,37 @@ import { initialPanelLeftState } from "#/panel_left/state/initial_state";
 import { PanelLeftState } from "#/panel_left/state/panel_left_state";
 import { initialPanelRightState } from "#/panel_right/state/initial_state";
 import { PanelRightState } from "#/panel_right/state/panel_right_state";
+import { initialPlotState } from "#/plot/state/initial_state";
+import { PlotState } from "#/plot/state/plot_state";
 import { CoreSettings } from "#/settings/state/core_settings";
 import { initialCoreSettings } from "#/settings/state/initial_core_settings";
 import {
-  initialScaffoldState,
-  ScaffoldState,
+    initialScaffoldState,
+    ScaffoldState,
 } from "../../features/scaffold/state/initial_state";
 
 export interface AppState {
-  scaffold: ScaffoldState;
-  keymap: KeymapState;
-  panelLeft: PanelLeftState;
-  panelRight: PanelRightState;
-  panelBottom: PanelBottomState;
-  code: CodeState;
-  bib: BibliographyState;
-  core: CoreSettings;
-  ai: AiState;
+    scaffold: ScaffoldState;
+    keymap: KeymapState;
+    panelLeft: PanelLeftState;
+    panelRight: PanelRightState;
+    panelBottom: PanelBottomState;
+    code: CodeState;
+    bib: BibliographyState;
+    core: CoreSettings;
+    ai: AiState;
+    plot: PlotState;
 }
 
 export const initialAppState: AppState = {
-  scaffold: initialScaffoldState,
-  keymap: initialKeymapState,
-  panelLeft: initialPanelLeftState,
-  panelRight: initialPanelRightState,
-  panelBottom: initialPanelBottomState,
-  code: initialCodeState,
-  bib: initialBibliographyState,
-  core: initialCoreSettings,
-  ai: initialAiState,
+    scaffold: initialScaffoldState,
+    keymap: initialKeymapState,
+    panelLeft: initialPanelLeftState,
+    panelRight: initialPanelRightState,
+    panelBottom: initialPanelBottomState,
+    code: initialCodeState,
+    bib: initialBibliographyState,
+    core: initialCoreSettings,
+    ai: initialAiState,
+    plot: initialPlotState,
 };

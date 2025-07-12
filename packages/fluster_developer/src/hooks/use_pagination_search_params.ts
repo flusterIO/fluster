@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
-import { PaginationProps } from "../lib/bindings";
 import { useSearchParams } from "react-router";
 
 export const usePaginationSearchParams = (per_page: number) => {
     const [searchParams] = useSearchParams();
-    const [pagination, setPagination] = useState<PaginationProps>({
+    const [pagination, setPagination] = useState<{
+        page_number: number;
+        per_page: number;
+    }>({
         page_number: 1,
         per_page,
     });

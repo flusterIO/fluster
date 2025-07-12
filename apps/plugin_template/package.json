@@ -1,6 +1,6 @@
 {
     "name": "@fluster/plugin_template",
-    "version": "0.0.11",
+    "version": "0.0.12",
     "keywords": [
         "fluster",
         "plugin"
