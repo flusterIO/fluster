@@ -54,4 +54,8 @@ export const componentDocItems: ComponentDocsEntry[] = [
         label: "Underline",
         fp: "component_docs/underline.mdx",
     },
+    {
+        label: "Plots",
+        fp: "component_docs/academic/plots.mdx",
+    },
 ];
