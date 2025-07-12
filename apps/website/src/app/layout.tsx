@@ -2,6 +2,7 @@
 import "../core/styles/globals.scss";
 import localFont from "next/font/local";
 import FumaDocsProvider from "#/features/docs/fuma_docs_provider";
+import { GoogleAnalytics } from "@next/third-parties";
 
 const appFont = localFont({
     variable: "--ulld-app-font",
@@ -62,6 +63,7 @@ export default function RootLayout({
                     <div>{children}</div>
                 </FumaDocsProvider>
             </body>
+            <GoogleAnalytics gaId="G-Y02PEY1GJZ" />
         </html>
     );
 }
