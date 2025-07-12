@@ -13,6 +13,7 @@
 - Create a changeset with `pnpm changeset`
 - Update lock files with `pnpm install` before versioning
 - Version all packages with `pnpm changeset version` -- This skips the stage of generating a pull request with the merge and handles everything in one workflow.
+- Make sure fluster.io/dev version in fluster package.json is still a workspace dep to avoid build fails.
 - Commit changes, `git add --all` and `git commit ...`
 - Git push to run changeset in github action because you're too broke to afford https.
 
