@@ -92,12 +92,6 @@ ndarray = { version = "0.16.1", features = ["rayon", "serde"] }
 numpy = "0.25.0"
 kalosm = { version = "0.4.0", features = ["full"] }
 
-[target.'cfg(target_os = "windows")'.dependencies]
-kalosm = { version = "0.4.0", features = ["full", "cuda"] }
-
-[target.'cfg(target_os = "linux")'.dependencies]
-kalosm = { version = "0.4.0", features = ["full", "cuda"] }
-
 [target.'cfg(target_os = "macos")'.dependencies]
 kalosm = { version = "0.4.0", features = ["full", "metal"] }
 
