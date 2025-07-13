@@ -4,7 +4,8 @@ import { useEffect } from "react";
 
 export const usePlotRedraw = () => {
     const handleResize = (): void => {
-        Plotly.redraw(document.body);
+        // WITH_WIFI: This was causing a blank white screen. Figure out how to handle this when online again.
+        // Plotly.redraw(document.body);
     };
     useEventListener("main-panel-resize", () => {
         console.log(`Redrawing plots...`);

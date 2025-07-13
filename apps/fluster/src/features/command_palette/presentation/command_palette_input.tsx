@@ -53,6 +53,15 @@ const CommandPaletteInput = forwardRef(
 
         useEffect(() => {
             const val = value.toLowerCase();
+            console.log("state.availableItems: ", {
+                type: CommandPaletteActionType.setFilteredItems,
+                payload:
+                    value === ""
+                        ? state.availableItems
+                        : state.availableItems.filter((f) =>
+                            f.label.toLowerCase().includes(val)
+                        ),
+            });
             dispatch({
                 type: CommandPaletteActionType.setFilteredItems,
                 payload:
@@ -131,6 +140,10 @@ const CommandPaletteInput = forwardRef(
                     ref={ref}
                     value={value}
                     onChange={(e) => setValue(e.target.value)}
+                    onClick={(e) => {
+                        e.stopPropagation();
+                        e.preventDefault();
+                    }}
                     className="w-full pr-2 py-2 pl-8 focus-visible:ring-transparent focus-visible:outline-none rounded-tr rounded-tl bg-popover text-foreground"
                     onKeyDown={handleKeyDown}
                 />

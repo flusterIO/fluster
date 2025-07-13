@@ -68,6 +68,7 @@ export class CommandPaletteRoot extends CommandPaletteCategory {
                     }
                     sp.set("fsPath", bibPath);
                     sp.set("lang", "bibtex");
+                    console.log("navigationg...");
                     nav(`${AppRoutes.splitViewEditMdx}?${sp.toString()}`);
                 }
             ),

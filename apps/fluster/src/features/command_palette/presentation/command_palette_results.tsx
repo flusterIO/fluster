@@ -1,4 +1,4 @@
-import React, { useEffect, type ReactNode } from "react";
+import React, { useEffect, useState, type ReactNode } from "react";
 import CommandPaletteItem from "./command_palette_item";
 import {
     CommandPaletteActionType,
@@ -11,20 +11,33 @@ import { Location, useLocation } from "react-router";
 const CommandPaletteResults = (): ReactNode => {
     const state = useCommandPaletteContext();
     const dispatch = useCommandPaletteDispatch();
+    const [navStackLength, setNavStackLength] = useState<number>(-1);
     const location = useLocation();
     const getItems = async (
         cb: (loc: Location) => Promise<CommandPaletteAnyEntry[]>
     ): Promise<void> => {
         const items = await cb(location);
+        console.log("items here?: ", items);
         dispatch({
             type: CommandPaletteActionType.setCategoryItems,
             payload: items.filter((x) => x.label.length),
         });
     };
+
     useEffect(() => {
-        getItems(state.navStack[state.navStack.length - 1].getItems);
-        /* eslint-disable-next-line  --  */
+        console.log("state.navStack.length: ", state.navStack.length);
+        console.log("navStackLength: ", navStackLength);
+        if (state.navStack.length < navStackLength) {
+            console.log("getting data...");
+            getItems(state.navStack[state.navStack.length - 1].getItems);
+        }
+        setNavStackLength(state.navStack.length);
+        /* eslint-disable-next-line  -- */
     }, [state.navStack]);
+
+    useEffect(() => {
+        console.log("state.filteredItems: ", state.filteredItems);
+    }, [state.filteredItems]);
 
     return (
         <div className="rounded-br rounded-bl bg-popover overflow-y-auto max-h-[min(50vh,400px)]">
