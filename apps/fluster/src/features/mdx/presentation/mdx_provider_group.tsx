@@ -1,14 +1,16 @@
 import { PlotsProvider } from "#/plot/utils/plots_provider/provider";
 import React, { type ReactNode } from "react";
+import { usePlotRedraw } from "#/plot/state/hooks/use_plot_redraw";
 
-interface MdxProvidersGroupProps {
+interface MdxProviderGroupProps {
     children: ReactNode;
 }
 
-export const MdxProvidersGroup = ({
+export const MdxProviderGroup = ({
     children,
-}: MdxProvidersGroupProps): ReactNode => {
+}: MdxProviderGroupProps): ReactNode => {
+    usePlotRedraw();
     return <PlotsProvider>{children}</PlotsProvider>;
 };
 
-MdxProvidersGroup.displayName = "MdxProvidersGroup";
+MdxProviderGroup.displayName = "MdxProviderGroup";

@@ -9,6 +9,7 @@ import { NotesCommandPaletteRoot } from "./tree/notes_root";
 import { Location } from "react-router";
 import { EditInSplitViewCommandEntry } from "./tree/view_in_split_mode_command";
 import { sync } from "@/lib/sync_database";
+import store from "@/state/store";
 import { toggleDarkMode } from "#/scaffold/state/actions/toggle_dark_mode";
 import { TaskListsCommandPaletteRoot } from "./tree/task_lists";
 import { AiChatsCommandPaletteRoot } from "./tree/ai_chats";
@@ -21,6 +22,7 @@ import { IpynbFilesCommandPaletteRoot } from "./tree/notebooks";
 import { MdxFilesCommandPaletteRoot } from "./tree/by_file_path";
 import { ReactNode } from "react";
 import { ConstantsCommandPaletteRoot } from "./tree/constants";
+import { AppRoutes, showToast } from "@fluster.io/dev";
 
 export class CommandPaletteRoot extends CommandPaletteCategory {
     constructor() {
@@ -50,6 +52,25 @@ export class CommandPaletteRoot extends CommandPaletteCategory {
             new ThemeCommandPaletteRoot(),
             new CodeThemeCommandPaletteRoot(),
             new EditInSplitViewCommandEntry(),
+            new GeneralCommandPaletteItem(
+                "Edit .bib file",
+                "edit_bib_file",
+                async (nav) => {
+                    const sp = new URLSearchParams();
+                    const bibPath = store.getState().bib.bibPath;
+                    if (!bibPath) {
+                        return showToast({
+                            title: "Not Found",
+                            body: "Your .bib file path is not set in your settings.",
+                            variant: "Error",
+                            duration: 5000,
+                        });
+                    }
+                    sp.set("fsPath", bibPath);
+                    sp.set("lang", "bibtex");
+                    nav(`${AppRoutes.splitViewEditMdx}?${sp.toString()}`);
+                }
+            ),
             new GeneralCommandPaletteItem("Sync database", "sync_db", async () => {
                 await sync({
                     with_ai: true,

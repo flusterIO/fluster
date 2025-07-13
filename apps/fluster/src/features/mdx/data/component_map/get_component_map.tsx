@@ -34,13 +34,13 @@ import { MDXComponents } from "mdx/types";
 import { InlineMdxContent } from "#/mdx/presentation/inline_mdx_content";
 import { commands } from "@/lib/bindings";
 import { WrappedCodeBlock } from "#/mdx/presentation/wrapped_components/code";
-import { ScatterPlot } from "#/plot/presentation/plots/2d/scatter_plot";
-import { LinePlot } from "#/plot/presentation/plots/2d/line_plot";
+import { ScatterPlot } from "#/plot/presentation/plots/2d/scatter_plot/index";
+import { LinePlot } from "#/plot/presentation/plots/2d/line_plot/index";
 import { PlotRef } from "#/plot/utils/plot_ref";
-import { PieChart } from "#/plot/presentation/plots/2d/pie_chart";
+import { PieChart } from "#/plot/presentation/plots/2d/pie_chart/index";
 import { SurfacePlot } from "#/plot/presentation/plots/3d/surface_plot/index";
 import { LinePlot3d } from "#/plot/presentation/plots/3d/line_plot/index";
-import { ScatterPlot3d } from "#/plot/presentation/plots/3d/scatter_plot";
+import { ScatterPlot3d } from "#/plot/presentation/plots/3d/scatter_plot/index";
 import { PlotBareAss } from "#/plot/presentation/plots/bare_ass";
 
 interface ComponentMapItem {

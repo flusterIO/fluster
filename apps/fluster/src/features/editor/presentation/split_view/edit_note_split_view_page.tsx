@@ -9,93 +9,95 @@ import { save } from "@tauri-apps/plugin-dialog";
 import { useLocalStorage } from "@fluster.io/dev";
 
 export interface EditNoteSplitViewSearchParams {
-  fsPath: string;
+    fsPath: string;
 }
 
 const EditNoteSplitViewPage = (): ReactNode => {
-  const [searchParams] = useSearchParams();
-  const [value, setValue] = useLocalStorage(
-    searchParams.has("fsPath")
-      ? "split-view-file-editor"
-      : "split-view-new-file-editor"
-  ) as [string, (newString: string) => void];
+    const [searchParams] = useSearchParams();
+    const [value, setValue] = useLocalStorage(
+        searchParams.has("fsPath")
+            ? "split-view-file-editor"
+            : "split-view-new-file-editor"
+    ) as [string, (newString: string) => void];
 
-  const valueRef = useRef(value);
+    const valueRef = useRef(value);
 
-  useEffect(() => {
-    valueRef.current = value;
-  }, [value]);
+    const lang = searchParams.get("lang") ?? "mdx";
 
-  const getFileContent = async (fsPath: string): Promise<void> => {
-    const res = await commands.readUtf8File(fsPath);
-    if (res.status === "ok") {
-      setValue(res.data);
-    }
-  };
+    useEffect(() => {
+        valueRef.current = value;
+    }, [value]);
 
-  useIsomorphicLayoutEffect(() => {
-    const fsPath = searchParams.get("fsPath");
-    if (fsPath) {
-      commands.setLastReadByFilePath(fsPath).catch((e) => {
-        console.error(`An error occurred while setting last_read: ${e}`);
-      });
-      getFileContent(fsPath);
-    }
-  }, [searchParams]);
+    const getFileContent = async (fsPath: string): Promise<void> => {
+        const res = await commands.readUtf8File(fsPath);
+        if (res.status === "ok") {
+            setValue(res.data);
+        }
+    };
 
-  return (
-    <SplitViewContainer
-      actions={[
-        {
-          // an unique identifier of the contributed action
-          id: "save-file",
-          // a label of the action that will be presented to the user
-          label: "Save",
-          keybindings: [KeyMod.CtrlCmd | KeyCode.KeyS],
-          // the method that will be executed when the action is triggered.
-          run: async function () {
-            const fsPath = searchParams.get("fsPath");
-            if (!fsPath) {
-              const path = await save({
-                filters: [
-                  {
-                    name: "Mdx",
-                    extensions: ["mdx"],
-                  },
-                ],
-              });
-              if (typeof path === "string") {
-                searchParams.set("fsPath", path);
-              }
-            } else {
-              {
-                const res = await commands.saveUtf8File(
-                  fsPath,
-                  valueRef.current
-                );
-                if (res.status === "ok") {
-                  showToast({
-                    title: "Saved",
-                    body: "Your file was saved successfully.",
-                    duration: 3000,
-                    variant: "Success",
-                  });
-                } else {
-                  console.error(
-                    "An error occurred while attempting to save this file: ",
-                    res.error
-                  );
-                }
-              }
-            }
-          },
-        },
-      ]}
-      language="mdx"
-      value={value}
-      onChange={setValue}
-    />
-  );
+    useIsomorphicLayoutEffect(() => {
+        const fsPath = searchParams.get("fsPath");
+        if (fsPath) {
+            commands.setLastReadByFilePath(fsPath).catch((e) => {
+                console.error(`An error occurred while setting last_read: ${e}`);
+            });
+            getFileContent(fsPath);
+        }
+    }, [searchParams]);
+
+    return (
+        <SplitViewContainer
+            language={lang}
+            actions={[
+                {
+                    // an unique identifier of the contributed action
+                    id: "save-file",
+                    // a label of the action that will be presented to the user
+                    label: "Save",
+                    keybindings: [KeyMod.CtrlCmd | KeyCode.KeyS],
+                    // the method that will be executed when the action is triggered.
+                    run: async function () {
+                        const fsPath = searchParams.get("fsPath");
+                        if (!fsPath) {
+                            const path = await save({
+                                filters: [
+                                    {
+                                        name: "Mdx",
+                                        extensions: ["mdx"],
+                                    },
+                                ],
+                            });
+                            if (typeof path === "string") {
+                                searchParams.set("fsPath", path);
+                            }
+                        } else {
+                            {
+                                const res = await commands.saveUtf8File(
+                                    fsPath,
+                                    valueRef.current
+                                );
+                                if (res.status === "ok") {
+                                    showToast({
+                                        title: "Saved",
+                                        body: "Your file was saved successfully.",
+                                        duration: 3000,
+                                        variant: "Success",
+                                    });
+                                } else {
+                                    console.error(
+                                        "An error occurred while attempting to save this file: ",
+                                        res.error
+                                    );
+                                }
+                            }
+                        }
+                    },
+                },
+            ]}
+            value={value}
+            onChange={setValue}
+        />
+    );
 };
 
 EditNoteSplitViewPage.displayName = "EditNoteSplitViewPage";

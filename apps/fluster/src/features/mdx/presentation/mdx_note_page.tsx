@@ -5,7 +5,7 @@ import { MdxNoteGroup } from "@/lib/bindings";
 import { useNavigate } from "react-router";
 import { AppRoutes } from "#/router/data/app_routes";
 import { MdxNoteBibliography } from "#/bibliography/presentation/note_bibliography";
-import { MdxProvidersGroup } from "./mdx_provider_group";
+import { MdxProviderGroup } from "./mdx_provider_group";
 import { useMdxNoteSetLastRead } from "../state/hooks/use_mdx_set_last_read";
 
 export interface MdxNotePageSearchParams {
@@ -34,9 +34,9 @@ const MdxNotePage = ({ mdxGroup, ...props }: MdxNotePageProps): ReactNode => {
             )}
         >
             <div className="w-[min(1080px,90%)]">
-                <MdxProvidersGroup>
+                <MdxProviderGroup>
                     <MdxContent mdx={mdxGroup.mdx.raw_body} />
-                </MdxProvidersGroup>
+                </MdxProviderGroup>
                 <MdxNoteBibliography citations={mdxGroup.citations} />
             </div>
         </div>

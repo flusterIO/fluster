@@ -2,7 +2,6 @@ import React, { type ReactNode } from "react";
 import { cn } from "@/lib/utils";
 import { commands, KanbanBoardModel } from "@/lib/bindings";
 import { InlineMdxContent } from "#/mdx/presentation/inline_mdx_content";
-import { GoogleAnalytics } from "@next/third-parties/google";
 import {
     ContextMenu,
     ContextMenuContent,
@@ -61,7 +60,6 @@ const KanbanBoardSummaryCard = ({
                     )}
                 </div>
             </ContextMenuTrigger>
-            <GoogleAnalytics gaId="G-Y02PEY1GJZ" />
         </ContextMenu>
     );
 };

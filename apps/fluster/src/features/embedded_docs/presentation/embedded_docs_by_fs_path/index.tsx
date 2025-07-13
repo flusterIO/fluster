@@ -1,5 +1,5 @@
 import { MdxContent } from "#/mdx/presentation/mdx_content";
-import { MdxProvidersGroup } from "#/mdx/presentation/mdx_provider_group";
+import { MdxProviderGroup } from "#/mdx/presentation/mdx_provider_group";
 import { LoadingComponent } from "@/components/loading_screen";
 import { commands } from "@/lib/bindings";
 import { AppRoutes, Button } from "@fluster.io/dev";
@@ -49,9 +49,9 @@ export const EmbeddedDocsByFilePath = ({
                 </Button>
             </div>
             <div className="w-[min(1080px,90%)]">
-                <MdxProvidersGroup>
+                <MdxProviderGroup>
                     <MdxContent mdx={content} />
-                </MdxProvidersGroup>
+                </MdxProviderGroup>
             </div>
         </div>
     );
