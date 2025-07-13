@@ -6,6 +6,7 @@
 - [ ] `pnpm typecheck` to check typescript errors.
 - [ ] `cargo check` to check rust errors
 - [ ] Create tag with `git tag -a v0.0.x`
+- [ ] Update the version in `tauri.conf.json`. _This_ is the version used by the build script.
 
 ## Release Node Packages
 
