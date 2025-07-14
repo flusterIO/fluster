@@ -5,10 +5,13 @@ import { CommandPaletteAnyEntry } from "../models/command_palette_any_entry";
 import { CommandPaletteCategory } from "../models/command_palette_category";
 import { GeneralCommandPaletteItem } from "../models/command_palette_item";
 import { ComponentDocsCommandPaletteRoot } from "./component_docs";
+import { CommandPaletteEntryWithDocId } from "../models/command_palette_entry_with_doc_id";
+import { InternalEmbeddedDocsId } from "@/lib/bindings";
+import { DocsByIdPreview } from "#/command_palette/presentation/previews/doc_by_id_preview";
 
 export class EmbeddedDocsCommandPaletteRoot extends CommandPaletteCategory {
     constructor() {
-        super("Documentation", "cmd-palette-docs");
+        super("Documentation", "cmd-palette-docs", DocsByIdPreview);
     }
     filterByLocation(): boolean {
         return true;
@@ -20,9 +23,15 @@ export class EmbeddedDocsCommandPaletteRoot extends CommandPaletteCategory {
         const items: CommandPaletteAnyEntry[] = Object.entries(
             embeddedDocLabels
         ).map((k) => {
-            return new GeneralCommandPaletteItem(k[1], k[1], async (nav) => {
-                nav(`${AppRoutes.embeddedDocs.toString()}/${encodeURI(k[0])}`);
-            });
+            return new CommandPaletteEntryWithDocId(
+                k[1],
+                k[1],
+                async (nav) => {
+                    nav(`${AppRoutes.embeddedDocs.toString()}/${encodeURI(k[0])}`);
+                },
+                null,
+                k[0] as InternalEmbeddedDocsId
+            );
         });
 
         items.push(new ComponentDocsCommandPaletteRoot());

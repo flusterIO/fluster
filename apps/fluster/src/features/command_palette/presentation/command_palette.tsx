@@ -117,7 +117,10 @@ const CommandPalette = (): ReactNode => {
             >
                 <CommandPaletteInput isPreview={Boolean(Preview)} ref={input} />
                 {Preview ? (
-                    <CommandPaletteSplitView Preview={Preview} />
+                    <CommandPaletteSplitView
+                        hidePreview={width < 768}
+                        Preview={Preview}
+                    />
                 ) : (
                     <>
                         <CommandPaletteResults />
