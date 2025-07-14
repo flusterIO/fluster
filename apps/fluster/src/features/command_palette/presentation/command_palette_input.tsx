@@ -26,7 +26,14 @@ declare global {
 }
 
 const CommandPaletteInput = forwardRef(
-    (_: object, ref: ForwardedRef<HTMLInputElement>): ReactNode => {
+    (
+        {
+            isPreview,
+        }: {
+            isPreview: boolean;
+        },
+        ref: ForwardedRef<HTMLInputElement>
+    ): ReactNode => {
         const [value, setValue] = useState("");
         const [hasFocused, setHasFocused] = useState(false);
         const state = useCommandPaletteContext();
@@ -74,6 +81,19 @@ const CommandPaletteInput = forwardRef(
             /* eslint-disable-next-line  --  */
         }, [value]);
 
+        const scrollPreview = (dir: -1 | 1): void => {
+            const em = document
+                .getElementById("command-palette-preview")
+                ?.querySelector("div");
+            console.log("em: ", em);
+            if (!em) {
+                return;
+            }
+            em.scroll({
+                top: em.scrollTop + em.getBoundingClientRect().height * 0.3 * dir,
+            });
+        };
+
         const handleKeyDown: KeyboardEventHandler<HTMLInputElement> = (e): void => {
             if (e.key === "Backspace" && value.length === 0) {
                 e.preventDefault();
@@ -93,14 +113,34 @@ const CommandPaletteInput = forwardRef(
                         type: CommandPaletteActionType.incrementFocusIndex,
                     });
                 }
+            } else if (e.altKey && e.code === "KeyJ") {
+                e.preventDefault();
+                e.stopPropagation();
+                scrollPreview(1);
+            } else if (e.altKey && e.code === "KeyK") {
+                e.preventDefault();
+                e.stopPropagation();
+                scrollPreview(-1);
             } else if (e.key === "ArrowDown") {
-                dispatch({
-                    type: CommandPaletteActionType.incrementFocusIndex,
-                });
+                if (e.altKey) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    scrollPreview(1);
+                } else {
+                    dispatch({
+                        type: CommandPaletteActionType.incrementFocusIndex,
+                    });
+                }
             } else if (e.key === "ArrowUp") {
-                dispatch({
-                    type: CommandPaletteActionType.decrementFocusIndex,
-                });
+                if (e.altKey) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    scrollPreview(-1);
+                } else {
+                    dispatch({
+                        type: CommandPaletteActionType.decrementFocusIndex,
+                    });
+                }
             } else if (e.key === "Enter") {
                 const item = state.filteredItems[state.focusedIndex];
                 if (e.metaKey && "onCmdEnter" in item) {

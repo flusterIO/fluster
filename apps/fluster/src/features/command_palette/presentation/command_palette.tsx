@@ -50,6 +50,12 @@ const CommandPalette = (): ReactNode => {
     };
 
     useEffect(() => {
+        if (open) {
+            handleResize();
+        }
+    }, [open, Preview]);
+
+    useEffect(() => {
         window.addEventListener("resize", handleResize);
         return () => window.removeEventListener("resize", handleResize);
     }, []);
@@ -109,7 +115,7 @@ const CommandPalette = (): ReactNode => {
                     },
                 }}
             >
-                <CommandPaletteInput ref={input} />
+                <CommandPaletteInput isPreview={Boolean(Preview)} ref={input} />
                 {Preview ? (
                     <CommandPaletteSplitView Preview={Preview} />
                 ) : (

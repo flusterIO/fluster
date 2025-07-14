@@ -13,8 +13,14 @@ export const CommandPaletteSplitView = ({
         <div className="w-full h-fit grid grid-cols-[1fr_2fr]">
             <div className="w-full h-fit">
                 <CommandPaletteResults />
+                <div className="w-full h-fit p-2 rounded-bl rounded-br text-sm text-center">
+                    Scroll docs with opt+arrow or opt+j/k
+                </div>
             </div>
-            <div className="w-full h-fit overflow-x-hidden overflow-y-auto">
+            <div
+                id="command-palette-preview"
+                className="w-full h-fit overflow-x-hidden overflow-y-auto mb-8"
+            >
                 <Preview item={state.filteredItems[state.focusedIndex]} />
             </div>
         </div>

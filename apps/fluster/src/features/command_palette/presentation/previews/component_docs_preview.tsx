@@ -9,7 +9,6 @@ export const ComponentDocsPreview = ({
 }: {
     item: CommandPaletteAnyEntry;
 }): ReactNode => {
-    console.log("item.: ", item);
     const [mdxContent, setMdxContent] = useState<null | string>(null);
     const getData = async (fsPath: string): Promise<void> => {
         const res = await commands.getEmbeddedDocByRelativePath(fsPath);
@@ -20,6 +19,9 @@ export const ComponentDocsPreview = ({
         }
     };
     useEffect(() => {
+        if (!item) {
+            return;
+        }
         if ("previewPath" in item) {
             getData(item.previewPath as string);
         }
