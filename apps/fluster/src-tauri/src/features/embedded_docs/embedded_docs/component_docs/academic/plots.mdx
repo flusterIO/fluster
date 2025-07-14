@@ -341,7 +341,7 @@ Providing props to a pie chart is slightly different than other plots, given the
 
 ```tsx
 <SurfacePlot 
-    title="My Surface Plot: $\frac{\sin{(d)}}{d}$"
+    title="My Surface Plot: $\frac{\sin{(\sqrt{x^2 + y^2})}}{\sqrt{x^2 + y^2}}$"
     x={{
         min: -20,
         max: 20,
@@ -353,14 +353,14 @@ Providing props to a pie chart is slightly different than other plots, given the
         count: 100
     }}
     z={(props, x, y) => {
-    const distance = Math.sqrt(x**2 + y**2);
-    return Math.sin(distance) / distance
+        const distance = Math.sqrt(x**2 + y**2);
+        return Math.sin(distance) / distance
     }}
 />
 ```
 
 <SurfacePlot 
-    title="My Surface Plot: $\frac{\sin{(d)}}{d}$"
+    title="My Surface Plot: $\frac{\sin{(\sqrt{x^2 + y^2})}}{\sqrt{x^2 + y^2}}$"
     x={{
         min: -20,
         max: 20,
@@ -372,7 +372,7 @@ Providing props to a pie chart is slightly different than other plots, given the
         count: 100
     }}
     z={(props, x, y) => {
-    const distance = Math.sqrt(x**2 + y**2);
-    return Math.sin(distance) / distance
+        const distance = Math.sqrt(x**2 + y**2);
+        return Math.sin(distance) / distance
     }}
 />

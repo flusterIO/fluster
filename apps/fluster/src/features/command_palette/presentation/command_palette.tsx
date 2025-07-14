@@ -20,16 +20,34 @@ import { useLocation } from "react-router";
 import { CommandPaletteBottomBar } from "./command_palette_bottom_bar";
 import { CommandPaletteSplitView } from "./command_palette_split_view";
 
-const getWidth = (): number => Math.min(768, window.innerWidth - 64);
+const getWidth = (preview: boolean): number =>
+    Math.min(preview ? 1080 : 768, window.innerWidth - 64);
 
 const CommandPalette = (): ReactNode => {
     const input = useRef<HTMLInputElement>(null!);
+    const state = useCommandPaletteContext();
     const [open, setOpen] = useState(false);
-    const [width, setWidth] = useState(getWidth());
+    const Preview = useMemo(() => {
+        const item = state.navStack[state.navStack.length - 1];
+        if (!item) {
+            return null;
+        }
+        if ("preview" in item) {
+            return item.preview;
+        } else {
+            return null;
+        }
+    }, [state]) as (() => ReactNode) | null;
+    const isPreview = useRef(Boolean(Preview));
+    useEffect(() => {
+        isPreview.current = Boolean(Preview);
+    }, [Preview]);
+    const [width, setWidth] = useState(getWidth(Boolean(Preview)));
     const loc = useLocation();
     const dispatch = useCommandPaletteDispatch();
-    const handleResize = () => setWidth(getWidth());
-    const state = useCommandPaletteContext();
+    const handleResize = () => {
+        setWidth(getWidth(isPreview.current));
+    };
 
     useEffect(() => {
         window.addEventListener("resize", handleResize);
@@ -51,18 +69,6 @@ const CommandPalette = (): ReactNode => {
     useEffect(() => {
         setOpen(state.navStack.length > 0);
     }, [state.navStack]);
-
-    const Preview = useMemo(() => {
-        const item = state.filteredItems[state.focusedIndex];
-        if (!item) {
-            return null;
-        }
-        if ("preview" in item) {
-            return item.preview;
-        } else {
-            return null;
-        }
-    }, [state]) as (() => ReactNode) | null;
 
     if (state.navStack.length == 0) {
         return null;

@@ -10,7 +10,7 @@ export const CommandPaletteSplitView = ({
 }): ReactNode => {
     const state = useCommandPaletteContext();
     return (
-        <div className="w-full h-fit grid grid-cols-2">
+        <div className="w-full h-fit grid grid-cols-[1fr_2fr]">
             <div className="w-full h-fit">
                 <CommandPaletteResults />
             </div>

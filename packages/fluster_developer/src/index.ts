@@ -135,5 +135,6 @@ export * from "./components/shad/tooltip";
 export * from "./types/general";
 //  -- Utility and Documentation Components --
 export * from "./utils/embedded_app_route";
+export * from "./utils/copy_string_to_clipboard";
 // -- Plugin Stuff --
 export * from "./utils/plugin_utils/component_config";

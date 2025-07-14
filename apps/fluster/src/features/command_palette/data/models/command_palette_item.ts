@@ -1,6 +1,8 @@
 import { Location, NavigateFunction } from "react-router";
 import { CommandPaletteAnyEntry } from "./command_palette_any_entry";
 
+export type InvokeFunc = (nav: NavigateFunction) => Promise<void>;
+
 export abstract class CommandPaletteItem extends CommandPaletteAnyEntry {
     constructor(label: string, id: string) {
         super(label, id);
@@ -11,13 +13,13 @@ export abstract class CommandPaletteItem extends CommandPaletteAnyEntry {
 }
 
 export class GeneralCommandPaletteItem extends CommandPaletteItem {
-    onInvoke: (nav: NavigateFunction) => Promise<void>;
-    onCmdEnter?: (nav: NavigateFunction) => Promise<void>;
+    onInvoke: InvokeFunc;
+    onCmdEnter?: InvokeFunc;
     constructor(
         label: string,
         id: string,
-        invoke: (nav: NavigateFunction) => Promise<void>,
-        onCmdEnter?: (nav: NavigateFunction) => Promise<void>
+        invoke: InvokeFunc,
+        onCmdEnter?: InvokeFunc
     ) {
         super(label, id);
         this.onInvoke = invoke;

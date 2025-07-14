@@ -17,6 +17,7 @@ export const EmbeddedDocsByFilePath = ({
     const [content, setContent] = useState<string | null>();
     const nav = useNavigate();
     const getData = async (fp: string): Promise<void> => {
+        console.log("fp: ", fp);
         const res = await commands.getEmbeddedDocByRelativePath(fp);
         if (res.status === "ok") {
             const withoutFrontMatter = await commands.removeFrontMatter(res.data);

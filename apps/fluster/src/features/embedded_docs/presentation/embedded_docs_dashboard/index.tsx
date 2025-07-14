@@ -44,7 +44,7 @@ const EmbeddedDocsDashboardPage = (): ReactNode => {
     }
     return (
         <PanelContainer>
-            <div className="grid grid-cols-1 @[540px]/panel:grid-cols-2 @[768px]/panel:grid-cols-3 gap-6 px-8 py-16">
+            <div className="grid grid-cols-1 @[540px]/main-panel:grid-cols-2 @[768px]/main-panel:grid-cols-3 gap-6 px-8 py-16">
                 {componentDocItems.map((c) => {
                     return <ComponentDocItemCard item={c} key={`doc-${c.fp}`} />;
                 })}

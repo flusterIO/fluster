@@ -22,3 +22,31 @@
     }
   }
 }
+
+.mdx-small {
+  padding-left: 1rem;
+  padding-right: 1rem;
+
+  h1 {
+    font-size: 1.2rem;
+  }
+
+  h2 {
+    font-size: 1.15rem;
+  }
+
+  h3 {
+    font-size: 1rem;
+  }
+
+  h4,
+  h5,
+  h6 {
+    font-size: 1rem;
+  }
+
+  p,
+  li {
+    font-size: 12px;
+  }
+}

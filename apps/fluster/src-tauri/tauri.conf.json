@@ -35,7 +35,8 @@
                         "log:allow-log",
                         "log:default",
                         "dialog:allow-open",
-                        "dialog:allow-save"
+                        "dialog:allow-save",
+                        "opener:allow-open-path"
                     ]
                 }
             ]

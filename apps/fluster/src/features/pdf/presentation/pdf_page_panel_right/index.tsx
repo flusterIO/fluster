@@ -1,6 +1,7 @@
 import { PdfView } from "#/pdf/state/provider/pdf_context";
-import { Form, GeneralSelectInput } from "@fluster.io/dev";
+import { Button, Form, GeneralSelectInput, showToast } from "@fluster.io/dev";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { openPath } from "@tauri-apps/plugin-opener";
 import React, { useEffect, type ReactNode } from "react";
 import { useForm } from "react-hook-form";
 import { useSearchParams } from "react-router";
@@ -17,6 +18,7 @@ export const PdfPagePanelRight = ({
 }): ReactNode => {
     const [searchParams] = useSearchParams();
     const view = searchParams.get("pdfView");
+    const fsPath = searchParams.get("fsPath");
     const form = useForm({
         resolver: zodResolver(formSchema),
         defaultValues: {
@@ -41,10 +43,27 @@ export const PdfPagePanelRight = ({
         }
         /* eslint-disable-next-line  --  */
     }, [searchParams]);
+    const handleOpen = async (): Promise<void> => {
+        console.log("fsPath: ", fsPath);
+        if (!fsPath) {
+            return;
+        }
+        try {
+            await openPath(fsPath);
+        } catch (err) {
+            console.error("Error: ", err);
+            showToast({
+                title: "Oh no",
+                body: "This pdf cannot be opened due to a permissions issue.",
+                duration: 3000,
+                variant: "Error",
+            });
+        }
+    };
 
     return (
         <Form {...form}>
-            <div className="w-full flex flex-col justify-start items-center max-w-[450px]">
+            <div className="w-full h-full flex flex-col justify-between items-center max-w-[450px]">
                 <GeneralSelectInput
                     form={form}
                     name="view"
@@ -69,6 +88,9 @@ export const PdfPagePanelRight = ({
                         },
                     ]}
                 />
+                <Button className="w-full" onClick={handleOpen} disabled={!fsPath}>
+                    Open in default app
+                </Button>
             </div>
         </Form>
     );

@@ -14,7 +14,7 @@ title: Quick Reference
 | Toggle Right Panel | `cmd+shift+r` |
 | Refresh | `cmd+r` |
 | Sync without AI | `cmd+b` |
-j
+
 ## Syntax Reference
 
 ### Text & Markdown Reference
@@ -35,7 +35,9 @@ Start a file with `yaml` content to define your note's front matter by placing t
 ```yaml
 ---
 title: Quick Reference
-id: myNoteId
+id: myOptionalNoteId
+subject: myOptionalSubject
+topic: myOptionalTopic
 ---
 ```
 
@@ -227,7 +229,7 @@ Many of Fluster's search features are reliant on database data which is only gen
 
 To summarize, generating vector embeddings is slow. Like _painfully_ slow on even the best personal hardware. To get around this, Fluster offers a second method that will either generate a dummy vector or use an existing vector if one exists when you choose to sync without AI. This can usually be ran in a few seconds, even for hundreds of notes on modest hardware, while generating the vector embeddings can take upwards of 10-15 minutes for the same set of notes.
 
-Sync your notes with AI as much as you feel necessary. While far slower and less accurate than enterprise models, you can regenerate your vector data as often as you like, for free. Once RAG features are enabled (fall 2025), this will be more of a crucial step, but even semantic search is completely dependent upon this vector data, but traditional search methods will work just fine without it.
+Sync your notes with AI as much as you feel necessary. While far slower and less accurate than enterprise models, you can regenerate your vector data as often as you like, for free. Once RAG features are enabled (fall 2025), this will be more of a crucial step, but even semantic search is completely dependent upon this vector data, while traditional search methods will work just fine without it.
 
 These are some of the core features and the sync methods that are required to generate the data they depend on.
 
@@ -236,7 +238,7 @@ These are some of the core features and the sync methods that are required to ge
 | ------- | ----------- |
 | Semantic Search | Sync with AI |
 | AI Chat | -- |
-| RAG | Sync with AI (upcoming feature) |
+| RAG (upcoming feature) | Sync with AI |
 | Title based search | Sync with/without AI |
 | Dictionary | Sync with/without AI |
 | File path based search | -- |

@@ -161,7 +161,12 @@ export const BibEntryDetailSheet = (): ReactNode => {
                             item.model.pdf_path && "flex-col"
                         )}
                     >
-                        <div className="w-full grid grid-cols-2 gap-4">
+                        <div
+                            className={cn(
+                                "w-full grid grid-cols-2 gap-4",
+                                item.model.pdf_path && "grid-cols-1"
+                            )}
+                        >
                             <LinkedPdfBibButton
                                 className={cn(
                                     buttonVariants({ variant: "secondary" }),
