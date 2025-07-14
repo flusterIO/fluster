@@ -68,8 +68,7 @@ export class CommandPaletteRoot extends CommandPaletteCategory {
                     }
                     sp.set("fsPath", bibPath);
                     sp.set("lang", "bibtex");
-                    console.log("navigationg...");
-                    nav(`${AppRoutes.splitViewEditMdx}?${sp.toString()}`);
+                    nav(`${AppRoutes.full_screen_editor}?${sp.toString()}`);
                 }
             ),
             new GeneralCommandPaletteItem("Sync database", "sync_db", async () => {

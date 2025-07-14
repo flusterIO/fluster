@@ -18,4 +18,5 @@ export enum AppRoutes {
     aiMainChat = "/aiChat",
     notebookInteractive = "/notebook-interactive",
     constantsTable = "/docs-constants",
+    full_screen_editor = "/editor-full",
 }

@@ -25,6 +25,7 @@ import { NotebookPage } from "#/jupyter/presentation/notebook_page";
 import { ConstantsPage } from "#/math/presentation/constants_page/constants_page";
 import { KanbanPage } from "#/kanban/presentation/kanban_list_page/kanban_page";
 import { KanbanBoardPage } from "#/kanban/presentation/kanban_board_page";
+import { CodeEditorPage } from "#/editor/presentation/code_editor_page";
 
 export const getBrowserRouter = () => {
     return createBrowserRouter([
@@ -40,6 +41,10 @@ export const getBrowserRouter = () => {
                 {
                     path: AppRoutes.search,
                     Component: SearchResultsPage,
+                },
+                {
+                    path: AppRoutes.full_screen_editor,
+                    Component: CodeEditorPage,
                 },
                 {
                     path: AppRoutes.dashboard,
