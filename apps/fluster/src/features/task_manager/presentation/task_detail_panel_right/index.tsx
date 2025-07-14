@@ -50,13 +50,19 @@ export const TaskDetailPanelRight = (): ReactNode => {
     };
 
     useEffect(() => {
+        if (
+            inputType !== TaskNoteInputState.noteNotFound &&
+            inputType !== TaskNoteInputState.showNote
+        ) {
+            return;
+        }
         if (focusedTaskId) {
             getData(focusedTaskId);
         } else {
             setData(null);
         }
         /* eslint-disable-next-line  --  */
-    }, [focusedTaskId]);
+    }, [focusedTaskId, inputType]);
 
     const handleCreateNote = async (): Promise<void> => {
         setInputType(TaskNoteInputState.showNoteInput);

@@ -17,7 +17,7 @@ export const TaskListsPage = (): ReactNode => {
                 <AddTaskModal />
                 <div className="w-[min(768px,90%)] h-full">
                     {taskListId ? (
-                        <div className="grid grid-cols-1 w-full h-full max-h-screen">
+                        <div className="flex flex-col w-full h-full max-h-screen">
                             <TaskListButtonBar />
                             <TaskList />
                         </div>

@@ -43,7 +43,7 @@ export const MdxNoteSearchResult = ({
         <div className="w-full flex flex-col justify-center items-center gap-4 px-4 py-3 rounded border">
             <InlineMdxContent
                 onClick={() => nav(url)}
-                className="w-full text-xl font-semibold cursor-pointer"
+                className="w-full [&_p]:!text-xl [&_p]:font-semibold cursor-pointer"
                 mdx={item.front_matter.title}
             />
             <div className="w-full flex flex-row justify-start items-center gap-4">

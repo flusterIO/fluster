@@ -113,16 +113,16 @@ const CommandPaletteInput = forwardRef(
                         type: CommandPaletteActionType.incrementFocusIndex,
                     });
                 }
-            } else if (e.altKey && e.code === "KeyJ") {
+            } else if (isPreview && e.altKey && e.code === "KeyJ") {
                 e.preventDefault();
                 e.stopPropagation();
                 scrollPreview(1);
-            } else if (e.altKey && e.code === "KeyK") {
+            } else if (isPreview && e.altKey && e.code === "KeyK") {
                 e.preventDefault();
                 e.stopPropagation();
                 scrollPreview(-1);
             } else if (e.key === "ArrowDown") {
-                if (e.altKey) {
+                if (e.altKey && isPreview) {
                     e.preventDefault();
                     e.stopPropagation();
                     scrollPreview(1);
@@ -132,7 +132,7 @@ const CommandPaletteInput = forwardRef(
                     });
                 }
             } else if (e.key === "ArrowUp") {
-                if (e.altKey) {
+                if (e.altKey && isPreview) {
                     e.preventDefault();
                     e.stopPropagation();
                     scrollPreview(-1);
