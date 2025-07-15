@@ -17,6 +17,7 @@ declare global {
 export const TaskList = (): ReactNode => {
     const { items } = useTaskListContext();
     const itemData = useMemo(() => {
+        console.log(`gathering items...`, items);
         const incomplete: TaskModel[] = [];
         const complete: TaskModel[] = [];
         for (const item of items) {
@@ -26,23 +27,25 @@ export const TaskList = (): ReactNode => {
                 incomplete.push(item);
             }
         }
-        return {
-            incomplete: incomplete.sort((a, b) => {
-                console.log("a, b: ", a, b);
+        return [
+            ...incomplete.sort((a, b) => {
                 return new Date(a.ctime).valueOf() - new Date(b.ctime).valueOf();
             }),
-            complete: complete.sort((a, b) => {
-                console.log("a, b: ", a, b);
+            ...complete.sort((a, b) => {
                 return new Date(a.ctime).valueOf() - new Date(b.ctime).valueOf();
             }),
-        };
+        ];
     }, [items]);
+    console.log("itemData: ", itemData);
     return (
-        <div id="scroll-target-task-manager" className="@container/task_list w-full h-full gap-2 overflow-y-auto">
+        <div
+            id="scroll-target-task-manager"
+            className="@container/task_list w-full h-full gap-2 overflow-y-auto"
+        >
             {items.length === 0 ? (
                 <NoTasksFoundBanner />
             ) : (
-                [...itemData.incomplete, ...itemData.complete].map((item) => {
+                itemData.map((item) => {
                     return <TaskListItem key={item.id} data={item} />;
                 })
             )}

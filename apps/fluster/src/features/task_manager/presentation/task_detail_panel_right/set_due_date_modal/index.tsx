@@ -14,6 +14,7 @@ import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { commands } from "@/lib/bindings";
+import { refreshTaskList } from "#/task_manager/state/refresh_task_list";
 
 interface SetDueAtEventProps {
     /// Any unique string to be used for identifying the subsequent 'task-due-at-result' event.
@@ -38,15 +39,18 @@ const schema = z.object({
 
 export const SetDueAtModal = (): ReactNode => {
     const [open, setOpen] = useState<false | string>(false);
+
     useEventListener("show-set-due-at-modal", (e) => {
         setOpen(e.detail.id);
     });
+
     const form = useForm({
         resolver: zodResolver(schema),
         defaultValues: {
             date: new Date(),
         },
     });
+
     const setDueDate = async (task_id: string): Promise<void> => {
         const due_at = form.getValues("date").valueOf().toString();
         const res = await commands.getTaskById(task_id);
@@ -75,6 +79,7 @@ export const SetDueAtModal = (): ReactNode => {
                 variant: "Info",
             });
             setOpen(false);
+            refreshTaskList(res.data.task_list_id);
         }
     };
 

@@ -39,7 +39,7 @@ export const DateTimeInput = <T extends FieldValues>({
         new Date(`${now.getMonth() + 1}/${now.getDate()}/${now.getFullYear()}`)
     );
     const [time, setTime] = useState<string | undefined>("09:00:00");
-    useEffect(() => {
+    const handleDateTime = (): void => {
         if (!time || !date) {
             return;
         }
@@ -48,9 +48,14 @@ export const DateTimeInput = <T extends FieldValues>({
         d = d.add(parseInt(hours), "hours");
         d = d.add(parseInt(minutes), "minutes");
         d = d.add(parseInt(seconds), "seconds");
+        console.log("d.toDate(): ", d.toDate());
         form.setValue(name, d.toDate() as PathValue<T, typeof name>);
+    };
+    useEffect(() => {
+        handleDateTime();
         /* eslint-disable-next-line  --  */
     }, [date, time]);
+
     return (
         <div className={cn("flex gap-4", classes.container)}>
             <div

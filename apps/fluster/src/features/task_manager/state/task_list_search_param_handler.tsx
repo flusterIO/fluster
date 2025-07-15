@@ -10,6 +10,7 @@ export const TaskListSearchParamHandler = (): ReactNode => {
     const listId = searchParams.get("listId");
     const getData = async (_id: string): Promise<void> => {
         const res = await commands.getTaskListData(_id);
+        console.log("res: ", res);
         if (res.status === "ok") {
             dispatch({
                 type: "setNewData",
@@ -29,8 +30,11 @@ export const TaskListSearchParamHandler = (): ReactNode => {
         /* eslint-disable-next-line  --  */
     }, [listId]);
     useEventListener("request-task-list-refresh", (e) => {
-        if (e.detail.id === searchParams.get("listId")) {
-            getData(e.detail.id);
+        const sp = searchParams.get("listId");
+        const _id = e.detail.id.length ? e.detail.id : sp;
+        console.log("_id: ", _id);
+        if (_id) {
+            getData(_id);
         }
     });
     return null;
