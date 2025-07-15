@@ -19,6 +19,7 @@ interface SetDueAtEventProps {
     /// Any unique string to be used for identifying the subsequent 'task-due-at-result' event.
     id: string;
 }
+
 declare global {
     interface WindowEventMap {
         "show-set-due-at-modal": CustomEvent<SetDueAtEventProps>;
@@ -47,9 +48,7 @@ export const SetDueAtModal = (): ReactNode => {
         },
     });
     const setDueDate = async (task_id: string): Promise<void> => {
-        console.log("task_id: ", task_id);
         const due_at = form.getValues("date").valueOf().toString();
-        console.log("due_at: ", due_at);
         const res = await commands.getTaskById(task_id);
         if (res.status !== "ok") {
             return showToast({

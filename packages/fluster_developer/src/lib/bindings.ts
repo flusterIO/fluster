@@ -651,14 +651,6 @@ async getTaskCount(predicate: string | null) : Promise<Result<string, FlusterErr
     else return { status: "error", error: e  as any };
 }
 },
-async setTaskDueDate(props: TaskDueDateData) : Promise<Result<null, FlusterError>> {
-    try {
-    return { status: "ok", data: await TAURI_INVOKE("set_task_due_date", { props }) };
-} catch (e) {
-    if(e instanceof Error) throw e;
-    else return { status: "error", error: e  as any };
-}
-},
 async createNewKanbanBoard(item: KanbanBoardModel) : Promise<Result<null, FlusterError>> {
     try {
     return { status: "ok", data: await TAURI_INVOKE("create_new_kanban_board", { item }) };
@@ -938,7 +930,6 @@ n_threads: string; use_git_ignore: boolean;
  * defaults to true
  */
 with_ai: boolean }
-export type TaskDueDateData = { task_id: string; due_at: string }
 export type TaskListData = { list: TaskListModel; items: TaskModel[] }
 export type TaskListModel = { id: string; label: string; desc: string | null; ctime: string }
 export type TaskModel = { id: string; 

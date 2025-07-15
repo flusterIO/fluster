@@ -11,7 +11,9 @@ import { Location, useLocation } from "react-router";
 const CommandPaletteResults = (): ReactNode => {
     const state = useCommandPaletteContext();
     const dispatch = useCommandPaletteDispatch();
-    const [navStackLength, setNavStackLength] = useState<number>(-1);
+    const [navStackLength, setNavStackLength] = useState<number>(
+        state.navStack.length
+    );
     const location = useLocation();
     const getItems = async (
         cb: (loc: Location) => Promise<CommandPaletteAnyEntry[]>
@@ -25,19 +27,11 @@ const CommandPaletteResults = (): ReactNode => {
     };
 
     useEffect(() => {
-        console.log("state.navStack.length: ", state.navStack.length);
-        console.log("navStackLength: ", navStackLength);
-        if (state.navStack.length < navStackLength) {
-            console.log("getting data...");
-            getItems(state.navStack[state.navStack.length - 1].getItems);
-        }
+        const item = state.navStack[state.navStack.length - 1];
+        getItems(item.getItems);
         setNavStackLength(state.navStack.length);
         /* eslint-disable-next-line  -- */
-    }, [state.navStack]);
-
-    useEffect(() => {
-        console.log("state.filteredItems: ", state.filteredItems);
-    }, [state.filteredItems]);
+    }, [state.navStack, navStackLength]);
 
     return (
         <div className="rounded-br rounded-bl bg-popover overflow-y-auto max-h-[min(50vh,400px)]">
