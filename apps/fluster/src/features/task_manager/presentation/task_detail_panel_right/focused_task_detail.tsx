@@ -24,7 +24,21 @@ export const FocusedTaskDetail = ({
                     <div className="task-details-panel ml-6 h-full max-h-full overflow-y-auto">
                         <MdxContent mdx={data.notes} />
                     </div>
-                    <div className="mt-4 w-full flex flex-row justify-end items-center">
+                    <div className="mt-4 w-full flex flex-row justify-end items-center gap-4">
+                        <Button
+                            variant="outline"
+                            onClick={() => {
+                                window.dispatchEvent(
+                                    new CustomEvent("show-set-due-at-modal", {
+                                        detail: {
+                                            id: data.id,
+                                        },
+                                    })
+                                );
+                            }}
+                        >
+                            Set due at
+                        </Button>
                         <Button onClick={handleCreateNote}>Edit Note</Button>
                     </div>
                 </>

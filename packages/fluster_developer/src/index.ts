@@ -42,6 +42,7 @@ export * from "./components/inputs/math_text_input/main";
 export * from "./components/inputs/text_area/index";
 export * from "./components/inputs/file_path/index";
 export * from "./components/inputs/select/general_combobox/index";
+export * from "./components/inputs/date_time/index";
 // -- Utils --
 export * from "./utils/get_color_prop";
 export * from "./utils/bundled_languages";

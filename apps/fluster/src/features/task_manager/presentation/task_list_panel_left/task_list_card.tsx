@@ -68,7 +68,7 @@ export const TaskListCard = ({ item }: TaskListCardProps): ReactNode => {
                 className="w-4 h-4 place-self-center cursor-pointer"
                 onClick={() => confirm.setVisible(true)}
             />
-            <InlineMdxContent mdx={item.label} />
+            <InlineMdxContent abortIfNoMath mdx={item.label} />
         </div>
     );
 };
