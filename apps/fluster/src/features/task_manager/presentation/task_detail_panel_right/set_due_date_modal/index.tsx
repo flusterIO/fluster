@@ -7,11 +7,13 @@ import {
     DialogFooter,
     DialogHeader,
     DialogTitle,
+    showToast,
     useEventListener,
 } from "@fluster.io/dev";
 import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { commands } from "@/lib/bindings";
 
 interface SetDueAtEventProps {
     /// Any unique string to be used for identifying the subsequent 'task-due-at-result' event.
@@ -44,6 +46,39 @@ export const SetDueAtModal = (): ReactNode => {
             date: new Date(),
         },
     });
+    const setDueDate = async (task_id: string): Promise<void> => {
+        console.log("task_id: ", task_id);
+        const due_at = form.getValues("date").valueOf().toString();
+        console.log("due_at: ", due_at);
+        const res = await commands.getTaskById(task_id);
+        if (res.status !== "ok") {
+            return showToast({
+                title: "Something went wrong",
+                body: "We cannot update this task. An error occurred.",
+                variant: "Error",
+                duration: 5000,
+            });
+        }
+        const updateRes = await commands.createTask(
+            {
+                ...res.data,
+                ctime: new Date(res.data.ctime).valueOf().toString(),
+                due_at,
+            },
+            []
+        );
+
+        if (updateRes.status === "ok") {
+            showToast({
+                title: "Success",
+                body: "Your task has been updated",
+                duration: 3000,
+                variant: "Info",
+            });
+            setOpen(false);
+        }
+    };
+
     return (
         <Dialog
             open={Boolean(open)}
@@ -61,7 +96,9 @@ export const SetDueAtModal = (): ReactNode => {
                 <DialogFooter>
                     <Button
                         onClick={async () => {
-                            console.log("form.getValue(): ", form.getValues());
+                            if (open) {
+                                await setDueDate(open);
+                            }
                         }}
                     >
                         Save

@@ -66,7 +66,9 @@ const Toast = (props: ToastProps): ReactNode => {
                 <div className="text-bold text-sm text-foreground">
                     {props.item.title}
                 </div>
-                <div className="text-muted-foreground text-sm">{props.item.body}</div>
+                <div className="text-muted-foreground text-sm pb-2 pr-2">
+                    {props.item.body}
+                </div>
             </div>
         </motion.div>
     );

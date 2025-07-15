@@ -170,8 +170,9 @@ impl DbEntity<TaskModel> for TaskEntity {
         let label = StringArray::from(vec![item.label.clone()]);
         let notes = StringArray::from(vec![item.notes.clone()]);
         let task_list_id = StringArray::from(vec![item.task_list_id.clone()]);
-        let due_at_value = item.due_at.as_ref().map(|t| t.parse().unwrap());
-        let complete = BooleanArray::from(vec![item.complete.clone()]);
+        let complete = BooleanArray::from(vec![item.complete]);
+
+        let due_at_value: Option<i64> = item.due_at.as_ref().map(|x| x.parse().unwrap());
         let due_at = TimestampMillisecondArray::from(vec![due_at_value]);
 
         let ctime_value: i64 = item.ctime.parse().unwrap();
