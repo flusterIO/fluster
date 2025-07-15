@@ -5,16 +5,11 @@ title: Small
 
 # Small
 
-The `Hint` component adds some styling to a bit of text that is intended to indicate some important information that doesn't needs to stand out, but is much more subtle than a `Admonition`.
+The `Small` component makes text slightly smaller and allows for addtional styling.
 
 
 ## Demo
 
-This is normal text,
-
-<Small muted_foreground>
-        but this is small
-</Small>
 
 ```mdx
 This is normal text,
@@ -23,6 +18,13 @@ This is normal text,
         but this is small
 </Small>
 ```
+
+This is normal text,
+
+<Small muted_foreground>
+        but this is small
+</Small>
+
 
 
 
@@ -33,3 +35,4 @@ This is normal text,
 | key | type | desc |
 | --- | ---- | ---- |
 | children | `ReactNode` | The underlined text. | 
+| noMargin | `boolean?` | If true, will remove default margin. | 

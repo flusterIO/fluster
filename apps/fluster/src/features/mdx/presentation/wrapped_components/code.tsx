@@ -23,6 +23,7 @@ export const WrappedCodeBlock = ({
     ...props
 }: WrappedCodeBlockProps): ReactNode => {
     const ref = useRef<HTMLPreElement>(null);
+
     return (
         <ContextMenu>
             <ContextMenuContent>

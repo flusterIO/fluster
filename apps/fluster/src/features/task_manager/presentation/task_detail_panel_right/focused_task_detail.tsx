@@ -37,7 +37,7 @@ export const FocusedTaskDetail = ({
                                 );
                             }}
                         >
-                            Set due at
+                            Set deadline
                         </Button>
                         <Button onClick={handleCreateNote}>Edit Note</Button>
                     </div>

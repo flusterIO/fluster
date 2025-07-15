@@ -4,13 +4,18 @@ import { cn } from "../../../utils/cn";
 
 interface SmallProps {
     children: ReactNode;
+    noMargin?: boolean;
 }
 
-export const Small = ({ children, ...props }: SmallProps): ReactNode => {
+export const Small = ({
+    children,
+    noMargin,
+    ...props
+}: SmallProps): ReactNode => {
     const color = getColorProp(props, "foreground");
     return (
         <span
-            className={cn("text-sm override-colors")}
+            className={cn("text-sm override-colors", noMargin && "my-0")}
             style={{
                 color: color.color,
             }}

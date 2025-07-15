@@ -87,6 +87,7 @@ export * from "./hooks/use_measure";
 export * from "./hooks/use_viewport_proportional_position";
 export * from "./hooks/use_main_panel_size";
 export * from "./hooks/use_observe_children";
+export * from "./hooks/use_timer";
 // -- Shad --
 export * from "./components/shad/accordion";
 export * from "./components/shad/alert-dialog";

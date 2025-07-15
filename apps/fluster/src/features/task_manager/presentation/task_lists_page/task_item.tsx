@@ -4,7 +4,9 @@ import { refreshTaskList } from "#/task_manager/state/refresh_task_list";
 import { commands, TaskModel } from "@/lib/bindings";
 import { AppRoutes, Checkbox, cn, showToast } from "@fluster.io/dev";
 import dayjs from "dayjs";
-import { ArrowUp, XIcon } from "lucide-react";
+import advancedFormat from "dayjs/plugin/advancedFormat";
+dayjs.extend(advancedFormat);
+import { XIcon } from "lucide-react";
 import React, { MouseEvent, useMemo, type ReactNode } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate, useSearchParams } from "react-router";
@@ -14,7 +16,6 @@ interface TaskListItemProps {
 }
 
 export const TaskListItem = ({ data }: TaskListItemProps): ReactNode => {
-    console.log("data.due_at: ", data.due_at);
     const nav = useNavigate();
     const [searchParams] = useSearchParams();
     const focusedTaskId = searchParams.get("fi");
@@ -48,7 +49,7 @@ export const TaskListItem = ({ data }: TaskListItemProps): ReactNode => {
         }
         return dayjs(data.due_at, {
             utc: true,
-        }).format("MM/DD/YY [at] hh:mma");
+        }).format("MMM Do, YYYY [at] hh:mm a");
     }, [data.due_at]);
     const removeDueAt = async (e: MouseEvent): Promise<void> => {
         e.stopPropagation();
@@ -98,7 +99,22 @@ export const TaskListItem = ({ data }: TaskListItemProps): ReactNode => {
                 {dueAtString && (
                     <div className="text-sm text-muted-foreground">
                         <XIcon className="w-3 h-3 inline mr-2" onClick={removeDueAt} />
-                        <span>{dueAtString}</span>
+                        <span
+                            onClick={(e) => {
+                                e.stopPropagation();
+                                e.preventDefault();
+                                window.dispatchEvent(
+                                    new CustomEvent("show-set-due-at-modal", {
+                                        detail: {
+                                            id: data.id,
+                                        },
+                                    })
+                                );
+                            }}
+                            className="cursor-pointer"
+                        >
+                            {dueAtString}
+                        </span>
                     </div>
                 )}
             </div>

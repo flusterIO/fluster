@@ -1,5 +1,4 @@
-import React, { useEffect, useState, type ReactNode } from "react";
-import { codeToHtml } from "shiki";
+import React, { type ReactNode } from "react";
 import { cn } from "../../utils/cn";
 import {
     ContextMenu,
@@ -10,7 +9,6 @@ import {
     ContextMenuLabel,
 } from "../shad/context-menu";
 import { showToast } from "../../utils/show_toast";
-import { AppRoutes } from "../../types/app_routes";
 import { useParsedCode } from "./use_parsed_code";
 
 export interface CodeBlockProps {
