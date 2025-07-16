@@ -5,7 +5,8 @@
 - [ ] `FlusterMake -> nocheck bindings file` to tackle error in generated binding files.
 - [ ] `pnpm typecheck` to check typescript errors.
 - [ ] `cargo check` to check rust errors
-- [ ] Create tag with `git tag -a v0.0.x`
+- [ ] Create tag with `git tag -a v0.0.x`l
+- [ ] Manually update version in Fluster's package.json. This seems to be the version used for release.
 - [ ] Update the version in `tauri.conf.json`. _This_ is the version used by the build script.
 
 ## Release Node Packages

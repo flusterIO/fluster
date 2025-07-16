@@ -1,5 +1,13 @@
 # fluster
 
+## 0.1.2
+
+### Patch Changes
+
+- Update remote to create release.
+- Updated dependencies
+  - @fluster.io/dev@0.1.1
+
 ## 0.1.0
 
 ### Minor Changes
