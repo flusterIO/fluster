@@ -6,7 +6,6 @@
 - [ ] `pnpm typecheck` to check typescript errors.
 - [ ] `cargo check` to check rust errors
 - [ ] Create tag with `git tag -a v0.0.x`l
-- [ ] Manually update version in Fluster's package.json. This seems to be the version used for release.
 - [ ] Update the version in `tauri.conf.json`. _This_ is the version used by the build script.
 
 ## Release Node Packages
@@ -25,6 +24,7 @@
 > Make sure you're on the release branch.
 
 - Update version manually in the `tauri.conf.json` file.
+  - Manually update version in Fluster's package.json. This seems to be the version used for release.
 - `git checkout release` to switch to release branch
 - `git merge main` to merge main branch with release branch after pushing packages on main branch.
 - Manually update version of `@fluster.io/dev` in `apps/fluster/package.json` to match recently published version to get around issue with pnpm workspace dependencies.
