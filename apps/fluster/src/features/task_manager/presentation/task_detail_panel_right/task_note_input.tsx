@@ -8,6 +8,7 @@ import { useForm } from "react-hook-form";
 import { useSearchParams } from "react-router";
 import { z } from "zod";
 import { TaskNoteInputState } from "./types";
+import dayjs from "dayjs";
 
 const schema = z.object({
     inputValue: z.string(),
@@ -41,7 +42,12 @@ export const TaskNoteInput = ({
                 ...taskRes.data,
                 ctime: new Date(taskRes.data.ctime ?? 0).valueOf().toString(),
                 due_at: taskRes.data.due_at
-                    ? new Date(taskRes.data.due_at ?? 0).valueOf().toString()
+                    ? dayjs(taskRes.data.due_at, {
+                        utc: true,
+                    })
+                        .toDate()
+                        .valueOf()
+                        .toString()
                     : null,
                 notes: formData.inputValue,
             };

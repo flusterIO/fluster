@@ -30,7 +30,14 @@ export const TaskListItem = ({ data }: TaskListItemProps): ReactNode => {
             const newData: TaskModel = {
                 ...data,
                 ctime: new Date(data.ctime).valueOf().toString(),
-                due_at: data.due_at ? new Date(data.due_at).valueOf().toString() : null,
+                due_at: data.due_at
+                    ? dayjs(data.due_at, {
+                        utc: true,
+                    })
+                        .toDate()
+                        .valueOf()
+                        .toString()
+                    : null,
                 complete: !data.complete,
             };
             /* FIXME: Pass tags here. */
@@ -44,7 +51,9 @@ export const TaskListItem = ({ data }: TaskListItemProps): ReactNode => {
             console.log("Error: ", err);
         }
     };
+
     const dueAtString: string | null = useMemo(() => {
+        console.log("data: ", data);
         if (!data.due_at) {
             return null;
         }
@@ -52,6 +61,7 @@ export const TaskListItem = ({ data }: TaskListItemProps): ReactNode => {
             utc: true,
         }).format("MMM Do, YYYY [at] hh:mm a");
     }, [data.due_at]);
+
     const removeDueAt = async (e: MouseEvent): Promise<void> => {
         e.stopPropagation();
         e.preventDefault();
