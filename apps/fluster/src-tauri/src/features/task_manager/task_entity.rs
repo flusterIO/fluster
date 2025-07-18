@@ -64,6 +64,44 @@ impl TaskEntity {
             })?;
         Ok(())
     }
+    pub async fn get_incomplete_with_due_date(db: &FlusterDb<'_>) -> FlusterResult<Vec<TaskModel>> {
+        let tbl = get_table(
+            db,
+            crate::core::database::tables::table_paths::DatabaseTables::Task,
+        )
+        .await?;
+        let items_batch = tbl
+            .query()
+            .only_if("complete = False")
+            .execute()
+            .await
+            .map_err(|e| {
+                println!("Error: {:?}", e);
+                FlusterError::FailToFind
+            })?
+            .try_collect::<Vec<_>>()
+            .await
+            .map_err(|e| {
+                println!("Error: {:?}", e);
+                FlusterError::FailToFind
+            })?;
+        if items_batch.is_empty() {
+            return Ok(Vec::new());
+        }
+        let mut items: Vec<TaskModel> = Vec::new();
+        for batch in items_batch.iter() {
+            let data: Vec<TaskModel> = from_record_batch(batch).map_err(|e| {
+                println!("Error: {:?}", e);
+                FlusterError::FailToSerialize
+            })?;
+            for d in data {
+                if !d.complete && d.due_at.is_some() {
+                    items.push(d);
+                }
+            }
+        }
+        Ok(items)
+    }
     pub async fn get_by_id(db: &FlusterDb<'_>, id: String) -> FlusterResult<TaskModel> {
         let tbl = get_table(
             db,

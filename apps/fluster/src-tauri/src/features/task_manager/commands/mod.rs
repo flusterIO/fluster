@@ -8,3 +8,4 @@ pub mod get_task_by_id;
 pub mod get_task_count;
 pub mod get_task_list_count;
 pub mod get_task_list_data;
+pub mod get_tasks_with_due_date;

@@ -46,7 +46,7 @@ const useEquationHasNotes = (equationId: string): boolean => {
 };
 
 const EquationListItem = ({ item }: EquationListItemProps): ReactNode => {
-    const confirmationId = "confirm-equation-delete"
+    const confirmationId = `confirm-equation-delete-${item.id}`;
     const dispatch = useDispatch();
     const byEquationUrl = useMemo(() => {
         const sp = new URLSearchParams();
@@ -65,7 +65,9 @@ const EquationListItem = ({ item }: EquationListItemProps): ReactNode => {
     };
 
     const handleDelete = async (id: string): Promise<void> => {
+        console.log("id: ", id);
         const res = await commands.deleteEquationById(id);
+        console.log("res: ", res);
         if (res.status === "ok") {
             requestEquationListRefresh();
         }
@@ -91,7 +93,6 @@ const EquationListItem = ({ item }: EquationListItemProps): ReactNode => {
             });
         }
     );
-
 
     const handleEditClick = (): void => {
         dispatch(setPanelLeftOpen(true));

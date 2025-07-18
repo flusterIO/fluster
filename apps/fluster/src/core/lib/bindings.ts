@@ -651,6 +651,14 @@ async getTaskCount(predicate: string | null) : Promise<Result<string, FlusterErr
     else return { status: "error", error: e  as any };
 }
 },
+async getIncompleteTasksWithDueDate() : Promise<Result<TaskModel[], FlusterError>> {
+    try {
+    return { status: "ok", data: await TAURI_INVOKE("get_incomplete_tasks_with_due_date") };
+} catch (e) {
+    if(e instanceof Error) throw e;
+    else return { status: "error", error: e  as any };
+}
+},
 async createNewKanbanBoard(item: KanbanBoardModel) : Promise<Result<null, FlusterError>> {
     try {
     return { status: "ok", data: await TAURI_INVOKE("create_new_kanban_board", { item }) };

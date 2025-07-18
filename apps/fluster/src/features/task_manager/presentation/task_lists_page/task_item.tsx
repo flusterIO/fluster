@@ -53,13 +53,19 @@ export const TaskListItem = ({ data }: TaskListItemProps): ReactNode => {
     };
 
     const dueAtString: string | null = useMemo(() => {
-        console.log("data: ", data);
         if (!data.due_at) {
             return null;
         }
         return dayjs(data.due_at, {
             utc: true,
         }).format("MMM Do, YYYY [at] hh:mm a");
+    }, [data.due_at]);
+
+    const timeRemaining = useMemo(() => {
+        const d = dayjs(data.due_at, {
+            utc: true,
+        });
+        return d.diff(dayjs(new Date()));
     }, [data.due_at]);
 
     const removeDueAt = async (e: MouseEvent): Promise<void> => {
@@ -108,7 +114,15 @@ export const TaskListItem = ({ data }: TaskListItemProps): ReactNode => {
             <div>
                 <InlineMdxContent mdx={data.label} />
                 {dueAtString && (
-                    <div className="text-sm text-muted-foreground">
+                    <div
+                        className={cn(
+                            "text-sm text-muted-foreground w-fit px-2 py-1 rounded",
+                            !data.complete &&
+                            Boolean(timeRemaining) &&
+                            timeRemaining <= 0 &&
+                            "bg-destructive text-destructive-foreground"
+                        )}
+                    >
                         <XIcon className="w-3 h-3 inline mr-2" onClick={removeDueAt} />
                         <span
                             onClick={(e) => {
