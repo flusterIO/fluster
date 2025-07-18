@@ -6,7 +6,6 @@ import { ThemeCommandPaletteRoot } from "./tree/theme_root";
 import { CodeThemeCommandPaletteRoot } from "#/editor/data/command_palette/code_theme_command_palette_category";
 import { EmbeddedDocsCommandPaletteRoot } from "./tree/embedded_docs_root";
 import { NotesCommandPaletteRoot } from "./tree/notes_root";
-import { Location } from "react-router";
 import { EditInSplitViewCommandEntry } from "./tree/view_in_split_mode_command";
 import { sync } from "@/lib/sync_database";
 import store from "@/state/store";
@@ -20,9 +19,11 @@ import { SubjectsCommandPaletteRoot } from "./tree/subjects";
 import { TagsCommandPaletteRoot } from "./tree/tags";
 import { IpynbFilesCommandPaletteRoot } from "./tree/notebooks";
 import { MdxFilesCommandPaletteRoot } from "./tree/by_file_path";
-import { ReactNode } from "react";
 import { ConstantsCommandPaletteRoot } from "./tree/constants";
 import { AppRoutes, showToast } from "@fluster.io/dev";
+import { ReactNode } from "react";
+import { Location } from "react-router";
+import { type BundledLanguage } from "shiki";
 
 export class CommandPaletteRoot extends CommandPaletteCategory {
     constructor() {
@@ -67,7 +68,7 @@ export class CommandPaletteRoot extends CommandPaletteCategory {
                         });
                     }
                     sp.set("fsPath", bibPath);
-                    sp.set("lang", "bibtex");
+                    sp.set("lang", "bibtex" as BundledLanguage);
                     nav(`${AppRoutes.full_screen_editor}?${sp.toString()}`);
                 }
             ),

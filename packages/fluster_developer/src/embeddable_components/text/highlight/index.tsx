@@ -22,6 +22,7 @@ export const Hl = ({ children, ...props }: HlProps): ReactNode => {
                 borderRadius: "4px",
                 ...props.style,
             }}
+            className="[&_*]:text-inherit"
         >
             {children}
         </span>

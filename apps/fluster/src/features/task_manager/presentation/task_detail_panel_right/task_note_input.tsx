@@ -40,6 +40,9 @@ export const TaskNoteInput = ({
             const newData: TaskModel = {
                 ...taskRes.data,
                 ctime: new Date(taskRes.data.ctime ?? 0).valueOf().toString(),
+                due_at: taskRes.data.due_at
+                    ? new Date(taskRes.data.due_at ?? 0).valueOf().toString()
+                    : null,
                 notes: formData.inputValue,
             };
             const res = await commands.createTask(

@@ -34,8 +34,8 @@ const DictionaryEntryComponent = ({
     }
     return (
         <div className="w-full flex flex-col justify-start items-start gap-4 mb-6">
-            <H3 className="w-full font-bold [&_p]:text-xl">
-                <NavLink to={url}>
+            <H3 className="w-full [&_p]:font-bold [&_p]:text-xl">
+                <NavLink className="w-full" to={url}>
                     <InlineMdxContent mdx={item.label} />
                 </NavLink>
             </H3>

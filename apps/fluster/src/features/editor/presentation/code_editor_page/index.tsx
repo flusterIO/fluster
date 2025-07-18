@@ -5,19 +5,37 @@ import { showToast, useLocalStorage } from "@fluster.io/dev";
 import { useSearchParams } from "react-router";
 import { save } from "@tauri-apps/plugin-dialog";
 import { commands } from "@/lib/bindings";
+import { useIsomorphicLayoutEffect } from "motion/react";
 
 export const CodeEditorPage = (): ReactNode => {
     const [searchParams] = useSearchParams();
     const [value, setValue] = useLocalStorage(
         searchParams.has("fsPath")
-            ? "split-view-file-editor"
-            : "split-view-new-file-editor"
+            ? "page-view-file-editor"
+            : "page-view-new-file-editor"
     ) as [string, (newString: string) => void];
     const valueRef = useRef(value);
     const lang = searchParams.get("lang") ?? "mdx";
+    const getFileContent = async (fsPath: string): Promise<void> => {
+        const res = await commands.readUtf8File(fsPath);
+        if (res.status === "ok") {
+            setValue(res.data);
+        }
+    };
+
     useEffect(() => {
         valueRef.current = value;
     }, [value]);
+
+    useIsomorphicLayoutEffect(() => {
+        const fsPath = searchParams.get("fsPath");
+        if (fsPath) {
+            commands.setLastReadByFilePath(fsPath).catch((e) => {
+                console.error(`An error occurred while setting last_read: ${e}`);
+            });
+            getFileContent(fsPath);
+        }
+    }, [searchParams]);
     return (
         <CodeEditor
             language={lang}

@@ -30,6 +30,7 @@ export const TaskListItem = ({ data }: TaskListItemProps): ReactNode => {
             const newData: TaskModel = {
                 ...data,
                 ctime: new Date(data.ctime).valueOf().toString(),
+                due_at: data.due_at ? new Date(data.due_at).valueOf().toString() : null,
                 complete: !data.complete,
             };
             /* FIXME: Pass tags here. */
