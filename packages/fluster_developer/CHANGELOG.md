@@ -1,5 +1,11 @@
 # @fluster.io/dev
 
+## 0.1.2
+
+### Patch Changes
+
+- A few necessary bug fixes.
+
 ## 0.1.1
 
 ### Patch Changes

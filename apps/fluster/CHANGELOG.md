@@ -1,5 +1,13 @@
 # fluster
 
+## 0.1.4
+
+### Patch Changes
+
+- A few necessary bug fixes.
+- Updated dependencies
+  - @fluster.io/dev@0.1.2
+
 ## 0.1.2
 
 ### Patch Changes

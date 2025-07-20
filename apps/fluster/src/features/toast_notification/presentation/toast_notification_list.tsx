@@ -16,6 +16,8 @@ const ToastNotificationList = (): ReactNode => {
         ]);
     });
 
+    console.log("items.length: ", items.length);
+
     return (
         <div
             id="toast-list"
@@ -25,9 +27,10 @@ const ToastNotificationList = (): ReactNode => {
                 .sort((a, b) => b.createdAt - a.createdAt)
                 .map((t: ToastItem) => (
                     <Toast
-                        removeSelf={() =>
-                            setItems(items.filter((x: ToastItem) => x.id !== t.id))
-                        }
+                        removeSelf={() => {
+                            console.log("removingSelf: ");
+                            setItems(items.filter((x: ToastItem) => x.id !== t.id));
+                        }}
                         item={t}
                         key={t.id}
                     />

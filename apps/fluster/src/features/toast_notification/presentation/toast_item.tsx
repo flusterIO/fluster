@@ -37,8 +37,12 @@ const Toast = (props: ToastProps): ReactNode => {
     useEffect(() => {
         setShow(true);
         if (props.item.duration > 0) {
-            setTimeout(() => setShow(false), props.item.duration);
+            setTimeout(() => {
+                setShow(false);
+                props.removeSelf();
+            }, props.item.duration);
         }
+        /* eslint-disable-next-line  --  */
     }, []);
 
     return (

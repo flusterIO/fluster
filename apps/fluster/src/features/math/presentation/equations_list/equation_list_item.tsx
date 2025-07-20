@@ -65,9 +65,7 @@ const EquationListItem = ({ item }: EquationListItemProps): ReactNode => {
     };
 
     const handleDelete = async (id: string): Promise<void> => {
-        console.log("id: ", id);
         const res = await commands.deleteEquationById(id);
-        console.log("res: ", res);
         if (res.status === "ok") {
             requestEquationListRefresh();
         }
