@@ -100,7 +100,16 @@ impl MdxNoteGroup {
         // }
         // -- End Parsers --
         Ok(MdxNoteGroup {
-            dictionary_entries: post_dictionary_parse.results,
+            dictionary_entries: post_dictionary_parse
+                .results
+                .iter()
+                .map(|x| DictionaryEntryModel {
+                    mdx_source: file_path.clone(),
+                    label: x.label.clone(),
+                    body: x.body.clone(),
+                    ctime: x.ctime.clone(),
+                })
+                .collect(),
             front_matter: FrontMatterModel::from_gray_matter(result.data, &file_path),
             citations,
             mdx: MdxNoteModel {

@@ -40,22 +40,22 @@ impl DictionaryEntryEntity {
         })?;
         Ok(())
     }
-    pub async fn get_by_ids(
+    pub async fn get_by_labels(
         db: &FlusterDb<'_>,
-        ids: Vec<String>,
+        labels: Vec<String>,
     ) -> FlusterResult<Vec<DictionaryEntryModel>> {
-        if ids.is_empty() {
+        if labels.is_empty() {
             return Ok(Vec::new());
         }
         let tbl = get_table(db, DatabaseTables::DictionaryEntry).await?;
-        let ids_string = ids
+        let labels_string = labels
             .iter()
             .map(|x| format!("\"{}\"", x))
             .collect::<Vec<String>>()
             .join(", ");
         let items_batch = tbl
             .query()
-            .only_if(format!("id in ({})", ids_string))
+            .only_if(format!("label in ({})", labels_string))
             .execute()
             .await
             .map_err(|e| {
@@ -84,11 +84,7 @@ impl DictionaryEntryEntity {
         Ok(items)
     }
     pub async fn get_all(db: &FlusterDb<'_>) -> FlusterResult<Vec<DictionaryEntryModel>> {
-        let tbl = db
-            .open_table(DatabaseTables::DictionaryEntry.to_string())
-            .execute()
-            .await
-            .map_err(|_| FlusterError::FailToConnect)?;
+        let tbl = get_table(db, DatabaseTables::DictionaryEntry).await?;
         let items_batch = tbl
             .query()
             .execute()
@@ -116,6 +112,7 @@ impl DbEntity<DictionaryEntryModel> for DictionaryEntryEntity {
         Arc::new(Schema::new(vec![
             Field::new("label", DataType::Utf8, false),
             Field::new("body", DataType::Utf8, false),
+            Field::new("mdx_source", DataType::Utf8, false),
             Field::new(
                 "ctime",
                 DataType::Timestamp(arrow_schema::TimeUnit::Millisecond, None),
@@ -130,11 +127,17 @@ impl DbEntity<DictionaryEntryModel> for DictionaryEntryEntity {
     ) -> arrow_array::RecordBatch {
         let label = arrow_array::StringArray::from(vec![item.label.clone()]);
         let body = arrow_array::StringArray::from(vec![item.body.clone()]);
+        let mdx_source = arrow_array::StringArray::from(vec![item.mdx_source.clone()]);
         let ctime_value: i64 = item.ctime.parse().unwrap();
         let ctime = TimestampMillisecondArray::from(vec![ctime_value]);
         RecordBatch::try_new(
             schema,
-            vec![Arc::new(label), Arc::new(body), Arc::new(ctime)],
+            vec![
+                Arc::new(label),
+                Arc::new(body),
+                Arc::new(mdx_source),
+                Arc::new(ctime),
+            ],
         )
         .unwrap()
     }

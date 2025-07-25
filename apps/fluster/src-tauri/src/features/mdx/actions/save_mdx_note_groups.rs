@@ -15,6 +15,8 @@ use crate::{
         math::data::equation_model::EquationModel,
         mdx::data::{
             front_matter_entity::FrontMatterEntity, front_matter_model::FrontMatterModel,
+            mdx_note_bib_entry_entity::MdxNoteBibEntryEntity,
+            mdx_note_bib_entry_model::MdxNoteBibEntryModel,
             mdx_note_dictionary_entry_entity::MdxNoteDictionaryEntryEntity,
             mdx_note_dictionary_entry_model::MdxNoteDictionaryEntryModel,
             mdx_note_entity::MdxNoteEntity, mdx_note_equation_entity::MdxNoteEquationEntity,
@@ -46,6 +48,7 @@ pub async fn save_mdx_note_groups(
     let mut note_links: Vec<MdxNoteLinkModel> = Vec::new();
     let mut mdx_note_dictionary_entries: Vec<MdxNoteDictionaryEntryModel> = Vec::new();
     let mut dictionary_entries: Vec<DictionaryEntryModel> = Vec::new();
+    let mut mdx_note_bib_entry: Vec<MdxNoteBibEntryModel> = Vec::new();
     // RESUME: based searching. That played a big part in the initial app.
     let mut front_matter: Vec<FrontMatterModel> = Vec::new();
     for item in groups.iter().filter(|x| !x.mdx.raw_body.is_empty()) {
@@ -57,6 +60,13 @@ pub async fn save_mdx_note_groups(
             dictionary_entries.push(dict_entry.clone());
         }
         notes.push(item.mdx.clone());
+        for citation in item.citations.clone() {
+            println!("Found citation");
+            mdx_note_bib_entry.push(MdxNoteBibEntryModel {
+                mdx_note_file_path: item.mdx.file_path.clone(),
+                bib_entry_id: citation.id,
+            })
+        }
         front_matter.push(item.front_matter.clone());
         for note_link in item.note_links.clone() {
             note_links.push(note_link.clone());
@@ -114,5 +124,6 @@ pub async fn save_mdx_note_groups(
     MdxNoteLinkEntity::create_many(db, note_links).await?;
     DictionaryEntryEntity::create_many(db, dictionary_entries).await?;
     MdxNoteDictionaryEntryEntity::create_many(db, mdx_note_dictionary_entries).await?;
+    MdxNoteBibEntryEntity::create_many(db, mdx_note_bib_entry).await?;
     Ok(())
 }

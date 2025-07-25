@@ -31,7 +31,9 @@ use crate::features::bookmark::commands::get_bookmarked_notes::get_bookmarked_no
 use crate::features::bookmark::commands::remove_bookmark::remove_bookmark;
 use crate::features::dashboard::get_dashboard_data::get_dashboard_data;
 use crate::features::dictionary::commands::get_dictionary_entries::get_dictionary_entries;
-use crate::features::dictionary::dictionary_entry_model::DictionaryEntryModel;
+use crate::features::dictionary::dictionary_entry_model::{
+    DictionaryEntryModel, DictionaryEntryModelWithoutSource,
+};
 use crate::features::editor::write_file::write_file;
 use crate::features::embedded_docs::get_embedded_doc_by_id::get_embedded_doc;
 use crate::features::embedded_docs::get_embedded_doc_by_id::get_embedded_doc_by_relative_path;
@@ -231,6 +233,7 @@ pub fn run() {
         .typ::<SearchOrder>()
         .typ::<InternalEmbeddedDocsId>()
         .typ::<DownloadingStatus>()
+        .typ::<DictionaryEntryModelWithoutSource>()
         .typ::<SyncFilesystemDirectoryOptions>();
     // #[cfg(target_os = "macos")]
     // {

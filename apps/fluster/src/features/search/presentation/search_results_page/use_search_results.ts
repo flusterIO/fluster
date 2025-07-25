@@ -23,11 +23,13 @@ export const useSearchResults = (): TraditionalSearchResults | null => {
     };
 
     const getByBibEntry = async (bibEntryId: string): Promise<void> => {
+        console.log("bibEntryId: ", bibEntryId);
         const res = await commands.getNotesByBibEntryId(bibEntryId);
         console.log("res: ", res);
         if (res.status === "ok") {
             setData(res.data);
         } else {
+            console.error("Error: ", res.error);
             showToast({
                 title: "Something went wrong",
                 body: "We could not find that bib entry. Did you sync your database since you added that bibliography entry?",

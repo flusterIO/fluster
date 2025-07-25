@@ -3,6 +3,8 @@ import { showToast, useEventListener } from "@fluster.io/dev";
 import dayjs from "dayjs";
 import { useEffect, useRef, useState, type ReactNode } from "react";
 
+/* BETA: This component is not currently used. Come back to this later and either remove this component and the related notifications or take a new approach, because this one is causing the same notification to show repeatedly. */
+
 export const TaskManagerTimerHandler = (): ReactNode => {
     const [data, setData] = useState<TaskModel[]>([]);
     const [haveNotified, setHaveNotified] = useState(false);

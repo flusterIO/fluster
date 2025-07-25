@@ -5,6 +5,12 @@ const slice = createSlice({
     name: "core",
     initialState: initialCoreSettings,
     reducers: {
+        setRespectGitIgnore(state, action: PayloadAction<boolean>) {
+            return {
+                ...state,
+                useGitIgnore: action.payload,
+            };
+        },
         setNotesDirectory(state, action: PayloadAction<string>) {
             return {
                 ...state,
@@ -20,6 +26,7 @@ const slice = createSlice({
     },
 });
 
-export const { setNotesDirectory, savedStateApplied } = slice.actions;
+export const { setNotesDirectory, savedStateApplied, setRespectGitIgnore } =
+    slice.actions;
 
 export default slice.reducer;

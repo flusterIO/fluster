@@ -784,6 +784,16 @@ export type DictionaryEntryModel = {
 /**
  * Primary Key
  */
+label: string; body: string; 
+/**
+ * The source string for the mdx source that produces this dictionary entry. This is just
+ * a file path for local notes.
+ */
+mdx_source: string; ctime: string }
+export type DictionaryEntryModelWithoutSource = { 
+/**
+ * Primary Key
+ */
 label: string; body: string; ctime: string }
 export type DownloadingStatus = { 
 /**

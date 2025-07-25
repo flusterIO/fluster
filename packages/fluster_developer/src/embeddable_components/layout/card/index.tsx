@@ -10,7 +10,7 @@ import {
 export interface EmbeddableCardProps extends HTMLProps<HTMLDivElement> {
     title?: string;
     desc?: string;
-    InlineMdxContent: FC<{ mdx: string }>;
+    InlineMdxContent: FC<{ mdx: string; abortIfNoMath?: boolean }>;
 }
 
 export const EmbeddableCard = ({
@@ -24,8 +24,8 @@ export const EmbeddableCard = ({
             {Boolean(title || desc) && (
                 <CardHeader>
                     {title && (
-                        <CardTitle>
-                            <InlineMdxContent mdx={title} />
+                        <CardTitle className="[&_p]:font-semibold [&_p]:leading-none">
+                            <InlineMdxContent abortIfNoMath mdx={title} />
                         </CardTitle>
                     )}
                     {desc && (

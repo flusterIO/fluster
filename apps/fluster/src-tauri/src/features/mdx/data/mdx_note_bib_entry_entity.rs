@@ -131,7 +131,7 @@ impl MdxNoteBibEntryEntity {
         }
         let items_batch = q
             .offset(offset)
-            .limit(pagination.per_page as usize)
+            .limit(pagination.per_page)
             .execute()
             .await
             .map_err(|e| {
@@ -182,7 +182,7 @@ impl MdxNoteBibEntryEntity {
         let filtered_tags: Vec<&T> = items
             .iter()
             .filter(|x| {
-                all_note_tags.iter().any(|y| {
+                !all_note_tags.iter().any(|y| {
                     (x.mdx_note_file_path == y.mdx_note_file_path)
                         && (x.bib_entry_id == y.bib_entry_id)
                 })

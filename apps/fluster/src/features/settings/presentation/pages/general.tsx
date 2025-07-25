@@ -1,4 +1,4 @@
-import { FilePathInput, Form } from "@fluster.io/dev";
+import { FilePathInput, Form, SwitchInput } from "@fluster.io/dev";
 import React, { type ReactNode } from "react";
 import { SettingPageTitle } from "../components/setting_page_title";
 import { useForm } from "react-hook-form";
@@ -6,7 +6,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { connect, useDispatch } from "react-redux";
 import { AppState } from "@/state/initial_state";
-import { setNotesDirectory } from "#/settings/state/slice";
+import { setNotesDirectory, setRespectGitIgnore } from "#/settings/state/slice";
 import { SettingPageContainer } from "../components/setting_page_container";
 
 const connector = connect((state: AppState) => ({
@@ -15,6 +15,7 @@ const connector = connect((state: AppState) => ({
 
 const schema = z.object({
     notesDirectory: z.string(),
+    useGitIgnore: z.boolean(),
 });
 
 export const GeneralSettingsPage = connector(
@@ -24,13 +25,19 @@ export const GeneralSettingsPage = connector(
             resolver: zodResolver(schema),
             defaultValues: {
                 notesDirectory: state?.notesDirectory ?? "",
+                useGitIgnore: state?.useGitIgnore ?? false,
             },
         });
+
         form.watch((formData) => {
             if (formData.notesDirectory) {
                 dispatch(setNotesDirectory(formData.notesDirectory));
             }
+            if (typeof formData.useGitIgnore === "boolean") {
+                dispatch(setRespectGitIgnore(formData.useGitIgnore));
+            }
         });
+
         return (
             <Form {...form}>
                 <SettingPageContainer>
@@ -40,6 +47,16 @@ export const GeneralSettingsPage = connector(
                         form={form}
                         name="notesDirectory"
                         directory
+                        classes={{
+                            formItem: "w-full max-w-full",
+                            container: "w-full max-w-full",
+                        }}
+                    />
+                    <SwitchInput
+                        form={form}
+                        name={"useGitIgnore"}
+                        label="Respect .gitignore"
+                        desc="If true, files ignored by a .gitignore file within your notes will be ignored by Fluster as well. Be aware that some notes may be visible under file glob based search even when ignored."
                     />
                 </SettingPageContainer>
             </Form>

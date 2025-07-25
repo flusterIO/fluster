@@ -20,6 +20,7 @@ pub async fn get_notes_by_bib_entry_id(
     let db = db_res.lock().await;
     let mdx_note_bib_entries =
         MdxNoteBibEntryEntity::get_by_bib_entry_id(&db, &bib_entry_id).await?;
+    println!("Found {} items", mdx_note_bib_entries.clone().len());
     let mdx_notes = MdxNoteEntity::get_by_file_paths(
         &db,
         mdx_note_bib_entries

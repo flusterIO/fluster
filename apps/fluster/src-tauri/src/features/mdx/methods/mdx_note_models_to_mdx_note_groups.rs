@@ -33,6 +33,10 @@ use crossbeam_channel::unbounded;
 use rayon::prelude::*;
 
 // TODO: Parallize the shit out of this.
+// TODO: The dictionaryEntry model is being cleaned on each sync now. There's no need for the
+// joining table either in 1-1 relationships. Get rid of the MdxNoteDictionaryEntry table all
+// together, and replace it with an `mdx_source` field in the DictionaryEntryModel struct that can
+// resolve to a filepath for local notes.
 pub async fn mdx_note_models_to_mdx_note_groups(
     db: &FlusterDb<'_>,
     models: Vec<MdxNoteModel>,
@@ -85,13 +89,7 @@ pub async fn mdx_note_models_to_mdx_note_groups(
                 .map(|x| x.bib_entry_id.clone())
                 .collect(),
         ),
-        DictionaryEntryEntity::get_by_ids(
-            db,
-            mdx_note_bib_entries
-                .iter()
-                .map(|x| x.bib_entry_id.clone())
-                .collect(),
-        ),
+        DictionaryEntryEntity::get_all(db,),
         TopicEntity::get_by_values(
             db,
             mdx_note_topics
@@ -233,7 +231,6 @@ pub async fn mdx_note_models_to_mdx_note_groups(
             None => None,
             Some(x) => topics.iter().find(|y| x == y.value),
         };
-        // println!("Here 5");
 
         let (tag_sender, tag_receiver) = unbounded::<SharedTaggableModel>();
         for tag in mdx_note_tags.clone() {
@@ -243,6 +240,7 @@ pub async fn mdx_note_models_to_mdx_note_groups(
                 }
             }
         }
+
         drop(tag_sender);
 
         let front_matter_tags = front_matter_tag_receiver

@@ -43,6 +43,7 @@ export * from "./components/inputs/text_area/index";
 export * from "./components/inputs/file_path/index";
 export * from "./components/inputs/select/general_combobox/index";
 export * from "./components/inputs/date_time/index";
+export * from "./components/inputs/switch_input/index";
 // -- Utils --
 export * from "./utils/get_color_prop";
 export * from "./utils/bundled_languages";

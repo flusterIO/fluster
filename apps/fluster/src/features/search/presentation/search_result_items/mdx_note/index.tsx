@@ -40,7 +40,7 @@ export const MdxNoteSearchResult = ({
     const url = getMdxNoteUrl(item.mdx.file_path);
 
     return (
-        <div className="w-full flex flex-col justify-center items-center gap-4 px-4 py-3 rounded border">
+        <div className="w-full flex flex-col justify-center items-center gap-4 px-4 py-3 rounded border mb-8">
             <InlineMdxContent
                 onClick={() => nav(url)}
                 className="w-full [&_p]:!text-xl [&_p]:font-semibold cursor-pointer"
@@ -63,7 +63,6 @@ export const MdxNoteSearchResult = ({
                         {item.front_matter.subject.value}
                     </Badge>
                 ) : null}
-
                 {item.front_matter.topic ? (
                     <Badge
                         role="button"
