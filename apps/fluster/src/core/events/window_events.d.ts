@@ -1,3 +1,4 @@
+import { KeymapId } from "#/keymap/data/models/keymap_ids";
 import { ShowCommandPaletteEventProps } from "./show_command_palette";
 
 export interface BibEntryDetailsProps {
@@ -13,6 +14,11 @@ export interface ShowEquationDetailModalEventProps {
     id: string;
 }
 
+export interface EditKeymapSettingModalProps {
+    settingKey: KeymapId;
+    stringifiedKeyMap: string;
+}
+
 declare global {
     interface WindowEventMap {
         show_command_palette: CustomEvent<ShowCommandPaletteEventProps>;
@@ -23,5 +29,7 @@ declare global {
         "refresh-task-manager-timers": CustomEvent<object>;
         "refresh-kanban-board-list": CustomEvent<object>;
         "refresh-task-manager-timers": CustomEvent<object>;
+        // -- Settings --
+        "show-edit-keymap-modal": CustomEvent<EditKeymapSettingModalProps>;
     }
 }

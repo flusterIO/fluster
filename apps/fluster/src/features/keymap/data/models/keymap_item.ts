@@ -6,33 +6,38 @@ export class KeymapItem {
     ctrl: boolean;
     alt: boolean;
     key: string;
+    desc: string;
     constructor(
         shift: boolean,
         meta: boolean,
         ctrl: boolean,
         alt: boolean,
-        key: string
+        key: string,
+        desc: string
     ) {
         this.shift = shift;
         this.meta = meta;
         this.ctrl = ctrl;
         this.alt = alt;
         this.key = key;
+        this.desc = desc;
     }
 
     toString(): string {
         return `${this.key}-${this.alt ? "true" : "false"}-${this.shift ? "true" : "false"
-            }-${this.meta ? "true" : "false"}-${this.ctrl ? "true" : "false"}`;
+            }-${this.meta ? "true" : "false"}-${this.ctrl ? "true" : "false"}-${this.desc
+            }`;
     }
 
     static fromString(val: string): KeymapItem {
-        const [key, alt, shift, meta, ctrl] = val.split("-");
+        const [key, alt, shift, meta, ctrl, desc] = val.split("-");
         return new KeymapItem(
             shift == "true",
             meta == "true",
             ctrl === "true",
             alt === "true",
-            key
+            key,
+            desc
         );
     }
 

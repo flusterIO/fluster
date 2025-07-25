@@ -8,6 +8,7 @@ import { connect, useDispatch } from "react-redux";
 import { AppState } from "@/state/initial_state";
 import { setNotesDirectory, setRespectGitIgnore } from "#/settings/state/slice";
 import { SettingPageContainer } from "../components/setting_page_container";
+import { KeymapSettingsGroup } from "#/keymap/presentation/keymap_settings_table";
 
 const connector = connect((state: AppState) => ({
     state: state.core,
@@ -58,6 +59,8 @@ export const GeneralSettingsPage = connector(
                         label="Respect .gitignore"
                         desc="If true, files ignored by a .gitignore file within your notes will be ignored by Fluster as well. Be aware that some notes may be visible under file glob based search even when ignored."
                     />
+                    <SettingPageTitle title="Keymap" />
+                    <KeymapSettingsGroup />
                 </SettingPageContainer>
             </Form>
         );

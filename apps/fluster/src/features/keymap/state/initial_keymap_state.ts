@@ -8,70 +8,87 @@ export const initialKeymapState: KeymapState = {
         true,
         false,
         false,
-        "b"
+        "b",
+        "Sync directory without AI"
     ).toString(),
     [KeymapId.showCommandPalette]: new KeymapItem(
         false,
         true,
         false,
         false,
-        "p"
+        "p",
+        "Show command palette"
     ).toString(),
     [KeymapId.togglePanelLeft]: new KeymapItem(
         true,
         true,
         false,
         false,
-        "l"
+        "l",
+        "Toggle left panel"
     ).toString(),
     [KeymapId.togglePanelRight]: new KeymapItem(
         true,
         true,
         false,
         false,
-        "r"
+        "r",
+        "Toggle right panel"
     ).toString(),
     [KeymapId.togglePanelBottom]: new KeymapItem(
         true,
         true,
         false,
         false,
-        "t"
+        "t",
+        "Toggle panel bottom (beta)"
     ).toString(),
     [KeymapId.editorCommandPalette]: new KeymapItem(
         true,
         true,
         false,
         false,
-        "p"
+        "p",
+        "Show editor command palette"
     ).toString(),
     [KeymapId.scrollDown]: new KeymapItem(
         false,
         false,
         false,
         false,
-        "j"
+        "j",
+        "Scroll down"
     ).toString(),
     [KeymapId.scrollUp]: new KeymapItem(
         false,
         false,
         false,
         false,
-        "k"
+        "k",
+        "Scroll up"
     ).toString(),
     [KeymapId.selectLeft]: new KeymapItem(
         false,
         false,
         false,
         true,
-        "h"
+        "h",
+        "Select left"
     ).toString(),
     [KeymapId.selectRight]: new KeymapItem(
         false,
         false,
         false,
         true,
-        "l"
+        "l",
+        "Select Right"
     ).toString(),
-    [KeymapId.refresh]: new KeymapItem(false, true, false, false, "r").toString(),
+    [KeymapId.refresh]: new KeymapItem(
+        false,
+        true,
+        false,
+        false,
+        "r",
+        "Refresh"
+    ).toString(),
 };

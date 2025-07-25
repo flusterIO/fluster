@@ -1,3 +1,5 @@
+import { useDarkMode } from "@/hooks/use_dark_mode";
+import { cn } from "@fluster.io/dev";
 import React, { ComponentProps, type ReactNode } from "react";
 import { PropagateLoader } from "react-spinners";
 
@@ -8,8 +10,14 @@ export const LoadingComponent = (
 };
 
 const LoadingScreen = (): ReactNode => {
+    const darkMode = useDarkMode();
     return (
-        <div className="w-screen h-screen flex flex-col justify-center items-center bg-background">
+        <div
+            className={cn(
+                "w-screen h-screen flex flex-col justify-center items-center bg-background",
+                darkMode && "dark"
+            )}
+        >
             <LoadingComponent />
         </div>
     );
