@@ -59,7 +59,10 @@ export const GeneralSettingsPage = connector(
                         label="Respect .gitignore"
                         desc="If true, files ignored by a .gitignore file within your notes will be ignored by Fluster as well. Be aware that some notes may be visible under file glob based search even when ignored."
                     />
-                    <SettingPageTitle title="Keymap" />
+                    <SettingPageTitle
+                        title="Keymap"
+                        subtitle="Customizing keymaps is in beta. This feature may be unreliable."
+                    />
                     <KeymapSettingsGroup />
                 </SettingPageContainer>
             </Form>

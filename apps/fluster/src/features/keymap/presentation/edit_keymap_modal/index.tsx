@@ -46,7 +46,14 @@ const useKeymapState = (
             }
             return false;
         };
-        if (!keymapAlreadyExists()) {
+        if (keymapAlreadyExists()) {
+            showToast({
+                title: "Keymap exists",
+                variant: "Error",
+                body: "This keymap is already in use.",
+                duration: 3000,
+            });
+        } else {
             dispatch(
                 setKeymapEntry({
                     item: KeymapItem.fromString(keymapState),
@@ -72,7 +79,7 @@ const KeymapModal = ({
     return (
         <ModalBackdrop onClick={close}>
             <motion.div
-                className="min-w-[350px] max-w-[min(768px,90vw)] px-4 py-3 bg-card text-card-foreground border rounded"
+                className="min-w-[350px] max-w-[min(768px,90vw)] px-4 py-3 bg-card text-card-foreground border rounded select-none"
                 initial="initial"
                 animate="show"
                 variants={{
@@ -84,6 +91,10 @@ const KeymapModal = ({
                         opacity: 0,
                         scale: 0,
                     },
+                }}
+                onClick={(e) => {
+                    e.stopPropagation();
+                    e.preventDefault();
                 }}
             >
                 <H3>Edit Keymap</H3>

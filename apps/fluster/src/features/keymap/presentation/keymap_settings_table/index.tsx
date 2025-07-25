@@ -49,8 +49,7 @@ export const KeymapSettingsGroup = connector(({ keymap }: Props): ReactNode => {
 
     const [sorting, setSorting] = useState<SortingState>([]);
 
-    const entries = useMemo(() => {
-        console.log("keymap: ", keymap);
+    const data = useMemo(() => {
         return Object.entries(keymap).map((k): KeymapTableData => {
             return {
                 stringifiedKeymap: k[1],
@@ -60,15 +59,11 @@ export const KeymapSettingsGroup = connector(({ keymap }: Props): ReactNode => {
     }, [keymap]);
 
     const [globalFilter, setGlobalFilter] = useState<string>("");
-    const [pagination, setPagination] = useState<PaginationState>({
-        pageIndex: 1,
-        pageSize: 10,
-    });
     const columns = getKeymapTableColumns();
 
     const table = useReactTable({
         columns: columns,
-        data: entries,
+        data,
         onColumnVisibilityChange: (newVisibility) =>
             setVisibility(newVisibility as typeof visibility),
         globalFilterFn: fuzzyFilter,
@@ -78,11 +73,9 @@ export const KeymapSettingsGroup = connector(({ keymap }: Props): ReactNode => {
         getSortedRowModel: getSortedRowModel(),
         getPaginationRowModel: getPaginationRowModel(),
         getFilteredRowModel: getFilteredRowModel(),
-        onPaginationChange: setPagination,
         state: {
             columnVisibility: visibility,
             sorting,
-            pagination,
             globalFilter,
         },
     });

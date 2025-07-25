@@ -6,7 +6,10 @@ const SettingsPage = (): ReactNode => {
     return (
         <div className="w-full h-full flex flex-row justify-center items-center">
             <DesktopSettingsSidebar />
-            <div className="@container/settings flex-grow w-full h-full flex flex-col justify-start items-start overflow-y-auto px-6 md:px-8 py-8">
+            <div
+                id="scroll-target"
+                className="@container/settings flex-grow w-full h-full flex flex-col justify-start items-start overflow-y-auto px-6 md:px-8 py-8"
+            >
                 <SettingsPageContentSwitch />
             </div>
         </div>
