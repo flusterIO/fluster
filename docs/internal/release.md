@@ -13,10 +13,9 @@
 > Make sure you're on the main branch.
 
 - Create a changeset with `pnpm changeset`
-- Update lock files with `pnpm install` before versioning
+- Update lock files with `pnpm install` before versioning to avoid having to convert version back to workspace manually.
 - Version all packages with `pnpm changeset version` -- This skips the stage of generating a pull request with the merge and handles everything in one workflow.
 - Make sure fluster.io/dev version in fluster package.json is still a workspace dep to avoid build fails.
-- Make sure the version in `apps/fluster/package.json` matches the version in `apps/fluster/src-tauri/tauri.conf.json`. This version will be versioned by changesets, but must match the version in the `tauri.conf.json` file.
 - Commit changes, `git add --all` and `git commit ...`
 - Git push to run changeset in github action because you're too broke to afford https.
 
@@ -26,6 +25,7 @@
 
 - Update version manually in the `tauri.conf.json` file.
   - Manually update version in Fluster's package.json. This seems to be the version used for release.
+- Make sure the version in `apps/fluster/package.json` matches the version in `apps/fluster/src-tauri/tauri.conf.json`. This version will be versioned by changesets, but must match the version in the `tauri.conf.json` file.
 - `git checkout release` to switch to release branch
 - `git merge main` to merge main branch with release branch after pushing packages on main branch.
 - Manually update version of `@fluster.io/dev` in `apps/fluster/package.json` to match recently published version to get around issue with pnpm workspace dependencies.

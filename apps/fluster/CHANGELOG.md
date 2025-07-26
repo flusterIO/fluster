@@ -1,5 +1,13 @@
 # fluster
 
+## 0.1.5
+
+### Patch Changes
+
+- Update npm packages to release Fluster.
+- Updated dependencies
+  - @fluster.io/dev@0.1.3
+
 ## 0.1.4
 
 ### Patch Changes
