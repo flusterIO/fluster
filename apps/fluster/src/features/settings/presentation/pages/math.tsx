@@ -61,7 +61,7 @@ export const MathSettingsPage = connector(
                 <SettingPageContainer>
                     <SettingPageTitle title="General Settings" />
                     <H3>Plot Themes</H3>
-                    <div className="w-full max-w-[600px] flex flex-col @[540px]/settings_page:flex-row @[540px]/settings_page:justify-between items-center gap-x-8 gap-y-6">
+                    <div className="grid grid-cols-1 @[540px]/settings_page:grid-cols-2 gap-x-8 gap-y-6">
                         <GeneralSelectInput
                             label="Dark Mode"
                             form={form}
@@ -69,8 +69,8 @@ export const MathSettingsPage = connector(
                             name="plotDarkTheme"
                             items={plotThemeItems}
                             classes={{
-                                formItem: "w-full",
-                                selectTrigger: "w-full",
+                                formItem: "w-full min-w-full",
+                                selectTrigger: "w-full min-w-full",
                             }}
                         />
                         <GeneralSelectInput
@@ -80,8 +80,8 @@ export const MathSettingsPage = connector(
                             name="plotLightTheme"
                             items={plotThemeItems}
                             classes={{
-                                formItem: "w-full",
-                                selectTrigger: "w-full",
+                                formItem: "w-full min-w-full",
+                                selectTrigger: "w-full min-w-full",
                             }}
                         />
                     </div>

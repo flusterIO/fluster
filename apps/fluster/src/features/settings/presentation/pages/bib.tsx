@@ -12,63 +12,71 @@ import { SettingPageTitle } from "../components/setting_page_title";
 import { SettingPageContainer } from "../components/setting_page_container";
 
 const connector = connect((state: AppState) => ({
-  state: state.bib,
-  rootDir: state.core.notesDirectory,
+    state: state.bib,
+    rootDir: state.core.notesDirectory,
 }));
 
 const schema = z.object({
-  bibPath: z.string().nullable(),
-  cslPath: z.string().nullable(),
+    bibPath: z.string().nullable(),
+    cslPath: z.string().nullable(),
 });
 
 export const BibliographySettingsPage = connector(
-  ({
-    state,
-    rootDir,
-  }: {
-    state: AppState["bib"];
-    rootDir: AppState["core"]["notesDirectory"];
-  }): ReactNode => {
-    const dispatch = useDispatch();
-    const form = useForm({
-      resolver: zodResolver(schema),
-      defaultValues: {
-        bibPath: state?.bibPath ?? "",
-        cslPath: state?.cslPath ?? "",
-      },
-    });
+    ({
+        state,
+        rootDir,
+    }: {
+        state: AppState["bib"];
+        rootDir: AppState["core"]["notesDirectory"];
+    }): ReactNode => {
+        const dispatch = useDispatch();
+        const form = useForm({
+            resolver: zodResolver(schema),
+            defaultValues: {
+                bibPath: state?.bibPath ?? "",
+                cslPath: state?.cslPath ?? "",
+            },
+        });
 
-    form.watch((formData) => {
-      if (formData.bibPath?.length) {
-        dispatch(setBibPath(formData.bibPath));
-      }
-      if (formData.cslPath?.length) {
-        dispatch(setCslPath(formData.cslPath));
-      }
-    });
+        form.watch((formData) => {
+            if (formData.bibPath?.length) {
+                dispatch(setBibPath(formData.bibPath));
+            }
+            if (formData.cslPath?.length) {
+                dispatch(setCslPath(formData.cslPath));
+            }
+        });
 
-    return (
-      <Form {...form}>
-        <SettingPageContainer>
-          <SettingPageTitle title="Bibliography Settings" />
-          <FilePathInput
-            form={form}
-            defaultPath={rootDir}
-            name="bibPath"
-            label="Bibliography File Path"
-            desc="The path relative to your note's root directory that points to a .bib file."
-          />
-          <FilePathInput
-            form={form}
-            defaultPath={rootDir}
-            name="cslPath"
-            label="CSL File Path"
-            desc="The path relative to your note's root directory that points to a .csl file to be used for citation formatting."
-          />
-        </SettingPageContainer>
-      </Form>
-    );
-  }
+        return (
+            <Form {...form}>
+                <SettingPageContainer>
+                    <SettingPageTitle title="Bibliography Settings" />
+                    <FilePathInput
+                        form={form}
+                        defaultPath={rootDir}
+                        name="bibPath"
+                        label="Bibliography File Path"
+                        desc="The path relative to your note's root directory that points to a .bib file."
+                        classes={{
+                            formItem: "w-full min-w-full",
+                            container: "w-full min-w-full",
+                        }}
+                    />
+                    <FilePathInput
+                        form={form}
+                        defaultPath={rootDir}
+                        name="cslPath"
+                        label="CSL File Path"
+                        desc="The path relative to your note's root directory that points to a .csl file to be used for citation formatting."
+                        classes={{
+                            formItem: "w-full min-w-full",
+                            container: "w-full min-w-full",
+                        }}
+                    />
+                </SettingPageContainer>
+            </Form>
+        );
+    }
 );
 
 BibliographySettingsPage.displayName = "BibliographySettings";
