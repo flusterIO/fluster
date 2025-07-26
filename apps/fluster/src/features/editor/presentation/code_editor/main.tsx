@@ -171,12 +171,14 @@ const CodeEditor = connector(
             }
 
             shikiToMonaco(highlighter, monaco);
-            const _vimMode = initVimMode(
-                editor,
-                // An element that doesn't exist so to not create a mode bar. A mode bar might be nice in a future version, but for now the change in the cursor is enough.
-                document.getElementById(editorModeBarId)
-            );
-            vimModeRef.current = _vimMode;
+            if (vimMode) {
+                const _vimMode = initVimMode(
+                    editor,
+                    // An element that doesn't exist so to not create a mode bar. A mode bar might be nice in a future version, but for now the change in the cursor is enough.
+                    document.getElementById(editorModeBarId)
+                );
+                vimModeRef.current = _vimMode;
+            }
         };
         return (
             <div className="w-full h-full bg-background">

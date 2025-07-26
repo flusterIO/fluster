@@ -1,4 +1,4 @@
-import { FilePathInput, Form, SwitchInput } from "@fluster.io/dev";
+import { FilePathInput, Form, Hint, SwitchInput } from "@fluster.io/dev";
 import React, { type ReactNode } from "react";
 import { SettingPageTitle } from "../components/setting_page_title";
 import { useForm } from "react-hook-form";
@@ -48,6 +48,7 @@ export const GeneralSettingsPage = connector(
                         form={form}
                         name="notesDirectory"
                         directory
+                        desc="This is the primary directory that contains all of your notes. You can nest content in this directory as deeply as you wish."
                         classes={{
                             formItem: "w-full max-w-full",
                             container: "w-full max-w-full",
@@ -63,6 +64,10 @@ export const GeneralSettingsPage = connector(
                         title="Keymap"
                         subtitle="Customizing keymaps is in beta. This feature may be unreliable."
                     />
+                    <Hint note>
+                        Keep in mind that many of these keymaps are applied conditionally.
+                        Not all pages have both a left and a right panel, for example.
+                    </Hint>
                     <KeymapSettingsGroup />
                 </SettingPageContainer>
             </Form>

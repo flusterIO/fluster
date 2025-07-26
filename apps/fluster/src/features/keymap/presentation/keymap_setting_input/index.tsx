@@ -3,7 +3,7 @@ import React, { type ReactNode } from "react";
 
 const KeyIcon = ({ children }: { children: ReactNode }): ReactNode => {
     return (
-        <div className="rounded-lg border px-2 py-1 cursor-default select-none">
+        <div className="rounded-lg border px-2 py-1 cursor-default select-none bg-secondary text-secondary-foreground">
             {children}
         </div>
     );
