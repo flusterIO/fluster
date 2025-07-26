@@ -25,6 +25,7 @@ mod tests {
             ..Default::default()
         };
         let res = sync_local_database(opts).await;
+        println!("Response: {:#?}", res);
         assert!(res.is_ok(), "Parses directory without throwing an error.");
     }
 }

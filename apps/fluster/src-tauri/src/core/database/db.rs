@@ -57,8 +57,9 @@ pub async fn get_database() -> Arc<Mutex<Connection>> {
 pub async fn clean_table(db: &FlusterDb<'_>, tb: DatabaseTables) -> FlusterResult<()> {
     let tbl = get_table(db, tb).await?;
     // Pass in a predicate that always evaluates to true to delete all items.
-    tbl.delete("1 = 1")
-        .await
-        .map_err(|_| FlusterError::FailToDelete)?;
+    tbl.delete("1 = 1").await.map_err(|e| {
+        println!("Error in clean_table: {:?}", e);
+        FlusterError::FailToDelete
+    })?;
     Ok(())
 }

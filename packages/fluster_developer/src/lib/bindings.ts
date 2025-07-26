@@ -203,6 +203,14 @@ async initializeDesktop() : Promise<Result<null, FlusterError>> {
     else return { status: "error", error: e  as any };
 }
 },
+async wipeDatabase() : Promise<Result<null, FlusterError>> {
+    try {
+    return { status: "ok", data: await TAURI_INVOKE("wipe_database") };
+} catch (e) {
+    if(e instanceof Error) throw e;
+    else return { status: "error", error: e  as any };
+}
+},
 async getEmbeddedDoc(id: InternalEmbeddedDocsId) : Promise<string> {
     return await TAURI_INVOKE("get_embedded_doc", { id });
 },

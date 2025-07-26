@@ -130,9 +130,10 @@ impl EquationEntity {
     }
     pub async fn delete_by_id(db: &FlusterDb<'_>, id: String) -> FlusterResult<()> {
         let tbl = get_table(db, DatabaseTables::Equation).await?;
-        tbl.delete(&format!("id = \"{}\"", id))
-            .await
-            .map_err(|_| FlusterError::FailToDelete)?;
+        tbl.delete(&format!("id = \"{}\"", id)).await.map_err(|e| {
+            println!("Error in EquationEntity.delete_by_id: {:?}", e);
+            FlusterError::FailToDelete
+        })?;
         Ok(())
     }
     pub async fn get_by_id(db: &FlusterDb<'_>, id: String) -> FlusterResult<EquationModel> {

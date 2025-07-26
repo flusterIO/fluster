@@ -52,6 +52,11 @@ pub async fn save_mdx_note_groups(
     // RESUME: based searching. That played a big part in the initial app.
     let mut front_matter: Vec<FrontMatterModel> = Vec::new();
     for item in groups.iter().filter(|x| !x.mdx.raw_body.is_empty()) {
+        if item.mdx.file_path
+            == "/Users/bigsexy/Desktop/notes/content/tech/fluster/promote_app_to.mdx"
+        {
+            println!("Item: {:#?}", item);
+        }
         for dict_entry in item.dictionary_entries.clone() {
             mdx_note_dictionary_entries.push(MdxNoteDictionaryEntryModel {
                 mdx_note_file_path: item.mdx.file_path.clone(),

@@ -2,6 +2,7 @@
 pub mod core;
 pub mod features;
 use crate::core::sync::sync_local_database::sync_local_database;
+use crate::core::sync::wipe_database::wipe_database;
 use crate::core::utils::commands::get_env_variable::get_environment_variable;
 use crate::core::utils::commands::get_operating_system::get_operating_system;
 use crate::core::utils::file_system::fs_commands::path_exists;
@@ -141,6 +142,7 @@ pub fn run() {
             fs_file_extension_glob,
             initialize_database,
             initialize_desktop,
+            wipe_database,
             // -- Docs & Health --
             get_embedded_doc,
             get_desktop_health_report,

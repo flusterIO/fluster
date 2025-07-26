@@ -169,6 +169,7 @@ impl MdxNoteBibEntryEntity {
     }
 
     pub async fn create_many(db: &FlusterDb<'_>, items: Vec<T>) -> FlusterResult<()> {
+        println!("Items: {}", &items.len());
         let all_note_tags = MdxNoteBibEntryEntity::get_all(
             db,
             PaginationProps {

@@ -14,7 +14,7 @@ pub async fn begin_embedding_model_download(app: AppHandle) {
                 source: _,
                 progress,
             } => {
-                app.emit(
+                let _ = app.emit(
                     &GlobalCrossLanguageFlusterEvents::EmbeddingModelDownloadProgress.to_string(),
                     DownloadingStatus {
                         portion: progress.progress,

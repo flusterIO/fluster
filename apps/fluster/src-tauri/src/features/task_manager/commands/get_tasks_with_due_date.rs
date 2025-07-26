@@ -1,12 +1,6 @@
-use serde::{Deserialize, Serialize};
-use specta::Type;
-
 use crate::{
     core::{database::db::get_database, types::errors::errors::FlusterResult},
-    features::task_manager::{
-        task_entity::TaskEntity, task_list_entity::TaskListEntity, task_list_model::TaskListModel,
-        task_model::TaskModel,
-    },
+    features::task_manager::{task_entity::TaskEntity, task_model::TaskModel},
 };
 
 #[tauri::command]

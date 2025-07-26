@@ -11,48 +11,50 @@ import AiReducer from "#/ai/state/slice";
 import PlotReducer from "#/plot/state/slice";
 import { AppState } from "./initial_state";
 import {
-    persistReducer,
-    PersistConfig,
-    FLUSH,
-    REHYDRATE,
-    PAUSE,
-    PERSIST,
-    PURGE,
-    REGISTER,
+  persistReducer,
+  PersistConfig,
+  FLUSH,
+  REHYDRATE,
+  PAUSE,
+  PERSIST,
+  PURGE,
+  REGISTER,
 } from "redux-persist";
 import { stateStorage } from "./state_storage";
+import autoMergeLevel2 from "redux-persist/lib/stateReconciler/autoMergeLevel2";
 
 const reducers: Record<keyof AppState, Reducer> = {
-    ai: AiReducer,
-    scaffold: ScaffoldReducer,
-    keymap: KeymapReducer,
-    panelLeft: PanelLeftReducer,
-    panelRight: PanelRightReducer,
-    panelBottom: PanelBottomReducer,
-    code: CodeReducer,
-    core: CoreReducer,
-    bib: BibReducer,
-    plot: PlotReducer,
+  ai: AiReducer,
+  scaffold: ScaffoldReducer,
+  keymap: KeymapReducer,
+  panelLeft: PanelLeftReducer,
+  panelRight: PanelRightReducer,
+  panelBottom: PanelBottomReducer,
+  code: CodeReducer,
+  core: CoreReducer,
+  bib: BibReducer,
+  plot: PlotReducer,
 };
 
 const rootReducer = combineReducers(reducers);
 
 const persistConfig: PersistConfig<AppState> = {
-    key: "root",
-    storage: stateStorage,
-    blacklist: ["core.syncing"],
+  key: "root",
+  storage: stateStorage,
+  blacklist: ["core.syncing"],
+  stateReconciler: autoMergeLevel2,
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 const store = configureStore({
-    reducer: persistedReducer,
-    middleware: (getDefaultMiddleware) =>
-        getDefaultMiddleware({
-            serializableCheck: {
-                ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
-            },
-        }),
+  reducer: persistedReducer,
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: {
+        ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+      },
+    }),
 });
 
 export default store;

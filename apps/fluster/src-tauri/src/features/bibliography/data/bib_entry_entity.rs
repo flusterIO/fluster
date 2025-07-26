@@ -33,7 +33,7 @@ impl BibEntryEntity {
         let tbl = get_table(db, DatabaseTables::BibEntry).await?;
         let ids_string = ids
             .iter()
-            .map(|x| format!("\"{}\"", x))
+            .map(|x| format!("\"{}\"", x.to_lowercase()))
             .collect::<Vec<String>>()
             .join(", ");
         let items_batch = tbl
@@ -86,8 +86,8 @@ impl BibEntryEntity {
                 limit: Some(pagination.per_page as i64),
                 wand_factor: None,
             })
-            .limit(pagination.per_page as usize)
-            .offset((pagination.per_page * (pagination.page_number - 1)) as usize)
+            .limit(pagination.per_page)
+            .offset(pagination.per_page * (pagination.page_number - 1))
             .execute()
             .await
             .map_err(|e| {
@@ -126,8 +126,8 @@ impl BibEntryEntity {
             Some(predicate_string) => tbl.query().only_if(predicate_string),
         };
         let items_batch = query
-            .limit(pagination.per_page as usize)
-            .offset((pagination.per_page * (pagination.page_number - 1)) as usize)
+            .limit(pagination.per_page)
+            .offset(pagination.per_page * (pagination.page_number - 1))
             .execute()
             .await
             .map_err(|e| {
@@ -151,7 +151,7 @@ impl BibEntryEntity {
         }
         Ok(items)
     }
-    pub async fn save_many(db: &FlusterDb<'_>, entries: &Vec<BibEntryModel>) -> FlusterResult<()> {
+    pub async fn save_many(db: &FlusterDb<'_>, entries: &[BibEntryModel]) -> FlusterResult<()> {
         let schema = BibEntryEntity::arrow_schema();
         let tbl = get_table(db, DatabaseTables::BibEntry).await?;
         let batches: Vec<Result<RecordBatch, ArrowError>> = entries
@@ -228,7 +228,7 @@ impl DbEntity<BibEntryModel> for BibEntryEntity {
         item: &BibEntryModel,
         schema: std::sync::Arc<arrow_schema::Schema>,
     ) -> arrow_array::RecordBatch {
-        let id = StringArray::from(vec![item.id.clone()]);
+        let id = StringArray::from(vec![item.id.to_lowercase().clone()]);
         let user_provided_id = StringArray::from(vec![item.user_provided_id.clone()]);
         let html_citation = StringArray::from(vec![item.html_citation.clone()]);
         let pdf_path = StringArray::from(vec![item.pdf_path.clone()]);
