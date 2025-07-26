@@ -13,46 +13,70 @@ import {
     SelectTrigger,
     SelectValue,
     Button,
+    cn,
 } from "@fluster.io/dev";
 
 interface DataTablePaginationProps<TData> {
+    hidePerPage?: boolean;
+    hideSelectedCount?: boolean;
     table: Table<TData>;
+    classes?: {
+        container?: string;
+    };
 }
 
 export function DataTablePagination<TData>({
     table,
+    hidePerPage,
+    hideSelectedCount,
+    classes = {},
 }: DataTablePaginationProps<TData>) {
     return (
-        <div className="w-full flex items-center justify-between px-2">
-            <div className="text-muted-foreground flex-1 text-sm">
-                {table.getFilteredSelectedRowModel().rows.length} of{" "}
-                {table.getFilteredRowModel().rows.length} row(s) selected.
-            </div>
-            <div className="flex items-center space-x-6 lg:space-x-8">
-                <div className="flex items-center space-x-2">
-                    <p className="text-sm font-medium">Rows per page</p>
-                    <Select
-                        value={`${table.getState().pagination.pageSize}`}
-                        onValueChange={(value) => {
-                            table.setPageSize(Number(value));
-                        }}
-                    >
-                        <SelectTrigger className="h-8 w-[70px]">
-                            <SelectValue placeholder={table.getState().pagination.pageSize} />
-                        </SelectTrigger>
-                        <SelectContent side="top">
-                            {[10, 20, 25, 30, 40, 50].map((pageSize) => (
-                                <SelectItem
-                                    className="text-foreground"
-                                    key={pageSize}
-                                    value={`${pageSize}`}
-                                >
-                                    {pageSize}
-                                </SelectItem>
-                            ))}
-                        </SelectContent>
-                    </Select>
+        <div
+            className={cn(
+                "w-full flex items-center justify-between px-2",
+                classes.container
+            )}
+        >
+            {!hideSelectedCount ? (
+                <div className="text-muted-foreground flex-1 text-sm">
+                    {table.getFilteredSelectedRowModel().rows.length} of{" "}
+                    {table.getFilteredRowModel().rows.length} row(s) selected.
                 </div>
+            ) : (
+                <div />
+            )}
+            <div className="flex items-center space-x-6 lg:space-x-8">
+                {!hidePerPage ? (
+                    <div className="flex items-center space-x-2">
+                        <p className="text-sm font-medium">Rows per page</p>
+                        <Select
+                            value={`${table.getState().pagination.pageSize}`}
+                            onValueChange={(value) => {
+                                table.setPageSize(Number(value));
+                            }}
+                        >
+                            <SelectTrigger className="h-8 w-[70px]">
+                                <SelectValue
+                                    placeholder={table.getState().pagination.pageSize}
+                                />
+                            </SelectTrigger>
+                            <SelectContent side="top">
+                                {[10, 20, 25, 30, 40, 50].map((pageSize) => (
+                                    <SelectItem
+                                        className="text-foreground"
+                                        key={pageSize}
+                                        value={`${pageSize}`}
+                                    >
+                                        {pageSize}
+                                    </SelectItem>
+                                ))}
+                            </SelectContent>
+                        </Select>
+                    </div>
+                ) : (
+                    <div />
+                )}
                 <div className="flex w-[100px] items-center justify-center text-sm font-medium">
                     Page {table.getState().pagination.pageIndex + 1} of{" "}
                     {table.getPageCount()}

@@ -28,7 +28,7 @@ export const getKeymapTableColumns = (): ColumnDef<KeymapTableData>[] => {
             accessorKey: "stringifiedKeymap",
         },
         {
-            id: KeymapTableColId.keymap,
+            id: KeymapTableColId.desc,
             header: () => {
                 return <div>Description</div>;
             },

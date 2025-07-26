@@ -28,6 +28,7 @@ import { fuzzyFilter } from "@/lib/table_utils/fuzzy_filter";
 import { EditKeymapSettingModal } from "../edit_keymap_modal";
 import { showEditKeymapModal } from "../edit_keymap_modal/show_edit_keymap_modal";
 import { KeymapId } from "#/keymap/data/models/keymap_ids";
+import { DataTablePagination } from "@/components/table/table_pagination";
 
 const connector = connect((state: AppState) => ({
     keymap: state.keymap,
@@ -49,7 +50,12 @@ export const KeymapSettingsGroup = connector(({ keymap }: Props): ReactNode => {
 
     const [sorting, setSorting] = useState<SortingState>([]);
 
-    const data = useMemo(() => {
+    const [pagination, setPagination] = useState<PaginationState>({
+        pageIndex: 0,
+        pageSize: 10,
+    });
+
+    const data: KeymapTableData[] = useMemo(() => {
         return Object.entries(keymap).map((k): KeymapTableData => {
             return {
                 stringifiedKeymap: k[1],
@@ -62,23 +68,29 @@ export const KeymapSettingsGroup = connector(({ keymap }: Props): ReactNode => {
     const columns = getKeymapTableColumns();
 
     const table = useReactTable({
-        columns: columns,
+        autoResetPageIndex: true,
+        columns,
         data,
-        onColumnVisibilityChange: (newVisibility) =>
-            setVisibility(newVisibility as typeof visibility),
-        globalFilterFn: fuzzyFilter,
-        onSortingChange: setSorting,
+        manualPagination: false,
         getCoreRowModel: getCoreRowModel(),
-        onGlobalFilterChange: setGlobalFilter,
+        rowCount: data.length,
+        onSortingChange: setSorting,
         getSortedRowModel: getSortedRowModel(),
         getPaginationRowModel: getPaginationRowModel(),
         getFilteredRowModel: getFilteredRowModel(),
+        onPaginationChange: setPagination,
+        globalFilterFn: fuzzyFilter,
+        onGlobalFilterChange: setGlobalFilter,
+        onColumnVisibilityChange: (newVisiblity) =>
+            setVisibility(newVisiblity as typeof visibility),
         state: {
             columnVisibility: visibility,
             sorting,
             globalFilter,
+            pagination,
         },
     });
+
     return (
         <div>
             <EditKeymapSettingModal />
@@ -141,6 +153,14 @@ export const KeymapSettingsGroup = connector(({ keymap }: Props): ReactNode => {
                     )}
                 </TableBody>
             </Table>
+            <DataTablePagination
+                hideSelectedCount
+                hidePerPage
+                table={table}
+                classes={{
+                    container: "mt-4",
+                }}
+            />
         </div>
     );
 });

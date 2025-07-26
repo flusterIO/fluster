@@ -16,8 +16,6 @@ const ToastNotificationList = (): ReactNode => {
         ]);
     });
 
-    console.log("items.length: ", items.length);
-
     return (
         <div
             id="toast-list"
