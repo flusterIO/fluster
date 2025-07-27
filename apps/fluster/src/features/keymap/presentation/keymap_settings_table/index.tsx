@@ -1,5 +1,7 @@
 import React, { useMemo, useState, type ReactNode } from "react";
 import {
+    Input,
+    Label,
     Table,
     TableBody,
     TableCell,
@@ -92,7 +94,11 @@ export const KeymapSettingsGroup = connector(({ keymap }: Props): ReactNode => {
     });
 
     return (
-        <div>
+        <>
+            <div className="space-y-3 max-w-[350px]">
+                <Label>Search Keymaps</Label>
+                <Input onChange={(e) => table.setGlobalFilter(e.target.value)} />
+            </div>
             <EditKeymapSettingModal />
             <Table>
                 <TableHeader>
@@ -161,7 +167,7 @@ export const KeymapSettingsGroup = connector(({ keymap }: Props): ReactNode => {
                     container: "mt-4",
                 }}
             />
-        </div>
+        </>
     );
 });
 
