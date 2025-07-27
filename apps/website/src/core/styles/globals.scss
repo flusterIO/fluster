@@ -4,11 +4,9 @@
 @source "../../../../../docs/website/**/*.{mdx,tsx,jsx,ts,js}";
 @source "../../../content/**/*.mdx";
 @source "../../../src/**/*.{js,ts,jsx,tsx,mdx}";
-/* @config "../../../.tailwind.config.cjs"; */
 @plugin "@tailwindcss/typography";
 @plugin "@tailwindcss/container-queries";
 @plugin "tailwindcss-animate";
-/* @pplugin */
 
 @layer base {
   :root {
@@ -37,7 +35,7 @@
     --input: 217.2 32.6% 17.5%;
     --ring: 224.3 76.3% 48%;
     --general-link-color: #1e90ff;
-    --hint: 120 60.8% 50%;
+    --hint: 120 100% 50%;
     // Fluster specfic color variables. This is not the whole set, but just what's required for the website.
     --fluster-hint: 120 100% 50%;
   }

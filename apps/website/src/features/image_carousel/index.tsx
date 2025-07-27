@@ -103,7 +103,7 @@ export const ImageCarousel = ({
                         drag={"x"}
                         dragConstraints={{ left: 0, right: 0 }}
                         dragElastic={1}
-                        onDragEnd={(e, { offset, velocity }) => {
+                        onDragEnd={(_, { offset, velocity }) => {
                             const swipe = swipePower(offset.x, velocity.x);
                             if (swipe < -swipeConfidenceThreshold) {
                                 cycleImages(1);
@@ -133,13 +133,13 @@ export const ImageCarousel = ({
                 >
                     <button
                         onClick={() => cycleImages(-1)}
-                        className={"bg-secondary rounded-full p-1 h-8 w-8"}
+                        className={"bg-secondary rounded-full p-1 h-8 w-8 cursor-pointer"}
                     >
                         <ChevronLeft />
                     </button>
                     <button
                         onClick={() => cycleImages(1)}
-                        className={"bg-secondary rounded-full p-1 h-8 w-8"}
+                        className={"bg-secondary rounded-full p-1 h-8 w-8 cursor-pointer"}
                     >
                         <ChevronRight />
                     </button>

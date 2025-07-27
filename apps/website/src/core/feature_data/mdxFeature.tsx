@@ -1,7 +1,6 @@
 "use client";
 import splitViewImg from "../../../public/assets/blog/screenshots/splitview.png";
 import { FeaturedContainerPropsRequired } from "#/features/landing_page/sections/feature_section/types";
-import { Hint } from "../components/hint";
 import Image from "next/image";
 
 export const mdxFeature: FeaturedContainerPropsRequired = {
@@ -17,7 +16,6 @@ export const mdxFeature: FeaturedContainerPropsRequired = {
                         "takes all of the simplicity of markdown and extends it to support React components directly in your notes. Plots, modals, whiteboards, and more are right at your fingertips, in a language that anyone can learn in a single day."
                     }
                 </div>
-                <Hint>Click the image to view the output.</Hint>
             </div>
         );
     },

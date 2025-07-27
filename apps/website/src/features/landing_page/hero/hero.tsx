@@ -68,7 +68,7 @@ const HeroSection = () => {
                     >
                         Built with <span className="text-yellow-500">Rust</span> for maximum
                         performance. Featuring AI-powered RAG, vector databases,
-                        bibliography management, and seamless integration with your research
+                        bibliography management, and seamless integration with your academic
                         workflow.
                     </motion.span>
                 </div>

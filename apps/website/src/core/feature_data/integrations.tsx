@@ -29,17 +29,9 @@ export const integrationsFeature: FeaturedContainerPropsRequired = {
         return (
             <FeatureDescContainer>
                 <span>
-                    With{" "}
-                    <span
-                        className={
-                            "underline decoration-2 underline-offset-4 decoration-yellow-400"
-                        }
-                    >
-                        day 1
-                    </span>{" "}
-                    support for integration with Google Calendar and Jupyter and more
-                    external integrations planned for the near future, integrating Fluster
-                    with your existing workflow should be painless.
+                    With support for integration with Google Calendar and Jupyter with
+                    more external integrations planned for the near future, integrating
+                    Fluster with your existing workflow is painless.
                 </span>
                 <div
                     className={clsx(

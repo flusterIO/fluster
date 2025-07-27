@@ -6,6 +6,8 @@ import corePluginImage5 from "../../../../public/assets/blog/screenshots/slidesh
 import corePluginImage6 from "../../../../public/assets/blog/screenshots/slideshow/6.png";
 import corePluginImage7 from "../../../../public/assets/blog/screenshots/slideshow/7.png";
 import corePluginImage8 from "../../../../public/assets/blog/screenshots/slideshow/8.png";
+import corePluginImage9 from "../../../../public/assets/blog/screenshots/slideshow/9.png";
+import corePluginImage10 from "../../../../public/assets/blog/screenshots/slideshow/10.png";
 import { SlideShowImage } from "#/features/image_carousel";
 
 export const slideShowScreenshots: SlideShowImage[] = [
@@ -16,7 +18,10 @@ export const slideShowScreenshots: SlideShowImage[] = [
         src: corePluginImage5,
     },
     {
-        src: corePluginImage8,
+        src: corePluginImage9,
+    },
+    {
+        src: corePluginImage10,
     },
     {
         src: corePluginImage1,
@@ -29,6 +34,9 @@ export const slideShowScreenshots: SlideShowImage[] = [
     },
     {
         src: corePluginImage4,
+    },
+    {
+        src: corePluginImage8,
     },
     {
         src: corePluginImage7,
