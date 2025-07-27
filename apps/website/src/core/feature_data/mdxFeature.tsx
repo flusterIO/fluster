@@ -1,9 +1,8 @@
 "use client";
-import mdxScreenshot from "../../../assets/screenshots/codeOutputPairs/differentiation/code.png";
-import mdxScreenshotOutput from "./featureAssets/mdxScreenshotOutput.png";
-import { ImageCarousel } from "#/features/image_carousel";
+import splitViewImg from "../../../public/assets/blog/screenshots/splitview.png";
 import { FeaturedContainerPropsRequired } from "#/features/landing_page/sections/feature_section/types";
 import { Hint } from "../components/hint";
+import Image from "next/image";
 
 export const mdxFeature: FeaturedContainerPropsRequired = {
     label: "Write in MDX",
@@ -24,17 +23,19 @@ export const mdxFeature: FeaturedContainerPropsRequired = {
     },
     component: () => {
         return (
-            <ImageCarousel
-                images={[
-                    {
-                        src: mdxScreenshot,
-                        alt: "MDX Code",
-                    },
-                    {
-                        src: mdxScreenshotOutput,
-                        alt: "MDX Output",
-                    },
-                ]}
+            <Image
+                src={splitViewImg}
+                alt="Fluster mdx & code editor split view"
+                /* images={[ */
+                /*     { */
+                /*         src: mdxScreenshot, */
+                /*         alt: "MDX Code", */
+                /*     }, */
+                /*     { */
+                /*         src: mdxScreenshotOutput, */
+                /*         alt: "MDX Output", */
+                /*     }, */
+                /* ]} */
                 className={"w-full h-auto min-h-[40vh]"}
             />
         );

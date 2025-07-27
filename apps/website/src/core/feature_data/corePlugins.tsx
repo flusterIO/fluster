@@ -14,10 +14,16 @@ export const corePluginsFeature: FeaturedContainerPropsRequired = {
             <FeatureDescContainer>
                 <span>
                     {
-                        "Fluster was built by a single developer with a background in physics to handle his own research after becoming frustrated with other options. There's out of the box support for equations, snippets, bibliography management, task lists, whiteboards, and much,"
+                        "Fluster was built by a single developer with a background in physics to handle his own research after becoming frustrated with other options. There's out of the box support for equations, snippets, bibliography management, task lists, whiteboards, and much, "
                     }
                     <em>much</em> more.
                 </span>
+                <div className="h-fit w-fit">
+                    <span className="text-hint text-sm font-semibold mr-2">Note:</span>
+                    <span className="text-sm">
+                        AI chat was generted completely offline.
+                    </span>
+                </div>
             </FeatureDescContainer>
         );
     },

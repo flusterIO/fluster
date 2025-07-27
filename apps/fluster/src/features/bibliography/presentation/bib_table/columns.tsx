@@ -24,6 +24,9 @@ export const bibTableColumns: ColumnDef<BibEntryParsed>[] = [
                     checked={table.getIsAllPageRowsSelected()}
                     onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
                     aria-label="Select all"
+                    onClick={(e) => {
+                        e.stopPropagation();
+                    }}
                 />
             </div>
         ),
@@ -32,6 +35,9 @@ export const bibTableColumns: ColumnDef<BibEntryParsed>[] = [
                 checked={row.getIsSelected()}
                 onCheckedChange={(value) => row.toggleSelected(!!value)}
                 aria-label="Select row"
+                onClick={(e) => {
+                    e.stopPropagation();
+                }}
             />
         ),
         enableSorting: false,

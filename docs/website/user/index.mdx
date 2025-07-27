@@ -5,31 +5,39 @@ title: User Documentation
 
 Fluster aims to be an accessible presentation layer for whatever you need to jot down, organize and reference later. To accomplish this, Fluster relies on `.mdx` as the most commonly used input. [Mdx](https://mdxjs.com) works as a superset of markdown, allowing all of the familiar markdown features with the added support for React components.
 
-Fluster then embeds this React app in a Rust powered tauri application, stores your notes in a local vector database and uses (for now, local only) AI to provide you with insights into your data that no other app offers.
+Fluster then embeds this React app in a Rust powered tauri application, stores your notes in a local vector database and uses (for now, local only) AI to provide you with insights into your data without ever contacting an outside service.
 
 
 ## First Steps
 
-First, continue to our [downloads page](/downloads). This will install the core Fluster application, but Fluster will in turn install the models that it requires locally when you run Fluster for the first time.
+> **Note**: If you're on mac, you'll have to open your system settings and white list Fluster in the privacy tab. This is only because I'm still homeless and I can't afford an Apple developer license.
+
+First, continue to our [downloads page](https://github.com/flusterIO/fluster/releases) and use the table to select the appropriate file for your operating system. This will download the core Fluster application, but Fluster will in turn install the models that it requires locally when you run Fluster for the first time.
 
 During this onboarding process, a screen should be presented asking among other things where you plan to keep your notes. For portability, Fluster insists that you keep all of your notes within a single parent directory, but notes can be organized within this directory however you like, including within deeply nested folders.
 
 ### Create your first note
 
-<Hint>
-Fluster does provide a built in code editor with some additional features specific to the functionality of Fluster, but at the time of release _new_ notes must be created manually.
-</Hint>
+Creating a note couldn't be simpler! Just create a file with the `.mdx` extension anywhere within the directory you provided to Fluster, and Fluster will find this note depending on the sync method used since this file was created. The following table demonstrates the type of syncing required for each search feature.
 
-To create a note, you can use any code or text editor you like. Just create a file with the `.mdx` extension anywhere within the directory you provided to Fluster.
+| Search Type | Required Sync |
+| ----------- | ------------- |
+| Semantic | Sync With AI |
+| Text based (traditional search) | Sync without AI |
+| File System based search | No sync required |
+
+> As is covered in the embedded documentation, the sync 'without AI' method was created to work around the incredible demanding and time consuming task generating database vectors can be on personal hardware. Syncing with AI can take upwards of 15 minutes, while syncing without AI can be ran in a few seconds even for hundreds of notes.
 
 ### Front Matter
 
 Mdx uses a `yaml` like syntax to define what is known as _front matter_. You can read more about the specific front matter fields [here](/docs/user/front_matter).
 
-To define your own front matter, the title of your note in this case, start your note with:
+To define your note's front matter, the title of your note in this case, start your note with:
 
 ```mdx
 ---
 title: "My title"
 ---
 ```
+
+It is the 3 `---` characters that tell mdx to interpret this block as yaml, which is then used by Fluster for a variety of tasks. The fields that front matter supports will grow considerably as the customizability of Fluster expands, and I hope these front matter fields can be another tool for user's to get the most from Fluster.
