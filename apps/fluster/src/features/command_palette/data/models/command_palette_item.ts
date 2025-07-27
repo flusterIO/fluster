@@ -4,8 +4,8 @@ import { CommandPaletteAnyEntry } from "./command_palette_any_entry";
 export type InvokeFunc = (nav: NavigateFunction) => Promise<void>;
 
 export abstract class CommandPaletteItem extends CommandPaletteAnyEntry {
-    constructor(label: string, id: string) {
-        super(label, id);
+    constructor(label: string, id: string, asHtml: boolean = false) {
+        super(label, id, asHtml);
     }
 
     abstract filterByLocation(location: Location): boolean;
@@ -19,9 +19,10 @@ export class GeneralCommandPaletteItem extends CommandPaletteItem {
         label: string,
         id: string,
         invoke: InvokeFunc,
-        onCmdEnter?: InvokeFunc
+        onCmdEnter?: InvokeFunc,
+        asHtml: boolean = false
     ) {
-        super(label, id);
+        super(label, id, asHtml);
         this.onInvoke = invoke;
         this.onCmdEnter = onCmdEnter;
     }

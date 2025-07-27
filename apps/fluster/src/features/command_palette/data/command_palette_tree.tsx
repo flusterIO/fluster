@@ -24,6 +24,7 @@ import { AppRoutes, showToast } from "@fluster.io/dev";
 import { ReactNode } from "react";
 import { Location } from "react-router";
 import { type BundledLanguage } from "shiki";
+import { CitationsCommandPaletteRoot } from "./tree/citations";
 
 export class CommandPaletteRoot extends CommandPaletteCategory {
     constructor() {
@@ -90,6 +91,7 @@ export class CommandPaletteRoot extends CommandPaletteCategory {
             ),
             new NotesCommandPaletteRoot(),
             new PdfFilesCommandPaletteRoot(),
+            new CitationsCommandPaletteRoot(),
             new IpynbFilesCommandPaletteRoot(),
             new MdxFilesCommandPaletteRoot(),
             new TaskListsCommandPaletteRoot(),

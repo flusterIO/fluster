@@ -41,6 +41,7 @@ const CommandPaletteResults = (): ReactNode => {
                         focused={state.focusedIndex === i}
                         key={`cmd-plt-${r.id}`}
                         item={r}
+                        asHtml={r.asHtml as boolean}
                     />
                 );
             })}

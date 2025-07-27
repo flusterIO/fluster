@@ -1,4 +1,10 @@
-import React, { useEffect, useRef, type ReactNode } from "react";
+import React, {
+    HTMLProps,
+    useEffect,
+    useMemo,
+    useRef,
+    type ReactNode,
+} from "react";
 import { CommandPaletteAnyEntry } from "../data/models/command_palette_any_entry";
 import { useCommandPaletteDispatch } from "../state/command_palette_provider";
 import { CommandPaletteCategory } from "../data/models/command_palette_category";
@@ -10,11 +16,14 @@ import { cn } from "@fluster.io/dev";
 interface CommandPaletteItemProps {
     item: CommandPaletteAnyEntry;
     focused: boolean;
+    /// If true, set the body as innerHTML.
+    asHtml?: boolean;
 }
 
 const CommandPaletteItem = ({
     item,
     focused,
+    asHtml,
 }: CommandPaletteItemProps): ReactNode => {
     const ref = useRef<HTMLDivElement>(null!);
     const dispatch = useCommandPaletteDispatch();
@@ -32,6 +41,19 @@ const CommandPaletteItem = ({
             })
         );
     };
+
+    const props = useMemo(() => {
+        const _props: HTMLProps<HTMLDivElement> = {};
+
+        if (asHtml) {
+            _props.dangerouslySetInnerHTML = {
+                __html: item.label,
+            };
+        } else {
+            _props.children = <InlineMdxContent abortIfNoMath mdx={item.label} />;
+        }
+        return _props;
+    }, [asHtml]);
 
     return (
         <div
@@ -52,9 +74,8 @@ const CommandPaletteItem = ({
                     item.invoke();
                 }
             }}
-        >
-            <InlineMdxContent abortIfNoMath mdx={item.label} />
-        </div>
+            {...props}
+        ></div>
     );
 };
 
