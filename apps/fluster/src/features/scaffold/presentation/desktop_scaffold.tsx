@@ -10,6 +10,8 @@ import MathjaxScript from "#/math/state/mathjax_script";
 import { useDevelopmentLogger } from "@/state/use_development_state_logger";
 import { DarkModeObserver } from "../state/dark_mode_observer";
 import { EquationDetailModal } from "#/math/presentation/equation_detail_modal";
+import { BibEntryDetailSheet } from "#/bibliography/presentation/bib_entry_detail_pane";
+import { BodyPortal } from "@/components/body_portal";
 
 const DesktopScaffold = (): ReactNode => {
     useDevelopmentLogger();
@@ -23,6 +25,9 @@ const DesktopScaffold = (): ReactNode => {
             </div>
             <EquationDetailModal />
             <ToastNotificationList />
+            <BodyPortal>
+                <BibEntryDetailSheet />
+            </BodyPortal>
             <CommandPaletteProvider>
                 <CommandPalette />
             </CommandPaletteProvider>

@@ -2,8 +2,6 @@ import { H4 } from "@fluster.io/dev";
 import { commands, MdxNoteGroup } from "@/lib/bindings";
 import { BibliographyCitation, cn } from "@fluster.io/dev";
 import React, { useEffect, useState, type ReactNode } from "react";
-import { BibEntryDetailSheet } from "../bib_entry_detail_pane";
-import { BodyPortal } from "@/components/body_portal";
 
 interface MdxNoteBibliographyByContentProps {
     mdx: string;
@@ -15,7 +13,6 @@ interface MdxNoteBibliographyByContentProps {
 
 export const MdxNoteBibliographyByContent = ({
     mdx,
-    noBibSheet,
     classes = {},
 }: MdxNoteBibliographyByContentProps): ReactNode => {
     const [citations, setCitations] = useState<MdxNoteGroup["citations"] | null>(
@@ -47,11 +44,6 @@ export const MdxNoteBibliographyByContent = ({
                     return <BibliographyCitation key={c.id} citation={c} idx={i} />;
                 })}
             </div>
-            {!noBibSheet && (
-                <BodyPortal>
-                    <BibEntryDetailSheet />
-                </BodyPortal>
-            )}
         </>
     );
 };

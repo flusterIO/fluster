@@ -4,8 +4,6 @@ import PanelContainer from "@/components/util/panel_container";
 import { BibTableProvider } from "../state/bib_table_provider";
 import BibTableTitleBar from "./bib_table/top_title_bar";
 import { BibTableFilterRow } from "./bib_table/bib_table_filter_row";
-import { BibEntryDetailSheet } from "./bib_entry_detail_pane";
-import { BodyPortal } from "@/components/body_portal";
 
 const BibliographyPage = (): ReactNode => {
     return (
@@ -18,9 +16,6 @@ const BibliographyPage = (): ReactNode => {
                     <BibTableTitleBar />
                     <BibTableFilterRow />
                     <BibliographyTable />
-                    <BodyPortal>
-                        <BibEntryDetailSheet />
-                    </BodyPortal>
                 </div>
             </BibTableProvider>
         </PanelContainer>

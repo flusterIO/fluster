@@ -1,10 +1,11 @@
 import { CommandPaletteAnyEntry } from "../models/command_palette_any_entry";
 import { CommandPaletteCategory } from "../models/command_palette_category";
 import { GeneralCommandPaletteItem } from "../models/command_palette_item";
-import { ReactNode } from "react";
+import React, { ReactNode } from "react";
 import { AppRoutes, showToast } from "@fluster.io/dev";
 import { commands } from "@/lib/bindings";
 import { getMaxPagination } from "@/lib/max_pagination";
+import { showBibEntryDetailsById } from "#/bibliography/data/methods/show_bib_entry_details";
 
 export class CitationsCommandPaletteRoot extends CommandPaletteCategory {
     constructor() {
@@ -14,7 +15,11 @@ export class CitationsCommandPaletteRoot extends CommandPaletteCategory {
         return true;
     }
     bottomBar(): ReactNode {
-        return null;
+        return (
+            <div className="text-sm text-muted-foreground w-full flex flex-row justify-end items-center">
+                cmd+Enter to open details panel
+            </div>
+        );
     }
     async getItems(): Promise<CommandPaletteAnyEntry[]> {
         const items = await commands.getBibEntries(null, getMaxPagination());
@@ -29,7 +34,10 @@ export class CitationsCommandPaletteRoot extends CommandPaletteCategory {
                         sp.set("by_bib", d.id);
                         nav(`${AppRoutes.search}?${sp.toString()}`);
                     },
-                    undefined,
+                    async () => {
+                        console.log("d.id: ", d.id);
+                        showBibEntryDetailsById(d.id);
+                    },
                     true
                 );
             });

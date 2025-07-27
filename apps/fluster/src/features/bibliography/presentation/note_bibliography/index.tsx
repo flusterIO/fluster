@@ -2,8 +2,6 @@ import { H4 } from "@fluster.io/dev";
 import { MdxNoteGroup } from "@/lib/bindings";
 import { BibliographyCitation } from "@fluster.io/dev";
 import React, { type ReactNode } from "react";
-import { BibEntryDetailSheet } from "../bib_entry_detail_pane";
-import { BodyPortal } from "@/components/body_portal";
 
 interface MdxNoteBibliographyProps {
     citations: MdxNoteGroup["citations"];
@@ -23,9 +21,6 @@ export const MdxNoteBibliography = ({
                     return <BibliographyCitation key={c.id} citation={c} idx={i} />;
                 })}
             </div>
-            <BodyPortal>
-                <BibEntryDetailSheet />
-            </BodyPortal>
         </>
     );
 };
