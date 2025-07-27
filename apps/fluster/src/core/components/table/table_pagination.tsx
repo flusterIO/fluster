@@ -34,21 +34,24 @@ export function DataTablePagination<TData>({
     return (
         <div
             className={cn(
-                "w-full flex items-center justify-between px-2",
+                "w-full @container/table_footer flex items-center justify-between px-2",
                 classes.container
             )}
         >
             {!hideSelectedCount ? (
-                <div className="text-muted-foreground flex-1 text-sm">
-                    {table.getFilteredSelectedRowModel().rows.length} of{" "}
-                    {table.getFilteredRowModel().rows.length} row(s) selected.
-                </div>
+                <>
+                    <div className="hidden text-muted-foreground @[768px]/table_footer:inline-block flex-1 text-sm">
+                        {table.getFilteredSelectedRowModel().rows.length} of{" "}
+                        {table.getFilteredRowModel().rows.length} row(s) selected.
+                    </div>
+                    <div className="inline-block @[768px]/table_footer:hidden" />
+                </>
             ) : (
                 <div />
             )}
             <div className="flex items-center space-x-6 lg:space-x-8">
                 {!hidePerPage ? (
-                    <div className="flex items-center space-x-2">
+                    <div className="hidden items-center space-x-2 @[450px]/table_footer:flex">
                         <p className="text-sm font-medium">Rows per page</p>
                         <Select
                             value={`${table.getState().pagination.pageSize}`}
