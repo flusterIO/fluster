@@ -35,7 +35,6 @@
     --input: 217.2 32.6% 17.5%;
     --ring: 224.3 76.3% 48%;
     --general-link-color: #1e90ff;
-    --hint: 120 100% 50%;
     // Fluster specfic color variables. This is not the whole set, but just what's required for the website.
     --fluster-hint: 120 100% 50%;
   }
@@ -66,8 +65,8 @@
   --color-border: hsl(var(--border));
   --color-input: hsl(var(--input));
   --color-ring: hsl(var(--ring));
-  --color-hint: hsl(var(--hint));
   --color-general-link-color: hsl(var(--general-link-color));
+  --color-hint: hsl(var(--fluster-hint));
   --color-fluster-hint: hsl(var(--fluster-hint));
 }
 

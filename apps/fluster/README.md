@@ -1,5 +1,7 @@
 # Fluster
 
+> If you are upgrading prior to version 1.x.x, you may have to clear your database on your settings page to trigger a re-initialization of your database as models continue to evolve as we get closer to a version 1 of Fluster.
+
 Fluster is your brain's free & open source presentation layer.
 
 Powered by Rust, Fluster offers unmatched performance, integrated AI and a vector database, a bibliography manager, a snippets database, a user defined dictionary and more.
@@ -10,7 +12,7 @@ Fluster aims to be more than just another markdown note taking app, and instead 
 
 After leaving software to pursue a promising theory related to my formal education in physics & astrophysics I became homeless and have been for more than 3 years. The model is rock solid with incredible potential to replace general relativity, but that's neither here nor there. Because of my living situation, I'm forced to work without WIFI, and usually with limited battery power. Because of this, I'm focusing my efforts on what will be part of an initial beta. Under normal circumstances this app would remain private for an additional month or two while the final 20% is wrapped up, but due to my living situation I've made the decision to release this app early and to build out the rest in public.
 
-After migrating this app from a pure typescript application that I originally built for [my own academic pursuits](https://ulld.vercel.app/myWork), some of the functionality is missing and will likely be absent in the first release. Please have patience; the core of the additional features are in place, it's just a matter of connecting the dots... and please consider supporting this application if you can. Every little bit helps when you're sleeping in a car with 180,000 miles on it in 95° heat. If you're really feeling generous, consider sharing this application or the [modified model of relativity](https://ulld.vercel.app/myWork) that inspired it.
+After migrating this app from a browser based typescript application that I originally built for [my own academic pursuits](https://ulld.vercel.app/myWork), some of the functionality is missing. All of the functionality present in the initial browser based version of Fluster will be present in the native Rust based version by August.
 
 ## Getting Started
 

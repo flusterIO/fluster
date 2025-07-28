@@ -10,6 +10,7 @@ import { swipeConfidenceThreshold, swipePower } from "#/core/utils/swipe_utils";
 import { cn } from "#/core/utils/cn";
 
 const Image = motion.create(NextImage);
+
 export type SlideShowImage = {
     src: StaticImageData;
     className?: string;

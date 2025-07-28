@@ -10,7 +10,7 @@ interface HeroBackgroundProps {
 export const HeroBackground = (props: HeroBackgroundProps): ReactNode => {
     const [scrollPortion, setScrollPortion] = useState(1);
     const handleScroll = (): void => {
-        setScrollPortion(1 - (window.scrollY / window.innerHeight) * 2);
+        setScrollPortion(1 - window.scrollY / window.innerHeight);
     };
     useEffect(() => {
         window.addEventListener("scroll", handleScroll);
