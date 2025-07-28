@@ -15,6 +15,7 @@ use crate::features::dictionary::dictionary_entry_parser::DictionaryEntryMdxPars
 use crate::features::math::data::equation_entity::EquationEntity;
 use crate::features::math::data::equation_model::EquationModel;
 use crate::features::math::data::equation_tag_mdx_parser::EquationTagMdxParser;
+use crate::features::mdx::actions::get_toc::get_toc_from_markdown;
 use chrono::Utc;
 use filetime::FileTime;
 use gray_matter::{engine::YAML, Matter};
@@ -22,6 +23,7 @@ use serde::{Deserialize, Serialize};
 use specta::Type;
 use std::fs;
 use std::fs::Metadata;
+use std::ops::Index;
 
 #[derive(Debug, Clone, Serialize, Deserialize, Type)]
 pub struct MdxNoteGroup {
@@ -98,6 +100,14 @@ impl MdxNoteGroup {
         //     println!("Eq: {:?}", eq.ctime);
         //     eq.ctime = parse_date(&eq.ctime).unwrap().to_string();
         // }
+        let mut front_matter = FrontMatterModel::from_gray_matter(result.data, &file_path);
+
+        if front_matter.title.is_empty() {
+            let toc = get_toc_from_markdown(post_note_link_parse.new_content.clone()).await?;
+            if !toc.is_empty() {
+                front_matter.title = toc.index(0).body.clone();
+            }
+        }
         // -- End Parsers --
         Ok(MdxNoteGroup {
             dictionary_entries: post_dictionary_parse
@@ -110,7 +120,7 @@ impl MdxNoteGroup {
                     ctime: x.ctime.clone(),
                 })
                 .collect(),
-            front_matter: FrontMatterModel::from_gray_matter(result.data, &file_path),
+            front_matter,
             citations,
             mdx: MdxNoteModel {
                 raw_body: post_note_link_parse.new_content,

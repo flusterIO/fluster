@@ -1,16 +1,16 @@
 import React, {
-    ForwardedRef,
-    forwardRef,
-    KeyboardEventHandler,
-    RefObject,
-    useEffect,
-    useState,
-    type ReactNode,
+  ForwardedRef,
+  forwardRef,
+  KeyboardEventHandler,
+  RefObject,
+  useEffect,
+  useState,
+  type ReactNode,
 } from "react";
 import {
-    CommandPaletteActionType,
-    useCommandPaletteContext,
-    useCommandPaletteDispatch,
+  CommandPaletteActionType,
+  useCommandPaletteContext,
+  useCommandPaletteDispatch,
 } from "../state/command_palette_provider";
 import { CommandPaletteCategory } from "../data/models/command_palette_category";
 import { CommandPaletteItem as CommandPaletteItemAbstract } from "../data/models/command_palette_item.ts";
@@ -20,176 +20,166 @@ import { NavigateFunction, useLocation, useNavigate } from "react-router";
 import { useEventListener } from "@fluster.io/dev";
 
 declare global {
-    interface WindowEventMap {
-        "reset-command-palette-input": CustomEvent<object>;
-    }
+  interface WindowEventMap {
+    "reset-command-palette-input": CustomEvent<object>;
+  }
 }
 
 const CommandPaletteInput = forwardRef(
-    (
-        {
-            isPreview,
-        }: {
-            isPreview: boolean;
-        },
-        ref: ForwardedRef<HTMLInputElement>
-    ): ReactNode => {
-        const [value, setValue] = useState("");
-        const [hasFocused, setHasFocused] = useState(false);
-        const state = useCommandPaletteContext();
-        const dispatch = useCommandPaletteDispatch();
-        const location = useLocation();
-        const nav = useNavigate();
+  (
+    {
+      isPreview,
+    }: {
+      isPreview: boolean;
+    },
+    ref: ForwardedRef<HTMLInputElement>
+  ): ReactNode => {
+    const [value, setValue] = useState("");
+    const [hasFocused, setHasFocused] = useState(false);
+    const state = useCommandPaletteContext();
+    const dispatch = useCommandPaletteDispatch();
+    const location = useLocation();
+    const nav = useNavigate();
 
-        useEventListener("reset-command-palette-input", () => setValue(""));
+    useEventListener("reset-command-palette-input", () => setValue(""));
 
-        useEffect(() => {
-            if (state.navStack.length > 0 && !hasFocused) {
-                const em =
-                    (ref as RefObject<HTMLInputElement>)?.current ??
-                    document.getElementById("searchCommandInput");
-                if (em) {
-                    em.focus();
-                    setHasFocused(true);
-                }
-            } else if (state.navStack.length === 0) {
-                setHasFocused(false);
-            }
-            /* eslint-disable-next-line  --  */
-        }, [state.navStack.length]);
+    useEffect(() => {
+      if (state.navStack.length > 0 && !hasFocused) {
+        const em =
+          (ref as RefObject<HTMLInputElement>)?.current ??
+          document.getElementById("searchCommandInput");
+        if (em) {
+          em.focus();
+          setHasFocused(true);
+        }
+      } else if (state.navStack.length === 0) {
+        setHasFocused(false);
+      }
+      /* eslint-disable-next-line  --  */
+    }, [state.navStack.length]);
 
-        useEffect(() => {
-            const val = value.toLowerCase();
-            console.log("state.availableItems: ", {
-                type: CommandPaletteActionType.setFilteredItems,
-                payload:
-                    value === ""
-                        ? state.availableItems
-                        : state.availableItems.filter((f) =>
-                            f.label.toLowerCase().includes(val)
-                        ),
-            });
-            dispatch({
-                type: CommandPaletteActionType.setFilteredItems,
-                payload:
-                    value === ""
-                        ? state.availableItems
-                        : state.availableItems.filter((f) =>
-                            f.label.toLowerCase().includes(val)
-                        ),
-            });
-            /* eslint-disable-next-line  --  */
-        }, [value]);
+    useEffect(() => {
+      const val = value.toLowerCase();
+      dispatch({
+        type: CommandPaletteActionType.setFilteredItems,
+        payload:
+          value === ""
+            ? state.availableItems
+            : state.availableItems.filter((f) =>
+                f.label.toLowerCase().includes(val)
+              ),
+      });
+      /* eslint-disable-next-line  --  */
+    }, [value]);
 
-        const scrollPreview = (dir: -1 | 1): void => {
-            const em = document
-                .getElementById("command-palette-preview")
-                ?.querySelector("div");
-            console.log("em: ", em);
-            if (!em) {
-                return;
-            }
-            em.scroll({
-                top: em.scrollTop + em.getBoundingClientRect().height * 0.3 * dir,
-            });
-        };
+    const scrollPreview = (dir: -1 | 1): void => {
+      const em = document
+        .getElementById("command-palette-preview")
+        ?.querySelector("div");
+      if (!em) {
+        return;
+      }
+      em.scroll({
+        top: em.scrollTop + em.getBoundingClientRect().height * 0.3 * dir,
+      });
+    };
 
-        const handleKeyDown: KeyboardEventHandler<HTMLInputElement> = (e): void => {
-            if (e.key === "Backspace" && value.length === 0) {
-                e.preventDefault();
-                e.stopPropagation();
-                dispatch({
-                    type: CommandPaletteActionType.popCommandPaletteCategory,
-                });
-            } else if (e.key === "Tab") {
-                e.preventDefault();
-                e.stopPropagation();
-                if (e.shiftKey) {
-                    dispatch({
-                        type: CommandPaletteActionType.decrementFocusIndex,
-                    });
-                } else {
-                    dispatch({
-                        type: CommandPaletteActionType.incrementFocusIndex,
-                    });
-                }
-            } else if (isPreview && e.altKey && e.code === "KeyJ") {
-                e.preventDefault();
-                e.stopPropagation();
-                scrollPreview(1);
-            } else if (isPreview && e.altKey && e.code === "KeyK") {
-                e.preventDefault();
-                e.stopPropagation();
-                scrollPreview(-1);
-            } else if (e.key === "ArrowDown") {
-                if (e.altKey && isPreview) {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    scrollPreview(1);
-                } else {
-                    dispatch({
-                        type: CommandPaletteActionType.incrementFocusIndex,
-                    });
-                }
-            } else if (e.key === "ArrowUp") {
-                if (e.altKey && isPreview) {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    scrollPreview(-1);
-                } else {
-                    dispatch({
-                        type: CommandPaletteActionType.decrementFocusIndex,
-                    });
-                }
-            } else if (e.key === "Enter") {
-                const item = state.filteredItems[state.focusedIndex];
-                if (e.metaKey && "onCmdEnter" in item) {
-                    (item.onCmdEnter as (nav: NavigateFunction) => Promise<void>)(nav);
-                    dispatch({
-                        type: CommandPaletteActionType.setCommandPaletteOpen,
-                        payload: false,
-                    });
-                } else if (item instanceof CommandPaletteCategory) {
-                    appendCommandPaletteCategory(item, location, dispatch);
-                    setValue("");
-                } else if (
-                    item instanceof CommandPaletteItemAbstract ||
-                    "invoke" in item
-                ) {
-                    /* @ts-expect-error -- This is the only type of invoke function available. I'll clean this up later. */
-                    item.invoke(nav);
-                    dispatch({
-                        type: CommandPaletteActionType.setCommandPaletteOpen,
-                        payload: false,
-                    });
-                }
-            } else if (e.key === "Escape") {
-                dispatch({
-                    type: CommandPaletteActionType.setCommandPaletteOpen,
-                    payload: false,
-                });
-            }
-        };
+    const handleKeyDown: KeyboardEventHandler<HTMLInputElement> = (e): void => {
+      if (e.key === "Backspace" && value.length === 0) {
+        e.preventDefault();
+        e.stopPropagation();
+        dispatch({
+          type: CommandPaletteActionType.popCommandPaletteCategory,
+        });
+      } else if (e.key === "Tab") {
+        e.preventDefault();
+        e.stopPropagation();
+        if (e.shiftKey) {
+          dispatch({
+            type: CommandPaletteActionType.decrementFocusIndex,
+          });
+        } else {
+          dispatch({
+            type: CommandPaletteActionType.incrementFocusIndex,
+          });
+        }
+      } else if (isPreview && e.altKey && e.code === "KeyJ") {
+        e.preventDefault();
+        e.stopPropagation();
+        scrollPreview(1);
+      } else if (isPreview && e.altKey && e.code === "KeyK") {
+        e.preventDefault();
+        e.stopPropagation();
+        scrollPreview(-1);
+      } else if (e.key === "ArrowDown") {
+        if (e.altKey && isPreview) {
+          e.preventDefault();
+          e.stopPropagation();
+          scrollPreview(1);
+        } else {
+          dispatch({
+            type: CommandPaletteActionType.incrementFocusIndex,
+          });
+        }
+      } else if (e.key === "ArrowUp") {
+        if (e.altKey && isPreview) {
+          e.preventDefault();
+          e.stopPropagation();
+          scrollPreview(-1);
+        } else {
+          dispatch({
+            type: CommandPaletteActionType.decrementFocusIndex,
+          });
+        }
+      } else if (e.key === "Enter") {
+        const item = state.filteredItems[state.focusedIndex];
+        if (e.metaKey && "onCmdEnter" in item) {
+          (item.onCmdEnter as (nav: NavigateFunction) => Promise<void>)(nav);
+          dispatch({
+            type: CommandPaletteActionType.setCommandPaletteOpen,
+            payload: false,
+          });
+        } else if (item instanceof CommandPaletteCategory) {
+          appendCommandPaletteCategory(item, location, dispatch);
+          setValue("");
+        } else if (
+          item instanceof CommandPaletteItemAbstract ||
+          "invoke" in item
+        ) {
+          /* @ts-expect-error -- This is the only type of invoke function available. I'll clean this up later. */
+          item.invoke(nav);
+          dispatch({
+            type: CommandPaletteActionType.setCommandPaletteOpen,
+            payload: false,
+          });
+        }
+      } else if (e.key === "Escape") {
+        dispatch({
+          type: CommandPaletteActionType.setCommandPaletteOpen,
+          payload: false,
+        });
+      }
+    };
 
-        return (
-            <div className="w-full relative h-fit">
-                <SearchIcon className="absolute top-[50%] translate-y-[-50%] left-2 w-4 h-4" />
-                <input
-                    id="searchCommandInput"
-                    type="text"
-                    ref={ref}
-                    value={value}
-                    onChange={(e) => setValue(e.target.value)}
-                    onClick={(e) => {
-                        e.stopPropagation();
-                        e.preventDefault();
-                    }}
-                    className="w-full pr-2 py-2 pl-8 focus-visible:ring-transparent focus-visible:outline-none rounded-tr rounded-tl bg-popover text-foreground"
-                    onKeyDown={handleKeyDown}
-                />
-            </div>
-        );
-    }
+    return (
+      <div className="w-full relative h-fit">
+        <SearchIcon className="absolute top-[50%] translate-y-[-50%] left-2 w-4 h-4" />
+        <input
+          id="searchCommandInput"
+          type="text"
+          ref={ref}
+          value={value}
+          onChange={(e) => setValue(e.target.value)}
+          onClick={(e) => {
+            e.stopPropagation();
+            e.preventDefault();
+          }}
+          className="w-full pr-2 py-2 pl-8 focus-visible:ring-transparent focus-visible:outline-none rounded-tr rounded-tl bg-popover text-foreground"
+          onKeyDown={handleKeyDown}
+        />
+      </div>
+    );
+  }
 );
 
 CommandPaletteInput.displayName = "CommandPaletteInput";

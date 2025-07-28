@@ -67,14 +67,14 @@ impl MdxNoteEntity {
         pagination: &PaginationProps,
     ) -> FlusterResult<Vec<MdxNoteModel>> {
         let tbl = get_table(db, DatabaseTables::MdxNote).await?;
-        let offset = (pagination.per_page * (pagination.page_number - 1)) as usize;
+        let offset = (pagination.per_page * (pagination.page_number - 1));
         let items_batch = tbl
             .vector_search(query.vector())
             .map_err(|e| {
                 println!("Error: {:?}", e);
                 FlusterError::FailToGetSemanticResults
             })?
-            .limit(pagination.per_page as usize)
+            .limit(pagination.per_page)
             .offset(offset)
             .execute()
             .await

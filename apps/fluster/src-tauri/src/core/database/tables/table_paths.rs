@@ -78,4 +78,7 @@ pub enum DatabaseTables {
     KanbanBoardEntry,
     #[strum(to_string = "kanban_board_list")]
     KanbanBoardList,
+    // -- Whiteboard --
+    #[strum(to_string = "whiteboard")]
+    Whiteboard,
 }

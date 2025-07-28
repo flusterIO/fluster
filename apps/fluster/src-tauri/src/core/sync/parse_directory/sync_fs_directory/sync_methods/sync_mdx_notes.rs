@@ -1,3 +1,5 @@
+use std::ffi::OsStr;
+
 use crate::core::database::db::get_database;
 use crate::core::sync::parse_directory::sync_fs_directory::models::sync_filesystem_options::SyncFilesystemDirectoryOptions;
 use crate::core::types::errors::errors::FlusterResult;
@@ -32,7 +34,10 @@ pub async fn sync_mdx_filesystem_notes(opts: &SyncFilesystemDirectoryOptions) ->
                     // type issue while off wifi and unable to look at the docs. Remove this
                     // when you have time and an internet connection.
                     if let path = either_entry.unwrap().path() {
-                        if path.is_file() && path.extension() == Some("mdx".as_ref()) {
+                        let path_extension = path.extension().unwrap_or("--".as_ref());
+                        let fps: Vec<&OsStr> = vec!["md".as_ref(), "mdx".as_ref()];
+                        let is_file_type = fps.contains(&path_extension);
+                        if path.is_file() && is_file_type {
                             sender.send(path.to_str().unwrap().to_string()).unwrap();
                         }
                     }

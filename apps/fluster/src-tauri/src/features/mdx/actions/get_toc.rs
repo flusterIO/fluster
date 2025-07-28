@@ -5,8 +5,8 @@ use crate::core::types::errors::errors::{FlusterError, FlusterResult};
 
 #[derive(Serialize, Deserialize, Type)]
 pub struct TocEntry {
-    depth: u8,
-    body: String,
+    pub depth: u8,
+    pub body: String,
 }
 
 #[tauri::command]

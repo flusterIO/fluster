@@ -45,8 +45,8 @@ impl BookmarkEntity {
             Some(predicate_string) => tbl.query().only_if(predicate_string),
         };
         let items_batch = query
-            .limit(pagination.per_page as usize)
-            .offset((pagination.per_page * (pagination.page_number - 1)) as usize)
+            .limit(pagination.per_page)
+            .offset((pagination.per_page * (pagination.page_number - 1)))
             .execute()
             .await
             .map_err(|e| {

@@ -44,6 +44,7 @@ use crate::{
             task_entity::TaskEntity, task_list_entity::TaskListEntity,
             task_tag_entity::TaskTagEntity,
         },
+        whiteboard::data::whiteboard_entity::WhiteboardEntity,
     },
 };
 use arrow_schema::Schema;
@@ -251,6 +252,12 @@ pub async fn initialize_database() -> FlusterResult<()> {
         TableInitData {
             table: DatabaseTables::KanbanBoardList,
             entity: KanbanBoardListEntity::arrow_schema(),
+            set_indices: None,
+        },
+        // -- Whiteboard --
+        TableInitData {
+            table: DatabaseTables::Whiteboard,
+            entity: WhiteboardEntity::arrow_schema(),
             set_indices: None,
         },
     ];
