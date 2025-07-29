@@ -39,9 +39,11 @@ export const TextAreaInput = <T extends FieldValues>({
             render={({ field }) => {
                 return (
                     <FormItem className={cn("w-full max-w-[600px]", classes.formItem)}>
-                        <FormLabel className={classes.label}>{label}</FormLabel>
+                        <FormLabel className={cn("mb-0", classes.label)}>{label}</FormLabel>
                         <FormControl>
-                            <div className={cn("w-full max-w-[600px]", classes.container)}>
+                            <div
+                                className={cn("w-full max-w-[600px] mt-2", classes.container)}
+                            >
                                 <Textarea
                                     value={field.value}
                                     placeholder={placeholder}

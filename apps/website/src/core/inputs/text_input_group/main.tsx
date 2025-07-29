@@ -48,11 +48,11 @@ export const TextInputGroup = <T extends FieldValues>({
                         id={ids.formItem}
                         className={cn("w-full max-w-[600px]", classes.formItem)}
                     >
-                        <FormLabel>{label}</FormLabel>
+                        <FormLabel className="mb-0">{label}</FormLabel>
                         <FormControl>
                             <div
                                 id={ids.container}
-                                className={cn("w-full max-w-[600px]", classes.container)}
+                                className={cn("w-full max-w-[600px] mt-2", classes.container)}
                             >
                                 <Input
                                     {...inputProps}

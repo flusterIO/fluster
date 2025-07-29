@@ -58,7 +58,7 @@ export const GeneralSelectInput = <
             name={name}
             render={({ field }) => (
                 <FormItem className={classes.formItem}>
-                    <FormLabel className={classes.label}>{label}</FormLabel>
+                    <FormLabel className={cn("mb-0", classes.label)}>{label}</FormLabel>
                     <Select
                         value={field.value}
                         onValueChange={(val) => {
@@ -77,7 +77,7 @@ export const GeneralSelectInput = <
                         defaultValue={field.value}
                     >
                         <FormControl>
-                            <SelectTrigger className={classes.selectTrigger}>
+                            <SelectTrigger className={cn("mt-2", classes.selectTrigger)}>
                                 <SelectValue
                                     className={classes.selectValue}
                                     placeholder={placeholder}
