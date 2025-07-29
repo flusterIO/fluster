@@ -42,20 +42,16 @@ export const footerLinks: Record<FooterLinkKeys, LinkGroupItems> & {
     ],
     funding: [
         {
-            href: staticContent.links.sponsor,
+            href: staticContent.links.fund.paypalDonate,
             label: "Paypal",
         },
         {
-            href: staticContent.links.sponsor,
+            href: staticContent.links.fund.patreon,
             label: "Patreon",
         },
-        /* { */
-        /*     onClick: () => { */
-        /*         store.dispatch(showContactMeModal(true)); */
-        /*     }, */
-        /*     to: "", */
-        /*     noLink: true, */
-        /*     label: "Contact Me", */
-        /* }, */
+        {
+            href: staticContent.links.fund.github,
+            label: "Github",
+        },
     ],
 };

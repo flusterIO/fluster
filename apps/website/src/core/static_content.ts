@@ -19,7 +19,7 @@ export const staticContent = {
         fund: {
             paypalDonate: "https://www.paypal.com/ncp/payment/D6S6NP4AHJD6Y",
             patreon: "https://www.patreon.com/uhlittlelessdum/about",
-            github: "https://github.com/igloo1505/ulld",
+            github: "https://github.com/flusterIO",
         },
         docs: {
             internal: {

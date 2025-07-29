@@ -57,6 +57,13 @@ export const StoryOfFlusterSection = () => {
                 </p>
             </div>
             <PayPalLinkQr size={120} />
+
+            <p className="prose dark:prose-invert">
+                If you are hiring, consider taking a look at my resume available{" "}
+                <Link className="text-primary" href="/resume">
+                    here
+                </Link>
+            </p>
         </div>
     );
 };
