@@ -1,8 +1,9 @@
+import { KanbanCardModel } from "@/lib/bindings";
 import React, { type ReactNode } from "react";
 
 interface KanbanCardProps {
     /* item: KanbanListItem; */
-    item: null;
+    item: KanbanCardModel;
 }
 
 const KanbanCard = ({ item }: KanbanCardProps): ReactNode => {

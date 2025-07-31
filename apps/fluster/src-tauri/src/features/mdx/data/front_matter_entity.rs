@@ -149,7 +149,7 @@ impl FrontMatterEntity {
         pagination: &PaginationProps,
     ) -> FlusterResult<Vec<NoteSummary>> {
         let front_matter_table = get_table(db, DatabaseTables::FrontMatter).await?;
-        let offset = (pagination.per_page * (pagination.page_number - 1));
+        let offset = pagination.per_page * (pagination.page_number - 1);
         let items_batch = front_matter_table
             .query()
             .offset(offset)

@@ -23,6 +23,7 @@ export * from "./components/inputs/select/general_select/index";
 export * from "./embeddable_components/admonition/index";
 export * from "./embeddable_components/qr_code/index";
 export * from "./components/attention_getters/hint/index";
+export * from "./embeddable_components/layout/center/index"
 //     -- Academic --
 export * from "./embeddable_components/academic/abstract/index";
 //     -- Math --

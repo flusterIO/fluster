@@ -2,7 +2,7 @@ use serde::{Deserialize, Serialize};
 use specta::Type;
 
 #[derive(Serialize, Deserialize, Type)]
-pub struct KanbanBoardEntryModel {
+pub struct KanbanCardModel {
     pub id: String,
     pub label: String,
     pub desc: Option<String>,

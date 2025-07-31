@@ -41,6 +41,8 @@ export const useGlobalKeymap = () => {
                 entry.ctrl === e.ctrlKey &&
                 action !== undefined
             ) {
+                e.preventDefault();
+                e.stopPropagation();
                 action().catch(() => {
                     console.error(
                         `An error occurred while calling an action: ${entry_id}`

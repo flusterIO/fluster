@@ -78,7 +78,7 @@ impl FrontMatterTagEntity {
         predicate: Option<String>,
     ) -> FlusterResult<Vec<T>> {
         let tbl = get_table(db, FrontMatterTagEntity::table()).await?;
-        let offset = (pagination.per_page * (pagination.page_number - 1));
+        let offset = pagination.per_page * (pagination.page_number - 1);
         let mut q = tbl.query();
         if predicate.is_some() {
             q = q.only_if(predicate.unwrap());

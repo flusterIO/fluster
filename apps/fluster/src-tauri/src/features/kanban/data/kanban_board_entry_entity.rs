@@ -18,7 +18,7 @@ use crate::{
     features::search::types::PaginationProps,
 };
 
-use super::kanban_board_entry_model::KanbanBoardEntryModel;
+use super::kanban_board_entry_model::KanbanCardModel;
 
 pub struct KanbanBoardEntryEntity {}
 
@@ -35,7 +35,7 @@ impl KanbanBoardEntryEntity {
         db: &FlusterDb<'_>,
         predicate: &Option<String>,
         pagination: &PaginationProps,
-    ) -> FlusterResult<Vec<KanbanBoardEntryModel>> {
+    ) -> FlusterResult<Vec<KanbanCardModel>> {
         let tbl = get_table(db, DatabaseTables::KanbanBoardEntry).await?;
 
         let query = match predicate {
@@ -62,10 +62,10 @@ impl KanbanBoardEntryEntity {
             return Ok(Vec::new());
         }
 
-        let mut items: Vec<KanbanBoardEntryModel> = Vec::new();
+        let mut items: Vec<KanbanCardModel> = Vec::new();
 
         for batch in items_batch.iter() {
-            let data: Vec<KanbanBoardEntryModel> = from_record_batch(batch).map_err(|e| {
+            let data: Vec<KanbanCardModel> = from_record_batch(batch).map_err(|e| {
                 println!("Error: {:?}", e);
                 FlusterError::FailToSerialize
             })?;
@@ -75,7 +75,7 @@ impl KanbanBoardEntryEntity {
     }
     pub async fn save_many(
         db: &FlusterDb<'_>,
-        entries: &[KanbanBoardEntryModel],
+        entries: &[KanbanCardModel],
     ) -> FlusterResult<()> {
         let schema = KanbanBoardEntryEntity::arrow_schema();
         let tbl = get_table(db, DatabaseTables::KanbanBoardEntry).await?;
@@ -102,7 +102,7 @@ impl KanbanBoardEntryEntity {
     }
 }
 
-impl DbEntity<KanbanBoardEntryModel> for KanbanBoardEntryEntity {
+impl DbEntity<KanbanCardModel> for KanbanBoardEntryEntity {
     fn arrow_schema() -> std::sync::Arc<arrow_schema::Schema> {
         Arc::new(Schema::new(vec![
             Field::new("id", DataType::Utf8, false),
@@ -114,7 +114,7 @@ impl DbEntity<KanbanBoardEntryModel> for KanbanBoardEntryEntity {
     }
 
     fn to_record_batch(
-        item: &KanbanBoardEntryModel,
+        item: &KanbanCardModel,
         schema: std::sync::Arc<arrow_schema::Schema>,
     ) -> arrow_array::RecordBatch {
         let id = StringArray::from(vec![item.id.clone()]);

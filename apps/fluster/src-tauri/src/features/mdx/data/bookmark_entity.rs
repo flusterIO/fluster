@@ -46,7 +46,7 @@ impl BookmarkEntity {
         };
         let items_batch = query
             .limit(pagination.per_page)
-            .offset((pagination.per_page * (pagination.page_number - 1)))
+            .offset(pagination.per_page * (pagination.page_number - 1))
             .execute()
             .await
             .map_err(|e| {

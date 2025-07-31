@@ -1,5 +1,11 @@
 # @fluster.io/dev
 
+## 0.1.4
+
+### Patch Changes
+
+- Fix command palette bug on windows.
+
 ## 0.1.3
 
 ### Patch Changes

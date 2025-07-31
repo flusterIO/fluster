@@ -23,7 +23,7 @@ import SearchResultsPage from "#/search/presentation/search_results_page/index";
 import { SemanticSearchResultsPage } from "#/search/presentation/semantic_search_results_page";
 import { NotebookPage } from "#/jupyter/presentation/notebook_page";
 import { ConstantsPage } from "#/math/presentation/constants_page/constants_page";
-import { KanbanPage } from "#/kanban/presentation/kanban_list_page/kanban_page";
+import { KanbanBoardListPage } from "#/kanban/presentation/kanban_board_list_page/kanban_board_list_page";
 import { KanbanBoardPage } from "#/kanban/presentation/kanban_board_page";
 import { CodeEditorPage } from "#/editor/presentation/code_editor_page";
 
@@ -64,7 +64,7 @@ export const getBrowserRouter = () => {
                 },
                 {
                     path: AppRoutes.kanbanBoards,
-                    Component: KanbanPage,
+                    Component: KanbanBoardListPage,
                     loader: async ({ params }) => {
                         const res = await commands.getKanbanBoardList(null, {
                             page_number: (params.page

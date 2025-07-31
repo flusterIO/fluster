@@ -1,26 +1,12 @@
 {
     "name": "@fluster/plugin_template",
-    "version": "0.0.15",
+    "version": "0.0.16",
     "keywords": [
         "fluster",
         "plugin"
     ],
     "private": true,
-    "funding": [
-        {
-            "type": "paypal",
-            "url": "https://www.paypal.com/ncp/payment/D6S6NP4AHJD6Y"
-        },
-        {
-            "type": "patreon",
-            "url": "https://www.patreon.com/uhlittlelessdum/about"
-        },
-        {
-            "type": "github",
-            "url": "https://github.com/flusterIO/fluster"
-        }
-    ],
-    "author": "Andrew Iglinski <fluster.eyeoh@gmail.com>",
+    "author": "Allen Turing <a.turing@gmail.com>",
     "type": "module",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1"
