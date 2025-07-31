@@ -42,6 +42,8 @@ func init() {
 	rootCmd.AddCommand(setDistributedVersionCmd)
 	rootCmd.AddCommand(createCleanFeatureCmd)
 	rootCmd.AddCommand(noCheckBindingsFileCmd)
+	rootCmd.AddCommand(applyVersionToTauriCommand)
+	rootCmd.AddCommand(setLocalDependencySourceCommand)
 }
 
 // Execute adds all child commands to the root command and sets flags appropriately.

@@ -21,6 +21,12 @@ build_node: build_developer_typescript
 	cd ${FLUSTER_NATIVE_ROOT}/packages/fluster_ts; pnpm build
 test_rust:
 	cargo llvm-cov nextest --html
+tauri_version_match:
+	${FLUSTER_NATIVE_ROOT}/packages/fluster_internal_workspace/fluster_internal_workspace tauri_version_match
+local_deps_to_remote_version:
+	${FLUSTER_NATIVE_ROOT}/packages/fluster_internal_workspace/fluster_internal_workspace set_local_dependency_source version
+local_deps_to_workspace_version:
+	${FLUSTER_NATIVE_ROOT}/packages/fluster_internal_workspace/fluster_internal_workspace set_local_dependency_source
 build_go:
 	cd ${FLUSTER_NATIVE_ROOT}/packages/fluster_go/; go build
 	cd ${FLUSTER_NATIVE_ROOT}/packages/fluster_internal_workspace/; go build

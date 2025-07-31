@@ -53,6 +53,7 @@ export const sync = async (
             });
         }
     }
+    console.log(`Here...`);
     const res = await commands.syncLocalDatabase({
         dir_path: state.core.notesDirectory,
         bib_path: state.bib.bibPath,
@@ -60,6 +61,7 @@ export const sync = async (
         use_git_ignore: state.core.useGitIgnore,
         ...opts,
     });
+    console.log("res: ", res);
     if (res.status === "ok") {
         if (opts.showSuccessToast) {
             showToast({
@@ -69,7 +71,7 @@ export const sync = async (
                 variant: "Success",
             });
         }
-        window.dispatchEvent(new CustomEvent("database-sync-success", {}))
+        window.dispatchEvent(new CustomEvent("database-sync-success", {}));
         return true;
     } else {
         console.error(`An error occured while syncing your notes: `, res.error);

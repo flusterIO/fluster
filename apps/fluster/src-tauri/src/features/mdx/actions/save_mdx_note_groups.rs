@@ -1,3 +1,7 @@
+use std::str::FromStr;
+
+use chrono::Utc;
+
 use crate::{
     core::{
         models::taggable::{
@@ -30,6 +34,28 @@ use crate::{
     },
 };
 
+fn taggable_vec_exists(t: &[SharedTaggableModel], new_taggable: &SharedTaggableModel) -> bool {
+    for k in t {
+        if k.value == new_taggable.value {
+            return true;
+        }
+    }
+    false
+}
+
+// FIXME: Come back here and handle reformatting of the date here.
+fn reformat_date(d: &str) -> String {
+    // chrono::DateTime::<Utc>::from(value)
+    if let Ok(res) = chrono::DateTime::<Utc>::from_str(d) {
+        return res.timestamp_millis().to_string();
+    }
+    let parsed_time_stamp: Result<i64, _> = d.parse();
+    if parsed_time_stamp.is_ok() {
+        return format!("{}", parsed_time_stamp.unwrap());
+    }
+    "0".to_string()
+}
+
 pub async fn save_mdx_note_groups(
     db: &FlusterDb<'_>,
     groups: Vec<MdxNoteGroup>,
@@ -38,9 +64,33 @@ pub async fn save_mdx_note_groups(
     // Loop over each item and generate the proper joining tables.
     let mut equations: Vec<EquationModel> = Vec::new();
     let mut mdx_note_equations: Vec<MdxNoteEquationModel> = Vec::new();
-    let mut tags: Vec<SharedTaggableModel> = Vec::new();
-    let mut subjects: Vec<SharedTaggableModel> = Vec::new();
-    let mut topics: Vec<SharedTaggableModel> = Vec::new();
+    let mut tags: Vec<SharedTaggableModel> = TagEntity::get_many(db)
+        .await
+        .unwrap_or(Vec::new())
+        .iter()
+        .map(|x| SharedTaggableModel {
+            value: x.value.clone(),
+            ctime: reformat_date(&x.ctime),
+        })
+        .collect();
+    let mut subjects: Vec<SharedTaggableModel> = SubjectEntity::get_all(db)
+        .await
+        .unwrap_or(Vec::new())
+        .iter()
+        .map(|x| SharedTaggableModel {
+            value: x.value.clone(),
+            ctime: reformat_date(&x.ctime),
+        })
+        .collect();
+    let mut topics: Vec<SharedTaggableModel> = TopicEntity::get_all(db)
+        .await
+        .unwrap_or(Vec::new())
+        .iter()
+        .map(|x| SharedTaggableModel {
+            value: x.value.clone(),
+            ctime: reformat_date(&x.ctime),
+        })
+        .collect();
     let mut mdx_note_tags: Vec<MdxNoteTagModel> = Vec::new();
     let mut mdx_note_subjects: Vec<MdxNoteSubjectModel> = Vec::new();
     let mut mdx_note_topics: Vec<MdxNoteTopicModel> = Vec::new();
@@ -49,14 +99,8 @@ pub async fn save_mdx_note_groups(
     let mut mdx_note_dictionary_entries: Vec<MdxNoteDictionaryEntryModel> = Vec::new();
     let mut dictionary_entries: Vec<DictionaryEntryModel> = Vec::new();
     let mut mdx_note_bib_entry: Vec<MdxNoteBibEntryModel> = Vec::new();
-    // RESUME: based searching. That played a big part in the initial app.
     let mut front_matter: Vec<FrontMatterModel> = Vec::new();
     for item in groups.iter().filter(|x| !x.mdx.raw_body.is_empty()) {
-        if item.mdx.file_path
-            == "/Users/bigsexy/Desktop/notes/content/tech/fluster/promote_app_to.mdx"
-        {
-            println!("Item: {:#?}", item);
-        }
         for dict_entry in item.dictionary_entries.clone() {
             mdx_note_dictionary_entries.push(MdxNoteDictionaryEntryModel {
                 mdx_note_file_path: item.mdx.file_path.clone(),
@@ -66,7 +110,6 @@ pub async fn save_mdx_note_groups(
         }
         notes.push(item.mdx.clone());
         for citation in item.citations.clone() {
-            println!("Found citation");
             mdx_note_bib_entry.push(MdxNoteBibEntryModel {
                 mdx_note_file_path: item.mdx.file_path.clone(),
                 bib_entry_id: citation.id,
@@ -88,28 +131,49 @@ pub async fn save_mdx_note_groups(
             }
         }
         for t in item.tags.clone() {
-            tags.push(t.clone());
-            mdx_note_tags.push(MdxNoteTagModel {
-                mdx_note_file_path: item.mdx.file_path.clone(),
-                tag_value: t.value,
-            })
+            if !taggable_vec_exists(&tags, &t) {
+                tags.push(t.clone());
+            }
+            if !mdx_note_tags
+                .iter()
+                .any(|x| x.tag_value == t.value && x.mdx_note_file_path == item.mdx.file_path)
+            {
+                mdx_note_tags.push(MdxNoteTagModel {
+                    mdx_note_file_path: item.mdx.file_path.clone(),
+                    tag_value: t.value,
+                })
+            }
         }
         if item.front_matter.subject.is_some() {
             let s = item.front_matter.subject.as_ref().unwrap();
-            subjects.push(s.clone());
-            mdx_note_subjects.push(MdxNoteSubjectModel {
-                mdx_note_file_path: item.mdx.file_path.clone(),
-                subject_value: s.value.clone(),
-            })
+            if !taggable_vec_exists(&subjects, s) {
+                subjects.push(s.clone());
+            }
+            if !mdx_note_subjects
+                .iter()
+                .any(|x| x.subject_value == s.value && x.mdx_note_file_path == item.mdx.file_path)
+            {
+                mdx_note_subjects.push(MdxNoteSubjectModel {
+                    mdx_note_file_path: item.mdx.file_path.clone(),
+                    subject_value: s.value.clone(),
+                })
+            }
         }
 
         if item.front_matter.topic.is_some() {
             let t = item.front_matter.topic.as_ref().unwrap();
-            topics.push(t.clone());
-            mdx_note_topics.push(MdxNoteTopicModel {
-                mdx_note_file_path: item.mdx.file_path.clone(),
-                topic_value: t.value.clone(),
-            })
+            if !taggable_vec_exists(&topics, t) {
+                topics.push(t.clone());
+            }
+            if !mdx_note_topics
+                .iter()
+                .any(|x| x.topic_value == t.value && x.mdx_note_file_path == item.mdx.file_path)
+            {
+                mdx_note_topics.push(MdxNoteTopicModel {
+                    mdx_note_file_path: item.mdx.file_path.clone(),
+                    topic_value: t.value.clone(),
+                })
+            }
         }
     }
     // Once everything is sorted and joining tables are created, save everything.
@@ -131,4 +195,26 @@ pub async fn save_mdx_note_groups(
     MdxNoteDictionaryEntryEntity::create_many(db, mdx_note_dictionary_entries).await?;
     MdxNoteBibEntryEntity::create_many(db, mdx_note_bib_entry).await?;
     Ok(())
+}
+
+#[cfg(test)]
+mod tests {
+    use std::ops::Index;
+
+    use crate::core::database::db::get_database;
+
+    use super::*;
+
+    #[tokio::test]
+    async fn reformats_date() {
+        let db_res = get_database().await;
+        let db = db_res.lock().await;
+        let tags = TagEntity::get_many(&db)
+            .await
+            .expect("Gets tags without throwing an error.");
+        println!("Ctime: {}", tags.index(0).ctime);
+        let d = reformat_date(&tags.index(0).ctime);
+        println!("Data: {}", d);
+        assert!(d != "0", "Returns a non-empty date")
+    }
 }

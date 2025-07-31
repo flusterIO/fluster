@@ -15,6 +15,24 @@ func GetNativeRoot() string {
 	return nativeRoot
 }
 
+// / The path to the tauri config file in the monorepo.
+func GetTauriConfigPath() string {
+	nativeRoot := os.Getenv("FLUSTER_NATIVE_ROOT")
+	if nativeRoot == "" {
+		log.Fatal("No FLUSTER_NATIVE_ROOT environment variable found. Set this to the root of the workspace and try again.")
+	}
+	return path.Join(nativeRoot, "apps", "fluster", "src-tauri", "tauri.conf.json")
+}
+
+// / Path to the package.json file of the main fluster app within the monorepo.
+func GetFlusterPackageJsonPath() string {
+	nativeRoot := os.Getenv("FLUSTER_NATIVE_ROOT")
+	if nativeRoot == "" {
+		log.Fatal("No FLUSTER_NATIVE_ROOT environment variable found. Set this to the root of the workspace and try again.")
+	}
+	return path.Join(nativeRoot, "apps", "fluster", "package.json")
+}
+
 func FileExists(filename string) bool {
 	_, err := os.Stat(filename)
 	return !os.IsNotExist(err)
