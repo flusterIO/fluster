@@ -23,7 +23,7 @@
 > Make sure you're on the release branch.
 
 - Update version manually in the `tauri.conf.json` file.
-  - Manually update version in Fluster's package.json. This seems to be the version used for release.
+  - Manually update version in Fluster's package.json if not updated via changeset. This seems to be the version used for release.
 - Make sure the version in `apps/fluster/package.json` matches the version in `apps/fluster/src-tauri/tauri.conf.json`. This version will be versioned by changesets, but must match the version in the `tauri.conf.json` file.
 - `git checkout release` to switch to release branch
 - `git merge main` to merge main branch with release branch after pushing packages on main branch.
