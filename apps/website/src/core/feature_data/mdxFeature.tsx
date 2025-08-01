@@ -2,6 +2,8 @@
 import splitViewImg from "../../../public/assets/blog/screenshots/splitview.png";
 import { FeaturedContainerPropsRequired } from "#/features/landing_page/sections/feature_section/types";
 import Image from "next/image";
+import { buttonVariants } from "../shad/ui/button";
+import { staticContent } from "../static_content";
 
 export const mdxFeature: FeaturedContainerPropsRequired = {
     label: "Write in MDX",
@@ -16,6 +18,11 @@ export const mdxFeature: FeaturedContainerPropsRequired = {
                         "takes all of the simplicity of markdown and extends it to support React components directly in your notes. Plots, modals, whiteboards, and more are right at your fingertips, in a language that anyone can learn in a single day."
                     }
                 </div>
+                <div>
+                    <a className={buttonVariants()} href={staticContent.links.videoDemo}>
+                        Video Demo
+                    </a>
+                </div>
             </div>
         );
     },
@@ -24,16 +31,6 @@ export const mdxFeature: FeaturedContainerPropsRequired = {
             <Image
                 src={splitViewImg}
                 alt="Fluster mdx & code editor split view"
-                /* images={[ */
-                /*     { */
-                /*         src: mdxScreenshot, */
-                /*         alt: "MDX Code", */
-                /*     }, */
-                /*     { */
-                /*         src: mdxScreenshotOutput, */
-                /*         alt: "MDX Output", */
-                /*     }, */
-                /* ]} */
                 className={"w-full h-auto min-h-[40vh]"}
             />
         );

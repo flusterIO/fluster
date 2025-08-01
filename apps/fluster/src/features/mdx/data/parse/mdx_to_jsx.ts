@@ -83,10 +83,10 @@ const rehypePlugins = (): CompileOptions["rehypePlugins"] => {
         [
             rehypeMermaid,
             {
-                strategy: "img-svg",
+                output: "svg",
                 dark: darkMode,
                 colorScheme: darkMode ? "dark" : "light",
-                mermaidConfig,
+                // mermaidConfig,
             },
         ],
         /* [ */
