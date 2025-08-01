@@ -124,6 +124,9 @@ async getNoteByDictEntryLabel(dictEntryLabel: string) : Promise<Result<Tradition
     else return { status: "error", error: e  as any };
 }
 },
+async getExistingTaggables() : Promise<AllTaggableData> {
+    return await TAURI_INVOKE("get_existing_taggables");
+},
 /**
  * This wraps a series of functions handled by the fluster_native_interface package, conditionally
  * based on user settings and app state.
@@ -775,6 +778,7 @@ body: string;
  * The stringified unix timestamp of the time the message was received.
  */
 received_at: string }
+export type AllTaggableData = { tags: SharedTaggableModel[]; topics: SharedTaggableModel[]; subjects: SharedTaggableModel[] }
 export type AxisGeneratorProps = { min: number; max: number; count: string; label: string | null }
 export type BibEntryModel = { id: string; user_provided_id: string | null; 
 /**
@@ -955,7 +959,7 @@ n_threads: string; use_git_ignore: boolean;
 /**
  * defaults to true
  */
-with_ai: boolean }
+with_ai: boolean; existing_taggables: AllTaggableData }
 export type TaskListData = { list: TaskListModel; items: TaskModel[] }
 export type TaskListModel = { id: string; label: string; desc: string | null; ctime: string }
 export type TaskModel = { id: string; 

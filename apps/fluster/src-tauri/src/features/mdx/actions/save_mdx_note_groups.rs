@@ -1,12 +1,14 @@
 use std::str::FromStr;
 
-use chrono::Utc;
+use chrono::{DateTime, FixedOffset, Utc};
 
 use crate::{
     core::{
         models::taggable::{
-            shared_taggable_model::SharedTaggableModel, subject_entity::SubjectEntity,
-            tag_entity::TagEntity, topic_entity::TopicEntity,
+            shared_taggable_model::{SharedTaggableModel, SharedTaggableModelWithExists},
+            subject_entity::SubjectEntity,
+            tag_entity::TagEntity,
+            topic_entity::TopicEntity,
         },
         sync::parse_directory::sync_fs_directory::sync_methods::clean::clean_database,
         types::{errors::errors::FlusterResult, FlusterDb},
@@ -31,10 +33,14 @@ use crate::{
             mdx_note_tag_model::MdxNoteTagModel, mdx_note_topic_entity::MdxNoteTopicEntity,
             mdx_note_topic_model::MdxNoteTopicModel,
         },
+        taggables::commands::get_existing_taggables::AllTaggableData,
     },
 };
 
-fn taggable_vec_exists(t: &[SharedTaggableModel], new_taggable: &SharedTaggableModel) -> bool {
+fn taggable_vec_exists(
+    t: &[SharedTaggableModelWithExists],
+    new_taggable: &SharedTaggableModel,
+) -> bool {
     for k in t {
         if k.value == new_taggable.value {
             return true;
@@ -45,7 +51,10 @@ fn taggable_vec_exists(t: &[SharedTaggableModel], new_taggable: &SharedTaggableM
 
 // FIXME: Come back here and handle reformatting of the date here.
 fn reformat_date(d: &str) -> String {
-    // chrono::DateTime::<Utc>::from(value)
+    let format = "%Y-%m-%dT%H:%M:%S";
+    let datetime: Result<DateTime<FixedOffset>, chrono::ParseError> =
+        chrono::DateTime::parse_from_str(d, format);
+    println!("Datetime: {:?}", datetime);
     if let Ok(res) = chrono::DateTime::<Utc>::from_str(d) {
         return res.timestamp_millis().to_string();
     }
@@ -59,36 +68,37 @@ fn reformat_date(d: &str) -> String {
 pub async fn save_mdx_note_groups(
     db: &FlusterDb<'_>,
     groups: Vec<MdxNoteGroup>,
+    existing_taggables: AllTaggableData,
 ) -> FlusterResult<()> {
     clean_database(db).await?;
     // Loop over each item and generate the proper joining tables.
     let mut equations: Vec<EquationModel> = Vec::new();
     let mut mdx_note_equations: Vec<MdxNoteEquationModel> = Vec::new();
-    let mut tags: Vec<SharedTaggableModel> = TagEntity::get_many(db)
-        .await
-        .unwrap_or(Vec::new())
+    let mut tags: Vec<SharedTaggableModelWithExists> = existing_taggables
+        .tags
         .iter()
-        .map(|x| SharedTaggableModel {
+        .map(|x| SharedTaggableModelWithExists {
             value: x.value.clone(),
             ctime: reformat_date(&x.ctime),
+            exists: true,
         })
         .collect();
-    let mut subjects: Vec<SharedTaggableModel> = SubjectEntity::get_all(db)
-        .await
-        .unwrap_or(Vec::new())
+    let mut subjects: Vec<SharedTaggableModelWithExists> = existing_taggables
+        .subjects
         .iter()
-        .map(|x| SharedTaggableModel {
+        .map(|x| SharedTaggableModelWithExists {
             value: x.value.clone(),
             ctime: reformat_date(&x.ctime),
+            exists: true,
         })
         .collect();
-    let mut topics: Vec<SharedTaggableModel> = TopicEntity::get_all(db)
-        .await
-        .unwrap_or(Vec::new())
+    let mut topics: Vec<SharedTaggableModelWithExists> = existing_taggables
+        .topics
         .iter()
-        .map(|x| SharedTaggableModel {
+        .map(|x| SharedTaggableModelWithExists {
             value: x.value.clone(),
             ctime: reformat_date(&x.ctime),
+            exists: true,
         })
         .collect();
     let mut mdx_note_tags: Vec<MdxNoteTagModel> = Vec::new();
@@ -132,7 +142,11 @@ pub async fn save_mdx_note_groups(
         }
         for t in item.tags.clone() {
             if !taggable_vec_exists(&tags, &t) {
-                tags.push(t.clone());
+                tags.push(SharedTaggableModelWithExists {
+                    value: t.value.clone(),
+                    ctime: t.ctime.clone(),
+                    exists: false,
+                });
             }
             if !mdx_note_tags
                 .iter()
@@ -147,7 +161,11 @@ pub async fn save_mdx_note_groups(
         if item.front_matter.subject.is_some() {
             let s = item.front_matter.subject.as_ref().unwrap();
             if !taggable_vec_exists(&subjects, s) {
-                subjects.push(s.clone());
+                subjects.push(SharedTaggableModelWithExists {
+                    value: s.value.clone(),
+                    ctime: s.ctime.clone(),
+                    exists: false,
+                });
             }
             if !mdx_note_subjects
                 .iter()
@@ -163,7 +181,11 @@ pub async fn save_mdx_note_groups(
         if item.front_matter.topic.is_some() {
             let t = item.front_matter.topic.as_ref().unwrap();
             if !taggable_vec_exists(&topics, t) {
-                topics.push(t.clone());
+                topics.push(SharedTaggableModelWithExists {
+                    value: t.value.clone(),
+                    ctime: t.ctime.clone(),
+                    exists: false,
+                });
             }
             if !mdx_note_topics
                 .iter()
@@ -182,9 +204,56 @@ pub async fn save_mdx_note_groups(
     // an idiot.
     // EquationEntity::save_many(db, equations).await?;
     MdxNoteEquationEntity::save_many(db, mdx_note_equations).await?;
-    TagEntity::save_many(db, tags).await?;
-    SubjectEntity::create_many(db, subjects).await?;
-    TopicEntity::create_many(db, topics).await?;
+    TagEntity::save_many(
+        db,
+        tags.iter()
+            .filter_map(|t| {
+                if t.exists {
+                    None
+                } else {
+                    Some(SharedTaggableModel {
+                        value: t.value.clone(),
+                        ctime: t.ctime.clone(),
+                    })
+                }
+            })
+            .collect(),
+    )
+    .await?;
+    SubjectEntity::create_many(
+        db,
+        subjects
+            .iter()
+            .filter_map(|t| {
+                if t.exists {
+                    None
+                } else {
+                    Some(SharedTaggableModel {
+                        value: t.value.clone(),
+                        ctime: t.ctime.clone(),
+                    })
+                }
+            })
+            .collect(),
+    )
+    .await?;
+    TopicEntity::create_many(
+        db,
+        topics
+            .iter()
+            .filter_map(|t| {
+                if t.exists {
+                    None
+                } else {
+                    Some(SharedTaggableModel {
+                        value: t.value.clone(),
+                        ctime: t.ctime.clone(),
+                    })
+                }
+            })
+            .collect(),
+    )
+    .await?;
     MdxNoteTagEntity::create_many(db, mdx_note_tags).await?;
     MdxNoteSubjectEntity::create_many(db, mdx_note_subjects).await?;
     MdxNoteTopicEntity::create_many(db, mdx_note_topics).await?;

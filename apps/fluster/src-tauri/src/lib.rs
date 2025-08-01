@@ -1,4 +1,4 @@
-// Learn more about Tauri commands at https://tauri.app/develop/calling-rust/p
+// Learn more about Tauri commandseat https://tauri.app/develop/calling-rust/p
 pub mod core;
 pub mod features;
 use crate::core::sync::sync_local_database::sync_local_database;
@@ -78,6 +78,7 @@ use crate::features::snippets::save_snippet::save_snippets;
 use crate::features::taggables::commands::get_all_subjects::get_all_subjects;
 use crate::features::taggables::commands::get_all_tags::get_all_tags;
 use crate::features::taggables::commands::get_all_topics::get_all_topics;
+use crate::features::taggables::commands::get_existing_taggables::get_existing_taggables;
 use crate::features::taggables::commands::get_subject_search_results::get_subject_search_results;
 use crate::features::taggables::commands::get_tag_search_results::get_tag_search_results;
 use crate::features::taggables::commands::get_topic_search_results::get_topic_search_results;
@@ -132,6 +133,7 @@ pub fn run() {
             get_notes_by_bib_entry_id,
             get_notes_by_equation_id,
             get_note_by_dict_entry_label,
+            get_existing_taggables,
             // -- File System --
             sync_local_database,
             save_utf8_file,

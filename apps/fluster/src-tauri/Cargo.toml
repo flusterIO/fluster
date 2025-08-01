@@ -90,6 +90,7 @@ pyo3 = "0.25.1"
 ndarray = { version = "0.16.1", features = ["rayon", "serde"] }
 numpy = "0.25.0"
 kalosm = { version = "0.4.0", features = ["full"] }
+serde_yml = "0.0.12"
 
 [target.'cfg(target_os = "macos")'.dependencies]
 kalosm = { version = "0.4.0", features = ["full", "metal"] }

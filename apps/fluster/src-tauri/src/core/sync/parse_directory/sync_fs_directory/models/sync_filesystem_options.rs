@@ -1,6 +1,8 @@
 use serde::{Deserialize, Serialize};
 use specta::Type;
 
+use crate::features::taggables::commands::get_existing_taggables::AllTaggableData;
+
 #[derive(Type, Serialize, Deserialize, Debug)]
 pub struct SyncFilesystemDirectoryOptions {
     pub dir_path: String,
@@ -10,6 +12,7 @@ pub struct SyncFilesystemDirectoryOptions {
     pub use_git_ignore: bool,
     /// defaults to true
     pub with_ai: bool,
+    pub existing_taggables: AllTaggableData,
 }
 
 impl Default for SyncFilesystemDirectoryOptions {
@@ -17,9 +20,14 @@ impl Default for SyncFilesystemDirectoryOptions {
         Self {
             dir_path: Default::default(),
             bib_path: Default::default(),
-            n_threads: "8".to_string(),
+            n_threads: "16".to_string(),
             use_git_ignore: false,
             with_ai: true,
+            existing_taggables: AllTaggableData {
+                tags: Vec::new(),
+                topics: Vec::new(),
+                subjects: Vec::new(),
+            },
         }
     }
 }

@@ -10,6 +10,13 @@ pub struct SharedTaggableModel {
     pub ctime: String,
 }
 
+#[derive(Type, Serialize, Deserialize, Debug, Clone)]
+pub struct SharedTaggableModelWithExists {
+    pub value: String,
+    pub ctime: String,
+    pub exists: bool,
+}
+
 impl SharedTaggableModel {
     pub fn new(val: String, ctime: Option<FlusterDateTime>) -> SharedTaggableModel {
         let _ctime = match ctime {

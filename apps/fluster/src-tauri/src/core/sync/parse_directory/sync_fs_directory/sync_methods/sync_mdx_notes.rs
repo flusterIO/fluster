@@ -58,6 +58,6 @@ pub async fn sync_mdx_filesystem_notes(opts: &SyncFilesystemDirectoryOptions) ->
     LocalAiClient {}
         .get_text_embeddings(&mut items, opts.with_ai)
         .await?;
-    save_mdx_note_groups(&db, items).await?;
+    save_mdx_note_groups(&db, items, opts.existing_taggables.clone()).await?;
     Ok(())
 }

@@ -29,9 +29,7 @@ func applyDependency(packageJsonString string, dependencyType string, localDep L
 		value = gjson.ParseBytes(depPackageJsonData).Get("version").String()
 	}
 	if dependencyObject.Exists() {
-		println("Exists")
 		depPath := fmt.Sprintf("%s.%s", dependencyType, localDep.Name)
-		println("Dep Path", depPath)
 		localDepData := pj.Get(depPath)
 		if localDepData.Exists() {
 			_packageJsonString, err := sjson.Set(packageJsonString, depPath, value)
@@ -70,8 +68,6 @@ var setLocalDependencySourceCommand = &cobra.Command{
 		for _, dependencyType := range []string{"dependencies", "devDependencies", "peerDependencies"} {
 			for _, localDep := range localDeps {
 				packageJsonString = applyDependency(packageJsonString, dependencyType, localDep, toVersion)
-				println(packageJsonString)
-
 			}
 		}
 		os.WriteFile(packageJson, []byte(packageJsonString), 0777)

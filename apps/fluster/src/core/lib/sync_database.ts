@@ -3,6 +3,7 @@ import { commands, SyncFilesystemDirectoryOptions } from "./bindings.ts";
 import { showToast } from "#/toast_notification/data/events/show_toast.ts";
 import { syncBib } from "#/bibliography/data/methods/sync_bib.ts";
 import { AppState } from "@/state/initial_state.ts";
+import { getExistingTaggables } from "./get_existing_taggables.ts";
 
 // TODO: Move this to a Promises.all
 
@@ -53,12 +54,14 @@ export const sync = async (
             });
         }
     }
+    const existing_taggables = await getExistingTaggables();
     console.log(`Here...`);
     const res = await commands.syncLocalDatabase({
         dir_path: state.core.notesDirectory,
         bib_path: state.bib.bibPath,
         n_threads: (state.core.nThreads ?? 8).toString(),
         use_git_ignore: state.core.useGitIgnore,
+        existing_taggables,
         ...opts,
     });
     console.log("res: ", res);
