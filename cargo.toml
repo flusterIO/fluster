@@ -12,7 +12,7 @@ members = [
 version = "0.0.1"
 authors = ["Andrew Iglinski"]
 description = "Be less dum."
-documentation = "ulld.vercel.app"
+documentation = "fluster-one.vercel.app"
 edition = "2021"
 
 [workspace.lints.rust]

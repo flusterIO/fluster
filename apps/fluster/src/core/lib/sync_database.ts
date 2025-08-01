@@ -10,7 +10,11 @@ import { getExistingTaggables } from "./get_existing_taggables.ts";
 export const sync = async (
     opts: Omit<
         SyncFilesystemDirectoryOptions,
-        "dir_path" | "bib_path" | "n_threads" | "use_git_ignore"
+        | "dir_path"
+        | "bib_path"
+        | "n_threads"
+        | "use_git_ignore"
+        | "existing_taggables"
     > & {
         showSuccessToast?: boolean;
     }

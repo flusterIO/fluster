@@ -32,10 +32,10 @@ dependencies = [
 version_file = "pkg/_version.py"
 
 [project.urls]
-Homepage = "https://ulld.vercel.app"
-Documentation = "https://ulld.vercel.app"
-Repository = "https://github.com/Uh-little-less-dum/fluster"
-Changelog = "https://github.com/Uh-little-less-dum/fluster/blob/main/CHANGELOG.md"
+Homepage = "https://fluster-one.vercel.app"
+Documentation = "https://fluster-one.vercel.app"
+Repository = "https://github.com/flusterIO/fluster"
+Changelog = "https://github.com/flusterIO/fluster/blob/main/CHANGELOG.md"
 
 
 [tool.setuptools.packages.find]

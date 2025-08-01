@@ -9,6 +9,8 @@ import rehypePrettyCode from "rehype-pretty-code";
 import emoji from "remark-emoji";
 import rehypeSlug from "rehype-slug";
 import rehypeVideo from "rehype-video";
+import rehypeMermaid from "rehype-mermaid";
+
 import {
     mathOptions,
     MermaidConfigType,
@@ -22,12 +24,14 @@ export const mermaidConfig: MermaidConfigType = {
     output: "svg",
     /* theme: { light: 'dark', dark: 'dark' }, */
     mermaid: {
+        background: "hsl(var(--background))",
         themeVariables: mermaidTheme.dark,
         theme: "base",
     },
 };
 
 const rehypePlugins = (): CompileOptions["rehypePlugins"] => {
+    const darkMode = document.body.classList.contains("dark");
     // let shikiTransformers = await getShikiTransformers(config)
     const state: AppState = store.getState();
     return [
@@ -76,6 +80,15 @@ const rehypePlugins = (): CompileOptions["rehypePlugins"] => {
             },
         ],
         rehypeSlug,
+        [
+            rehypeMermaid,
+            {
+                strategy: "img-svg",
+                dark: darkMode,
+                colorScheme: darkMode ? "dark" : "light",
+                mermaidConfig,
+            },
+        ],
         /* [ */
         /*     rehypeImgSize, */
         /*     { dir: "" } */

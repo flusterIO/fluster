@@ -12,7 +12,7 @@ const BibliographyPage = (): ReactNode => {
             className="h-full min-h-[calc(100vh-4rem)] flex flex-col justify-center items-center overflow-y-auto"
         >
             <BibTableProvider>
-                <div className="w-full px-8 mt-8 flex flex-col justify-start items-center max-w-[1440px]">
+                <div className="w-full px-8 py-8 flex flex-col justify-start items-center max-w-[1440px]">
                     <BibTableTitleBar />
                     <BibTableFilterRow />
                     <BibliographyTable />

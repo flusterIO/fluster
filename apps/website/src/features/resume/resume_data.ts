@@ -30,7 +30,7 @@ const resumeDataSchema = z.object({
     intro: z.string().max(1000),
     github: z.string().url().default("https://github.com/igloo1505"),
     email: z.string().email().default("aiglinski414@gmail.com"),
-    homepage: z.string().url().default("https://ulld.vercel.app"),
+    homepage: z.string().url().default("https://fluster-one.vercel.app"),
     linkedIn: z.string().url().optional(),
     dob: z.string().default("4/19/1988"),
     avatar: z

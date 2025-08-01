@@ -1,6 +1,6 @@
 import { commands, SharedTaggableModel, AllTaggableData } from "./bindings";
 
-export const getExistingTaggables = async (): AllTaggableData => {
+export const getExistingTaggables = async (): Promise<AllTaggableData> => {
     const existingTaggables = await commands.getExistingTaggables();
     return {
         tags: existingTaggables.tags.map((t: SharedTaggableModel) => {
