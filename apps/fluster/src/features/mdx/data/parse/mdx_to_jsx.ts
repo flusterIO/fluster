@@ -13,22 +13,11 @@ import rehypeMermaid from "rehype-mermaid";
 
 import {
     mathOptions,
-    MermaidConfigType,
-    mermaidTheme,
+    // mermaidTheme,
 } from "./static_mdx_options";
 import { ParseMdxStringOptions } from "../types";
 import store from "@/state/store";
 import { AppState } from "@/state/initial_state";
-
-export const mermaidConfig: MermaidConfigType = {
-    output: "svg",
-    /* theme: { light: 'dark', dark: 'dark' }, */
-    mermaid: {
-        background: "hsl(var(--background))",
-        themeVariables: mermaidTheme.dark,
-        theme: "base",
-    },
-};
 
 const rehypePlugins = (): CompileOptions["rehypePlugins"] => {
     const darkMode = document.body.classList.contains("dark");
@@ -44,6 +33,23 @@ const rehypePlugins = (): CompileOptions["rehypePlugins"] => {
             },
         ],
         [rehypeMathjax as any, mathOptions],
+        [
+            rehypeMermaid,
+            {
+                strategy: "inline-svg",
+                dark: darkMode,
+                colorScheme: darkMode ? "dark" : "light",
+                mermaidConfig: {
+                    // output: "svg",
+                    /* theme: { light: 'dark', dark: 'dark' }, */
+                    mermaid: {
+                        background: "hsl(var(--background))",
+                        // themeVariables: mermaidTheme.dark,
+                        //         theme: "dark",
+                    },
+                },
+            },
+        ],
         [
             rehypePrettyCode as any,
             {
@@ -80,15 +86,6 @@ const rehypePlugins = (): CompileOptions["rehypePlugins"] => {
             },
         ],
         rehypeSlug,
-        [
-            rehypeMermaid,
-            {
-                output: "svg",
-                dark: darkMode,
-                colorScheme: darkMode ? "dark" : "light",
-                // mermaidConfig,
-            },
-        ],
         /* [ */
         /*     rehypeImgSize, */
         /*     { dir: "" } */

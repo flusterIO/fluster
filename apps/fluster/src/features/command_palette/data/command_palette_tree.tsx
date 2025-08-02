@@ -54,25 +54,6 @@ export class CommandPaletteRoot extends CommandPaletteCategory {
             new ThemeCommandPaletteRoot(),
             new CodeThemeCommandPaletteRoot(),
             new EditInSplitViewCommandEntry(),
-            new GeneralCommandPaletteItem(
-                "Edit .bib file",
-                "edit_bib_file",
-                async (nav) => {
-                    const sp = new URLSearchParams();
-                    const bibPath = store.getState().bib.bibPath;
-                    if (!bibPath) {
-                        return showToast({
-                            title: "Not Found",
-                            body: "Your .bib file path is not set in your settings.",
-                            variant: "Error",
-                            duration: 5000,
-                        });
-                    }
-                    sp.set("fsPath", bibPath);
-                    sp.set("lang", "bibtex" as BundledLanguage);
-                    nav(`${AppRoutes.full_screen_editor}?${sp.toString()}`);
-                }
-            ),
             new GeneralCommandPaletteItem("Sync database", "sync_db", async () => {
                 await sync({
                     with_ai: true,
@@ -97,6 +78,25 @@ export class CommandPaletteRoot extends CommandPaletteCategory {
             new TaskListsCommandPaletteRoot(),
             new AiChatsCommandPaletteRoot(),
             new ConstantsCommandPaletteRoot(),
+            new GeneralCommandPaletteItem(
+                "Edit .bib file",
+                "edit_bib_file",
+                async (nav) => {
+                    const sp = new URLSearchParams();
+                    const bibPath = store.getState().bib.bibPath;
+                    if (!bibPath) {
+                        return showToast({
+                            title: "Not Found",
+                            body: "Your .bib file path is not set in your settings.",
+                            variant: "Error",
+                            duration: 5000,
+                        });
+                    }
+                    sp.set("fsPath", bibPath);
+                    sp.set("lang", "bibtex" as BundledLanguage);
+                    nav(`${AppRoutes.full_screen_editor}?${sp.toString()}`);
+                }
+            ),
             new EmbeddedDocsCommandPaletteRoot(),
         ].filter((x) => x.filterByLocation(location));
     }

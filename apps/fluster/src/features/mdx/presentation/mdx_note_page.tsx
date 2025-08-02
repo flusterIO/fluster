@@ -7,6 +7,7 @@ import { AppRoutes } from "#/router/data/app_routes";
 import { MdxNoteBibliography } from "#/bibliography/presentation/note_bibliography";
 import { MdxProviderGroup } from "./mdx_provider_group";
 import { useMdxNoteSetLastRead } from "../state/hooks/use_mdx_set_last_read";
+import { useScrollPersist } from "@/state/hooks/use_scroll_persist";
 
 export interface MdxNotePageSearchParams {
     /** The absolute path to the note on the user's computer. If this is provided, the content will be loaded directly from the file system, by passing the database except when strictly required. */
@@ -25,6 +26,7 @@ const MdxNotePage = ({ mdxGroup, ...props }: MdxNotePageProps): ReactNode => {
         nav(`${AppRoutes.splitViewEditMdx}?${sp.toString()}`);
     });
     useMdxNoteSetLastRead();
+    useScrollPersist("mdx_note_page");
     return (
         <div
             {...props}

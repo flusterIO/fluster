@@ -5,6 +5,7 @@ import "./styles/global.scss";
 import "./styles/math.scss";
 import "./styles/mdx.scss";
 import "./styles/plot.scss";
+import "./styles/mermaid.scss";
 import App from "./App";
 import ReduxProvider from "@/state/redux_provider";
 import { DesktopScaffoldProvider } from "#/scaffold/state/scaffold_provider.tsx";

@@ -23,7 +23,7 @@ export * from "./components/inputs/select/general_select/index";
 export * from "./embeddable_components/admonition/index";
 export * from "./embeddable_components/qr_code/index";
 export * from "./components/attention_getters/hint/index";
-export * from "./embeddable_components/layout/center/index"
+export * from "./embeddable_components/layout/center/index";
 //     -- Academic --
 export * from "./embeddable_components/academic/abstract/index";
 //     -- Math --
@@ -32,6 +32,7 @@ export * from "./math/constants/index";
 //    -- Utility --
 export * from "./embeddable_components/util/div";
 export * from "./embeddable_components/util/equation_reference/eq_ref_wrapper";
+export * from "./components/elements/a";
 // -- Inputs --
 export * from "./components/inputs/select/file_extension_glob_select/index";
 export * from "./components/inputs/select/supported_programming_language/index";

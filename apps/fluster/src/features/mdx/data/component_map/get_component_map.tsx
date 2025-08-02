@@ -29,6 +29,7 @@ import {
     H3,
     H4,
     P,
+    AnchorTag,
 } from "@fluster.io/dev";
 import { MDXComponents } from "mdx/types";
 import { InlineMdxContent } from "#/mdx/presentation/inline_mdx_content";
@@ -59,6 +60,7 @@ export const componentOverrides: MDXComponents = {
     blockquote: BlockQuote,
     mark: Hl,
     pre: WrappedCodeBlock,
+    a: AnchorTag,
     /* hr: Hr, */
     /* a: A, */
     input: MdxInput,

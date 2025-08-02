@@ -3,13 +3,9 @@ import { useGlobalKeymap } from "#/keymap/state/hooks/use_global_keymap";
 import { getBrowserRouter } from "#/router/data/main_router_routes";
 import { RouterProvider } from "react-router";
 import { ResourceRoutes } from "#/router/data/app_routes";
-/* import mermaid from "mermaid"; */
+import { useMermaidInit } from "@/state/hooks/use_mermaid_init";
 
 const App = (): ReactNode => {
-    /* mermaid.initialize({  */
-    /*     startOnLoad: true, */
-
-    /* }); */
     window.MathJax = {
         /* @ts-expect-error -- Not sure if this is working but I'm leaving it until all math is rendering properly. */
         "HTML-CSS": { linebreaks: { automatic: true } },
@@ -24,6 +20,7 @@ const App = (): ReactNode => {
             fontURL: ResourceRoutes.mathjaxFonts,
         },
     };
+    useMermaidInit();
     useGlobalKeymap();
 
     const router = useMemo(() => getBrowserRouter(), []);

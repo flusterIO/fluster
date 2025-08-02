@@ -1,0 +1,130 @@
+svg {
+
+  .marker,
+  #filled-head {
+    stroke: hsl(var(--muted-foreground)) !important;
+    fill: hsl(var(--muted-foreground)) !important;
+  }
+
+  &[aria-roledescription="flowchart-v2"] {
+    g.edgeLabel {
+      p {
+        background-color: hsl(var(--secondary)) !important;
+      }
+
+      * {
+        color: hsl(var(--secondary-foreground)) !important;
+      }
+    }
+
+    g.node {
+
+      rect,
+      polygon {
+        fill: hsl(var(--primary)) !important;
+        stroke: hsl(var(--border)) !important;
+      }
+
+      * {
+        color: hsl(var(--primary-foreground)) !important;
+      }
+    }
+
+    g.edgePaths {
+      path {
+        stroke: hsl(var(--muted-foreground)) !important;
+      }
+    }
+  }
+
+  &[aria-roledescription="sequence"] {
+    rect {
+      fill: hsl(var(--primary)) !important;
+      stroke: hsl(var(--border)) !important;
+    }
+
+    text {
+      tspan {
+        fill: hsl(var(--primary-foreground)) !important;
+      }
+    }
+
+    text.messageText {
+      fill: hsl(var(--foreground)) !important;
+    }
+
+    line[marker-end] {
+      stroke: hsl(var(--muted-foreground)) !important;
+    }
+
+    #filled-head,
+    #crosshead {
+      fill: hsl(var(--muted-foreground)) !important;
+      stroke: hsl(var(--muted-foreground)) !important;
+    }
+  }
+
+  &[aria-roledescription="gantt"] {
+    rect.task {
+      fill: hsl(var(--primary)) !important;
+      stroke: hsl(var(--border)) !important;
+    }
+
+    text.titleText {
+      fill: hsl(var(--foreground)) !important;
+    }
+
+    text.taskText {
+      fill: hsl(var(--primary-foreground)) !important;
+    }
+
+    g.tick {
+      text {
+        fill: hsl(var(--foreground) / 80) !important;
+      }
+
+      line {
+        stroke: hsl(var(--muted-foreground));
+      }
+    }
+  }
+
+  &[aria-roledescription="class"] {
+    g.nodes {
+      .label-container {
+        path {
+          fill: hsl(var(--primary)) !important;
+          stroke: hsl(var(--primary)) !important;
+        }
+      }
+
+      .nodeLabel {
+        color: hsl(var(--primary-foreground)) !important;
+      }
+    }
+  }
+
+  &[aria-roledescription="stateDiagram"] {
+    circle.state-start {
+      fill: hsl(var(--primary)) !important;
+    }
+
+    g.statediagram-state {
+      rect {
+        fill: hsl(var(--primary)) !important;
+        stroke: hsl(var(--border)) !important;
+      }
+    }
+
+    span.edgeLabel {
+      p {
+        background-color: hsl(var(--secondary)) !important;
+        color: hsl(var(--secondary-foreground)) !important;
+      }
+    }
+
+    g defs marker {
+      fill: hsl(var(--muted-foreground)) !important;
+    }
+  }
+}

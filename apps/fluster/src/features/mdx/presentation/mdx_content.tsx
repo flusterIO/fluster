@@ -2,6 +2,7 @@ import React, { HTMLProps, useEffect, type ReactNode } from "react";
 import { useDebounceMdxParse } from "../state/hooks/use_debounce_mdx_parse";
 import { cn } from "@/lib/utils";
 import { commands } from "@/lib/bindings";
+import { useDarkMode } from "@/hooks/use_dark_mode";
 
 export interface MdxContentProps extends HTMLProps<HTMLDivElement> {
     mdx: string;
@@ -18,11 +19,11 @@ export const MdxContent = ({
     ...props
 }: MdxContentProps): ReactNode => {
     const { Component, setValue } = useDebounceMdxParse();
+    const darkMode = useDarkMode();
 
     const setParsedValue = async (initialBody: string): Promise<void> => {
         try {
             const res = await commands.parseMdxString(initialBody, null);
-            console.log("res: ", res);
             if (res.status === "ok") {
                 setValue(res.data.mdx.raw_body);
             }
@@ -38,7 +39,7 @@ export const MdxContent = ({
             setValue(mdx);
         }
         /* eslint-disable-next-line  --  */
-    }, [mdx]);
+    }, [mdx, darkMode]);
 
     if (abortIfNoMath && !mdx.includes("$")) {
         return mdx;

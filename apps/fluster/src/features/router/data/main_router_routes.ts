@@ -1,6 +1,5 @@
 import { createBrowserRouter } from "react-router";
 import DesktopScaffold from "../../scaffold/presentation/desktop_scaffold";
-import { ScaffoldWithSidePanels } from "../presentation/scaffold_with_panels";
 import SnippetsPage from "#/snippets/presentation/snippets_page";
 import DictionaryPage from "#/dictionary/presentation/dictionary_page";
 import DashboardPage from "#/dashboard/presentation/dashboard_page";
@@ -18,7 +17,6 @@ import OnboardingPage from "#/onboarding/presentation/onboarding_page";
 import SettingsPage from "#/settings/presentation/settings_page";
 import { AiChatPage } from "#/ai/presentation/ai_chat_page";
 import { PdfPage } from "#/pdf/presentation/pdf_page";
-import { ScaffoldWithRightPanelOnly } from "../presentation/scaffold_right_panel_only";
 import SearchResultsPage from "#/search/presentation/search_results_page/index";
 import { SemanticSearchResultsPage } from "#/search/presentation/semantic_search_results_page";
 import { NotebookPage } from "#/jupyter/presentation/notebook_page";
@@ -26,6 +24,8 @@ import { ConstantsPage } from "#/math/presentation/constants_page/constants_page
 import { KanbanBoardListPage } from "#/kanban/presentation/kanban_board_list_page/kanban_board_list_page";
 import { KanbanBoardPage } from "#/kanban/presentation/kanban_board_page";
 import { CodeEditorPage } from "#/editor/presentation/code_editor_page";
+import { ScaffoldWithRightPanelOnly } from "#/scaffold/presentation/scaffold_right_panel_only";
+import { ScaffoldWithSidePanels } from "#/scaffold/presentation/scaffold_with_panels";
 
 export const getBrowserRouter = () => {
     return createBrowserRouter([
