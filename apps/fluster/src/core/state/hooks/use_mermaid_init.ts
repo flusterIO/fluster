@@ -13,7 +13,7 @@ export const useMermaidInit = () => {
         const background = cssVariableToColor("--background");
         // const secondary = cssVariableToColor("--secondary");
         // const secondaryForeground = cssVariableToColor("--secondary-foreground");
-        // const primaryForeground = cssVariableToColor("--primary-foreground");
+        const primaryForeground = cssVariableToColor("--primary-foreground");
         const mutedForeground = cssVariableToColor("--muted-foreground");
         // console.log("primaryColor: ", primaryColor);
         mermaid.initialize({
@@ -21,8 +21,8 @@ export const useMermaidInit = () => {
             darkMode,
             theme: "base",
             themeVariables: {
-                // primaryColor: primaryColor.hex(),
-                // primaryTextColor: primahryForeground?.hex(),
+                primaryColor: primaryColor.hex(),
+                primaryTextColor: primaryForeground?.hex(),
                 background: background?.hex(),
                 lineColor: mutedForeground?.hex(),
                 actorLineColor: mutedForeground?.hex(),

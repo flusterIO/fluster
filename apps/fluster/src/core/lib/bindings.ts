@@ -886,7 +886,7 @@ export type InternalEmbeddedDocsId =
 /**
  * How to contribute
  */
-"HowToContribute" | "GettingStarted" | "ColorProps" | "IntroToJsx" | "JupyterSetup" | "QuickReference"
+"HowToContribute" | "GettingStarted" | "ColorProps" | "IntroToJsx" | "JupyterSetup" | "QuickReference" | "Mermaid"
 export type KanbanBoardData = { board: KanbanBoardModel }
 export type KanbanBoardListData = { boards: KanbanBoardModel[] }
 export type KanbanBoardModel = { id: string; label: string; desc: string | null }

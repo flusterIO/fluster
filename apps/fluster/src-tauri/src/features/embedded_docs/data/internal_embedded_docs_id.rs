@@ -22,4 +22,5 @@ pub enum InternalEmbeddedDocsId {
     IntroToJsx,
     JupyterSetup,
     QuickReference,
+    Mermaid,
 }

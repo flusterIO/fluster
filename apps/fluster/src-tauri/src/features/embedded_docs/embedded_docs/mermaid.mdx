@@ -1,0 +1,518 @@
+---
+title: Mermaid Diagrams
+---
+
+[[#new_app_samples]]
+
+# Mermaid 
+
+These are just a small sample of the charts and features that mermaid supports. Check the [Mermaid documentation](https://mermaid.js.org/) for more. There are also dozens of third party libraries that can generate these charts automatically for things like databases, git history and more.
+
+## Flowchart
+
+````mdx
+```mermaid
+graph TD;
+    A[Start] --> B{Is it true?};
+    B -- Yes --> C[Do something];
+    C --> D[End];
+    B -- No --> E[Do nothing];
+    E --> D;
+```
+````
+
+```mermaid
+graph TD;
+    A[Start] --> B{Is it true?};
+    B -- Yes --> C[Do something];
+    C --> D[End];
+    B -- No --> E[Do nothing];
+    E --> D;
+```
+
+## Sequence Diagram
+
+````mdx
+```mermaid 
+sequenceDiagram
+    participant Alice
+    participant Bob
+    Alice->>Bob: Hello Bob, how are you?
+    activate Bob
+    Bob->>Alice: Fine, thank you!
+    deactivate Bob
+    Alice->>Bob: Have a great day!
+```
+````
+
+```mermaid 
+sequenceDiagram
+    participant Alice
+    participant Bob
+    Alice->>Bob: Hello Bob, how are you?
+    activate Bob
+    Bob->>Alice: Fine, thank you!
+    deactivate Bob
+    Alice->>Bob: Have a great day!
+```
+
+## Gantt Chart
+
+````mdx
+```mermaid
+gantt
+    title A Project Plan
+    dateFormat  YYYY-MM-DD
+    section Task A
+    Task 1:a1, 2024-01-01, 3d
+    Task 2:a2, after a1, 5d
+    section Task B
+    Task 3:b1, 2024-01-05, 4d
+    Task 4:b2, after b1, 5d
+```
+````
+
+
+```mermaid
+gantt
+    title A Project Plan
+    dateFormat  YYYY-MM-DD
+    section Task A
+    Task 1:a1, 2024-01-01, 3d
+    Task 2:a2, after a1, 5d
+    section Task B
+    Task 3:b1, 2024-01-05, 4d
+    Task 4:b2, after b1, 5d
+```
+
+
+## Class Diagram
+
+````mdx
+```mermaid
+classDiagram
+    Animal <|-- Duck
+    Animal <|-- Fish
+    Animal <|-- Zebra
+    Animal : +int age
+    Animal : +String gender
+    Animal: +isMammal()
+    Animal: +mate()
+    class Duck{
+      +String beakColor
+      +swim()
+      +quack()
+    }
+    class Fish{
+      -int sizeInFeet
+      -canEat()
+    }
+    class Zebra{
+      +bool isWild
+      +run()
+    }
+```
+````
+
+
+```mermaid
+classDiagram
+    Animal <|-- Duck
+    Animal <|-- Fish
+    Animal <|-- Zebra
+    Animal : +int age
+    Animal : +String gender
+    Animal: +isMammal()
+    Animal: +mate()
+    class Duck{
+      +String beakColor
+      +swim()
+      +quack()
+    }
+    class Fish{
+      -int sizeInFeet
+      -canEat()
+    }
+    class Zebra{
+      +bool isWild
+      +run()
+    }
+```
+
+## State Diagram
+
+````mdx
+```mermaid
+stateDiagram-v2
+    [*] --> Off
+    Off --> On: Power button pressed
+    On --> Off: Power button pressed
+    On --> Sleeping: Idle timeout
+    Sleeping --> On: Wake up event
+    Sleeping --> Off: Power button pressed
+```
+````
+
+
+```mermaid
+stateDiagram-v2
+    [*] --> Off
+    Off --> On: Power button pressed
+    On --> Off: Power button pressed
+    On --> Sleeping: Idle timeout
+    Sleeping --> On: Wake up event
+    Sleeping --> Off: Power button pressed
+```
+
+## Pie Chart
+
+````mdx
+```mermaid
+pie
+    title Key Metrics
+    "Sales" : 42.4
+    "Marketing" : 20.1
+    "Development" : 37.5
+```
+````
+
+
+```mermaid
+pie
+    title Key Metrics
+    "Sales" : 42.4
+    "Marketing" : 20.1
+    "Development" : 37.5
+```
+
+
+## Git Graph
+
+````mdx
+```mermaid
+gitGraph
+    commit
+    commit
+    branch develop
+    checkout develop
+    commit
+    commit
+    checkout main
+    merge develop
+    commit
+    branch feature
+    checkout feature
+    commit
+```
+````
+
+```mermaid
+gitGraph
+    commit
+    commit
+    branch develop
+    checkout develop
+    commit
+    commit
+    checkout main
+    merge develop
+    commit
+    branch feature
+    checkout feature
+    commit
+```
+
+## User Journey
+
+````mdx
+```mermaid
+journey
+    title My working day
+    section Go to work
+      Make a coffee: 5: Morning
+      Leave house: 5: Morning
+      Take the bus: 5: Morning
+      Arrive at work: 1: Morning
+    section Work
+      Do something: 5: Day
+      Make a new coffee: 2: Day
+      Do something else: 4: Day
+    section Go home
+      Leave work: 5: Evening
+      Take the bus: 5: Evening
+      Arrive home: 5: Evening
+```
+````
+
+
+```mermaid
+journey
+    title My working day
+    section Go to work
+      Make a coffee: 5: Morning
+      Leave house: 5: Morning
+      Take the bus: 5: Morning
+      Arrive at work: 1: Morning
+    section Work
+      Do something: 5: Day
+      Make a new coffee: 2: Day
+      Do something else: 4: Day
+    section Go home
+      Leave work: 5: Evening
+      Take the bus: 5: Evening
+      Arrive home: 5: Evening
+```
+
+
+## Mind Map
+
+````mdx
+```mermaid
+mindmap
+  root((Mermaid Charts))
+    A(Flowchart)
+    B(Sequence Diagram)
+    C(Gantt)
+    D(Class Diagram)
+    E(State Diagram)
+    F(Pie Chart)
+    G(Git Graph)
+```
+````
+
+
+```mermaid
+mindmap
+  root((Mermaid Charts))
+    A(Flowchart)
+    B(Sequence Diagram)
+    C(Gantt)
+    D(Class Diagram)
+    E(State Diagram)
+    F(Pie Chart)
+    G(Git Graph)
+```
+
+
+## Timeline
+
+
+````mdx
+```mermaid
+timeline
+    title Event Timeline
+    section 2024
+        Jan: Event A, Event B
+        Feb: Event C
+    section 2025
+        Mar: Event D
+        Apr: Event E, Event F
+```
+````
+
+
+```mermaid
+timeline
+    title Event Timeline
+    section 2024
+        Jan: Event A, Event B
+        Feb: Event C
+    section 2025
+        Mar: Event D
+        Apr: Event E, Event F
+```
+
+## Quadrant Chart
+
+
+````mdx
+```mermaid
+quadrantChart
+    title Relationship Chart
+    x-axis Low Priority --> High Priority
+    y-axis Less Urgent --> Very Urgent
+    quadrant-1 Top Right
+    quadrant-2 Top Left
+    quadrant-3 Bottom Left
+    quadrant-4 Bottom Right
+    "Task A": [0.7, 0.9]
+    "Task B": [0.2, 0.6]
+    "Task C": [0.8, 0.3]
+    "Task D": [0.4, 0.1]
+```
+````
+
+
+```mermaid
+quadrantChart
+    title Relationship Chart
+    x-axis Low Priority --> High Priority
+    y-axis Less Urgent --> Very Urgent
+    quadrant-1 Top Right
+    quadrant-2 Top Left
+    quadrant-3 Bottom Left
+    quadrant-4 Bottom Right
+    "Task A": [0.7, 0.9]
+    "Task B": [0.2, 0.6]
+    "Task C": [0.8, 0.3]
+    "Task D": [0.4, 0.1]
+```
+
+
+## Requirement Diagram
+
+````mdx
+```mermaid
+    requirementDiagram
+
+    requirement test_req {
+    id: 1
+    text: the test text.
+    risk: high
+    verifymethod: test
+    }
+
+    element test_entity {
+    type: simulation
+    }
+
+    test_entity - satisfies -> test_req
+```
+````
+
+```mermaid
+    requirementDiagram
+
+    requirement test_req {
+    id: 1
+    text: the test text.
+    risk: high
+    verifymethod: test
+    }
+
+    element test_entity {
+    type: simulation
+    }
+
+    test_entity - satisfies -> test_req
+```
+
+## C4 Diagram
+
+````mdx
+```mermaid
+    C4Context
+      title System Context diagram for Internet Banking System
+      Enterprise_Boundary(b0, "BankBoundary0") {
+        Person(customerA, "Banking Customer A", "A customer of the bank, with personal bank accounts.")
+        Person(customerB, "Banking Customer B")
+        Person_Ext(customerC, "Banking Customer C", "desc")
+
+        Person(customerD, "Banking Customer D", "A customer of the bank, <br/> with personal bank accounts.")
+
+        System(SystemAA, "Internet Banking System", "Allows customers to view information about their bank accounts, and make payments.")
+
+        Enterprise_Boundary(b1, "BankBoundary") {
+
+          SystemDb_Ext(SystemE, "Mainframe Banking System", "Stores all of the core banking information about customers, accounts, transactions, etc.")
+
+          System_Boundary(b2, "BankBoundary2") {
+            System(SystemA, "Banking System A")
+            System(SystemB, "Banking System B", "A system of the bank, with personal bank accounts. next line.")
+          }
+
+          System_Ext(SystemC, "E-mail system", "The internal Microsoft Exchange e-mail system.")
+          SystemDb(SystemD, "Banking System D Database", "A system of the bank, with personal bank accounts.")
+
+          Boundary(b3, "BankBoundary3", "boundary") {
+            SystemQueue(SystemF, "Banking System F Queue", "A system of the bank.")
+            SystemQueue_Ext(SystemG, "Banking System G Queue", "A system of the bank, with personal bank accounts.")
+          }
+        }
+      }
+
+      BiRel(customerA, SystemAA, "Uses")
+      BiRel(SystemAA, SystemE, "Uses")
+      Rel(SystemAA, SystemC, "Sends e-mails", "SMTP")
+      Rel(SystemC, customerA, "Sends e-mails to")
+
+      UpdateElementStyle(customerA, $fontColor="red", $bgColor="grey", $borderColor="red")
+      UpdateRelStyle(customerA, SystemAA, $textColor="blue", $lineColor="blue", $offsetX="5")
+      UpdateRelStyle(SystemAA, SystemE, $textColor="blue", $lineColor="blue", $offsetY="-10")
+      UpdateRelStyle(SystemAA, SystemC, $textColor="blue", $lineColor="blue", $offsetY="-40", $offsetX="-50")
+      UpdateRelStyle(SystemC, customerA, $textColor="red", $lineColor="red", $offsetX="-50", $offsetY="20")
+
+      UpdateLayoutConfig($c4ShapeInRow="3", $c4BoundaryInRow="1")
+
+
+```
+````
+
+
+```mermaid
+    C4Context
+      title System Context diagram for Internet Banking System
+      Enterprise_Boundary(b0, "BankBoundary0") {
+        Person(customerA, "Banking Customer A", "A customer of the bank, with personal bank accounts.")
+        Person(customerB, "Banking Customer B")
+        Person_Ext(customerC, "Banking Customer C", "desc")
+
+        Person(customerD, "Banking Customer D", "A customer of the bank, <br/> with personal bank accounts.")
+
+        System(SystemAA, "Internet Banking System", "Allows customers to view information about their bank accounts, and make payments.")
+
+        Enterprise_Boundary(b1, "BankBoundary") {
+
+          SystemDb_Ext(SystemE, "Mainframe Banking System", "Stores all of the core banking information about customers, accounts, transactions, etc.")
+
+          System_Boundary(b2, "BankBoundary2") {
+            System(SystemA, "Banking System A")
+            System(SystemB, "Banking System B", "A system of the bank, with personal bank accounts. next line.")
+          }
+
+          System_Ext(SystemC, "E-mail system", "The internal Microsoft Exchange e-mail system.")
+          SystemDb(SystemD, "Banking System D Database", "A system of the bank, with personal bank accounts.")
+
+          Boundary(b3, "BankBoundary3", "boundary") {
+            SystemQueue(SystemF, "Banking System F Queue", "A system of the bank.")
+            SystemQueue_Ext(SystemG, "Banking System G Queue", "A system of the bank, with personal bank accounts.")
+          }
+        }
+      }
+
+      BiRel(customerA, SystemAA, "Uses")
+      BiRel(SystemAA, SystemE, "Uses")
+      Rel(SystemAA, SystemC, "Sends e-mails", "SMTP")
+      Rel(SystemC, customerA, "Sends e-mails to")
+
+      UpdateElementStyle(customerA, $fontColor="red", $bgColor="grey", $borderColor="red")
+      UpdateRelStyle(customerA, SystemAA, $textColor="blue", $lineColor="blue", $offsetX="5")
+      UpdateRelStyle(SystemAA, SystemE, $textColor="blue", $lineColor="blue", $offsetY="-10")
+      UpdateRelStyle(SystemAA, SystemC, $textColor="blue", $lineColor="blue", $offsetY="-40", $offsetX="-50")
+      UpdateRelStyle(SystemC, customerA, $textColor="red", $lineColor="red", $offsetX="-50", $offsetY="20")
+
+      UpdateLayoutConfig($c4ShapeInRow="3", $c4BoundaryInRow="1")
+
+
+```
+
+## Sankey Beta
+
+````mdx
+```mermaid
+sankey-beta
+
+Electricity grid,Over generation / exports,104.453
+Electricity grid,Heating and cooling - homes,113.726
+Electricity grid,H2 conversion,27.14
+```
+````
+
+
+```mermaid
+sankey-beta
+
+Electricity grid,Over generation / exports,104.453
+Electricity grid,Heating and cooling - homes,113.726
+Electricity grid,H2 conversion,27.14
+```

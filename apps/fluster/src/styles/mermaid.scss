@@ -127,4 +127,16 @@ svg {
       fill: hsl(var(--muted-foreground)) !important;
     }
   }
+
+  &[aria-roledescription="pie"] {
+    g.legend {
+      text {
+        fill: hsl(var(--foreground)) !important;
+      }
+    }
+
+    text.pieTitleText {
+      fill: hsl(var(--foreground)) !important;
+    }
+  }
 }

@@ -18,6 +18,7 @@ pub fn get_embedded_doc(id: InternalEmbeddedDocsId) -> String {
         InternalEmbeddedDocsId::IntroToJsx => "intro_to_jsx.mdx",
         InternalEmbeddedDocsId::JupyterSetup => "jupyter_setup.mdx",
         InternalEmbeddedDocsId::QuickReference => "quick_ref.mdx",
+        InternalEmbeddedDocsId::Mermaid => "mermaid.mdx",
     };
     let res = DOCS
         .get_file(_path)
