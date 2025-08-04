@@ -30,7 +30,7 @@ import {
     H4,
     P,
     AnchorTag,
-    Video,
+    VideoTimestampLink,
 } from "@fluster.io/dev";
 import { MDXComponents } from "mdx/types";
 import { InlineMdxContent } from "#/mdx/presentation/inline_mdx_content";
@@ -201,6 +201,10 @@ const items: ComponentMapItem[] = [
     {
         query: "EquationTag",
         component: EquationTag,
+    },
+    {
+        query: "VideoTimestampLink",
+        component: VideoTimestampLink,
     },
 
     // -- Documentation Only --

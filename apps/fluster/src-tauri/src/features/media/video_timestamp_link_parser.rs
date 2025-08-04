@@ -26,9 +26,7 @@ impl MdxParser<String> for VideoTimestampLinkParser {
             new_content = new_content.replace(
                 match_content,
                 &format!(
-                    r#"<VideoTimestampLink id='{}' timestamp="{}">
-{}
-</VideoTimestampLink>"#,
+                    r#"<VideoTimestampLink id='{}' timestamp="{}">{}</VideoTimestampLink>"#,
                     video_id, timestamp, body
                 ),
             );
