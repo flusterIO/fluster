@@ -2,6 +2,7 @@ export enum AppRoutes {
     dashboard = "/",
     settings = "/settings",
     pdf = "/pdf",
+    htmlFile = "/html_file",
     bibliography = "/bibliography",
     dictionary = "/dictionary",
     snippets = "/snippets",

@@ -1,9 +1,9 @@
 import { AppRoutes } from "@fluster.io/dev";
 
 const scrollTargetIdMap: Partial<{ [K in AppRoutes]: string }> = {
-    [AppRoutes.dictionary]: "scroll-target-dictionary",
     [AppRoutes.bibliography]: "scroll-target-bib",
-    [AppRoutes.taskLists]: "scroll-target-task-manager"
+    [AppRoutes.taskLists]: "scroll-target-task-manager",
+    [AppRoutes.htmlFile]: "scroll-target-html",
 };
 
 export const getScrollTarget = () => {

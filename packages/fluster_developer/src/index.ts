@@ -56,6 +56,8 @@ export * from "./utils/cn";
 export * from "./utils/scroll_to_id";
 export * from "./components/typography/typography";
 export * from "./components/typography/mdx_typography";
+// -- Media --
+export * from "./embeddable_components/media/video/index";
 // -- Icons --
 export * from "./components/icons/icon_components/fluster";
 export * from "./components/icons/icon_components/github";

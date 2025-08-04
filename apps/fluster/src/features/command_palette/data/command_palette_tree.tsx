@@ -25,6 +25,7 @@ import { ReactNode } from "react";
 import { Location } from "react-router";
 import { type BundledLanguage } from "shiki";
 import { CitationsCommandPaletteRoot } from "./tree/citations";
+import { HtmlFilesCommandPaletteRoot } from "./tree/html_files";
 
 export class CommandPaletteRoot extends CommandPaletteCategory {
     constructor() {
@@ -71,10 +72,11 @@ export class CommandPaletteRoot extends CommandPaletteCategory {
                 }
             ),
             new NotesCommandPaletteRoot(),
+            new MdxFilesCommandPaletteRoot(),
             new PdfFilesCommandPaletteRoot(),
+            new HtmlFilesCommandPaletteRoot(),
             new CitationsCommandPaletteRoot(),
             new IpynbFilesCommandPaletteRoot(),
-            new MdxFilesCommandPaletteRoot(),
             new TaskListsCommandPaletteRoot(),
             new AiChatsCommandPaletteRoot(),
             new ConstantsCommandPaletteRoot(),

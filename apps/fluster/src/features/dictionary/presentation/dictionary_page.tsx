@@ -87,10 +87,7 @@ const DictionaryPage = (): ReactNode => {
     }, []);
 
     return (
-        <PanelContainer
-            id="scroll-target-dictionary"
-            className="w-full h-full flex flex-col justify-start items-center gap-6 overflow-y-auto"
-        >
+        <PanelContainer className="w-full h-full flex flex-col justify-start items-center gap-6 overflow-y-auto">
             {!items?.length ? (
                 <NoDictionaryEntriesFound />
             ) : (

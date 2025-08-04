@@ -16,6 +16,13 @@ async getOperatingSystem() : Promise<Result<SupportedOperatingSystem, FlusterErr
 async pathExists(filePath: string) : Promise<boolean> {
     return await TAURI_INVOKE("path_exists", { filePath });
 },
+/**
+ * Appends the path to the base_path if it is not already contained within the fs_path.
+ * If the base_path is empty, it will always return the fs_path.
+ */
+async normalizePath(fsPath: string, basePath: string) : Promise<string> {
+    return await TAURI_INVOKE("normalize_path", { fsPath, basePath });
+},
 async getDashboardData() : Promise<DashboardData> {
     return await TAURI_INVOKE("get_dashboard_data");
 },

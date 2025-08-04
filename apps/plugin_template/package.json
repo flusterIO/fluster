@@ -1,30 +1,30 @@
 {
-    "name": "@fluster/plugin_template",
-    "version": "0.0.16",
-    "keywords": [
-        "fluster",
-        "plugin"
-    ],
-    "private": true,
-    "author": "Allen Turing <a.turing@gmail.com>",
-    "type": "module",
-    "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1"
-    },
-    "files": [
-        "src"
-    ],
-    "main": "index.js",
-    "dependencies": {
-        "@fluster.io/dev": "workspace:*",
-        "react": "19.1.0",
-        "react-dom": "19.1.0"
-    },
-    "devDependencies": {
-        "@types/react": "19.1.5",
-        "@types/react-dom": "19.1.5",
-        "tsup": "8.4.0"
-    },
-    "license": "ISC",
-    "description": "A template for all Fluster plugins. "
+  "name": "@fluster/plugin_template",
+  "version": "0.0.16",
+  "keywords": [
+    "fluster",
+    "plugin"
+  ],
+  "author": "Allen Turing <a.turing@gmail.com>",
+  "type": "module",
+  "private": true,
+  "files": [
+    "src"
+  ],
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "main": "index.js",
+  "dependencies": {
+    "@fluster.io/dev": "workspace:*",
+    "react": "19.1.0",
+    "react-dom": "19.1.0"
+  },
+  "devDependencies": {
+    "@types/react": "19.1.5",
+    "@types/react-dom": "19.1.5",
+    "tsup": "8.4.0"
+  },
+  "license": "ISC",
+  "description": "A template for all Fluster plugins. "
 }

@@ -20,7 +20,10 @@ const DesktopScaffold = (): ReactNode => {
             <MathjaxScript />
             <DarkModeObserver />
             <DesktopSideNavigation />
-            <div className="@container/main-panel flex-grow h-full w-full pt-8 overflow-y-auto">
+            <div
+                id="scroll-target"
+                className="@container/main-panel flex-grow h-full w-full pt-8 overflow-y-auto"
+            >
                 <Outlet />
             </div>
             <EquationDetailModal />

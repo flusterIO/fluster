@@ -26,6 +26,7 @@ import { KanbanBoardPage } from "#/kanban/presentation/kanban_board_page";
 import { CodeEditorPage } from "#/editor/presentation/code_editor_page";
 import { ScaffoldWithRightPanelOnly } from "#/scaffold/presentation/scaffold_right_panel_only";
 import { ScaffoldWithSidePanels } from "#/scaffold/presentation/scaffold_with_panels";
+import { HtmlFilePage } from "#/html/presentation/html_file_page";
 
 export const getBrowserRouter = () => {
     return createBrowserRouter([
@@ -61,6 +62,10 @@ export const getBrowserRouter = () => {
                 {
                     path: AppRoutes.dictionary,
                     Component: DictionaryPage,
+                },
+                {
+                    path: AppRoutes.htmlFile,
+                    Component: HtmlFilePage,
                 },
                 {
                     path: AppRoutes.kanbanBoards,

@@ -1,90 +1,90 @@
 {
-    "name": "fluster.io",
-    "funding": [
-        {
-            "type": "paypal",
-            "url": "https://www.paypal.com/ncp/payment/D6S6NP4AHJD6Y"
-        },
-        {
-            "type": "patreon",
-            "url": "https://www.patreon.com/uhlittlelessdum/about"
-        },
-        {
-            "type": "github",
-            "url": "https://github.com/flusterIO/fluster"
-        }
-    ],
-    "scripts": {
-        "ci:publish": "wireit",
-        "ci:release": "wireit",
-        "ci:build": "pnpm run -r build",
-        "npm_release": "wireit"
+  "name": "fluster.io",
+  "funding": [
+    {
+      "type": "paypal",
+      "url": "https://www.paypal.com/ncp/payment/D6S6NP4AHJD6Y"
     },
-    "wireit": {
-        "build_npm_packages": {
-            "clean": false,
-            "command": "pnpm -C ./packages/fluster_developer run build"
-        },
-        "npm_release": {
-            "command": "pnpm changeset publish",
-            "clean": false,
-            "dependencies": [
-                "build_npm_packages"
-            ]
-        },
-        "ci:release": {
-            "command": "pnpm publish -r",
-            "clean": false,
-            "dependencies": [
-                "ci:build"
-            ]
-        },
-        "publish:fluster_ts": {
-            "command": "cd packages/fluster_ts && pnpm run build && pnpm publish --access public ./ --no-git-checks"
-        },
-        "ci:publish:fluster_config": {
-            "command": "cd packages/fluster_config && pnpm publish --access public ./ --no-git-checks"
-        },
-        "ci:publish:fluster_developer": {
-            "command": "cd packages/fluster_developer && pnpm run build && pnpm publish --access public ./ --no-git-checks"
-        },
-        "ci:publish": {
-            "dependencies": [
-                "ci:publish:fluster_config",
-                "ci:publish:fluster_developer"
-            ]
-        }
+    {
+      "type": "patreon",
+      "url": "https://www.patreon.com/uhlittlelessdum/about"
     },
-    "devDependencies": {
-        "@changesets/cli": "^2.29.4",
-        "@tailwindcss/vite": "4.1.7",
-        "@testing-library/react-hooks": "^8.0.1",
-        "@types/node": "22.14.1",
-        "@types/react": "19.1.5",
-        "@types/react-dom": "19.1.5",
-        "@vitejs/plugin-react": "4.3.4",
-        "@vitest/coverage-v8": "^3.1.4",
-        "glob": "11.0.1",
-        "globals": "^16.0.0",
-        "react-test-renderer": "^19.1.0",
-        "syncpack": "13.0.3",
-        "tsup": "8.4.0",
-        "typedoc-material-theme": "^1.4.0",
-        "typescript": "^5.8.3",
-        "vite": "6.0.3",
-        "vite-plugin-dts": "^4.5.4",
-        "vite-plugin-eslint": "1.8.1",
-        "vite-tsconfig-paths": "5.1.4",
-        "vitest": "3.1.2",
-        "wireit": "0.14.12"
+    {
+      "type": "github",
+      "url": "https://github.com/flusterIO/fluster"
+    }
+  ],
+  "scripts": {
+    "ci:build": "pnpm run -r build",
+    "ci:publish": "wireit",
+    "ci:release": "wireit",
+    "npm_release": "wireit"
+  },
+  "wireit": {
+    "build_npm_packages": {
+      "clean": false,
+      "command": "pnpm -C ./packages/fluster_developer run build"
     },
-    "pnpm": {
-        "overrides": {
-            "react": "19.1.0",
-            "react-dom": "19.1.0",
-            "@types/react": "19.1.5",
-            "@types/react-dom": "19.1.5"
-        }
+    "npm_release": {
+      "command": "pnpm changeset publish",
+      "clean": false,
+      "dependencies": [
+        "build_npm_packages"
+      ]
     },
-    "packageManager": "pnpm@9.7.1"
+    "ci:release": {
+      "command": "pnpm publish -r",
+      "clean": false,
+      "dependencies": [
+        "ci:build"
+      ]
+    },
+    "publish:fluster_ts": {
+      "command": "cd packages/fluster_ts && pnpm run build && pnpm publish --access public ./ --no-git-checks"
+    },
+    "ci:publish:fluster_config": {
+      "command": "cd packages/fluster_config && pnpm publish --access public ./ --no-git-checks"
+    },
+    "ci:publish:fluster_developer": {
+      "command": "cd packages/fluster_developer && pnpm run build && pnpm publish --access public ./ --no-git-checks"
+    },
+    "ci:publish": {
+      "dependencies": [
+        "ci:publish:fluster_config",
+        "ci:publish:fluster_developer"
+      ]
+    }
+  },
+  "devDependencies": {
+    "@changesets/cli": "^2.29.4",
+    "@tailwindcss/vite": "4.1.7",
+    "@testing-library/react-hooks": "^8.0.1",
+    "@types/node": "22.14.1",
+    "@types/react": "19.1.5",
+    "@types/react-dom": "19.1.5",
+    "@vitejs/plugin-react": "4.3.4",
+    "@vitest/coverage-v8": "^3.1.4",
+    "glob": "11.0.1",
+    "globals": "^16.0.0",
+    "react-test-renderer": "^19.1.0",
+    "syncpack": "13.0.3",
+    "tsup": "8.4.0",
+    "typedoc-material-theme": "^1.4.0",
+    "typescript": "^5.8.3",
+    "vite": "6.0.3",
+    "vite-plugin-dts": "^4.5.4",
+    "vite-plugin-eslint": "1.8.1",
+    "vite-tsconfig-paths": "5.1.4",
+    "vitest": "3.1.2",
+    "wireit": "0.14.12"
+  },
+  "packageManager": "pnpm@9.7.1",
+  "pnpm": {
+    "overrides": {
+      "react": "19.1.0",
+      "react-dom": "19.1.0",
+      "@types/react": "19.1.5",
+      "@types/react-dom": "19.1.5"
+    }
+  }
 }
