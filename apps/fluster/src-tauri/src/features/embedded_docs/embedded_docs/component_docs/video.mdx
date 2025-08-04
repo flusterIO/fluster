@@ -30,3 +30,14 @@ Display videos directly in your notes with the video component.
 | file | `string` | The path to the video, relative to your notes directory. | 
 | id | `string?` | An optional string to be used in timestamp links. |
 
+
+---
+
+## Timestamp Links
+
+<Hint>At least one `:` is required in the timestamp link. A value of purely seconds will not work.</Hint>
+
+You can link to specific timestamps within your video using the special `[my link body](video:susskind4@48:00)`.
+
+In this timestamp link syntax, the id field, `susskind4` in this case, must match a video element's id on that same page. If only a single `:` exists in the timestamp, it is interpreted as `minutes:seconds`. If two `:` exist, it is interpreted as `hours:minutes:seconds`. A value of just seconds will not work.
+

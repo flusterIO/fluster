@@ -1,5 +1,13 @@
 # fluster
 
+## 0.1.7
+
+### Patch Changes
+
+- Added video component with timestamp links and Mermaid support.
+- Updated dependencies
+  - @fluster.io/dev@0.1.5
+
 ## 0.1.6
 
 ### Patch Changes

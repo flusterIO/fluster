@@ -41,7 +41,10 @@ export const componentDocItems: ComponentDocsEntry[] = [
         label: "Hint",
         fp: "component_docs/hint.mdx",
     },
-
+    {
+        label: "Plots",
+        fp: "component_docs/academic/plots.mdx",
+    },
     {
         label: "Qr",
         fp: "component_docs/qr.mdx",
@@ -55,7 +58,7 @@ export const componentDocItems: ComponentDocsEntry[] = [
         fp: "component_docs/underline.mdx",
     },
     {
-        label: "Plots",
-        fp: "component_docs/academic/plots.mdx",
+        label: "Video",
+        fp: "component_docs/video.mdx",
     },
 ];
