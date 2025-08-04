@@ -10,6 +10,7 @@ pub mod jupyter;
 pub mod kanban;
 pub mod math;
 pub mod mdx;
+pub mod media;
 pub mod plot;
 pub mod router;
 pub mod search;

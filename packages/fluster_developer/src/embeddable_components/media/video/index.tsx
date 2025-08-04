@@ -1,12 +1,17 @@
-import React, { useEffect, useState, type ReactNode } from "react";
+import React, { useEffect, useMemo, useState, type ReactNode } from "react";
 import { commands } from "../../../lib/bindings";
 import { } from "@tauri-apps/plugin-dialog";
 import { convertFileSrc } from "@tauri-apps/api/core";
+import { cn } from "../../../utils/cn";
+import { PositionableProps } from "../../types";
+import { getPositionableClasses } from "../../util/get_positional_classes";
+import { getTimestampSourceId } from "../../util/timestamp_utils/get_timestamp_source_id";
 
-export interface VideoProps {
+export interface VideoProps extends PositionableProps {
     file?: string;
     /** The user's note directory. */
     basePath: string;
+    id?: string;
 }
 
 const NoFileProvided = (): ReactNode => {
@@ -17,7 +22,15 @@ const NoFileProvided = (): ReactNode => {
     );
 };
 
-const VideoComponent = ({ fsPath }: { fsPath: string }): ReactNode => {
+const VideoComponent = ({
+    fsPath,
+    className,
+    id,
+}: {
+    fsPath: string;
+    className: string;
+    id?: string;
+}): ReactNode => {
     const [data, setData] = useState<null | string>(null);
     useEffect(() => {
         setData(convertFileSrc(fsPath));
@@ -25,11 +38,28 @@ const VideoComponent = ({ fsPath }: { fsPath: string }): ReactNode => {
     if (data === null) {
         return null;
     }
-    return <video controls src={data} />;
+    return (
+        <video
+            id={getTimestampSourceId("video", id)}
+            controls
+            src={data}
+            className={className}
+        />
+    );
 };
 
-export const Video = ({ file, basePath }: VideoProps): ReactNode => {
+export const Video = ({
+    file,
+    basePath,
+    id,
+    ...props
+}: VideoProps): ReactNode => {
     const [fullPath, setFullPath] = useState<string | null>(null);
+    const positionableClasses = useMemo(
+        () => getPositionableClasses(props),
+        [props]
+    );
+    console.log("positionableClasses: ", positionableClasses);
     const parsePath = async (fp: string, bp: string): Promise<void> => {
         const parsedPath = await commands.normalizePath(fp, bp);
         console.log("parsedPath: ", parsedPath);
@@ -46,7 +76,13 @@ export const Video = ({ file, basePath }: VideoProps): ReactNode => {
     if (!fullPath) {
         return null;
     }
-    return <VideoComponent fsPath={fullPath} />;
+    return (
+        <VideoComponent
+            id={id}
+            className={cn("", positionableClasses)}
+            fsPath={fullPath}
+        />
+    );
 };
 
 Video.displayName = "Video";

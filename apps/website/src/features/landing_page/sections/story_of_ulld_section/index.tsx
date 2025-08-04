@@ -58,7 +58,7 @@ export const StoryOfFlusterSection = () => {
             </div>
             <PayPalLinkQr size={120} />
 
-            <p className="prose dark:prose-invert">
+            <p className="prose dark:prose-invert px-6 text-center">
                 If you are hiring, consider taking a look at my resume available{" "}
                 <Link className="text-primary" href="/resume">
                     here

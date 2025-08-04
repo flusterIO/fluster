@@ -16,6 +16,7 @@ use crate::features::math::data::equation_entity::EquationEntity;
 use crate::features::math::data::equation_model::EquationModel;
 use crate::features::math::data::equation_tag_mdx_parser::EquationTagMdxParser;
 use crate::features::mdx::actions::get_toc::get_toc_from_markdown;
+use crate::features::media::video_timestamp_link_parser::VideoTimestampLinkParser;
 use chrono::Utc;
 use filetime::FileTime;
 use gray_matter::{engine::YAML, Matter};
@@ -89,8 +90,10 @@ impl MdxNoteGroup {
         let post_bib_parse = BibEntryMdxParser {}.parse_mdx(&post_dictionary_parse.new_content);
         let post_equation_tag_parse =
             EquationTagMdxParser {}.parse_mdx(&post_bib_parse.new_content);
-        let post_note_link_parse =
-            MdxNoteLinkEntity {}.parse_mdx(&post_equation_tag_parse.new_content, &file_path);
+        let post_video_timestamp_link_parse =
+            VideoTimestampLinkParser {}.parse_mdx(&post_equation_tag_parse.new_content);
+        let post_note_link_parse = MdxNoteLinkEntity {}
+            .parse_mdx(&post_video_timestamp_link_parse.new_content, &file_path);
 
         // -- Gather parser data --
         let citations = BibEntryEntity::get_by_ids(db, post_bib_parse.results).await?;

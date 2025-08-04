@@ -3,6 +3,7 @@ import "../core/styles/globals.scss";
 import localFont from "next/font/local";
 import FumaDocsProvider from "#/features/docs/fuma_docs_provider";
 import { GoogleAnalytics } from "@next/third-parties/google";
+import Head from "next/head";
 
 const appFont = localFont({
     variable: "--ulld-app-font",
@@ -58,6 +59,23 @@ export default function RootLayout({
 }>) {
     return (
         <html lang="en" className={appFont.variable}>
+            <Head>
+                <title>Fluster</title>
+                <meta
+                    name="description"
+                    content="Free & open source academic note taking framework."
+                />
+                <meta property="og:title" content="Fluster" />
+                <meta
+                    property="og:description"
+                    content="Fluster is your brain's free & open source presentation layer for modern academic note taking."
+                />
+                <meta
+                    property="og:image"
+                    content="https://flusterapp.com/blog/screenshots/splitview.png"
+                />
+                <meta name="twitter:card" content="summary_large_image" />
+            </Head>
             <body className={`antialiased background`}>
                 <FumaDocsProvider>
                     <div>{children}</div>

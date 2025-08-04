@@ -4,18 +4,18 @@ import AdmonitionTitle from "./admonition_title";
 import FoldableAdmonitionTitle from "./foldable_admonition_title";
 import { AdmonitionTitleProps, AdmonitionVariant } from "./types";
 import { cn } from "../../utils/cn";
+import { PositionableProps } from "../types";
+import { getPositionableClasses } from "../util/get_positional_classes";
 
-export interface AdmonitionProps extends Omit<AdmonitionTitleProps, "type"> {
+export interface AdmonitionProps
+    extends Omit<AdmonitionTitleProps, "type">,
+    PositionableProps {
     type?: AdmonitionVariant;
     /// Start the admonition in a folded state.
     folded?: boolean;
     /// Whether or not to make the admonition foldable.
     foldable?: boolean;
     children: ReactNode;
-    /// If sidebar is et to true, the admonition will not occupy the entire width unless the screen is narrow.
-    sidebar?: boolean;
-    /// Whether or not to float the admonition to the right when 'sidebar' is true.
-    right?: boolean;
     /// InlineMdxContent are passed in automatically in the component map.
     InlineMdxContent: FC<{ mdx: string }>;
 }
@@ -24,11 +24,10 @@ export const Admonition = ({
     folded,
     children,
     type = "primary",
-    right,
     foldable,
     title: _title,
-    sidebar,
     InlineMdxContent,
+    ...props
 }: AdmonitionProps): ReactNode => {
     const [open, setOpen] = useState(foldable ? !folded : true);
     // sure to enforce the type safety for all string components before use as there's no typesafety while the mdx is rendered in live preview.
@@ -44,11 +43,7 @@ export const Admonition = ({
         <motion.div
             initial={folded && foldable ? "folded" : "open"}
             animate={open ? "open" : "folded"}
-            className={cn(
-                "my-4 overflow-hidden",
-                sidebar && "w-full @[768px]/mdx:w-1/3 mr-4 ml-0",
-                sidebar && right && "float-right ml-4 mr-0"
-            )}
+            className={cn("my-4 overflow-hidden", getPositionableClasses(props))}
         >
             {foldable ? (
                 <FoldableAdmonitionTitle

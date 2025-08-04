@@ -1,0 +1,32 @@
+---
+title: Video
+---
+
+
+# Video
+
+Display videos directly in your notes with the video component.
+
+<Hint>
+    Do not use a leading slash in your file path unless you are using an absolute path. Absolute paths are not recommended for portability reasons.
+</Hint>
+
+
+```jsx 
+<Video
+    id="susskind4"
+    file="media/susskind_lecture_4.mp4" 
+    sidebar
+    right
+/>
+```
+
+## Props
+
+> These properties extend the `PositionableProps` object, the same as an admonition making the center, right, and sidebar properties available as well.
+
+| key | type | desc |
+| --- | ---- | ---- |
+| file | `string` | The path to the video, relative to your notes directory. | 
+| id | `string?` | An optional string to be used in timestamp links. |
+
