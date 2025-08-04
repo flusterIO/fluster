@@ -25,7 +25,7 @@ export const ScaffoldWithSidePanels = (): ReactNode => {
                 >
                     <div
                         data-main-panel
-                        id="scroll-target"
+                        id="scroll-target-with-panels"
                         className="@container/main-panel flex-grow h-full w-full overflow-y-auto"
                     >
                         <Outlet />

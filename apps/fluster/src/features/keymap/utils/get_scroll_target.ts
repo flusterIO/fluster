@@ -18,5 +18,9 @@ export const getScrollTarget = () => {
             }
         }
     }
-    return document.getElementById("scroll-target");
+    // Check if the 'with panels' scaffold is being used, and if it sn't default to the target without panels.
+    return (
+        document.getElementById("scroll-target-with-panels") ??
+        document.getElementById("scroll-target")
+    );
 };

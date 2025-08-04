@@ -37,6 +37,7 @@ export const keymapActions: Record<GlobalKeymapActionId, () => Promise<void>> =
     },
     [KeymapId.scrollUp]: async () => {
         const target = getScrollTarget();
+        console.log("target: ", target);
         target?.scrollBy({
             top:
                 -(target
@@ -47,6 +48,7 @@ export const keymapActions: Record<GlobalKeymapActionId, () => Promise<void>> =
     },
     [KeymapId.scrollDown]: async () => {
         const target = getScrollTarget();
+        console.log("target: ", target);
         target?.scrollBy({
             top:
                 (target
