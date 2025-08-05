@@ -1,5 +1,5 @@
 :root {
-  $rhap_theme-color: hsl(var(--primary));
+  $rhap_theme-color: hsl(var(--foreground));
   $rhap_background-color: hsl(var(--card));
   $rhap_bar-color: hsl(var(--muted-foreground));
   $rhap_time-color: hsl(var(--foreground));
@@ -45,6 +45,28 @@
   /*     margin-bottom: auto; */
   /*   } */
   /* } */
+}
+
+// -- Audio Player --
+div.rhap_container {
+  background-color: hsl(var(--card));
+  border: 1px solid hsl(var(--border));
+  border-radius: 4px;
+
+  .rhap_current-time,
+  .rhap_total-time {
+    color: hsl(var(--foreground));
+  }
+
+  .rhap_progress-filled,
+  .rhap_progress-indicator,
+  .rhap_volume-indicator {
+    background-color: hsl(var(--primary));
+  }
+
+  svg path {
+    fill: hsl(var(--card-foreground));
+  }
 }
 
 /* --- Small --- */
