@@ -9,6 +9,7 @@ export * from "./embeddable_components/auto_inserted/inline_citation/index";
 export * from "./embeddable_components/auto_inserted/dictionary_entry/index";
 export * from "./embeddable_components/auto_inserted/equation_tag/index";
 export * from "./embeddable_components/auto_inserted/video_timestamp_link/index";
+export * from "./embeddable_components/auto_inserted/audio_timestamp_link/index";
 export * from "./embeddable_components/academic/bibliography_citation/index";
 export * from "./embeddable_components/html_elements/block_quote";
 export * from "./embeddable_components/colors/color_swatch/index";
@@ -59,6 +60,8 @@ export * from "./components/typography/typography";
 export * from "./components/typography/mdx_typography";
 // -- Media --
 export * from "./embeddable_components/media/video/index";
+export * from "./embeddable_components/media/audio/index";
+export * from "./embeddable_components/media/audio/send_audio_seek_event";
 // -- Icons --
 export * from "./components/icons/icon_components/fluster";
 export * from "./components/icons/icon_components/github";

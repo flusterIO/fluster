@@ -21,7 +21,7 @@ export const corePluginsFeature: FeaturedContainerPropsRequired = {
                 <div className="h-fit w-fit">
                     <span className="text-hint text-sm font-semibold mr-2">Note:</span>
                     <span className="text-sm">
-                        AI chat was generted completely offline.
+                        AI chat was generated completely offline.
                     </span>
                 </div>
             </FeatureDescContainer>

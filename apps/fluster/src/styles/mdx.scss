@@ -1,3 +1,10 @@
+:root {
+  $rhap_theme-color: hsl(var(--primary));
+  $rhap_background-color: hsl(var(--card));
+  $rhap_bar-color: hsl(var(--muted-foreground));
+  $rhap_time-color: hsl(var(--foreground));
+}
+
 .mdx-content {
 
   p,

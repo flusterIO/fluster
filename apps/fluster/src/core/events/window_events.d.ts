@@ -31,5 +31,9 @@ declare global {
         "refresh-task-manager-timers": CustomEvent<object>;
         // -- Settings --
         "show-edit-keymap-modal": CustomEvent<EditKeymapSettingModalProps>;
+        "audio-seek-to-seconds": CustomEvent<{
+            id: string;
+            seconds: number;
+        }>;
     }
 }

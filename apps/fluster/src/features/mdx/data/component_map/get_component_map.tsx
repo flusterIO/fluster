@@ -31,6 +31,7 @@ import {
     P,
     AnchorTag,
     VideoTimestampLink,
+    AudioTimestampLink,
 } from "@fluster.io/dev";
 import { MDXComponents } from "mdx/types";
 import { InlineMdxContent } from "#/mdx/presentation/inline_mdx_content";
@@ -45,6 +46,7 @@ import { LinePlot3d } from "#/plot/presentation/plots/3d/line_plot/index";
 import { ScatterPlot3d } from "#/plot/presentation/plots/3d/scatter_plot/index";
 import { PlotBareAss } from "#/plot/presentation/plots/bare_ass";
 import { WrappedVideoComponent } from "#/mdx/presentation/wrapped_components/video";
+import { WrappedAudioComponent } from "#/mdx/presentation/wrapped_components/audio";
 
 interface ComponentMapItem {
     /// A regex that will return true if this component is to be included in the component map. This will be prepended with a `<`, so the name should match the component as it will be used in the user's note.
@@ -170,6 +172,10 @@ const items: ComponentMapItem[] = [
         query: "Video",
         component: WrappedVideoComponent,
     },
+    {
+        query: "Audio",
+        component: WrappedAudioComponent,
+    },
     // -- Less Commonly Used Components --
     {
         query: "Qr",
@@ -205,6 +211,10 @@ const items: ComponentMapItem[] = [
     {
         query: "VideoTimestampLink",
         component: VideoTimestampLink,
+    },
+    {
+        query: "AudioTimestampLink",
+        component: AudioTimestampLink,
     },
 
     // -- Documentation Only --

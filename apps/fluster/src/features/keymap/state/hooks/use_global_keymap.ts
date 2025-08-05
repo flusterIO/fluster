@@ -33,17 +33,12 @@ export const useGlobalKeymap = () => {
         for (const entry_id in keymapData) {
             const entry = keymapData[entry_id as unknown as KeymapId];
             const action = keymapActions[entry_id as unknown as GlobalKeymapActionId];
-            if (
-                entry.key === e.key &&
-                entry.alt === e.altKey &&
-                entry.meta === e.metaKey &&
-                entry.shift === e.shiftKey &&
-                entry.ctrl === e.ctrlKey &&
-                action !== undefined
-            ) {
-                e.preventDefault();
-                e.stopPropagation();
-                action().catch(() => {
+            if (entry.matches(e) && action !== undefined) {
+                if (entry.alt || entry.ctrl || entry.meta) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                }
+                action(e).catch(() => {
                     console.error(
                         `An error occurred while calling an action: ${entry_id}`
                     );

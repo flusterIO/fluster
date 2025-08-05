@@ -24,7 +24,13 @@ The `Hint` component adds some styling to a bit of text that is intended to indi
 
 ## Props
 
+<Hint developer>
+These props also extend `HTMLProps<HTMLDivElement>`, meaning all properties that are accepted by a div in React will be passed to the container element.
+</Hint>
 
 | key | type | desc |
 | --- | ---- | ---- |
 | children | `ReactNode` | The underlined text. | 
+| label | `string?` | Replace 'hint' with this. | 
+| note | `boolean?` | Change 'hint' to 'note' and adjust color. | 
+| seeAlso | `boolean?` | Change 'hint' to 'See Also' and adjust color. | 

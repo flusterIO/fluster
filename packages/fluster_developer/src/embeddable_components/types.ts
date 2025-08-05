@@ -12,3 +12,11 @@ export interface PositionableProps {
     sidebar?: boolean;
     right?: boolean;
 }
+
+export interface MediaPlayerProps extends PositionableProps {
+    file?: string;
+    /** The user's note directory. */
+    basePath: string;
+    id?: string;
+    autoPlay?: boolean;
+}

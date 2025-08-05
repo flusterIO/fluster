@@ -17,7 +17,6 @@ export const EmbeddedDocsByFilePath = ({
     const [content, setContent] = useState<string | null>();
     const nav = useNavigate();
     const getData = async (fp: string): Promise<void> => {
-        console.log("fp: ", fp);
         const res = await commands.getEmbeddedDocByRelativePath(fp);
         if (res.status === "ok") {
             const withoutFrontMatter = await commands.removeFrontMatter(res.data);
@@ -27,9 +26,12 @@ export const EmbeddedDocsByFilePath = ({
             nav("/");
         }
     };
+
     useEffect(() => {
         getData(filePath);
+        /* eslint-disable-next-line  --  */
     }, [filePath]);
+
     if (!content) {
         return (
             <div className="w-full h-full flex flex-col justify-center items-center">
@@ -37,11 +39,12 @@ export const EmbeddedDocsByFilePath = ({
             </div>
         );
     }
+
     return (
         <div
-            id="scroll-target"
+            /* id="scroll-target" */
             className={
-                "w-full h-screen flex flex-col justify-start items-center py-16 px-6 md:px-8 overflow-y-auto"
+                "w-full flex flex-col justify-start items-center py-16 px-6 md:px-8"
             }
         >
             <div className="w-full h-fit flex flex-row justify-start items-center">

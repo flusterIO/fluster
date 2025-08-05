@@ -7,9 +7,9 @@ const EmbeddedDocsByIdPage = (): ReactNode => {
     const data = useLoaderData();
     return (
         <div
-            id="scroll-target"
+            /* id="scroll-target-ocs" */
             className={
-                "w-full h-screen flex flex-col justify-start items-center py-16 px-6 md:px-8 overflow-y-auto"
+                "w-full flex flex-col justify-start items-center py-16 px-6 md:px-8"
             }
         >
             <div className="w-[min(1080px,90%)]">
