@@ -21,7 +21,6 @@ export const useDebounceMdxParse = (
             const compiled = await parseMdxString({
                 content: _value,
             });
-            console.log("compiled: ", compiled);
             const res = await run(compiled, {
                 Fragment: Fragment,
                 jsx: runtime.jsx,
