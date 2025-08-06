@@ -1,0 +1,32 @@
+---
+title: Image
+---
+
+
+# Image
+
+Use the image component to display images within your notes. All images should be contained within your notes directory for portability reasons, and using images outside of your notes directory mght break with future updates.
+
+## Demo
+
+```jsx
+<Image 
+    file="images/my_image.png"
+    sidebar
+    right
+/>
+```
+
+
+
+## Props
+
+> These properties extend the `PositionableProps` object, the same as an admonition making the center, right, and sidebar properties available as well.
+
+
+| key | type | desc |
+| --- | ---- | ---- |
+| children | `ReactNode` | The underlined text. | 
+| file | `string` | The path to the image relative to your notes directory. | 
+| caption | `string?` | An optional caption for the image. | 
+| id | `string?` | An optional id for the image that can then be used in the `ImageRef` component. | 

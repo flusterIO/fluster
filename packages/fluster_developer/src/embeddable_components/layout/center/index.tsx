@@ -4,19 +4,25 @@ import { cn } from "../../../utils/cn";
 /* TODO: Document this component in the embedded documentation. */
 
 interface CenterProps extends HTMLProps<HTMLDivElement> {
-  children: ReactNode;
+    children: ReactNode;
 }
 
 export const Center = ({
-  children,
-  className,
-  ...props
+    children,
+    className,
+    ...props
 }: CenterProps): ReactNode => {
-  return (
-    <div {...props} className={cn("w-full h-full", className)}>
-      {children}
-    </div>
-  );
+    return (
+        <div
+            {...props}
+            className={cn(
+                "w-full h-full flex flex-col justify-center items-center",
+                className
+            )}
+        >
+            {children}
+        </div>
+    );
 };
 
 Center.displayName = "Center";

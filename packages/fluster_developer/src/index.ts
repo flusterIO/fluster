@@ -62,6 +62,9 @@ export * from "./components/typography/mdx_typography";
 export * from "./embeddable_components/media/video/index";
 export * from "./embeddable_components/media/audio/index";
 export * from "./embeddable_components/media/audio/send_audio_seek_event";
+export * from "./embeddable_components/media/image/index";
+export * from "./embeddable_components/media/image/img_state/img_provider";
+export * from "./embeddable_components/media/image/img_state/img_page_listener";
 // -- Icons --
 export * from "./components/icons/icon_components/fluster";
 export * from "./components/icons/icon_components/github";

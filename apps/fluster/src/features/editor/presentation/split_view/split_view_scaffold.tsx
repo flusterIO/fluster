@@ -34,7 +34,10 @@ const SplitViewContainer = ({
                 order={2}
                 defaultSize={50}
             >
-                <div className="w-full h-full overflow-y-auto overflow-x-hidden py-16 px-8">
+                <div
+                    id="mdx-page-container"
+                    className="w-full h-full overflow-y-auto overflow-x-hidden py-16 px-8"
+                >
                     <MdxProviderGroup>
                         <MdxContent
                             removeGrayMatter

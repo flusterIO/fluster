@@ -35,7 +35,7 @@ const MdxNotePage = ({ mdxGroup, ...props }: MdxNotePageProps): ReactNode => {
                 props.className
             )}
         >
-            <div className="w-[min(1080px,90%)]">
+            <div id="mdx-page-container" className="w-[min(1080px,90%)]">
                 <MdxProviderGroup>
                     <MdxContent mdx={mdxGroup.mdx.raw_body} />
                 </MdxProviderGroup>

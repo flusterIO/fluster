@@ -38,7 +38,7 @@ export const useGlobalKeymap = () => {
                     e.preventDefault();
                     e.stopPropagation();
                 }
-                action(e).catch(() => {
+                action().catch(() => {
                     console.error(
                         `An error occurred while calling an action: ${entry_id}`
                     );

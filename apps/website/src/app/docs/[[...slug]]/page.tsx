@@ -13,7 +13,9 @@ export default async function Page(props: {
 }) {
     const params = await props.params;
     const page = docsSource.getPage(params.slug);
-    if (!page) notFound();
+    if (!page) {
+        notFound();
+    }
 
     return (
         <DocsPage toc={page.data.toc} full={page.data.full}>

@@ -81,7 +81,7 @@ export const transformMdx: typeof F.transformMDX = (
                                     processEnvironments: true,
                                 },
                                 chtml: {
-                                    fontURL: "/font/mathjax",
+                                    // fontURL: "/font/mathjax",
                                     adaptiveCSS: true,
                                 },
                             },

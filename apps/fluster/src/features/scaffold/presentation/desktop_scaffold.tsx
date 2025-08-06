@@ -1,6 +1,6 @@
-import React, { type ReactNode } from "react";
+import React, { useEffect, type ReactNode } from "react";
 import DesktopSideNavigation from "./desktop_side_navigation";
-import { Outlet } from "react-router";
+import { Outlet, useLocation } from "react-router";
 import ToastNotificationList from "#/toast_notification/presentation/toast_notification_list";
 import { CommandPaletteProvider } from "#/command_palette/state/command_palette_provider";
 import CommandPalette from "#/command_palette/presentation/command_palette";
@@ -15,6 +15,16 @@ import { BodyPortal } from "@/components/body_portal";
 
 const DesktopScaffold = (): ReactNode => {
     useDevelopmentLogger();
+    const location = useLocation();
+    useEffect(() => {
+        window.dispatchEvent(
+            new CustomEvent("page-navigate", {
+                detail: {
+                    location: location,
+                },
+            })
+        );
+    }, [location]);
     return (
         <PageContainer>
             <MathjaxScript />

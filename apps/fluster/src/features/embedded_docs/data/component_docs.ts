@@ -14,8 +14,16 @@ export const componentDocItems: ComponentDocsEntry[] = [
         fp: "component_docs/admonition.mdx",
     },
     {
+        label: "Audio",
+        fp: "component_docs/audio.mdx",
+    },
+    {
         label: "Card",
         fp: "component_docs/card.mdx",
+    },
+    {
+        label: "Center",
+        fp: "component_docs/center.mdx",
     },
     {
         label: "Color",
@@ -40,6 +48,10 @@ export const componentDocItems: ComponentDocsEntry[] = [
     {
         label: "Hint",
         fp: "component_docs/hint.mdx",
+    },
+    {
+        label: "Image",
+        fp: "component_docs/image.mdx",
     },
     {
         label: "Plots",

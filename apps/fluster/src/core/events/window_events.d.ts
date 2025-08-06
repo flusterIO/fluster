@@ -1,4 +1,5 @@
 import { KeymapId } from "#/keymap/data/models/keymap_ids";
+import { Location } from "react-router";
 import { ShowCommandPaletteEventProps } from "./show_command_palette";
 
 export interface BibEntryDetailsProps {
@@ -23,6 +24,7 @@ declare global {
     interface WindowEventMap {
         show_command_palette: CustomEvent<ShowCommandPaletteEventProps>;
         "show-bib-entry-details": CustomEvent<BibEntryDetailsProps>;
+        "page-navigate": CustomEvent<{ location: Location }>;
         "show-equation-detail-modal": CustomEvent<ShowEquationDetailModalEventProps>;
         "database-sync-success": CustomEvent<object>;
         "refresh-mdx": CustomEvent<object>;
