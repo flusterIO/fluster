@@ -1,5 +1,11 @@
 # @fluster.io/dev
 
+## 0.1.6
+
+### Patch Changes
+
+- Add Image, Audio and Video components with timestamp links.
+
 ## 0.1.5
 
 ### Patch Changes
