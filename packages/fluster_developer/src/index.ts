@@ -34,6 +34,7 @@ export * from "./math/constants/index";
 //    -- Utility --
 export * from "./embeddable_components/util/div";
 export * from "./embeddable_components/util/equation_reference/eq_ref_wrapper";
+export * from "./embeddable_components/types";
 export * from "./components/elements/a";
 // -- Inputs --
 export * from "./components/inputs/select/file_extension_glob_select/index";

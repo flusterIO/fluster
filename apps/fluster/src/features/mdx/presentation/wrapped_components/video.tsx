@@ -1,8 +1,7 @@
 import { AppState } from "@/state/initial_state";
-import { Video } from "@fluster.io/dev";
+import { MediaPlayerProps, Video } from "@fluster.io/dev";
 import React, { type ReactNode } from "react";
 import { connect } from "react-redux";
-import { MediaPlayerProps } from "../../../../../../../packages/fluster_developer/dist/embeddable_components/types";
 
 const connector = connect((state: AppState) => ({
     basePath: state.core.notesDirectory,
