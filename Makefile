@@ -64,11 +64,9 @@ typeshare:
 	typeshare ${FLUSTER_NATIVE_ROOT}/packages/fluster_native_interface --lang=typescript --output-folder=${FLUSTER_NATIVE_ROOT}/packages/fluster_ts/src/generated/fluster_native_interface
 	typeshare ${FLUSTER_NATIVE_ROOT}/packages/fluster_native_interface --lang=typescript --output-folder=${FLUSTER_NATIVE_ROOT}/packages/fluster_native_interface/typescript/src/generated
 cross_language_sync: typeshare cross_language_pre_build build_embedded_ts build_go
-distribute_node: build_node
-	cd ${FLUSTER_NATIVE_ROOT}/packages/fluster_ts; npm publish
 nocheck_bindings_file:
 	packages/fluster_internal_workspace/fluster_internal_workspace nocheck_bindings
-build_macos: nocheck_bindings_file build_developer_typescript
-	cd ${FLUSTER_NATIVE_ROOT}/apps/fluster; cargo tauri build -b="app" -t="universal-apple-darwin"
-build_desktop: cross_language_pre_build build_protos build_node build_go build_rust
-	@echo "building..." 
+release_npm: format_package_jsons
+	scripts/release_npm.zsh
+release_tauri: format_package_jsons
+	scripts/release_tauri.zsh

@@ -28,7 +28,6 @@ import { NavLink } from "react-router";
 
 export const BibEntryDetailSheet = (): ReactNode => {
     const [item, setItem] = useState<null | BibEntryParsed>(null);
-    const [maxHeight, setMaxHeight] = useState(window.innerHeight - 256);
     const buttonContainer = useRef<HTMLDivElement>(null!);
     const headerContainer = useRef<HTMLDivElement>(null!);
     const close = (): void => {
@@ -39,30 +38,14 @@ export const BibEntryDetailSheet = (): ReactNode => {
             close();
         }
     };
-    const handleResize = (): void => {
-        setMaxHeight(
-            window.innerHeight -
-            (headerContainer.current?.getBoundingClientRect().height ?? 0) -
-            140 -
-            (buttonContainer.current?.getBoundingClientRect().height ?? 0)
-        );
-    };
-    useEffect(() => {
-        if (item) {
-            handleResize();
-        }
-    }, [item]);
     useEffect(() => {
         window.addEventListener("keydown", keyDownListener);
-        window.addEventListener("resize", handleResize);
-        const btn = buttonContainer.current;
-        btn?.addEventListener("resize", handleResize);
         return () => {
-            window.removeEventListener("resize", handleResize);
             window.removeEventListener("keydown", keyDownListener);
-            btn?.removeEventListener("resize", handleResize);
         };
+        /* eslint-disable-next-line  --  */
     }, []);
+
     const _data = useMemo(() => {
         if (!item) {
             return;
@@ -145,14 +128,9 @@ export const BibEntryDetailSheet = (): ReactNode => {
                         >
                             <InlineMdxContent mdx={item.title ?? ""} />
                         </div>
-                        <div
-                            className="w-full no-scrollbar [&_div[data-slot='table-container']:w-fit overflow-y-auto"
-                            style={{
-                                maxHeight: `${maxHeight}px`,
-                            }}
-                        >
-                            <BibEntryDetailsTable data={_data} />
-                        </div>
+                    </div>
+                    <div className="w-full no-scrollbar flex-grow [&_div[data-slot='table-container']:w-fit overflow-y-auto my-4">
+                        <BibEntryDetailsTable data={_data} />
                     </div>
                     <div
                         ref={buttonContainer}

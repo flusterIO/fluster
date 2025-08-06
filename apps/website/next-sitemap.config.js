@@ -1,6 +1,6 @@
 /** @type {import('next-sitemap').IConfig} */
 module.exports = {
-    siteUrl: "https://flusterapp.com",
+    siteUrl: process.env.SITE_URL || "https://flusterapp.com",
     generateRobotsTxt: true, // (optional)
     // ...other options
 };
