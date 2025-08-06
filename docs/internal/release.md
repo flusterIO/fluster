@@ -10,6 +10,9 @@
 
 > Make sure you're on the main branch.
 
+1. `git checkout main`
+2. Use `make release_npm` to run:
+
 - Create a changeset with `pnpm changeset`
 - Version all packages with `pnpm changeset version` -- This skips the stage of generating a pull request with the merge and handles everything in one workflow.
 - Use Make command to set local package versions to workspace.
@@ -21,8 +24,10 @@
 
 > Make sure you're on the release branch.
 
-- `git checkout release` to switch to release branch
-- `git merge main` to merge main branch.
+1. `git checkout release` to switch to release branch
+2. `git merge main` to merge main branch.
+3. Use `scripts/release_tauri.zsh` to run:
+
 - Use make command to set `tauri.conf.json` version.
 - Use make command to set local deps to remote versoin.
 - `pnpm install` to update lock files to match the remote version.
