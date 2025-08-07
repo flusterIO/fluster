@@ -1,5 +1,7 @@
 cd $FLUSTER_NATIVE_ROOT
 pnpm changeset
+pnpm changeset add apps/fluster
+pnpm changeset add packages/fluster_developer
 pnpm changeset version
 make local_deps_to_workspace_version
 pnpm install
