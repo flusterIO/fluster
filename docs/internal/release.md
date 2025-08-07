@@ -11,7 +11,8 @@
 > Make sure you're on the main branch.
 
 1. `git checkout main`
-2. Use `make release_npm` to run:
+2. `pnpm changeset` to create changeset
+3. Use `make release_npm` to run:
 
 - Create a changeset with `pnpm changeset`
 - Version all packages with `pnpm changeset version` -- This skips the stage of generating a pull request with the merge and handles everything in one workflow.

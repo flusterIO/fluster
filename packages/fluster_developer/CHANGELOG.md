@@ -1,5 +1,11 @@
 # @fluster.io/dev
 
+## 0.1.9
+
+### Patch Changes
+
+- Release npm packages to test new csp.
+
 ## 0.1.8
 
 ### Patch Changes
