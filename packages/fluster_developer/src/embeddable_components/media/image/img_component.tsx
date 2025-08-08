@@ -52,7 +52,7 @@ export const ImageComponent = ({
         >
             <img className={cn("", hasCaption && "mb-2")} src={data} />
             {hasCaption ? (
-                <div className="text-sm text-foreground/80 text-center max-w-[min(80%,540px)]">
+                <div className="text-sm text-foreground/80 text-center max-w-[min(80%,540px)] ml-auto mr-auto">
                     {caption ?? `Image ${(imgIndex ?? -1) + 1}`}
                 </div>
             ) : null}
