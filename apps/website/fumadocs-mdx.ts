@@ -16,13 +16,13 @@ export const docs = defineCollections({
     // other options
 });
 
-export const myWork = defineCollections({
-    type: "doc",
-    dir: "./content/my_work",
-    schema,
-    // mdxOptions: getDefaultMDXOptions(),
-    // other options
-});
+// export const myWorkCo = defineCollections({
+//     type: "doc",
+//     dir: "./content/my_work",
+//     schema,
+//     // mdxOptions: getDefaultMDXOptions(),
+//     // other options
+// });
 
 export const metaFiles = defineCollections({
     dir: "./content/",
@@ -36,6 +36,10 @@ export const legal = defineCollections({
     schema,
     // mdxOptions: getDefaultMDXOptions(),
     // other options
+});
+
+export const myWork = defineDocs({
+    dir: "content/my_work",
 });
 
 export const documentation = defineDocs({

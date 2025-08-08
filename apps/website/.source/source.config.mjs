@@ -14,13 +14,6 @@ var docs = defineCollections({
   // mdxOptions: getDefaultMDXOptions(),
   // other options
 });
-var myWork = defineCollections({
-  type: "doc",
-  dir: "./content/my_work",
-  schema
-  // mdxOptions: getDefaultMDXOptions(),
-  // other options
-});
 var metaFiles = defineCollections({
   dir: "./content/",
   type: "meta"
@@ -33,14 +26,17 @@ var legal = defineCollections({
   // mdxOptions: getDefaultMDXOptions(),
   // other options
 });
+var myWork = defineDocs({
+  dir: "content/my_work"
+});
 var documentation = defineDocs({
-  dir: "content/docs",
-  docs: {
-    schema
-  },
-  meta: {
-    schema
-  }
+  dir: "content/docs"
+  // docs: {
+  //     schema,
+  // },
+  // meta: {
+  //     schema,
+  // },
 });
 export {
   docs,
