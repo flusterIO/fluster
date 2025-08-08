@@ -20,17 +20,11 @@ crate-type = ["staticlib", "cdylib", "rlib"]
 tauri-build = { version = "2", features = [] }
 
 [dependencies]
-plotly = { version = "0.12", features = [
-    "kaleido",
-    "kaleido_download",
-    "plotly_ndarray",
-] }
 tauri = { version = "2", features = [
     "protocol-asset",
     "tray-icon",
     "specta",
     "test",
-    "devtools",
 ] }
 tauri-plugin-opener = "2"
 serde = { version = "1", features = ["derive"] }
@@ -65,8 +59,6 @@ crossbeam-channel = "0.5.15"
 rayon = "1.10.0"
 strum = "0.27.1"
 strum_macros = "0.27.1"
-sea-query = "0.32.5"
-embed-file = "0.2.0"
 include_dir = "0.7.4"
 uuid = { version = "1.17.0", features = ["v4"] }
 lancedb = { version = "0.19", features = ["polars"] }
@@ -89,7 +81,6 @@ sysinfo = { version = "0.35.2", features = [
     "serde",
 ] }
 langchain-rust = "4.6.0"
-rig-lancedb = "0.2.11"
 tantivy = "0.22.0"
 rand = "0.9.1"
 pyo3 = "0.25.1"

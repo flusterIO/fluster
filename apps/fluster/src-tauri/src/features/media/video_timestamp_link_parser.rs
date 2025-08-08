@@ -18,7 +18,7 @@ impl MdxParser<String> for VideoTimestampLinkParser {
     fn parse_mdx(&self, content: &str) -> ParsedContentResult<String> {
         let regex = self.get_regex();
         let mut new_content = content.to_string();
-        for regex_match in regex.captures(content) {
+        while let Some(regex_match) = regex.captures(content) {
             let (match_content, groups): (&str, [&str; 3]) = regex_match.extract();
             let body = *groups.index(0);
             let video_id = *groups.index(1);
