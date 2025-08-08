@@ -1,5 +1,37 @@
-import { defineCollections, defineDocs } from "fumadocs-mdx/config";
+import {
+    defineCollections,
+    defineConfig,
+    defineDocs,
+    GlobalConfig,
+} from "fumadocs-mdx/config";
 import { z } from "zod";
+import remarkMath from "remark-math";
+import rehypeMathjax from "rehype-mathjax/chtml";
+
+const config: GlobalConfig = {
+    mdxOptions: {
+        remarkPlugins: [remarkMath],
+        rehypePlugins: (v) => [
+            [
+                rehypeMathjax,
+                {
+                    tex: {
+                        tags: "all",
+                        useLabelIds: true,
+                        processEscapes: true,
+                        processEnvironments: true,
+                    },
+                    chtml: {
+                        fontURL:
+                            "https://cdn.jsdelivr.net/npm/mathjax@3/es5/output/chtml/fonts/woff-v2",
+                        adaptiveCSS: true,
+                    },
+                },
+            ],
+            ...v,
+        ],
+    },
+};
 
 const schema = z.object({
     title: z.string().optional(),
@@ -40,6 +72,9 @@ export const legal = defineCollections({
 
 export const myWork = defineDocs({
     dir: "content/my_work",
+    docs: {
+        mdxOptions: config.mdxOptions,
+    },
 });
 
 export const documentation = defineDocs({
@@ -51,3 +86,5 @@ export const documentation = defineDocs({
     //     schema,
     // },
 });
+
+export default defineConfig(config);

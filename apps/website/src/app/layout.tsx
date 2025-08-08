@@ -4,6 +4,7 @@ import localFont from "next/font/local";
 import FumaDocsProvider from "#/features/docs/fuma_docs_provider";
 import { GoogleAnalytics } from "@next/third-parties/google";
 import Head from "next/head";
+import "katex/dist/katex.css";
 
 const appFont = localFont({
     variable: "--ulld-app-font",
@@ -75,6 +76,10 @@ export default function RootLayout({
                     content="https://flusterapp.com/blog/screenshots/splitview.png"
                 />
                 <meta name="twitter:card" content="summary_large_image" />
+                <script
+                    defer
+                    src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js"
+                />
             </Head>
             <body className={`antialiased background`}>
                 <FumaDocsProvider>

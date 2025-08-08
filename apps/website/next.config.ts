@@ -1,7 +1,7 @@
 import type { NextConfig } from "next";
 import { createMDX } from "fumadocs-mdx/next";
 const withMDX = createMDX({
-    configPath: "./fumadocs-mdx.ts",
+    configPath: "./source.config.ts",
 });
 
 const nextConfig: NextConfig = {
