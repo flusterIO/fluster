@@ -1,5 +1,5 @@
-import { ClientMdxWrapper } from "#/core/mdx/client_mdx_wrapper";
-import { docsSource } from "#/core/mdx/sources/docs_source";
+import { getMDXComponents } from "#/core/mdx/mdx_component_map";
+import { source } from "#/core/mdx/sources/fumadocs_mdx/docs";
 import {
     DocsBody,
     DocsDescription,
@@ -12,33 +12,33 @@ export default async function Page(props: {
     params: Promise<{ slug?: string[] }>;
 }) {
     const params = await props.params;
-    const page = docsSource.getPage(params.slug);
+    console.log("params: ", params);
+    const page = source.getPage(params.slug);
+    console.log("page: ", page, params.slug);
     if (!page) {
         notFound();
     }
-
+    const MDX = page.data.body;
     return (
         <DocsPage toc={page.data.toc} full={page.data.full}>
             <DocsTitle>{page.data.title}</DocsTitle>
             <DocsDescription>{page.data.description}</DocsDescription>
             <DocsBody className="prose dark:prose-invert prose-code:before:content-none prose-code:after:content-none prose-code:bg-[--shiki-light-bg] dark:prose-code:bg-[--shiki-dark-bg] [&_code_*]:text-[--shiki-light] dark:[&_code_*]:text-[--shiki-dark]">
-                <ClientMdxWrapper body={page.data.body} />
+                <MDX components={getMDXComponents()} />
             </DocsBody>
         </DocsPage>
     );
 }
 
 export async function generateStaticParams() {
-    return docsSource.generateParams();
+    return source.generateParams();
 }
-
 export async function generateMetadata(props: {
     params: Promise<{ slug?: string[] }>;
 }) {
     const params = await props.params;
-    const page = docsSource.getPage(params.slug);
+    const page = source.getPage(params.slug);
     if (!page) notFound();
-
     return {
         title: page.data.title,
         description: page.data.description,

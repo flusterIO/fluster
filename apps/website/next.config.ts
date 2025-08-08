@@ -1,5 +1,8 @@
 import type { NextConfig } from "next";
-import { withContentCollections } from "@content-collections/next";
+import { createMDX } from "fumadocs-mdx/next";
+const withMDX = createMDX({
+    configPath: "./fumadocs-mdx.ts",
+});
 
 const nextConfig: NextConfig = {
     typescript: {
@@ -8,4 +11,4 @@ const nextConfig: NextConfig = {
     reactStrictMode: true,
 };
 
-export default withContentCollections(nextConfig);
+export default withMDX(nextConfig);

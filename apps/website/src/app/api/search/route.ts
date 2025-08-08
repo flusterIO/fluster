@@ -1,4 +1,5 @@
-import { docsSource } from '#/core/mdx/sources/docs_source';
-import { createFromSource } from 'fumadocs-core/search/server';
-
-export const { GET } = createFromSource(docsSource);
+import { source } from "../../../core/mdx/sources/fumadocs_mdx/docs";
+import { createFromSource } from "fumadocs-core/search/server";
+export const { GET } = createFromSource(source, {
+    language: "english",
+});

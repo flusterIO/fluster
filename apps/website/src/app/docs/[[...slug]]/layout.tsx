@@ -1,15 +1,17 @@
 import { baseOptions } from "#/core/mdx/base_options";
-import { docsSource } from "#/core/mdx/sources/docs_source";
 import { RootToggle } from "fumadocs-ui/components/layout/root-toggle";
 import { DocsLayout } from "fumadocs-ui/layouts/docs";
 import { TerminalIcon, UserIcon } from "lucide-react";
 import type { ReactNode } from "react";
 import "../../../core/styles/docs.scss";
+import { source } from "#/core/mdx/sources/fumadocs_mdx/docs";
+/* import "fumadocs-ui/css/preset.css"; */
+/* import "fumadocs-ui/css/neutral.css"; */
 
 export default function Layout({ children }: { children: ReactNode }) {
     return (
         <DocsLayout
-            tree={docsSource.pageTree}
+            tree={source.pageTree}
             {...baseOptions}
             containerProps={{
                 className: "[&_#nd-sidebar>div[data-fdid]]:w-full",
