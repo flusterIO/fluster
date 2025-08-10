@@ -1,3 +1,4 @@
+use crate::core::sync::parse_directory::sync_fs_directory::models::sync_filesystem_options::SyncFilesystemDirectoryOptions;
 use async_trait::async_trait;
 
 use crate::{
@@ -6,5 +7,9 @@ use crate::{
 
 #[async_trait]
 pub trait AiProvider {
-    async fn get_text_embeddings(&self, notes: &mut [MdxNoteGroup]) -> FlusterResult<()>;
+    async fn get_text_embeddings(
+        &self,
+        notes: &mut [MdxNoteGroup],
+        opts: &SyncFilesystemDirectoryOptions,
+    ) -> FlusterResult<()>;
 }

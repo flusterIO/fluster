@@ -5,6 +5,7 @@ import { GeneralSettingsPage } from "../pages/general";
 import { CodeSettingsPage } from "../pages/code";
 import { BibliographySettingsPage } from "../pages/bib";
 import { MathSettingsPage } from "../pages/math";
+import { AiAndMLSettingsPage } from "../pages/ai_and_ml";
 
 const SettingsPageContentSwitch = (): ReactNode => {
     const [searchParams] = useSearchParams();
@@ -18,6 +19,8 @@ const SettingsPageContentSwitch = (): ReactNode => {
             return <BibliographySettingsPage />;
         case CategoryId.math:
             return <MathSettingsPage />;
+        case CategoryId.ai:
+            return <AiAndMLSettingsPage />;
     }
 };
 

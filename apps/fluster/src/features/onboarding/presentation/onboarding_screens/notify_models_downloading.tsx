@@ -4,7 +4,7 @@ import {
     useOnboardingStateDispatch,
 } from "#/onboarding/state/onboarding_context";
 import { commands } from "@/lib/bindings";
-import { H1 } from "@fluster.io/dev";
+import { buttonVariants, H1 } from "@fluster.io/dev";
 import { Button } from "@fluster.io/dev";
 import React, { type ReactNode } from "react";
 import { useNavigate } from "react-router";
@@ -22,11 +22,21 @@ export const OnboardingNotifyOfModelsDownloading = (): ReactNode => {
         <div className="max-w-[768px] flex flex-col justify-center items-start gap-8 px-8">
             <H1>Local AI</H1>
             <p className="text-muted-foreground">
-                Since Fluster runs AI on your own hardware, we'll need to download some
-                models. This can take some time, and unfortunately synchronizing your
-                database will not work until this is complete.
+                Fluster uses Ollama under the hood to manage local AI models. While
+                Fluster can be used without this AI functionality, many tasks and more
+                advanced features will be non-functional.
+            </p>
+            <p className="text-muted-foreground">
+                If you do not already have Ollama installed, please click below to
+                install it for your operating system.
             </p>
             <div className="w-full flex flex-row justify-end items-center">
+                <a
+                    className={buttonVariants({ variant: "outline" })}
+                    href="https://ollama.com/download"
+                >
+                    Install Ollama
+                </a>
                 <Button onClick={handleClick}>I'm aware</Button>
             </div>
         </div>

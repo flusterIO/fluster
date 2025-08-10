@@ -13,6 +13,8 @@ pub struct SyncFilesystemDirectoryOptions {
     /// defaults to true
     pub with_ai: bool,
     pub existing_taggables: AllTaggableData,
+    /// Embeddings model to be used when syncing.
+    pub embedding_model: Option<String>,
 }
 
 impl Default for SyncFilesystemDirectoryOptions {
@@ -23,6 +25,7 @@ impl Default for SyncFilesystemDirectoryOptions {
             n_threads: "16".to_string(),
             use_git_ignore: false,
             with_ai: true,
+            embedding_model: None,
             existing_taggables: AllTaggableData {
                 tags: Vec::new(),
                 topics: Vec::new(),

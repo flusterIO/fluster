@@ -7,4 +7,5 @@ pub struct AiChatModel {
     pub id: String,
     pub label: String,
     pub ctime: String,
+    pub model: String,
 }

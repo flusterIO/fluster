@@ -11,5 +11,6 @@ export enum TextInputType {
 
 export interface AiState {
     provider: AiProvider;
-    aiChatInput: TextInputType
+    aiChatInput: TextInputType;
+    defaultLanguageModel: string;
 }

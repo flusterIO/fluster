@@ -167,6 +167,9 @@ pub enum FlusterError {
     // -- Python --
     #[error("Failed to execute python via rust.")]
     FailToExecutePython,
+    // -- Ollama --
+    #[error("Fluster failed reading ollama models")]
+    FailToGetModels,
 }
 
 pub type FlusterResult<T> = Result<T, FlusterError>;

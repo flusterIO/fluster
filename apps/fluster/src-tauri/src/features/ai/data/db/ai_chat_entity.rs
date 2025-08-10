@@ -125,6 +125,7 @@ impl DbEntity<AiChatModel> for AiChatEntity {
         Arc::new(Schema::new(vec![
             Field::new("id", DataType::Utf8, false),
             Field::new("label", DataType::Utf8, false),
+            Field::new("model", DataType::Utf8, false),
             Field::new(
                 "ctime",
                 DataType::Timestamp(arrow_schema::TimeUnit::Millisecond, None),
@@ -139,8 +140,18 @@ impl DbEntity<AiChatModel> for AiChatEntity {
     ) -> arrow_array::RecordBatch {
         let id = StringArray::from(vec![item.id.clone()]);
         let label = StringArray::from(vec![item.label.clone()]);
+        let model = StringArray::from(vec![item.model.clone()]);
         let ctime_value: i64 = item.ctime.parse().unwrap();
         let ctime = TimestampMillisecondArray::from(vec![ctime_value]);
-        RecordBatch::try_new(schema, vec![Arc::new(id), Arc::new(label), Arc::new(ctime)]).unwrap()
+        RecordBatch::try_new(
+            schema,
+            vec![
+                Arc::new(id),
+                Arc::new(label),
+                Arc::new(model),
+                Arc::new(ctime),
+            ],
+        )
+        .unwrap()
     }
 }

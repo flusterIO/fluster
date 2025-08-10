@@ -551,9 +551,9 @@ async getAiChatById(chatId: string) : Promise<Result<AiChatData, FlusterError>> 
     else return { status: "error", error: e  as any };
 }
 },
-async createNewAiChat(label: string) : Promise<Result<null, FlusterError>> {
+async createNewAiChat(label: string, model: string) : Promise<Result<null, FlusterError>> {
     try {
-    return { status: "ok", data: await TAURI_INVOKE("create_new_ai_chat", { label }) };
+    return { status: "ok", data: await TAURI_INVOKE("create_new_ai_chat", { label, model }) };
 } catch (e) {
     if(e instanceof Error) throw e;
     else return { status: "error", error: e  as any };
@@ -588,6 +588,22 @@ async beginEmbeddingModelDownload() : Promise<void> {
 },
 async beginLanguageModelDownload() : Promise<void> {
     await TAURI_INVOKE("begin_language_model_download");
+},
+async getLocalOllamaModels() : Promise<Result<LocalModelData[], FlusterError>> {
+    try {
+    return { status: "ok", data: await TAURI_INVOKE("get_local_ollama_models") };
+} catch (e) {
+    if(e instanceof Error) throw e;
+    else return { status: "error", error: e  as any };
+}
+},
+async getOllamaModelInfo(modelName: string) : Promise<Result<LocalModelDetailData, FlusterError>> {
+    try {
+    return { status: "ok", data: await TAURI_INVOKE("get_ollama_model_info", { modelName }) };
+} catch (e) {
+    if(e instanceof Error) throw e;
+    else return { status: "error", error: e  as any };
+}
 },
 async createTask(task: TaskModel, tags: TaskTagModel[]) : Promise<Result<null, FlusterError>> {
     try {
@@ -758,7 +774,7 @@ export type AiChatData = { chat: AiChatModel; outgoing: AiChatRequestMessageMode
 /**
  * The database entity representing a specific chat historys
  */
-export type AiChatModel = { id: string; label: string; ctime: string }
+export type AiChatModel = { id: string; label: string; ctime: string; model: string }
 export type AiChatRequestMessageModel = { id: string; 
 /**
  * The id of the accompanying AiChatModel row.
@@ -855,7 +871,7 @@ export type FlusterError = "OperatingSystemNotSupported" | "FailToLoadDocs" | { 
  * Taggables
  * 
  */
-"FailToUpsertTags" | "FailToExecutePython"
+"FailToUpsertTags" | "FailToExecutePython" | "FailToGetModels"
 /**
  * This is the model as it exists in the database. All related external tables can be combined to form a
  * `FrontMatterModel` struct, which more closely represents the front matter as it appears in a
@@ -902,6 +918,8 @@ export type KanbanCardModel = { id: string; label: string; desc: string | null; 
  * The id field of the KanbanBoardListModel that contains this entry.
  */
 list_id: string }
+export type LocalModelData = { name: string; modified_at: string; size: string }
+export type LocalModelDetailData = { license: string; modelfile: string; parameters: string; template: string }
 export type MathjaxData = { root: string; main_path: string; font_path: string }
 export type MdxBookmarkData = { note: MdxNoteModel; front_matter: FrontMatterBaseModel }
 export type MdxNoteGroup = { mdx: MdxNoteModel; front_matter: FrontMatterModel; tags: SharedTaggableModel[]; equations: EquationModel[]; dictionary_entries: DictionaryEntryModel[]; citations: BibEntryModel[]; note_links: MdxNoteLinkModel[] }
@@ -966,7 +984,11 @@ n_threads: string; use_git_ignore: boolean;
 /**
  * defaults to true
  */
-with_ai: boolean; existing_taggables: AllTaggableData }
+with_ai: boolean; existing_taggables: AllTaggableData; 
+/**
+ * Embeddings model to be used when syncing.
+ */
+embedding_model: string | null }
 export type TaskListData = { list: TaskListModel; items: TaskModel[] }
 export type TaskListModel = { id: string; label: string; desc: string | null; ctime: string }
 export type TaskModel = { id: string; 

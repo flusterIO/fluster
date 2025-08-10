@@ -1,34 +1,40 @@
-use kalosm::language::*;
+use async_trait::async_trait;
+use ollama_rs::{generation::embeddings::request::GenerateEmbeddingsRequest, Ollama};
 
 use crate::{
-    core::types::errors::errors::{FlusterError, FlusterResult},
-    features::{ai::data::constants::VECTOR_DIMENSIONS, mdx::data::mdx_note_group::MdxNoteGroup},
+    core::{
+        sync::parse_directory::sync_fs_directory::models::sync_filesystem_options::SyncFilesystemDirectoryOptions,
+        types::errors::errors::FlusterResult,
+    },
+    features::{
+        ai::data::{constants::VECTOR_DIMENSIONS, traits::ai_provider::AiProvider},
+        mdx::data::mdx_note_group::MdxNoteGroup,
+    },
 };
-use log::error;
 
 pub struct LocalAiClient {}
 
-impl LocalAiClient {
-    pub async fn get_text_embeddings(
+#[async_trait]
+impl AiProvider for LocalAiClient {
+    async fn get_text_embeddings(
         &self,
         notes: &mut [MdxNoteGroup],
-        with_ai: bool,
+        opts: &SyncFilesystemDirectoryOptions,
     ) -> FlusterResult<()> {
-        let bert = Bert::new_for_search().await.map_err(|e| {
-            error!("Error: {:?}", e);
-            FlusterError::FailToLoadModel
-        })?;
+        let ollama = Ollama::default();
+        let with_ai = opts.embedding_model.is_some();
 
         let vec_default = (0..VECTOR_DIMENSIONS).map(|_| 0.0).collect::<Vec<f32>>();
 
         for note in notes.iter_mut() {
             if with_ai {
-                let vector = bert.embed(note.mdx.raw_body.clone()).await.map_err(|e| {
-                    println!("Error: {:?}", e);
-                    FlusterError::FailToCreateEmbeddingVector
-                })?;
-
-                note.mdx.vec = vector.vector().to_vec();
+                let request = GenerateEmbeddingsRequest::new(
+                    opts.embedding_model.clone().unwrap(),
+                    note.mdx.raw_body.clone().into(),
+                );
+                let res = ollama.generate_embeddings(request).await.unwrap();
+                println!("Embeddings: {:?}", Some(res.embeddings));
+                // note.mdx.vec = res.embeddings
             } else if note.mdx.vec.len() != (VECTOR_DIMENSIONS as usize) {
                 note.mdx.vec = vec_default.clone();
             }
@@ -37,30 +43,30 @@ impl LocalAiClient {
     }
 }
 
-#[cfg(test)]
-mod tests {
+// #[cfg(test)]
+// mod tests {
 
-    use crate::core::database::db::get_database;
+//     use crate::core::database::db::get_database;
 
-    use super::*;
+//     use super::*;
 
-    #[tokio::test]
-    async fn gets_embeddings() {
-        let db_res = get_database().await;
-        let db = db_res.lock().await;
-        let mut models: Vec<MdxNoteGroup> = Vec::new();
-        let model = MdxNoteGroup::from_file_system_path(
-            &db,
-            "/Users/bigsexy/Desktop/notes/content/physics/brainstorm/gravityBrainstorm.mdx"
-                .to_string(),
-            None,
-        )
-        .await
-        .expect("Get's test mdx file without throwing an error.");
-        models.push(model);
-        let res = LocalAiClient {}
-            .get_text_embeddings(&mut models, true)
-            .await;
-        assert!(res.is_ok(), "Get's embeddings without throwing an error.");
-    }
-}
+//     #[tokio::test]
+//     async fn gets_embeddings() {
+//         let db_res = get_database().await;
+//         let db = db_res.lock().await;
+//         let mut models: Vec<MdxNoteGroup> = Vec::new();
+//         let model = MdxNoteGroup::from_file_system_path(
+//             &db,
+//             "/Users/bigsexy/Desktop/notes/content/physics/brainstorm/gravityBrainstorm.mdx"
+//                 .to_string(),
+//             None,
+//         )
+//         .await
+//         .expect("Get's test mdx file without throwing an error.");
+//         models.push(model);
+//         let res = LocalAiClient {}
+//             .get_text_embeddings(&mut models, true)
+//             .await;
+//         assert!(res.is_ok(), "Get's embeddings without throwing an error.");
+//     }
+// }

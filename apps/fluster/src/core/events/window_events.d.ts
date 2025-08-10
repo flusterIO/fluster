@@ -37,5 +37,6 @@ declare global {
             id: string;
             seconds: number;
         }>;
+        "request-local-model-list-refresh": CustomEvent<object>;
     }
 }
