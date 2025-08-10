@@ -1,18 +1,8 @@
-import React, { useEffect, useState, type ReactNode } from "react";
-import {
-    fuzzyFilter,
-    Input,
-    Label,
-    showToast,
-    Table,
-    TableBody,
-    TableCell,
-    TableHead,
-    TableHeader,
-    TableRow,
-    useEventListener,
-} from "@fluster.io/dev";
-import { getLocalModelTableColumns, LocalModelTableColId } from "./columns";
+import React, { useEffect, useMemo, useState, type ReactNode } from "react";
+import { TaskListData } from "../../../lib/bindings";
+import { getTaskListTableColumns, TaskListColumnId } from "./columns";
+import { fuzzyFilter } from "../../../utils/table_utils/table_utils";
+import dayjs from "dayjs";
 import {
     flexRender,
     getCoreRowModel,
@@ -23,56 +13,109 @@ import {
     SortingState,
     useReactTable,
 } from "@tanstack/react-table";
-import { commands, LocalModelData } from "@/lib/bindings";
-import { DataTablePagination } from "@/components/table/table_pagination";
+import { Label } from "../../../components/shad/label";
+import { Input } from "../../../components/shad/input";
+import {
+    Table,
+    TableBody,
+    TableCell,
+    TableHead,
+    TableHeader,
+    TableRow,
+} from "../../../components/shad/table";
+import { DataTablePagination } from "../../../utils/table_utils/table_pagination";
+import { WithInlineMdx } from "../../types";
+import { useLocalStorage } from "../../../hooks/use_local_storage";
 
-export const LocalModelTable = (): ReactNode => {
-    const [models, setModels] = useState<LocalModelData[]>([]);
-    const getModels = async (): Promise<void> => {
-        const m = await commands.getLocalOllamaModels();
-        if (m.status === "ok") {
-            setModels(m.data);
+export interface TaskListDataTableProps extends WithInlineMdx {
+    data: TaskListData;
+    /** If true, search bar is shown. Defaults to false. */
+    searchable?: boolean;
+    /** Items to show per page. Defaults to 10. */
+    perPage?: number;
+}
+
+const sortTasks = (tasks: TaskListData["items"]): TaskListData["items"] => {
+    const incomplete: TaskListData["items"] = [];
+    const complete: TaskListData["items"] = [];
+    const withDueDateAndIncomplete: TaskListData["items"] = [];
+    for (const item of tasks) {
+        if (item.complete) {
+            complete.push(item);
         } else {
-            showToast({
-                title: "Something went wrong",
-                body: "Fluster could not interact with Ollama. Have you installed it?",
-                variant: "Error",
-                duration: 5000,
-            });
+            if (item.due_at) {
+                withDueDateAndIncomplete.push(item);
+            } else {
+                incomplete.push(item);
+            }
         }
-    };
+    }
+    return [
+        ...withDueDateAndIncomplete.sort((a, b) => {
+            return (
+                dayjs(a.due_at, {
+                    utc: true,
+                })
+                    .toDate()
+                    .valueOf() -
+                dayjs(b.due_at, {
+                    utc: true,
+                })
+                    .toDate()
+                    .valueOf()
+            );
+        }),
+        ...incomplete,
+        ...complete,
+    ];
+};
 
-    useEventListener("request-local-model-list-refresh", getModels);
-
-    useEffect(() => {
-        getModels();
-    }, []);
-
+export const TaskListDataTable = (props: TaskListDataTableProps): ReactNode => {
     const [visibility, setVisibility] = useState<
-        Record<LocalModelTableColId, boolean>
+        Record<TaskListColumnId, boolean>
     >({
-        [LocalModelTableColId.name]: true,
-        [LocalModelTableColId.modified_at]: true,
-        [LocalModelTableColId.size]: true,
+        [TaskListColumnId.id]: false,
+        [TaskListColumnId.label]: true,
+        [TaskListColumnId.task_list_id]: true,
+        [TaskListColumnId.due_at]: true,
+        [TaskListColumnId.ctime]: true,
+        [TaskListColumnId.complete]: true,
     });
+
+    const data = useMemo(() => sortTasks(props.data.items), [props.data.items]);
 
     const [sorting, setSorting] = useState<SortingState>([]);
 
+    const [pageIndex, setPageIndex] = useLocalStorage(
+        `page-index-${props.data.list.id}`,
+        0
+    );
+
     const [pagination, setPagination] = useState<PaginationState>({
-        pageIndex: 0,
-        pageSize: 10,
+        pageIndex: pageIndex ?? 0,
+        pageSize: props.perPage ?? 10,
     });
 
+    useEffect(() => {
+        if (pagination.pageIndex !== pageIndex) {
+            setPageIndex(pagination.pageIndex);
+        }
+        /* eslint-disable-next-line  --  */
+    }, [pagination]);
+
     const [globalFilter, setGlobalFilter] = useState<string>("");
-    const columns = getLocalModelTableColumns();
+    const columns = useMemo(() => {
+        return getTaskListTableColumns(props.InlineMdxContent, props.data.items);
+        /* eslint-disable-next-line  --  */
+    }, [props.data.items]);
 
     const table = useReactTable({
         autoResetPageIndex: true,
         columns,
-        data: models,
+        data,
         manualPagination: false,
         getCoreRowModel: getCoreRowModel(),
-        rowCount: models.length,
+        rowCount: data.length,
         onSortingChange: setSorting,
         getSortedRowModel: getSortedRowModel(),
         getPaginationRowModel: getPaginationRowModel(),
@@ -91,10 +134,12 @@ export const LocalModelTable = (): ReactNode => {
     });
     return (
         <>
-            <div className="space-y-3 max-w-[350px]">
-                <Label>Search Models</Label>
-                <Input onChange={(e) => table.setGlobalFilter(e.target.value)} />
-            </div>
+            {props.searchable && (
+                <div className="space-y-3 max-w-[350px]">
+                    <Label>Search Tasks</Label>
+                    <Input onChange={(e) => table.setGlobalFilter(e.target.value)} />
+                </div>
+            )}
             <Table>
                 <TableHeader>
                     {table.getHeaderGroups().map((headerGroup) => (
@@ -140,7 +185,7 @@ export const LocalModelTable = (): ReactNode => {
             </Table>
             <DataTablePagination
                 hideSelectedCount
-                hidePerPage
+                hidePerPage={Boolean(props.perPage)}
                 table={table}
                 classes={{
                     container: "mt-4",
@@ -150,4 +195,4 @@ export const LocalModelTable = (): ReactNode => {
     );
 };
 
-LocalModelTable.displayName = "LocalModelTable";
+TaskListDataTable.displayName = "TaskListDataTable";

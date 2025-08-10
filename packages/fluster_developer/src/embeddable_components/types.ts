@@ -1,9 +1,12 @@
 import { FC } from "react";
 
 /// Add an InlineMdx prop to pass the mdx component in as a prop through the component map.
-export interface WithInlineMdxProp {
+export interface WithInlineMdx {
     InlineMdxContent: FC<{
         mdx: string;
+        className?: string;
+        removeGrayMatter?: boolean;
+        abortIfNoMath?: boolean;
     }>;
 }
 

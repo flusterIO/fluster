@@ -1,10 +1,10 @@
 import React, { type ReactNode } from "react";
 import { CodeBlock, CodeBlockProps } from "../../code/code_block";
 import { Badge } from "../../shad/badge";
-import { WithInlineMdxProp } from "../../../embeddable_components/types";
+import { WithInlineMdx } from "../../../embeddable_components/types";
 
 interface SnippetModalProps
-  extends WithInlineMdxProp,
+  extends WithInlineMdx,
     Pick<CodeBlockProps, "themes" | "darkMode"> {
   data: {
     label: string;

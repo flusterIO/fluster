@@ -26,6 +26,7 @@ export * from "./embeddable_components/admonition/index";
 export * from "./embeddable_components/qr_code/index";
 export * from "./components/attention_getters/hint/index";
 export * from "./embeddable_components/layout/center/index";
+export * from "./embeddable_components/task_manager/task_list/index";
 //     -- Academic --
 export * from "./embeddable_components/academic/abstract/index";
 //     -- Math --
@@ -151,5 +152,7 @@ export * from "./types/general";
 //  -- Utility and Documentation Components --
 export * from "./utils/embedded_app_route";
 export * from "./utils/copy_string_to_clipboard";
+export * from "./utils/table_utils/table_utils";
+export * from "./utils/table_utils/table_pagination";
 // -- Plugin Stuff --
 export * from "./utils/plugin_utils/component_config";

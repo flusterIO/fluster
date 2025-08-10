@@ -1,5 +1,6 @@
 import React, { useMemo, useState, type ReactNode } from "react";
 import {
+    fuzzyFilter,
     Input,
     Label,
     Table,
@@ -26,7 +27,6 @@ import {
     KeymapTableColId,
     KeymapTableData,
 } from "./keymap_setting_table_columns";
-import { fuzzyFilter } from "@/lib/table_utils/fuzzy_filter";
 import { EditKeymapSettingModal } from "../edit_keymap_modal";
 import { showEditKeymapModal } from "../edit_keymap_modal/show_edit_keymap_modal";
 import { KeymapId } from "#/keymap/data/models/keymap_ids";

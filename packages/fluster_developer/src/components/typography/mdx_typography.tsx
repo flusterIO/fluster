@@ -1,8 +1,8 @@
 import React, { HTMLProps } from "react";
 import { cn } from "../../utils/cn";
-import { WithInlineMdxProp } from "../../embeddable_components/types";
+import { WithInlineMdx } from "../../embeddable_components/types";
 
-interface MdxTypographyProps extends WithInlineMdxProp {
+interface MdxTypographyProps extends WithInlineMdx {
     className?: string;
     mdx: string;
 }

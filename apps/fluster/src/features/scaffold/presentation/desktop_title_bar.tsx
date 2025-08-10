@@ -1,6 +1,5 @@
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import React, { type ReactNode } from "react";
-
 import { AppState } from "@/state/initial_state";
 import { connect, useDispatch } from "react-redux";
 import { cn } from "@fluster.io/dev";

@@ -81,6 +81,11 @@ const config = {
             pinVersion: "19.1.0",
             label: "Pin react-dom in packages.",
         },
+        {
+            dependencies: ["@tanstack/react-table"],
+            pinVersion: "8.21.3",
+            label: "Pin react-table",
+        },
     ],
 };
 

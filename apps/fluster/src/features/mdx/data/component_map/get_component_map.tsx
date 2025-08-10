@@ -33,6 +33,7 @@ import {
     VideoTimestampLink,
     AudioTimestampLink,
     Center,
+    TaskList,
 } from "@fluster.io/dev";
 import { MDXComponents } from "mdx/types";
 import { InlineMdxContent } from "#/mdx/presentation/inline_mdx_content";
@@ -49,6 +50,7 @@ import { PlotBareAss } from "#/plot/presentation/plots/bare_ass";
 import { WrappedVideoComponent } from "#/mdx/presentation/wrapped_components/video";
 import { WrappedAudioComponent } from "#/mdx/presentation/wrapped_components/audio";
 import { WrappedImage } from "#/mdx/presentation/wrapped_components/image";
+import { WrappedTaskList } from "#/mdx/presentation/wrapped_components/task_list";
 
 interface ComponentMapItem {
     /// A regex that will return true if this component is to be included in the component map. This will be prepended with a `<`, so the name should match the component as it will be used in the user's note.
@@ -82,6 +84,10 @@ const items: ComponentMapItem[] = [
     {
         query: "EqRef",
         component: EqRef,
+    },
+    {
+        query: "TaskList",
+        component: WrappedTaskList,
     },
     // -- Academic --
     {
