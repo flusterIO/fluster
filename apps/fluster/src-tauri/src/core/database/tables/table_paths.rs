@@ -12,6 +12,8 @@ pub enum DatabaseTables {
     Subject,
     #[strum(to_string = "settings")]
     Settings,
+    #[strum(to_string = "auto_setting")]
+    AutoSetting,
     // -- Mdx Note --
     #[strum(to_string = "bookmark")]
     Bookmark,

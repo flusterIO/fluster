@@ -70,6 +70,9 @@ use crate::features::search::commands::get_notes_by_bib_entry::get_notes_by_bib_
 use crate::features::search::commands::get_notes_by_equation_id::get_notes_by_equation_id;
 use crate::features::search::commands::semantic_search::search::semantic_search;
 use crate::features::search::data::search_params::{SearchOrder, SearchParams};
+use crate::features::settings::commands::create_auto_setting::create_auto_setting;
+use crate::features::settings::commands::delete_auto_setting_by_id::delete_auto_setting_by_id;
+use crate::features::settings::commands::get_all_auto_settings::get_all_auto_settings;
 use crate::features::settings::delete_setting_state::delete_setting_state;
 use crate::features::settings::get_setting_state::get_setting_state;
 use crate::features::settings::save_setting_state::save_setting_state;
@@ -120,6 +123,10 @@ pub fn run() {
             get_operating_system,
             path_exists,
             normalize_path,
+            // -- Auto Settings --
+            create_auto_setting,
+            get_all_auto_settings,
+            delete_auto_setting_by_id,
             // -- Component Utils --
             get_dashboard_data,
             get_qr_code_svg,

@@ -38,7 +38,7 @@ use crate::{
             mdx_note_subject_entity::MdxNoteSubjectEntity, mdx_note_tag_entity::MdxNoteTagEntity,
             mdx_note_topic_entity::MdxNoteTopicEntity,
         },
-        settings::settings_entity::SettingsEntity,
+        settings::{data::auto_setting_entity::AutoSettingEntity, settings_entity::SettingsEntity},
         snippets::data::{snippet_entity::SnippetEntity, snippet_tag_entity::SnippetTagEntity},
         task_manager::{
             task_entity::TaskEntity, task_list_entity::TaskListEntity,
@@ -79,6 +79,11 @@ pub async fn initialize_database() -> FlusterResult<()> {
         TableInitData {
             table: DatabaseTables::Settings,
             entity: SettingsEntity::arrow_schema(),
+            set_indices: None,
+        },
+        TableInitData {
+            table: DatabaseTables::AutoSetting,
+            entity: AutoSettingEntity::arrow_schema(),
             set_indices: None,
         },
         TableInitData {

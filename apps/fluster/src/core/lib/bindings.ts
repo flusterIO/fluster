@@ -23,6 +23,30 @@ async pathExists(filePath: string) : Promise<boolean> {
 async normalizePath(fsPath: string, basePath: string) : Promise<string> {
     return await TAURI_INVOKE("normalize_path", { fsPath, basePath });
 },
+async createAutoSetting(data: AutoSettingModel[]) : Promise<Result<null, FlusterError>> {
+    try {
+    return { status: "ok", data: await TAURI_INVOKE("create_auto_setting", { data }) };
+} catch (e) {
+    if(e instanceof Error) throw e;
+    else return { status: "error", error: e  as any };
+}
+},
+async getAllAutoSettings(pagination: PaginationProps) : Promise<Result<AutoSettingModel[], FlusterError>> {
+    try {
+    return { status: "ok", data: await TAURI_INVOKE("get_all_auto_settings", { pagination }) };
+} catch (e) {
+    if(e instanceof Error) throw e;
+    else return { status: "error", error: e  as any };
+}
+},
+async deleteAutoSettingById(id: string) : Promise<Result<null, FlusterError>> {
+    try {
+    return { status: "ok", data: await TAURI_INVOKE("delete_auto_setting_by_id", { id }) };
+} catch (e) {
+    if(e instanceof Error) throw e;
+    else return { status: "error", error: e  as any };
+}
+},
 async getDashboardData() : Promise<DashboardData> {
     return await TAURI_INVOKE("get_dashboard_data");
 },
@@ -802,6 +826,8 @@ body: string;
  */
 received_at: string }
 export type AllTaggableData = { tags: SharedTaggableModel[]; topics: SharedTaggableModel[]; subjects: SharedTaggableModel[] }
+export type AutoSettingModel = { id: string; glob: string; value: string; setting_type: AutoSettingType }
+export type AutoSettingType = "Tag" | "Topic" | "Subject"
 export type AxisGeneratorProps = { min: number; max: number; count: string; label: string | null }
 export type BibEntryModel = { id: string; user_provided_id: string | null; 
 /**
