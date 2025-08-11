@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useState, type ReactNode } from "react";
-import { TaskListData } from "../../../lib/bindings";
+import { commands, TaskListData } from "../../../lib/bindings";
 import { getTaskListTableColumns, TaskListColumnId } from "./columns";
 import { fuzzyFilter } from "../../../utils/table_utils/table_utils";
 import dayjs from "dayjs";
@@ -25,15 +25,24 @@ import {
 } from "../../../components/shad/table";
 import { DataTablePagination } from "../../../utils/table_utils/table_pagination";
 import { WithInlineMdx } from "../../types";
-import { useLocalStorage } from "../../../hooks/use_local_storage";
+import { useEventListener } from "../../../hooks/use_event_listener";
 
 export interface TaskListDataTableProps extends WithInlineMdx {
-    data: TaskListData;
     /** If true, search bar is shown. Defaults to false. */
     searchable?: boolean;
     /** Items to show per page. Defaults to 10. */
     perPage?: number;
+    /** The **name** of the list to be rendered. */
+    list: string;
 }
+
+const TaskListNotFound = ({ list }: { list: string }): ReactNode => {
+    return (
+        <div className="w-full text-center">
+            The <span className="italic">{list}</span> task list could not be found.
+        </div>
+    );
+};
 
 const sortTasks = (tasks: TaskListData["items"]): TaskListData["items"] => {
     const incomplete: TaskListData["items"] = [];
@@ -71,6 +80,33 @@ const sortTasks = (tasks: TaskListData["items"]): TaskListData["items"] => {
 };
 
 export const TaskListDataTable = (props: TaskListDataTableProps): ReactNode => {
+    const [data, setData] = useState<TaskListData | null | false>(null);
+    const getItems = async (list: string): Promise<void> => {
+        const taskLists = await commands.getAllTaskLists();
+        if (taskLists.status === "ok") {
+            const item = taskLists.data.find(
+                (x) => x.label.toLowerCase() === list.toLowerCase()
+            );
+            if (item) {
+                const taskListData = await commands.getTaskListData(item.id);
+                if (taskListData.status === "ok") {
+                    setData({
+                        list: taskListData.data.list,
+                        items: sortTasks(taskListData.data.items),
+                    });
+                } else {
+                    setData(false);
+                }
+            } else {
+                setData(false);
+            }
+        } else {
+            console.error("An error occurred while attempting to get task lists.");
+        }
+    };
+    useEffect(() => {
+        getItems(props.list);
+    }, [props.list]);
     const [visibility, setVisibility] = useState<
         Record<TaskListColumnId, boolean>
     >({
@@ -82,40 +118,29 @@ export const TaskListDataTable = (props: TaskListDataTableProps): ReactNode => {
         [TaskListColumnId.complete]: true,
     });
 
-    const data = useMemo(() => sortTasks(props.data.items), [props.data.items]);
-
     const [sorting, setSorting] = useState<SortingState>([]);
 
-    const [pageIndex, setPageIndex] = useLocalStorage(
-        `page-index-${props.data.list.id}`,
-        0
-    );
-
     const [pagination, setPagination] = useState<PaginationState>({
-        pageIndex: pageIndex ?? 0,
+        pageIndex: 0,
         pageSize: props.perPage ?? 10,
     });
 
-    useEffect(() => {
-        if (pagination.pageIndex !== pageIndex) {
-            setPageIndex(pagination.pageIndex);
-        }
-        /* eslint-disable-next-line  --  */
-    }, [pagination]);
-
     const [globalFilter, setGlobalFilter] = useState<string>("");
     const columns = useMemo(() => {
-        return getTaskListTableColumns(props.InlineMdxContent, props.data.items);
+        return getTaskListTableColumns(
+            props.InlineMdxContent,
+            data ? data.items : []
+        );
         /* eslint-disable-next-line  --  */
-    }, [props.data.items]);
+    }, [data]);
 
     const table = useReactTable({
         autoResetPageIndex: true,
         columns,
-        data,
+        data: data ? data.items : [],
         manualPagination: false,
         getCoreRowModel: getCoreRowModel(),
-        rowCount: data.length,
+        rowCount: (data ? data.items : []).length,
         onSortingChange: setSorting,
         getSortedRowModel: getSortedRowModel(),
         getPaginationRowModel: getPaginationRowModel(),
@@ -132,6 +157,20 @@ export const TaskListDataTable = (props: TaskListDataTableProps): ReactNode => {
             pagination,
         },
     });
+
+    useEventListener("refresh-embedded-task-list", (e) => {
+        if (data && e.detail.taskListId === data.list.id) {
+            getItems(props.list);
+        }
+    });
+
+    if (data === false) {
+        return <TaskListNotFound list={props.list} />;
+    }
+
+    if (data === null) {
+        return <div className="w-full h-fit text-center">loading task list...</div>;
+    }
     return (
         <>
             {props.searchable && (

@@ -1,0 +1,23 @@
+---
+title: Task List
+---
+
+# Task List
+
+Embed a task list directly in your note. The `list` field must match the name of a task list you've created on the [task manager page](/taskLists).
+
+```jsx
+<TaskList list="My task list" perPage={5} />
+```
+
+## Props
+
+<Hint note>
+    List names are not forced to be unique on the database level, so creating multiple lists with the same name may cause conflicts when embedding the list in your note.
+</Hint>
+
+| key | type | desc |
+| --- | ---- | ---- |
+| list | `string` | The name of the task list to include. This must match the task list name on the task manager page. This is not case sensitive. | 
+| searcahble | `boolean?` | If true, a search bar will be shown. Defaults to false. |
+| perPage | `number?` | An optional integer indicating how many items to show per page. Defaults to 10. |

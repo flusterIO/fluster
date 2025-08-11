@@ -66,6 +66,10 @@ export const componentDocItems: ComponentDocsEntry[] = [
         fp: "component_docs/small.mdx",
     },
     {
+        label: "Task List",
+        fp: "component_docs/task_list.mdx",
+    },
+    {
         label: "Underline",
         fp: "component_docs/underline.mdx",
     },

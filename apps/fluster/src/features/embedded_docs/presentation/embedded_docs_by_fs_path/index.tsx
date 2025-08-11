@@ -22,6 +22,7 @@ export const EmbeddedDocsByFilePath = ({
             const withoutFrontMatter = await commands.removeFrontMatter(res.data);
             setContent(withoutFrontMatter);
         } else {
+            console.error("Error: ", res.error);
             console.error(`An error occurred while loading documentation`);
             nav("/");
         }

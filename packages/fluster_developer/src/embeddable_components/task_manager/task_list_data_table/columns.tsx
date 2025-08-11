@@ -27,9 +27,17 @@ export const getTaskListTableColumns = (
         {
             id: TaskListColumnId.complete,
             accessorKey: "complete",
-            header: () => {
-                return <div className="w-8" />;
-            },
+            header: "",
+            /* header: ({ table }) => ( */
+            /*     <Checkbox */
+            /*         checked={ */
+            /*             table.getIsAllPageRowsSelected() || */
+            /*             (table.getIsSomePageRowsSelected() && "indeterminate") */
+            /*         } */
+            /*         onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)} */
+            /*         aria-label="Select all" */
+            /*     /> */
+            /* ), */
             cell: ({ row }) => {
                 const value = row.getValue(TaskListColumnId.complete) as boolean;
 
@@ -68,19 +76,18 @@ export const getTaskListTableColumns = (
                 );
             },
             enableSorting: false,
-            size: 50,
-            maxSize: 80,
-            minSize: 32,
+            /* size: 32, */
+            /* maxSize: 80, */
+            /* minSize: 32, */
         },
         {
             id: TaskListColumnId.label,
             accessorKey: "label",
             header: () => {
-                return <div>Label</div>;
+                return <div className="w-full">Label</div>;
             },
             cell: ({ row }) => {
                 const value = row.getValue(TaskListColumnId.label) as string;
-                console.log("value: ", value);
                 return (
                     <InlineMdxContent className="w-full" mdx={value} abortIfNoMath />
                 );
@@ -88,6 +95,7 @@ export const getTaskListTableColumns = (
         },
         {
             id: TaskListColumnId.due_at,
+            size: 120,
             header: () => {
                 return <div>Due</div>;
             },
