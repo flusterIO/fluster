@@ -60,20 +60,27 @@ export const getAutoSettingTableColumns = (): ColumnDef<AutoSettingModel>[] => {
       header: "Type",
       cell: ({ row }) => {
         const value = row.getValue(AutoSettingColumnId.settingType) as string;
-        console.log("value: ", value);
         if (value === ("Tag" satisfies AutoSettingType)) {
           return <Badge>Tag</Badge>;
         }
         if (value === ("Topic" satisfies AutoSettingType)) {
-          return <Badge>Topic</Badge>;
+          return (
+            <Badge className="bg-green-500 text-white dark:bg-green-400 dark:text-black">
+              Topic
+            </Badge>
+          );
         }
         if (value === ("Subject" satisfies AutoSettingType)) {
-          return <Badge>Subject</Badge>;
+          return (
+            <Badge className="bg-rose-500 dark:bg-rose-400 text-white">
+              Subject
+            </Badge>
+          );
         }
       },
     },
     {
-      id: AutoSettingColumnId.settingType,
+      id: AutoSettingColumnId.actions,
       header: "Actions",
       cell: ({ row }) => {
         const id = row.getValue(AutoSettingColumnId.id) as string;

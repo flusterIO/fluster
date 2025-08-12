@@ -65,6 +65,8 @@ export const AutoSettingTable = (): ReactNode => {
   const [globalFilter, setGlobalFilter] = useState<string>("");
   const columns = getAutoSettingTableColumns();
 
+  console.log("data: ", data);
+
   const table = useReactTable({
     autoResetPageIndex: true,
     columns,

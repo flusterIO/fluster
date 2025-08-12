@@ -126,8 +126,9 @@ export const GeneralSettingsPage = connector(
           <KeymapSettingsGroup />
 
           <SettingPageTitle
+            subtitleClasses="text-sm"
             title="Auto Settings"
-            subtitle="Use auto-settings to apply tags, topics or subjects to notes based on their file path."
+            subtitle="Use auto-settings to apply tags, topics or subjects to notes based on their file path. The glob you provide will be joined with your notes directory. All notes that satisfy the glob you provide will have the relevant tag, topic or subject applied automatically."
           />
           <AutoSettingTable />
           <div className="bg-card rounded border px-4 py-3">
