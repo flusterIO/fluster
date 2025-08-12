@@ -30,7 +30,7 @@ export const CreateAutoSettingModal = ({
         }}
       >
         <h4 className="text-xl font-bold">Create Auto Setting</h4>
-        <CreateAutoSettingForm />
+        <CreateAutoSettingForm close={close} />
       </motion.div>
     </ModalBackdrop>
   );

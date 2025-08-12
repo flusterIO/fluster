@@ -98,6 +98,7 @@ export const getAutoSettingTableColumns = (): ColumnDef<AutoSettingModel>[] => {
             window.dispatchEvent(new CustomEvent("refresh-auto-setting-list"));
           }
         };
+        /* eslint-disable-next-line  --  */
         const confirm = useConfirmation(
           {
             id: `auto-setting-${id}`,
@@ -125,7 +126,7 @@ export const getAutoSettingTableColumns = (): ColumnDef<AutoSettingModel>[] => {
             </DropdownMenuTrigger>
             <DropdownMenuContent className="w-56" align="start">
               <DropdownMenuLabel className="text-foreground">
-                My Account
+                Actions
               </DropdownMenuLabel>
               <DropdownMenuGroup>
                 <DropdownMenuItem

@@ -27,6 +27,7 @@ const schema = z.object({
 
 interface CreateAutoSettingFormProps {
   notesDir: string;
+  close: () => void;
 }
 
 export const CreateAutoSettingForm = connector(
@@ -69,6 +70,7 @@ export const CreateAutoSettingForm = connector(
         });
         form.reset();
         window.dispatchEvent(new CustomEvent("refresh-auto-setting-list", {}));
+        props.close();
       } else {
         console.error("Error: ", res.error);
       }
