@@ -52,6 +52,7 @@ export const AiAndMLSettingsPage = connector(
           <p className="text-sm text-muted-foreground !mt-2">
             This is the model that will be used as the default model for local
             AI chats, generating note summaries and other LLM related tasks.
+            This model will not have a major impact on sync times.
           </p>
           <LocalModelTable
             activeModelName={defaultLanguageModel}
@@ -62,7 +63,8 @@ export const AiAndMLSettingsPage = connector(
           <p className="text-sm text-muted-foreground !mt-2">
             This is the model that will be used to generate vectors for your
             data. The more powerful the model, the more accurate your semantic
-            search will be.
+            search will be, but this will come at the cost of longer sync times
+            when syncing 'with AI'.
           </p>
           <LocalModelTable
             activeModelName={embeddingModel}

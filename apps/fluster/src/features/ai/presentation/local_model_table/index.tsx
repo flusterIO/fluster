@@ -26,6 +26,7 @@ import {
 import { commands, LocalModelData } from "@/lib/bindings";
 import { DataTablePagination } from "@/components/table/table_pagination";
 import { LocalModelTableRow } from "./table_row";
+import { openUrl } from "@tauri-apps/plugin-opener";
 
 export const LocalModelTable = ({
   setOnClick,
@@ -98,59 +99,81 @@ export const LocalModelTable = ({
       pagination,
     },
   });
+
   return (
     <>
       <div className="space-y-3 max-w-[350px]">
         <Label>Search Models</Label>
         <Input onChange={(e) => table.setGlobalFilter(e.target.value)} />
       </div>
-      <Table>
-        <TableHeader>
-          {table.getHeaderGroups().map((headerGroup) => (
-            <TableRow key={headerGroup.id}>
-              {headerGroup.headers.map((header) => {
-                return (
-                  <TableHead key={header.id}>
-                    {header.isPlaceholder
-                      ? null
-                      : flexRender(
-                          header.column.columnDef.header,
-                          header.getContext()
-                        )}
-                  </TableHead>
-                );
-              })}
-            </TableRow>
-          ))}
-        </TableHeader>
-        <TableBody>
-          {table.getPaginationRowModel().rows?.length ? (
-            table
-              .getPaginationRowModel()
-              .rows.map((row) => (
-                <LocalModelTableRow
-                  activeModelName={activeModelName}
-                  row={row}
-                  setOnClick={setOnClick}
-                />
-              ))
-          ) : (
-            <TableRow>
-              <TableCell colSpan={columns.length} className="h-24 text-center">
-                No results.
-              </TableCell>
-            </TableRow>
-          )}
-        </TableBody>
-      </Table>
-      <DataTablePagination
-        hideSelectedCount
-        hidePerPage
-        table={table}
-        classes={{
-          container: "mt-4",
-        }}
-      />
+      {models.length > 0 ? (
+        <>
+          <Table>
+            <TableHeader>
+              {table.getHeaderGroups().map((headerGroup) => (
+                <TableRow key={headerGroup.id}>
+                  {headerGroup.headers.map((header) => {
+                    return (
+                      <TableHead key={header.id}>
+                        {header.isPlaceholder
+                          ? null
+                          : flexRender(
+                              header.column.columnDef.header,
+                              header.getContext()
+                            )}
+                      </TableHead>
+                    );
+                  })}
+                </TableRow>
+              ))}
+            </TableHeader>
+            <TableBody>
+              {table.getPaginationRowModel().rows?.length ? (
+                table
+                  .getPaginationRowModel()
+                  .rows.map((row) => (
+                    <LocalModelTableRow
+                      activeModelName={activeModelName}
+                      row={row}
+                      setOnClick={setOnClick}
+                    />
+                  ))
+              ) : (
+                <TableRow>
+                  <TableCell
+                    colSpan={columns.length}
+                    className="h-24 text-center"
+                  >
+                    No results.
+                  </TableCell>
+                </TableRow>
+              )}
+            </TableBody>
+          </Table>
+          <DataTablePagination
+            hideSelectedCount
+            hidePerPage
+            table={table}
+            classes={{
+              container: "mt-4",
+            }}
+          />
+        </>
+      ) : (
+        <div className="w-full flex flex-col justify-center items-center">
+          <div className="border rounded px-4 py-3 bg-card text-card-foreground">
+            You don't have any local models installed. Visit{" "}
+            <a
+              className="text-primary"
+              role="button"
+              onClick={() => openUrl("https://ollama.com/")}
+            >
+              ollama.com
+            </a>{" "}
+            for more information.
+          </div>
+        </div>
+      )}
     </>
   );
 };

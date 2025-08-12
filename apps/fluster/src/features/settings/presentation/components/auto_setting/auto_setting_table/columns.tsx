@@ -12,7 +12,7 @@ import {
   showToast,
 } from "@fluster.io/dev";
 import { ColumnDef } from "@tanstack/react-table";
-import { Ellipsis, EllipsisVertical, MenuIcon } from "lucide-react";
+import { Ellipsis } from "lucide-react";
 import React from "react";
 
 export interface KeymapTableData {
