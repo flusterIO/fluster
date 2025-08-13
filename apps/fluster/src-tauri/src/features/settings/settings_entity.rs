@@ -91,7 +91,6 @@ impl SettingsEntity {
                 println!("Error: {:?}", e);
                 FlusterError::FailToSerialize
             })?;
-            println!("Items: {:?}", items.len());
             if !items.is_empty() {
                 return Ok(items.index(0).body.clone());
             }

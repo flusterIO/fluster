@@ -3,6 +3,9 @@ use specta::Type;
 
 use crate::features::taggables::commands::get_existing_taggables::AllTaggableData;
 
+// This will need to be replaced with the client side constant as well.
+pub const DEFAULT_LOCAL_EMBEDDING_MODEL: &str = "phi3:3.8b-instruct";
+
 #[derive(Serialize, Deserialize, Type, Debug)]
 pub struct AiSyncSettings {
     pub embedding_model: String,
@@ -12,7 +15,7 @@ pub struct AiSyncSettings {
 impl Default for AiSyncSettings {
     fn default() -> Self {
         Self {
-            embedding_model: "phi3:3.8b-instruct".to_string(),
+            embedding_model: DEFAULT_LOCAL_EMBEDDING_MODEL.to_string(),
             with_ai: false,
         }
     }

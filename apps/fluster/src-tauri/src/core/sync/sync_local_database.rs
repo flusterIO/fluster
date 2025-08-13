@@ -15,13 +15,31 @@ pub async fn sync_local_database(opts: SyncFilesystemDirectoryOptions) -> Fluste
 
 #[cfg(test)]
 mod tests {
+    use crate::core::sync::parse_directory::sync_fs_directory::models::sync_filesystem_options::AiSyncSettings;
+
     use super::*;
 
     #[tokio::test]
-    async fn syncs_directory() {
+    async fn syncs_directory_without_ai() {
         let opts = SyncFilesystemDirectoryOptions {
             dir_path: "/Users/bigsexy/Desktop/notes/content/".to_string(),
             use_git_ignore: false,
+            ..Default::default()
+        };
+        let res = sync_local_database(opts).await;
+        println!("Response: {:#?}", res);
+        assert!(res.is_ok(), "Parses directory without throwing an error.");
+    }
+
+    #[tokio::test]
+    async fn syncs_directory_with_ai() {
+        let opts = SyncFilesystemDirectoryOptions {
+            dir_path: "/Users/bigsexy/Desktop/notes/content/".to_string(),
+            use_git_ignore: false,
+            ai: AiSyncSettings {
+                with_ai: true,
+                ..Default::default()
+            },
             ..Default::default()
         };
         let res = sync_local_database(opts).await;

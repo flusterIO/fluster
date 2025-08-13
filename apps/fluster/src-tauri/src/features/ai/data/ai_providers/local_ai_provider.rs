@@ -1,3 +1,5 @@
+use std::ops::Index;
+
 use async_trait::async_trait;
 use ollama_rs::{
     generation::embeddings::request::{EmbeddingsInput, GenerateEmbeddingsRequest},
@@ -29,18 +31,15 @@ impl AiProvider for LocalAiClient {
         let vec_default = (0..VECTOR_DIMENSIONS).map(|_| 0.0).collect::<Vec<f32>>();
 
         for note in notes.iter_mut() {
-            println!("Note: {:?}", note);
             if opts.ai.with_ai {
                 let request = GenerateEmbeddingsRequest::new(
                     opts.ai.embedding_model.clone(),
                     EmbeddingsInput::Single(note.mdx.raw_body.clone()),
                 );
                 let res = ollama.generate_embeddings(request).await.unwrap();
-                println!("Embeddings: {:?}", Some(res.embeddings));
-                // note.mdx.vec = res.embeddings
-                // Convert this to using the regular embeddings. This is only a
-                // place holder.
-                note.mdx.vec = vec_default.clone();
+                if res.embeddings.len() == 1 {
+                    note.mdx.vec = res.embeddings.index(0).to_vec();
+                }
             } else if note.mdx.vec.len() != (VECTOR_DIMENSIONS as usize) {
                 note.mdx.vec = vec_default.clone();
             }

@@ -1,6 +1,6 @@
 use arrow_array::{
-    types::Float32Type, FixedSizeListArray, RecordBatch, RecordBatchIterator, StringArray,
-    TimestampMillisecondArray,
+    types::Float32Type, FixedSizeListArray, ListArray, RecordBatch, RecordBatchIterator,
+    StringArray, TimestampMillisecondArray,
 };
 use arrow_schema::{ArrowError, DataType, Field, Schema};
 use futures::TryStreamExt;
@@ -230,10 +230,7 @@ impl DbEntity<MdxNoteModel> for MdxNoteEntity {
             ),
             Field::new(
                 "vec",
-                DataType::FixedSizeList(
-                    Field::new("item", DataType::Float32, true).into(),
-                    VECTOR_DIMENSIONS,
-                ),
+                DataType::List(Field::new("item", DataType::Float32, true).into()),
                 true,
             ),
         ]))
@@ -250,10 +247,13 @@ impl DbEntity<MdxNoteModel> for MdxNoteEntity {
         let last_read_value: i64 = item.last_read.parse().unwrap();
         let ctime = TimestampMillisecondArray::from(vec![ctime_value]);
         let last_read = TimestampMillisecondArray::from(vec![last_read_value]);
-        let vec = FixedSizeListArray::from_iter_primitive::<Float32Type, _, _>(
-            vec![Some(item.vec.iter().map(|x| Some(*x)))],
-            VECTOR_DIMENSIONS,
-        );
+        let vec = ListArray::from_iter_primitive::<Float32Type, _, _>(vec![Some(
+            item.vec.iter().map(|x| Some(*x)),
+        )]);
+        // let vec = FixedSizeListArray::from_iter_primitive::<Float32Type, _, _>(
+        //     vec![Some(item.vec.iter().map(|x| Some(*x)))],
+        //     VECTOR_DIMENSIONS,
+        // );
         RecordBatch::try_new(
             schema,
             vec![
