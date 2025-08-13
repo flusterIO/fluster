@@ -3,6 +3,21 @@ use specta::Type;
 
 use crate::features::taggables::commands::get_existing_taggables::AllTaggableData;
 
+#[derive(Serialize, Deserialize, Type, Debug)]
+pub struct AiSyncSettings {
+    pub embedding_model: String,
+    pub with_ai: bool,
+}
+
+impl Default for AiSyncSettings {
+    fn default() -> Self {
+        Self {
+            embedding_model: "phi3:3.8b-instruct".to_string(),
+            with_ai: false,
+        }
+    }
+}
+
 #[derive(Type, Serialize, Deserialize, Debug)]
 pub struct SyncFilesystemDirectoryOptions {
     pub dir_path: String,
@@ -11,10 +26,9 @@ pub struct SyncFilesystemDirectoryOptions {
     pub n_threads: String,
     pub use_git_ignore: bool,
     /// defaults to true
-    pub with_ai: bool,
     pub existing_taggables: AllTaggableData,
     /// Embeddings model to be used when syncing.
-    pub embedding_model: Option<String>,
+    pub ai: AiSyncSettings,
 }
 
 impl Default for SyncFilesystemDirectoryOptions {
@@ -24,8 +38,7 @@ impl Default for SyncFilesystemDirectoryOptions {
             bib_path: Default::default(),
             n_threads: "16".to_string(),
             use_git_ignore: false,
-            with_ai: true,
-            embedding_model: None,
+            ai: AiSyncSettings::default(),
             existing_taggables: AllTaggableData {
                 tags: Vec::new(),
                 topics: Vec::new(),

@@ -23,6 +23,7 @@ use crate::features::ai::commands::get_ai_chat_by_id::get_ai_chat_by_id;
 use crate::features::ai::commands::get_all_chats::get_all_ai_chats;
 use crate::features::ai::commands::get_local_ollama_models::get_local_ollama_models;
 use crate::features::ai::commands::get_ollama_model_info::get_ollama_model_info;
+use crate::features::ai::commands::ollama_model_exists_locally::ollama_model_exists_locally;
 use crate::features::bibliography::commands::bib_entry_full_text_search::bib_entries_full_text_search;
 use crate::features::bibliography::commands::get_bib_entries::get_bib_entries;
 use crate::features::bibliography::commands::get_bib_entry_by_id::get_bib_entry_by_id;
@@ -218,6 +219,7 @@ pub fn run() {
             begin_language_model_download,
             get_local_ollama_models,
             get_ollama_model_info,
+            ollama_model_exists_locally,
             // -- Task Manager --
             create_task,
             create_task_list,

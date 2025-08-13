@@ -14,6 +14,7 @@ use ignore::{DirEntry, WalkState};
 
 #[allow(irrefutable_let_patterns)]
 pub async fn sync_mdx_filesystem_notes(opts: &SyncFilesystemDirectoryOptions) -> FlusterResult<()> {
+    println!("Here five...");
     let db_res = get_database().await;
     let db = db_res.lock().await;
 
@@ -21,6 +22,7 @@ pub async fn sync_mdx_filesystem_notes(opts: &SyncFilesystemDirectoryOptions) ->
 
     let threads: usize = opts.n_threads.parse().unwrap();
     let (mdx_sender, mdx_receiver) = unbounded::<String>();
+    println!("Here four...");
     WalkBuilder::new(opts.dir_path.clone())
         .threads(threads)
         .add_custom_ignore_filename(".flusterIgnore")
@@ -48,17 +50,25 @@ pub async fn sync_mdx_filesystem_notes(opts: &SyncFilesystemDirectoryOptions) ->
         });
 
     drop(mdx_sender);
+    println!("Here three...");
     // let (note_group_sender, note_group_receiver) = unbounded::<String>();
     let mut items: Vec<MdxNoteGroup> = Vec::new();
     for p in mdx_receiver.iter() {
+        println!("Here eight...");
         let existing_note = existing_notes.iter().find(|x| x.file_path == p);
+        println!("Here nine...");
+        println!("Path: {:?}", p.clone());
         let note_group = MdxNoteGroup::from_file_system_path(&db, p, existing_note).await?;
+        println!("Here ten...");
         items.push(note_group);
+        println!("Here eleven...");
     }
 
+    println!("Here one...");
     get_ai_provider(opts)
         .get_text_embeddings(&mut items, opts)
         .await?;
+    println!("Here two...");
     save_mdx_note_groups(&db, items, opts.existing_taggables.clone()).await?;
     Ok(())
 }

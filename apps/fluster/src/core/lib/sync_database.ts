@@ -4,6 +4,7 @@ import { showToast } from "#/toast_notification/data/events/show_toast.ts";
 import { syncBib } from "#/bibliography/data/methods/sync_bib.ts";
 import { AppState } from "@/state/initial_state.ts";
 import { getExistingTaggables } from "./get_existing_taggables.ts";
+import { DEFAULT_EMBEDDING_MODEL } from "#/ai/state/initial_ai_state.ts";
 
 // TODO: Move this to a Promises.all
 
@@ -15,8 +16,10 @@ export const sync = async (
         | "n_threads"
         | "use_git_ignore"
         | "existing_taggables"
+        | "ai"
     > & {
         showSuccessToast?: boolean;
+        with_ai: boolean;
     }
 ): Promise<boolean> => {
     const state: AppState = store.getState();
@@ -48,41 +51,53 @@ export const sync = async (
         variant: "Info",
     });
     if (state.bib.bibPath) {
-        const res = await syncBib(state.bib.bibPath, state.bib.cslPath);
-        if (res.status === "error") {
-            showToast({
-                title: "Error",
-                body: "Something went wrong while synchronizing your bibliography.",
-                duration: 5000,
-                variant: "Error",
-            });
+        try {
+            const res = await syncBib(state.bib.bibPath, state.bib.cslPath);
+            if (res.status === "error") {
+                showToast({
+                    title: "Error",
+                    body: "Something went wrong while synchronizing your bibliography.",
+                    duration: 5000,
+                    variant: "Error",
+                });
+            }
+        } catch (err) {
+            console.log("Sync Bib Error: ", err);
         }
     }
     const existing_taggables = await getExistingTaggables();
-    console.log(`Here...`);
-    const res = await commands.syncLocalDatabase({
-        dir_path: state.core.notesDirectory,
-        bib_path: state.bib.bibPath,
-        n_threads: (state.core.nThreads ?? 8).toString(),
-        use_git_ignore: state.core.useGitIgnore,
-        existing_taggables,
-        ...opts,
-    });
-    console.log("res: ", res);
-    if (res.status === "ok") {
-        if (opts.showSuccessToast) {
-            showToast({
-                title: "Success",
-                body: "Your notes were successfully synced with your database",
-                duration: 3000,
-                variant: "Success",
-            });
+    try {
+        console.log(`Syncing...`);
+        const res = await commands.syncLocalDatabase({
+            dir_path: state.core.notesDirectory,
+            bib_path: state.bib.bibPath,
+            n_threads: (state.core.nThreads ?? 8).toString(),
+            use_git_ignore: state.core.useGitIgnore,
+            existing_taggables,
+            ai: {
+                with_ai: opts.with_ai,
+                embedding_model: state.ai.embeddingModel ?? DEFAULT_EMBEDDING_MODEL,
+            },
+            ...opts,
+        });
+        console.log("res: ", res);
+        if (res.status === "ok") {
+            if (opts.showSuccessToast) {
+                showToast({
+                    title: "Success",
+                    body: "Your notes were successfully synced with your database",
+                    duration: 3000,
+                    variant: "Success",
+                });
+            }
+            window.dispatchEvent(new CustomEvent("database-sync-success", {}));
+            return true;
+        } else {
+            console.error(`An error occured while syncing your notes: `, res.error);
+            return false;
         }
-        window.dispatchEvent(new CustomEvent("database-sync-success", {}));
-        return true;
-    } else {
-        console.error(`An error occured while syncing your notes: `, res.error);
+    } catch (err) {
+        console.log("Sync Notes Error: ", err);
         return false;
     }
-    return true;
 };

@@ -1,5 +1,8 @@
 use async_trait::async_trait;
-use ollama_rs::{generation::embeddings::request::GenerateEmbeddingsRequest, Ollama};
+use ollama_rs::{
+    generation::embeddings::request::{EmbeddingsInput, GenerateEmbeddingsRequest},
+    Ollama,
+};
 
 use crate::{
     core::{
@@ -22,19 +25,22 @@ impl AiProvider for LocalAiClient {
         opts: &SyncFilesystemDirectoryOptions,
     ) -> FlusterResult<()> {
         let ollama = Ollama::default();
-        let with_ai = opts.embedding_model.is_some();
 
         let vec_default = (0..VECTOR_DIMENSIONS).map(|_| 0.0).collect::<Vec<f32>>();
 
         for note in notes.iter_mut() {
-            if with_ai {
+            println!("Note: {:?}", note);
+            if opts.ai.with_ai {
                 let request = GenerateEmbeddingsRequest::new(
-                    opts.embedding_model.clone().unwrap(),
-                    note.mdx.raw_body.clone().into(),
+                    opts.ai.embedding_model.clone(),
+                    EmbeddingsInput::Single(note.mdx.raw_body.clone()),
                 );
                 let res = ollama.generate_embeddings(request).await.unwrap();
                 println!("Embeddings: {:?}", Some(res.embeddings));
                 // note.mdx.vec = res.embeddings
+                // Convert this to using the regular embeddings. This is only a
+                // place holder.
+                note.mdx.vec = vec_default.clone();
             } else if note.mdx.vec.len() != (VECTOR_DIMENSIONS as usize) {
                 note.mdx.vec = vec_default.clone();
             }

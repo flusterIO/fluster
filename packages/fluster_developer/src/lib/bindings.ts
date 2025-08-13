@@ -629,6 +629,14 @@ async getOllamaModelInfo(modelName: string) : Promise<Result<LocalModelDetailDat
     else return { status: "error", error: e  as any };
 }
 },
+async ollamaModelExistsLocally(modelName: string) : Promise<Result<boolean, FlusterError>> {
+    try {
+    return { status: "ok", data: await TAURI_INVOKE("ollama_model_exists_locally", { modelName }) };
+} catch (e) {
+    if(e instanceof Error) throw e;
+    else return { status: "error", error: e  as any };
+}
+},
 async createTask(task: TaskModel, tags: TaskTagModel[]) : Promise<Result<null, FlusterError>> {
     try {
     return { status: "ok", data: await TAURI_INVOKE("create_task", { task, tags }) };
@@ -825,6 +833,7 @@ body: string;
  * The stringified unix timestamp of the time the message was received.
  */
 received_at: string }
+export type AiSyncSettings = { embedding_model: string; with_ai: boolean }
 export type AllTaggableData = { tags: SharedTaggableModel[]; topics: SharedTaggableModel[]; subjects: SharedTaggableModel[] }
 export type AutoSettingModel = { id: string; glob: string; value: string; setting_type: AutoSettingType }
 export type AutoSettingType = "Tag" | "Topic" | "Subject"
@@ -1010,11 +1019,11 @@ n_threads: string; use_git_ignore: boolean;
 /**
  * defaults to true
  */
-with_ai: boolean; existing_taggables: AllTaggableData; 
+existing_taggables: AllTaggableData; 
 /**
  * Embeddings model to be used when syncing.
  */
-embedding_model: string | null }
+ai: AiSyncSettings }
 export type TaskListData = { list: TaskListModel; items: TaskModel[] }
 export type TaskListModel = { id: string; label: string; desc: string | null; ctime: string }
 export type TaskModel = { id: string; 
