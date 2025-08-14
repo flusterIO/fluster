@@ -86,7 +86,7 @@ impl EquationSnippetEntity {
                     .any(|y| (x.snippet_id == y.snippet_id) && (x.equation_id == y.equation_id))
             })
             .collect();
-        let schema = EquationSnippetEntity::arrow_schema();
+        let schema = EquationSnippetEntity::arrow_schema(None);
         let tbl = get_table(db, EquationSnippetEntity::table()).await?;
         let batches: Vec<Result<RecordBatch, ArrowError>> = filtered_tags
             .iter()
@@ -116,7 +116,7 @@ impl EquationSnippetEntity {
 }
 
 impl DbEntity<EquationSnippetModel> for EquationSnippetEntity {
-    fn arrow_schema() -> std::sync::Arc<arrow_schema::Schema> {
+    fn arrow_schema(_: Option<i32>) -> std::sync::Arc<arrow_schema::Schema> {
         Arc::new(Schema::new(vec![
             Field::new("equation_id", DataType::Utf8, false),
             Field::new("snippet_id", DataType::Utf8, false),

@@ -59,7 +59,7 @@ impl AiChatEntity {
     }
     pub async fn save_many(db: &FlusterDb<'_>, items: Vec<AiChatModel>) -> FlusterResult<()> {
         let tbl = get_table(db, DatabaseTables::AiChat).await?;
-        let schema = AiChatEntity::arrow_schema();
+        let schema = AiChatEntity::arrow_schema(None);
         let batches: Vec<Result<RecordBatch, ArrowError>> = items
             .iter()
             .map(|x| Ok(AiChatEntity::to_record_batch(x, schema.clone())))
@@ -121,7 +121,7 @@ impl AiChatEntity {
 }
 
 impl DbEntity<AiChatModel> for AiChatEntity {
-    fn arrow_schema() -> std::sync::Arc<arrow_schema::Schema> {
+    fn arrow_schema(_: Option<i32>) -> std::sync::Arc<arrow_schema::Schema> {
         Arc::new(Schema::new(vec![
             Field::new("id", DataType::Utf8, false),
             Field::new("label", DataType::Utf8, false),

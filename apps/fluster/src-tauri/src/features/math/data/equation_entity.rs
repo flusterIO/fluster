@@ -108,7 +108,7 @@ impl EquationEntity {
         Ok(items)
     }
     pub async fn save_many(db: &FlusterDb<'_>, items: Vec<EquationModel>) -> FlusterResult<()> {
-        let schema = EquationEntity::arrow_schema();
+        let schema = EquationEntity::arrow_schema(None);
         let tbl = get_table(db, DatabaseTables::Equation).await?;
         let batches: Vec<Result<RecordBatch, ArrowError>> = items
             .iter()
@@ -191,7 +191,7 @@ impl EquationEntity {
 }
 
 impl DbEntity<EquationModel> for EquationEntity {
-    fn arrow_schema() -> std::sync::Arc<arrow_schema::Schema> {
+    fn arrow_schema(_: Option<i32>) -> std::sync::Arc<arrow_schema::Schema> {
         Arc::new(Schema::new(vec![
             Field::new("id", DataType::Utf8, false),
             Field::new("equation_id", DataType::Utf8, false),

@@ -77,7 +77,7 @@ impl SnippetEntity {
         items: Vec<SnippetModel>,
         db: FlusterDb<'_>,
     ) -> FlusterResult<()> {
-        let schema = SnippetEntity::arrow_schema();
+        let schema = SnippetEntity::arrow_schema(None);
         let tbl = db
             .open_table(DatabaseTables::Snippet.to_string())
             .execute()
@@ -194,7 +194,7 @@ impl SnippetEntity {
 }
 
 impl DbEntity<SnippetModel> for SnippetEntity {
-    fn arrow_schema() -> std::sync::Arc<arrow_schema::Schema> {
+    fn arrow_schema(_: Option<i32>) -> std::sync::Arc<arrow_schema::Schema> {
         Arc::new(Schema::new(vec![
             Field::new("id", DataType::Utf8, false),
             Field::new("label", DataType::Utf8, false),

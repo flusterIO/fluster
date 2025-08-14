@@ -1,10 +1,9 @@
 use arrow_array::{
-    types::Float32Type, FixedSizeListArray, ListArray, RecordBatch, RecordBatchIterator,
-    StringArray, TimestampMillisecondArray,
+    types::Float32Type, FixedSizeListArray, RecordBatch, RecordBatchIterator, StringArray,
+    TimestampMillisecondArray,
 };
 use arrow_schema::{ArrowError, DataType, Field, Schema};
 use futures::TryStreamExt;
-use kalosm::language::Embedding;
 use lancedb::{
     index::scalar::FullTextSearchQuery,
     query::{ExecutableQuery, QueryBase},
@@ -24,7 +23,7 @@ use crate::{
             FlusterDb,
         },
     },
-    features::{ai::data::constants::VECTOR_DIMENSIONS, search::types::PaginationProps},
+    features::search::types::PaginationProps,
 };
 
 use super::mdx_note_model::MdxNoteModel;
@@ -63,13 +62,13 @@ impl MdxNoteEntity {
     }
     pub async fn semantic_search(
         db: &FlusterDb<'_>,
-        query: &Embedding,
+        query_vector: &[f32],
         pagination: &PaginationProps,
     ) -> FlusterResult<Vec<MdxNoteModel>> {
         let tbl = get_table(db, DatabaseTables::MdxNote).await?;
         let offset = pagination.per_page * (pagination.page_number - 1);
         let items_batch = tbl
-            .vector_search(query.vector())
+            .vector_search(query_vector)
             .map_err(|e| {
                 println!("Error: {:?}", e);
                 FlusterError::FailToGetSemanticResults
@@ -186,7 +185,7 @@ impl MdxNoteEntity {
         clean_table(db, DatabaseTables::MdxNote).await
     }
     pub async fn save_many(db: &FlusterDb<'_>, items: Vec<MdxNoteModel>) -> FlusterResult<()> {
-        let schema = MdxNoteEntity::arrow_schema();
+        let schema = MdxNoteEntity::arrow_schema(None);
         let tbl = get_table(db, DatabaseTables::MdxNote).await?;
         let batches: Vec<Result<RecordBatch, ArrowError>> = items
             .iter()
@@ -213,7 +212,7 @@ impl MdxNoteEntity {
 }
 
 impl DbEntity<MdxNoteModel> for MdxNoteEntity {
-    fn arrow_schema() -> std::sync::Arc<arrow_schema::Schema> {
+    fn arrow_schema(vector_dimensions: Option<i32>) -> std::sync::Arc<arrow_schema::Schema> {
         Arc::new(Schema::new(vec![
             Field::new("file_path", DataType::Utf8, true),
             Field::new("raw_body", DataType::Utf8, false),
@@ -230,9 +229,16 @@ impl DbEntity<MdxNoteModel> for MdxNoteEntity {
             ),
             Field::new(
                 "vec",
-                DataType::List(Field::new("item", DataType::Float32, true).into()),
+                DataType::FixedSizeList(
+                    Field::new("item", DataType::Float32, true).into(),
+                    vector_dimensions.unwrap_or(3072),
+                ),
                 true,
             ),
+            // let vec = FixedSizeListArray::from_iter_primitive::<Float32Type, _, _>(
+            //     vec![Some(item.vec.iter().map(|x| Some(*x)))],
+            //     VECTOR_DIMENSIONS,
+            // );
         ]))
     }
 
@@ -247,13 +253,13 @@ impl DbEntity<MdxNoteModel> for MdxNoteEntity {
         let last_read_value: i64 = item.last_read.parse().unwrap();
         let ctime = TimestampMillisecondArray::from(vec![ctime_value]);
         let last_read = TimestampMillisecondArray::from(vec![last_read_value]);
-        let vec = ListArray::from_iter_primitive::<Float32Type, _, _>(vec![Some(
-            item.vec.iter().map(|x| Some(*x)),
-        )]);
-        // let vec = FixedSizeListArray::from_iter_primitive::<Float32Type, _, _>(
-        //     vec![Some(item.vec.iter().map(|x| Some(*x)))],
-        //     VECTOR_DIMENSIONS,
-        // );
+        // let vec = ListArray::from_iter_primitive::<Float32Type, _, _>(vec![Some(
+        //     item.vec.iter().map(|x| Some(*x)),
+        // )]);
+        let vec = FixedSizeListArray::from_iter_primitive::<Float32Type, _, _>(
+            vec![Some(item.vec.iter().map(|x| Some(*x)))],
+            item.vec.len() as i32,
+        );
         RecordBatch::try_new(
             schema,
             vec![

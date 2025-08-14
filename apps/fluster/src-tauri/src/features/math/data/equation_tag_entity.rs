@@ -23,7 +23,7 @@ use super::equation_tag_model::EquationTagModel;
 pub struct EquationTagEntity {}
 
 impl DbEntity<EquationTagModel> for EquationTagEntity {
-    fn arrow_schema() -> std::sync::Arc<arrow_schema::Schema> {
+    fn arrow_schema(_: Option<i32>) -> std::sync::Arc<arrow_schema::Schema> {
         Arc::new(Schema::new(vec![
             Field::new("equation_id", DataType::Utf8, false),
             Field::new("tag_value", DataType::Utf8, false),
@@ -115,7 +115,7 @@ impl EquationTagEntity {
                     .any(|y| (x.equation_id == y.equation_id) && (x.tag_value == y.tag_value))
             })
             .collect();
-        let schema = EquationTagEntity::arrow_schema();
+        let schema = EquationTagEntity::arrow_schema(None);
         let tbl = get_table(db, DatabaseTables::MdxNoteTag).await?;
         let batches: Vec<Result<RecordBatch, ArrowError>> = filtered_tags
             .iter()

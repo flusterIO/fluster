@@ -23,7 +23,7 @@ use super::mdx_note_snippet_model::MdxNoteSnippetModel;
 pub struct MdxNoteSnippetEntity {}
 
 impl DbEntity<MdxNoteSnippetModel> for MdxNoteSnippetEntity {
-    fn arrow_schema() -> std::sync::Arc<arrow_schema::Schema> {
+    fn arrow_schema(_: Option<i32>) -> std::sync::Arc<arrow_schema::Schema> {
         Arc::new(Schema::new(vec![
             Field::new("mdx_note_id", DataType::Utf8, false),
             Field::new("snippet_id", DataType::Utf8, false),
@@ -116,7 +116,7 @@ impl MdxNoteSnippetEntity {
                     .any(|y| (x.snippet_id == y.snippet_id) && (x.mdx_note_id == y.mdx_note_id))
             })
             .collect();
-        let schema = MdxNoteSnippetEntity::arrow_schema();
+        let schema = MdxNoteSnippetEntity::arrow_schema(None);
         let tbl = get_table(db, DatabaseTables::MdxNoteTag).await?;
         let batches: Vec<Result<RecordBatch, ArrowError>> = filtered_tags
             .iter()

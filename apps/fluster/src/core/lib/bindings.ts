@@ -96,9 +96,9 @@ async getSubjectSearchResults(tagValues: string[]) : Promise<Result<TraditionalS
     else return { status: "error", error: e  as any };
 }
 },
-async semanticSearch(query: string, pagination: PaginationProps) : Promise<Result<SemanticSearchResults, FlusterError>> {
+async semanticSearch(query: string, ai: AiSyncSettings, pagination: PaginationProps) : Promise<Result<SemanticSearchResults, FlusterError>> {
     try {
-    return { status: "ok", data: await TAURI_INVOKE("semantic_search", { query, pagination }) };
+    return { status: "ok", data: await TAURI_INVOKE("semantic_search", { query, ai, pagination }) };
 } catch (e) {
     if(e instanceof Error) throw e;
     else return { status: "error", error: e  as any };
@@ -632,6 +632,17 @@ async getOllamaModelInfo(modelName: string) : Promise<Result<LocalModelDetailDat
 async ollamaModelExistsLocally(modelName: string) : Promise<Result<boolean, FlusterError>> {
     try {
     return { status: "ok", data: await TAURI_INVOKE("ollama_model_exists_locally", { modelName }) };
+} catch (e) {
+    if(e instanceof Error) throw e;
+    else return { status: "error", error: e  as any };
+}
+},
+/**
+ * Sets the language model for a specific chat session.
+ */
+async setChatModel(chatId: string, modelName: string) : Promise<Result<null, FlusterError>> {
+    try {
+    return { status: "ok", data: await TAURI_INVOKE("set_chat_model", { chatId, modelName }) };
 } catch (e) {
     if(e instanceof Error) throw e;
     else return { status: "error", error: e  as any };

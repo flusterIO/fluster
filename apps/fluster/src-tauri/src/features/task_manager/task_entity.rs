@@ -40,7 +40,7 @@ impl TaskEntity {
         Ok(())
     }
     pub async fn save_many(db: &FlusterDb<'_>, items: Vec<TaskModel>) -> FlusterResult<()> {
-        let schema = TaskEntity::arrow_schema();
+        let schema = TaskEntity::arrow_schema(None);
         let tbl = get_table(db, DatabaseTables::Task).await?;
         let batches: Vec<Result<RecordBatch, ArrowError>> = items
             .iter()
@@ -180,7 +180,7 @@ impl TaskEntity {
 }
 
 impl DbEntity<TaskModel> for TaskEntity {
-    fn arrow_schema() -> std::sync::Arc<arrow_schema::Schema> {
+    fn arrow_schema(_: Option<i32>) -> std::sync::Arc<arrow_schema::Schema> {
         Arc::new(Schema::new(vec![
             Field::new("id", DataType::Utf8, false),
             Field::new("label", DataType::Utf8, false),

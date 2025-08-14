@@ -76,7 +76,7 @@ impl BookmarkEntity {
         Ok(items)
     }
     pub async fn save_many(db: &FlusterDb<'_>, entries: &[BookmarkModel]) -> FlusterResult<()> {
-        let schema = BookmarkEntity::arrow_schema();
+        let schema = BookmarkEntity::arrow_schema(None);
         let tbl = get_table(db, DatabaseTables::Bookmark).await?;
         let batches: Vec<Result<RecordBatch, ArrowError>> = entries
             .iter()
@@ -102,7 +102,7 @@ impl BookmarkEntity {
 }
 
 impl DbEntity<BookmarkModel> for BookmarkEntity {
-    fn arrow_schema() -> std::sync::Arc<arrow_schema::Schema> {
+    fn arrow_schema(_: Option<i32>) -> std::sync::Arc<arrow_schema::Schema> {
         Arc::new(Schema::new(vec![
             Field::new("mdx_file_path", DataType::Utf8, false),
             Field::new("id", DataType::Utf8, false),

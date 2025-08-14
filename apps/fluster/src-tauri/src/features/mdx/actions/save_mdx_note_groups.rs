@@ -1,9 +1,11 @@
-use std::str::FromStr;
+use std::{ops::Index, str::FromStr};
 
+use arrow_schema::SchemaRef;
 use chrono::{DateTime, FixedOffset, Utc};
 
 use crate::{
     core::{
+        database::tables::table_paths::DatabaseTables,
         models::taggable::{
             shared_taggable_model::{SharedTaggableModel, SharedTaggableModelWithExists},
             subject_entity::SubjectEntity,
@@ -11,7 +13,11 @@ use crate::{
             topic_entity::TopicEntity,
         },
         sync::parse_directory::sync_fs_directory::sync_methods::clean::clean_database,
-        types::{errors::errors::FlusterResult, FlusterDb},
+        types::{
+            errors::errors::{FlusterError, FlusterResult},
+            traits::db_entity::DbEntity,
+            FlusterDb,
+        },
     },
     features::{
         dictionary::{
@@ -65,12 +71,39 @@ fn reformat_date(d: &str) -> String {
     "0".to_string()
 }
 
+pub async fn re_establish_table(
+    db: &FlusterDb<'_>,
+    schema: SchemaRef,
+    table: DatabaseTables,
+) -> FlusterResult<()> {
+    let _ = db.drop_table(table.to_string()).await;
+    db.create_empty_table(table.to_string(), schema)
+        .mode(lancedb::database::CreateTableMode::Create)
+        .execute()
+        .await
+        .map_err(|_| FlusterError::FailToCreateTable)?;
+    Ok(())
+}
+
 pub async fn save_mdx_note_groups(
     db: &FlusterDb<'_>,
     groups: Vec<MdxNoteGroup>,
     existing_taggables: AllTaggableData,
 ) -> FlusterResult<()> {
+    let mut vector_dimensions = 3072;
+    if !groups.is_empty() {
+        vector_dimensions = groups.index(0).mdx.vec.len();
+    }
+    // Clean all tables that can be regenerated from the file system.
     clean_database(db).await?;
+    // Drop all tables with vectors so they can be re-established with the vector dimensions for
+    // the currently selected model.
+    re_establish_table(
+        db,
+        MdxNoteEntity::arrow_schema(Some(vector_dimensions.try_into().unwrap())),
+        DatabaseTables::MdxNote,
+    )
+    .await?;
     // Loop over each item and generate the proper joining tables.
     let mut equations: Vec<EquationModel> = Vec::new();
     let mut mdx_note_equations: Vec<MdxNoteEquationModel> = Vec::new();
