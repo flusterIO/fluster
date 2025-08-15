@@ -5,6 +5,8 @@ use super::parse_directory::sync_fs_directory::{
     sync_methods::sync_mdx_notes::sync_mdx_filesystem_notes,
 };
 
+// RESUME: Come back here and figure out this fucking lifetime error.
+
 /// This wraps a series of functions handled by the fluster_native_interface package, conditionally
 /// based on user settings and app state.
 #[tauri::command]

@@ -88,6 +88,7 @@ ndarray = { version = "0.16.1", features = ["rayon", "serde"] }
 numpy = "0.25.0"
 kalosm = { version = "0.4.0", features = ["full"] }
 serde_yml = "0.0.12"
+text-splitter = { version = "0.27.0", features = ["markdown"] }
 
 [target.'cfg(target_os = "macos")'.dependencies]
 kalosm = { version = "0.4.0", features = ["full", "metal"] }

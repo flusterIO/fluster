@@ -68,7 +68,9 @@ export const AiAndMLSettingsPage = connector(
                     </p>
                     <Hint>
                         Unless you really know what you're doing, you probably want to use
-                        the <span className="italic">nomic-embed-text</span> model.
+                        the <span className="italic">nomic-embed-text</span> model. Using
+                        other models may cause issues when syncing your database, and using
+                        alternative models should be considered a beta feature for now.
                     </Hint>
                     <LocalModelTable
                         activeModelName={embeddingModel}

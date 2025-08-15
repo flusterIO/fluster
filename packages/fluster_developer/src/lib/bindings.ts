@@ -844,7 +844,7 @@ body: string;
  * The stringified unix timestamp of the time the message was received.
  */
 received_at: string }
-export type AiSyncSettings = { embedding_model: string; with_ai: boolean }
+export type AiSyncSettings = { embedding_model: string; with_ai: boolean; max_text_split_tokens: string }
 export type AllTaggableData = { tags: SharedTaggableModel[]; topics: SharedTaggableModel[]; subjects: SharedTaggableModel[] }
 export type AutoSettingModel = { id: string; glob: string; value: string; setting_type: AutoSettingType }
 export type AutoSettingType = "Tag" | "Topic" | "Subject"

@@ -20,6 +20,7 @@ use crate::{
         },
     },
     features::{
+        ai::data::constants::VECTOR_DIMENSIONS,
         dictionary::{
             dictionary_entry_entity::DictionaryEntryEntity,
             dictionary_entry_model::DictionaryEntryModel,
@@ -90,7 +91,7 @@ pub async fn save_mdx_note_groups(
     groups: Vec<MdxNoteGroup>,
     existing_taggables: AllTaggableData,
 ) -> FlusterResult<()> {
-    let mut vector_dimensions = 3072;
+    let mut vector_dimensions = VECTOR_DIMENSIONS as usize;
     if !groups.is_empty() {
         vector_dimensions = groups.index(0).mdx.vec.len();
     }

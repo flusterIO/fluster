@@ -1,1 +1,1 @@
-pub static VECTOR_DIMENSIONS: i32 = 3072;
+pub static VECTOR_DIMENSIONS: i32 = 768;

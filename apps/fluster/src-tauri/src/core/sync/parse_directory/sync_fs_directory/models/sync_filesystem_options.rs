@@ -10,6 +10,7 @@ pub const DEFAULT_LOCAL_EMBEDDING_MODEL: &str = "phi3:3.8b-instruct";
 pub struct AiSyncSettings {
     pub embedding_model: String,
     pub with_ai: bool,
+    pub max_text_split_tokens: usize,
 }
 
 impl Default for AiSyncSettings {
@@ -17,6 +18,7 @@ impl Default for AiSyncSettings {
         Self {
             embedding_model: DEFAULT_LOCAL_EMBEDDING_MODEL.to_string(),
             with_ai: false,
+            max_text_split_tokens: 1000,
         }
     }
 }

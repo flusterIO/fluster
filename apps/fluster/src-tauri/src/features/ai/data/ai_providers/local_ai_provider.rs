@@ -1,10 +1,10 @@
 use std::ops::Index;
 
-use async_trait::async_trait;
 use ollama_rs::{
     generation::embeddings::request::{EmbeddingsInput, GenerateEmbeddingsRequest},
     Ollama,
 };
+use text_splitter::MarkdownSplitter;
 
 use crate::{
     core::{
@@ -12,16 +12,40 @@ use crate::{
         types::errors::errors::FlusterResult,
     },
     features::{
-        ai::data::{constants::VECTOR_DIMENSIONS, traits::ai_provider::AiProvider},
+        ai::{data::constants::VECTOR_DIMENSIONS, utils::flatten_vector::flatten_vector},
         mdx::data::mdx_note_group::MdxNoteGroup,
     },
 };
 
+pub async fn get_embedding(
+    content: &str,
+    max_tokens: usize,
+    model: String,
+    ollama: &Ollama,
+) -> Vec<f32> {
+    let splitter = MarkdownSplitter::new(max_tokens);
+    let chunks = splitter.chunks(content);
+    let request = GenerateEmbeddingsRequest::new(
+        model.clone(),
+        EmbeddingsInput::Multiple(chunks.map(|x| x.to_string()).collect()),
+    );
+    if let Ok(res) = ollama.generate_embeddings(request).await {
+        println!("Embedding vector length: {:?}", res.embeddings.len());
+        if res.embeddings.is_empty() {
+            println!("Empty file: {:?}", content);
+        }
+        return flatten_vector(res.embeddings);
+    } else {
+        log::error!("Failed to generate embedding");
+        println!("Failed to generate embedding");
+    }
+    (0..VECTOR_DIMENSIONS).map(|_| 0.0).collect::<Vec<f32>>()
+}
+
 pub struct LocalAiClient {}
 
-#[async_trait]
-impl AiProvider for LocalAiClient {
-    async fn get_text_embeddings(
+impl LocalAiClient {
+    pub async fn get_text_embeddings(
         &self,
         notes: &mut [MdxNoteGroup],
         opts: &SyncFilesystemDirectoryOptions,
@@ -32,14 +56,14 @@ impl AiProvider for LocalAiClient {
 
         for note in notes.iter_mut() {
             if opts.ai.with_ai {
-                let request = GenerateEmbeddingsRequest::new(
+                note.mdx.vec = get_embedding(
+                    &note.mdx.raw_body,
+                    opts.ai.max_text_split_tokens,
                     opts.ai.embedding_model.clone(),
-                    EmbeddingsInput::Single(note.mdx.raw_body.clone()),
-                );
-                let res = ollama.generate_embeddings(request).await.unwrap();
-                if res.embeddings.len() == 1 {
-                    note.mdx.vec = res.embeddings.index(0).to_vec();
-                }
+                    &ollama,
+                )
+                .await;
+                // TODO: Convert this back to generating actual embeddings.
             } else if note.mdx.vec.len() != (VECTOR_DIMENSIONS as usize) {
                 note.mdx.vec = vec_default.clone();
             }
@@ -47,31 +71,3 @@ impl AiProvider for LocalAiClient {
         Ok(())
     }
 }
-
-// #[cfg(test)]
-// mod tests {
-
-//     use crate::core::database::db::get_database;
-
-//     use super::*;
-
-//     #[tokio::test]
-//     async fn gets_embeddings() {
-//         let db_res = get_database().await;
-//         let db = db_res.lock().await;
-//         let mut models: Vec<MdxNoteGroup> = Vec::new();
-//         let model = MdxNoteGroup::from_file_system_path(
-//             &db,
-//             "/Users/bigsexy/Desktop/notes/content/physics/brainstorm/gravityBrainstorm.mdx"
-//                 .to_string(),
-//             None,
-//         )
-//         .await
-//         .expect("Get's test mdx file without throwing an error.");
-//         models.push(model);
-//         let res = LocalAiClient {}
-//             .get_text_embeddings(&mut models, true)
-//             .await;
-//         assert!(res.is_ok(), "Get's embeddings without throwing an error.");
-//     }
-// }

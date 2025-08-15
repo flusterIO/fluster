@@ -45,7 +45,7 @@ export const sync = async (
     showToast({
         title: "Syncing...",
         body: opts.with_ai
-            ? "Fluster is synchronizing your database. Depending on your hardware, this may take some time while the AI related tasks run in the background. We'll send you another notification when the syncing is complete."
+            ? "Fluster is synchronizing your database. Depending on your hardware, this may take some time while the AI related tasks run in the background. We'll send you another notification when the process is complete."
             : "Fluster is synchronizing your database without invoking AI related tasks.",
         duration: opts.with_ai ? 10000 : 5000,
         variant: "Info",
@@ -77,10 +77,10 @@ export const sync = async (
             ai: {
                 with_ai: opts.with_ai,
                 embedding_model: state.ai.embeddingModel ?? DEFAULT_EMBEDDING_MODEL,
+                max_text_split_tokens: 1000 as unknown as string,
             },
             ...opts,
         });
-        console.log("res: ", res);
         if (res.status === "ok") {
             if (opts.showSuccessToast) {
                 showToast({
