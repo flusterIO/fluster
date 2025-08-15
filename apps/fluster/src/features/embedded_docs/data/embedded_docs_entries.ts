@@ -10,4 +10,5 @@ export const embeddedDocLabels: { [K in InternalEmbeddedDocsId]: string } = {
     JupyterSetup: "Setting up Jupyter",
     QuickReference: "Quick Reference",
     Mermaid: "Mermaid Diagrams",
+    OllamaSetup: "Ollama Setup",
 };

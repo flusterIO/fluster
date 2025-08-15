@@ -8,4 +8,5 @@ export const initialAiState: AiState = {
     aiChatInput: TextInputType.multiline,
     defaultLanguageModel: DEFAULT_LANGUAGE_MODEL,
     embeddingModel: DEFAULT_EMBEDDING_MODEL,
+    maxTextSplitTokens: 1000,
 };

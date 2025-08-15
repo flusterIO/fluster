@@ -19,6 +19,7 @@ pub fn get_embedded_doc(id: InternalEmbeddedDocsId) -> String {
         InternalEmbeddedDocsId::JupyterSetup => "jupyter_setup.mdx",
         InternalEmbeddedDocsId::QuickReference => "quick_ref.mdx",
         InternalEmbeddedDocsId::Mermaid => "mermaid.mdx",
+        InternalEmbeddedDocsId::OllamaSetup => "ollama_setup.mdx",
     };
     let res = DOCS
         .get_file(_path)

@@ -70,6 +70,7 @@ mod tests {
             AiSyncSettings {
                 embedding_model: DEFAULT_LOCAL_EMBEDDING_MODEL.to_string(),
                 with_ai: true,
+                max_text_split_tokens: 1000,
             },
             PaginationProps {
                 per_page: 10,

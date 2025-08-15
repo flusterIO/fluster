@@ -1,5 +1,3 @@
-use std::ops::Index;
-
 use ollama_rs::{
     generation::embeddings::request::{EmbeddingsInput, GenerateEmbeddingsRequest},
     Ollama,

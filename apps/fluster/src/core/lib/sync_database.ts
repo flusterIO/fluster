@@ -67,7 +67,6 @@ export const sync = async (
     }
     const existing_taggables = await getExistingTaggables();
     try {
-        console.log(`Syncing...`);
         const res = await commands.syncLocalDatabase({
             dir_path: state.core.notesDirectory,
             bib_path: state.bib.bibPath,

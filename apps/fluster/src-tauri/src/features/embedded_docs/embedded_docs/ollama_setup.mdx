@@ -1,0 +1,17 @@
+---
+title: Ollama Setup
+---
+
+# Ollama Setup
+
+<Admonition title="Recommendations" sidebar right>
+    For a language model, choose whichever model meets the accuracy/speed ratio that you like. Unfortunately, bigger models will almost always outperform smaller models, but using Ollama allows you to experiment freely. 
+
+    For embedding models, <span className="italic">nomic-embed-text</span> is heavily recommended. In fact, while the app is still in beta using an alternative model for generating embeddings might cause your syncing to fail. This will be resolved shortly, but due to the popularity and performance of this model I've prioritized other issues.
+</Admonition>
+
+Fluster now uses [ollama](https://ollama.com) to manage the installation of models on your own computer. This new (v0.1.12) approach gives users the ability to use whichever model they choose, so long as it can be installed via ollama. Ollama offers a great, user friendly interface for installing models and has a web interface with a list of the most popular models available [here](https://ollama.com/search).
+
+There is no extra setup required on the Ollama end. Simply install Ollama as you would otherwise, and Fluster will find this installation and allow you to choose between available models in your settings.
+
+It is important to note that if Fluster cannot find any models locally, it will attempt to install the default language model and the default embedding model when you first use these, likely when syncing and first using the AI chat feature. This will of course lead to significantly longer wait times when first using these features while Fluster waits for those models to download, but this will only occur when first attempting to use a model that isn't installed locally.

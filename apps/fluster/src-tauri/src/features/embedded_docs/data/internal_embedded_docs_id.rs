@@ -23,4 +23,5 @@ pub enum InternalEmbeddedDocsId {
     JupyterSetup,
     QuickReference,
     Mermaid,
+    OllamaSetup,
 }
