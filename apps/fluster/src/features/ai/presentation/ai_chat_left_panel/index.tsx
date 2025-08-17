@@ -40,7 +40,7 @@ export const AiChatLeftPanel = connector(
 
         useEffect(() => {
             if (isChatScreen && open) {
-                document.getElementById("create-chat-input")?.focus();
+                document.getElementById("create-ai-chat-input")?.focus();
             }
         }, [isChatScreen, open]);
         const gatherChatData = async (): Promise<void> => {
@@ -89,8 +89,10 @@ export const AiChatLeftPanel = connector(
                         label="Create chat"
                         form={form}
                         name="inputValue"
+                        ids={{
+                            input: "create-ai-chat-input",
+                        }}
                         inputProps={{
-                            id: "create-chat-input",
                             onKeyDown: (e) =>
                                 onEnter(
                                     e,

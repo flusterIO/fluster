@@ -2,12 +2,15 @@ import {
     useAiChatContext,
     useAiChatDispatch,
 } from "#/ai/state/chat/chat_context";
-import React, { useEffect, useMemo, type ReactNode } from "react";
+import React, { useEffect, type ReactNode } from "react";
 import { AiChatOutgoingMessage } from "./outgoing_message";
 import { AiChatIncomingMessage } from "./incoming_message";
 import { useSearchParams } from "react-router";
 import { commands } from "@/lib/bindings";
 import { useEventListener } from "@fluster.io/dev";
+import { IncomingStreamMessage } from "./incoming_stream_message";
+import { listen } from "@tauri-apps/api/event";
+import { CrossLanguageEvents } from "@/lib/bindings";
 
 interface RequestChatUpdateEventProps {
     chatId: string;
@@ -26,7 +29,9 @@ export const AiChatMessageList = (): ReactNode => {
     const chatId = searchParams.get("chat_id");
 
     const getChatData = async (_chatId: string): Promise<void> => {
+        console.log("_chatId: ", _chatId);
         const res = await commands.getAiChatById(_chatId);
+        console.log("res: ", res);
         if (res.status === "ok") {
             dispatch({
                 type: "setChatData",
@@ -38,7 +43,6 @@ export const AiChatMessageList = (): ReactNode => {
     };
 
     useEffect(() => {
-        console.log(`HEre?`);
         if (chatId) {
             getChatData(chatId);
         } else {
@@ -56,26 +60,19 @@ export const AiChatMessageList = (): ReactNode => {
         }
     });
 
-    const messages = useMemo(() => {
-        console.log(`here`);
-        return [
-            ...(state.data?.outgoing ?? []),
-            ...(state.data?.incoming ?? []),
-        ].sort((a, b) => {
-            const a_at = new Date("received_at" in a ? a.received_at : a.sent_at);
-            const b_at = new Date("received_at" in b ? b.received_at : b.sent_at);
-            return a_at.valueOf() - b_at.valueOf();
-        });
-    }, [state.data?.incoming, state.data?.outgoing]);
+    listen("ai-chat-message-update" satisfies CrossLanguageEvents, (e) => {
+        console.log("e: ", e);
+    });
     return (
         <div className="ai-chat-msg-list px-4 w-full h-full flex flex-col justify-end items-center gap-6 overflow-y-auto flex-grow">
-            {messages.map((msg) => {
-                return "sent_at" in msg ? (
+            {(state.data?.messages ?? []).map((msg) => {
+                return msg.role === "User" ? (
                     <AiChatOutgoingMessage key={msg.id} data={msg} />
                 ) : (
                     <AiChatIncomingMessage key={msg.id} data={msg} />
                 );
             })}
+            <IncomingStreamMessage />
         </div>
     );
 };

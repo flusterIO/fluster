@@ -2,7 +2,7 @@ use kalosm::{language::Llama, sound::ModelLoadingProgress};
 use serde::{Deserialize, Serialize};
 use tauri::{AppHandle, Emitter};
 
-use crate::core::events::event_keys::GlobalCrossLanguageFlusterEvents;
+use crate::core::events::event_keys::CrossLanguageEvents;
 
 #[derive(Serialize, Deserialize, Clone, specta::Type)]
 #[serde(rename_all = "camelCase")]
@@ -23,7 +23,7 @@ pub async fn begin_language_model_download(app: AppHandle) {
                 progress,
             } => {
                 let _ = app.emit(
-                    &GlobalCrossLanguageFlusterEvents::LanguageModelDownloadProgress.to_string(),
+                    &CrossLanguageEvents::LanguageModelDownloadProgress.to_string(),
                     DownloadingStatus {
                         portion: progress.progress,
                         elapsed_time: progress.start_time.elapsed().as_secs_f32(),

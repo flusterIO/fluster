@@ -14,4 +14,5 @@ export interface AiState {
     aiChatInput: TextInputType;
     embeddingModel: string;
     defaultLanguageModel: string;
+    maxTextSplitTokens: number;
 }

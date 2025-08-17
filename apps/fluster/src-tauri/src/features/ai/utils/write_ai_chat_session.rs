@@ -9,6 +9,7 @@ pub fn get_chat_session_dir() -> PathBuf {
     get_data_dir().unwrap().join("chat_history")
 }
 
+// TODO: This can be removed now that local AI is being managed by ollama
 pub async fn write_chat_session(chat_id: &str, chat_data: &[u8]) -> FlusterResult<()> {
     let base_dir = get_chat_session_dir();
     if !std::fs::exists(&base_dir).is_ok_and(|x| x) {

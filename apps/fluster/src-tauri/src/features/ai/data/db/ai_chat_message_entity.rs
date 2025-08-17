@@ -6,27 +6,30 @@ use futures::TryStreamExt;
 use lancedb::query::{ExecutableQuery, QueryBase};
 use serde_arrow::from_record_batch;
 
-use crate::core::{
-    database::{db::get_table, tables::table_paths::DatabaseTables},
-    types::{
-        errors::errors::{FlusterError, FlusterResult},
-        traits::db_entity::DbEntity,
-        FlusterDb,
+use crate::{
+    core::{
+        database::{db::get_table, tables::table_paths::DatabaseTables},
+        types::{
+            errors::errors::{FlusterError, FlusterResult},
+            traits::db_entity::DbEntity,
+            FlusterDb,
+        },
     },
+    features::ai::data::db::ai_chat_message_model::AiChatMessageModel,
 };
 
-use super::ai_chat_request_model::AiChatRequestMessageModel;
+// use super::ai_chat_request_model::AiChatMessageModel;
 
-pub struct AiChatRequestEntity {}
+pub struct AiChatMessageEntity {}
 
-impl AiChatRequestEntity {
+impl AiChatMessageEntity {
     pub async fn save_chat_request(
         db: &FlusterDb<'_>,
-        req: AiChatRequestMessageModel,
+        req: AiChatMessageModel,
     ) -> FlusterResult<()> {
-        let tbl = get_table(db, DatabaseTables::AiChatRequest).await?;
-        let schema = AiChatRequestEntity::arrow_schema(None);
-        let batch = Ok(AiChatRequestEntity::to_record_batch(&req, schema.clone()));
+        let tbl = get_table(db, DatabaseTables::AiChatMessage).await?;
+        let schema = AiChatMessageEntity::arrow_schema(None);
+        let batch = Ok(AiChatMessageEntity::to_record_batch(&req, schema.clone()));
         let stream = Box::new(RecordBatchIterator::new(
             vec![batch].into_iter(),
             schema.clone(),
@@ -40,8 +43,8 @@ impl AiChatRequestEntity {
     pub async fn get_by_chat_id(
         db: &FlusterDb<'_>,
         id: &str,
-    ) -> FlusterResult<Vec<AiChatRequestMessageModel>> {
-        let tbl = get_table(db, DatabaseTables::AiChatRequest).await?;
+    ) -> FlusterResult<Vec<AiChatMessageModel>> {
+        let tbl = get_table(db, DatabaseTables::AiChatMessage).await?;
 
         let items_batch = tbl
             .query()
@@ -63,9 +66,9 @@ impl AiChatRequestEntity {
             return Err(FlusterError::FailToFindById);
         }
 
-        let mut items: Vec<AiChatRequestMessageModel> = Vec::new();
+        let mut items: Vec<AiChatMessageModel> = Vec::new();
         for batch in items_batch.iter() {
-            let data: Vec<AiChatRequestMessageModel> = from_record_batch(batch).map_err(|e| {
+            let data: Vec<AiChatMessageModel> = from_record_batch(batch).map_err(|e| {
                 println!("Error: {:?}", e);
                 FlusterError::FailToSerialize
             })?;
@@ -75,12 +78,13 @@ impl AiChatRequestEntity {
     }
 }
 
-impl DbEntity<AiChatRequestMessageModel> for AiChatRequestEntity {
+impl DbEntity<AiChatMessageModel> for AiChatMessageEntity {
     fn arrow_schema(_: Option<i32>) -> std::sync::Arc<arrow_schema::Schema> {
         Arc::new(Schema::new(vec![
             Field::new("id", DataType::Utf8, false),
             Field::new("chat_id", DataType::Utf8, false),
             Field::new("body", DataType::Utf8, false),
+            Field::new("role", DataType::Utf8, false),
             Field::new(
                 "sent_at",
                 DataType::Timestamp(arrow_schema::TimeUnit::Millisecond, None),
@@ -90,12 +94,13 @@ impl DbEntity<AiChatRequestMessageModel> for AiChatRequestEntity {
     }
 
     fn to_record_batch(
-        item: &AiChatRequestMessageModel,
+        item: &AiChatMessageModel,
         schema: std::sync::Arc<arrow_schema::Schema>,
     ) -> arrow_array::RecordBatch {
         let id = StringArray::from(vec![item.id.clone()]);
         let chat_id = StringArray::from(vec![item.chat_id.clone()]);
         let body = StringArray::from(vec![item.body.clone()]);
+        let role = StringArray::from(vec![item.role.to_string()]);
         let sent_at_value: i64 = item.sent_at.parse().unwrap();
         let sent_at = TimestampMillisecondArray::from(vec![sent_at_value]);
         RecordBatch::try_new(
@@ -104,6 +109,7 @@ impl DbEntity<AiChatRequestMessageModel> for AiChatRequestEntity {
                 Arc::new(id),
                 Arc::new(chat_id),
                 Arc::new(body),
+                Arc::new(role),
                 Arc::new(sent_at),
             ],
         )

@@ -6,6 +6,8 @@ use thiserror::Error;
 pub enum FlusterError {
     #[error("Your operating system is not supported.")]
     OperatingSystemNotSupported,
+    #[error("Fluster failed to send a cross-language event.")]
+    FailToSendEvent,
     #[error("Fluster failed to loaded embedded documentation.")]
     FailToLoadDocs,
     #[error("Fluster failed to find the {0} environment variable.")]

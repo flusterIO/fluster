@@ -4,11 +4,13 @@ use specta::Type;
 use crate::features::taggables::commands::get_existing_taggables::AllTaggableData;
 
 // This will need to be replaced with the client side constant as well.
-pub const DEFAULT_LOCAL_EMBEDDING_MODEL: &str = "phi3:3.8b-instruct";
+pub const DEFAULT_LOCAL_EMBEDDING_MODEL: &str = "nomic-embed-text:latest";
+pub const DEFAULT_LOCAL_LANGUAGE_MODEL: &str = "phi3:3.8b-instruct";
 
 #[derive(Serialize, Deserialize, Type, Debug)]
 pub struct AiSyncSettings {
     pub embedding_model: String,
+    pub language_model: String,
     pub with_ai: bool,
     pub max_text_split_tokens: usize,
 }
@@ -17,6 +19,7 @@ impl Default for AiSyncSettings {
     fn default() -> Self {
         Self {
             embedding_model: DEFAULT_LOCAL_EMBEDDING_MODEL.to_string(),
+            language_model: DEFAULT_LOCAL_LANGUAGE_MODEL.to_string(),
             with_ai: false,
             max_text_split_tokens: 1000,
         }

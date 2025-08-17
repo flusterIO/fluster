@@ -1,5 +1,5 @@
 "use client";
-import { AiChatData } from "@/lib/bindings";
+import { AiChatData, AiChatMessageModel, AiChatModel } from "@/lib/bindings";
 import { ReactNode, createContext, useContext } from "react";
 
 export enum AiLoadingState {
@@ -13,12 +13,14 @@ export interface AiChatState {
     inputValue: string;
     data: AiChatData | null;
     loading: AiLoadingState;
+    incomingStreamBody: string | null;
 }
 
 export const initialAiChatState: AiChatState = {
     inputValue: "",
     data: null,
     loading: AiLoadingState.idle,
+    incomingStreamBody: null,
 };
 
 export const AiChatContext = createContext<AiChatState>(initialAiChatState);
@@ -33,8 +35,20 @@ export type AiChatContextActions =
         payload: AiChatData | null;
     }
     | {
+        type: "appendModelMessage";
+        payload: AiChatMessageModel;
+    }
+    | {
+        type: "appendUserMessage";
+        payload: AiChatMessageModel;
+    }
+    | {
         type: "setLoadingState";
         payload: AiLoadingState;
+    }
+    | {
+        type: "setAiChatIncomingStreamData";
+        payload: string;
     }
     | {
         type: "chatRequestSuccess";
@@ -53,6 +67,37 @@ export const AiChatContextReducer = (
     action: AiChatContextActions
 ): AiChatState => {
     switch (action.type) {
+        case "appendUserMessage": {
+            return {
+                ...state,
+                data:
+                    state.data === null
+                        ? null
+                        : {
+                            ...state.data,
+                            messages: [...state.data.messages, action.payload],
+                        },
+            };
+        }
+        case "appendModelMessage": {
+            return {
+                ...state,
+                incomingStreamBody: null,
+                data:
+                    state.data === null
+                        ? null
+                        : {
+                            ...state.data,
+                            messages: [...state.data.messages, action.payload],
+                        },
+            };
+        }
+        case "setAiChatIncomingStreamData": {
+            return {
+                ...state,
+                incomingStreamBody: action.payload,
+            };
+        }
         case "setChatInputValue": {
             return {
                 ...state,
@@ -62,7 +107,17 @@ export const AiChatContextReducer = (
         case "setChatData": {
             return {
                 ...state,
-                data: action.payload,
+                data:
+                    action.payload === null
+                        ? null
+                        : {
+                            ...action.payload,
+                            messages: action.payload.messages.sort((a, b) => {
+                                const a_at = new Date(a.sent_at);
+                                const b_at = new Date(b.sent_at);
+                                return a_at.valueOf() - b_at.valueOf();
+                            }),
+                        },
             };
         }
         case "setLoadingState": {

@@ -2,6 +2,7 @@ use crate::core::types::errors::errors::{FlusterError, FlusterResult};
 
 use super::write_ai_chat_session::get_chat_session_dir;
 
+// TODO: This can be removed now that local AI is being managed by ollama
 pub async fn read_chat_session(chat_id: &str) -> FlusterResult<Vec<u8>> {
     let p = get_chat_session_dir().join(format!("{}.llama", chat_id));
     if !std::fs::exists(&p).is_ok_and(|x| x) {

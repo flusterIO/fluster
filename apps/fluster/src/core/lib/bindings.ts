@@ -599,9 +599,13 @@ async deleteChatById(chatId: string) : Promise<Result<null, FlusterError>> {
     else return { status: "error", error: e  as any };
 }
 },
-async addAiChatRequest(chatId: string, chatInput: string) : Promise<Result<AiChatResponseMessageModel, FlusterError>> {
+/**
+ * Until dates can be parsed on the rust side, the history must be passed in already sorted by
+ * date.
+ */
+async addAiChatRequest(chatId: string, ai: AiSyncSettings, chatInput: AiChatMessageModel, chatHistory: AiChatMessageModel[]) : Promise<Result<null, FlusterError>> {
     try {
-    return { status: "ok", data: await TAURI_INVOKE("add_ai_chat_request", { chatId, chatInput }) };
+    return { status: "ok", data: await TAURI_INVOKE("add_ai_chat_request", { chatId, ai, chatInput, chatHistory }) };
 } catch (e) {
     if(e instanceof Error) throw e;
     else return { status: "error", error: e  as any };
@@ -813,12 +817,8 @@ showToast: "show-toast"
  * A utility struct that combines the ChatModel, AiChatMessageResponse, and AiChatMessageRequest
  * entities into a single struct.
  */
-export type AiChatData = { chat: AiChatModel; outgoing: AiChatRequestMessageModel[]; incoming: AiChatResponseMessageModel[] }
-/**
- * The database entity representing a specific chat historys
- */
-export type AiChatModel = { id: string; label: string; ctime: string; model: string }
-export type AiChatRequestMessageModel = { id: string; 
+export type AiChatData = { chat: AiChatModel; messages: AiChatMessageModel[] }
+export type AiChatMessageModel = { id: string; 
 /**
  * The id of the accompanying AiChatModel row.
  */
@@ -826,25 +826,17 @@ chat_id: string;
 /**
  * The user's input as the request body.
  */
-body: string; 
+body: string; role: AiChatMessageRole; 
 /**
  * The stringified unix timestamp of the time the message was sent.
  */
 sent_at: string }
-export type AiChatResponseMessageModel = { id: string; 
+export type AiChatMessageRole = "User" | "Assistant" | "System" | "Tool"
 /**
- * The id of the accompanying AiChatModel row.
+ * The database entity representing a specific chat historys
  */
-chat_id: string; 
-/**
- * The user's input as the request body.
- */
-body: string; 
-/**
- * The stringified unix timestamp of the time the message was received.
- */
-received_at: string }
-export type AiSyncSettings = { embedding_model: string; with_ai: boolean; max_text_split_tokens: string }
+export type AiChatModel = { id: string; label: string; ctime: string; model: string }
+export type AiSyncSettings = { embedding_model: string; language_model: string; with_ai: boolean; max_text_split_tokens: string }
 export type AllTaggableData = { tags: SharedTaggableModel[]; topics: SharedTaggableModel[]; subjects: SharedTaggableModel[] }
 export type AutoSettingModel = { id: string; glob: string; value: string; setting_type: AutoSettingType }
 export type AutoSettingType = "Tag" | "Topic" | "Subject"
@@ -854,6 +846,7 @@ export type BibEntryModel = { id: string; user_provided_id: string | null;
  * The json string representing this item's data.
  */
 data: string; ctime: string; html_citation: string; pdf_path: string | null }
+export type CrossLanguageEvents = "embedding-model-download-progress" | "language-model-download-progress" | "ai-chat-message-update"
 export type DashboardData = Record<string, never>
 export type DesktopHealthReport = { database_tables_exist: boolean; 
 /**
@@ -912,7 +905,7 @@ ctime: string;
  * Time snippet is last updated.
  */
 utime: string }
-export type FlusterError = "OperatingSystemNotSupported" | "FailToLoadDocs" | { FailToLoadEnvironmentVariable: string } | "FailToParseDate" | "FailToWriteChatSession" | "FailToReadChatSession" | "NoAiProvidersConfigured" | "FailToGenerateChatResponse" | "FailToLoadModel" | "FailToCreateEmbeddingVector" | "FailToGetSemanticResults" | "FailToCreateQrCode" | "FailToCount" | "NotImplemented" | "FailToCopyFiles" | "FailToWriteFile" | "FailToSaveSettings" | "FailToReadSettings" | "FailToParseBibFile" | "SettingsBibPathNotFound" | "CannotParseBibfile" | "FailToFindDataDirectory" | "FailToCreateIndex" | "FailToSerialize" | "NotFoundById" | "DuplicateId" | "FailToDelete" | "FailToClean" | "FailToCreateTable" | "FailToOpenTable" | "FailToConnect" | "FailToStartDb" | "FailToStopDb" | "FailToCreateEntity" | "FailToCreateSnippet" | "FailToFind" | "FailToFindById" | "FailToCreatePath" | "FailToCreateTag" | "FailToCreateSubject" | { DataDirNotFound: [] } | { FailToClearDirectory: string } | "FailToCreateTopic" | "FailToLocateStorageDir" | { FailToReadFileSystemPath: string } | "FailToReadMathjaxFont" | { FailToSaveFile: string } | { MdxParsingError: string } | { NoTitleError: string } | "FailToGatherMdxGroups" | { AttemptedToParseFileWasntFound: string } | { FailToSaveMdxNote: string } | 
+export type FlusterError = "OperatingSystemNotSupported" | "FailToSendEvent" | "FailToLoadDocs" | { FailToLoadEnvironmentVariable: string } | "FailToParseDate" | "FailToWriteChatSession" | "FailToReadChatSession" | "NoAiProvidersConfigured" | "FailToGenerateChatResponse" | "FailToLoadModel" | "FailToCreateEmbeddingVector" | "FailToGetSemanticResults" | "FailToCreateQrCode" | "FailToCount" | "NotImplemented" | "FailToCopyFiles" | "FailToWriteFile" | "FailToSaveSettings" | "FailToReadSettings" | "FailToParseBibFile" | "SettingsBibPathNotFound" | "CannotParseBibfile" | "FailToFindDataDirectory" | "FailToCreateIndex" | "FailToSerialize" | "NotFoundById" | "DuplicateId" | "FailToDelete" | "FailToClean" | "FailToCreateTable" | "FailToOpenTable" | "FailToConnect" | "FailToStartDb" | "FailToStopDb" | "FailToCreateEntity" | "FailToCreateSnippet" | "FailToFind" | "FailToFindById" | "FailToCreatePath" | "FailToCreateTag" | "FailToCreateSubject" | { DataDirNotFound: [] } | { FailToClearDirectory: string } | "FailToCreateTopic" | "FailToLocateStorageDir" | { FailToReadFileSystemPath: string } | "FailToReadMathjaxFont" | { FailToSaveFile: string } | { MdxParsingError: string } | { NoTitleError: string } | "FailToGatherMdxGroups" | { AttemptedToParseFileWasntFound: string } | { FailToSaveMdxNote: string } | 
 /**
  * Taggables
  * 

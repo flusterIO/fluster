@@ -67,10 +67,8 @@ pub enum DatabaseTables {
     // -- AI Chat --
     #[strum(to_string = "ai_chat")]
     AiChat,
-    #[strum(to_string = "ai_chat_request")]
-    AiChatRequest,
-    #[strum(to_string = "ai_chat_response")]
-    AiChatResponse,
+    #[strum(to_string = "ai_chat_message")]
+    AiChatMessage,
     // -- Kanban Boards --
     #[strum(to_string = "kanban_board")]
     KanbanBoard,

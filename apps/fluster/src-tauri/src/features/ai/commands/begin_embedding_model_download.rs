@@ -1,7 +1,7 @@
 use kalosm::{language::Bert, sound::ModelLoadingProgress};
 use tauri::{AppHandle, Emitter};
 
-use crate::core::events::event_keys::GlobalCrossLanguageFlusterEvents;
+use crate::core::events::event_keys::CrossLanguageEvents;
 
 use super::begin_language_model_download::DownloadingStatus;
 
@@ -15,7 +15,7 @@ pub async fn begin_embedding_model_download(app: AppHandle) {
                 progress,
             } => {
                 let _ = app.emit(
-                    &GlobalCrossLanguageFlusterEvents::EmbeddingModelDownloadProgress.to_string(),
+                    &CrossLanguageEvents::EmbeddingModelDownloadProgress.to_string(),
                     DownloadingStatus {
                         portion: progress.progress,
                         elapsed_time: progress.start_time.elapsed().as_secs_f32(),

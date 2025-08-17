@@ -1,6 +1,5 @@
 use crate::features::ai::data::db::{
-    ai_chat_model::AiChatModel, ai_chat_request_model::AiChatRequestMessageModel,
-    ai_chat_response_model::AiChatResponseMessageModel,
+    ai_chat_message_model::AiChatMessageModel, ai_chat_model::AiChatModel,
 };
 use serde::{Deserialize, Serialize};
 use specta::Type;
@@ -11,6 +10,5 @@ use specta::Type;
 #[derive(Serialize, Deserialize, Type)]
 pub struct AiChatData {
     pub chat: AiChatModel,
-    pub outgoing: Vec<AiChatRequestMessageModel>,
-    pub incoming: Vec<AiChatResponseMessageModel>,
+    pub messages: Vec<AiChatMessageModel>,
 }

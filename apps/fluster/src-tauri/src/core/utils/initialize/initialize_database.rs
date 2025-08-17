@@ -12,10 +12,7 @@ use crate::{
         },
     },
     features::{
-        ai::data::db::{
-            ai_chat_entity::AiChatEntity, ai_chat_request_entity::AiChatRequestEntity,
-            ai_chat_response_entity::AiChatResponseEntity,
-        },
+        ai::data::db::{ai_chat_entity::AiChatEntity, ai_chat_message_entity::AiChatMessageEntity},
         bibliography::data::bib_entry_entity::BibEntryEntity,
         dictionary::dictionary_entry_entity::DictionaryEntryEntity,
         kanban::data::{
@@ -229,13 +226,8 @@ pub async fn initialize_database() -> FlusterResult<()> {
             set_indices: None,
         },
         TableInitData {
-            table: DatabaseTables::AiChatRequest,
-            entity: AiChatRequestEntity::arrow_schema(None),
-            set_indices: None,
-        },
-        TableInitData {
-            table: DatabaseTables::AiChatResponse,
-            entity: AiChatResponseEntity::arrow_schema(None),
+            table: DatabaseTables::AiChatMessage,
+            entity: AiChatMessageEntity::arrow_schema(None),
             set_indices: None,
         },
         // -- Kanban Boards --
