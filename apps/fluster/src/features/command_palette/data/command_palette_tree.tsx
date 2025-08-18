@@ -20,7 +20,7 @@ import { TagsCommandPaletteRoot } from "./tree/tags";
 import { IpynbFilesCommandPaletteRoot } from "./tree/notebooks";
 import { MdxFilesCommandPaletteRoot } from "./tree/by_file_path";
 import { ConstantsCommandPaletteRoot } from "./tree/constants";
-import { AppRoutes, showToast } from "@fluster.io/dev";
+import { AppRoute, AppRoutes, showToast } from "@fluster.io/dev";
 import { ReactNode } from "react";
 import { Location } from "react-router";
 import { type BundledLanguage } from "shiki";
@@ -28,78 +28,85 @@ import { CitationsCommandPaletteRoot } from "./tree/citations";
 import { HtmlFilesCommandPaletteRoot } from "./tree/html_files";
 
 export class CommandPaletteRoot extends CommandPaletteCategory {
-    constructor() {
-        super("Home", "cmd-palete-root");
-    }
+  constructor() {
+    super("Home", "cmd-palete-root");
+  }
 
-    filterByLocation(): boolean {
-        return true;
-    }
-    bottomBar(): ReactNode {
-        return null;
-    }
-    async getItems(location: Location): Promise<CommandPaletteAnyEntry[]> {
-        return [
-            new NavigationCommandPaletteRoot(),
-            new TagsCommandPaletteRoot(),
-            new TopicsCommandPaletteRoot(),
-            new SubjectsCommandPaletteRoot(),
-            new GeneralCommandPaletteItem(
-                "Toggle Dark Mode",
-                "toggle_dark_mode",
-                async () => {
-                    toggleDarkMode();
-                }
-            ),
-            new BookmarksCommandPaletteRoot(),
-            new ThemeCommandPaletteRoot(),
-            new CodeThemeCommandPaletteRoot(),
-            new EditInSplitViewCommandEntry(),
-            new GeneralCommandPaletteItem("Sync database", "sync_db", async () => {
-                await sync({
-                    with_ai: true,
-                    showSuccessToast: true,
-                });
-            }),
-            new GeneralCommandPaletteItem(
-                "Sync database without AI",
-                "sync_db_no_ai",
-                async () => {
-                    await sync({
-                        with_ai: false,
-                        showSuccessToast: true,
-                    });
-                }
-            ),
-            new NotesCommandPaletteRoot(),
-            new MdxFilesCommandPaletteRoot(),
-            new PdfFilesCommandPaletteRoot(),
-            new HtmlFilesCommandPaletteRoot(),
-            new CitationsCommandPaletteRoot(),
-            new IpynbFilesCommandPaletteRoot(),
-            new TaskListsCommandPaletteRoot(),
-            new AiChatsCommandPaletteRoot(),
-            new ConstantsCommandPaletteRoot(),
-            new GeneralCommandPaletteItem(
-                "Edit .bib file",
-                "edit_bib_file",
-                async (nav) => {
-                    const sp = new URLSearchParams();
-                    const bibPath = store.getState().bib.bibPath;
-                    if (!bibPath) {
-                        return showToast({
-                            title: "Not Found",
-                            body: "Your .bib file path is not set in your settings.",
-                            variant: "Error",
-                            duration: 5000,
-                        });
-                    }
-                    sp.set("fsPath", bibPath);
-                    sp.set("lang", "bibtex" as BundledLanguage);
-                    nav(`${AppRoutes.full_screen_editor}?${sp.toString()}`);
-                }
-            ),
-            new EmbeddedDocsCommandPaletteRoot(),
-        ].filter((x) => x.filterByLocation(location));
-    }
+  filterByLocation(): boolean {
+    return true;
+  }
+  bottomBar(): ReactNode {
+    return null;
+  }
+  async getItems(location: Location): Promise<CommandPaletteAnyEntry[]> {
+    return [
+      new NavigationCommandPaletteRoot(),
+      new TagsCommandPaletteRoot(),
+      new TopicsCommandPaletteRoot(),
+      new SubjectsCommandPaletteRoot(),
+      new GeneralCommandPaletteItem(
+        "Toggle Dark Mode",
+        "toggle_dark_mode",
+        async () => {
+          toggleDarkMode();
+        }
+      ),
+      new BookmarksCommandPaletteRoot(),
+      new ThemeCommandPaletteRoot(),
+      new CodeThemeCommandPaletteRoot(),
+      new EditInSplitViewCommandEntry(),
+      new GeneralCommandPaletteItem("Sync database", "sync_db", async () => {
+        await sync({
+          with_ai: true,
+          showSuccessToast: true,
+        });
+      }),
+      new GeneralCommandPaletteItem(
+        "Sync database without AI",
+        "sync_db_no_ai",
+        async () => {
+          await sync({
+            with_ai: false,
+            showSuccessToast: true,
+          });
+        }
+      ),
+      new NotesCommandPaletteRoot(),
+      new MdxFilesCommandPaletteRoot(),
+      new PdfFilesCommandPaletteRoot(),
+      new HtmlFilesCommandPaletteRoot(),
+      new CitationsCommandPaletteRoot(),
+      new IpynbFilesCommandPaletteRoot(),
+      new TaskListsCommandPaletteRoot(),
+      new AiChatsCommandPaletteRoot(),
+      new ConstantsCommandPaletteRoot(),
+      new GeneralCommandPaletteItem(
+        "Edit .bib file",
+        "edit_bib_file",
+        async (nav) => {
+          const sp = new URLSearchParams();
+          const bibPath = store.getState().bib.bibPath;
+          if (!bibPath) {
+            return showToast({
+              title: "Not Found",
+              body: "Your .bib file path is not set in your settings.",
+              variant: "Error",
+              duration: 5000,
+            });
+          }
+          sp.set("fsPath", bibPath);
+          sp.set("lang", "bibtex" as BundledLanguage);
+          nav(`${AppRoutes.full_screen_editor}?${sp.toString()}`);
+        }
+      ),
+      new GeneralCommandPaletteItem(
+        "Create new mdx file",
+        "create_file_cmd_palette",
+        async (nav) => {
+          nav(AppRoutes.splitViewEditMdx);
+        }
+      ),
+      new EmbeddedDocsCommandPaletteRoot(),
+    ].filter((x) => x.filterByLocation(location));
+  }
 }
