@@ -23,6 +23,17 @@ use crate::{
 pub struct AiChatMessageEntity {}
 
 impl AiChatMessageEntity {
+    pub async fn delete_by_chat_id(db: &FlusterDb<'_>, chat_id: &str) -> FlusterResult<()> {
+        let tbl = get_table(db, DatabaseTables::AiChatMessage).await?;
+        tbl.delete(&format!("chat_id = \"{}\"", chat_id))
+            .await
+            .map_err(|e| {
+                println!("Error: {:?}", e);
+                FlusterError::FailToDelete
+            })?;
+
+        Ok(())
+    }
     pub async fn save_chat_request(
         db: &FlusterDb<'_>,
         req: AiChatMessageModel,
@@ -62,9 +73,9 @@ impl AiChatMessageEntity {
                 FlusterError::FailToFindById
             })?;
 
-        if items_batch.is_empty() {
-            return Err(FlusterError::FailToFindById);
-        }
+        // if items_batch.is_empty() {
+        //     return Err(FlusterError::FailToFindById);
+        // }
 
         let mut items: Vec<AiChatMessageModel> = Vec::new();
         for batch in items_batch.iter() {

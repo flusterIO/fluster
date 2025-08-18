@@ -13,7 +13,7 @@ import {
 import React, { type ReactNode } from "react";
 
 interface AiChatIncomingMessageProps {
-  data: AiChatData["incoming"][number];
+  data: AiChatData["messages"][number];
 }
 
 export const AiChatIncomingMessage = ({
@@ -35,7 +35,7 @@ export const AiChatIncomingMessage = ({
       <ContextMenu>
         <ContextMenuTrigger asChild>
           <div className="w-[min(1080px,calc(100%-4rem))] p-4 rounded-tl-2xl rounded-tr-2xl rounded-bl-2xl rounded-br-sm border bg-card">
-            <MdxContent mdx={data.body} />
+            <MdxContent debounceTimeout={25} mdx={data.body} />
           </div>
         </ContextMenuTrigger>
         <ContextMenuPortal>

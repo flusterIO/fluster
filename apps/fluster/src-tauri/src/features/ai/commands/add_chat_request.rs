@@ -8,15 +8,12 @@ use ollama_rs::{
     },
     Ollama,
 };
-use tauri::{AppHandle, Emitter};
+use tauri::{ipc::Channel, AppHandle, Emitter};
 
 use crate::{
     core::{
         database::db::get_database,
-        events::{
-            event_keys::CrossLanguageEvents,
-            event_props::AiChatMessageUpdateEventProps,
-        },
+        events::{event_keys::CrossLanguageEvents, event_props::AiChatMessageUpdateEventProps},
         sync::parse_directory::sync_fs_directory::models::sync_filesystem_options::AiSyncSettings,
         types::errors::errors::{FlusterError, FlusterResult},
         utils::random_utils::get_unique_id,
@@ -40,6 +37,7 @@ pub async fn add_ai_chat_request(
     ai: AiSyncSettings,
     chat_input: AiChatMessageModel,
     chat_history: Vec<AiChatMessageModel>,
+    stream_channel: Channel<AiChatMessageUpdateEventProps>,
 ) -> FlusterResult<()> {
     // -- Get database & Ollama --
     let db_res = get_database().await;
@@ -85,18 +83,19 @@ pub async fn add_ai_chat_request(
     let mut response = String::new();
     while let Some(Ok(res)) = stream.next().await {
         response += res.message.content.as_str();
-        app.emit(
-            &CrossLanguageEvents::AiChatMessageUpdate.to_string(),
-            AiChatMessageUpdateEventProps {
-                chat_id: chat_id.clone(),
-                message_id: chat_input.id.clone(),
-                content: response.clone(),
-            },
-        )
-        .map_err(|e| {
-            println!("Error: {:?}", e);
-            FlusterError::FailToSendEvent
-        })?;
+        stream_channel.send(AiChatMessageUpdateEventProps {
+            chat_id: chat_id.clone(),
+            message_id: chat_input.id.clone(),
+            content: response.clone(),
+        });
+        // app.emit(
+        //     &CrossLanguageEvents::AiChatMessageUpdate.to_string(),
+        //     ,
+        // )
+        // .map_err(|e| {
+        //     println!("Error: {:?}", e);
+        //     FlusterError::FailToSendEvent
+        // })?;
     }
 
     let return_message_id = get_unique_id().await;

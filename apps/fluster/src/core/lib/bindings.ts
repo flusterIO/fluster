@@ -603,9 +603,9 @@ async deleteChatById(chatId: string) : Promise<Result<null, FlusterError>> {
  * Until dates can be parsed on the rust side, the history must be passed in already sorted by
  * date.
  */
-async addAiChatRequest(chatId: string, ai: AiSyncSettings, chatInput: AiChatMessageModel, chatHistory: AiChatMessageModel[]) : Promise<Result<null, FlusterError>> {
+async addAiChatRequest(chatId: string, ai: AiSyncSettings, chatInput: AiChatMessageModel, chatHistory: AiChatMessageModel[], streamChannel: TAURI_CHANNEL<AiChatMessageUpdateEventProps>) : Promise<Result<null, FlusterError>> {
     try {
-    return { status: "ok", data: await TAURI_INVOKE("add_ai_chat_request", { chatId, ai, chatInput, chatHistory }) };
+    return { status: "ok", data: await TAURI_INVOKE("add_ai_chat_request", { chatId, ai, chatInput, chatHistory, streamChannel }) };
 } catch (e) {
     if(e instanceof Error) throw e;
     else return { status: "error", error: e  as any };
@@ -832,6 +832,19 @@ body: string; role: AiChatMessageRole;
  */
 sent_at: string }
 export type AiChatMessageRole = "User" | "Assistant" | "System" | "Tool"
+export type AiChatMessageUpdateEventProps = { 
+/**
+ * The id of the entire chat.
+ */
+chat_id: string; 
+/**
+ * The id of the message
+ */
+message_id: string; 
+/**
+ * The body of the message, already concatenated.
+ */
+content: string }
 /**
  * The database entity representing a specific chat historys
  */
@@ -846,7 +859,7 @@ export type BibEntryModel = { id: string; user_provided_id: string | null;
  * The json string representing this item's data.
  */
 data: string; ctime: string; html_citation: string; pdf_path: string | null }
-export type CrossLanguageEvents = "embedding-model-download-progress" | "language-model-download-progress" | "ai-chat-message-update"
+export type CrossLanguageEvents = "EmbeddingModelDownloadProgress" | "LanguageModelDownloadProgress" | "AiChatMessageUpdate"
 export type DashboardData = Record<string, never>
 export type DesktopHealthReport = { database_tables_exist: boolean; 
 /**

@@ -14,6 +14,5 @@ pub async fn get_ai_chat_by_id(chat_id: String) -> FlusterResult<AiChatData> {
     let chat = AiChatEntity::get_by_id(&db, &chat_id).await?;
     let messages = AiChatMessageEntity::get_by_chat_id(&db, &chat_id).await?;
 
-    println!("Messages: {:?}", messages);
     Ok(AiChatData { chat, messages })
 }

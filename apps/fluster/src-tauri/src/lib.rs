@@ -2,6 +2,7 @@
 pub mod core;
 pub mod features;
 use crate::core::events::event_keys::CrossLanguageEvents;
+use crate::core::events::event_props::AiChatMessageUpdateEventProps;
 use crate::core::sync::sync_local_database::sync_local_database;
 use crate::core::sync::wipe_database::wipe_database;
 use crate::core::utils::commands::get_env_variable::get_environment_variable;
@@ -257,6 +258,7 @@ pub fn run() {
         .typ::<DownloadingStatus>()
         .typ::<DictionaryEntryModelWithoutSource>()
         .typ::<CrossLanguageEvents>()
+        .typ::<AiChatMessageUpdateEventProps>()
         .typ::<SyncFilesystemDirectoryOptions>();
     // #[cfg(target_os = "macos")]
     // {

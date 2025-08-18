@@ -3,10 +3,10 @@ use specta::Type;
 
 #[derive(Serialize, Deserialize, Type, strum_macros::Display)]
 pub enum CrossLanguageEvents {
-    #[serde(rename = "embedding-model-download-progress")]
+    #[serde(rename = "EmbeddingModelDownloadProgress")]
     EmbeddingModelDownloadProgress,
-    #[serde(rename = "language-model-download-progress")]
+    #[serde(rename = "LanguageModelDownloadProgress")]
     LanguageModelDownloadProgress,
-    #[serde(rename = "ai-chat-message-update")]
+    #[serde(rename = "AiChatMessageUpdate")]
     AiChatMessageUpdate,
 }

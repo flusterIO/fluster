@@ -18,12 +18,18 @@ import {
 } from "#/ai/state/chat/chat_context";
 import { useSearchParams } from "react-router";
 import { NoChatSelectedPlaceholder } from "./no_chat_selected";
-import { AiChatMessageModel, AiChatModel, commands } from "@/lib/bindings";
+import {
+  AiChatMessageModel,
+  AiChatMessageUpdateEventProps,
+  AiChatModel,
+  commands,
+} from "@/lib/bindings";
 import { AiChatLoadingIndicator } from "./ai_chat_loading_indicator";
 import { TextInputType } from "#/ai/state/ai_state";
 import { useDispatch } from "react-redux";
 import { setChatInputType } from "#/ai/state/slice";
 import { useAiSyncSettings } from "#/ai/state/hooks/use_ai_sync_settings";
+import { Channel } from "@tauri-apps/api/core";
 
 export const AiChatContainer = (): ReactNode => {
   const context = useAiChatContext();
@@ -56,11 +62,20 @@ export const AiChatContainer = (): ReactNode => {
         type: "appendUserMessage",
         payload: newChatRequest,
       });
+      const streamChannel = new Channel<AiChatMessageUpdateEventProps>();
+      streamChannel.onmessage = (streamData) => {
+        window.dispatchEvent(
+          new CustomEvent("ai-chat-message-stream", {
+            detail: streamData,
+          })
+        );
+      };
       const res = await commands.addAiChatRequest(
         chatId,
         aiSyncSettings,
         newChatRequest,
-        context.data?.messages ?? []
+        context.data?.messages ?? [],
+        streamChannel
       );
       if (res.status === "ok") {
         dispatch({
