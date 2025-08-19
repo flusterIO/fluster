@@ -644,9 +644,9 @@ async ollamaModelExistsLocally(modelName: string) : Promise<Result<boolean, Flus
 /**
  * Sets the language model for a specific chat session.
  */
-async setChatModel(chatId: string, modelName: string) : Promise<Result<null, FlusterError>> {
+async setChatModel(chatModel: AiChatModel) : Promise<Result<null, FlusterError>> {
     try {
-    return { status: "ok", data: await TAURI_INVOKE("set_chat_model", { chatId, modelName }) };
+    return { status: "ok", data: await TAURI_INVOKE("set_chat_model", { chatModel }) };
 } catch (e) {
     if(e instanceof Error) throw e;
     else return { status: "error", error: e  as any };

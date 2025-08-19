@@ -11,6 +11,7 @@ import { FormInputProps } from "../../types";
 import { FieldValues, PathValue } from "react-hook-form";
 import {
     Select,
+    SelectContent,
     SelectContentNoPortal,
     SelectItem,
     SelectTrigger,
@@ -38,6 +39,9 @@ export interface GeneralSelectInputProps<
     };
     placeholder: string;
     items: SelectOption<J>[];
+    ids?: {
+        trigger?: string;
+    };
 }
 
 export const GeneralSelectInput = <
@@ -51,6 +55,7 @@ export const GeneralSelectInput = <
     items,
     placeholder,
     classes = {},
+    ids = {},
 }: GeneralSelectInputProps<T, J>): ReactNode => {
     return (
         <FormField
@@ -77,14 +82,14 @@ export const GeneralSelectInput = <
                         defaultValue={field.value}
                     >
                         <FormControl>
-                            <SelectTrigger className={classes.selectTrigger}>
+                            <SelectTrigger id={ids.trigger} className={classes.selectTrigger}>
                                 <SelectValue
                                     className={classes.selectValue}
                                     placeholder={placeholder}
                                 />
                             </SelectTrigger>
                         </FormControl>
-                        <SelectContentNoPortal className={classes.selectContent}>
+                        <SelectContent className={classes.selectContent}>
                             {items.map((x) => {
                                 return (
                                     <SelectItem
@@ -98,7 +103,7 @@ export const GeneralSelectInput = <
                                     </SelectItem>
                                 );
                             })}
-                        </SelectContentNoPortal>
+                        </SelectContent>
                     </Select>
                     {desc?.length && (
                         <FormDescription className={classes.desc}>{desc}</FormDescription>

@@ -32,7 +32,6 @@ use crate::{
 #[tauri::command]
 #[specta::specta]
 pub async fn add_ai_chat_request(
-    app: AppHandle,
     chat_id: String,
     ai: AiSyncSettings,
     chat_input: AiChatMessageModel,
@@ -88,14 +87,6 @@ pub async fn add_ai_chat_request(
             message_id: chat_input.id.clone(),
             content: response.clone(),
         });
-        // app.emit(
-        //     &CrossLanguageEvents::AiChatMessageUpdate.to_string(),
-        //     ,
-        // )
-        // .map_err(|e| {
-        //     println!("Error: {:?}", e);
-        //     FlusterError::FailToSendEvent
-        // })?;
     }
 
     let return_message_id = get_unique_id().await;
