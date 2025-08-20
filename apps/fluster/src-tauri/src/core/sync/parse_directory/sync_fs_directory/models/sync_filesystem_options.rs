@@ -28,6 +28,7 @@ impl Default for AiSyncSettings {
 
 #[derive(Type, Serialize, Deserialize, Debug)]
 pub struct SyncFilesystemDirectoryOptions {
+    /// The path to the user's note's directory
     pub dir_path: String,
     pub bib_path: Option<String>,
     /// The stringified integer representing the number of threads.
