@@ -1,5 +1,5 @@
 "use client";
-import { AiChatData, AiChatMessageModel, AiChatModel } from "@/lib/bindings";
+import { AiChatData, AiChatMessageModel } from "@/lib/bindings";
 import { ReactNode, createContext, useContext } from "react";
 
 export enum AiLoadingState {

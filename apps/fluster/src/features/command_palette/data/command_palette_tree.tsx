@@ -20,7 +20,7 @@ import { TagsCommandPaletteRoot } from "./tree/tags";
 import { IpynbFilesCommandPaletteRoot } from "./tree/notebooks";
 import { MdxFilesCommandPaletteRoot } from "./tree/by_file_path";
 import { ConstantsCommandPaletteRoot } from "./tree/constants";
-import { AppRoute, AppRoutes, showToast } from "@fluster.io/dev";
+import { AppRoutes, showToast } from "@fluster.io/dev";
 import { ReactNode } from "react";
 import { Location } from "react-router";
 import { type BundledLanguage } from "shiki";

@@ -3,7 +3,7 @@ import { AiChatData } from "@/lib/bindings";
 import React, { type ReactNode } from "react";
 
 interface AiChatOutgoingMessageProps {
-  data: AiChatData["outgoing"][number];
+  data: AiChatData["messages"][number];
 }
 
 export const AiChatOutgoingMessage = ({

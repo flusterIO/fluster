@@ -2,15 +2,13 @@ import {
   useAiChatContext,
   useAiChatDispatch,
 } from "#/ai/state/chat/chat_context";
-import React, { useEffect, useRef, type ReactNode } from "react";
+import React, { useEffect, type ReactNode } from "react";
 import { AiChatOutgoingMessage } from "./outgoing_message";
 import { AiChatIncomingMessage } from "./incoming_message";
 import { useSearchParams } from "react-router";
 import { AiChatMessageUpdateEventProps, commands } from "@/lib/bindings";
 import { useEventListener } from "@fluster.io/dev";
 import { IncomingStreamMessage } from "./incoming_stream_message";
-import { listen, UnlistenFn } from "@tauri-apps/api/event";
-import { CrossLanguageEvents } from "@/lib/bindings";
 
 interface RequestChatUpdateEventProps {
   chatId: string;
@@ -25,7 +23,6 @@ declare global {
 
 export const AiChatMessageList = (): ReactNode => {
   const state = useAiChatContext();
-  const unlisten = useRef<null | UnlistenFn>(null);
   const dispatch = useAiChatDispatch();
   const [searchParams] = useSearchParams();
   const chatId = searchParams.get("chat_id");
