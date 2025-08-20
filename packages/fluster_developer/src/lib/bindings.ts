@@ -1028,7 +1028,11 @@ ctime: string;
  */
 utime: string }
 export type SupportedOperatingSystem = "Windows" | "Mac" | "Linux" | "Ios" | "Android" | "NotSupported"
-export type SyncFilesystemDirectoryOptions = { dir_path: string; bib_path: string | null; 
+export type SyncFilesystemDirectoryOptions = { 
+/**
+ * The path to the user's note's directory
+ */
+dir_path: string; bib_path: string | null; 
 /**
  * The stringified integer representing the number of threads.
  */

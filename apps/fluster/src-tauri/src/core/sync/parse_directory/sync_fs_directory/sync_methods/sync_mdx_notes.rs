@@ -68,7 +68,7 @@ pub async fn sync_mdx_filesystem_notes(opts: &SyncFilesystemDirectoryOptions) ->
     let notes_dir_path = std::path::Path::new(&opts.dir_path);
     for p in mdx_receiver.iter() {
         let existing_note = existing_notes.iter().find(|x| x.file_path == p);
-        let note_group = MdxNoteGroup::from_file_system_path(&db, p, existing_note).await?;
+        let mut note_group = MdxNoteGroup::from_file_system_path(&db, p, existing_note).await?;
         // -- Apply auto-settings before inserting into array.
         if !note_group.mdx.file_path.is_empty() {
             for auto_setting in &auto_settings {
@@ -84,25 +84,25 @@ pub async fn sync_mdx_filesystem_notes(opts: &SyncFilesystemDirectoryOptions) ->
                                     .any(|x| x.value.to_lowercase() == lowercase_value);
                                 if !exists {
                                     note_group.tags.push(SharedTaggableModel {
-                                        value: auto_setting.value,
+                                        value: auto_setting.value.clone(),
                                         ctime: Utc::now().timestamp_millis().to_string(),
                                     })
                                 }
                             }
                             AutoSettingType::Topic => {
                                 if note_group.front_matter.topic.is_none() {
-                                    note_group.front_matter.topic = SharedTaggableModel {
-                                        value: auto_setting.value,
+                                    note_group.front_matter.topic = Some(SharedTaggableModel {
+                                        value: auto_setting.value.clone(),
                                         ctime: Utc::now().timestamp_millis().to_string(),
-                                    }
+                                    });
                                 }
                             }
                             AutoSettingType::Subject => {
                                 if note_group.front_matter.subject.is_none() {
-                                    note_group.front_matter.subject = SharedTaggableModel {
-                                        value: auto_setting.value,
+                                    note_group.front_matter.subject = Some(SharedTaggableModel {
+                                        value: auto_setting.value.clone(),
                                         ctime: Utc::now().timestamp_millis().to_string(),
-                                    }
+                                    });
                                 }
                             }
                         }
