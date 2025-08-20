@@ -1,5 +1,16 @@
 # fluster
 
+## 0.2.0
+
+### Minor Changes
+
+- Moved local AI to ollama and added auto-setting support.
+
+### Patch Changes
+
+- Updated dependencies
+  - @fluster.io/dev@0.2.0
+
 ## 0.1.11
 
 ### Patch Changes
