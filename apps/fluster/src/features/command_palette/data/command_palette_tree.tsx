@@ -26,6 +26,7 @@ import { Location } from "react-router";
 import { type BundledLanguage } from "shiki";
 import { CitationsCommandPaletteRoot } from "./tree/citations";
 import { HtmlFilesCommandPaletteRoot } from "./tree/html_files";
+import { RecentlyAccessedCommandPaletteRoot } from "./tree/recently_accessed";
 
 export class CommandPaletteRoot extends CommandPaletteCategory {
   constructor() {
@@ -72,6 +73,7 @@ export class CommandPaletteRoot extends CommandPaletteCategory {
         }
       ),
       new NotesCommandPaletteRoot(),
+      new RecentlyAccessedCommandPaletteRoot(),
       new MdxFilesCommandPaletteRoot(),
       new PdfFilesCommandPaletteRoot(),
       new HtmlFilesCommandPaletteRoot(),

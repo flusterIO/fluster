@@ -72,6 +72,7 @@ use crate::features::search::commands::get_note_by_dict_entry::get_note_by_dict_
 use crate::features::search::commands::get_note_summaries::get_note_summaries;
 use crate::features::search::commands::get_notes_by_bib_entry::get_notes_by_bib_entry_id;
 use crate::features::search::commands::get_notes_by_equation_id::get_notes_by_equation_id;
+use crate::features::search::commands::get_recently_accessed::get_recently_accessed_notes;
 use crate::features::search::commands::semantic_search::search::semantic_search;
 use crate::features::search::data::search_params::{SearchOrder, SearchParams};
 use crate::features::settings::commands::create_auto_setting::create_auto_setting;
@@ -149,6 +150,7 @@ pub fn run() {
             get_notes_by_equation_id,
             get_note_by_dict_entry_label,
             get_existing_taggables,
+            get_recently_accessed_notes,
             // -- File System --
             sync_local_database,
             save_utf8_file,

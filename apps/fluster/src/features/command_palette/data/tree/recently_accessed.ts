@@ -1,6 +1,10 @@
+import { commands, MdxNoteGroup } from "@/lib/bindings";
 import { CommandPaletteAnyEntry } from "../models/command_palette_any_entry";
 import { CommandPaletteCategory } from "../models/command_palette_category";
 import { ReactNode } from "react";
+import dayjs from "dayjs";
+import { GeneralCommandPaletteItem } from "../models/command_palette_item";
+import { AppRoutes } from "@fluster.io/dev";
 
 export class RecentlyAccessedCommandPaletteRoot extends CommandPaletteCategory {
   constructor() {
@@ -13,6 +17,34 @@ export class RecentlyAccessedCommandPaletteRoot extends CommandPaletteCategory {
     return null;
   }
   async getItems(): Promise<CommandPaletteAnyEntry[]> {
+    const res = await commands.getRecentlyAccessedNotes();
+    if (res.status === "ok") {
+      res.data.forEach((a) => console.log("Last read: ", a.mdx.last_read));
+      return res.data
+        .sort((a: MdxNoteGroup, b: MdxNoteGroup) => {
+          return (
+            dayjs(b.mdx.last_read, {
+              utc: true,
+            }).valueOf() -
+            dayjs(a.mdx.last_read, {
+              utc: true,
+            }).valueOf()
+          );
+        })
+        .map((item: MdxNoteGroup) => {
+          return new GeneralCommandPaletteItem(
+            item.front_matter.title,
+            `recent-visited-${item.mdx.file_path}`,
+            async (nav) => {
+              const sp = new URLSearchParams();
+              sp.set("fsPath", item.mdx.file_path);
+              nav(`${AppRoutes.viewMdxNote}?${sp.toString()}`);
+            },
+            undefined,
+            undefined
+          );
+        });
+    }
     return [];
     // const items = await commands.getNoteSummaries({
     //     per_page: 1000 as unknown as string,

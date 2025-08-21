@@ -159,6 +159,18 @@ async getExistingTaggables() : Promise<AllTaggableData> {
     return await TAURI_INVOKE("get_existing_taggables");
 },
 /**
+ * For now this just returns all notes, unsorted since the dates can't be parsed on the rust side
+ * for some inexplicable reason.
+ */
+async getRecentlyAccessedNotes() : Promise<Result<MdxNoteGroup[], FlusterError>> {
+    try {
+    return { status: "ok", data: await TAURI_INVOKE("get_recently_accessed_notes") };
+} catch (e) {
+    if(e instanceof Error) throw e;
+    else return { status: "error", error: e  as any };
+}
+},
+/**
  * This wraps a series of functions handled by the fluster_native_interface package, conditionally
  * based on user settings and app state.
  */
@@ -918,7 +930,7 @@ ctime: string;
  * Time snippet is last updated.
  */
 utime: string }
-export type FlusterError = "OperatingSystemNotSupported" | "FailToSendEvent" | "FailToLoadDocs" | { FailToLoadEnvironmentVariable: string } | "FailToParseDate" | "FailToWriteChatSession" | "FailToReadChatSession" | "NoAiProvidersConfigured" | "FailToGenerateChatResponse" | "FailToLoadModel" | "FailToCreateEmbeddingVector" | "FailToGetSemanticResults" | "FailToCreateQrCode" | "FailToCount" | "NotImplemented" | "FailToCopyFiles" | "FailToWriteFile" | "FailToSaveSettings" | "FailToReadSettings" | "FailToParseBibFile" | "SettingsBibPathNotFound" | "CannotParseBibfile" | "FailToFindDataDirectory" | "FailToCreateIndex" | "FailToSerialize" | "NotFoundById" | "DuplicateId" | "FailToDelete" | "FailToClean" | "FailToCreateTable" | "FailToOpenTable" | "FailToConnect" | "FailToStartDb" | "FailToStopDb" | "FailToCreateEntity" | "FailToCreateSnippet" | "FailToFind" | "FailToFindById" | "FailToCreatePath" | "FailToCreateTag" | "FailToCreateSubject" | { DataDirNotFound: [] } | { FailToClearDirectory: string } | "FailToCreateTopic" | "FailToLocateStorageDir" | { FailToReadFileSystemPath: string } | "FailToReadMathjaxFont" | { FailToSaveFile: string } | { MdxParsingError: string } | { NoTitleError: string } | "FailToGatherMdxGroups" | { AttemptedToParseFileWasntFound: string } | { FailToSaveMdxNote: string } | 
+export type FlusterError = "FailToStreamFromRust" | "OperatingSystemNotSupported" | "FailToSendEvent" | "FailToLoadDocs" | { FailToLoadEnvironmentVariable: string } | "FailToParseDate" | "FailToWriteChatSession" | "FailToReadChatSession" | "NoAiProvidersConfigured" | "FailToGenerateChatResponse" | "FailToLoadModel" | "FailToCreateEmbeddingVector" | "FailToGetSemanticResults" | "FailToCreateQrCode" | "FailToCount" | "NotImplemented" | "FailToCopyFiles" | "FailToWriteFile" | "FailToSaveSettings" | "FailToReadSettings" | "FailToParseBibFile" | "SettingsBibPathNotFound" | "CannotParseBibfile" | "FailToFindDataDirectory" | "FailToCreateIndex" | "FailToSerialize" | "NotFoundById" | "DuplicateId" | "FailToDelete" | "FailToClean" | "FailToCreateTable" | "FailToOpenTable" | "FailToConnect" | "FailToStartDb" | "FailToStopDb" | "FailToCreateEntity" | "FailToCreateSnippet" | "FailToFind" | "FailToFindById" | "FailToCreatePath" | "FailToCreateTag" | "FailToCreateSubject" | { DataDirNotFound: [] } | { FailToClearDirectory: string } | "FailToCreateTopic" | "FailToLocateStorageDir" | { FailToReadFileSystemPath: string } | "FailToReadMathjaxFont" | { FailToSaveFile: string } | { MdxParsingError: string } | { NoTitleError: string } | "FailToGatherMdxGroups" | { AttemptedToParseFileWasntFound: string } | { FailToSaveMdxNote: string } | 
 /**
  * Taggables
  * 
