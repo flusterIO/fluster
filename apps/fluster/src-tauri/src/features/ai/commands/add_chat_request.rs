@@ -55,12 +55,7 @@ pub async fn add_ai_chat_request(
             AiChatMessageRole::System => MessageRole::System,
             AiChatMessageRole::Tool => MessageRole::Tool,
         };
-        _history.push(ChatMessage {
-            role,
-            content: history_item.body,
-            tool_calls: Vec::new(),
-            images: None,
-        });
+        _history.push(ChatMessage::new(role, history_item.body));
     }
 
     let history: Arc<Mutex<Vec<ChatMessage>>> = Arc::new(Mutex::new(_history));
