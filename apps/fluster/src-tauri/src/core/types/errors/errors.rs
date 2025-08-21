@@ -4,6 +4,8 @@ use thiserror::Error;
 
 #[derive(Debug, Error, Serialize, Deserialize, Type)]
 pub enum FlusterError {
+    #[error("Fluster failed to stream data from rust to typescript.")]
+    FailToStreamFromRust,
     #[error("Your operating system is not supported.")]
     OperatingSystemNotSupported,
     #[error("Fluster failed to send a cross-language event.")]
