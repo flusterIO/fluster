@@ -19,8 +19,13 @@ export class RecentlyAccessedCommandPaletteRoot extends CommandPaletteCategory {
   async getItems(): Promise<CommandPaletteAnyEntry[]> {
     const res = await commands.getRecentlyAccessedNotes();
     if (res.status === "ok") {
-      res.data.forEach((a) => console.log("Last read: ", a.mdx.last_read));
       return res.data
+        .filter(
+          (a) =>
+            dayjs(a.mdx.last_read, {
+              utc: true,
+            }).valueOf() > 0
+        )
         .sort((a: MdxNoteGroup, b: MdxNoteGroup) => {
           return (
             dayjs(b.mdx.last_read, {

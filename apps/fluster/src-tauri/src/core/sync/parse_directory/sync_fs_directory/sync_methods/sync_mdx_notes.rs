@@ -1,12 +1,10 @@
 use std::ffi::OsStr;
-use std::path;
 
 use crate::core::database::db::get_database;
 use crate::core::models::taggable::shared_taggable_model::SharedTaggableModel;
 use crate::core::sync::parse_directory::sync_fs_directory::models::sync_filesystem_options::SyncFilesystemDirectoryOptions;
 use crate::core::types::errors::errors::FlusterResult;
 use crate::features::ai::data::ai_providers::local_ai_provider::LocalAiClient;
-use crate::features::ai::data::traits::ai_provider::AiProvider;
 use crate::features::mdx::actions::save_mdx_note_groups::save_mdx_note_groups;
 use crate::features::mdx::data::mdx_note_entity::MdxNoteEntity;
 use crate::features::mdx::data::mdx_note_group::MdxNoteGroup;
@@ -73,7 +71,7 @@ pub async fn sync_mdx_filesystem_notes(opts: &SyncFilesystemDirectoryOptions) ->
         if !note_group.mdx.file_path.is_empty() {
             for auto_setting in &auto_settings {
                 if let Some(glob_path) = notes_dir_path.join(auto_setting.glob.clone()).to_str() {
-                    let is_match = glob_match::glob_match(&glob_path, &note_group.mdx.file_path);
+                    let is_match = glob_match::glob_match(glob_path, &note_group.mdx.file_path);
                     if is_match {
                         match auto_setting.setting_type {
                             AutoSettingType::Tag => {
