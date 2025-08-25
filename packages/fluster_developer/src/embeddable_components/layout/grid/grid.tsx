@@ -39,10 +39,10 @@ export const Grid = (props: GridProps): ReactNode => {
             <div
                 className="w-full grid"
                 style={{
-                    display: "grid",
                     gridTemplateColumns: `repeat(${cols.autoFill ? "auto-fill" : "auto-fit"
                         }, minmax(${cols.min}${typeof cols.min === "string" ? "" : "px"
                         }, 1fr))`,
+                    gap: typeof gap === "number" ? `${gap}px` : gap,
                 }}
             >
                 {children}
