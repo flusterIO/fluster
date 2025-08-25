@@ -97,8 +97,16 @@ export const TaskNoteInput = ({
                 form={form}
                 name="inputValue"
             />
-            <div className="w-full flex flex-row justify-end items-center">
-                <Button onClick={handleSave}>Save</Button>
+            <div className="w-full flex flex-row justify-end items-center mt-4">
+                <Button
+                    onClick={(e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        handleSave();
+                    }}
+                >
+                    Save
+                </Button>
             </div>
         </Form>
     );

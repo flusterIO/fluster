@@ -99,7 +99,9 @@ export const SetDueAtModal = (): ReactNode => {
                 <DateTimeInput form={form} name="date" />
                 <DialogFooter>
                     <Button
-                        onClick={async () => {
+                        onClick={async (e) => {
+                            e.preventDefault();
+                            e.stopPropagation();
                             if (open) {
                                 await setDueDate(open);
                             }

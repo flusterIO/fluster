@@ -27,7 +27,9 @@ export const FocusedTaskDetail = ({
                     <div className="mt-4 w-full flex flex-row justify-end items-center gap-4">
                         <Button
                             variant="outline"
-                            onClick={() => {
+                            onClick={(e) => {
+                                e.preventDefault();
+                                e.stopPropagation();
                                 window.dispatchEvent(
                                     new CustomEvent("show-set-due-at-modal", {
                                         detail: {
@@ -39,7 +41,15 @@ export const FocusedTaskDetail = ({
                         >
                             Set deadline
                         </Button>
-                        <Button onClick={handleCreateNote}>Edit Note</Button>
+                        <Button
+                            onClick={(e) => {
+                                e.preventDefault();
+                                e.stopPropagation();
+                                handleCreateNote();
+                            }}
+                        >
+                            Edit Note
+                        </Button>
                     </div>
                 </>
             ) : (

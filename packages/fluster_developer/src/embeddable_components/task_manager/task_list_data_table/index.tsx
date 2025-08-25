@@ -205,6 +205,15 @@ export const TaskListDataTable = (props: TaskListDataTableProps): ReactNode => {
                                 key={row.id}
                                 data-state={row.getIsSelected() && "selected"}
                                 className="cursor-pointer"
+                                onClick={() => {
+                                    window.dispatchEvent(
+                                        new CustomEvent("show-task-details", {
+                                            detail: {
+                                                taskId: row.getValue(TaskListColumnId.id) as string,
+                                            },
+                                        })
+                                    );
+                                }}
                             >
                                 {row.getVisibleCells().map((cell) => (
                                     <TableCell key={cell.id}>
