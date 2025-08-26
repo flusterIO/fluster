@@ -41,6 +41,7 @@ export const useSearchResults = (): TraditionalSearchResults | null => {
 
     const getByTag = async (val: string): Promise<void> => {
         const res = await commands.getTagSearchResults([val]);
+        console.log("res: ", res);
         if (res.status === "ok") {
             setData(res.data);
         } else {

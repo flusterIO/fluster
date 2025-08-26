@@ -41,7 +41,7 @@ impl TaskTagEntity {
             .join(", ");
         let items_batch = tbl
             .query()
-            .only_if(format!("value in ({})", ids_string))
+            .only_if(format!("tag_value in ({})", ids_string))
             .execute()
             .await
             .map_err(|e| {

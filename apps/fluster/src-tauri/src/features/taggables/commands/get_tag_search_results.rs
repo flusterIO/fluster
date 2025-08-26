@@ -21,12 +21,6 @@ pub async fn get_tag_search_results(
     let task_tags = TaskTagEntity::get_by_values(&db, tag_values).await?;
     let tasks =
         TaskEntity::get_by_ids(&db, task_tags.iter().map(|x| x.task_id.clone()).collect()).await?;
-    if mdx_note_tags.is_empty() {
-        return Ok(TraditionalSearchResults {
-            notes: Vec::new(),
-            tasks: Vec::new(),
-        });
-    }
     let mdx_notes = MdxNoteEntity::get_by_file_paths(
         &db,
         mdx_note_tags

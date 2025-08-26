@@ -4,9 +4,7 @@ use crate::{
         types::errors::errors::FlusterResult,
     },
     features::task_manager::{
-        task_entity::TaskEntity,
-        task_model::{TaskModel, TaskModelWithTags},
-        task_tag_entity::TaskTagEntity,
+        task_entity::TaskEntity, task_model::TaskModelWithTags, task_tag_entity::TaskTagEntity,
     },
 };
 
@@ -31,7 +29,7 @@ pub async fn get_task_by_id(id: String) -> FlusterResult<TaskModelWithTags> {
             }
         }
     }
-    return Ok(TaskModelWithTags {
+    Ok(TaskModelWithTags {
         tags,
         id: task.id,
         notes: task.notes,
@@ -40,5 +38,5 @@ pub async fn get_task_by_id(id: String) -> FlusterResult<TaskModelWithTags> {
         ctime: task.ctime,
         due_at: task.due_at,
         complete: task.complete,
-    });
+    })
 }
