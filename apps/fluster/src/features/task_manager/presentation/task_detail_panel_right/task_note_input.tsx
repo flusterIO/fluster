@@ -1,6 +1,6 @@
 import { SplitViewTextAreaInput } from "#/editor/presentation/split_view_input/split_view_input";
 import { showToast } from "#/toast_notification/data/events/show_toast";
-import { commands, TaskModel } from "@/lib/bindings";
+import { commands, SharedTaggableModel, TaskModel } from "@/lib/bindings";
 import { Button, Form, TagInput } from "@fluster.io/dev";
 import { zodResolver } from "@hookform/resolvers/zod";
 import React, { type ReactNode } from "react";
@@ -17,15 +17,17 @@ const schema = z.object({
 
 export const TaskNoteInput = ({
     initialValue,
+    tags,
 }: {
     initialValue: string;
+    tags: SharedTaggableModel[];
 }): ReactNode => {
     const [searchParams] = useSearchParams();
     const form = useForm({
         resolver: zodResolver(schema),
         defaultValues: {
             inputValue: initialValue,
-            tags: [],
+            tags: tags.map((t) => t.value),
         },
     });
 

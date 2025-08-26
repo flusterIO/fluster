@@ -29,6 +29,86 @@ impl TaskTagEntity {
         DatabaseTables::TaskTag
     }
 
+    pub async fn get_by_values(db: &FlusterDb<'_>, ids: Vec<String>) -> FlusterResult<Vec<T>> {
+        if ids.is_empty() {
+            return Ok(Vec::new());
+        }
+        let tbl = get_table(db, TaskTagEntity::table()).await?;
+        let ids_string = ids
+            .iter()
+            .map(|x| format!("\"{}\"", x))
+            .collect::<Vec<String>>()
+            .join(", ");
+        let items_batch = tbl
+            .query()
+            .only_if(format!("value in ({})", ids_string))
+            .execute()
+            .await
+            .map_err(|e| {
+                println!("Error in TaskTagEntity.get_by_values: {:?}", e);
+                FlusterError::FailToConnect
+            })?
+            .try_collect::<Vec<_>>()
+            .await
+            .map_err(|e| {
+                println!("Error in TaskTagEntity.get_by_values: {:?}", e);
+                FlusterError::FailToFind
+            })?;
+        if items_batch.is_empty() {
+            return Ok(Vec::new());
+        }
+        let mut items: Vec<T> = Vec::new();
+
+        for batch in items_batch.iter() {
+            let data: Vec<T> = from_record_batch(batch).map_err(|e| {
+                println!("Error: {:?}", e);
+                FlusterError::FailToSerialize
+            })?;
+            items.extend(data);
+        }
+        Ok(items)
+    }
+    pub async fn get_by_task_ids(db: &FlusterDb<'_>, ids: Vec<String>) -> FlusterResult<Vec<T>> {
+        if ids.is_empty() {
+            return Ok(Vec::new());
+        }
+        let tbl = get_table(db, TaskTagEntity::table()).await?;
+        let ids_string = ids
+            .iter()
+            .map(|x| format!("\"{}\"", x))
+            .collect::<Vec<String>>()
+            .join(", ");
+        let items_batch = tbl
+            .query()
+            .only_if(format!("task_id in ({})", ids_string))
+            .execute()
+            .await
+            .map_err(|e| {
+                println!("Error in TaskTagEntity.get_by_ids: {:?}", e);
+                FlusterError::FailToConnect
+            })?
+            .try_collect::<Vec<_>>()
+            .await
+            .map_err(|e| {
+                println!("Error in TaskTagEntity.get_by_ids: {:?}", e);
+                FlusterError::FailToFind
+            })?;
+        // let batches = &items_batch;
+        if items_batch.is_empty() {
+            return Ok(Vec::new());
+        }
+        let mut items: Vec<T> = Vec::new();
+
+        for batch in items_batch.iter() {
+            let data: Vec<T> = from_record_batch(batch).map_err(|e| {
+                println!("Error in TaskTagEntity.get_by_ids: {:?}", e);
+                FlusterError::FailToSerialize
+            })?;
+            items.extend(data);
+        }
+        Ok(items)
+    }
+
     pub async fn get_all(
         db: &FlusterDb<'_>,
         pagination: PaginationProps,
@@ -79,7 +159,7 @@ impl TaskTagEntity {
     }
 
     pub async fn create_many(db: &FlusterDb<'_>, items: Vec<T>) -> FlusterResult<()> {
-        let all_note_tags = TaskTagEntity::get_all(
+        let all_task_tags = TaskTagEntity::get_all(
             db,
             PaginationProps {
                 per_page: 9999999,
@@ -92,7 +172,7 @@ impl TaskTagEntity {
         let filtered_tags: Vec<&T> = items
             .iter()
             .filter(|x| {
-                all_note_tags
+                !all_task_tags
                     .iter()
                     .any(|y| (x.task_id == y.task_id) && (x.tag_value == y.tag_value))
             })

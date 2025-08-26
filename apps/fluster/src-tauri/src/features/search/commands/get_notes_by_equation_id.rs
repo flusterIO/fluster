@@ -30,5 +30,8 @@ pub async fn get_notes_by_equation_id(
     )
     .await?;
     let notes = mdx_note_models_to_mdx_note_groups(&db, mdx_notes).await?;
-    Ok(TraditionalSearchResults { notes })
+    Ok(TraditionalSearchResults {
+        notes,
+        tasks: Vec::new(),
+    })
 }

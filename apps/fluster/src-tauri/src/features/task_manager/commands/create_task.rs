@@ -15,6 +15,7 @@ use crate::{
 #[tauri::command]
 #[specta::specta]
 pub async fn create_task(task: TaskModel, tags: Vec<TaskTagModel>) -> FlusterResult<()> {
+    println!("Task tags length: {:?}", tags.len());
     let db_res = get_database().await;
     let db = db_res.lock().await;
     TaskEntity::save_many(&db, vec![task]).await?;

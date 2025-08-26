@@ -2,7 +2,7 @@ import React, { useEffect, useState, type ReactNode } from "react";
 import { useSearchParams } from "react-router";
 import { FocusedTaskDetail } from "./focused_task_detail";
 import { NoFocusedTaskBanner } from "./no_focused_task";
-import { commands, TaskModel } from "@/lib/bindings";
+import { commands, TaskModel, TaskModelWithTags } from "@/lib/bindings";
 import { TaskNoteInput } from "./task_note_input";
 import { useEventListener } from "@fluster.io/dev";
 import { TaskNoteInputState } from "./types";
@@ -21,7 +21,7 @@ declare global {
 
 export const TaskDetailPanelRight = (): ReactNode => {
     const [searchParams] = useSearchParams();
-    const [data, setData] = useState<TaskModel | null>(null);
+    const [data, setData] = useState<TaskModelWithTags | null>(null);
     const [inputType, setInputType] = useState<TaskNoteInputState>(
         data ? TaskNoteInputState.showNote : TaskNoteInputState.noteNotFound
     );
@@ -78,7 +78,7 @@ export const TaskDetailPanelRight = (): ReactNode => {
                 <FocusedTaskDetail handleCreateNote={handleCreateNote} data={data} />
             )}
             {inputType === TaskNoteInputState.showNoteInput && data && (
-                <TaskNoteInput initialValue={data.notes} />
+                <TaskNoteInput initialValue={data.notes} tags={data.tags} />
             )}
         </div>
     );

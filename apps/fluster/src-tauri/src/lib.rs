@@ -103,6 +103,7 @@ use crate::features::task_manager::commands::get_task_by_id::get_task_by_id;
 use crate::features::task_manager::commands::get_task_count::get_task_count;
 use crate::features::task_manager::commands::get_task_list_count::get_task_list_count;
 use crate::features::task_manager::commands::get_task_list_data::get_task_list_data;
+use crate::features::task_manager::commands::get_task_list_tasks::get_task_list_tasks;
 use crate::features::task_manager::commands::get_tasks_with_due_date::get_incomplete_tasks_with_due_date;
 use core::sync::parse_directory::sync_fs_directory::models::sync_filesystem_options::SyncFilesystemDirectoryOptions;
 use core::{
@@ -238,6 +239,7 @@ pub fn run() {
             get_task_list_count,
             get_task_count,
             get_incomplete_tasks_with_due_date,
+            get_task_list_tasks,
             // -- Kanban Board --
             create_new_kanban_board,
             delete_kanban_board_by_id,

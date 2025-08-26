@@ -11,7 +11,11 @@ export const TaskListButtonBar = (): ReactNode => {
     return (
         <div className="w-full flex flex-row justify-between items-center py-8">
             <div className="w-full">
-                <MdxH3 className="w-full" mdx={focusedTaskList.label} InlineMdxContent={InlineMdxContent}/>
+                <MdxH3
+                    className="w-full"
+                    mdx={focusedTaskList.label}
+                    InlineMdxContent={InlineMdxContent}
+                />
                 <div className="text-sm mt-2">{`Found ${items.length} tasks.`}</div>
             </div>
             <div>

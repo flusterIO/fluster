@@ -19,9 +19,51 @@ use crate::core::{
 
 use super::task_model::TaskModel;
 
+type T = TaskModel;
+
 pub struct TaskEntity {}
 
 impl TaskEntity {
+    pub async fn get_by_ids(db: &FlusterDb<'_>, ids: Vec<String>) -> FlusterResult<Vec<T>> {
+        if ids.is_empty() {
+            return Ok(Vec::new());
+        }
+        let tbl = get_table(db, DatabaseTables::Task).await?;
+        let ids_string = ids
+            .iter()
+            .map(|x| format!("\"{}\"", x))
+            .collect::<Vec<String>>()
+            .join(", ");
+        let items_batch = tbl
+            .query()
+            .only_if(format!("id in ({})", ids_string))
+            .execute()
+            .await
+            .map_err(|e| {
+                println!("Error in TaskEntity.get_by_ids: {:?}", e);
+                FlusterError::FailToConnect
+            })?
+            .try_collect::<Vec<_>>()
+            .await
+            .map_err(|e| {
+                println!("Error in TaskEntity.get_by_ids: {:?}", e);
+                FlusterError::FailToFind
+            })?;
+        // let batches = &items_batch;
+        if items_batch.is_empty() {
+            return Ok(Vec::new());
+        }
+        let mut items: Vec<T> = Vec::new();
+
+        for batch in items_batch.iter() {
+            let data: Vec<T> = from_record_batch(batch).map_err(|e| {
+                println!("Error in TaskEntity.get_by_ids: {:?}", e);
+                FlusterError::FailToSerialize
+            })?;
+            items.extend(data);
+        }
+        Ok(items)
+    }
     pub async fn count_by_list_id(db: &FlusterDb<'_>, id: &str) -> FlusterResult<usize> {
         let tbl = get_table(db, DatabaseTables::Task).await?;
         tbl.count_rows(Some(format!("task_list_id = \"{}\"", id)))

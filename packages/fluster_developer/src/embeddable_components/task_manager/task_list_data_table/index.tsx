@@ -26,6 +26,7 @@ import {
 import { DataTablePagination } from "../../../utils/table_utils/table_pagination";
 import { WithInlineMdx } from "../../types";
 import { useEventListener } from "../../../hooks/use_event_listener";
+import { parseTaskDates } from "../../../utils/date_parsers";
 
 export interface TaskListDataTableProps extends WithInlineMdx {
     /** If true, search bar is shown. Defaults to false. */
@@ -88,7 +89,11 @@ export const TaskListDataTable = (props: TaskListDataTableProps): ReactNode => {
                 (x) => x.label.toLowerCase() === list.toLowerCase()
             );
             if (item) {
-                const taskListData = await commands.getTaskListData(item.id);
+                const tasks = await commands.getTaskListTasks(item.id);
+                const taskListData = await commands.getTaskListData(
+                    item.id,
+                    tasks.status === "ok" ? tasks.data.map((x) => parseTaskDates(x)) : []
+                );
                 if (taskListData.status === "ok") {
                     setData({
                         list: taskListData.data.list,

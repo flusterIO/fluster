@@ -18,7 +18,10 @@ pub async fn get_topic_search_results(
     let db = db_res.lock().await;
     let mdx_note_tags = MdxNoteTopicEntity::get_by_values(&db, &tag_values).await?;
     if mdx_note_tags.is_empty() {
-        return Ok(TraditionalSearchResults { notes: Vec::new() });
+        return Ok(TraditionalSearchResults {
+            notes: Vec::new(),
+            tasks: Vec::new(),
+        });
     }
     let mdx_notes = MdxNoteEntity::get_by_file_paths(
         &db,
@@ -30,5 +33,8 @@ pub async fn get_topic_search_results(
     .await?;
     let notes = mdx_note_models_to_mdx_note_groups(&db, mdx_notes).await?;
 
-    Ok(TraditionalSearchResults { notes })
+    Ok(TraditionalSearchResults {
+        notes,
+        tasks: Vec::new(),
+    })
 }

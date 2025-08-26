@@ -696,7 +696,7 @@ async deleteTaskListById(id: string) : Promise<Result<null, FlusterError>> {
     else return { status: "error", error: e  as any };
 }
 },
-async getTaskById(id: string) : Promise<Result<TaskModel, FlusterError>> {
+async getTaskById(id: string) : Promise<Result<TaskModelWithTags, FlusterError>> {
     try {
     return { status: "ok", data: await TAURI_INVOKE("get_task_by_id", { id }) };
 } catch (e) {
@@ -704,9 +704,13 @@ async getTaskById(id: string) : Promise<Result<TaskModel, FlusterError>> {
     else return { status: "error", error: e  as any };
 }
 },
-async getTaskListData(listId: string) : Promise<Result<TaskListData, FlusterError>> {
+/**
+ * Accepts the list.id field and a vec of tasks associated with this list. This is required to get
+ * around the date parsing issue in Rust.
+ */
+async getTaskListData(listId: string, listTasks: TaskModel[]) : Promise<Result<TaskListData, FlusterError>> {
     try {
-    return { status: "ok", data: await TAURI_INVOKE("get_task_list_data", { listId }) };
+    return { status: "ok", data: await TAURI_INVOKE("get_task_list_data", { listId, listTasks }) };
 } catch (e) {
     if(e instanceof Error) throw e;
     else return { status: "error", error: e  as any };
@@ -747,6 +751,14 @@ async getTaskCount(predicate: string | null) : Promise<Result<string, FlusterErr
 async getIncompleteTasksWithDueDate() : Promise<Result<TaskModel[], FlusterError>> {
     try {
     return { status: "ok", data: await TAURI_INVOKE("get_incomplete_tasks_with_due_date") };
+} catch (e) {
+    if(e instanceof Error) throw e;
+    else return { status: "error", error: e  as any };
+}
+},
+async getTaskListTasks(taskListId: string) : Promise<Result<TaskModel[], FlusterError>> {
+    try {
+    return { status: "ok", data: await TAURI_INVOKE("get_task_list_tasks", { taskListId }) };
 } catch (e) {
     if(e instanceof Error) throw e;
     else return { status: "error", error: e  as any };
@@ -1057,7 +1069,7 @@ existing_taggables: AllTaggableData;
  * Embeddings model to be used when syncing.
  */
 ai: AiSyncSettings }
-export type TaskListData = { list: TaskListModel; items: TaskModel[] }
+export type TaskListData = { list: TaskListModel; items: TaskModelWithTags[] }
 export type TaskListModel = { id: string; label: string; desc: string | null; ctime: string }
 export type TaskModel = { id: string; 
 /**
@@ -1076,13 +1088,30 @@ due_at: string | null;
  * Time the task was created.
  */
 ctime: string; complete: boolean }
+export type TaskModelWithTags = { id: string; 
+/**
+ * The id of the parent task list.
+ */
+task_list_id: string; label: string; 
+/**
+ * notes can be any mdx string.
+ */
+notes: string; 
+/**
+ * The optional due date for the task.
+ */
+due_at: string | null; 
+/**
+ * Time the task was created.
+ */
+ctime: string; complete: boolean; tags: SharedTaggableModel[] }
 export type TaskTagModel = { task_id: string; tag_value: string }
 export type ToastVariant = "Success" | "Info" | "Error"
 export type TocEntry = { depth: number; body: string }
 /**
  * The search results returned froma  taggable input or via a traditional text based query.
  */
-export type TraditionalSearchResults = { notes: MdxNoteGroup[] }
+export type TraditionalSearchResults = { notes: MdxNoteGroup[]; tasks: TaskModel[] }
 
 /** tauri-specta globals **/
 

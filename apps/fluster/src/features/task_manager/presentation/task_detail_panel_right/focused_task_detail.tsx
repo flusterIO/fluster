@@ -1,23 +1,46 @@
 import { InlineMdxContent } from "#/mdx/presentation/inline_mdx_content";
 import { MdxContent } from "#/mdx/presentation/mdx_content";
-import { TaskModel } from "@/lib/bindings";
+import { TaskModelWithTags } from "@/lib/bindings";
 import React, { type ReactNode } from "react";
 import { NoTaskNoteBanner } from "./no_note_banner";
-import { Button } from "@fluster.io/dev";
+import { AppRoutes, Badge, Button } from "@fluster.io/dev";
+import { useNavigate } from "react-router";
 
 export const FocusedTaskDetail = ({
     data,
     handleCreateNote,
 }: {
-    data: TaskModel;
+    data: TaskModelWithTags;
     handleCreateNote: () => Promise<void>;
 }): ReactNode => {
+    const nav = useNavigate();
     return (
         <div className="w-full h-full flex flex-col pt-8">
             <div className="text-foreground/80">Label:</div>
             <div className="scroll-m-20 text-2xl font-semibold tracking-tight ml-6">
                 <InlineMdxContent mdx={data.label} />
             </div>
+            {data.tags.length > 0 ? (
+                <>
+                    <div className="text-foreground/80">Tags:</div>
+                    <div className="scroll-m-20 text-2xl font-semibold tracking-tight ml-6">
+                        {data.tags.map((t) => {
+                            return (
+                                <Badge
+                                    className="cursor-pointer"
+                                    onClick={() => {
+                                        const sp = new URLSearchParams();
+                                        sp.set("by_tag", t.value);
+                                        nav(`${AppRoutes.search}?${sp.toString()}`);
+                                    }}
+                                >
+                                    {t.value}
+                                </Badge>
+                            );
+                        })}
+                    </div>
+                </>
+            ) : null}
             {data.notes.trim().length ? (
                 <>
                     <div className="text-foreground/80 mt-4">Notes:</div>

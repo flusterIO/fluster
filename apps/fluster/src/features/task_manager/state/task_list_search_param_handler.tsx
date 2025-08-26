@@ -2,14 +2,18 @@ import { commands } from "@/lib/bindings";
 import { useEffect, type ReactNode } from "react";
 import { useSearchParams } from "react-router";
 import { useTaskListDispatch } from "./task_list_context";
-import { useEventListener } from "@fluster.io/dev";
+import { parseTaskDates, useEventListener } from "@fluster.io/dev";
 
 export const TaskListSearchParamHandler = (): ReactNode => {
     const dispatch = useTaskListDispatch();
     const [searchParams] = useSearchParams();
     const listId = searchParams.get("listId");
     const getData = async (_id: string): Promise<void> => {
-        const res = await commands.getTaskListData(_id);
+        const tasks = await commands.getTaskListTasks(_id);
+        const res = await commands.getTaskListData(
+            _id,
+            tasks.status === "ok" ? tasks.data.map((x) => parseTaskDates(x)) : []
+        );
         if (res.status === "ok") {
             dispatch({
                 type: "setNewData",
