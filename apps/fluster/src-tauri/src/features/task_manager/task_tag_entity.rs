@@ -158,6 +158,17 @@ impl TaskTagEntity {
         Ok(())
     }
 
+    pub async fn delete_by_tag_values(
+        db: &FlusterDb<'_>,
+        tag_values: Vec<String>,
+    ) -> FlusterResult<()> {
+        let values_string = tag_values
+            .iter()
+            .map(|x| format!("\"{}\"", x))
+            .collect::<Vec<String>>()
+            .join(", ");
+        TaskTagEntity::delete(db, format!("tag_value in ({})", values_string)).await
+    }
     pub async fn create_many(db: &FlusterDb<'_>, items: Vec<T>) -> FlusterResult<()> {
         let all_task_tags = TaskTagEntity::get_all(
             db,

@@ -15,10 +15,9 @@ use crate::{
 #[tauri::command]
 #[specta::specta]
 pub async fn create_task(task: TaskModel, tags: Vec<TaskTagModel>) -> FlusterResult<()> {
-    println!("Task tags length: {:?}", tags.len());
     let db_res = get_database().await;
     let db = db_res.lock().await;
-    TaskEntity::save_many(&db, vec![task]).await?;
+    TaskEntity::save_many(&db, vec![task.clone()]).await?;
     let now = Utc::now();
     TagEntity::save_many(
         &db,
@@ -30,6 +29,17 @@ pub async fn create_task(task: TaskModel, tags: Vec<TaskTagModel>) -> FlusterRes
             .collect(),
     )
     .await?;
+    let existing_task_tags = TaskTagEntity::get_by_task_ids(&db, vec![task.id.clone()]).await?;
+    let mut tag_values_to_remove: Vec<String> = Vec::new();
+    for existing_tag in existing_task_tags {
+        let is_included = tags
+            .iter()
+            .any(|x| x.tag_value == existing_tag.tag_value && x.task_id == existing_tag.task_id);
+        if !is_included {
+            tag_values_to_remove.push(existing_tag.tag_value);
+        }
+    }
     TaskTagEntity::create_many(&db, tags).await?;
+    TaskTagEntity::delete_by_tag_values(&db, tag_values_to_remove).await?;
     Ok(())
 }

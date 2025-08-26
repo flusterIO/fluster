@@ -22,8 +22,8 @@ export const FocusedTaskDetail = ({
             </div>
             {data.tags.length > 0 ? (
                 <>
-                    <div className="text-foreground/80">Tags:</div>
-                    <div className="scroll-m-20 text-2xl font-semibold tracking-tight ml-6">
+                    <div className="text-foreground/80 mb-2">Tags:</div>
+                    <div className="scroll-m-20 text-2xl font-semibold tracking-tight ml-6 w-full flex flex-row flex-wrap justify-start items-center gap-2">
                         {data.tags.map((t) => {
                             return (
                                 <Badge
