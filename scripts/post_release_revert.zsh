@@ -1,0 +1,2 @@
+make local_deps_to_workspace_version
+pnpm install

@@ -28,6 +28,4 @@
 
 ## Revert back to local development
 
-- Change `@fluster.io/dev` dependency to `workspace:*`.
-- `pnpm install` to change lock files to using local version.
-- `git add --all` & `git commit -m "back to local dev"`
+- `make post_release_revert` to revert local dependencies back to workspace versions
