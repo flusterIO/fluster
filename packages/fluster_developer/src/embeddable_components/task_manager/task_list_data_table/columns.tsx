@@ -49,15 +49,9 @@ export const getTaskListTableColumns = (
                             e.preventDefault();
                             e.stopPropagation();
                             const itemId = row.getValue(TaskListColumnId.id) as string;
-                            console.log("itemId: ", itemId);
                             if (itemId) {
                                 const item = data.find((x) => x.id === itemId);
-                                console.log("item: ", item);
                                 if (item) {
-                                    console.log("Data: ", {
-                                        ...parseTaskDates(item),
-                                        complete: !value,
-                                    });
                                     const res = await commands.createTask(
                                         {
                                             ...parseTaskDates(item),
@@ -65,7 +59,6 @@ export const getTaskListTableColumns = (
                                         },
                                         []
                                     );
-                                    console.log("res: ", res);
                                     if (res.status === "ok") {
                                         window.dispatchEvent(
                                             new CustomEvent("refresh-embedded-task-list", {

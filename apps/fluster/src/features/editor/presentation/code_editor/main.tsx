@@ -178,6 +178,9 @@ const CodeEditor = connector(
                     document.getElementById(editorModeBarId)
                 );
                 vimModeRef.current = _vimMode;
+                editorRef.current.updateOptions({ lineNumbers: "relative" });
+            } else {
+                editorRef.current.updateOptions({ lineNumbers: "on" });
             }
         };
         return (

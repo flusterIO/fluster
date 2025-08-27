@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, type ReactNode } from "react";
+import React, { useEffect, useRef, useState, type ReactNode } from "react";
 import SplitViewContainer from "./split_view_scaffold";
 import { useSearchParams } from "react-router";
 import { commands } from "@/lib/bindings";
@@ -6,7 +6,6 @@ import { useIsomorphicLayoutEffect } from "@/hooks/use_isomorphic_effect";
 import { KeyCode, KeyMod } from "monaco-editor";
 import { showToast } from "#/toast_notification/data/events/show_toast";
 import { save } from "@tauri-apps/plugin-dialog";
-import { useLocalStorage } from "@fluster.io/dev";
 
 export interface EditNoteSplitViewSearchParams {
     fsPath: string;
@@ -14,11 +13,12 @@ export interface EditNoteSplitViewSearchParams {
 
 const EditNoteSplitViewPage = (): ReactNode => {
     const [searchParams] = useSearchParams();
-    const [value, setValue] = useLocalStorage(
-        searchParams.has("fsPath")
-            ? "split-view-file-editor"
-            : "split-view-new-file-editor"
-    ) as [string, (newString: string) => void];
+    const [value, setValue] = useState("");
+    /* const [value, setValue] = useLocalStorage( */
+    /*     searchParams.has("fsPath") */
+    /*         ? "split-view-file-editor" */
+    /*         : "split-view-new-file-editor" */
+    /* ) as [string, (newString: string) => void]; */
 
     const valueRef = useRef(value);
 

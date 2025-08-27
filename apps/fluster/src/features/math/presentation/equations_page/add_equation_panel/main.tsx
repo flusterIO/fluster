@@ -60,6 +60,7 @@ export const AddEquationPanel = connector(
 
         const getEquationBeingEdited = async (id: string): Promise<void> => {
             /* FIXME: Return the related tags and snippet_ids in the `get_equation_by_id` method and populate the form properly here. Make sure they are being saved as well. */
+            // RESUME: Come back here and return the tags along with the equation, then move on to the create method so it's populated properly.
             const data = await commands.getEquationById(id);
             if (data.status === "ok") {
                 form.setValue("id", data.data.id);
