@@ -1,5 +1,13 @@
 # fluster
 
+## 0.2.1
+
+### Patch Changes
+
+- Add support for linking tasks to tags.
+- Updated dependencies
+  - @fluster.io/dev@0.2.1
+
 ## 0.2.0
 
 ### Minor Changes

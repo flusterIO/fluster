@@ -2,7 +2,7 @@ import React, { useEffect, useState, type ReactNode } from "react";
 import { useSearchParams } from "react-router";
 import { FocusedTaskDetail } from "./focused_task_detail";
 import { NoFocusedTaskBanner } from "./no_focused_task";
-import { commands, TaskModel, TaskModelWithTags } from "@/lib/bindings";
+import { commands, TaskModelWithTags } from "@/lib/bindings";
 import { TaskNoteInput } from "./task_note_input";
 import { useEventListener } from "@fluster.io/dev";
 import { TaskNoteInputState } from "./types";
