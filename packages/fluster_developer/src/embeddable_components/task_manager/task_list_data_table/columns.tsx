@@ -4,6 +4,7 @@ import { commands, TaskListData } from "../../../lib/bindings";
 import { WithInlineMdx } from "../../types";
 import { Checkbox } from "../../../components/shad/checkbox";
 import dayjs from "dayjs";
+import { parseTaskDates } from "../../../utils/date_parsers";
 
 export enum TaskListColumnId {
     id = "id",
@@ -44,22 +45,27 @@ export const getTaskListTableColumns = (
                 return (
                     <Checkbox
                         checked={value}
-                        onClick={async () => {
+                        onClick={async (e) => {
+                            e.preventDefault();
+                            e.stopPropagation();
                             const itemId = row.getValue(TaskListColumnId.id) as string;
+                            console.log("itemId: ", itemId);
                             if (itemId) {
                                 const item = data.find((x) => x.id === itemId);
+                                console.log("item: ", item);
                                 if (item) {
+                                    console.log("Data: ", {
+                                        ...parseTaskDates(item),
+                                        complete: !value,
+                                    });
                                     const res = await commands.createTask(
                                         {
-                                            ...item,
-                                            ctime: dayjs(item.ctime, { utc: true })
-                                                .toDate()
-                                                .valueOf()
-                                                .toString(),
+                                            ...parseTaskDates(item),
                                             complete: !value,
                                         },
                                         []
                                     );
+                                    console.log("res: ", res);
                                     if (res.status === "ok") {
                                         window.dispatchEvent(
                                             new CustomEvent("refresh-embedded-task-list", {

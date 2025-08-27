@@ -70,3 +70,5 @@ release_npm: format_package_jsons
 	scripts/release_npm.zsh
 release_tauri: format_package_jsons
 	scripts/release_tauri.zsh
+post_release_revert:
+	scripts/post_release_revert.zsh

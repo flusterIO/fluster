@@ -1,9 +1,12 @@
 import { TaskModel } from "../lib/bindings";
+import { parseDate } from "./parse_date";
 
 export const parseTaskDates = (item: TaskModel): TaskModel => {
     return {
         ...item,
-        due_at: item.due_at ? new Date(item.due_at).valueOf().toString() : null,
-        ctime: new Date(item.ctime).valueOf().toString(),
+        due_at: item.due_at
+            ? parseDate(item.due_at).toDate().valueOf().toString()
+            : null,
+        ctime: parseDate(item.ctime).toDate().valueOf().toString(),
     };
 };

@@ -162,6 +162,9 @@ impl TaskTagEntity {
         db: &FlusterDb<'_>,
         tag_values: Vec<String>,
     ) -> FlusterResult<()> {
+        if tag_values.is_empty() {
+            return Ok(());
+        }
         let values_string = tag_values
             .iter()
             .map(|x| format!("\"{}\"", x))

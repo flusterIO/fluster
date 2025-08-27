@@ -42,5 +42,6 @@ declare global {
         "refresh-auto-setting-list": CustomEvent<object>;
         /** Shows task details panel when not on task page. */
         "show-task-details": CustomEvent<{ taskId: string }>;
+        "request-task-list-refresh": CustomEvent<{ id: string }>;
     }
 }

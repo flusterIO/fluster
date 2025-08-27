@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState, type ReactNode } from "react";
+import React, { FC, useEffect, useMemo, useState, type ReactNode } from "react";
 import { commands, TaskListData } from "../../../lib/bindings";
 import { getTaskListTableColumns, TaskListColumnId } from "./columns";
 import { fuzzyFilter } from "../../../utils/table_utils/table_utils";
@@ -27,6 +27,8 @@ import { DataTablePagination } from "../../../utils/table_utils/table_pagination
 import { WithInlineMdx } from "../../types";
 import { useEventListener } from "../../../hooks/use_event_listener";
 import { parseTaskDates } from "../../../utils/date_parsers";
+import { Button } from "../../../components/shad/button";
+import { BodyPortal } from "../../../utils/body_portal";
 
 export interface TaskListDataTableProps extends WithInlineMdx {
     /** If true, search bar is shown. Defaults to false. */
@@ -35,6 +37,13 @@ export interface TaskListDataTableProps extends WithInlineMdx {
     perPage?: number;
     /** The **name** of the list to be rendered. */
     list: string;
+    AddTaskModal: FC<object>;
+}
+
+declare global {
+    interface WindowEventMap {
+        "request-task-list-refresh": CustomEvent<{ id: string }>;
+    }
 }
 
 const TaskListNotFound = ({ list }: { list: string }): ReactNode => {
@@ -80,7 +89,10 @@ const sortTasks = (tasks: TaskListData["items"]): TaskListData["items"] => {
     ];
 };
 
-export const TaskListDataTable = (props: TaskListDataTableProps): ReactNode => {
+export const TaskListDataTable = ({
+    AddTaskModal,
+    ...props
+}: TaskListDataTableProps): ReactNode => {
     const [data, setData] = useState<TaskListData | null | false>(null);
     const getItems = async (list: string): Promise<void> => {
         const taskLists = await commands.getAllTaskLists();
@@ -94,6 +106,8 @@ export const TaskListDataTable = (props: TaskListDataTableProps): ReactNode => {
                     item.id,
                     tasks.status === "ok" ? tasks.data.map((x) => parseTaskDates(x)) : []
                 );
+                console.log("taskListData: ", taskListData);
+                console.log("tasks: ", tasks);
                 if (taskListData.status === "ok") {
                     setData({
                         list: taskListData.data.list,
@@ -169,6 +183,12 @@ export const TaskListDataTable = (props: TaskListDataTableProps): ReactNode => {
         }
     });
 
+    useEventListener("request-task-list-refresh", (e) => {
+        if (data && e.detail.id === data.list.id) {
+            getItems(data.list.label);
+        }
+    });
+
     if (data === false) {
         return <TaskListNotFound list={props.list} />;
     }
@@ -176,8 +196,25 @@ export const TaskListDataTable = (props: TaskListDataTableProps): ReactNode => {
     if (data === null) {
         return <div className="w-full h-fit text-center">loading task list...</div>;
     }
+
+    const showAddTask = (): void => {
+        window.dispatchEvent(
+            new CustomEvent("show-add-task-modal", {
+                detail: {
+                    listId: data.list.id,
+                },
+            })
+        );
+    };
+
     return (
-        <>
+        <div className="w-full">
+            <div className="w-full flex flex-row justify-end items-center">
+                <Button onClick={showAddTask}>Create Task</Button>
+            </div>
+            <BodyPortal>
+                <AddTaskModal />
+            </BodyPortal>
             {props.searchable && (
                 <div className="space-y-3 max-w-[350px]">
                     <Label>Search Tasks</Label>
@@ -244,7 +281,7 @@ export const TaskListDataTable = (props: TaskListDataTableProps): ReactNode => {
                     container: "mt-4",
                 }}
             />
-        </>
+        </div>
     );
 };
 

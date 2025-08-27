@@ -21,7 +21,13 @@ export const TaskListButtonBar = (): ReactNode => {
             <div>
                 <Button
                     onClick={() => {
-                        window.dispatchEvent(new CustomEvent("show-add-task-modal"));
+                        window.dispatchEvent(
+                            new CustomEvent("show-add-task-modal", {
+                                detail: {
+                                    listId: focusedTaskList.id,
+                                },
+                            })
+                        );
                     }}
                 >
                     Create

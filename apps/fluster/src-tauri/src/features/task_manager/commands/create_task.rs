@@ -40,6 +40,8 @@ pub async fn create_task(task: TaskModel, tags: Vec<TaskTagModel>) -> FlusterRes
         }
     }
     TaskTagEntity::create_many(&db, tags).await?;
-    TaskTagEntity::delete_by_tag_values(&db, tag_values_to_remove).await?;
+    if !tag_values_to_remove.is_empty() {
+        TaskTagEntity::delete_by_tag_values(&db, tag_values_to_remove).await?;
+    }
     Ok(())
 }

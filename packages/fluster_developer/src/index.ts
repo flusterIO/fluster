@@ -1,5 +1,6 @@
 export * from "./utils/events";
 export * from "./utils/date_parsers";
+export * from "./utils/parse_date";
 // -- Embeddable Components --
 export * from "./embeddable_components/taggable/tag";
 export * from "./embeddable_components/layout/card/index";

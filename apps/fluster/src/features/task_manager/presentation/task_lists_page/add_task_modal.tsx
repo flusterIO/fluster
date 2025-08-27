@@ -15,7 +15,7 @@ import { refreshTaskList } from "#/task_manager/state/refresh_task_list";
 
 declare global {
     interface WindowEventMap {
-        "show-add-task-modal": CustomEvent<object>;
+        "show-add-task-modal": CustomEvent<{ listId: string }>;
     }
 }
 
@@ -27,7 +27,13 @@ const addTaskSchema = z.object({
     tags: z.string().array().default([]),
 });
 
-const Modal = ({ close }: { close: () => void }): ReactNode => {
+const Modal = ({
+    close,
+    listId,
+}: {
+    close: () => void;
+    listId: string;
+}): ReactNode => {
     const firstInputId = useId();
     const [searchParams] = useSearchParams();
     const form = useForm({
@@ -43,7 +49,6 @@ const Modal = ({ close }: { close: () => void }): ReactNode => {
     };
     const labelValue = form.watch("label");
     const handleCreate = async (): Promise<void> => {
-        const listId = searchParams.get("listId");
         if (!listId) {
             return;
         }
@@ -82,8 +87,6 @@ const Modal = ({ close }: { close: () => void }): ReactNode => {
         }
     };
     useEffect(() => {
-        const em = document.getElementById(firstInputId);
-        console.log("em: ", em);
         document.getElementById(firstInputId)?.focus();
         /* eslint-disable-next-line  --  */
     }, []);
@@ -154,12 +157,17 @@ const Modal = ({ close }: { close: () => void }): ReactNode => {
 };
 
 export const AddTaskModal = (): ReactNode => {
-    const [open, setOpen] = useState(false);
-    useEventListener("show-add-task-modal", () => {
-        setOpen(true);
+    // The list id if it should be open
+    const [open, setOpen] = useState<false | string>(false);
+    useEventListener("show-add-task-modal", (e) => {
+        console.log("e: ", e);
+        setOpen(e.detail.listId);
     });
     if (open) {
-        return createPortal(<Modal close={() => setOpen(false)} />, document.body);
+        return createPortal(
+            <Modal close={() => setOpen(false)} listId={open} />,
+            document.body
+        );
     } else {
         return null;
     }
