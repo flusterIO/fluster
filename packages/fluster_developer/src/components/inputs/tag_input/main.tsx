@@ -14,19 +14,21 @@ import { FormInputProps } from "../types";
 import { cn } from "../../../utils/cn";
 
 interface TagInputProps<T extends FieldValues> extends FormInputProps<T> {
-    classes: {
+    classes?: {
         formItem?: string;
         input?: string;
         tagList?: string;
     };
+    placeholder?: string;
 }
 
 export const TagInput = <T extends FieldValues>({
-    classes,
+    classes = {},
     label = "Tags",
     form,
     name,
     desc,
+    placeholder = "Homework",
 }: TagInputProps<T>): ReactNode => {
     const [inputValue, setInputValue] = useState("");
     const items = form.watch(name);
@@ -54,7 +56,7 @@ export const TagInput = <T extends FieldValues>({
                             {...field}
                             value={inputValue}
                             onChange={(e) => setInputValue(e.target.value)}
-                            placeholder="homework"
+                            placeholder={placeholder}
                             className={classes.input}
                             onKeyDown={(e) => {
                                 if (

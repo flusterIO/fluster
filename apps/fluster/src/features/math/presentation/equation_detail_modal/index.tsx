@@ -15,7 +15,9 @@ import { NavLink } from "react-router";
 
 export const EquationDetailModal = (): ReactNode => {
     const [open, setOpen] = useState(false);
-    const [equation, setEquation] = useState<EquationModel | null>(null);
+    const [equation, setEquation] = useState<
+        (EquationModel & { tags: string[] }) | null
+    >(null);
 
     const getEquation = async (
         /// The 'id' field of the equation, not the user provided id.
@@ -23,7 +25,10 @@ export const EquationDetailModal = (): ReactNode => {
     ): Promise<void> => {
         const res = await commands.getEquationById(equationId);
         if (res.status === "ok") {
-            setEquation(res.data);
+            setEquation({
+                ...res.data.equation,
+                tags: res.data.tags.map((t) => t.value),
+            });
         } else {
             console.error(
                 `An error occurred while attempting to get data for an equation with id ${equationId}`

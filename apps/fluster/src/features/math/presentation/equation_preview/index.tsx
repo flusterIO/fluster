@@ -31,13 +31,21 @@ const EquationPreview = (): ReactNode => {
     return (
         <EquationListItem
             item={{
-                body: data?.body ?? "",
-                desc: data?.desc ?? "",
-                label: data?.label ?? "",
-                id: data?.id ?? "",
-                ctime: now,
-                utime: now,
-                equation_id: data?.user_provided_id ?? null,
+                equation: {
+                    body: data?.body ?? "",
+                    desc: data?.desc ?? "",
+                    label: data?.label ?? "",
+                    id: data?.id ?? "",
+                    ctime: now,
+                    utime: now,
+                    equation_id: data?.user_provided_id ?? null,
+                },
+                tags: data.tags.map((t) => {
+                    return {
+                        value: t,
+                        ctime: now,
+                    };
+                }),
             }}
         />
     );

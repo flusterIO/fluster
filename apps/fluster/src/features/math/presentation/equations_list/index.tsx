@@ -1,5 +1,5 @@
 import { LoadingComponent } from "@/components/loading_screen";
-import { commands, EquationModel } from "@/lib/bindings";
+import { commands, EquationData } from "@/lib/bindings";
 import React, { useEffect, useState, type ReactNode } from "react";
 import EquationListItem from "./equation_list_item";
 import { useEventListener } from "@fluster.io/dev";
@@ -12,7 +12,7 @@ declare global {
 }
 
 const EquationsList = (): ReactNode => {
-    const [items, setItems] = useState<EquationModel[] | null>(null);
+    const [items, setItems] = useState<EquationData[] | null>(null);
 
     const getItems = async (): Promise<void> => {
         const res = await commands.getEquations();
@@ -46,7 +46,7 @@ const EquationsList = (): ReactNode => {
     return (
         <div className="w-full flex flex-col justify-start items-center gap-8 mb-16">
             {items.map((x) => (
-                <EquationListItem key={x.id} item={x} />
+                <EquationListItem key={`equation-${x.equation.id}`} item={x} />
             ))}
         </div>
     );

@@ -3,6 +3,7 @@ import React, { useEffect, useState, type ReactNode } from "react";
 import {
     Form,
     MathTextInput,
+    TagInput,
     TextAreaInput,
     TextInputGroup,
 } from "@fluster.io/dev";
@@ -59,15 +60,17 @@ export const AddEquationPanel = connector(
         });
 
         const getEquationBeingEdited = async (id: string): Promise<void> => {
-            /* FIXME: Return the related tags and snippet_ids in the `get_equation_by_id` method and populate the form properly here. Make sure they are being saved as well. */
-            // RESUME: Come back here and return the tags along with the equation, then move on to the create method so it's populated properly.
             const data = await commands.getEquationById(id);
             if (data.status === "ok") {
-                form.setValue("id", data.data.id);
-                form.setValue("user_provided_id", data.data.equation_id ?? "");
-                form.setValue("label", data.data.label);
-                form.setValue("body", data.data.body);
-                form.setValue("desc", data.data.desc);
+                form.setValue("id", data.data.equation.id);
+                form.setValue("user_provided_id", data.data.equation.equation_id ?? "");
+                form.setValue("label", data.data.equation.label);
+                form.setValue("body", data.data.equation.body);
+                form.setValue("desc", data.data.equation.desc);
+                form.setValue(
+                    "tags",
+                    data.data.tags.map((t) => t.value)
+                );
                 /* form.setValue("tags", data.data.) */
                 /* form.setValue("snippet_ids", data.data.) */
             }
@@ -105,7 +108,15 @@ export const AddEquationPanel = connector(
                 utime: now,
                 equation_id: data.user_provided_id,
             };
-            const res = await commands.saveEquations([model]);
+            const res = await commands.saveEquation({
+                equation: model,
+                tags: data.tags.map((t) => {
+                    return {
+                        value: t,
+                        ctime: now,
+                    };
+                }),
+            });
             if (res.status === "ok") {
                 form.reset();
                 requestEquationListRefresh();
@@ -142,6 +153,15 @@ export const AddEquationPanel = connector(
                             label="Id"
                             form={form}
                             desc="Use this id field to easily reference this equation in your notes. This cannot include spaces or special characters."
+                        />
+                        <TagInput
+                            label="Tags"
+                            form={form}
+                            name="tags"
+                            placeholder="gravity"
+                            classes={{
+                                formItem: "w-full",
+                            }}
                         />
                         <TextAreaInput
                             name="desc"

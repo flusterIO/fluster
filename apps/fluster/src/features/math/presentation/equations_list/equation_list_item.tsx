@@ -2,9 +2,10 @@ import { formatMathBlockString } from "#/math/data/utils/format_math_string";
 import { InlineMdxContent } from "#/mdx/presentation/inline_mdx_content";
 import { MdxContent } from "#/mdx/presentation/mdx_content";
 import { showToast } from "#/toast_notification/data/events/show_toast";
-import { commands, EquationModel } from "@/lib/bindings";
+import { commands, EquationData } from "@/lib/bindings";
 import { copyStringToClipboard } from "@/lib/copy_string_to_clipboard";
 import {
+    Badge,
     Button,
     buttonVariants,
     Card,
@@ -27,7 +28,7 @@ import { secondaryToolTip } from "../../../../styles/classes";
 import { useConfirmation } from "#/confirmation_modal/state/hooks/use_confirmation";
 
 interface EquationListItemProps {
-    item: EquationModel;
+    item: EquationData;
 }
 
 const useEquationHasNotes = (equationId: string): boolean => {
@@ -46,16 +47,16 @@ const useEquationHasNotes = (equationId: string): boolean => {
 };
 
 const EquationListItem = ({ item }: EquationListItemProps): ReactNode => {
-    const confirmationId = `confirm-equation-delete-${item.id}`;
+    const confirmationId = `confirm-equation-delete-${item.equation.id}`;
     const dispatch = useDispatch();
     const byEquationUrl = useMemo(() => {
         const sp = new URLSearchParams();
-        sp.set("by_equation", item.id);
+        sp.set("by_equation", item.equation.id);
         return `${AppRoutes.search}?${sp.toString()}`;
     }, [item]);
-    const hasNotes = useEquationHasNotes(item.id);
+    const hasNotes = useEquationHasNotes(item.equation.id);
     const handleLatexCopy = (): void => {
-        copyStringToClipboard(item.body);
+        copyStringToClipboard(item.equation.body);
         showToast({
             title: "Success",
             body: `Your equation's latex was successfully copied to your clipboard.`,
@@ -81,7 +82,7 @@ const EquationListItem = ({ item }: EquationListItemProps): ReactNode => {
             confirmationVariant: "destructive",
         },
         () => {
-            handleDelete(item.id).catch(() => {
+            handleDelete(item.equation.id).catch(() => {
                 showToast({
                     title: "Oh no",
                     body: "Something went wrong while deleting this chat.",
@@ -99,16 +100,27 @@ const EquationListItem = ({ item }: EquationListItemProps): ReactNode => {
     return (
         <Card className="@container/equation_item w-[min(768px,90%)]">
             <CardHeader>
-                <MdxH3 mdx={item.label} InlineMdxContent={InlineMdxContent} />
-                {item.desc?.length ? (
+                <MdxH3 mdx={item.equation.label} InlineMdxContent={InlineMdxContent} />
+                {item.equation.desc?.length ? (
                     <CardDescription className="[&_*]:text-muted-foreground">
-                        <InlineMdxContent mdx={item.desc} />
+                        <InlineMdxContent mdx={item.equation.desc} />
                     </CardDescription>
+                ) : null}
+                {item.tags.length > 0 ? (
+                    <div className="flex flex-row justify-start items-center gap-2 flex-wrap">
+                        {item.tags.map((t) => (
+                            <Badge>{t.value}</Badge>
+                        ))}
+                    </div>
                 ) : null}
             </CardHeader>
             <CardContent>
                 <MdxContent
-                    mdx={item.body.length ? formatMathBlockString(item.body) : ""}
+                    mdx={
+                        item.equation.body.length
+                            ? formatMathBlockString(item.equation.body)
+                            : ""
+                    }
                     className="hide-math-labels w-full flex flex-col justify-center items-center"
                 />
             </CardContent>
@@ -162,7 +174,7 @@ const EquationListItem = ({ item }: EquationListItemProps): ReactNode => {
                             })
                         )}
                         onClick={handleEditClick}
-                        to={`${AppRoutes.equations}?editing=${item.id}`}
+                        to={`${AppRoutes.equations}?editing=${item.equation.id}`}
                     >
                         Edit
                     </NavLink>

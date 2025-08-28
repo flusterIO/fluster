@@ -56,7 +56,7 @@ use crate::features::math::commands::delete_equation_by_id::delete_equation_by_i
 use crate::features::math::commands::get_equation_by_id::get_equation_by_id;
 use crate::features::math::commands::get_equation_by_id::get_equation_by_user_provided_id;
 use crate::features::math::commands::get_equations::get_equations;
-use crate::features::math::commands::save_equation::save_equations;
+use crate::features::math::commands::save_equation::save_equation;
 use crate::features::mdx::actions::component_utils::generate_qr_code::get_qr_code_svg;
 use crate::features::mdx::actions::full_text_search::mdx_note_full_text_search;
 use crate::features::mdx::actions::get_note_by_user_provided_id::get_note_by_user_provided_id;
@@ -193,7 +193,7 @@ pub fn run() {
             // -- Math --
             get_mathjax_path,
             get_equations,
-            save_equations,
+            save_equation,
             get_equation_by_id,
             delete_equation_by_id,
             get_equation_by_user_provided_id,

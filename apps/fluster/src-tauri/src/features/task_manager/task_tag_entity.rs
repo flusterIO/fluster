@@ -170,6 +170,7 @@ impl TaskTagEntity {
             .map(|x| format!("\"{}\"", x))
             .collect::<Vec<String>>()
             .join(", ");
+        // FIXME: This needs to specify the other property as well!
         TaskTagEntity::delete(db, format!("tag_value in ({})", values_string)).await
     }
     pub async fn create_many(db: &FlusterDb<'_>, items: Vec<T>) -> FlusterResult<()> {
