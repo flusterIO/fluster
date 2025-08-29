@@ -4,9 +4,12 @@ import { MdxNoteSearchResult } from "../search_result_items/mdx_note";
 import { H3, H4 } from "@fluster.io/dev";
 import { LoadingComponent } from "@/components/loading_screen";
 import { TaskItemSearchResultsTable } from "#/task_manager/presentation/task_item_search_result_table";
+import { useSearchParams } from "react-router";
+import { EquationSearchResults } from "../search_result_items/equation_search_results";
 
 const SearchResultsPage = (): ReactNode => {
     const results = useSearchResults();
+    const [sp] = useSearchParams();
     if (results === null) {
         return (
             <div className="w-full h-full flex flex-col justify-center items-center">
@@ -21,6 +24,18 @@ const SearchResultsPage = (): ReactNode => {
                 {results.tasks.length > 0 ? (
                     <div className="w-full flex flex-col justify-start items-center">
                         <TaskItemSearchResultsTable tasks={results.tasks} />
+                    </div>
+                ) : null}
+                {sp.has("by_tag") ? (
+                    <div className="w-full flex flex-col justify-start items-center">
+                        <H3 className="mb-4 w-full">Equations</H3>
+                        {results?.equations.length ? (
+                            <EquationSearchResults equations={results.equations} />
+                        ) : (
+                            <div className="w-full h-full flex flex-col justify-center items-center">
+                                <H4 className="text-muted-foreground">No equations found</H4>
+                            </div>
+                        )}
                     </div>
                 ) : null}
                 <div className="w-full flex flex-col justify-start items-center">

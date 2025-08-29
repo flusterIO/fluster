@@ -1,13 +1,14 @@
-use std::sync::{Arc, Mutex};
-
 use chrono::Utc;
 use futures::StreamExt;
 use ollama_rs::{
-    generation::chat::{
-        request::ChatMessageRequest, ChatMessage, ChatMessageResponseStream, MessageRole,
+    coordinator::Coordinator,
+    generation::{
+        chat::{request::ChatMessageRequest, ChatMessage, ChatMessageResponseStream, MessageRole},
+        tools::implementations::{Calculator, DDGSearcher, Scraper},
     },
     Ollama,
 };
+use std::sync::{Arc, Mutex};
 use tauri::ipc::Channel;
 
 use crate::{
@@ -59,6 +60,11 @@ pub async fn add_ai_chat_request(
     }
 
     let history: Arc<Mutex<Vec<ChatMessage>>> = Arc::new(Mutex::new(_history));
+    // TODO: Implement the chat with the coordinator here to enable tool calling.
+    // let mut coordinator = Coordinator::new(ollama, ai.language_model.clone(), history)
+    //     .add_tool(DDGSearcher::new())
+    //     .add_tool(Scraper {})
+    //     .add_tool(Calculator {});
 
     // let sent_at = Utc::now().timestamp_millis().to_string();
 

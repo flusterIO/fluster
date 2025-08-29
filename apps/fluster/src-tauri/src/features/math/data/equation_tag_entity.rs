@@ -47,6 +47,47 @@ impl EquationTagEntity {
         DatabaseTables::EquationTag
     }
 
+    pub async fn get_by_tag_values(db: &FlusterDb<'_>, ids: Vec<String>) -> FlusterResult<Vec<T>> {
+        if ids.is_empty() {
+            return Ok(Vec::new());
+        }
+        let tbl = get_table(db, EquationTagEntity::table()).await?;
+        let ids_string = ids
+            .iter()
+            .map(|x| format!("\"{}\"", x))
+            .collect::<Vec<String>>()
+            .join(", ");
+        let items_batch = tbl
+            .query()
+            .only_if(format!("tag_value in ({})", ids_string))
+            .execute()
+            .await
+            .map_err(|e| {
+                println!("Error in EquationTagEntity.get_by_tag_values: {:?}", e);
+                FlusterError::FailToConnect
+            })?
+            .try_collect::<Vec<_>>()
+            .await
+            .map_err(|e| {
+                println!("Error in EquationTagEntity.get_by_tag_values: {:?}", e);
+                FlusterError::FailToFind
+            })?;
+        // let batches = &items_batch;
+        if items_batch.is_empty() {
+            return Ok(Vec::new());
+        }
+        let mut items: Vec<T> = Vec::new();
+
+        for batch in items_batch.iter() {
+            let data: Vec<T> = from_record_batch(batch).map_err(|e| {
+                println!("Error in EquationTagEntity.get_by_tag_values: {:?}", e);
+                FlusterError::FailToSerialize
+            })?;
+            items.extend(data);
+        }
+        Ok(items)
+    }
+
     pub async fn get_by_equation_ids(
         db: &FlusterDb<'_>,
         ids: Vec<String>,

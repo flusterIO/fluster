@@ -65,7 +65,7 @@ lancedb = { version = "0.19", features = ["polars"] }
 chrono = { version = "0.4", features = ["now", "serde"] }
 arrow-schema = "54.1"
 arrow-array = "54.1"
-ollama-rs = { version = "0.3.1", features = ["stream"] }
+ollama-rs = { version = "0.3.1", features = ["ollama-rs-macros", "stream", "tool-implementations"] }
 futures-util = "0.3.31"
 futures = "0.3.31"
 serde_arrow = { version = "0.13.3", features = ["arrow-54"] }

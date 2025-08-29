@@ -21,6 +21,7 @@ pub async fn get_subject_search_results(
         return Ok(TraditionalSearchResults {
             notes: Vec::new(),
             tasks: Vec::new(),
+            equations: Vec::new(),
         });
     }
     let mdx_notes = MdxNoteEntity::get_by_file_paths(
@@ -36,5 +37,6 @@ pub async fn get_subject_search_results(
     Ok(TraditionalSearchResults {
         notes,
         tasks: Vec::new(),
+        equations: Vec::new(),
     })
 }

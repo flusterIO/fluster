@@ -33,5 +33,6 @@ pub async fn get_notes_by_bib_entry_id(
     Ok(TraditionalSearchResults {
         notes,
         tasks: Vec::new(),
+        equations: Vec::new(),
     })
 }

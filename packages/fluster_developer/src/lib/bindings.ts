@@ -1112,7 +1112,7 @@ export type TocEntry = { depth: number; body: string }
 /**
  * The search results returned froma  taggable input or via a traditional text based query.
  */
-export type TraditionalSearchResults = { notes: MdxNoteGroup[]; tasks: TaskModel[] }
+export type TraditionalSearchResults = { notes: MdxNoteGroup[]; tasks: TaskModel[]; equations: EquationData[] }
 
 /** tauri-specta globals **/
 

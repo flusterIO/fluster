@@ -3,8 +3,8 @@ import { MdxContent } from "#/mdx/presentation/mdx_content";
 import { TaskModelWithTags } from "@/lib/bindings";
 import React, { type ReactNode } from "react";
 import { NoTaskNoteBanner } from "./no_note_banner";
-import { AppRoutes, Badge, Button } from "@fluster.io/dev";
-import { useNavigate } from "react-router";
+import { Button } from "@fluster.io/dev";
+import { TagBadge } from "#/search/presentation/utils/tag_badge";
 
 export const FocusedTaskDetail = ({
     data,
@@ -13,7 +13,6 @@ export const FocusedTaskDetail = ({
     data: TaskModelWithTags;
     handleCreateNote: () => Promise<void>;
 }): ReactNode => {
-    const nav = useNavigate();
     return (
         <div className="w-full h-full flex flex-col pt-8">
             <div className="text-foreground/80">Label:</div>
@@ -25,18 +24,7 @@ export const FocusedTaskDetail = ({
                     <div className="text-foreground/80 mb-2">Tags:</div>
                     <div className="scroll-m-20 text-2xl font-semibold tracking-tight ml-6 w-full flex flex-row flex-wrap justify-start items-center gap-2">
                         {data.tags.map((t) => {
-                            return (
-                                <Badge
-                                    className="cursor-pointer"
-                                    onClick={() => {
-                                        const sp = new URLSearchParams();
-                                        sp.set("by_tag", t.value);
-                                        nav(`${AppRoutes.search}?${sp.toString()}`);
-                                    }}
-                                >
-                                    {t.value}
-                                </Badge>
-                            );
+                            return <TagBadge key={`task-${data.id}`} tagValue={t.value} />;
                         })}
                     </div>
                 </>

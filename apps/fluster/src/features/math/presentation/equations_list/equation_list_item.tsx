@@ -5,7 +5,6 @@ import { showToast } from "#/toast_notification/data/events/show_toast";
 import { commands, EquationData } from "@/lib/bindings";
 import { copyStringToClipboard } from "@/lib/copy_string_to_clipboard";
 import {
-    Badge,
     Button,
     buttonVariants,
     Card,
@@ -26,9 +25,15 @@ import { NavLink } from "react-router";
 import { AppRoutes } from "#/router/data/app_routes";
 import { secondaryToolTip } from "../../../../styles/classes";
 import { useConfirmation } from "#/confirmation_modal/state/hooks/use_confirmation";
+import { TagBadge } from "#/search/presentation/utils/tag_badge";
 
 interface EquationListItemProps {
     item: EquationData;
+    classes?: {
+        container?: string;
+    };
+    hideEditButton?: boolean;
+    hideDeleteButton?: boolean;
 }
 
 const useEquationHasNotes = (equationId: string): boolean => {
@@ -46,7 +51,12 @@ const useEquationHasNotes = (equationId: string): boolean => {
     return hasNotes;
 };
 
-const EquationListItem = ({ item }: EquationListItemProps): ReactNode => {
+const EquationListItem = ({
+    item,
+    hideEditButton,
+    hideDeleteButton,
+    classes = {},
+}: EquationListItemProps): ReactNode => {
     const confirmationId = `confirm-equation-delete-${item.equation.id}`;
     const dispatch = useDispatch();
     const byEquationUrl = useMemo(() => {
@@ -98,7 +108,12 @@ const EquationListItem = ({ item }: EquationListItemProps): ReactNode => {
     };
 
     return (
-        <Card className="@container/equation_item w-[min(768px,90%)]">
+        <Card
+            className={cn(
+                "@container/equation_item w-[min(768px,90%)]",
+                classes.container
+            )}
+        >
             <CardHeader>
                 <MdxH3 mdx={item.equation.label} InlineMdxContent={InlineMdxContent} />
                 {item.equation.desc?.length ? (
@@ -109,7 +124,10 @@ const EquationListItem = ({ item }: EquationListItemProps): ReactNode => {
                 {item.tags.length > 0 ? (
                     <div className="flex flex-row justify-start items-center gap-2 flex-wrap">
                         {item.tags.map((t) => (
-                            <Badge>{t.value}</Badge>
+                            <TagBadge
+                                tagValue={t.value}
+                                key={`eq-tag-${t.value}-${t.ctime}`}
+                            />
                         ))}
                     </div>
                 ) : null}
@@ -128,7 +146,10 @@ const EquationListItem = ({ item }: EquationListItemProps): ReactNode => {
                 <Button
                     variant={"destructive"}
                     onClick={() => confirm.setVisible(true)}
-                    className="w-full @[450px]/equation_item:w-fit"
+                    className={cn(
+                        "w-full @[450px]/equation_item:w-fit",
+                        hideDeleteButton && "hidden"
+                    )}
                 >
                     Delete
                 </Button>
@@ -171,7 +192,8 @@ const EquationListItem = ({ item }: EquationListItemProps): ReactNode => {
                             "w-full @[450px]/equation_item:w-fit",
                             buttonVariants({
                                 variant: "outline",
-                            })
+                            }),
+                            hideEditButton && "hidden"
                         )}
                         onClick={handleEditClick}
                         to={`${AppRoutes.equations}?editing=${item.equation.id}`}
