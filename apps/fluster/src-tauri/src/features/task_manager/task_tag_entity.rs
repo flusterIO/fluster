@@ -161,6 +161,7 @@ impl TaskTagEntity {
     pub async fn delete_by_tag_values(
         db: &FlusterDb<'_>,
         tag_values: Vec<String>,
+        task_id: &str,
     ) -> FlusterResult<()> {
         if tag_values.is_empty() {
             return Ok(());
@@ -171,7 +172,14 @@ impl TaskTagEntity {
             .collect::<Vec<String>>()
             .join(", ");
         // FIXME: This needs to specify the other property as well!
-        TaskTagEntity::delete(db, format!("tag_value in ({})", values_string)).await
+        TaskTagEntity::delete(
+            db,
+            format!(
+                "tag_value in ({}) and task_id = \"{}\"",
+                values_string, task_id
+            ),
+        )
+        .await
     }
     pub async fn create_many(db: &FlusterDb<'_>, items: Vec<T>) -> FlusterResult<()> {
         let all_task_tags = TaskTagEntity::get_all(
