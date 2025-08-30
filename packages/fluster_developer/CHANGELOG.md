@@ -1,5 +1,11 @@
 # @fluster.io/dev
 
+## 0.3.0
+
+### Minor Changes
+
+- Add tag support to equations, snippets and tasks.
+
 ## 0.2.1
 
 ### Patch Changes
