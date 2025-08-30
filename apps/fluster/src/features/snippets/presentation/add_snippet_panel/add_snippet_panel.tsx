@@ -24,7 +24,6 @@ import { commands, SnippetModel } from "@/lib/bindings";
 import { snippetSchema } from "#/snippets/data/snippet_schema";
 import { useSnippetContext } from "#/snippets/state/snippet_context";
 import { reloadSnippetList } from "#/snippets/data/events/reload_snippet_list";
-import { group } from "console";
 
 const connector = connect((state: AppState) => ({
     panelOpen: state.panelLeft.open,
@@ -117,10 +116,11 @@ const AddSnippetPanel = connector(
                 body: data.body,
                 desc: data.desc,
                 lang: data.lang,
-                ctime: data.ctime,
-                utime: data.utime,
+                ctime: new Date(data.ctime).valueOf().toString(),
+                utime: data.utime
+                    ? new Date(data.utime).valueOf().toString()
+                    : new Date().valueOf().toString(),
             };
-            console.log("snippetModel: ", snippetModel);
             const res = await commands.saveSnippet({
                 snippet: snippetModel,
                 tags: data.tags.map((t) => {
@@ -130,7 +130,6 @@ const AddSnippetPanel = connector(
                     };
                 }),
             });
-            console.log("res: ", res);
             if (res.status === "ok") {
                 form.reset();
                 reloadSnippetList(state.languageFilter);
@@ -154,9 +153,15 @@ const AddSnippetPanel = connector(
         };
 
         useEffect(() => {
-            if (!panelOpen && editingIdState) {
-                exitEditingMode();
-            }
+            /* console.log("panelOpen, editingIdState: ", panelOpen, editingIdState); */
+            /* if (!panelOpen && editingIdState) { */
+            /*     exitEditingMode(); */
+            /* } */
+            return () => {
+                if (editingIdState) {
+                    exitEditingMode();
+                }
+            };
             /* eslint-disable-next-line  --  */
         }, [panelOpen, editingIdState]);
 
