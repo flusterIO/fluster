@@ -108,7 +108,6 @@ use core::{
     events::{set_db_connection_uri::SetDbConnectionUri, show_toast::ShowToast},
     types::errors::errors::FlusterError,
 };
-use features::ai::commands::begin_language_model_download::DownloadingStatus;
 pub use features::dashboard;
 use features::embedded_docs::data::internal_embedded_docs_id::InternalEmbeddedDocsId;
 pub use features::health::get_health_report::get_desktop_health_report;
@@ -255,7 +254,6 @@ pub fn run() {
         .typ::<SearchParams>()
         .typ::<SearchOrder>()
         .typ::<InternalEmbeddedDocsId>()
-        .typ::<DownloadingStatus>()
         .typ::<DictionaryEntryModelWithoutSource>()
         .typ::<CrossLanguageEvents>()
         .typ::<AiChatMessageUpdateEventProps>()
