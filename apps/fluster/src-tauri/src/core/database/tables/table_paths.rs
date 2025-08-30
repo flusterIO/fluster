@@ -10,7 +10,7 @@ pub enum DatabaseTables {
     Topic,
     #[strum(to_string = "subject")]
     Subject,
-    #[strum(to_string = "settings")]
+    #[strum(to_string = "setting")]
     Settings,
     #[strum(to_string = "auto_setting")]
     AutoSetting,
@@ -48,10 +48,10 @@ pub enum DatabaseTables {
     // -- Snippets --
     #[strum(to_string = "snippet")]
     Snippet,
-    #[strum(to_string = "snippet_tags")]
+    #[strum(to_string = "snippet_tag")]
     SnippetTag,
     // -- Math --
-    #[strum(to_string = "equations")]
+    #[strum(to_string = "equation")]
     Equation,
     #[strum(to_string = "equation_snippet")]
     EquationSnippets,

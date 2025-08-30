@@ -22,6 +22,7 @@ pub async fn get_subject_search_results(
             notes: Vec::new(),
             tasks: Vec::new(),
             equations: Vec::new(),
+            snippets: Vec::new(),
         });
     }
     let mdx_notes = MdxNoteEntity::get_by_file_paths(
@@ -38,5 +39,6 @@ pub async fn get_subject_search_results(
         notes,
         tasks: Vec::new(),
         equations: Vec::new(),
+        snippets: Vec::new(),
     })
 }

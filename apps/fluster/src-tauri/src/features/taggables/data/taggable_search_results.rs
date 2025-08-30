@@ -3,7 +3,7 @@ use specta::Type;
 
 use crate::features::{
     math::data::equation_model::EquationData, mdx::data::mdx_note_group::MdxNoteGroup,
-    task_manager::task_model::TaskModel,
+    snippets::data::snippet_model::SnippetData, task_manager::task_model::TaskModel,
 };
 
 /// The search results returned froma  taggable input or via a traditional text based query.
@@ -12,4 +12,5 @@ pub struct TraditionalSearchResults {
     pub notes: Vec<MdxNoteGroup>,
     pub tasks: Vec<TaskModel>,
     pub equations: Vec<EquationData>,
+    pub snippets: Vec<SnippetData>,
 }

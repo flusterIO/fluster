@@ -499,15 +499,15 @@ async axisGrid(axis: AxisGeneratorProps) : Promise<number[][]> {
  * While it's weird to think about a database's data in this way, this very similar to how pandas and
  * polars handle their data.
  */
-async saveSnippets(items: SnippetModel[], tags: string[][]) : Promise<Result<null, FlusterError>> {
+async saveSnippet(item: SnippetData) : Promise<Result<null, FlusterError>> {
     try {
-    return { status: "ok", data: await TAURI_INVOKE("save_snippets", { items, tags }) };
+    return { status: "ok", data: await TAURI_INVOKE("save_snippet", { item }) };
 } catch (e) {
     if(e instanceof Error) throw e;
     else return { status: "error", error: e  as any };
 }
 },
-async getSnippets(opts: GetSnippetsParams) : Promise<Result<SnippetModel[], FlusterError>> {
+async getSnippets(opts: GetSnippetsParams) : Promise<Result<SnippetData[], FlusterError>> {
     try {
     return { status: "ok", data: await TAURI_INVOKE("get_snippets", { opts }) };
 } catch (e) {
@@ -1023,11 +1023,12 @@ export type ShowToast = { title: string; body: string; duration: number; variant
  * id is required to allow items to be removed reliably. It just needs to be unique.
  */
 id: string }
+export type SnippetData = { snippet: SnippetModel; tags: SnippetTagModel[] }
 /**
  * The SnippetModel is the snippet representation that is passed back and forth across language
  * boundries to get around serialization issues with the SnippetEntity methods.
  */
-export type SnippetModel = { id: string | null; 
+export type SnippetModel = { id: string; 
 /**
  * A title or label for the snippet.
  */
@@ -1052,6 +1053,7 @@ ctime: string;
  * The time the snippet was last updated.
  */
 utime: string }
+export type SnippetTagModel = { snippet_id: string; tag_value: string }
 export type SupportedOperatingSystem = "Windows" | "Mac" | "Linux" | "Ios" | "Android" | "NotSupported"
 export type SyncFilesystemDirectoryOptions = { 
 /**
@@ -1112,7 +1114,7 @@ export type TocEntry = { depth: number; body: string }
 /**
  * The search results returned froma  taggable input or via a traditional text based query.
  */
-export type TraditionalSearchResults = { notes: MdxNoteGroup[]; tasks: TaskModel[]; equations: EquationData[] }
+export type TraditionalSearchResults = { notes: MdxNoteGroup[]; tasks: TaskModel[]; equations: EquationData[]; snippets: SnippetData[] }
 
 /** tauri-specta globals **/
 

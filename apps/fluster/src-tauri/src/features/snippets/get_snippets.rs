@@ -1,16 +1,40 @@
-use crate::core::{database::db::get_database, types::errors::errors::FlusterResult};
-
-use super::{
-    data::{snippet_entity::SnippetEntity, snippet_model::SnippetModel},
-    get_snippet_params::GetSnippetsParams,
+use crate::{
+    core::{database::db::get_database, types::errors::errors::FlusterResult},
+    features::snippets::data::{
+        snippet_model::SnippetData, snippet_tag_entity::SnippetTagEntity,
+        snippet_tag_model::SnippetTagModel,
+    },
 };
+
+use super::{data::snippet_entity::SnippetEntity, get_snippet_params::GetSnippetsParams};
 
 #[tauri::command]
 #[specta::specta]
-pub async fn get_snippets(opts: GetSnippetsParams) -> FlusterResult<Vec<SnippetModel>> {
+pub async fn get_snippets(opts: GetSnippetsParams) -> FlusterResult<Vec<SnippetData>> {
     let db_res = get_database().await;
     let db = db_res.lock().await;
-    SnippetEntity::get_many(db, opts).await
+    let snippets = SnippetEntity::get_many(&db, opts).await?;
+    let snippet_tags =
+        SnippetTagEntity::get_by_snippet_ids(&db, snippets.iter().map(|x| x.id.clone()).collect())
+            .await?;
+    let mut data: Vec<SnippetData> = Vec::new();
+    for snippet in snippets {
+        let item_snippet_tags = snippet_tags
+            .iter()
+            .filter_map(|x| {
+                if x.snippet_id == snippet.id {
+                    Some(x.clone())
+                } else {
+                    None
+                }
+            })
+            .collect::<Vec<SnippetTagModel>>();
+        data.push(SnippetData {
+            snippet,
+            tags: item_snippet_tags,
+        })
+    }
+    Ok(data)
 }
 
 #[cfg(test)]

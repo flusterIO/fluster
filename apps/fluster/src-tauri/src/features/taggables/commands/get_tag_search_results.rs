@@ -13,6 +13,10 @@ use crate::{
             data::{mdx_note_entity::MdxNoteEntity, mdx_note_tag_entity::MdxNoteTagEntity},
             methods::mdx_note_models_to_mdx_note_groups::mdx_note_models_to_mdx_note_groups,
         },
+        snippets::data::{
+            snippet_entity::SnippetEntity, snippet_model::SnippetData,
+            snippet_tag_entity::SnippetTagEntity, snippet_tag_model::SnippetTagModel,
+        },
         taggables::data::taggable_search_results::TraditionalSearchResults,
         task_manager::{task_entity::TaskEntity, task_tag_entity::TaskTagEntity},
     },
@@ -39,7 +43,7 @@ pub async fn get_tag_search_results(
     .await?;
     let notes = mdx_note_models_to_mdx_note_groups(&db, mdx_notes).await?;
 
-    let equation_tags = EquationTagEntity::get_by_tag_values(&db, tag_values).await?;
+    let equation_tags = EquationTagEntity::get_by_tag_values(&db, tag_values.clone()).await?;
 
     let equations = EquationEntity::get_by_ids(
         &db,
@@ -91,9 +95,37 @@ pub async fn get_tag_search_results(
         });
     }
 
+    let snippet_tags = SnippetTagEntity::get_by_snippet_ids(&db, tag_values).await?;
+
+    let snippets = SnippetEntity::get_by_ids(
+        &db,
+        snippet_tags.iter().map(|x| x.snippet_id.clone()).collect(),
+    )
+    .await?;
+
+    let mut snippet_data_items: Vec<SnippetData> = Vec::new();
+
+    for snippet in snippets {
+        let matching_snippet_tags = snippet_tags
+            .iter()
+            .filter_map(|x| {
+                if x.snippet_id == snippet.id {
+                    Some(x.clone())
+                } else {
+                    None
+                }
+            })
+            .collect::<Vec<SnippetTagModel>>();
+        snippet_data_items.push(SnippetData {
+            snippet,
+            tags: matching_snippet_tags,
+        })
+    }
+
     Ok(TraditionalSearchResults {
         notes,
         tasks,
         equations: equation_data_items,
+        snippets: snippet_data_items,
     })
 }

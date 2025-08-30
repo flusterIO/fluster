@@ -85,7 +85,7 @@ use crate::features::snippets::data::snippet_model::SnippetModel;
 use crate::features::snippets::delete_snippet_by_id::delete_snippet_by_id;
 use crate::features::snippets::get_snippet_by_id::get_snippet_by_id;
 use crate::features::snippets::get_snippets::get_snippets;
-use crate::features::snippets::save_snippet::save_snippets;
+use crate::features::snippets::save_snippet::save_snippet;
 use crate::features::taggables::commands::get_all_subjects::get_all_subjects;
 use crate::features::taggables::commands::get_all_tags::get_all_tags;
 use crate::features::taggables::commands::get_all_topics::get_all_topics;
@@ -204,7 +204,7 @@ pub fn run() {
             linspace,
             axis_grid,
             // -- Snippets --
-            save_snippets,
+            save_snippet,
             get_snippets,
             delete_snippet_by_id,
             get_snippet_by_id,

@@ -111,7 +111,7 @@ impl MdxNoteSnippetEntity {
         let filtered_tags: Vec<&T> = items
             .iter()
             .filter(|x| {
-                all_note_tags
+                !all_note_tags
                     .iter()
                     .any(|y| (x.snippet_id == y.snippet_id) && (x.mdx_note_id == y.mdx_note_id))
             })

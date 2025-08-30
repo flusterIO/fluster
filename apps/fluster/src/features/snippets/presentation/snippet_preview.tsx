@@ -4,33 +4,39 @@ import { useEventListener } from "@fluster.io/dev";
 import SnippetListItem from "./snippet_item/main";
 
 declare global {
-  interface WindowEventMap {
-    "set-snippet-preview": CustomEvent<{
-      data: SnippetSchema;
-    }>;
-  }
+    interface WindowEventMap {
+        "set-snippet-preview": CustomEvent<{
+            data: SnippetSchema;
+        }>;
+    }
 }
 
 const SnippetPreview = (): ReactNode => {
-  const [data, setData] = useState<SnippetSchema | null>(null);
+    const [data, setData] = useState<SnippetSchema | null>(null);
 
-  useEventListener("set-snippet-preview", (e) => {
-    setData(e.detail.data);
-  });
+    useEventListener("set-snippet-preview", (e) => {
+        setData(e.detail.data);
+    });
 
-  return (
-    <div className="@container/snippet_preview w-full flex flex-col justify-center items-center px-8 py-6">
-      {data && (
-        <SnippetListItem
-          preview
-          idx={0}
-          item={{
-            ...data,
-          }}
-        />
-      )}
-    </div>
-  );
+    return (
+        <div className="@container/snippet_preview w-full flex flex-col justify-center items-center px-8 py-6">
+            {data && (
+                <SnippetListItem
+                    preview
+                    idx={0}
+                    item={{
+                        snippet: data,
+                        tags: data.tags.map((t) => {
+                            return {
+                                snippet_id: data.id,
+                                tag_value: t,
+                            };
+                        }),
+                    }}
+                />
+            )}
+        </div>
+    );
 };
 
 SnippetPreview.displayName = "SnippetPreview";

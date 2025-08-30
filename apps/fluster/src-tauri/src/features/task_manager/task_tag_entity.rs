@@ -68,6 +68,7 @@ impl TaskTagEntity {
         }
         Ok(items)
     }
+
     pub async fn get_by_task_ids(db: &FlusterDb<'_>, ids: Vec<String>) -> FlusterResult<Vec<T>> {
         if ids.is_empty() {
             return Ok(Vec::new());
@@ -171,7 +172,6 @@ impl TaskTagEntity {
             .map(|x| format!("\"{}\"", x))
             .collect::<Vec<String>>()
             .join(", ");
-        // FIXME: This needs to specify the other property as well!
         TaskTagEntity::delete(
             db,
             format!(

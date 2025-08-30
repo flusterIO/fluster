@@ -10,7 +10,7 @@ export const snippetSchema = z.object({
     tags: z.string().array(),
     ctime: z.string(),
     utime: z.string(),
-    id: z.string().uuid().nullable(),
+    id: z.string(),
 });
 
 export type SnippetSchema = z.infer<typeof snippetSchema>;

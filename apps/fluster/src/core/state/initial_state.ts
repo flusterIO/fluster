@@ -14,6 +14,8 @@ import { initialPanelRightState } from "#/panel_right/state/initial_state";
 import { PanelRightState } from "#/panel_right/state/panel_right_state";
 import { initialPlotState } from "#/plot/state/initial_state";
 import { PlotState } from "#/plot/state/plot_state";
+import { initialSearchState } from "#/search/state/initial_search_state";
+import { SearchState } from "#/search/state/search_state";
 import { CoreSettings } from "#/settings/state/core_settings";
 import { initialCoreSettings } from "#/settings/state/initial_core_settings";
 import {
@@ -32,6 +34,7 @@ export interface AppState {
     core: CoreSettings;
     ai: AiState;
     plot: PlotState;
+    search: SearchState;
 }
 
 export const initialAppState: AppState = {
@@ -45,4 +48,5 @@ export const initialAppState: AppState = {
     core: initialCoreSettings,
     ai: initialAiState,
     plot: initialPlotState,
+    search: initialSearchState,
 };

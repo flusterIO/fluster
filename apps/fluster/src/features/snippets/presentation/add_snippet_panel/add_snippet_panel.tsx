@@ -49,7 +49,7 @@ const AddSnippetPanel = connector(
                 tags: [],
                 ctime: now,
                 utime: now,
-                id: null,
+                id: "",
             },
         });
         form.watch((data) => {
@@ -111,7 +111,7 @@ const AddSnippetPanel = connector(
             data: z.infer<typeof snippetSchema>
         ): Promise<void> => {
             const snippetModel: SnippetModel = {
-                id: data.id,
+                id: data.id === "" ? await commands.getUniqueId() : data.id,
                 label: data.label,
                 body: data.body,
                 desc: data.desc,
@@ -120,7 +120,15 @@ const AddSnippetPanel = connector(
                 utime: data.utime,
             };
             console.log("snippetModel: ", snippetModel);
-            const res = await commands.saveSnippets([snippetModel], [data.tags]);
+            const res = await commands.saveSnippet({
+                snippet: snippetModel,
+                tags: data.tags.map((t) => {
+                    return {
+                        snippet_id: snippetModel.id,
+                        tag_value: t,
+                    };
+                }),
+            });
             console.log("res: ", res);
             if (res.status === "ok") {
                 form.reset();

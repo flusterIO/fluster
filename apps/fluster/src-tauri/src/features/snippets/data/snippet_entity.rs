@@ -8,14 +8,16 @@ use std::{ops::Index, sync::Arc};
 
 use crate::{
     core::{
-        database::tables::table_paths::DatabaseTables,
+        database::{db::get_table, tables::table_paths::DatabaseTables},
         types::{
             errors::errors::{FlusterError, FlusterResult},
             traits::db_entity::DbEntity,
             FlusterDb,
         },
     },
-    features::snippets::get_snippet_params::GetSnippetsParams,
+    features::snippets::{
+        data::snippet_tag_entity::SnippetTagEntity, get_snippet_params::GetSnippetsParams,
+    },
 };
 
 use super::snippet_model::SnippetModel;
@@ -35,6 +37,51 @@ impl SnippetEntity {
             .map_err(|_| FlusterError::FailToDelete)?;
         Ok(())
     }
+
+    pub async fn get_by_ids(
+        db: &FlusterDb<'_>,
+        ids: Vec<String>,
+    ) -> FlusterResult<Vec<SnippetModel>> {
+        if ids.is_empty() {
+            return Ok(Vec::new());
+        }
+        let tbl = get_table(db, DatabaseTables::Snippet).await?;
+        let ids_string = ids
+            .iter()
+            .map(|x| format!("\"{}\"", x))
+            .collect::<Vec<String>>()
+            .join(", ");
+        let items_batch = tbl
+            .query()
+            .only_if(format!("id in ({})", ids_string))
+            .execute()
+            .await
+            .map_err(|e| {
+                println!("Error in SnippetTagEntity.get_by_ids: {:?}", e);
+                FlusterError::FailToConnect
+            })?
+            .try_collect::<Vec<_>>()
+            .await
+            .map_err(|e| {
+                println!("Error in SnippetTagEntity.get_by_ids: {:?}", e);
+                FlusterError::FailToFind
+            })?;
+        // let batches = &items_batch;
+        if items_batch.is_empty() {
+            return Ok(Vec::new());
+        }
+        let mut items: Vec<SnippetModel> = Vec::new();
+
+        for batch in items_batch.iter() {
+            let data: Vec<SnippetModel> = from_record_batch(batch).map_err(|e| {
+                println!("Error in SnippetTagEntity.get_by_ids: {:?}", e);
+                FlusterError::FailToSerialize
+            })?;
+            items.extend(data);
+        }
+        Ok(items)
+    }
+
     pub async fn get_by_id(id: String, conn: FlusterDb<'_>) -> FlusterResult<SnippetModel> {
         let tbl = conn
             .open_table(DatabaseTables::Snippet.to_string())
@@ -72,11 +119,7 @@ impl SnippetEntity {
             _ => Err(FlusterError::DuplicateId),
         }
     }
-    pub async fn save_many(
-        &self,
-        items: Vec<SnippetModel>,
-        db: FlusterDb<'_>,
-    ) -> FlusterResult<()> {
+    pub async fn save_many(items: Vec<SnippetModel>, db: &FlusterDb<'_>) -> FlusterResult<()> {
         let schema = SnippetEntity::arrow_schema(None);
         let tbl = db
             .open_table(DatabaseTables::Snippet.to_string())
@@ -103,7 +146,7 @@ impl SnippetEntity {
     }
 
     async fn get_many_with_langs(
-        db: FlusterDb<'_>,
+        db: &FlusterDb<'_>,
         langs: Vec<String>,
     ) -> FlusterResult<Vec<SnippetModel>> {
         let tbl = db
@@ -148,7 +191,7 @@ impl SnippetEntity {
         Ok(items)
     }
 
-    async fn get_many_no_langs(db: FlusterDb<'_>) -> FlusterResult<Vec<SnippetModel>> {
+    async fn get_many_no_langs(db: &FlusterDb<'_>) -> FlusterResult<Vec<SnippetModel>> {
         let tbl = db
             .open_table(DatabaseTables::Snippet.to_string())
             .execute()
@@ -182,7 +225,7 @@ impl SnippetEntity {
     }
 
     pub async fn get_many(
-        db: FlusterDb<'_>,
+        db: &FlusterDb<'_>,
         opts: GetSnippetsParams,
     ) -> FlusterResult<Vec<SnippetModel>> {
         if opts.langs.is_some() {
@@ -217,15 +260,11 @@ impl DbEntity<SnippetModel> for SnippetEntity {
     fn to_record_batch(item: &SnippetModel, schema: Arc<Schema>) -> RecordBatch {
         let ctime_value: i64 = item.ctime.parse().unwrap();
         let utime_value: i64 = item.utime.parse().unwrap();
-        println!("ctime: {ctime_value}");
         // TimestampSecondArray
         let ctime = TimestampMillisecondArray::from(vec![ctime_value]);
         let utime = TimestampMillisecondArray::from(vec![utime_value]);
         let body = arrow_array::StringArray::from(vec![item.body.clone()]);
-        let id = arrow_array::StringArray::from(vec![item
-            .id
-            .clone()
-            .or(Some(uuid::Uuid::new_v4().to_string()))]);
+        let id = arrow_array::StringArray::from(vec![item.id.clone()]);
         let desc = arrow_array::StringArray::from(vec![item.desc.clone()]);
         let label = arrow_array::StringArray::from(vec![item.label.clone()]);
         let lang = arrow_array::StringArray::from(vec![item.lang.clone()]);

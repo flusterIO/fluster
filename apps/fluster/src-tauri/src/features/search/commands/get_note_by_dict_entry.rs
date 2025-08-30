@@ -41,5 +41,6 @@ pub async fn get_note_by_dict_entry_label(
         notes,
         tasks: Vec::new(),
         equations: Vec::new(),
+        snippets: Vec::new(),
     })
 }

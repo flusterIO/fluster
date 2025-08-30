@@ -202,7 +202,7 @@ impl MdxNoteLinkEntity {
         let filtered_items: Vec<&T> = items
             .iter()
             .filter(|x| {
-                all_note_tags.iter().any(|y| {
+                !all_note_tags.iter().any(|y| {
                     (x.mdx_note_file_path_from == y.mdx_note_file_path_from)
                         && (x.mdx_user_provided_id_to == y.mdx_user_provided_id_to)
                 })

@@ -35,5 +35,6 @@ pub async fn get_notes_by_equation_id(
         notes,
         tasks: Vec::new(),
         equations: Vec::new(),
+        snippets: Vec::new(),
     })
 }

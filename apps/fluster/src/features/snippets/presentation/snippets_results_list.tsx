@@ -1,4 +1,4 @@
-import { commands, SnippetModel } from "@/lib/bindings";
+import { commands, SnippetData, SnippetModel } from "@/lib/bindings";
 import React, { useEffect, useState, type ReactNode } from "react";
 import SnippetListItem from "./snippet_item/main";
 import NoSnippetsFound from "./no_snippets_found";
@@ -31,7 +31,7 @@ const SnippetsResultsList = connector(
         const [searchParams] = useSearchParams();
 
         const editingId = searchParams.get("editing");
-        const [results, setResults] = useState<SnippetModel[] | "loading">(
+        const [results, setResults] = useState<SnippetData[] | "loading">(
             "loading"
         );
         const getNewSnippetData = async (langs: string[]): Promise<void> => {
@@ -82,14 +82,7 @@ const SnippetsResultsList = connector(
                     </div>
                 ) : results.length ? (
                     results.map((l, i) => (
-                        <SnippetListItem
-                            idx={i}
-                            key={`snippet-${l.label}`}
-                            item={{
-                                ...l,
-                                tags: [],
-                            }}
-                        />
+                        <SnippetListItem idx={i} key={`snippet-${l.snippet.id}`} item={l} />
                     ))
                 ) : (
                     <NoSnippetsFound />
