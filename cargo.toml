@@ -36,7 +36,7 @@ opt-level = 1
 lto = true
 strip = true
 opt-level = 3
-panic = 'abort'
+# panic = 'abort'
 codegen-units = 1
 
 # [patch.crates-io]

@@ -17,8 +17,6 @@ use crate::core::utils::initialize::initialize_desktop::initialize_desktop;
 use crate::core::utils::random_utils::get_unique_id;
 use crate::core::utils::search::get_text_similarity::get_text_similarity;
 use crate::features::ai::commands::add_chat_request::add_ai_chat_request;
-use crate::features::ai::commands::begin_embedding_model_download::begin_embedding_model_download;
-use crate::features::ai::commands::begin_language_model_download::begin_language_model_download;
 use crate::features::ai::commands::create_ai_chat::create_new_ai_chat;
 use crate::features::ai::commands::delete_chat_by_id::delete_chat_by_id;
 use crate::features::ai::commands::get_ai_chat_by_id::get_ai_chat_by_id;
@@ -221,8 +219,6 @@ pub fn run() {
             get_all_ai_chats,
             delete_chat_by_id,
             add_ai_chat_request,
-            begin_embedding_model_download,
-            begin_language_model_download,
             get_local_ollama_models,
             get_ollama_model_info,
             ollama_model_exists_locally,
