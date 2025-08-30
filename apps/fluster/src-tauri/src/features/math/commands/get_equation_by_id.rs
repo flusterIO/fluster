@@ -1,7 +1,6 @@
 use crate::{
     core::{
-        database::db::get_database,
-        models::taggable::{shared_taggable_model::SharedTaggableModel, tag_entity::TagEntity},
+        database::db::get_database, models::taggable::tag_entity::TagEntity,
         types::errors::errors::FlusterResult,
     },
     features::math::data::{
@@ -10,7 +9,6 @@ use crate::{
         equation_tag_entity::EquationTagEntity,
     },
 };
-use serde::{Deserialize, Serialize};
 
 #[tauri::command]
 #[specta::specta]

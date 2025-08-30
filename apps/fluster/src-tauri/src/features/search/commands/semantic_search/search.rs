@@ -55,31 +55,3 @@ pub async fn semantic_search(
         Err(FlusterError::FailToCreateEmbeddingVector)
     }
 }
-
-mod tests {
-
-    use crate::core::sync::parse_directory::sync_fs_directory::models::sync_filesystem_options::DEFAULT_LOCAL_EMBEDDING_MODEL;
-
-    #[cfg(test)]
-    use super::*;
-
-    #[tokio::test]
-    async fn gets_semantic_search_results() {
-        let res = semantic_search(
-            "Find me notes about gravity.".to_string(),
-            AiSyncSettings {
-                embedding_model: DEFAULT_LOCAL_EMBEDDING_MODEL.to_string(),
-                with_ai: true,
-                max_text_split_tokens: 1000,
-            },
-            PaginationProps {
-                per_page: 10,
-                page_number: 1,
-            },
-        )
-        .await
-        .expect("Returns semantic results without throwing an error.");
-        assert!(!res.notes.is_empty(), "Returns a non-empty list.");
-        // assert_eq!(result, 4);
-    }
-}

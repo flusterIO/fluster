@@ -1,10 +1,7 @@
 use serde::{Deserialize, Serialize};
 use specta::Type;
 
-use crate::{
-    core::models::taggable::shared_taggable_model::SharedTaggableModel,
-    features::math::data::equation_tag_model::EquationTagModel,
-};
+use crate::core::models::taggable::shared_taggable_model::SharedTaggableModel;
 
 #[derive(Serialize, Deserialize, Type, Clone, Debug)]
 pub struct EquationModel {

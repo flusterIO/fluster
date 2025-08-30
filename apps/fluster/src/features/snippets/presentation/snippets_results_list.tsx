@@ -1,4 +1,4 @@
-import { commands, SnippetData, SnippetModel } from "@/lib/bindings";
+import { commands, SnippetData } from "@/lib/bindings";
 import React, { useEffect, useState, type ReactNode } from "react";
 import SnippetListItem from "./snippet_item/main";
 import NoSnippetsFound from "./no_snippets_found";

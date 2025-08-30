@@ -15,9 +15,7 @@ use crate::{
             FlusterDb,
         },
     },
-    features::snippets::{
-        data::snippet_tag_entity::SnippetTagEntity, get_snippet_params::GetSnippetsParams,
-    },
+    features::snippets::get_snippet_params::GetSnippetsParams,
 };
 
 use super::snippet_model::SnippetModel;

@@ -1,10 +1,8 @@
 use chrono::Utc;
 use futures::StreamExt;
 use ollama_rs::{
-    coordinator::Coordinator,
-    generation::{
-        chat::{request::ChatMessageRequest, ChatMessage, ChatMessageResponseStream, MessageRole},
-        tools::implementations::{Calculator, DDGSearcher, Scraper},
+    generation::chat::{
+        request::ChatMessageRequest, ChatMessage, ChatMessageResponseStream, MessageRole,
     },
     Ollama,
 };

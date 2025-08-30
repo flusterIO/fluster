@@ -1,4 +1,4 @@
-import { Badge, cn, H3 } from "@fluster.io/dev";
+import { cn, H3 } from "@fluster.io/dev";
 import React, { type ReactNode } from "react";
 import { useSearchParams } from "react-router";
 import { motion } from "motion/react";
