@@ -3,7 +3,6 @@ import {
     useOnboardingStateContext,
     useOnboardingStateDispatch,
 } from "#/onboarding/state/onboarding_context";
-import { commands } from "@/lib/bindings";
 import { buttonVariants, H1 } from "@fluster.io/dev";
 import { Button } from "@fluster.io/dev";
 import { openUrl } from "@tauri-apps/plugin-opener";
@@ -15,8 +14,6 @@ export const OnboardingNotifyOfModelsDownloading = (): ReactNode => {
     const dispatch = useOnboardingStateDispatch();
     const nav = useNavigate();
     const handleClick = (): void => {
-        commands.beginLanguageModelDownload();
-        commands.beginEmbeddingModelDownload();
         incrementOnboardingPageIndex(state.pageIndex, dispatch, nav);
     };
 
