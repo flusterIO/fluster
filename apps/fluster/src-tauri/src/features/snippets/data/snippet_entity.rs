@@ -82,7 +82,7 @@ impl SnippetEntity {
         Ok(items)
     }
 
-    pub async fn get_by_id(id: String, conn: FlusterDb<'_>) -> FlusterResult<SnippetModel> {
+    pub async fn get_by_id(id: String, conn: &FlusterDb<'_>) -> FlusterResult<SnippetModel> {
         let tbl = conn
             .open_table(DatabaseTables::Snippet.to_string())
             .execute()

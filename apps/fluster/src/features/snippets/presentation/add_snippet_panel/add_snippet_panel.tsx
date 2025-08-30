@@ -24,6 +24,7 @@ import { commands, SnippetModel } from "@/lib/bindings";
 import { snippetSchema } from "#/snippets/data/snippet_schema";
 import { useSnippetContext } from "#/snippets/state/snippet_context";
 import { reloadSnippetList } from "#/snippets/data/events/reload_snippet_list";
+import { group } from "console";
 
 const connector = connect((state: AppState) => ({
     panelOpen: state.panelLeft.open,
@@ -151,6 +152,13 @@ const AddSnippetPanel = connector(
             form.reset();
             /* requestSnippetListRefresh(); */
         };
+
+        useEffect(() => {
+            if (!panelOpen && editingIdState) {
+                exitEditingMode();
+            }
+            /* eslint-disable-next-line  --  */
+        }, [panelOpen, editingIdState]);
 
         return (
             <SidePanelContainer className="px-4" label="Add a snippet">

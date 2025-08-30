@@ -28,6 +28,7 @@ interface SnippetItemComponentProps {
     preview?: boolean;
     hideEditButton?: boolean;
     hideDeleteButton?: boolean;
+    noAnimate?: boolean;
 }
 
 const SnippetListItem = connector(
@@ -38,6 +39,7 @@ const SnippetListItem = connector(
         preview,
         hideEditButton,
         hideDeleteButton,
+        noAnimate,
     }: SnippetItemComponentProps): ReactNode => {
         const confirmationId = `delete-snippet-${item.snippet.id}`;
         const darkMode = useDarkMode();
@@ -92,8 +94,8 @@ const SnippetListItem = connector(
 
         return (
             <motion.div
-                className="w-[min(90%,1080px)] h-fit px-6 pb-6 pt-4 border rounded @container/snippet_item"
-                initial="initial"
+                className="w-[min(90%,1080px)] h-fit px-6 pb-6 pt-4 border rounded @container/snippet_item bg-card text-card-foreground"
+                initial={noAnimate ? "show" : "initial"}
                 animate="show"
                 transition={{
                     delay: idx * 0.1,

@@ -9,12 +9,17 @@ interface SnippetSearchResultsProps {
 export const SnippetSearchResults = ({
     snippets,
 }: SnippetSearchResultsProps): ReactNode => {
-    console.log("snippets: ", snippets);
     return (
         <div className="w-full h-fit flex flex-col justify-start items-center gap-4">
             {snippets.map((s, i) => {
                 return (
-                    <SnippetListItem hideDeleteButton hideEditButton item={s} idx={i} />
+                    <SnippetListItem
+                        noAnimate
+                        hideDeleteButton
+                        hideEditButton
+                        item={s}
+                        idx={i}
+                    />
                 );
             })}
         </div>
