@@ -26,10 +26,19 @@ interface SnippetItemComponentProps {
     idx: number;
     themes: AppState["code"]["theme"];
     preview?: boolean;
+    hideEditButton?: boolean;
+    hideDeleteButton?: boolean;
 }
 
 const SnippetListItem = connector(
-    ({ item, idx, themes, preview }: SnippetItemComponentProps): ReactNode => {
+    ({
+        item,
+        idx,
+        themes,
+        preview,
+        hideEditButton,
+        hideDeleteButton,
+    }: SnippetItemComponentProps): ReactNode => {
         const confirmationId = `delete-snippet-${item.snippet.id}`;
         const darkMode = useDarkMode();
         const handleDelete = async (): Promise<void> => {
@@ -125,28 +134,32 @@ const SnippetListItem = connector(
                     themes={themes}
                 />
                 <div className="w-full flex flex-col justify-between items-center gap-4 @[300px]/snippet_item:gap-6 @[300px]/snippet_item:flex-row mt-4">
-                    <Button
-                        className="w-full @[300px]/snippet_item:w-fit"
-                        variant={"destructive"}
-                        onClick={handleDeleteClick}
-                        disabled={preview}
-                    >
-                        Delete
-                    </Button>
-                    <div className="flex flex-col justify-end items-center gap-4 w-full @[300px]/snippet_item:flex-row">
-                        <NavLink
-                            className={cn(
-                                "w-full @[300px]/snippet_item:w-fit",
-                                buttonVariants({
-                                    variant: "outline",
-                                }),
-                                preview && "hidden"
-                            )}
-                            onClick={preview ? undefined : handleEditClick}
-                            to={`${AppRoutes.snippets}?editing=${item.id}`}
+                    {!hideDeleteButton && (
+                        <Button
+                            className="w-full @[300px]/snippet_item:w-fit"
+                            variant={"destructive"}
+                            onClick={handleDeleteClick}
+                            disabled={preview}
                         >
-                            Edit
-                        </NavLink>
+                            Delete
+                        </Button>
+                    )}
+                    <div className="flex flex-col justify-end items-center gap-4 w-full @[300px]/snippet_item:flex-row">
+                        {!hideEditButton && (
+                            <NavLink
+                                className={cn(
+                                    "w-full @[300px]/snippet_item:w-fit",
+                                    buttonVariants({
+                                        variant: "outline",
+                                    }),
+                                    preview && "hidden"
+                                )}
+                                onClick={preview ? undefined : handleEditClick}
+                                to={`${AppRoutes.snippets}?editing=${item.snippet.id}`}
+                            >
+                                Edit
+                            </NavLink>
+                        )}
                         <Button
                             className="w-full @[300px]/snippet_item:w-fit"
                             onClick={() => handleCopyClick()}

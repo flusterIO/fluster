@@ -10,6 +10,7 @@ import { SnippetSearchResults } from "../search_result_items/snippet_search_resu
 
 const SearchResultsPage = (): ReactNode => {
     const results = useSearchResults();
+    console.log("results: ", results);
     if (results === null) {
         return (
             <div className="w-full h-full flex flex-col justify-center items-center">

@@ -95,7 +95,7 @@ pub async fn get_tag_search_results(
         });
     }
 
-    let snippet_tags = SnippetTagEntity::get_by_snippet_ids(&db, tag_values).await?;
+    let snippet_tags = SnippetTagEntity::get_by_values(&db, tag_values).await?;
 
     let snippets = SnippetEntity::get_by_ids(
         &db,
