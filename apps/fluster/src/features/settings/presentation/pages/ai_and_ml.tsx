@@ -1,17 +1,25 @@
 import React, { type ReactNode } from "react";
 import { z } from "zod";
 import { SettingPageContainer } from "../components/setting_page_container";
-import { Form, Hint } from "@fluster.io/dev";
+import { Form, GeneralSlider, Hint } from "@fluster.io/dev";
 import { SettingPageTitle } from "../components/setting_page_title";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { AppState } from "@/state/initial_state";
 import { connect, useDispatch } from "react-redux";
 import { LocalModelTable } from "#/ai/presentation/local_model_table";
-import { setDefaultLanguageModel, setEmbeddingModel } from "#/ai/state/slice";
+import {
+    setAiDefaultProperties,
+    setDefaultLanguageModel,
+    setEmbeddingModel,
+} from "#/ai/state/slice";
 
 const schema = z.object({
     defaultLanguageModel: z.string(),
+    defaultTemperature: z.number(),
+    defaultTopP: z.number(),
+    defaultTopK: z.number(),
+    defaultRepeatPenalty: z.number(),
 });
 
 const connector = connect((state: AppState) => ({
@@ -20,7 +28,14 @@ const connector = connect((state: AppState) => ({
 
 export const AiAndMLSettingsPage = connector(
     ({
-        ai: { defaultLanguageModel, embeddingModel },
+        ai: {
+            defaultLanguageModel,
+            embeddingModel,
+            defaultRepeatPenalty,
+            defaultTopK,
+            defaultTopP,
+            defaultTemperature,
+        },
     }: {
         ai: AppState["ai"];
     }): ReactNode => {
@@ -28,7 +43,11 @@ export const AiAndMLSettingsPage = connector(
         const form = useForm({
             resolver: zodResolver(schema),
             defaultValues: {
-                defaultLanguageModel: defaultLanguageModel,
+                defaultLanguageModel,
+                defaultTemperature,
+                defaultTopP,
+                defaultTopK,
+                defaultRepeatPenalty,
             },
         });
 
@@ -42,6 +61,10 @@ export const AiAndMLSettingsPage = connector(
         ): Promise<void> => {
             dispatch(setEmbeddingModel(embeddingModelName));
         };
+
+        form.watch((formState) => {
+            dispatch(setAiDefaultProperties(formState));
+        });
         return (
             <Form {...form}>
                 <SettingPageContainer>
@@ -76,6 +99,47 @@ export const AiAndMLSettingsPage = connector(
                         activeModelName={embeddingModel}
                         setOnClick={handleEmeddingModelRowClick}
                         perPage={5}
+                    />
+                    <div className="text-xl font-semibold">Default Chat Settings</div>
+                    <p className="text-sm text-muted-foreground !mt-2">
+                        Along with the default models above, these settings will be applied
+                        as the default settings for newly created AI chats.
+                    </p>
+                    <GeneralSlider
+                        form={form}
+                        name="defaultTopP"
+                        label="Top P"
+                        desc="Works together with top-k. A higher value (e.g., 0.95) will lead to more diverse text, while a lower value (e.g., 0.5) will generate more focused and conservative text."
+                        showValue
+                        sliderProps={{
+                            max: 2,
+                            min: 0,
+                            step: 0.05,
+                        }}
+                    />
+                    <GeneralSlider
+                        form={form}
+                        name="defaultTopK"
+                        label="Top K"
+                        desc="Reduces the probability of generating nonsense. A higher value (e.g. 100) will give more diverse answers, while a lower value (e.g. 10) will be more conservative."
+                        showValue
+                        sliderProps={{
+                            max: 200,
+                            min: 1,
+                            step: 1,
+                        }}
+                    />
+                    <GeneralSlider
+                        form={form}
+                        name="defaultRepeatPenalty"
+                        label="Repeat Penalty"
+                        desc="Sets how strongly to penalize repetitions. A higher value (e.g., 1.5) will penalize repetitions more strongly, while a lower value (e.g., 0.9) will be more lenient."
+                        showValue
+                        sliderProps={{
+                            max: 10,
+                            min: 0,
+                            step: 0.1,
+                        }}
                     />
                 </SettingPageContainer>
             </Form>
