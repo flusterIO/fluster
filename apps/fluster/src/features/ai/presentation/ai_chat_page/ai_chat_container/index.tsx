@@ -62,14 +62,6 @@ export const AiChatContainer = (): ReactNode => {
                 type: "appendUserMessage",
                 payload: newChatRequest,
             });
-            const streamChannel = new Channel<AiChatMessageUpdateEventProps>();
-            streamChannel.onmessage = (streamData) => {
-                window.dispatchEvent(
-                    new CustomEvent("ai-chat-message-stream", {
-                        detail: streamData,
-                    })
-                );
-            };
             const chatData = await commands.getAiChatById(chatId);
             if (!chatData) {
                 return showToast({
@@ -89,13 +81,12 @@ export const AiChatContainer = (): ReactNode => {
                             : aiSyncSettings.language_model,
                 },
                 newChatRequest,
-                context.data?.messages ?? [],
-                streamChannel
+                context.data?.messages ?? []
             );
             if (res.status === "ok") {
                 dispatch({
                     type: "chatRequestSuccess",
-                    payload: null,
+                    payload: res.data,
                 });
                 window.dispatchEvent(
                     new CustomEvent("request-chat-update", {

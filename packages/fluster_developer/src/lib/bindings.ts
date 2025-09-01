@@ -615,9 +615,9 @@ async deleteChatById(chatId: string) : Promise<Result<null, FlusterError>> {
  * Until dates can be parsed on the rust side, the history must be passed in already sorted by
  * date.
  */
-async addAiChatRequest(chatId: string, ai: AiSyncSettings, chatInput: AiChatMessageModel, chatHistory: AiChatMessageModel[], streamChannel: TAURI_CHANNEL<AiChatMessageUpdateEventProps>) : Promise<Result<null, FlusterError>> {
+async addAiChatRequest(chatId: string, ai: AiSyncSettings, chatInput: AiChatMessageModel, chatHistory: AiChatMessageModel[]) : Promise<Result<AiChatMessageModel, FlusterError>> {
     try {
-    return { status: "ok", data: await TAURI_INVOKE("add_ai_chat_request", { chatId, ai, chatInput, chatHistory, streamChannel }) };
+    return { status: "ok", data: await TAURI_INVOKE("add_ai_chat_request", { chatId, ai, chatInput, chatHistory }) };
 } catch (e) {
     if(e instanceof Error) throw e;
     else return { status: "error", error: e  as any };

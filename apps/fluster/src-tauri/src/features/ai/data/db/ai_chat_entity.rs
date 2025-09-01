@@ -2,7 +2,7 @@ use std::{ops::Index, sync::Arc};
 
 use arrow_array::{
     Float32Array, Int32Array, RecordBatch, RecordBatchIterator, StringArray,
-    TimestampMillisecondArray,
+    TimestampMillisecondArray, UInt32Array,
 };
 use arrow_schema::{ArrowError, DataType, Field, Schema};
 use futures::TryStreamExt;
@@ -131,7 +131,7 @@ impl DbEntity<AiChatModel> for AiChatEntity {
             Field::new("model", DataType::Utf8, false),
             Field::new("temperature", DataType::Float32, false),
             Field::new("repeat_penalty", DataType::Float32, false),
-            Field::new("top_k", DataType::Int32, false),
+            Field::new("top_k", DataType::UInt32, false),
             Field::new("top_p", DataType::Float32, false),
             Field::new(
                 "ctime",
@@ -148,9 +148,9 @@ impl DbEntity<AiChatModel> for AiChatEntity {
         let id = StringArray::from(vec![item.id.clone()]);
         let label = StringArray::from(vec![item.label.clone()]);
         let model = StringArray::from(vec![item.model.clone()]);
-        let temperature = Float32Array::from(vec![item.temperature.clone()]);
-        let repeat_penalty = Float32Array::from(vec![item.repeat_penalty.clone()]);
-        let top_k = Int32Array::from(vec![item.top_k.clone()]);
+        let temperature = Float32Array::from(vec![item.temperature]);
+        let repeat_penalty = Float32Array::from(vec![item.repeat_penalty]);
+        let top_k = UInt32Array::from(vec![item.top_k.clone()]);
         let top_p = Float32Array::from(vec![item.top_p.clone()]);
         let ctime_value: i64 = item.ctime.parse().unwrap();
         let ctime = TimestampMillisecondArray::from(vec![ctime_value]);

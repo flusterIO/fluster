@@ -1,9 +1,12 @@
 use chrono::Utc;
 use futures::StreamExt;
 use ollama_rs::{
-    generation::chat::{
-        request::ChatMessageRequest, ChatMessage, ChatMessageResponseStream, MessageRole,
+    coordinator::Coordinator,
+    generation::{
+        chat::{request::ChatMessageRequest, ChatMessage, ChatMessageResponseStream, MessageRole},
+        tools::implementations::{Calculator, DDGSearcher, Scraper},
     },
+    models::ModelOptions,
     Ollama,
 };
 use std::sync::{Arc, Mutex};
@@ -19,6 +22,7 @@ use crate::{
     },
     features::ai::data::{
         db::{
+            ai_chat_entity::AiChatEntity,
             ai_chat_message_entity::AiChatMessageEntity,
             ai_chat_message_model::{AiChatMessageModel, AiChatMessageRole},
         },
@@ -35,8 +39,7 @@ pub async fn add_ai_chat_request(
     ai: AiSyncSettings,
     chat_input: AiChatMessageModel,
     chat_history: Vec<AiChatMessageModel>,
-    stream_channel: Channel<AiChatMessageUpdateEventProps>,
-) -> FlusterResult<()> {
+) -> FlusterResult<AiChatMessageModel> {
     // -- Get database & Ollama --
     let db_res = get_database().await;
     let db = db_res.lock().await;
@@ -45,7 +48,7 @@ pub async fn add_ai_chat_request(
     // -- Convert history from lancedb to ollama --
 
     let system_prompt = get_embedded_system_prompt(EmbeddedSystemPromptId::DefaultSystemPrompt);
-    let mut _history: Vec<ChatMessage> = vec![ChatMessage::new(MessageRole::System, system_prompt)];
+    let mut history: Vec<ChatMessage> = vec![ChatMessage::new(MessageRole::System, system_prompt)];
 
     for history_item in chat_history {
         let role = match history_item.role {
@@ -54,56 +57,42 @@ pub async fn add_ai_chat_request(
             AiChatMessageRole::System => MessageRole::System,
             AiChatMessageRole::Tool => MessageRole::Tool,
         };
-        _history.push(ChatMessage::new(role, history_item.body));
+        history.push(ChatMessage::new(role, history_item.body));
     }
 
-    let history: Arc<Mutex<Vec<ChatMessage>>> = Arc::new(Mutex::new(_history));
+    // -- Setup Model Options --
+    let chat_data = AiChatEntity::get_by_id(&db, &chat_id).await?;
+    let model_options = ModelOptions::default()
+        .repeat_penalty(chat_data.repeat_penalty)
+        .top_k(chat_data.top_k)
+        .top_p(chat_data.top_p)
+        .temperature(chat_data.temperature);
     // TODO: Implement the chat with the coordinator here to enable tool calling.
-    // let mut coordinator = Coordinator::new(ollama, ai.language_model.clone(), history)
-    //     .add_tool(DDGSearcher::new())
-    //     .add_tool(Scraper {})
-    //     .add_tool(Calculator {});
+    let mut coordinator = Coordinator::new(ollama, ai.language_model.clone(), history)
+        .options(model_options)
+        .add_tool(DDGSearcher::new())
+        .add_tool(Scraper {})
+        .add_tool(Calculator {});
 
     // let sent_at = Utc::now().timestamp_millis().to_string();
 
     AiChatMessageEntity::save_chat_request(&db, chat_input.clone()).await?;
-    let mut stream: ChatMessageResponseStream = ollama
-        .send_chat_messages_with_history_stream(
-            history.clone(),
-            ChatMessageRequest::new(ai.language_model, vec![ChatMessage::user(chat_input.body)]),
-        )
+    let response = coordinator
+        .chat(vec![ChatMessage::user(chat_input.body)])
         .await
         .map_err(|e| {
-            println!("Error in set_chat_messages_with_history_stream: {:?}", e);
+            println!("Error: {:?}", e);
             FlusterError::FailToLoadModel
         })?;
 
-    let mut response = String::new();
-    while let Some(Ok(res)) = stream.next().await {
-        response += res.message.content.as_str();
-        let _ = stream_channel
-            .send(AiChatMessageUpdateEventProps {
-                chat_id: chat_id.clone(),
-                message_id: chat_input.id.clone(),
-                content: response.clone(),
-            })
-            .map_err(|e| {
-                println!("Error: {:?}", e);
-                FlusterError::FailToStreamFromRust
-            });
-    }
-
     let return_message_id = get_unique_id().await;
-    AiChatMessageEntity::save_chat_request(
-        &db,
-        AiChatMessageModel {
-            id: return_message_id,
-            chat_id: chat_id.clone(),
-            body: response,
-            role: AiChatMessageRole::Assistant,
-            sent_at: Utc::now().timestamp_millis().to_string(),
-        },
-    )
-    .await?;
-    Ok(())
+    let response_message = AiChatMessageModel {
+        id: return_message_id,
+        chat_id: chat_id.clone(),
+        body: response.message.content,
+        role: AiChatMessageRole::Assistant,
+        sent_at: Utc::now().timestamp_millis().to_string(),
+    };
+    AiChatMessageEntity::save_chat_request(&db, response_message.clone()).await?;
+    Ok(response_message)
 }

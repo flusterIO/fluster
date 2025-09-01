@@ -14,7 +14,7 @@ pub struct AiChatModel {
     pub model: String,
     pub temperature: f32,
     pub repeat_penalty: f32,
-    pub top_k: i32,
+    pub top_k: u32,
     pub top_p: f32,
     pub ctime: String,
 }
