@@ -71,6 +71,16 @@ export const AiChatContainer = (): ReactNode => {
                     duration: 5000,
                 });
             }
+
+            const streamChannel = new Channel<AiChatMessageUpdateEventProps>();
+            streamChannel.onmessage = (streamData) => {
+                console.log("streamData: ", streamData);
+                window.dispatchEvent(
+                    new CustomEvent("ai-chat-message-stream", {
+                        detail: streamData,
+                    })
+                );
+            };
             const res = await commands.addAiChatRequest(
                 chatId,
                 {
@@ -81,7 +91,8 @@ export const AiChatContainer = (): ReactNode => {
                             : aiSyncSettings.language_model,
                 },
                 newChatRequest,
-                context.data?.messages ?? []
+                context.data?.messages ?? [],
+                streamChannel
             );
             if (res.status === "ok") {
                 dispatch({
@@ -97,6 +108,10 @@ export const AiChatContainer = (): ReactNode => {
                 );
                 window.dispatchEvent(new CustomEvent("clear-ai-chat-input", {}));
             } else {
+                dispatch({
+                    type: "chatRequestFail",
+                    payload: null,
+                });
                 console.error("An error occurred while generating a response message.");
             }
         } else {

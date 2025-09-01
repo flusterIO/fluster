@@ -53,6 +53,10 @@ export type AiChatContextActions =
     | {
         type: "chatRequestSuccess";
         payload: AiChatMessageModel;
+    }
+    | {
+        type: "chatRequestFail";
+        payload: null;
     };
 
 export const AiChatDispatchContext = createContext<
@@ -138,6 +142,13 @@ export const AiChatContextReducer = (
                         messages: [...(state.data?.messages ?? []), action.payload],
                     }
                     : null,
+            };
+        }
+        case "chatRequestFail": {
+            return {
+                ...state,
+                loading: AiLoadingState.idle,
+                incomingStreamBody: null,
             };
         }
         default: {
