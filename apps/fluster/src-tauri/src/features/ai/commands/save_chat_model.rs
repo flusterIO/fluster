@@ -6,7 +6,7 @@ use crate::{
 /// Sets the language model for a specific chat session.
 #[tauri::command]
 #[specta::specta]
-pub async fn set_chat_model(chat_model: AiChatModel) -> FlusterResult<()> {
+pub async fn save_chat_model(chat_model: AiChatModel) -> FlusterResult<()> {
     let db_res = get_database().await;
     let db = db_res.lock().await;
     AiChatEntity::save_many(&db, vec![chat_model]).await?;

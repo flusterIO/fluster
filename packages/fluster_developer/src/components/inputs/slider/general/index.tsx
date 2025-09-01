@@ -1,6 +1,6 @@
 import React, { ComponentProps, type ReactNode } from "react";
 import { FormInputProps } from "../../types";
-import { FieldValues } from "react-hook-form";
+import { FieldValues, PathValue } from "react-hook-form";
 import {
     FormDescription,
     FormField,
@@ -53,9 +53,14 @@ export const GeneralSlider = <T extends FieldValues>({
                         value={
                             typeof field.value === "number" ? [field.value] : field.value
                         }
-                        onValueChange={(c) =>
-                            form.setValue(name, c as Parameters<typeof form.setValue>[1])
-                        }
+                        onValueChange={(c) => {
+                            const value = c;
+                            if (Array.isArray(value) && value.length === 1) {
+                                form.setValue(name, value[0] as PathValue<T, typeof name>);
+                            } else {
+                                form.setValue(name, value as PathValue<T, typeof name>);
+                            }
+                        }}
                     />
                     {desc?.length && (
                         <FormDescription className={classes.desc}>{desc}</FormDescription>

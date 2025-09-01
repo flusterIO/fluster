@@ -6,4 +6,4 @@ pub mod get_all_chats;
 pub mod get_local_ollama_models;
 pub mod get_ollama_model_info;
 pub mod ollama_model_exists_locally;
-pub mod set_chat_model;
+pub mod save_chat_model;

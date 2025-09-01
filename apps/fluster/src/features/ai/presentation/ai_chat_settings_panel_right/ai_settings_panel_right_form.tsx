@@ -2,13 +2,17 @@ import { AiChatModel, commands } from "@/lib/bindings";
 import { showToast, Form, GeneralSlider } from "@fluster.io/dev";
 import { zodResolver } from "@hookform/resolvers/zod";
 import dayjs from "dayjs";
-import React, { type ReactNode } from "react";
+import React, { useRef, type ReactNode } from "react";
 import { useForm } from "react-hook-form";
 import { useSearchParams } from "react-router";
 import { LocalModelSelectInput } from "./model_select_input";
 import { connect } from "react-redux";
 import { AppState } from "@/state/initial_state";
 import { z } from "zod";
+import {
+    DEFAULT_EMBEDDING_MODEL,
+    DEFAULT_LANGUAGE_MODEL,
+} from "#/ai/state/initial_ai_state";
 
 const connector = connect((state: AppState) => ({
     defaultLanguageModel: state.ai.defaultLanguageModel,
@@ -46,6 +50,7 @@ export const AiSettingsPanelRightForm = connector(
     }: AiSettingsPanelRightFormProps): ReactNode => {
         const [sp] = useSearchParams();
         const chatId = sp.get("chat_id");
+        const timer = useRef<NodeJS.Timeout | null>(null);
         const form = useForm({
             resolver: zodResolver(schema),
             defaultValues: {
@@ -57,39 +62,57 @@ export const AiSettingsPanelRightForm = connector(
             },
         });
 
+        const updateChat = async (
+            data: Partial<z.infer<typeof schema>>
+        ): Promise<void> => {
+            if (!chatId) {
+                return;
+            }
+            const chat = await commands.getAiChatById(chatId);
+            if (chat.status !== "ok") {
+                return showToast({
+                    title: "Error",
+                    body: "Fluster could not gather the necessary data to perform this action.",
+                    duration: 5000,
+                    variant: "Error",
+                });
+            }
+            const res = await commands.saveChatModel({
+                repeat_penalty: data.repeatPenalty ?? chat.data.chat.repeat_penalty,
+                top_k: data.topK ?? chat.data.chat.top_k,
+                top_p: data.topP ?? chat.data.chat.top_p,
+                temperature: data.temperature ?? chat.data.chat.temperature,
+                model: data.model ?? chat.data.chat.model,
+                id: chat.data.chat.id,
+                label: chat.data.chat.label,
+                ctime: dayjs(chat.data.chat.ctime, {
+                    utc: true,
+                })
+                    .toDate()
+                    .valueOf()
+                    .toString(),
+            } satisfies AiChatModel);
+            console.log("res: ", res);
+            if (res.status !== "ok") {
+                showToast({
+                    title: "Oh no",
+                    body: "Something went wrong while updating your prefered model.",
+                    duration: 5000,
+                    variant: "Error",
+                });
+            }
+        };
+
         form.watch(async (formState) => {
             if (!chatId) {
                 return;
             }
-            if (formState.model) {
-                const chat = await commands.getAiChatById(chatId);
-                if (chat.status !== "ok") {
-                    return showToast({
-                        title: "Error",
-                        body: "Fluster could not gather the necessary data to perform this action.",
-                        duration: 5000,
-                        variant: "Error",
-                    });
-                }
-                const res = await commands.setChatModel({
-                    ...chat.data.chat,
-                    model: formState.model,
-                    ctime: dayjs(chat.data.chat.ctime, {
-                        utc: true,
-                    })
-                        .toDate()
-                        .valueOf()
-                        .toString(),
-                } satisfies AiChatModel);
-                if (res.status !== "ok") {
-                    showToast({
-                        title: "Oh no",
-                        body: "Something went wrong while updating your prefered model.",
-                        duration: 5000,
-                        variant: "Error",
-                    });
-                }
+            if (timer.current) {
+                clearTimeout(timer.current);
             }
+            timer.current = setTimeout(() => {
+                updateChat(formState);
+            }, 500);
         });
 
         if (!chatId) {
