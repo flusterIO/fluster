@@ -15,6 +15,8 @@ pub async fn create_new_ai_chat(label: String, model: String) -> FlusterResult<(
         id: uuid::Uuid::new_v4().to_string(),
         ctime: Utc::now().timestamp_millis().to_string(),
         model,
+        ..AiChatModel::default()
     };
-    AiChatEntity::save_many(&db, vec![model]).await
+    let res = AiChatEntity::save_many(&db, vec![model]).await;
+    res
 }

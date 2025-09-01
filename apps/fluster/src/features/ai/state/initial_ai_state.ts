@@ -9,4 +9,8 @@ export const initialAiState: AiState = {
     defaultLanguageModel: DEFAULT_LANGUAGE_MODEL,
     embeddingModel: DEFAULT_EMBEDDING_MODEL,
     maxTextSplitTokens: 1000,
+    defaultTopK: 25,
+    defaultTopP: 0.25,
+    defaultRepeatPenalty: 1.5,
+    defaultTemperature: 0.2,
 };

@@ -15,4 +15,8 @@ export interface AiState {
     embeddingModel: string;
     defaultLanguageModel: string;
     maxTextSplitTokens: number;
+    defaultTemperature: number;
+    defaultTopK: number;
+    defaultTopP: number;
+    defaultRepeatPenalty: number;
 }

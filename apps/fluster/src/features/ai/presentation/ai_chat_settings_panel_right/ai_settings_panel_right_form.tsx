@@ -1,5 +1,5 @@
 import { AiChatModel, commands } from "@/lib/bindings";
-import { showToast, Form } from "@fluster.io/dev";
+import { showToast, Form, GeneralSlider } from "@fluster.io/dev";
 import { zodResolver } from "@hookform/resolvers/zod";
 import dayjs from "dayjs";
 import React, { type ReactNode } from "react";
@@ -12,36 +12,57 @@ import { z } from "zod";
 
 const connector = connect((state: AppState) => ({
     defaultLanguageModel: state.ai.defaultLanguageModel,
+    defaultTopK: state.ai.defaultTopK,
+    defaultTopP: state.ai.defaultTopP,
+    defaultRepeatPenalty: state.ai.defaultRepeatPenalty,
+    defaultTemperature: state.ai.defaultTemperature,
 }));
 
 const schema = z.object({
     model: z.string(),
+    temperature: z.number(),
+    topP: z.number(),
+    topK: z.number(),
+    repeatPenalty: z.number(),
 });
 
 interface AiSettingsPanelRightFormProps {
     model: AiChatModel;
     defaultLanguageModel: AppState["ai"]["defaultLanguageModel"];
+    defaultTopK: AppState["ai"]["defaultTopK"];
+    defaultTopP: AppState["ai"]["defaultTopP"];
+    defaultRepeatPenalty: AppState["ai"]["defaultRepeatPenalty"];
+    defaultTemperature: AppState["ai"]["defaultTemperature"];
 }
 
 export const AiSettingsPanelRightForm = connector(
     ({
         model,
         defaultLanguageModel,
+        defaultRepeatPenalty,
+        defaultTopP,
+        defaultTopK,
+        defaultTemperature,
     }: AiSettingsPanelRightFormProps): ReactNode => {
-        /* const isChatPage = useMatch(AppRoutes.aiMainChat); */
         const [sp] = useSearchParams();
         const chatId = sp.get("chat_id");
         const form = useForm({
             resolver: zodResolver(schema),
             defaultValues: {
                 model: model.model ?? defaultLanguageModel,
+                temperature: model.temperature ?? defaultTemperature ?? 0.2,
+                topP: model.top_p ?? defaultTopP ?? 0.25,
+                topK: model.top_k ?? defaultTopK ?? 25,
+                repeatPenalty: model.repeat_penalty ?? defaultRepeatPenalty ?? 1.5,
             },
         });
 
         form.watch(async (formState) => {
-            if (chatId && formState.model) {
+            if (!chatId) {
+                return;
+            }
+            if (formState.model) {
                 const chat = await commands.getAiChatById(chatId);
-                console.log("chat: ", chat);
                 if (chat.status !== "ok") {
                     return showToast({
                         title: "Error",
@@ -96,6 +117,42 @@ export const AiSettingsPanelRightForm = connector(
                         }}
                         ids={{
                             trigger: "model-select-input",
+                        }}
+                    />
+                    <GeneralSlider
+                        form={form}
+                        name="topP"
+                        label="Top P"
+                        desc="Works together with top-k. A higher value (e.g., 0.95) will lead to more diverse text, while a lower value (e.g., 0.5) will generate more focused and conservative text."
+                        showValue
+                        sliderProps={{
+                            max: 2,
+                            min: 0,
+                            step: 0.05,
+                        }}
+                    />
+                    <GeneralSlider
+                        form={form}
+                        name="topK"
+                        label="Top K"
+                        desc="Reduces the probability of generating nonsense. A higher value (e.g. 100) will give more diverse answers, while a lower value (e.g. 10) will be more conservative."
+                        showValue
+                        sliderProps={{
+                            max: 200,
+                            min: 1,
+                            step: 1,
+                        }}
+                    />
+                    <GeneralSlider
+                        form={form}
+                        name="repeatPenalty"
+                        label="Repeat Penalty"
+                        desc="Sets how strongly to penalize repetitions. A higher value (e.g., 1.5) will penalize repetitions more strongly, while a lower value (e.g., 0.9) will be more lenient."
+                        showValue
+                        sliderProps={{
+                            max: 10,
+                            min: 0,
+                            step: 0.1,
                         }}
                     />
                 </form>

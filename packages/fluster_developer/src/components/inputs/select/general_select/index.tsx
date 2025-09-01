@@ -12,7 +12,6 @@ import { FieldValues, PathValue } from "react-hook-form";
 import {
     Select,
     SelectContent,
-    SelectContentNoPortal,
     SelectItem,
     SelectTrigger,
     SelectValue,

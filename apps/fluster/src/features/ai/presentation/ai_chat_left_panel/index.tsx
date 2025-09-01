@@ -1,6 +1,12 @@
 import SidePanelContainer from "@/components/side_panel_container";
 import { AiChatModel, commands } from "@/lib/bindings";
-import { Form, TextInputGroup, Button, AppRoutes } from "@fluster.io/dev";
+import {
+    Form,
+    TextInputGroup,
+    Button,
+    AppRoutes,
+    showToast,
+} from "@fluster.io/dev";
 import { zodResolver } from "@hookform/resolvers/zod";
 import React, { useEffect, useState, type ReactNode } from "react";
 import { useForm } from "react-hook-form";
@@ -74,11 +80,20 @@ export const AiChatLeftPanel = connector(
         };
         const submitNewChat = async (): Promise<void> => {
             const value = form.getValues().inputValue;
+            console.log("value: ", value, isValidInput(value));
             if (isValidInput(value)) {
                 const res = await commands.createNewAiChat(value, defaultLanguageModel);
+                console.log("res: ", res);
                 if (res.status === "ok") {
                     form.setValue("inputValue", "");
                     await gatherChatData();
+                } else {
+                    showToast({
+                        title: "Something went wrong",
+                        body: "Fluster could not create a new chat.",
+                        duration: 5000,
+                        variant: "Error",
+                    });
                 }
             }
         };

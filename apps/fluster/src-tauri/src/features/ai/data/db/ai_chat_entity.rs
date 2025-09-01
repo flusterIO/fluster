@@ -1,6 +1,9 @@
 use std::{ops::Index, sync::Arc};
 
-use arrow_array::{RecordBatch, RecordBatchIterator, StringArray, TimestampMillisecondArray};
+use arrow_array::{
+    Float32Array, Int32Array, RecordBatch, RecordBatchIterator, StringArray,
+    TimestampMillisecondArray,
+};
 use arrow_schema::{ArrowError, DataType, Field, Schema};
 use futures::TryStreamExt;
 use lancedb::query::{ExecutableQuery, QueryBase};
@@ -126,6 +129,10 @@ impl DbEntity<AiChatModel> for AiChatEntity {
             Field::new("id", DataType::Utf8, false),
             Field::new("label", DataType::Utf8, false),
             Field::new("model", DataType::Utf8, false),
+            Field::new("temperature", DataType::Float32, false),
+            Field::new("repeat_penalty", DataType::Float32, false),
+            Field::new("top_k", DataType::Int32, false),
+            Field::new("top_p", DataType::Float32, false),
             Field::new(
                 "ctime",
                 DataType::Timestamp(arrow_schema::TimeUnit::Millisecond, None),
@@ -141,6 +148,10 @@ impl DbEntity<AiChatModel> for AiChatEntity {
         let id = StringArray::from(vec![item.id.clone()]);
         let label = StringArray::from(vec![item.label.clone()]);
         let model = StringArray::from(vec![item.model.clone()]);
+        let temperature = Float32Array::from(vec![item.temperature.clone()]);
+        let repeat_penalty = Float32Array::from(vec![item.repeat_penalty.clone()]);
+        let top_k = Int32Array::from(vec![item.top_k.clone()]);
+        let top_p = Float32Array::from(vec![item.top_p.clone()]);
         let ctime_value: i64 = item.ctime.parse().unwrap();
         let ctime = TimestampMillisecondArray::from(vec![ctime_value]);
         RecordBatch::try_new(
@@ -149,6 +160,10 @@ impl DbEntity<AiChatModel> for AiChatEntity {
                 Arc::new(id),
                 Arc::new(label),
                 Arc::new(model),
+                Arc::new(temperature),
+                Arc::new(repeat_penalty),
+                Arc::new(top_k),
+                Arc::new(top_p),
                 Arc::new(ctime),
             ],
         )
