@@ -77,4 +77,8 @@ export const componentDocItems: ComponentDocsEntry[] = [
         label: "Video",
         fp: "component_docs/video.mdx",
     },
+    {
+        label: "Youtube",
+        fp: "component_docs/youtube.mdx",
+    },
 ];

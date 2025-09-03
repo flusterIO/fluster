@@ -32,7 +32,6 @@ pub fn get_embedded_doc(id: InternalEmbeddedDocsId) -> String {
 #[tauri::command]
 #[specta::specta]
 pub fn get_embedded_doc_by_relative_path(fp: String) -> FlusterResult<String> {
-    println!("File path: {:?}", fp);
     if let Some(res) = DOCS.get_file(fp) {
         let string_res = res.contents_utf8().unwrap().to_string();
         Ok(string_res)

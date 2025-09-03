@@ -29,6 +29,7 @@ export * from "./embeddable_components/qr_code/index";
 export * from "./components/attention_getters/hint/index";
 export * from "./embeddable_components/layout/center/index";
 export * from "./embeddable_components/task_manager/task_list/index";
+export * from "./embeddable_components/media/youtube/index";
 //     -- Academic --
 export * from "./embeddable_components/academic/abstract/index";
 //     -- Math --

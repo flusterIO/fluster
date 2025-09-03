@@ -2,6 +2,17 @@ import React, { type ReactNode } from "react";
 import { useParsedTimestampString } from "../../util/timestamp_utils/use_parsed_timestamp_string";
 import { getTimestampSourceId } from "../../util/timestamp_utils/get_timestamp_source_id";
 
+interface VideoTimeSeekRequestProps {
+    videoId: string;
+    seconds: number;
+}
+
+declare global {
+    interface WindowEventMap {
+        "video-time-seek-req": CustomEvent<VideoTimeSeekRequestProps>;
+    }
+}
+
 interface VideoTimestampLinkProps {
     id: string;
     timestamp: string;
@@ -23,6 +34,15 @@ export const VideoTimestampLink = ({
             return;
         }
         const em = document.getElementById(_id) as HTMLVideoElement | null;
+        window.dispatchEvent(
+            new CustomEvent("video-time-seek-req", {
+                detail: {
+                    videoId: _id,
+                    seconds:
+                        timestamp.hours * 3600 + timestamp.minutes * 60 + timestamp.seconds,
+                },
+            })
+        );
         if (!em) {
             return;
         }

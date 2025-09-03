@@ -133,7 +133,7 @@ export const AiSettingsPanelRightForm = connector(
                         placeholder="deepseek-r1"
                         form={form}
                         name="model"
-                        desc="Override the default model for this chat."
+                        desc="Override the default model for this chat. Note that models that do not support tool calling will stream their response. Streaming for models that support tool calling is currently not supported."
                         classes={{
                             formItem: "w-full min-w-full",
                             selectTrigger: "w-full min-w-full",

@@ -1,0 +1,38 @@
+---
+title: Youtube Player
+---
+
+
+# Youtube
+
+```tsx
+<Youtube
+    center
+    video="CZ3sYBQdpIU"
+    title="Fluster Walkthrough"
+    desc="A quick walkthrough of the Fluster framework. It unfortunately cuts off halfway through." 
+/>
+```
+
+<Youtube center video="CZ3sYBQdpIU" title="Fluster Walkthrough" desc="A quick walkthrough of the Fluster framework. It unfortunately cuts off halfway through." />
+
+## Props
+
+
+> These properties extend the `PositionableProps` object, the same as an admonition making the center, right, and sidebar properties available as well.
+
+Note that either a `url` or a `video` field is required. If the `url` field is used, Fluster will attempt to get a video id from the url. If you are unsure of where to find the video id, it follows the following pattern:
+
+
+```md "V49i_LM8B0E"
+https://www.youtube.com/watch?v=V49i_LM8B0E
+```
+
+
+| key | type | desc |
+| --- | ---- | ---- |
+| id | `string?` | An optional id to be used in video timestamp links. |
+| video | `string` | The video id to play. |
+| url | `string?` | The video url to play. This must include the `v` search parameter. |
+| title | `string?` | An optional title. |
+| desc | `string?` | An optional description. |

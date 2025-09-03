@@ -72,7 +72,7 @@ pub async fn add_ai_chat_request(
     // TODO: Implement the chat with the coordinator here to enable tool calling.
     let mut coordinator =
         Coordinator::new(ollama.clone(), ai.language_model.clone(), history.clone())
-            .options(model_options)
+            .options(model_options.clone())
             .add_tool(DDGSearcher::new())
             .add_tool(Scraper {})
             .add_tool(Calculator {});
@@ -99,7 +99,8 @@ pub async fn add_ai_chat_request(
                 ChatMessageRequest::new(
                     ai.language_model,
                     vec![ChatMessage::user(chat_input.body)],
-                ),
+                )
+                .options(model_options),
             )
             .await
             .map_err(|e| {
