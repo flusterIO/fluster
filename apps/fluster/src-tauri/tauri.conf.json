@@ -26,7 +26,8 @@
                 "default-src": "'self' ipc: http://ipc.localhost",
                 "style-src": "'self' 'unsafe-inline'",
                 "img-src": "'self' asset: http://asset.localhost",
-                "script-src": "'self' 'unsafe-inline' 'unsafe-eval'"
+                "script-src": "'self' 'unsafe-inline' 'unsafe-eval'",
+                "frame-src": "*"
             },
             "assetProtocol": {
                 "enable": true,
