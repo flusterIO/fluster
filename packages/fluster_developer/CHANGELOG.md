@@ -1,5 +1,11 @@
 # @fluster.io/dev
 
+## 0.3.2
+
+### Patch Changes
+
+- Attempting another build to handle the youtube component issue in release version.
+
 ## 0.3.1
 
 ### Patch Changes
