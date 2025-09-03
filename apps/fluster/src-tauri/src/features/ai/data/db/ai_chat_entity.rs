@@ -1,8 +1,8 @@
 use std::{ops::Index, sync::Arc};
 
 use arrow_array::{
-    Float32Array, Int32Array, RecordBatch, RecordBatchIterator, StringArray,
-    TimestampMillisecondArray, UInt32Array,
+    Float32Array, RecordBatch, RecordBatchIterator, StringArray, TimestampMillisecondArray,
+    UInt32Array,
 };
 use arrow_schema::{ArrowError, DataType, Field, Schema};
 use futures::TryStreamExt;

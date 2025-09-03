@@ -9,10 +9,6 @@ import { LocalModelSelectInput } from "./model_select_input";
 import { connect } from "react-redux";
 import { AppState } from "@/state/initial_state";
 import { z } from "zod";
-import {
-    DEFAULT_EMBEDDING_MODEL,
-    DEFAULT_LANGUAGE_MODEL,
-} from "#/ai/state/initial_ai_state";
 
 const connector = connect((state: AppState) => ({
     defaultLanguageModel: state.ai.defaultLanguageModel,
