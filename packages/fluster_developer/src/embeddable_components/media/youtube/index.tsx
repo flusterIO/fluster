@@ -58,6 +58,9 @@ export const Youtube = ({
                 title={typeof title === "string" ? title : undefined}
                 className={cn("max-w-full w-fit", props.center && "ml-auto mr-auto")}
                 iframeClassName="max-w-full max-h-[min(90vh,540px)]"
+                onReady={(e) => {
+                    console.log("on Ready e: ", e);
+                }}
             />
             {desc ? (
                 <div
