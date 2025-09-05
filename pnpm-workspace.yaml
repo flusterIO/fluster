@@ -4,3 +4,4 @@ packages:
   - "apps/website"
   - "packages/fluster_developer"
   - "packages/fluster_config"
+  - "packages/fluster_jupyter"

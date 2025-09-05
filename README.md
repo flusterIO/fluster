@@ -1,5 +1,7 @@
 # Fluster
 
+![Fluster screenshot](docs/doc_assets/images/splitview_editor.png)
+
 Free and open source academic note taking. Rust powered interactive plotting, dynamic RAG, and everything a modern researcher needs to be productive in one place... for free.
 
 Checkout our website [here](https://fluster-one.vercel.app).
