@@ -10,6 +10,7 @@ use regex::Regex;
 use serde::{Deserialize, Serialize};
 use specta::Type;
 
+// TODO: This whole file is likely deletable. Clean this up when you have time.
 #[derive(Clone, Type, Deserialize, Serialize, Debug)]
 pub struct Taggable {
     pub id: Option<String>,
@@ -25,7 +26,7 @@ pub struct TagEntity {
 }
 
 pub fn get_tag_regular_expression() -> Regex {
-    Regex::new(r"\[\[#(?<body>[^#]+)\]\]").unwrap()
+    Regex::new(r"\[\[#(?<body>[^\]]+)\]\]").unwrap()
 }
 
 impl Taggable {

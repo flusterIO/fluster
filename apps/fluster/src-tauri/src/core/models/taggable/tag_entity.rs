@@ -126,10 +126,10 @@ impl TagEntity {
         Ok(())
     }
     pub fn get_tag_regular_expression() -> Regex {
-        Regex::new(r"\[\[#(?<body>[^#]+)\]\]").unwrap()
+        Regex::new(r"\[\[#(?<body>[^\]]+)\]\]").unwrap()
     }
-    fn handle_arr_data(d: &Pod, taggables: &Vec<SharedTaggableModel>) -> Vec<SharedTaggableModel> {
-        let mut tags = taggables.clone();
+    fn handle_arr_data(d: &Pod, taggables: &[SharedTaggableModel]) -> Vec<SharedTaggableModel> {
+        let mut tags = taggables.to_owned();
         if !d.is_empty() {
             let res = d.as_vec();
             if let Ok(_res) = res {
