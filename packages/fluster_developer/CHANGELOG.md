@@ -1,5 +1,11 @@
 # @fluster.io/dev
 
+## 0.3.3
+
+### Patch Changes
+
+- Urgent push to fix tag regex issue.
+
 ## 0.3.2
 
 ### Patch Changes

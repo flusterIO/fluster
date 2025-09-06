@@ -11,8 +11,9 @@
 > Make sure you're on the main branch.
 
 1. `git checkout main`
-2. `pnpm changeset` to create changeset
-3. `make release_npm`.
+1. `git merge dev`
+1. `pnpm changeset` to create changeset
+1. `make release_npm`.
 
 ## Release Tauri app
 
