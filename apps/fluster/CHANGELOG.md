@@ -1,5 +1,13 @@
 # fluster
 
+## 0.3.4
+
+### Patch Changes
+
+- Fix equation based search issue.
+- Updated dependencies
+  - @fluster.io/dev@0.3.4
+
 ## 0.3.3
 
 ### Patch Changes
