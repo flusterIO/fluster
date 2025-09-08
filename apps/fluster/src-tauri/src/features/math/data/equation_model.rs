@@ -22,7 +22,7 @@ pub struct EquationModel {
     pub utime: String,
 }
 
-#[derive(Serialize, Deserialize, specta::Type)]
+#[derive(Serialize, Deserialize, specta::Type, Clone)]
 pub struct EquationData {
     pub equation: EquationModel,
     pub tags: Vec<SharedTaggableModel>,
