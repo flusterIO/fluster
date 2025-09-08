@@ -29,4 +29,6 @@
 
 ## Revert back to local development
 
+- `git checkout dev`
+- `git merge release`
 - `make post_release_revert` to revert local dependencies back to workspace versions
