@@ -36,7 +36,7 @@ interface EquationListItemProps {
     hideDeleteButton?: boolean;
 }
 
-const useEquationHasNotes = (equationId: string): boolean => {
+const useEquationHasNotes = (equationId?: string | null): boolean => {
     const [hasNotes, setHasNotes] = useState(false);
 
     const getHasNotes = async (eqId: string): Promise<void> => {
@@ -45,7 +45,11 @@ const useEquationHasNotes = (equationId: string): boolean => {
     };
 
     useEffect(() => {
-        getHasNotes(equationId);
+        if (equationId) {
+            getHasNotes(equationId);
+        } else {
+            setHasNotes(false);
+        }
     }, [equationId]);
 
     return hasNotes;
@@ -60,11 +64,14 @@ const EquationListItem = ({
     const confirmationId = `confirm-equation-delete-${item.equation.id}`;
     const dispatch = useDispatch();
     const byEquationUrl = useMemo(() => {
+        if (!item.equation.equation_id) {
+            return "";
+        }
         const sp = new URLSearchParams();
-        sp.set("by_equation", item.equation.id);
+        sp.set("by_equation", item.equation.equation_id);
         return `${AppRoutes.search}?${sp.toString()}`;
     }, [item]);
-    const hasNotes = useEquationHasNotes(item.equation.id);
+    const hasNotes = useEquationHasNotes(item.equation.equation_id);
     const handleLatexCopy = (): void => {
         copyStringToClipboard(item.equation.body);
         showToast({
@@ -154,7 +161,7 @@ const EquationListItem = ({
                     Delete
                 </Button>
                 <div className="flex flex-col justify-end items-center gap-4 w-full @[450px]/equation_item:flex-row">
-                    {hasNotes ? (
+                    {hasNotes && byEquationUrl !== "" ? (
                         <NavLink
                             className={cn(
                                 "w-full @[450px]/equation_item:w-fit",
