@@ -1,11 +1,8 @@
 use crate::{
-    core::{
-        database::db::get_database, models::taggable::tag_entity::TagEntity,
-        types::errors::errors::FlusterResult,
-    },
+    core::{database::db::get_database, types::errors::errors::FlusterResult},
     features::{
         math::{
-            data::{equation_entity::EquationEntity, equation_model::EquationData},
+            data::equation_entity::EquationEntity,
             utils::equations_to_equationdata::equations_to_equationdata,
         },
         mdx::{

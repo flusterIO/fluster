@@ -1,12 +1,7 @@
-use std::ops::Index;
-
 use crate::{
     core::{
         models::taggable::{shared_taggable_model::SharedTaggableModel, tag_entity::TagEntity},
-        types::{
-            errors::errors::{FlusterError, FlusterResult},
-            FlusterDb,
-        },
+        types::{errors::errors::FlusterResult, FlusterDb},
     },
     features::math::data::{
         equation_model::{EquationData, EquationModel},
