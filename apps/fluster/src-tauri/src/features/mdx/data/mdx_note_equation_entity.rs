@@ -24,12 +24,12 @@ pub struct MdxNoteEquationEntity {}
 impl MdxNoteEquationEntity {
     pub async fn get_by_equation_entry_id(
         db: &FlusterDb<'_>,
-        bib_entry_id: &str,
+        equation_id: &str,
     ) -> FlusterResult<Vec<MdxNoteEquationModel>> {
         let tbl = get_table(db, DatabaseTables::MdxNoteEquation).await?;
         let items_batch = tbl
             .query()
-            .only_if(format!("equation_id = \"{}\"", bib_entry_id))
+            .only_if(format!("equation_id = \"{}\"", equation_id))
             .execute()
             .await
             .map_err(|e| {
@@ -142,12 +142,15 @@ impl MdxNoteEquationEntity {
         let filtered_equations: Vec<&MdxNoteEquationModel> = items
             .iter()
             .filter(|x| {
-                all_note_equations.iter().any(|y| {
+                !all_note_equations.iter().any(|y| {
                     (x.mdx_note_file_path == y.mdx_note_file_path)
                         && (x.equation_id == y.equation_id)
                 })
             })
             .collect();
+        if filtered_equations.is_empty() {
+            return Ok(());
+        }
         let schema = MdxNoteEquationEntity::arrow_schema(None);
         let tbl = get_table(db, DatabaseTables::MdxNoteEquation).await?;
         let batches: Vec<Result<RecordBatch, ArrowError>> = filtered_equations

@@ -249,7 +249,6 @@ impl DbEntity<MdxNoteModel> for MdxNoteEntity {
         let last_read_value: i64 = item.last_read.parse().unwrap();
         let ctime = TimestampMillisecondArray::from(vec![ctime_value]);
         let last_read = TimestampMillisecondArray::from(vec![last_read_value]);
-        println!("Item length: {:?}", item.vec.len());
         // let vec = ListArray::from_iter_primitive::<Float32Type, _, _>(vec![Some(
         //     item.vec.iter().map(|x| Some(*x)),
         // )]);

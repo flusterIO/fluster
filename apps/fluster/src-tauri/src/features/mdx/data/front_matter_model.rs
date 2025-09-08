@@ -47,7 +47,6 @@ pub struct FrontMatterModel {
 
 impl FrontMatterModel {
     pub fn from_gray_matter(pod: Option<Pod>, file_path: &str) -> FrontMatterModel {
-        println!("from_gray_matter Pod: {:?}", pod);
         let mut tags: Vec<SharedTaggableModel> = Vec::new();
         match pod {
             None => FrontMatterModel {

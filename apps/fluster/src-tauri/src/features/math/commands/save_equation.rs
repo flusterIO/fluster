@@ -101,3 +101,33 @@ pub async fn save_equation(item: EquationData) -> FlusterResult<()> {
     println!("Here 7");
     Ok(())
 }
+
+#[cfg(test)]
+mod tests {
+    use crate::{
+        core::utils::random_utils::get_unique_id,
+        features::math::data::equation_model::EquationModel,
+    };
+
+    use super::*;
+
+    #[tokio::test]
+    async fn saves_equation_successfully() {
+        let now = Utc::now().timestamp_millis().to_string();
+        let data = EquationData {
+            tags: Vec::new(),
+            equation: EquationModel {
+                id: get_unique_id().await,
+                body: String::from("e=mc^2"),
+                desc: String::from(""),
+                label: String::from("My equation"),
+                ctime: now.clone(),
+                utime: now.clone(),
+                equation_id: Some(String::from("my_equation_id")),
+            },
+        };
+        let res = save_equation(data).await;
+        assert!(res.is_ok(), "Saves equation without throwing an id");
+        // assert_eq!(result, 4);
+    }
+}

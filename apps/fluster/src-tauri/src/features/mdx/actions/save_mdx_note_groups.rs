@@ -107,7 +107,6 @@ pub async fn save_mdx_note_groups(
     .await?;
     // Loop over each item and generate the proper joining tables.
     let mut equations: Vec<EquationModel> = Vec::new();
-    let mut mdx_note_equations: Vec<MdxNoteEquationModel> = Vec::new();
     let mut tags: Vec<SharedTaggableModelWithExists> = existing_taggables
         .tags
         .iter()
@@ -135,6 +134,7 @@ pub async fn save_mdx_note_groups(
             exists: true,
         })
         .collect();
+    let mut mdx_note_equations: Vec<MdxNoteEquationModel> = Vec::new();
     let mut mdx_note_tags: Vec<MdxNoteTagModel> = Vec::new();
     let mut mdx_note_subjects: Vec<MdxNoteSubjectModel> = Vec::new();
     let mut mdx_note_topics: Vec<MdxNoteTopicModel> = Vec::new();
@@ -163,13 +163,19 @@ pub async fn save_mdx_note_groups(
         for note_link in item.note_links.clone() {
             note_links.push(note_link.clone());
         }
+        println!("Item length: {:?}", item.equations.clone());
         for eq in item.equations.clone() {
             equations.push(eq.clone());
-            if eq.equation_id.is_some() {
-                mdx_note_equations.push(MdxNoteEquationModel {
-                    mdx_note_file_path: item.mdx.file_path.clone(),
-                    equation_id: eq.equation_id.unwrap(),
-                })
+            if let Some(item_equation_id) = eq.equation_id {
+                if !mdx_note_equations.iter().any(|x| {
+                    (x.equation_id == item_equation_id.clone())
+                        && (x.mdx_note_file_path == item.mdx.file_path)
+                }) {
+                    mdx_note_equations.push(MdxNoteEquationModel {
+                        mdx_note_file_path: item.mdx.file_path.clone(),
+                        equation_id: item_equation_id,
+                    })
+                }
             } else {
                 log::error!("Attempted to link an equation without a user defined id.")
             }
@@ -237,7 +243,7 @@ pub async fn save_mdx_note_groups(
     // inserted by the user anyways. This was ust updating something that wasn't changing like
     // an idiot.
     // EquationEntity::save_many(db, equations).await?;
-    MdxNoteEquationEntity::save_many(db, mdx_note_equations).await?;
+    println!("mdx_note_equations length: {:?}", mdx_note_equations.len());
     TagEntity::save_many(
         db,
         tags.iter()
@@ -292,6 +298,7 @@ pub async fn save_mdx_note_groups(
     MdxNoteSubjectEntity::create_many(db, mdx_note_subjects).await?;
     MdxNoteTopicEntity::create_many(db, mdx_note_topics).await?;
     MdxNoteEntity::save_many(db, notes).await?;
+    MdxNoteEquationEntity::save_many(db, mdx_note_equations).await?;
     FrontMatterEntity::save_many(db, front_matter).await?;
     MdxNoteLinkEntity::create_many(db, note_links).await?;
     DictionaryEntryEntity::create_many(db, dictionary_entries).await?;

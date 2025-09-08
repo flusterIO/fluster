@@ -3,7 +3,11 @@ import { commands, EquationModel } from "@/lib/bindings";
 import {
     Button,
     buttonVariants,
+    CodeBlock,
     getByEquationUrl,
+    HoverCard,
+    HoverCardContent,
+    HoverCardTrigger,
     showToast,
     useEventListener,
 } from "@fluster.io/dev";
@@ -13,8 +17,21 @@ import { InlineMdxContent } from "#/mdx/presentation/inline_mdx_content";
 import { copyStringToClipboard } from "@/lib/copy_string_to_clipboard";
 import { NavLink } from "react-router";
 
-export const EquationDetailModal = (): ReactNode => {
+import { AppState } from "@/state/initial_state";
+import { connect } from "react-redux";
+import { useDarkMode } from "@/hooks/use_dark_mode";
+
+const connector = connect((state: AppState) => ({
+    themes: state.code.theme,
+}));
+
+interface Props {
+    themes: AppState["code"]["theme"];
+}
+
+export const EquationDetailModal = connector(({ themes }: Props): ReactNode => {
     const [open, setOpen] = useState(false);
+    const darkMode = useDarkMode();
     const [equation, setEquation] = useState<
         (EquationModel & { tags: string[] }) | null
     >(null);
@@ -84,16 +101,47 @@ export const EquationDetailModal = (): ReactNode => {
                     </div>
                 </div>
                 <div className="flex flex-row justify-end items-center gap-4">
-                    {equation && (
-                        <NavLink
-                            className={buttonVariants({
-                                variant: "secondary",
-                            })}
-                            to={getByEquationUrl(equation?.id)}
-                        >
-                            Notes
-                        </NavLink>
-                    )}
+                    {equation &&
+                        (equation.equation_id ? (
+                            <NavLink
+                                className={buttonVariants({
+                                    variant: "secondary",
+                                })}
+                                to={getByEquationUrl(equation.equation_id)}
+                            >
+                                Notes
+                            </NavLink>
+                        ) : (
+                            <HoverCard>
+                                <HoverCardContent>
+                                    <div className="space-y-6">
+                                        <div className="text-lg">No user defined id found</div>
+                                        <p>
+                                            To link notes to equations, set the id field for that note
+                                            and use that id to insert equation tags using the
+                                            following syntax:
+                                        </p>
+                                        <CodeBlock
+                                            code={`My tag here [[eq:my_equation_id]]`}
+                                            lang={"mdx"}
+                                            themes={themes}
+                                            darkMode={darkMode}
+                                        />
+                                    </div>
+                                </HoverCardContent>
+                                <HoverCardTrigger asChild>
+                                    <NavLink
+                                        className={buttonVariants({
+                                            variant: "ghost",
+                                        })}
+                                        aria-disabled={true}
+                                        to={"/"}
+                                    >
+                                        Notes
+                                    </NavLink>
+                                </HoverCardTrigger>
+                            </HoverCard>
+                        ))}
                     <Button
                         onClick={async () => {
                             if (!equation?.body) {
@@ -129,6 +177,6 @@ export const EquationDetailModal = (): ReactNode => {
             </motion.div>
         </ModalBackdrop>
     );
-};
+});
 
 EquationDetailModal.displayName = "EquationDetailModal";

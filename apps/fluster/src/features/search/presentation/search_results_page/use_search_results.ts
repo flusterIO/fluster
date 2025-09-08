@@ -74,6 +74,7 @@ export const useSearchResults = (): TraditionalSearchResults | null => {
 
     const getByEquation = async (equationId: string): Promise<void> => {
         const res = await commands.getNotesByEquationId(equationId);
+        console.log("res: ", res);
         if (res.status === "ok") {
             setData(res.data);
         } else {
