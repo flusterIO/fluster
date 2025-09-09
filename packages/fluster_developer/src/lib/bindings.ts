@@ -445,9 +445,9 @@ async getEquations() : Promise<Result<EquationData[], FlusterError>> {
     else return { status: "error", error: e  as any };
 }
 },
-async saveEquation(item: EquationData) : Promise<Result<null, FlusterError>> {
+async saveEquation(item: EquationData, toastChannel: TAURI_CHANNEL<ToastConfig>) : Promise<Result<null, FlusterError>> {
     try {
-    return { status: "ok", data: await TAURI_INVOKE("save_equation", { item }) };
+    return { status: "ok", data: await TAURI_INVOKE("save_equation", { item, toastChannel }) };
 } catch (e) {
     if(e instanceof Error) throw e;
     else return { status: "error", error: e  as any };
@@ -819,10 +819,10 @@ async getPlotlyTheme(themeId: PlotlyTheme) : Promise<string> {
 
 export const events = __makeEvents__<{
 setDbConnectionUri: SetDbConnectionUri,
-showToast: ShowToast
+toastConfig: ToastConfig
 }>({
 setDbConnectionUri: "set-db-connection-uri",
-showToast: "show-toast"
+toastConfig: "toast-config"
 })
 
 /** user-defined constants **/
@@ -1003,11 +1003,6 @@ export type SearchParams = { order: SearchOrder | null; per_page: number | null;
 export type SemanticSearchResults = { notes: MdxNoteGroup[] }
 export type SetDbConnectionUri = { uri: string }
 export type SharedTaggableModel = { value: string; ctime: string }
-export type ShowToast = { title: string; body: string; duration: number; variant: ToastVariant; 
-/**
- * id is required to allow items to be removed reliably. It just needs to be unique.
- */
-id: string }
 export type SnippetData = { snippet: SnippetModel; tags: SnippetTagModel[] }
 /**
  * The SnippetModel is the snippet representation that is passed back and forth across language
@@ -1094,6 +1089,11 @@ due_at: string | null;
  */
 ctime: string; complete: boolean; tags: SharedTaggableModel[] }
 export type TaskTagModel = { task_id: string; tag_value: string }
+export type ToastConfig = { title: string; body: string; duration: number; variant: ToastVariant; 
+/**
+ * id is required to allow items to be removed reliably. It just needs to be unique.
+ */
+id: string }
 export type ToastVariant = "Success" | "Info" | "Error"
 export type TocEntry = { depth: number; body: string }
 /**

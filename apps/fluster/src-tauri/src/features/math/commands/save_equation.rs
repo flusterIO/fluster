@@ -3,8 +3,10 @@ use chrono::Utc;
 use crate::{
     core::{
         database::db::get_database,
+        events::show_toast::{ToastConfig, ToastVariant},
         models::taggable::{shared_taggable_model::SharedTaggableModel, tag_entity::TagEntity},
-        types::errors::errors::FlusterResult,
+        types::errors::errors::{FlusterError, FlusterResult},
+        utils::{random_utils::get_unique_id, type_aliases::ToastChannel},
     },
     features::math::data::{
         equation_entity::EquationEntity, equation_model::EquationData,
@@ -12,18 +14,35 @@ use crate::{
     },
 };
 
-// RESUME: Come back here and handle the saving of tags with the equation.
 #[tauri::command]
 #[specta::specta]
-pub async fn save_equation(item: EquationData) -> FlusterResult<()> {
+pub async fn save_equation(item: EquationData, toast_channel: ToastChannel) -> FlusterResult<()> {
     let db_res = get_database().await;
     let db = db_res.lock().await;
+    // RESUME: This method seems to be ok, but apply this same logic below to the save_snippet
+    // method to avoid duplicate ids.
+    if item.equation.equation_id.is_some() {
+        let equation_id_exists =
+            EquationEntity::equation_id_exists(&db, &item.equation.equation_id.as_ref().unwrap())
+                .await?;
+        if equation_id_exists {
+            toast_channel.send(ToastConfig {
+                title: String::from("Duplicate id's."),
+                variant: ToastVariant::Error,
+                duration: 5000,
+                body: String::from(
+                    "The id field you provided is already applied to another equation",
+                ),
+                id: get_unique_id().await,
+            });
+            return Err(FlusterError::DuplicateId);
+        }
+    }
     EquationEntity::save_many(&db, vec![item.equation.clone()]).await?;
     // let equation_tag_to_delete: Vec<SharedTaggableModel> = Vec::new();
     // -- Get existing tags
     let existing_equation_tags =
         EquationTagEntity::get_by_equation_ids(&db, vec![item.equation.id.clone()]).await?;
-    println!("Here 1");
     let existing_tags = TagEntity::get_by_values(
         &db,
         existing_equation_tags
@@ -32,7 +51,6 @@ pub async fn save_equation(item: EquationData) -> FlusterResult<()> {
             .collect(),
     )
     .await?;
-    println!("Here 2");
     // -- Organize tags based on whether or not they already exist, determining which values
     // are new and which need to be removed.
     let mut tag_values_to_save: Vec<String> = Vec::new();
@@ -53,7 +71,6 @@ pub async fn save_equation(item: EquationData) -> FlusterResult<()> {
             tag_values_to_delete.push(existing_tag.tag_value.clone());
         }
     }
-    println!("Here 3 {:?}", tag_values_to_save.clone().len());
     // -- Save equation tags determined to need to be saved
     EquationTagEntity::create_many(
         &db,
@@ -67,7 +84,6 @@ pub async fn save_equation(item: EquationData) -> FlusterResult<()> {
     )
     .await?;
 
-    println!("Here 4");
     // -- Make sure Tags are saved along side EquationTags if it does not exist.
     let new_tags = tag_values_to_save
         .iter()
@@ -77,7 +93,6 @@ pub async fn save_equation(item: EquationData) -> FlusterResult<()> {
         })
         .collect::<Vec<&String>>();
     let now = Utc::now().timestamp_millis().to_string();
-    println!("Here 5");
 
     if !new_tags.is_empty() {
         TagEntity::save_many(
@@ -104,6 +119,8 @@ pub async fn save_equation(item: EquationData) -> FlusterResult<()> {
 
 #[cfg(test)]
 mod tests {
+    use tauri::ipc::Channel;
+
     use crate::{
         core::utils::random_utils::get_unique_id,
         features::math::data::equation_model::EquationModel,
@@ -126,7 +143,11 @@ mod tests {
                 equation_id: Some(String::from("my_equation_id")),
             },
         };
-        let res = save_equation(data).await;
+        let toast_channel: Channel<ToastConfig> = Channel::new(|_| {
+            println!("Toast received");
+            Ok(())
+        });
+        let res = save_equation(data, toast_channel).await;
         assert!(res.is_ok(), "Saves equation without throwing an id");
         // assert_eq!(result, 4);
     }

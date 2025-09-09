@@ -105,7 +105,7 @@ use crate::features::task_manager::commands::get_task_list_tasks::get_task_list_
 use crate::features::task_manager::commands::get_tasks_with_due_date::get_incomplete_tasks_with_due_date;
 use core::sync::parse_directory::sync_fs_directory::models::sync_filesystem_options::SyncFilesystemDirectoryOptions;
 use core::{
-    events::{set_db_connection_uri::SetDbConnectionUri, show_toast::ShowToast},
+    events::{set_db_connection_uri::SetDbConnectionUri, show_toast::ToastConfig},
     types::errors::errors::FlusterError,
 };
 pub use features::dashboard;
@@ -247,7 +247,7 @@ pub fn run() {
             // -- Plotting --
             get_plotly_theme,
         ])
-        .events(collect_events![ShowToast, SetDbConnectionUri])
+        .events(collect_events![ToastConfig, SetDbConnectionUri])
         .typ::<FlusterError>()
         .typ::<DictionaryEntryModel>()
         .typ::<SnippetModel>()

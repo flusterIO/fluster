@@ -1,10 +1,7 @@
-import React, { useRef, type ReactNode } from "react";
+import React, { useState, type ReactNode } from "react";
 import { PositionableProps } from "../../types";
 import { getPositionableClasses } from "../../util/get_positional_classes";
-import YouTubePlayer, {
-    YouTubeProps,
-    YouTubePlayer as YtP,
-} from "react-youtube";
+import YouTubePlayer from "react-youtube";
 import { cn } from "../../../utils/cn";
 import { H4 } from "../../../components/typography/typography";
 import { useEventListener } from "../../../hooks/use_event_listener";
@@ -32,13 +29,15 @@ export const Youtube = ({
     id,
     ...props
 }: YoutubeProps): ReactNode => {
-    const player = useRef<YouTubePlayer>(null!);
+    const [player, setPlayer] = useState<any>(null);
     useEventListener("video-time-seek-req", (e) => {
-        console.log("e: ", e);
-        if (id && e.detail.videoId === getTimestampSourceId("video", id)) {
-            /* player.current. */
-            console.log("player.current: ", player.current);
-            /* player.current.context */
+        if (
+            player &&
+            id &&
+            e.detail.videoId === getTimestampSourceId("video", id)
+        ) {
+            console.log(`Here...`);
+            player.seekTo(e.detail.seconds, true);
         }
     });
     return (
@@ -52,14 +51,13 @@ export const Youtube = ({
             {title ? <H4 className="w-fit">{title}</H4> : null}
             <YouTubePlayer
                 id={id}
-                ref={player}
                 videoId={url ? parseVideoId(url) : video}
                 loading="lazy"
                 title={typeof title === "string" ? title : undefined}
                 className={cn("max-w-full w-fit", props.center && "ml-auto mr-auto")}
                 iframeClassName="max-w-full max-h-[min(90vh,540px)]"
                 onReady={(e) => {
-                    console.log("on Ready e: ", e);
+                    setPlayer(e.target);
                 }}
             />
             {desc ? (

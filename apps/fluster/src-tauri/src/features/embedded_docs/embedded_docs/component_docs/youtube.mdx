@@ -8,13 +8,14 @@ title: Youtube Player
 ```tsx
 <Youtube
     center
+    id="my_youtube_video"
     video="CZ3sYBQdpIU"
     title="Fluster Walkthrough"
     desc="A quick walkthrough of the Fluster framework. It unfortunately cuts off halfway through." 
 />
 ```
 
-<Youtube center video="CZ3sYBQdpIU" title="Fluster Walkthrough" desc="A quick walkthrough of the Fluster framework. It unfortunately cuts off halfway through." />
+<Youtube center id="my_youtube_video" video="CZ3sYBQdpIU" title="Fluster Walkthrough" desc="A quick walkthrough of the Fluster framework. It unfortunately cuts off halfway through." />
 
 ## Props
 
@@ -36,3 +37,5 @@ https://www.youtube.com/watch?v=V49i_LM8B0E
 | url | `string?` | The video url to play. This must include the `v` search parameter. |
 | title | `string?` | An optional title. |
 | desc | `string?` | An optional description. |
+
+Don't forget that you can use timestamp links using the `[my link](video:my_youtube_video@4:00)` syntax to produce  <VideoTimestampLink id="my_youtube_video" timestamp="4:00"> my link </VideoTimestampLink >.

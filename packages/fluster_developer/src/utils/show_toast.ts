@@ -1,7 +1,7 @@
 import { v4 as uuidv4 } from "uuid";
-import { ShowToast } from "../lib/bindings";
+import { ToastConfig } from "../lib/bindings";
 
-export const showToast = (data: Omit<ShowToast, "id">) => {
+export const showToast = (data: Omit<ToastConfig, "id">) => {
     window.dispatchEvent(
         new CustomEvent("show-toast", {
             detail: {

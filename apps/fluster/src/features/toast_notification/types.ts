@@ -1,3 +1,3 @@
-import { ShowToast } from "@/lib/bindings";
+import { ToastConfig } from "@/lib/bindings";
 
-export type ToastItem = ShowToast;
+export type ToastItem = ToastConfig;

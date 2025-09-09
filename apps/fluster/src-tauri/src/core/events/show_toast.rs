@@ -10,18 +10,18 @@ pub enum ToastVariant {
 }
 
 #[derive(Serialize, Deserialize, Debug, Clone, Type, Event)]
-pub struct ShowToast {
-    title: String,
-    body: String,
-    duration: i32,
-    variant: ToastVariant,
+pub struct ToastConfig {
+    pub title: String,
+    pub body: String,
+    pub duration: i32,
+    pub variant: ToastVariant,
     /// id is required to allow items to be removed reliably. It just needs to be unique.
-    id: String,
+    pub id: String,
 }
 
-impl ShowToast {
-    pub fn new(title: String, body: String, duration: i32, variant: ToastVariant) -> ShowToast {
-        ShowToast {
+impl ToastConfig {
+    pub fn new(title: String, body: String, duration: i32, variant: ToastVariant) -> ToastConfig {
+        ToastConfig {
             title,
             body,
             duration,

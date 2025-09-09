@@ -21,6 +21,12 @@ use super::equation_model::EquationModel;
 pub struct EquationEntity {}
 
 impl EquationEntity {
+    /// The equation_id field maps to the user defined id.
+    pub async fn equation_id_exists(db: &FlusterDb<'_>, equation_id: &str) -> FlusterResult<bool> {
+        let items =
+            EquationEntity::get_by_user_provided_ids(db, vec![equation_id.to_string()]).await?;
+        Ok(!items.is_empty())
+    }
     pub async fn get_by_user_provided_ids(
         db: &FlusterDb<'_>,
         ids: Vec<String>,
