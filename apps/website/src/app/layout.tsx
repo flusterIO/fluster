@@ -5,6 +5,7 @@ import FumaDocsProvider from "#/features/docs/fuma_docs_provider";
 import { GoogleAnalytics } from "@next/third-parties/google";
 import Head from "next/head";
 import "katex/dist/katex.css";
+import { Analytics } from "@vercel/analytics/next";
 
 const appFont = localFont({
     variable: "--ulld-app-font",
@@ -81,6 +82,7 @@ export default function RootLayout({
                     src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js"
                 />
             </Head>
+            <Analytics />
             <body className={`antialiased background`}>
                 <FumaDocsProvider>
                     <div>{children}</div>

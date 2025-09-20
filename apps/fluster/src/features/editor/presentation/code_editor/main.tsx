@@ -30,6 +30,7 @@ import cssWorker from "monaco-editor/esm/vs/language/css/css.worker?worker";
 import htmlWorker from "monaco-editor/esm/vs/language/html/html.worker?worker";
 import tsWorker from "monaco-editor/esm/vs/language/typescript/ts.worker?worker";
 import { EditorAction } from "#/editor/data/types";
+import { cn } from "@fluster.io/dev";
 
 self.MonacoEnvironment = {
     getWorker(_, label) {
@@ -61,6 +62,10 @@ export interface CodeEditorProps {
     actions?: EditorAction[];
     disabled?: boolean;
     vimMode: boolean;
+    classes?: {
+        container?: string;
+        editor?: string;
+    };
 }
 
 const connector = connect((state: AppState) => ({
@@ -99,6 +104,7 @@ const CodeEditor = connector(
         onCmdEnter,
         disabled,
         actions = [],
+        classes = {},
     }: CodeEditorProps): ReactNode => {
         const darkMode = useDarkMode();
         const editorModeBarId = useId();
@@ -184,7 +190,7 @@ const CodeEditor = connector(
             }
         };
         return (
-            <div className="w-full h-full bg-background">
+            <div className={cn("w-full h-full bg-background", classes.container)}>
                 <Editor
                     value={value}
                     height={"100%"}
@@ -193,6 +199,7 @@ const CodeEditor = connector(
                     theme={darkMode ? themes.dark : themes.light}
                     loading={<LoadingComponent />}
                     options={universalOpts}
+                    className={classes.editor}
                     onChange={(val) => {
                         if (!disabled && typeof val === "string") {
                             onChange(val);
