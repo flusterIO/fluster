@@ -16,7 +16,7 @@ Fluster then embeds this React app in a Rust powered tauri application, stores y
 
 ## First Steps
 
-> **Note**: If you're on mac, you'll have to open your system settings and white list Fluster in the privacy tab. This is only because I'm still homeless and I can't afford an Apple developer license.
+> **Note**: If you're on mac, you'll have to open your system settings and white-list Fluster in the privacy tab. This is only because I'm still homeless and I can't afford an Apple developer license.
 
 First, continue to our [downloads page](https://github.com/flusterIO/fluster/releases) and use the table to select the appropriate file for your operating system. This will download the core Fluster application, but Fluster will in turn install the models that it requires locally when you run Fluster for the first time.
 
@@ -24,12 +24,12 @@ During this onboarding process, a screen should be presented asking among other 
 
 ### Create your first note
 
-Creating a note couldn't be simpler! Just create a file with the `.mdx` extension anywhere within the directory you provided to Fluster, and Fluster will find this note depending on the sync method used since this file was created. The following table demonstrates the type of syncing required for each search feature.
+Creating a note couldn't be simpler! Just create a file with the `.mdx` extension anywhere within the directory you provided to Fluster, and Fluster will find this note in a variety of ways, depending on the sync methods used since this file was created. The following table demonstrates the type of syncing required for each search feature.
 
 | Search Type | Required Sync |
 | ----------- | ------------- |
-| Semantic | Sync With AI |
-| Text based (traditional search) | Sync without AI |
+| Semantic | Sync with AI |
+| Text based (traditional search) | Sync with/without AI |
 | File System based search | No sync required |
 
 > As is covered in the embedded documentation, the sync 'without AI' method was created to work around the incredible demanding and time consuming task generating database vectors can be on personal hardware. Syncing with AI can take upwards of 15 minutes, while syncing without AI can be ran in a few seconds even for hundreds of notes.
@@ -44,6 +44,10 @@ To define your note's front matter, the title of your note in this case, start y
 ---
 title: "My title"
 ---
+  
+# My Note
+  
+This is the rest of my note here.
 ```
 
-It is the 3 `---` characters that tell mdx to interpret this block as yaml, which is then used by Fluster for a variety of tasks. The fields that front matter supports will grow considerably as the customizability of Fluster expands, and I hope these front matter fields can be another tool for user's to get the most from Fluster.
+It is the 3 `---` characters at the start of the file that tell mdx to interpret this block as yaml, which is then used by Fluster for a variety of tasks. The fields that front matter supports will grow considerably as the customizability of Fluster expands, and I hope these front matter fields can be another tool for user's to get the most from Fluster.

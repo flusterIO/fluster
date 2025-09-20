@@ -73,7 +73,7 @@ export const legal = defineCollections({
 export const myWork = defineDocs({
     dir: "content/my_work",
     docs: {
-        mdxOptions: config.mdxOptions,
+        // mdxOptions: config.mdxOptions,
     },
 });
 

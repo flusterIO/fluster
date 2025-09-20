@@ -5,8 +5,6 @@ import { TerminalIcon, UserIcon } from "lucide-react";
 import type { ReactNode } from "react";
 import "../../../core/styles/docs.scss";
 import { source } from "#/core/mdx/sources/fumadocs_mdx/docs";
-/* import "fumadocs-ui/css/preset.css"; */
-/* import "fumadocs-ui/css/neutral.css"; */
 
 export default function Layout({ children }: { children: ReactNode }) {
     return (

@@ -2,6 +2,7 @@ import defaultMdxComponents from "fumadocs-ui/mdx";
 import type { MDXComponents } from "mdx/types";
 import { ReactNode } from "react";
 import { Hint } from "../components/hint";
+import { Admonition } from "#/features/docs/embedded_components/admonition";
 /* import { Mermaid } from "#/features/docs/embedded_components/mermaid"; */
 import { CodeBlock, Pre } from "fumadocs-ui/components/codeblock";
 
@@ -12,10 +13,8 @@ export function getMDXComponents(components?: MDXComponents): MDXComponents {
         ...selectedFumaComponents,
         ...components,
         pre: (props) => {
-            console.log("props: ", props);
             /* eslint-disable-next-line  --  */
             const { ref: _, ...filteredProps } = props;
-            console.log("filteredProps: ", filteredProps);
             return (
                 <CodeBlock keepBackground {...filteredProps}>
                     <Pre>{props.children}</Pre>
@@ -35,5 +34,6 @@ export function getMDXComponents(components?: MDXComponents): MDXComponents {
             );
         },
         Hint: Hint,
+        Admonition,
     };
 }

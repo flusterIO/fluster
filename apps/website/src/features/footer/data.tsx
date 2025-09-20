@@ -32,7 +32,7 @@ export const footerLinks: Record<FooterLinkKeys, LinkGroupItems> & {
             label: "Users",
         },
         {
-            href: staticContent.links.comingSoon,
+            href: staticContent.links.docs.internal.developerHome,
             label: "Developers",
         },
         {

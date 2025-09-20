@@ -1,4 +1,4 @@
-const baseUrl = "https://fluster.vercel.app";
+const baseUrl = "https://flusterapp.com";
 
 export const staticContent = {
     links: {
@@ -19,7 +19,8 @@ export const staticContent = {
         },
         docs: {
             internal: {
-                userHome: baseUrl,
+                userHome: "/docs/user",
+                developerHome: "/docs/developer",
                 organization_docs: baseUrl,
             },
             external: {

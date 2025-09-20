@@ -7,7 +7,25 @@ interface FumaDocsProviderProps {
 }
 
 const FumaDocsProvider = (props: FumaDocsProviderProps): ReactNode => {
-    return <RootProvider>{props.children}</RootProvider>;
+    return (
+        <RootProvider
+            theme={{
+                enabled: true,
+                enableSystem: false,
+                forcedTheme: "dark",
+                defaultTheme: "dark",
+                enableColorScheme: true,
+                themes: ["dark"],
+                attribute: "class",
+                value: {
+                    dark: "dark",
+                },
+                /* value: ValueOb */
+            }}
+        >
+            {props.children}
+        </RootProvider>
+    );
 };
 
 FumaDocsProvider.displayName = "FumaDocsProvider";

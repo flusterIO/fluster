@@ -58,7 +58,7 @@ var legal = defineCollections({
 var myWork = defineDocs({
   dir: "content/my_work",
   docs: {
-    mdxOptions: config.mdxOptions
+    // mdxOptions: config.mdxOptions,
   }
 });
 var documentation = defineDocs({

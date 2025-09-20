@@ -2,7 +2,8 @@
 title: Special Files
 ---
 
-# Special Files
+
+Fluster uses a few 'special' files for various tasks. These files are either specified to Fluster via the app itself (bibliography), or found via file name.
 
 ## The Main Folder
 
@@ -12,19 +13,11 @@ While not strictly required in all cases, these following files _should_ be nest
 
 ### Ignoring Things
 
-```sh 
-<My Notes Directory>/.flusterIgnore
-```
-
 You can create a `.flusterIgnore` file in the root of your notes directory to specify file paths that fluster should, you know... ignore. The syntax is identical to that of a `.gitignore` file. Documentation on this syntax can be found [here](https://git-scm.com/docs/gitignore);
 
 ### Bibliography
 
 #### Bibtex file
-
-```sh 
-<My Notes Directory>/citations.bib
-```
 
 By default Fluster includes support for an embedded bibliography database. This database can work in sync with a local file, reading from this file to populate your database.
 
@@ -33,7 +26,3 @@ By default Fluster includes support for an embedded bibliography database. This 
 An optional file path to any valid `.csl` file. There is a great repo available [here](https://github.com/citation-style-language/styles) with a file to satisfy just about every popular format. 
 
 To apply your selected citation format, simply copy the contents of your chosen `.csl` file to any file within your notes diretory, and then go the bibliography settings page and edit the Csl file path to apply this format to Fluster.
-
-```sh 
-<My Notes Directory>/aip.csl
-```
