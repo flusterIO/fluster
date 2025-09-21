@@ -30,7 +30,7 @@ Embed the controls for an Audio file directly within your notes, with the abilit
 
 <Hint>At least one `:` is required in the timestamp link. A value of purely seconds will not work.</Hint>
 
-You can link to specific timestamps within your audio file using the special `[my link body](audio:ofMiceAndMen@48:00)`.
+You can link to specific timestamps within your audio file using the special `[my link body](\audio\:ofMiceAndMen@48:00)`. (do not include `\`. This was included to avoid parsing tag in docs.)
 
 In this timestamp link syntax, the id field, `ofMiceAndMen` in this case, must match an audio element's id on that same page. If only a single `:` exists in the timestamp, it is interpreted as `minutes:seconds`. If two `:` exist, it is interpreted as `hours:minutes:seconds`. A value of just seconds will not work.
 

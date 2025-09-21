@@ -37,7 +37,7 @@ Display videos directly in your notes with the video component.
 
 <Hint>At least one `:` is required in the timestamp link. A value of purely seconds will not work.</Hint>
 
-You can link to specific timestamps within your video using the special `[my link body](video:susskind4@48:00)`.
+You can link to specific timestamps within your video using the special `[my link body](\video\:susskind4@48:00)`. (Don't use the `\` character where it appears. This was included to avoid parsing the tags in the docs.)
 
 In this timestamp link syntax, the id field, `susskind4` in this case, must match a video element's id on that same page. If only a single `:` exists in the timestamp, it is interpreted as `minutes:seconds`. If two `:` exist, it is interpreted as `hours:minutes:seconds`. A value of just seconds will not work.
 
