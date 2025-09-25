@@ -37,9 +37,12 @@ jobs:
         with:
           # Those targets are only used on macos runners so it's in an `if` to slightly speed up windows and linux builds.
           targets: ${{ matrix.platform == 'macos-latest' && 'aarch64-apple-darwin,x86_64-apple-darwin' || '' }}
-      - name: Install winget
-        uses: Cyberboss/install-winget@v1
-        if: matrix.platform == 'windows-latest'
+      # - name: Install winget // Removed 9-25-25
+      #   uses: Cyberboss/install-winget@v1
+      #   if: matrix.platform == 'windows-latest'
+      #   with:
+      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      #     wget_release_id: latest
       - name: Install Protoc
         uses: arduino/setup-protoc@v3
         with:
