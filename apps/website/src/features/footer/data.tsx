@@ -19,7 +19,23 @@ export type LinkGroupItems = LinkGroupItem[];
 export const footerLinks: Record<FooterLinkKeys, LinkGroupItems> & {
     banners?: FooterBannerProps[];
 } = {
-    banners: [],
+    banners: [
+        {
+            content: (
+                <div>
+                    Logo by{" "}
+                    <a
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-primary"
+                        href="https://www.robstruble.com/"
+                    >
+                        Rob Strubble
+                    </a>
+                </div>
+            ),
+        },
+    ],
     demos: [
         {
             href: "/",

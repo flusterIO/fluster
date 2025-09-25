@@ -32,8 +32,8 @@ dependencies = [
 version_file = "pkg/_version.py"
 
 [project.urls]
-Homepage = "https://fluster-one.vercel.app"
-Documentation = "https://fluster-one.vercel.app"
+Homepage = "https://flusterapp.com"
+Documentation = "https://flusterapp.com"
 Repository = "https://github.com/flusterIO/fluster"
 Changelog = "https://github.com/flusterIO/fluster/blob/main/CHANGELOG.md"
 

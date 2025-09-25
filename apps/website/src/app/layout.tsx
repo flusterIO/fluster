@@ -72,11 +72,9 @@ export default function RootLayout({
                     property="og:description"
                     content="Fluster is your brain's free & open source presentation layer for modern academic note taking."
                 />
-                <meta
-                    property="og:image"
-                    content="https://flusterapp.com/blog/screenshots/splitview.png"
-                />
+                <meta property="og:image" content="/blog/screenshots/splitview.png" />
                 <meta name="twitter:card" content="summary_large_image" />
+                <link rel="icon" type="image/x-icon" href="/assets/logo/logo.ico" />
                 <script
                     defer
                     src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js"

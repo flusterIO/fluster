@@ -19,14 +19,12 @@ use crate::{
 pub async fn save_equation(item: EquationData, toast_channel: ToastChannel) -> FlusterResult<()> {
     let db_res = get_database().await;
     let db = db_res.lock().await;
-    // RESUME: This method seems to be ok, but apply this same logic below to the save_snippet
-    // method to avoid duplicate ids.
     if item.equation.equation_id.is_some() {
         let equation_id_exists =
-            EquationEntity::equation_id_exists(&db, &item.equation.equation_id.as_ref().unwrap())
+            EquationEntity::equation_id_exists(&db, item.equation.equation_id.as_ref().unwrap())
                 .await?;
         if equation_id_exists {
-            toast_channel.send(ToastConfig {
+            let res = toast_channel.send(ToastConfig {
                 title: String::from("Duplicate id's."),
                 variant: ToastVariant::Error,
                 duration: 5000,
@@ -35,6 +33,9 @@ pub async fn save_equation(item: EquationData, toast_channel: ToastChannel) -> F
                 ),
                 id: get_unique_id().await,
             });
+            if res.is_err() {
+                println!("Error in save equation: {:?}", res.err());
+            }
             return Err(FlusterError::DuplicateId);
         }
     }

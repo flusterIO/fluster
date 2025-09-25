@@ -1,5 +1,11 @@
 # @fluster.io/dev
 
+## 0.3.5
+
+### Patch Changes
+
+- Add new icon and youtube timestamp links.
+
 ## 0.3.4
 
 ### Patch Changes

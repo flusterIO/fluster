@@ -4,7 +4,8 @@ members = [
     "apps/fluster/src-tauri",
     "packages/fluster_grpc",
     "packages/fluster_test_utils",
-    "packages/fluster_lua", "packages/fluster_internal_workspace/rust",
+    "packages/fluster_lua",
+    "packages/fluster_internal_workspace/rust",
 ]
 
 
@@ -12,7 +13,7 @@ members = [
 version = "0.0.1"
 authors = ["Andrew Iglinski"]
 description = "Be less dum."
-documentation = "fluster-one.vercel.app"
+documentation = "https://flusterapp.com"
 edition = "2021"
 
 [workspace.lints.rust]

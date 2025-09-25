@@ -7,7 +7,7 @@ import { Admonition } from "#/features/docs/embedded_components/admonition";
 import { CodeBlock, Pre } from "fumadocs-ui/components/codeblock";
 
 export function getMDXComponents(components?: MDXComponents): MDXComponents {
-    /* eslint-disable-next-line  --  */
+    /* eslint-disable-next-line  -- Don't include table with default components */
     const { table: _table, ...selectedFumaComponents } = defaultMdxComponents;
     return {
         ...selectedFumaComponents,
@@ -33,7 +33,7 @@ export function getMDXComponents(components?: MDXComponents): MDXComponents {
                 </div>
             );
         },
-        Hint: Hint,
+        Hint,
         Admonition,
     };
 }

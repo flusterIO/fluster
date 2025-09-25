@@ -46,7 +46,7 @@ const FooterBanners = ({ banners, inView, initialDelay }: Props) => {
     return (
         <div
             className={
-                "w-full flex flex-col justify-center items-center gap-4 text-sm max-w-[600px] text-gray-400"
+                "w-full flex flex-col justify-center items-center gap-4 text-sm max-w-[600px] text-gray-400 mt-4 mb-2"
             }
         >
             {banners.map((item, i) => (

@@ -10,9 +10,6 @@
     },
     "app": {
         "withGlobalTauri": true,
-        "trayIcon": {
-            "iconPath": "icons/Square310x310Logo.png"
-        },
         "windows": [
             {
                 "title": "Fluster",
@@ -78,11 +75,11 @@
         "shortDescription": "Free & open source academic note taking.",
         "publisher": "Fluster",
         "icon": [
-            "icons/32x32.png",
-            "icons/128x128.png",
-            "icons/128x128@2x.png",
-            "icons/icon.icns",
-            "icons/icon.ico"
+            "icons/icon_bundle/fluster_profile_photo.png",
+            "icons/icon_bundle/128.png",
+            "icons/icon_bundle/258.png",
+            "icons/icon_bundle/1024-mac.icns",
+            "icons/icon_bundle/logo.ico"
         ],
         "resources": [
             "../public/**/*",

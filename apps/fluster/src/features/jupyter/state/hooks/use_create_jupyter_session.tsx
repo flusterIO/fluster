@@ -9,6 +9,7 @@ export const useCreateJupyterSession = () => {
     const jupyterState = useSelector((state: AppState) => state.code.jupyter);
     const createFlusterJupyterSession = async (): Promise<void> => {
         const res = await axios.get(getJupyterUrl(jupyterState.port), {});
+        console.log("res: ", res);
     };
     useEffect(() => {
         createFlusterJupyterSession();

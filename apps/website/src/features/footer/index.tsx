@@ -21,7 +21,7 @@ const Footer = () => {
         <div
             id="main-footer-container"
             className={clsx(
-                "group/footer max-w-screen min-w-full flex flex-col justify-center items-center gap-6 px-6 lg:px-12 pb-8 pt-6 border-t bg-background z-10 relative",
+                "group/footer max-w-screen min-w-full flex flex-col justify-center items-center px-6 lg:px-12 pb-8 pt-6 border-t bg-background z-10 relative",
                 footerLinks.banners && footerLinks.banners.length > 0 && "withBanners"
             )}
         >

@@ -30,7 +30,7 @@ const resumeDataSchema = z.object({
     intro: z.string().max(1000),
     github: z.string().url().default("https://github.com/igloo1505"),
     email: z.string().email().default("aiglinski414@gmail.com"),
-    homepage: z.string().url().default("https://fluster-one.vercel.app"),
+    homepage: z.string().url().default("https://flusterapp.com"),
     linkedIn: z.string().url().optional(),
     dob: z.string().default("4/19/1988"),
     avatar: z
@@ -100,10 +100,10 @@ const resumeData: ResumeDataInput = {
         "Due to my current living situation, much of my more meaningful previous work is no longer hosted. I can provide links to the repos or video demonstrations on request.",
     projects: [
         {
-            title: "Uh Little Less Dum",
+            title: "Fluster",
             desc: "An open source academic note taking framework",
             repo: staticContent.links.social.github,
-            hostedSite: "https://fluster.vercel.app",
+            hostedSite: "https://flusterapp.com",
         },
     ],
     workHistory: [
