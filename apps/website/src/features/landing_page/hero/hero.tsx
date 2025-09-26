@@ -128,7 +128,7 @@ const HeroSection = () => {
                         Documentation
                     </MotionLink>
                 </div>
-                <div className="mt-12 flex flex-wrap justify-center gap-6 text-sm text-gray-300">
+                <div className="mt-12 flex flex-wrap justify-center gap-6 text-sm text-gray-300 px-4">
                     <motion.div
                         initial="initial"
                         animate="animate"

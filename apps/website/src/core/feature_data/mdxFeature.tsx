@@ -31,7 +31,9 @@ export const mdxFeature: FeaturedContainerPropsRequired = {
             <Image
                 src={splitViewImg}
                 alt="Fluster mdx & code editor split view"
-                className={"w-auto max-w-full h-auto min-h-[40vh]"}
+                className={
+                    "min-[600px]:w-auto min-[600px]:max-w-full min-[600px]:h-auto min-[600px]:min-h-[40vh] w-full h-auto"
+                }
             />
         );
     },

@@ -108,18 +108,18 @@ const resumeData: ResumeDataInput = {
     ],
     workHistory: [
         {
-            title: "Part-time freelance developer",
-            desc: "While still working part-time in unrelated fields I was able to build my skills while accepting small to medium sized jobs on various online freelance platforms.",
-            location: "Milwaukee & Remote",
-            start: new Date("04/1/2015"),
-            end: new Date("07/01/2018"),
-        },
-        {
             title: "Full-time freelance developer",
             desc: "After building a strong enough reputation, and feeling confident enough in my own abilities I took the leap and decided to work as a full-time freelance developer.",
-            location: "Remote",
-            start: new Date("07/1/2018"),
-            end: new Date("02/01/2022"),
+            location: "Milwaukee & Remote",
+            start: new Date("07/1/2015"),
+            end: new Date("01/01/2019"),
+        },
+        {
+            title: "Direct Mail Inc.",
+            desc: "Created websites to build a subscriber database for various online newsletters. Was also responsible for html email templates, an accessible sign-up and cancellation user experience and building a portal for newsletter authors.",
+            location: "Milwaukee",
+            start: new Date("1/1/2019"),
+            end: new Date("03/01/2022"),
         },
         {
             title: "Aspiring astrophysicist",
