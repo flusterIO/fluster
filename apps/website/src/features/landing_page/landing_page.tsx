@@ -8,7 +8,7 @@ import { StoryOfFlusterSection } from "./sections/story_of_ulld_section/index";
 
 const LandingPage = (): ReactNode => {
     return (
-        <div className="w-full min-h-screen pb-8 flex flex-col justify-start items-center">
+        <div className="w-full min-h-screen pb-8 flex flex-col justify-start items-center overflow-x-hidden">
             <HeroSection />
             <EverythingYouNeedSection />
             <HighlightedFeaturesSection />
