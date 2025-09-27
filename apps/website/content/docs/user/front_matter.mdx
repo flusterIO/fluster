@@ -14,3 +14,5 @@ Mdx incorporates the notion of _front matter_, a section of _usually_ arbitrary 
 | tags | Add tags to your front matter as well as inside of your note. How you apply them is up to you. You can use the `FrontMatterTags` component to show these tags inside of your note, but the navigation will work regardless of whether or not they are visible. | `[]String?` |
 | subject | Set subjects in your front matter as well as through smart filters. |  `String?` |
 | topic | Set topics in your front matter as well as through smart filters. | `String?` |
+| sequentialId | An optional unique id used to make notes part of a sequential list. | `String?` |
+| sequentialIndex | If the note is part of a sequential list, this sets the notes index within that list. Start indices at either 0 or 1 and count sequentially from there. | `int?` |

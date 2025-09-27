@@ -108,6 +108,69 @@ By integrating $\tau$ we essentially integrate all of cosmic inflation since the
 This value aligns closely with direct observation, falling within 0.5% of measurement in a scenario that would presume a reasonable error due to gravitational turbulence secondary to the same phenomenon applied to other nearby massive bodies.
 
 
+#### Time derivative equivalent [#time-derivative-equivalent]
+
+Consider that for $\int x$ as it appears in equation $5$, $1$ unit of pseudo-time will pass[^2]. Because the passage of pseudo-time is _defined_ by the relationship between proportional derivatives and distances, where $t_{p}$ indicates 1 unit of pseudo-time in units applied to the traditional notion of velocity, we can easily infer the following:
+
+$$
+\begin{align}
+\tau_o = \frac{1 ~ t_{p}}{dt_p} \equiv \frac{\int x_\sigma}{dx_\sigma}
+\end{align}
+$$
+
+This gives $\tau_o$ time derivatives per unit of time, but more importantly, a time derivative, $1/\tau_o$ that is proportionate to $dx$ if $\int x$ is defined by $dx$.
+
+### Kinematic velocity from local orbital parameters
+
+<img 
+   src="/assets/diagrams/orbitalRadiusFromModel.png"
+   className="max-h-[350px] ml-auto mr-auto"
+/>
+
+Consider the diagram above, in which a body is in tangential motion with respect to the surface of the Earth. As $\dot{x} = dx/dt$, we can describe $\dot{x}~ dt$ as just $\dot{x}$. This leaves us with
+
+$$
+\begin{align}
+R_{0}^{2} + \dot{x}^{2} = R_{0}^{2} \left( 1 + \frac{ds ~ dt}{R_{0}} \right)^{2}
+\end{align}
+$$
+
+Expanding this equation gives
+
+$$
+\begin{align}
+\frac{\dot{x}^{2}}{R_{0}^{2}} = 2 \frac{ds ~ dt}{R_{0}} + \frac{ds^{2} dt^{2}}{R_{0}^{2}} \quad \Rightarrow \quad \dot{x}^{2} = 2 dsdt R_{0} + ds^{2} dt^{2}
+\end{align}
+$$
+
+Recall from the section above, $\tau_o$ is equivalent to the number of pseudo-time derivatives in 1 unit of time, proportional to $dx$ and $\int x$. In turn, $dt$ should be equivalent to $1 / \tau_o$. $ds$ of course can be rewritten as the product of the velocity of the gravitational source and the gradient of spatial dilation dilation, $ds = dx_{\bar{v}} \frac{g}{\bar{v}}$.
+
+This then gives
+
+$$
+\begin{align}
+\dot{x}^{2} = 2 \frac{ds}{\tau_o} R_{0} + \frac{ds^{2}}{\tau_o^{2}} = 2 dx_{\bar{v}} \frac{g}{\bar{v}}  \frac{dx_{\bar{v}}}{\bar{v}} R_{0} + dx_{\bar{v}}^{2} \frac{g^{2}}{\bar{v}^{2}} dt_p^{2}
+\end{align}
+$$
+
+And then simplifying equation the equation above and solving for $dx_{\bar{v}}$ gives
+
+$$
+\begin{align}
+dx_{\bar{v}} = \dot{x} \frac{\bar{v}}{g} \frac{1}{\sqrt{2 R_{0} \frac{1}{g} + dt_p^{2}}}
+\end{align}
+$$
+
+If we then substitute our standard orbital velocity formula for $\dot{x}$ we find
+
+$$
+\begin{align}
+dx_{\bar{v}} = \frac{\bar{v}}{g} \sqrt{\frac{GM}{R_{0}}} \frac{1}{\sqrt{2 R_{0} \frac{1}{g} + dt_p^{2}}} & = 372,359.89 ~ \text{m}/\text{s} \\ 
+& = v_{\text{cmb}} + \sim 0.89\%
+\end{align}
+$$
+
+
 ## Discussion
 
 This model satisfies every single experimental confirmation of either SR or GR, and does so without the need to dilate a quantity that we can't directly measure; a quantity that we can't even prove exists as a meaningful physical quantity. By constraining the differences between SR and the model being proposed to such a narrow domain of difference, the model fits incredibly cohesively with established physics. Einstein was insistent on a static Universe early in his career, and because of this missed the obvious conclusion.
@@ -126,4 +189,4 @@ This model draws some bold conclusions, but it is entirely physically and experi
 
 
 [^1]:  [C. Gordon, K. Land, and A. Slosar, “Determining the motion of the Solar system relative to the cosmic microwave background using Type Ia supernovae,” Monthly Notices of the Royal Astronomical Society 387(1), 371–376 (2008).](https://arxiv.org/abs/0711.4196)
-
+[^2]: In units of time as they appear in the traditional notion velocity.
