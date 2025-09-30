@@ -49,6 +49,8 @@ export const useGlobalKeymap = () => {
     useEffect(() => {
         window.addEventListener("keydown", handleKeyDown);
         return () => window.removeEventListener("keydown", handleKeyDown);
+        /* eslint-disable-next-line  -- Don't want to include handleKeyDown. */
     }, [keymapData]);
+
     return null;
 };

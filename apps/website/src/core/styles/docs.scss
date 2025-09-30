@@ -16,3 +16,13 @@ table {
     padding-right: 0.25rem;
   }
 }
+
+mjx-container {
+  max-width: 100%;
+  min-width: 0px !important;
+  overflow-x: auto;
+
+  mjx-mtable {
+    min-width: 0px;
+  }
+}
