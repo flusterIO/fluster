@@ -21,6 +21,7 @@ mjx-container {
   max-width: 100%;
   min-width: 0px !important;
   overflow-x: auto;
+  overflow-y: hidden !important;
 
   mjx-mtable {
     min-width: 0px;
