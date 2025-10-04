@@ -84,6 +84,7 @@ use crate::features::snippets::delete_snippet_by_id::delete_snippet_by_id;
 use crate::features::snippets::get_snippet_by_id::get_snippet_by_id;
 use crate::features::snippets::get_snippets::get_snippets;
 use crate::features::snippets::save_snippet::save_snippet;
+use crate::features::splash_screen::hide_splash_screen::hide_splash_screen;
 use crate::features::taggables::commands::get_all_subjects::get_all_subjects;
 use crate::features::taggables::commands::get_all_tags::get_all_tags;
 use crate::features::taggables::commands::get_all_topics::get_all_topics;
@@ -126,6 +127,7 @@ pub fn run() {
             get_operating_system,
             path_exists,
             normalize_path,
+            hide_splash_screen,
             // -- Auto Settings --
             create_auto_setting,
             get_all_auto_settings,

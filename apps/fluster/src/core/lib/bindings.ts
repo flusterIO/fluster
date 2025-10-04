@@ -23,6 +23,14 @@ async pathExists(filePath: string) : Promise<boolean> {
 async normalizePath(fsPath: string, basePath: string) : Promise<string> {
     return await TAURI_INVOKE("normalize_path", { fsPath, basePath });
 },
+async hideSplashScreen() : Promise<Result<null, FlusterError>> {
+    try {
+    return { status: "ok", data: await TAURI_INVOKE("hide_splash_screen") };
+} catch (e) {
+    if(e instanceof Error) throw e;
+    else return { status: "error", error: e  as any };
+}
+},
 async createAutoSetting(data: AutoSettingModel[]) : Promise<Result<null, FlusterError>> {
     try {
     return { status: "ok", data: await TAURI_INVOKE("create_auto_setting", { data }) };

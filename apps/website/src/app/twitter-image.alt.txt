@@ -1,0 +1,1 @@
+Fluster, free & open source academic note-taking for STEM students and professionals. Features interactive plotting, local AI, a bibliography manager, a task manager and more.

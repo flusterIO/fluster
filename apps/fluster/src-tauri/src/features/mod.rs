@@ -16,6 +16,7 @@ pub mod router;
 pub mod search;
 pub mod settings;
 pub mod snippets;
+pub mod splash_screen;
 pub mod taggables;
 pub mod task_manager;
 pub mod whiteboard;
