@@ -10,7 +10,7 @@ export const DictionaryEntry = ({
     children,
 }: DictionaryEntryProps): ReactNode => {
     return (
-        <div className="w-full @[540px]/mdx:mx-8 @[540px]/mdx:w-[calc(100%-4rem)] border rounded not-prose px-4 py-3 bg-card text-card-foreground">
+        <div className="w-full @[540px]/mdx-content:mx-8 @[540px]/mdx-content:w-[calc(100%-4rem)] border rounded not-prose px-4 py-3 bg-card text-card-foreground">
             <h2 className="text-xl font-bold">{label}</h2>
             <div>{children}</div>
         </div>
