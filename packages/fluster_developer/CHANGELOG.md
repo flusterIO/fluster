@@ -1,5 +1,11 @@
 # @fluster.io/dev
 
+## 0.3.6
+
+### Patch Changes
+
+- Update docs and fix positionable props.
+
 ## 0.3.5
 
 ### Patch Changes
