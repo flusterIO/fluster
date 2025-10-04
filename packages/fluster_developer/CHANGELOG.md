@@ -1,5 +1,11 @@
 # @fluster.io/dev
 
+## 0.3.7
+
+### Patch Changes
+
+- Fix timestamp links that were failing at the second instance and on.
+
 ## 0.3.6
 
 ### Patch Changes
