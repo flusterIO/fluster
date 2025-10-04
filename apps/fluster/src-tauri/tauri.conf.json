@@ -16,15 +16,7 @@
                 "title": "Fluster",
                 "titleBarStyle": "Overlay",
                 "width": 800,
-                "height": 600,
-                "visible": false
-            },
-            {
-                "label": "splashscreen",
-                "url": "/splash_screen",
-                "width": 800,
-                "height": 600,
-                "visible": true
+                "height": 600
             }
         ],
         "security": {

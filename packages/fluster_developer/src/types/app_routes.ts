@@ -20,4 +20,5 @@ export enum AppRoutes {
     notebookInteractive = "/notebook-interactive",
     constantsTable = "/docs-constants",
     full_screen_editor = "/editor-full",
+    splash_screen = "/splash_screen",
 }

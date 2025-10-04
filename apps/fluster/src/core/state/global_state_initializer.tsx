@@ -10,11 +10,19 @@ const connector = connect((state: AppState) => ({
 /// A utility component that handles the initial state by setting the core.hasLoadedSavedState value to true. This is a super bad hack, but the initial state was being sent to the database. This key was added to disallow saving state with the initial values, but it then needs to be set to true after a certain delay.
 export const GlobalStateInitializer = connector(
     ({ haveSet }: { haveSet: boolean }): ReactNode => {
+        /* const [splashVisible, setSplashVisible] = useState(true); */
+        /* const hideSplash = async (): Promise<void> => { */
+        /*     if (splashVisible) { */
+        /*         await commands.hideSplashScreen(); */
+        /*         setSplashVisible(false); */
+        /*     } */
+        /* }; */
         const dispatch = useDispatch();
         useEffect(() => {
             setTimeout(() => {
                 if (!haveSet) {
                     dispatch(savedStateApplied());
+                    /* hideSplash(); */
                 }
             }, 5000);
             /* eslint-disable-next-line  --  */

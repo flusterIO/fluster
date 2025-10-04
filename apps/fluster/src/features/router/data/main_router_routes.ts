@@ -27,12 +27,17 @@ import { CodeEditorPage } from "#/editor/presentation/code_editor_page";
 import { ScaffoldWithRightPanelOnly } from "#/scaffold/presentation/scaffold_right_panel_only";
 import { ScaffoldWithSidePanels } from "#/scaffold/presentation/scaffold_with_panels";
 import { HtmlFilePage } from "#/html/presentation/html_file_page";
+import { SplashScreen } from "#/splash_screen";
 
 export const getBrowserRouter = () => {
     return createBrowserRouter([
         {
             path: AppRoutes.onboarding,
             Component: OnboardingPage,
+        },
+        {
+            path: AppRoutes.splash_screen,
+            Component: SplashScreen,
         },
         {
             Component: DesktopScaffold,
