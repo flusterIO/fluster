@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState, type ReactNode } from "react";
+import React, { FC, useEffect, useMemo, useState, type ReactNode } from "react";
 import { motion } from "framer-motion";
 import AdmonitionTitle from "./admonition_title";
 import FoldableAdmonitionTitle from "./foldable_admonition_title";
@@ -39,6 +39,10 @@ export const Admonition = ({
         }
     }, [foldable]);
 
+    const titleComponent = useMemo(() => {
+        return <InlineMdxContent mdx={title} />;
+    }, [title, InlineMdxContent]);
+
     return (
         <motion.div
             initial={folded && foldable ? "folded" : "open"}
@@ -52,11 +56,11 @@ export const Admonition = ({
                     title={title}
                     type={type}
                 >
-                    <InlineMdxContent mdx={title} />
+                    {titleComponent}
                 </FoldableAdmonitionTitle>
             ) : (
                 <AdmonitionTitle title={title} type={type}>
-                    <InlineMdxContent mdx={title} />
+                    {titleComponent}
                 </AdmonitionTitle>
             )}
             <motion.div

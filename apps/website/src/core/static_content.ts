@@ -6,7 +6,7 @@ export const staticContent = {
         sponsor: "/sponsor",
         social: {
             github: "https://github.com/flusterIO/fluster",
-            twitter: "https://x.com/uhlittlelessdum",
+            twitter: "https://x.com/fluster_app",
             discord: "https://discord.gg/FUA88wwqUM",
         },
         github: {
