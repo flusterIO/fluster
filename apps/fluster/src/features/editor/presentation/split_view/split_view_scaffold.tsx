@@ -6,50 +6,50 @@ import { MdxNoteBibliographyByContent } from "#/bibliography/presentation/note_b
 import { MdxProviderGroup } from "#/mdx/presentation/mdx_provider_group";
 
 interface SplitViewScaffoldProps
-    extends Omit<CodeEditorProps, "themes" | "isModal" | "vimMode"> {
-    autoSaveId?: string;
+  extends Omit<CodeEditorProps, "themes" | "isModal" | "vimMode"> {
+  autoSaveId?: string;
 }
 
 const SplitViewContainer = ({
-    onChange,
-    value,
-    language,
-    autoSaveId = "splitview-panels",
-    ...props
+  onChange,
+  value,
+  language,
+  autoSaveId = "splitview-panels",
+  ...props
 }: SplitViewScaffoldProps): ReactNode => {
-    return (
-        <PanelGroup autoSaveId={autoSaveId} direction="horizontal">
-            <Panel id="editor-panel" order={1} defaultSize={50}>
-                <CodeEditor
-                    {...props}
-                    language={language}
-                    value={value}
-                    onChange={onChange}
-                />
-            </Panel>
-            <PanelResizeHandle />
-            <Panel
-                id="editor-output-panel"
-                className="bg-background"
-                order={2}
-                defaultSize={50}
-            >
-                <div
-                    id="mdx-page-container"
-                    className="w-full h-full overflow-y-auto overflow-x-hidden py-16 px-8"
-                >
-                    <MdxProviderGroup>
-                        <MdxContent
-                            removeGrayMatter
-                            className="p-6 max-h-full contents"
-                            mdx={value}
-                        />
-                    </MdxProviderGroup>
-                    <MdxNoteBibliographyByContent mdx={value} />
-                </div>
-            </Panel>
-        </PanelGroup>
-    );
+  return (
+    <PanelGroup autoSaveId={autoSaveId} direction="horizontal">
+      <Panel id="editor-panel" order={1} defaultSize={50}>
+        <CodeEditor
+          {...props}
+          language={language}
+          value={value}
+          onChange={onChange}
+        />
+      </Panel>
+      <PanelResizeHandle />
+      <Panel
+        id="editor-output-panel"
+        className="bg-background"
+        order={2}
+        defaultSize={50}
+      >
+        <div
+          id="mdx-page-container"
+          className="w-full h-full overflow-y-auto overflow-x-hidden py-16 px-8"
+        >
+          <MdxProviderGroup>
+            <MdxContent
+              removeGrayMatter
+              className="p-6 max-h-full contents"
+              mdx={value}
+            />
+          </MdxProviderGroup>
+          <MdxNoteBibliographyByContent mdx={value} />
+        </div>
+      </Panel>
+    </PanelGroup>
+  );
 };
 
 SplitViewContainer.displayName = "SplitViewScaffold";
