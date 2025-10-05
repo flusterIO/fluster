@@ -1,5 +1,11 @@
 # @fluster.io/dev
 
+## 0.3.9
+
+### Patch Changes
+
+- Add tooltip to side menu, add save indicator to split view edtor and maximize window on launch
+
 ## 0.3.8
 
 ### Patch Changes
