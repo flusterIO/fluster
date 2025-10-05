@@ -67,6 +67,7 @@ export default defineConfig({
       fileName: (c) => `index.${c}.js`,
       cssFileName: "themes",
     },
+    commonjsOptions: { transformMixedEsModules: true },
     rollupOptions: {
       external: ["react", "react-dom", "tailwindcss"],
       output: {
