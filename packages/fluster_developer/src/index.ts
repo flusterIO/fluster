@@ -151,8 +151,6 @@ export * from "./components/shad/textarea";
 export * from "./components/shad/toggle-group";
 export * from "./components/shad/toggle";
 export * from "./components/shad/tooltip";
-// -- Jupyter --
-export * from "./embeddable_components/jupyter/jupyter_cell";
 // -- Types --
 export * from "./types/general";
 //  -- Utility and Documentation Components --
