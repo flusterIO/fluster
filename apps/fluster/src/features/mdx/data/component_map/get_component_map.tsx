@@ -52,7 +52,6 @@ import { WrappedAudioComponent } from "#/mdx/presentation/wrapped_components/aud
 import { WrappedImage } from "#/mdx/presentation/wrapped_components/image";
 import { WrappedTaskList } from "#/mdx/presentation/wrapped_components/task_list";
 import { JupyterCell } from "#/jupyter/presentation/cell";
-import { JupyterCellWrapped } from "#/mdx/presentation/wrapped_components/jupyter_cell";
 
 interface ComponentMapItem {
   /// A regex that will return true if this component is to be included in the component map. This will be prepended with a `<`, so the name should match the component as it will be used in the user's note.
@@ -217,10 +216,6 @@ const items: ComponentMapItem[] = [
     component: ColorPalette,
   },
   // -- Jupyter --
-  {
-    query: "Cell",
-    component: JupyterCellWrapped,
-  },
   // -- Auto Inserted --
   {
     query: "InlineCitation",
