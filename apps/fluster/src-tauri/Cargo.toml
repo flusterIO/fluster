@@ -97,10 +97,15 @@ glob-match = "0.2.1"
 notify = { version = "8.2.0", features = ["crossbeam-channel", "serde"] }
 predicates = "3.1.3"
 assert_fs = { version = "1.1.3", features = ["color"] }
+tauri-plugin-prevent-default = "3.0.3"
 
 [target.'cfg(target_os = "macos")'.dependencies]
 kalosm = { version = "0.4.0", features = ["full", "metal"] }
 
+[target.'cfg(target_os = "windows")'.dependencies]
+tauri-plugin-prevent-default = { version = "3.0.3", features = [
+    "platform-windows",
+] }
 
 [target.'cfg(not(any(target_os = "android", target_os = "ios")))'.dependencies]
 tauri-plugin-global-shortcut = "2"

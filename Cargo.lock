@@ -4507,6 +4507,7 @@ dependencies = [
  "tauri-plugin-macos-permissions",
  "tauri-plugin-network",
  "tauri-plugin-opener",
+ "tauri-plugin-prevent-default",
  "tauri-plugin-single-instance",
  "tauri-plugin-window-state",
  "tauri-specta",
@@ -14266,6 +14267,22 @@ dependencies = [
  "url",
  "windows 0.61.1",
  "zbus",
+]
+
+[[package]]
+name = "tauri-plugin-prevent-default"
+version = "3.0.3"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "22e133889986e498b0377e4999d6c45e7aff41ae808c87265a11e3f544748abe"
+dependencies = [
+ "bitflags 2.9.1",
+ "itertools 0.14.0",
+ "serde",
+ "strum 0.27.1",
+ "tauri",
+ "thiserror 2.0.12",
+ "webview2-com",
+ "windows 0.61.1",
 ]
 
 [[package]]

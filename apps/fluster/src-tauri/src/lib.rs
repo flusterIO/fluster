@@ -117,10 +117,14 @@ use features::math::commands::numpy::{
 };
 use features::math::get_mathjax_path::get_mathjax_path;
 use features::plot::commands::get_plotly_theme::get_plotly_theme;
+use tauri_plugin_prevent_default::Flags;
 use tauri_specta::{collect_commands, collect_events, Builder};
 
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
+    let prevent = tauri_plugin_prevent_default::Builder::new()
+        .with_flags(Flags::all().difference(Flags::FIND | Flags::RELOAD))
+        .build();
     let cmds = Builder::<tauri::Wry>::new()
         .commands(collect_commands![
             // -- General Utils --
@@ -282,6 +286,7 @@ pub fn run() {
     // environment.
     tauri::Builder::default()
         .plugin(tauri_plugin_dialog::init())
+        .plugin(prevent)
         .plugin(tauri_plugin_single_instance::init(|_, _, _| {}))
         .plugin(tauri_plugin_opener::init())
         .plugin(tauri_plugin_network::init())
