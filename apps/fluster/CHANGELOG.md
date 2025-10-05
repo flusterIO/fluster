@@ -1,5 +1,13 @@
 # fluster
 
+## 0.3.8
+
+### Patch Changes
+
+- Hopefully remove all default system keymaps.
+- Updated dependencies
+  - @fluster.io/dev@0.3.8
+
 ## 0.3.7
 
 ### Patch Changes
