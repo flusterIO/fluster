@@ -15,8 +15,7 @@
                 "label": "main",
                 "title": "Fluster",
                 "titleBarStyle": "Overlay",
-                "width": 800,
-                "height": 600
+                "maximized": true
             }
         ],
         "security": {

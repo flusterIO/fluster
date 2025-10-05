@@ -6,19 +6,23 @@ export interface JupyterProviderProps {
   token: string;
   portNumber: number | string;
   kernel?: string;
+  darkMode: boolean;
 }
 
 export const JupyterProvider = ({
   token,
   portNumber,
   kernel = "python",
+  darkMode,
   children,
 }: JupyterProviderProps): ReactNode => {
   return (
     <Jupyter
-      jupyterServerUrl={`http://localhost:${portNumber}`}
+      jupyterServerUrl={`http://127.0.0.1:${portNumber}`}
       jupyterServerToken={token}
       defaultKernelName={kernel}
+      startDefaultKernel
+      colormode={darkMode ? "dark" : "light"}
     >
       {children}
     </Jupyter>

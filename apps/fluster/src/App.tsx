@@ -6,25 +6,38 @@ import { ResourceRoutes } from "#/router/data/app_routes";
 import { useMermaidInit } from "@/state/hooks/use_mermaid_init";
 
 const App = (): ReactNode => {
-    window.MathJax = {
-        /* @ts-expect-error -- Not sure if this is working but I'm leaving it until all math is rendering properly. */
-        "HTML-CSS": { linebreaks: { automatic: true } },
-        tex: {
-            inlineMath: [["$", "$"]],
-        },
-        menuSettings: {
-            autocollapse: true,
-        },
-        chtml: {
-            minScale: 0.2,
-            fontURL: ResourceRoutes.mathjaxFonts,
-        },
+  window.MathJax = {
+    /* @ts-expect-error -- Not sure if this is working but I'm leaving it until all math is rendering properly. */
+    "HTML-CSS": { linebreaks: { automatic: true } },
+    tex: {
+      inlineMath: [["$", "$"]],
+    },
+    menuSettings: {
+      autocollapse: true,
+    },
+    chtml: {
+      minScale: 0.2,
+      fontURL: ResourceRoutes.mathjaxFonts,
+    },
+  };
+  window.requestIdleCallback =
+    window.requestIdleCallback ||
+    function (cb) {
+      const start = Date.now();
+      return setTimeout(function () {
+        cb({
+          didTimeout: false,
+          timeRemaining: function () {
+            return Math.max(0, 50 - (Date.now() - start));
+          },
+        });
+      }, 1);
     };
-    useMermaidInit();
-    useGlobalKeymap();
+  useMermaidInit();
+  useGlobalKeymap();
 
-    const router = useMemo(() => getBrowserRouter(), []);
-    return <RouterProvider router={router} />;
+  const router = useMemo(() => getBrowserRouter(), []);
+  return <RouterProvider router={router} />;
 };
 
 App.displayName = "App";

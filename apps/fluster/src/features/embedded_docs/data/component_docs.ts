@@ -53,10 +53,10 @@ export const componentDocItems: ComponentDocsEntry[] = [
     label: "Image",
     fp: "component_docs/image.mdx",
   },
-  {
-    label: "Jupyter Cell & Notebook",
-    fp: "component_docs/jupyter.mdx",
-  },
+  // {
+  //   label: "Jupyter Cell & Notebook",
+  //   fp: "component_docs/jupyter.mdx",
+  // },
   {
     label: "Plots",
     fp: "component_docs/academic/plots.mdx",
