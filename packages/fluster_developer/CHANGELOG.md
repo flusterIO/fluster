@@ -1,5 +1,11 @@
 # @fluster.io/dev
 
+## 0.3.10
+
+### Patch Changes
+
+- Revert jupyter integration for now.
+
 ## 0.3.9
 
 ### Patch Changes
