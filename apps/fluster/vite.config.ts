@@ -16,62 +16,62 @@ const cMapsDir = normalizePath(path.join(pdfjsDistPath, "cmaps"));
 // const publicDir = path.join(rootDir, "apps", "fluster", "public");
 
 export default defineConfig({
-    plugins: [
-        tailwindcss(),
-        react(),
-        tsconfigPaths(),
-        viteStaticCopy({
-            targets: [
-                {
-                    src: cMapsDir,
-                    dest: "",
-                },
-                // {
-                //     src: publicDir,
-                //     dest: "",
-                // },
-            ],
-        }),
-    ],
-    clearScreen: false,
-    assetsInclude: ["./public/**/*"],
-    publicDir: "./public",
-    // envPrefix: ["VITE_", "TAURI_ENV_*"],
-    // build: {
-    //     target:
-    //         process.env.TAURI_ENV_PLATFORM == "windows" ? "chrome105" : "safari13",
-    //     minify: !process.env.TAURI_ENV_DEBUG ? "esbuild" : false,
-    //     sourcemap: !!process.env.TAURI_ENV_DEBUG,
-    // },
-    build: {
-        copyPublicDir: true,
-        minify: !process.env.TAURI_ENV_DEBUG ? "esbuild" : false,
-        sourcemap: !!process.env.TAURI_ENV_DEBUG,
-    },
+  plugins: [
+    tailwindcss(),
+    react(),
+    tsconfigPaths(),
+    viteStaticCopy({
+      targets: [
+        {
+          src: cMapsDir,
+          dest: "",
+        },
+        // {
+        //     src: publicDir,
+        //     dest: "",
+        // },
+      ],
+    }),
+  ],
+  clearScreen: false,
+  assetsInclude: ["./public/**/*", "**/*.whl", "**/*.raw.css"],
+  publicDir: "./public",
+  // envPrefix: ["VITE_", "TAURI_ENV_*"],
+  // build: {
+  //     target:
+  //         process.env.TAURI_ENV_PLATFORM == "windows" ? "chrome105" : "safari13",
+  //     minify: !process.env.TAURI_ENV_DEBUG ? "esbuild" : false,
+  //     sourcemap: !!process.env.TAURI_ENV_DEBUG,
+  // },
+  build: {
+    copyPublicDir: true,
+    minify: !process.env.TAURI_ENV_DEBUG ? "esbuild" : false,
+    sourcemap: !!process.env.TAURI_ENV_DEBUG,
+  },
 
-    server: {
-        port: 1420,
-        strictPort: true,
-        host: host || false,
-        hmr: host
-            ? {
-                protocol: "ws",
-                host,
-                port: 1421,
-            }
-            : undefined,
-        watch: {
-            // 3. tell Vite to ignore watching `src-tauri`
-            ignored: ["**/src-tauri/**"],
-        },
+  server: {
+    port: 1420,
+    strictPort: true,
+    host: host || false,
+    hmr: host
+      ? {
+          protocol: "ws",
+          host,
+          port: 1421,
+        }
+      : undefined,
+    watch: {
+      // 3. tell Vite to ignore watching `src-tauri`
+      ignored: ["**/src-tauri/**"],
     },
-    resolve: {
-        alias: {
-            "@": path.resolve(__dirname, "./src/core/"),
-            "#": path.resolve(__dirname, "./src/features/"),
-            // Need to copy the pypi and services from the jupyter-ui package to the public directory.
-            // "/build/pypi": "/pypi",
-            // "/services.js": "/services.jsj",
-        },
+  },
+  resolve: {
+    alias: {
+      "@": path.resolve(__dirname, "./src/core/"),
+      "#": path.resolve(__dirname, "./src/features/"),
+      // Need to copy the pypi and services from the jupyter-ui package to the public directory.
+      // "/build/pypi": "/pypi",
+      // "/services.js": "/services.jsj",
     },
+  },
 });
