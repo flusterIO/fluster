@@ -1,4 +1,4 @@
-import React, { useState, type ReactNode } from "react";
+import React, { useEffect, useState, type ReactNode } from "react";
 import { View, Calendar, Event, dateFnsLocalizer } from "react-big-calendar";
 import withDragAndDrop, {
     withDragAndDropProps,
@@ -11,6 +11,9 @@ import { enUS } from "date-fns/locale/en-US";
 import { addHours } from "date-fns/addHours";
 import { startOfHour } from "date-fns/startOfHour";
 import "../../../../styles/calendar.scss";
+import { commands, TaskModel } from "@/lib/bindings";
+import { parseDate, showToast } from "@fluster.io/dev";
+import dayjs from "dayjs";
 
 const DnDCalendar = withDragAndDrop(Calendar);
 
@@ -21,26 +24,80 @@ export const CalendarPage = (): ReactNode => {
     const start = endOfHour(now);
     const end = addHours(start, 2);
     const [view, setView] = useState<View>("week");
-    const [events, setEvents] = useState<Event[]>([
-        {
-            title: "Learn cool stuff",
-            start,
-            end,
-        },
-    ]);
-    const onEventResize: withDragAndDropProps["onEventResize"] = (data) => {
-        const { start, end } = data;
-
-        setEvents((currentEvents) => {
-            const firstEvent = {
-                start: new Date(start),
-                end: new Date(end),
-            };
-            return [...currentEvents, firstEvent];
-        });
+    const [events, setEvents] = useState<Event[]>([]);
+    const taskToEvent = (t: TaskModel): Event => {
+        return {
+            title: t.label,
+            start: new Date(t.due_at as string),
+            end: new Date(new Date(t.due_at as string).valueOf() + 7200000),
+            resource: t,
+        } satisfies Event;
     };
-
-    const onEventDrop: withDragAndDropProps["onEventDrop"] = (data) => {
+    const getEvents = async (): Promise<void> => {
+        let items: Event[] = [];
+        const taskLists = await commands.getAllTaskLists();
+        if (taskLists.status === "error") {
+            showToast({
+                title: "Oh no",
+                body: "Something went wrong while gathering your tasks.",
+                duration: 5000,
+                variant: "Error",
+            });
+            return;
+        }
+        for await (const taskList of taskLists.data) {
+            const tasks = await commands.getTaskListTasks(taskList.id);
+            if (tasks.status === "ok") {
+                items = [
+                    ...items,
+                    ...tasks.data.filter((x) => x.due_at).map((t) => taskToEvent(t)),
+                ];
+            }
+        }
+        setEvents(items);
+    };
+    useEffect(() => {
+        getEvents();
+    }, []);
+    const onEventDrop: withDragAndDropProps["onEventDrop"] = async (data) => {
+        let task: TaskModel = data.event.resource;
+        let newTask: TaskModel = {
+            ...task,
+            ctime: parseDate(task.ctime).valueOf().toString(),
+            due_at: data.start.valueOf().toString(),
+        };
+        const res = await commands.createTask(newTask, []);
+        if (res.status === "ok") {
+            console.log(`Ok...`);
+            console.log("newTask: ", newTask);
+            const start = dayjs(parseInt(newTask.due_at as string), {
+                utc: true,
+            }).toDate();
+            console.log("start: ", start);
+            setEvents(
+                events.map((e): Event => {
+                    if ((e.resource as TaskModel).id === newTask.id) {
+                        return {
+                            title: newTask.label,
+                            resource: newTask,
+                            start: dayjs(parseInt(newTask.due_at as string), {
+                                utc: true,
+                            }).toDate(),
+                            end: new Date(
+                                dayjs(parseInt(newTask.due_at as string), {
+                                    utc: true,
+                                }).valueOf() + 7200000
+                            ),
+                        } satisfies Event;
+                    } else {
+                        return e;
+                    }
+                })
+            );
+        } else {
+            console.error("An error occurred while modifying this task.");
+        }
+        console.log("newTask: ", newTask);
         console.log(data);
     };
     const locales = {
@@ -62,19 +119,15 @@ export const CalendarPage = (): ReactNode => {
                 events={events}
                 localizer={localizer}
                 onEventDrop={onEventDrop}
-                onEventResize={onEventResize}
                 date={focusedDate}
-                onNavigate={(newDate, view, action) => {
-                    console.log("action: ", action);
-                    console.log("newDate: ", newDate);
+                resizable={false}
+                onNavigate={(newDate, view) => {
                     setFocusedDate(newDate);
                     setView(view);
                 }}
                 onView={(view) => {
-                    console.log("view: ", view);
                     setView(view);
                 }}
-                resizable
                 style={{
                     height: "calc(100vh-6rem)",
                     maxHeight: "768px",

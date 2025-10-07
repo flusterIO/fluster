@@ -2,6 +2,7 @@ import { InlineMdxContent } from "#/mdx/presentation/inline_mdx_content";
 import { setPanelRightOpen } from "#/panel_right/state/slice";
 import { refreshTaskList } from "#/task_manager/state/refresh_task_list";
 import { commands, TaskModel } from "@/lib/bindings";
+import { parseDate } from "@/lib/date_utils";
 import { AppRoutes, Checkbox, cn, showToast } from "@fluster.io/dev";
 import dayjs from "dayjs";
 import advancedFormat from "dayjs/plugin/advancedFormat";
@@ -56,15 +57,15 @@ export const TaskListItem = ({ data }: TaskListItemProps): ReactNode => {
         if (!data.due_at) {
             return null;
         }
-        return dayjs(data.due_at, {
-            utc: true,
-        }).format("MMM Do, YYYY [at] hh:mm a");
+        console.log("data.due_at: ", data.due_at);
+        return parseDate(data.due_at).format("MMM Do, YYYY [at] hh:mm a");
     }, [data.due_at]);
 
     const timeRemaining = useMemo(() => {
-        const d = dayjs(data.due_at, {
-            utc: true,
-        });
+        if (!data.due_at) {
+            return 0;
+        }
+        const d = parseDate(data.due_at);
         return d.diff(dayjs(new Date()));
     }, [data.due_at]);
 
@@ -75,11 +76,10 @@ export const TaskListItem = ({ data }: TaskListItemProps): ReactNode => {
             {
                 ...data,
                 due_at: null,
-                ctime: new Date(data.ctime).valueOf().toString(),
+                ctime: parseDate(data.ctime).valueOf().toString(),
             },
             []
         );
-        console.log("res: ", res);
         if (res.status === "ok") {
             showToast({
                 title: "Success",
@@ -117,10 +117,9 @@ export const TaskListItem = ({ data }: TaskListItemProps): ReactNode => {
                     <div
                         className={cn(
                             "text-sm text-muted-foreground w-fit px-2 py-1 rounded",
-                            !data.complete &&
-                            Boolean(timeRemaining) &&
-                            timeRemaining <= 0 &&
-                            "bg-destructive text-destructive-foreground"
+                            !data.complete && Boolean(timeRemaining) && timeRemaining <= 0
+                                ? "bg-destructive text-destructive-foreground"
+                                : "bg-primary text-primary-foreground"
                         )}
                     >
                         <XIcon className="w-3 h-3 inline mr-2" onClick={removeDueAt} />
