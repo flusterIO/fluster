@@ -1,0 +1,42 @@
+/* $out-of-range-color: hsl(var(--muted-foreground)) !important; */
+$out-of-range-color: hsl(var(--muted-foreground));
+$out-of-range-bg-color: hsl(var(--muted));
+
+$calendar-border: hsl(var(--border));
+$cell-border: hsl(var(--border));
+$cell-border-time-slot: hsl(var(--border));
+$border-color: hsl(var(--border));
+
+// Each calendar segment is 1/7th.
+$segment-width: 0.14286% !default;
+
+$time-selection-color: hsl(var(--card));
+$time-selection-bg-color: hsl(var(--card));
+$date-selection-bg-color: hsl(var(--primary));
+
+$event-bg: hsl(var(--primary));
+$event-bg-selected: hsl(var(--primary));
+$event-bg-focused: hsl(var(--primary));
+$event-border: hsl(var(--border));
+$event-outline: hsl(var(--border));
+$event-color: hsl(var(--primary-foreground));
+$event-border-radius: 5px !default;
+$event-padding: 2px 5px !default;
+$event-zindex: 4 !default;
+
+$btn-color: hsl(var(--card-foreground));
+$btn-bg: hsl(var(--card));
+$btn-bg-active: hsl(var(--primary));
+$btn-border-active: hsl(var(--border));
+$btn-border: hsl(var(--border));
+$btn-bg-focused: hsl(var(--primary));
+$btn-border-focused: hsl(var(--border));
+
+$current-time-color: hsl(var(--primary));
+
+$rbc-css-prefix: rbc-i !default;
+
+$today-highlight-bg: hsl(var(--muted) / 0.5);
+
+@import "react-big-calendar/lib/sass/styles";
+@import "react-big-calendar/lib/addons/dragAndDrop/styles";

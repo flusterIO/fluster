@@ -10,7 +10,7 @@ import {
     IconMath,
 } from "@tabler/icons-react";
 import { AppRoutes } from "#/router/data/app_routes";
-import { Bookmark, CheckIcon, LucideBubbles } from "lucide-react";
+import { Bookmark, Calendar, CheckIcon, LucideBubbles } from "lucide-react";
 
 export const globalNavigationItems = (): NavigationItem[] => {
     return [
@@ -37,6 +37,12 @@ export const globalNavigationItems = (): NavigationItem[] => {
             AppRoutes.bookmarks,
             Bookmark as ComponentType<{ className: string }>,
             NavItemPosition.hidden
+        ),
+        new NavigationItem(
+            "Calendar",
+            AppRoutes.calendar,
+            Calendar as ComponentType<{ className: string }>,
+            NavItemPosition.top
         ),
         new NavigationItem(
             "Task Manager",

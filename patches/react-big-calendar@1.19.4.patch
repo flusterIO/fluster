@@ -1,0 +1,116 @@
+diff --git a/lib/addons/dragAndDrop/styles.scss b/lib/addons/dragAndDrop/styles.scss
+index ab6c94bb6e015823dea07c04f2a881187ae9f92b..f1693652c5481931964c63711de33c83433f3faa 100644
+--- a/lib/addons/dragAndDrop/styles.scss
++++ b/lib/addons/dragAndDrop/styles.scss
+@@ -13,12 +13,7 @@
+ 
+ 
+   .rbc-addons-dnd-over {
+-    background-color: rgba(
+-      red($date-selection-bg-color),
+-      green($date-selection-bg-color),
+-      blue($date-selection-bg-color),
+-      .3
+-    );
++    background-color: $date-selection-bg-color;
+   }
+ 
+   .rbc-event {
+diff --git a/lib/sass/event.scss b/lib/sass/event.scss
+index 46234584a024575993834fdd85d9c025731750e7..6b100789777cfabb2e182a575d190bff8875119d 100644
+--- a/lib/sass/event.scss
++++ b/lib/sass/event.scss
+@@ -19,7 +19,7 @@
+   }
+ 
+   &.rbc-selected {
+-    background-color: darken($event-bg, 10%);
++    background-color: $event-bg-selected;
+   }
+ 
+   &:focus {
+diff --git a/lib/sass/month.scss b/lib/sass/month.scss
+index 4177283dd58bc27a6734fba804f94372ccdf4dc0..5a53a3920b63b538c321e33887fd5051fad10ad5 100644
+--- a/lib/sass/month.scss
++++ b/lib/sass/month.scss
+@@ -28,7 +28,7 @@
+   color: $event-bg;
+   &:hover,
+   &:focus {
+-    color: darken($event-bg, 10%);
++    color: $event-bg-focused;
+   }
+ }
+ 
+diff --git a/lib/sass/time-column.scss b/lib/sass/time-column.scss
+index 7b172f59a6f2af9c66c653116bc1f16c3014fc83..76cd40dcac302974623a113d0c81e06f2dfd20e6 100644
+--- a/lib/sass/time-column.scss
++++ b/lib/sass/time-column.scss
+@@ -76,7 +76,7 @@
+   }
+ 
+   .rbc-time-slot {
+-    border-top: 1px solid lighten($cell-border, 10%);
++    border-top: 1px solid $cell-border-time-slot;
+   }
+ }
+ 
+diff --git a/lib/sass/toolbar.scss b/lib/sass/toolbar.scss
+index 4cc7a606f1797944631ffb2df672624ca55d0a6b..3213cfe7aa60055e6c79b42c05ab7bafa656f7e6 100644
+--- a/lib/sass/toolbar.scss
++++ b/lib/sass/toolbar.scss
+@@ -1,7 +1,7 @@
+ @import './variables';
+ 
+-$active-background: darken($btn-bg, 10%);
+-$active-border: darken($btn-border, 12%);
++$active-background: $btn-bg-active;
++$active-border: $btn-border-active;
+ 
+ .rbc-toolbar {
+   display: flex;
+@@ -41,8 +41,8 @@ $active-border: darken($btn-border, 12%);
+       &:hover,
+       &:focus {
+         color: $btn-color;
+-        background-color: darken($btn-bg, 17%);
+-        border-color: darken($btn-border, 25%);
++        background-color: $btn-bg-focused;
++        border-color: $btn-border-focused;
+       }
+     }
+ 
+diff --git a/lib/sass/variables.scss b/lib/sass/variables.scss
+index 3670180bffb62a0c68db798fe096c64d3e576ae3..3be9116cfa2f12797dd3ed1177b76dcd5097f5b3 100644
+--- a/lib/sass/variables.scss
++++ b/lib/sass/variables.scss
+@@ -3,7 +3,7 @@ $out-of-range-bg-color: lighten(#333, 70%) !default;
+ 
+ $calendar-border: #ddd !default;
+ $cell-border: #ddd !default;
+-
++$cell-border-time-slot: #ddd !default;
+ $border-color: #ccc !default;
+ 
+ // Each calendar segment is 1/7th.
+@@ -14,6 +14,8 @@ $time-selection-bg-color: rgba(0, 0, 0, 0.5) !default;
+ $date-selection-bg-color: rgba(0, 0, 0, 0.1) !default;
+ 
+ $event-bg: #3174ad !default;
++$event-bg-selected: #3174ad !default;
++$event-bg-focused: #3174ad !default;
+ $event-border: darken(#3174ad, 10%) !default;
+ $event-outline: #3b99fc !default;
+ $event-color: #fff !default;
+@@ -23,7 +25,11 @@ $event-zindex: 4 !default;
+ 
+ $btn-color: #373a3c !default;
+ $btn-bg: #fff !default;
++$btn-bg-active: #fff !default;
++$btn-border-active: #fff !default;
+ $btn-border: #ccc !default;
++$btn-bg-focused: #fff !default;
++$btn-border-focused: #fff !default;
+ 
+ $current-time-color: #74ad31 !default;
+ 

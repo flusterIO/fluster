@@ -85,6 +85,9 @@
       "react-dom": "19.1.0",
       "@types/react": "19.1.5",
       "@types/react-dom": "19.1.5"
+    },
+    "patchedDependencies": {
+      "react-big-calendar@1.19.4": "patches/react-big-calendar@1.19.4.patch"
     }
   }
 }

@@ -28,6 +28,7 @@ import { ScaffoldWithRightPanelOnly } from "#/scaffold/presentation/scaffold_rig
 import { ScaffoldWithSidePanels } from "#/scaffold/presentation/scaffold_with_panels";
 import { HtmlFilePage } from "#/html/presentation/html_file_page";
 import { SplashScreen } from "#/splash_screen";
+import { CalendarPage } from "#/calendar/presentation/calendar_page/calendar_page";
 
 export const getBrowserRouter = () => {
     return createBrowserRouter([
@@ -43,6 +44,10 @@ export const getBrowserRouter = () => {
             Component: DesktopScaffold,
             children: [
                 { index: true, Component: DashboardPage },
+                {
+                    path: AppRoutes.calendar,
+                    Component: CalendarPage,
+                },
 
                 {
                     path: AppRoutes.search,
