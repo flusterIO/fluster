@@ -6,6 +6,8 @@ import { AddTaskModal } from "./add_task_modal";
 import { TaskListProvider } from "#/task_manager/state/task_list_provider";
 import { TaskListSearchParamHandler } from "#/task_manager/state/task_list_search_param_handler";
 import { TaskListButtonBar } from "./task_list_button_bar";
+import { BodyPortal } from "@/components/body_portal";
+import { TaskDetailSideDrawer } from "../task_detail_side_drawer";
 
 export const TaskListsPage = (): ReactNode => {
     const [searchParams] = useSearchParams();
@@ -15,6 +17,9 @@ export const TaskListsPage = (): ReactNode => {
             <TaskListProvider>
                 <TaskListSearchParamHandler />
                 <AddTaskModal />
+                <BodyPortal>
+                    <TaskDetailSideDrawer />
+                </BodyPortal>
                 <div className="w-[min(768px,90%)] h-full">
                     {taskListId ? (
                         <div className="flex flex-col w-full h-full max-h-screen">

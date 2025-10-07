@@ -8,21 +8,20 @@ import { parse } from "date-fns/parse";
 import { startOfWeek } from "date-fns/startOfWeek";
 import { getDay } from "date-fns/getDay";
 import { enUS } from "date-fns/locale/en-US";
-import { addHours } from "date-fns/addHours";
-import { startOfHour } from "date-fns/startOfHour";
 import "../../../../styles/calendar.scss";
 import { commands, TaskModel } from "@/lib/bindings";
 import { parseDate, showToast } from "@fluster.io/dev";
 import dayjs from "dayjs";
+import { useDispatch } from "react-redux";
+import { setPanelRightOpen } from "#/panel_right/state/slice";
+import { BodyPortal } from "@/components/body_portal";
+import { TaskDetailSideDrawer } from "#/task_manager/presentation/task_detail_side_drawer";
 
 const DnDCalendar = withDragAndDrop(Calendar);
 
 export const CalendarPage = (): ReactNode => {
+    const dispatch = useDispatch();
     const [focusedDate, setFocusedDate] = useState<Date>(new Date());
-    const endOfHour = (date: Date): Date => addHours(startOfHour(date), 1);
-    const now = new Date();
-    const start = endOfHour(now);
-    const end = addHours(start, 2);
     const [view, setView] = useState<View>("week");
     const [events, setEvents] = useState<Event[]>([]);
     const taskToEvent = (t: TaskModel): Event => {
@@ -68,12 +67,6 @@ export const CalendarPage = (): ReactNode => {
         };
         const res = await commands.createTask(newTask, []);
         if (res.status === "ok") {
-            console.log(`Ok...`);
-            console.log("newTask: ", newTask);
-            const start = dayjs(parseInt(newTask.due_at as string), {
-                utc: true,
-            }).toDate();
-            console.log("start: ", start);
             setEvents(
                 events.map((e): Event => {
                     if ((e.resource as TaskModel).id === newTask.id) {
@@ -113,6 +106,9 @@ export const CalendarPage = (): ReactNode => {
 
     return (
         <div className="w-full h-full min-h-[calc(100vh-2rem)] flex flex-col justify-center items-center">
+            <BodyPortal>
+                <TaskDetailSideDrawer />
+            </BodyPortal>
             <DnDCalendar
                 defaultView={view}
                 view={view}
@@ -124,6 +120,19 @@ export const CalendarPage = (): ReactNode => {
                 onNavigate={(newDate, view) => {
                     setFocusedDate(newDate);
                     setView(view);
+                }}
+                onSelectEvent={(event) => {
+                    dispatch(setPanelRightOpen(true));
+                    // FIXME: Horrible hack here. Fix this when you have time.
+                    setTimeout(() => {
+                        window.dispatchEvent(
+                            new CustomEvent("show-task-details", {
+                                detail: {
+                                    taskId: ((event as Event).resource as TaskModel).id,
+                                },
+                            })
+                        );
+                    }, 500);
                 }}
                 onView={(view) => {
                     setView(view);

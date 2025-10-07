@@ -41,7 +41,7 @@ export const TaskListItem = ({ data }: TaskListItemProps): ReactNode => {
                     : null,
                 complete: !data.complete,
             };
-            /* FIXME: Pass tags here. */
+            /* TODO: Pass tags here. */
             const res = await commands.createTask(newData, []);
             if (res.status === "ok") {
                 refreshTaskList(data.task_list_id);

@@ -45,13 +45,12 @@ export const getBrowserRouter = () => {
             children: [
                 { index: true, Component: DashboardPage },
                 {
-                    path: AppRoutes.calendar,
-                    Component: CalendarPage,
-                },
-
-                {
                     path: AppRoutes.search,
                     Component: SearchResultsPage,
+                },
+                {
+                    path: AppRoutes.calendar,
+                    Component: CalendarPage,
                 },
                 {
                     path: AppRoutes.full_screen_editor,
