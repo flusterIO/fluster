@@ -16,6 +16,7 @@ import { useDispatch } from "react-redux";
 import { setPanelRightOpen } from "#/panel_right/state/slice";
 import { BodyPortal } from "@/components/body_portal";
 import { TaskDetailSideDrawer } from "#/task_manager/presentation/task_detail_side_drawer";
+import { InlineMdxContent } from "#/mdx/presentation/inline_mdx_content";
 
 const DnDCalendar = withDragAndDrop(Calendar);
 
@@ -117,6 +118,51 @@ export const CalendarPage = (): ReactNode => {
                 onEventDrop={onEventDrop}
                 date={focusedDate}
                 resizable={false}
+                components={{
+                    event: (props) => {
+                        return (
+                            <div>
+                                <InlineMdxContent mdx={props.title} />
+                            </div>
+                        );
+                    },
+                    day: {
+                        event: (props) => {
+                            return (
+                                <div>
+                                    <InlineMdxContent mdx={props.title} />
+                                </div>
+                            );
+                        },
+                    },
+                    week: {
+                        event: (props) => {
+                            return (
+                                <div>
+                                    <InlineMdxContent mdx={props.title} />
+                                </div>
+                            );
+                        },
+                    },
+                    month: {
+                        event: (props) => {
+                            return (
+                                <div>
+                                    <InlineMdxContent mdx={props.title} />
+                                </div>
+                            );
+                        },
+                    },
+                    agenda: {
+                        event: (props) => {
+                            return (
+                                <div>
+                                    <InlineMdxContent mdx={props.title} />
+                                </div>
+                            );
+                        },
+                    },
+                }}
                 onNavigate={(newDate, view) => {
                     setFocusedDate(newDate);
                     setView(view);
