@@ -1,5 +1,13 @@
 # fluster
 
+## 0.3.11
+
+### Patch Changes
+
+- Add calendar view to task manager.
+- Updated dependencies
+  - @fluster.io/dev@0.3.11
+
 ## 0.3.10
 
 ### Patch Changes
