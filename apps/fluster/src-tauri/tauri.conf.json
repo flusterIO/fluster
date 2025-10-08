@@ -1,6 +1,6 @@
 {
     "productName": "Fluster",
-    "version": "0.3.11",
+    "version": "0.3.12",
     "identifier": "com.fluster.app",
     "build": {
         "beforeDevCommand": "pnpm dev",
