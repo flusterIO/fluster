@@ -1,5 +1,13 @@
 # fluster
 
+## 0.3.12
+
+### Patch Changes
+
+- Add timeout to split-view editor.
+- Updated dependencies
+  - @fluster.io/dev@0.3.12
+
 ## 0.3.11
 
 ### Patch Changes
