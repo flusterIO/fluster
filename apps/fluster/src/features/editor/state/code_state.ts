@@ -13,5 +13,7 @@ export interface CodeState {
         dark: BundledTheme;
         light: BundledTheme;
     };
+    /** The debounce timeout in seconds. */
+    previewDebounce: number;
     jupyter: JupyterConfigState;
 }

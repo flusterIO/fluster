@@ -3,6 +3,7 @@ import { initialCodeState } from "./initial_state";
 import { BundledLanguage, BundledTheme } from "shiki";
 import { AppState } from "@/state/initial_state";
 import { JupyterConfigState } from "./code_state";
+import { Payload } from "recharts/types/component/DefaultLegendContent";
 
 const slice = createSlice({
     name: "code",
@@ -44,6 +45,12 @@ const slice = createSlice({
                 },
             };
         },
+        setPreviewDebounce(state, action: PayloadAction<number>) {
+            return {
+                ...state,
+                previewDebounce: action.payload,
+            };
+        },
     },
 });
 
@@ -52,6 +59,7 @@ export const {
     setDefaultLanguage,
     setEditorKeymap,
     setJupyterState,
+    setPreviewDebounce,
 } = slice.actions;
 
 export default slice.reducer;
