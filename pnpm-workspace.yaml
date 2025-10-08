@@ -5,4 +5,3 @@ packages:
   - "packages/fluster_developer"
   - "packages/fluster_config"
   - "packages/fluster_jupyter"
-  - "packages/fluster-calendar"
