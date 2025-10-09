@@ -15,6 +15,8 @@
 1. `pnpm changeset` to create changeset
 1. `make release_npm`.
 
+- This will run a Github action. Make sure to wait for that to complete before running following script to release build the Tauri application on Github.
+
 ## Release Tauri app
 
 > Make sure you're on the release branch.
