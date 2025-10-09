@@ -82,7 +82,7 @@ jobs:
             | Architecture | File |
             | ------------ | ---- |
             | Mac (Apple chip) | Fluster_aarch64.app.tar.gz |
-            | Mac (intel chip) | Fluster_x64.app.tar.gz |
+            | Mac (Intel chip) | Fluster_x64.app.tar.gz |
             | Windows | .msi or .exe |
             | Linux | .deb or .AppImage |
           releaseDraft: false

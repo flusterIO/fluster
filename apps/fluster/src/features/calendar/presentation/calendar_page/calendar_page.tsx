@@ -11,7 +11,6 @@ import { enUS } from "date-fns/locale/en-US";
 import "../../../../styles/calendar.scss";
 import { commands, TaskModel } from "@/lib/bindings";
 import { parseDate, showToast } from "@fluster.io/dev";
-import dayjs from "dayjs";
 import { useDispatch } from "react-redux";
 import { setPanelRightOpen } from "#/panel_right/state/slice";
 import { BodyPortal } from "@/components/body_portal";
@@ -21,17 +20,19 @@ import { InlineMdxContent } from "#/mdx/presentation/inline_mdx_content";
 const DnDCalendar = withDragAndDrop(Calendar);
 
 export const CalendarPage = (): ReactNode => {
+    const DURATION = 7200000;
     const dispatch = useDispatch();
     const [focusedDate, setFocusedDate] = useState<Date>(new Date());
     const [view, setView] = useState<View>("week");
     const [events, setEvents] = useState<Event[]>([]);
     const taskToEvent = (t: TaskModel): Event => {
-        return {
+        let event: Event = {
             title: t.label,
-            start: new Date(t.due_at as string),
-            end: new Date(new Date(t.due_at as string).valueOf() + 7200000),
+            start: parseDate(t.due_at as string).toDate(),
+            end: new Date(parseDate(t.due_at as string).valueOf() + DURATION),
             resource: t,
-        } satisfies Event;
+        };
+        return event;
     };
     const getEvents = async (): Promise<void> => {
         let items: Event[] = [];
@@ -71,18 +72,15 @@ export const CalendarPage = (): ReactNode => {
             setEvents(
                 events.map((e): Event => {
                     if ((e.resource as TaskModel).id === newTask.id) {
-                        return {
+                        let event = {
                             title: newTask.label,
                             resource: newTask,
-                            start: dayjs(parseInt(newTask.due_at as string), {
-                                utc: true,
-                            }).toDate(),
+                            start: parseDate(newTask.due_at as string).toDate(),
                             end: new Date(
-                                dayjs(parseInt(newTask.due_at as string), {
-                                    utc: true,
-                                }).valueOf() + 7200000
+                                parseDate(newTask.due_at as string).valueOf() + DURATION
                             ),
                         } satisfies Event;
+                        return event;
                     } else {
                         return e;
                     }
@@ -91,8 +89,6 @@ export const CalendarPage = (): ReactNode => {
         } else {
             console.error("An error occurred while modifying this task.");
         }
-        console.log("newTask: ", newTask);
-        console.log(data);
     };
     const locales = {
         "en-US": enUS,

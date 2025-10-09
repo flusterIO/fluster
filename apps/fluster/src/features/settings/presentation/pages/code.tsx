@@ -146,7 +146,7 @@ export const CodeSettingsPage = connector(({ state }: Props): ReactNode => {
                     desc="This is the time the split-view editor preview will wait after each change to the input before re-rendering."
                     sliderProps={{
                         min: 0,
-                        max: 10,
+                        max: 5,
                         step: 0.1,
                     }}
                 />
