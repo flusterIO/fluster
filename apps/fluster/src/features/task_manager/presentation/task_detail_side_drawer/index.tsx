@@ -3,8 +3,6 @@ import React, { useState, type ReactNode } from "react";
 import { motion } from "motion/react";
 import { TaskDetailPanelRight } from "../task_detail_panel_right";
 import { useEventListener } from "@fluster.io/dev";
-import { setPanelRightOpen } from "#/panel_right/state/slice";
-import { useDispatch } from "react-redux";
 import { useSearchParams } from "react-router";
 
 export const TaskDetailSideDrawer = (): ReactNode => {

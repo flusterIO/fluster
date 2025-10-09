@@ -11,7 +11,6 @@ import {
     GeneralSlider,
     H3,
     SelectOption,
-    Slider,
     SyntaxSupportedLanguageSelect,
     TextAreaInput,
     TextInputGroup,
