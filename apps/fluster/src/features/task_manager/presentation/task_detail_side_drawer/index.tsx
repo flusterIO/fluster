@@ -8,15 +8,13 @@ import { useSearchParams } from "react-router";
 export const TaskDetailSideDrawer = (): ReactNode => {
     const [showTaskDetails, setShowTaskDetails] = useState(false);
 
-    /* const dispatch = useDispatch(); */
-
     const [sp, setSearchParams] = useSearchParams();
     useEventListener("show-task-details", (e) => {
         sp.set("fi", e.detail.taskId);
         setSearchParams(sp);
         setShowTaskDetails(true);
-        /* dispatch(setPanelRightOpen(true)); */
     });
+
     return (
         <ModalBackdrop
             hide={!showTaskDetails}
