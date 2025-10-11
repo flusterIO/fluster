@@ -6,6 +6,7 @@ import { GoogleAnalytics } from "@next/third-parties/google";
 import Head from "next/head";
 import "katex/dist/katex.css";
 import { Analytics } from "@vercel/analytics/next";
+import { cn } from "#/core/utils/cn";
 
 const appFont = localFont({
     variable: "--ulld-app-font",
@@ -60,7 +61,7 @@ export default function RootLayout({
     children: React.ReactNode;
 }>) {
     return (
-        <html lang="en" className={appFont.variable}>
+        <html lang="en" className={cn(appFont.variable, "dark")}>
             <Head>
                 <title>Fluster</title>
                 <meta
