@@ -56,7 +56,10 @@ impl WhiteboardEntity {
             })?;
         Ok(())
     }
-    pub async fn get_by_id(db: &FlusterDb<'_>, id: String) -> FlusterResult<WhiteboardModel> {
+    pub async fn get_by_id(
+        db: &FlusterDb<'_>,
+        id: String,
+    ) -> FlusterResult<Option<WhiteboardModel>> {
         let tbl = get_table(db, WhiteboardEntity::table()).await?;
         let items_batch = tbl
             .query()
@@ -74,7 +77,7 @@ impl WhiteboardEntity {
                 FlusterError::FailToFind
             })?;
         if items_batch.is_empty() {
-            return Err(FlusterError::NotFoundById);
+            return Ok(None);
         }
 
         let batch = items_batch.index(0);
@@ -86,7 +89,7 @@ impl WhiteboardEntity {
 
         match items_batch.len() {
             0 => Err(FlusterError::FailToFind),
-            1 => Ok(items.index(0).clone()),
+            1 => Ok(Some(items.index(0).clone())),
             _ => Err(FlusterError::DuplicateId),
         }
     }

@@ -1,0 +1,8 @@
+@use "sass:color";
+
+.excalidraw {
+  --color-primary: hsl(var(--primary));
+  --color-primary-darker: darken(--color-primary, 10%);
+  --color-primary-darkest: darken(--color-primary, 20%);
+  --color-primary-light: lighten(--color-primary, 10%);
+}

@@ -819,6 +819,22 @@ async generateNewToken(length: string) : Promise<string> {
 },
 async getPlotlyTheme(themeId: PlotlyTheme) : Promise<string> {
     return await TAURI_INVOKE("get_plotly_theme", { themeId });
+},
+async loadWhiteboardInitialData(id: string) : Promise<Result<WhiteboardModel | null, FlusterError>> {
+    try {
+    return { status: "ok", data: await TAURI_INVOKE("load_whiteboard_initial_data", { id }) };
+} catch (e) {
+    if(e instanceof Error) throw e;
+    else return { status: "error", error: e  as any };
+}
+},
+async saveWhiteboardData(id: string, whiteboardData: string, label: string | null) : Promise<Result<null, FlusterError>> {
+    try {
+    return { status: "ok", data: await TAURI_INVOKE("save_whiteboard_data", { id, whiteboardData, label }) };
+} catch (e) {
+    if(e instanceof Error) throw e;
+    else return { status: "error", error: e  as any };
+}
 }
 }
 
@@ -1108,6 +1124,27 @@ export type TocEntry = { depth: number; body: string }
  * The search results returned froma  taggable input or via a traditional text based query.
  */
 export type TraditionalSearchResults = { notes: MdxNoteGroup[]; tasks: TaskModel[]; equations: EquationData[]; snippets: SnippetData[] }
+export type WhiteboardModel = { 
+/**
+ * A user provided id given to the Whiteboard component.
+ */
+id: string; 
+/**
+ * The stingified json state of the whiteboard..
+ */
+state: string; 
+/**
+ * A string used to specify the whiteboard in search results and such.
+ */
+label: string; 
+/**
+ * Time the whiteboard was created.
+ */
+ctime: string; 
+/**
+ * Time the whiteboard was last updated..
+ */
+utime: string }
 
 /** tauri-specta globals **/
 

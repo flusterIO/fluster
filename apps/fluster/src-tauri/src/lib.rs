@@ -104,6 +104,8 @@ use crate::features::task_manager::commands::get_task_list_count::get_task_list_
 use crate::features::task_manager::commands::get_task_list_data::get_task_list_data;
 use crate::features::task_manager::commands::get_task_list_tasks::get_task_list_tasks;
 use crate::features::task_manager::commands::get_tasks_with_due_date::get_incomplete_tasks_with_due_date;
+use crate::features::whiteboard::commands::load_whiteboard_initial_data::load_whiteboard_initial_data;
+use crate::features::whiteboard::commands::save_whiteboard_data::save_whiteboard_data;
 use core::sync::parse_directory::sync_fs_directory::models::sync_filesystem_options::SyncFilesystemDirectoryOptions;
 use core::{
     events::{set_db_connection_uri::SetDbConnectionUri, show_toast::ToastConfig},
@@ -252,6 +254,9 @@ pub fn run() {
             generate_new_token,
             // -- Plotting --
             get_plotly_theme,
+            // -- Whiteboard --
+            load_whiteboard_initial_data,
+            save_whiteboard_data
         ])
         .events(collect_events![ToastConfig, SetDbConnectionUri])
         .typ::<FlusterError>()
