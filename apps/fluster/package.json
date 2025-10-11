@@ -46,7 +46,7 @@
     "@citation-js/plugin-csl": "0.7.18",
     "@datalayer/jupyter-react": "^1.0.1",
     "@excalidraw/excalidraw": "^0.18.0",
-    "@fluster.io/dev": "workspace:*",
+    "@fluster.io/dev": "0.3.14",
     "@google/model-viewer": "^4.1.0",
     "@hookform/resolvers": "5.0.1",
     "@lancedb/lancedb": "^0.19.1",
