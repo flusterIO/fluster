@@ -10,6 +10,7 @@ import BibReducer from "#/bibliography/state/slice";
 import AiReducer from "#/ai/state/slice";
 import PlotReducer from "#/plot/state/slice";
 import SearchReducer from "#/search/state/slice";
+import WhiteboardReducer from "#/whiteboard/state/whiteboard_slice";
 import { AppState } from "./initial_state";
 import {
     persistReducer,
@@ -36,6 +37,7 @@ const reducers: Record<keyof AppState, Reducer> = {
     bib: BibReducer,
     plot: PlotReducer,
     search: SearchReducer,
+    whiteboard: WhiteboardReducer,
 };
 
 const rootReducer = combineReducers(reducers);
