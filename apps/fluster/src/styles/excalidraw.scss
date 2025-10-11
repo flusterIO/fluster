@@ -1,8 +1,38 @@
 @use "sass:color";
 
-.excalidraw {
-  --color-primary: hsl(var(--primary));
-  --color-primary-darker: darken(--color-primary, 10%);
-  --color-primary-darkest: darken(--color-primary, 20%);
-  --color-primary-light: lighten(--color-primary, 10%);
+/* $color-primary: var(--primary-rgb); */
+/* $color-primary-darker: darken($color-primary, 10%); */
+/* $color-primary-darkest: darken($color-primary, 20%); */
+/* $color-primary-light: lighten($color-primary, 10%); */
+
+.excalidraw-outer-container .excalidraw {
+  /* --color-surface-high: hsl(var(--primary)); */
+  --color-surface-primary-container: hsl(var(--primary));
+  --button-hover-bg: hsl(var(--primary) / 0.5);
+  --default-border-color: hsl(var(--border));
+
+  .ToolIcon.fillable .ToolIcon_type_radio:checked+.ToolIcon__icon svg,
+  .excalidraw .ToolIcon.fillable .ToolIcon_type_checkbox:checked+.ToolIcon__icon svg {
+    --icon-fill-color: hsl(var(--primary-foreground));
+    stroke: hsl(var(--primary-foreground));
+  }
+
+  .ToolIcon .ToolIcon_type_radio:checked+.ToolIcon__icon svg,
+  .excalidraw .ToolIcon .ToolIcon_type_checkbox:checked+.ToolIcon__icon svg {
+    --color-on-primary-container: hsl(var(--primary-foreground));
+  }
+
+  .buttonList label.active svg,
+  .buttonList button.active svg,
+  .buttonList .zIndexButton.active svg {
+    color: hsl(var(--primary-foreground));
+  }
+
+  .range-wrapper input[type="range"] {
+    --color-slider-track: hsl(var(--primary));
+  }
+
+  .color-picker__button.active .color-picker__button-outline {
+    box-shadow: 0px 0px 0px 1px hsl(var(--primary) / 0.4);
+  }
 }

@@ -5,7 +5,6 @@ members = [
     "packages/fluster_grpc",
     "packages/fluster_test_utils",
     "packages/fluster_lua",
-    "packages/fluster_internal_workspace/rust",
 ]
 
 

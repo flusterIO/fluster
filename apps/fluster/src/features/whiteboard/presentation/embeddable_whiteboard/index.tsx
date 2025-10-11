@@ -1,11 +1,11 @@
 import React, { useEffect, useRef, useState, type ReactNode } from "react";
-import "../../../../styles/excalidraw.scss";
 import "@excalidraw/excalidraw/index.css";
+import "../../../../styles/excalidraw.scss";
 import { Excalidraw } from "@excalidraw/excalidraw";
 import { ExcalidrawImperativeAPI } from "@excalidraw/excalidraw/types";
 import { OrderedExcalidrawElement } from "@excalidraw/excalidraw/element/types";
 import { useDarkMode } from "@/hooks/use_dark_mode";
-import { Button, showToast } from "@fluster.io/dev";
+import { Button, cn, H4, showToast } from "@fluster.io/dev";
 import { commands } from "@/lib/bindings";
 import { LoadingComponent } from "@/components/loading_screen";
 
@@ -25,7 +25,7 @@ interface EmbeddableWhiteboardProps {
     /** grid is set to true to enable grid snapping */
     grid?: boolean;
     /** An optional label to be used within search results and as a title. */
-    label?: string;
+    title?: string;
     whiteboardState?: WhiteboardState;
 }
 
@@ -55,7 +55,7 @@ export const EmbeddableWhiteboard = connector(
             const res = await commands.saveWhiteboardData(
                 props.id,
                 JSON.stringify(data),
-                props.label ?? null
+                props.title ?? null
             );
             if (res.status === "error") {
                 showToast({
@@ -116,8 +116,14 @@ export const EmbeddableWhiteboard = connector(
             );
         }
         return (
-            <div className="w-full h-[500px] max-h-[80vh]">
-                <div className="w-full flex flex-row justify-end items-center mb-4">
+            <div className="w-full h-[500px] max-h-[80vh] excalidraw-outer-container">
+                <div
+                    className={cn(
+                        "w-full flex flex-row items-center mb-4",
+                        props.title ? "justify-between gap-4" : "justify-end"
+                    )}
+                >
+                    {props.title ? <H4>{props.title}</H4> : null}
                     <Button
                         onClick={() => setViewMode(!viewMode)}
                         variant={viewMode ? "outline" : undefined}
