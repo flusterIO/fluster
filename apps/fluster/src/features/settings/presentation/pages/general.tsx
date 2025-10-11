@@ -3,6 +3,7 @@ import {
     Button,
     FilePathInput,
     Form,
+    GeneralSlider,
     Hint,
     showToast,
     SwitchInput,
@@ -21,18 +22,27 @@ import { commands } from "@/lib/bindings";
 import { useNavigate } from "react-router";
 import { useConfirmation } from "#/confirmation_modal/state/hooks/use_confirmation";
 import { AutoSettingTable } from "../components/auto_setting/auto_setting_table";
+import { setWhiteboardTimeout } from "#/whiteboard/state/whiteboard_slice";
 
 const connector = connect((state: AppState) => ({
     state: state.core,
+    whiteboardState: state.whiteboard,
 }));
 
 const schema = z.object({
     notesDirectory: z.string(),
     useGitIgnore: z.boolean(),
+    whiteboardTimeout: z.number(),
 });
 
 export const GeneralSettingsPage = connector(
-    ({ state }: { state: AppState["core"] }): ReactNode => {
+    ({
+        state,
+        whiteboardState,
+    }: {
+        state: AppState["core"];
+        whiteboardState: AppState["whiteboard"];
+    }): ReactNode => {
         const confirmationId = "clear-database";
         const dispatch = useDispatch();
         const nav = useNavigate();
@@ -41,6 +51,7 @@ export const GeneralSettingsPage = connector(
             defaultValues: {
                 notesDirectory: state?.notesDirectory ?? "",
                 useGitIgnore: state?.useGitIgnore ?? false,
+                whiteboardTimeout: whiteboardState?.whiteboardTimeout ?? 1,
             },
         });
 
@@ -50,6 +61,9 @@ export const GeneralSettingsPage = connector(
             }
             if (typeof formData.useGitIgnore === "boolean") {
                 dispatch(setRespectGitIgnore(formData.useGitIgnore));
+            }
+            if (typeof formData.whiteboardTimeout === "number") {
+                dispatch(setWhiteboardTimeout(formData.whiteboardTimeout));
             }
         });
 
@@ -114,6 +128,20 @@ export const GeneralSettingsPage = connector(
                         name={"useGitIgnore"}
                         label="Respect .gitignore"
                         desc="If true, files ignored by a .gitignore file within your notes will be ignored by Fluster as well. Be aware that some notes may be visible under file glob based search even when ignored in this manner."
+                    />
+                    <GeneralSlider
+                        form={form}
+                        name="whiteboardTimeout"
+                        label="Whiteboard Timeout"
+                        desc={
+                            "This is the number of seconds after each change the whiteboard will wait before saving data. Shorter periods are ideal but periods that are too short may cause performance issues."
+                        }
+                        sliderProps={{
+                            min: 0,
+                            max: 10,
+                            step: 0.1,
+                        }}
+                        showValue
                     />
                     <SettingPageTitle
                         title="Keymap"

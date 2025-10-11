@@ -9,6 +9,14 @@ import { Button, showToast } from "@fluster.io/dev";
 import { commands } from "@/lib/bindings";
 import { LoadingComponent } from "@/components/loading_screen";
 
+import { AppState } from "@/state/initial_state";
+import { connect } from "react-redux";
+import { WhiteboardState } from "#/whiteboard/state/whiteboard_settings";
+
+const connector = connect((state: AppState) => ({
+    whiteboardState: state.whiteboard,
+}));
+
 interface EmbeddableWhiteboardProps {
     /** A required id field used to retrieve data from the database. */
     id: string;
@@ -18,122 +26,120 @@ interface EmbeddableWhiteboardProps {
     grid?: boolean;
     /** An optional label to be used within search results and as a title. */
     label?: string;
+    whiteboardState?: WhiteboardState;
 }
 
 export interface WhiteboardData {
-    /* appState: ReturnType<ExcalidrawImperativeAPI["getAppState"]>; */
     elements: readonly OrderedExcalidrawElement[];
 }
 
-export const EmbeddableWhiteboard = (
-    props: EmbeddableWhiteboardProps
-): ReactNode => {
-    const [excalidrawAPI, setExcalidrawAPI] =
-        useState<ExcalidrawImperativeAPI | null>(null);
-    const [viewMode, setViewMode] = useState(true);
-    const [initialData, setInitialData] =
-        useState<Partial<WhiteboardData> | null>(null);
-    const timer = useRef<NodeJS.Timeout | null>(null);
-    const darkMode = useDarkMode();
+export const EmbeddableWhiteboard = connector(
+    (props: EmbeddableWhiteboardProps): ReactNode => {
+        console.log("props: ", props);
+        const [excalidrawAPI, setExcalidrawAPI] =
+            useState<ExcalidrawImperativeAPI | null>(null);
+        const [viewMode, setViewMode] = useState(true);
+        const [initialData, setInitialData] =
+            useState<Partial<WhiteboardData> | null>(null);
+        const timer = useRef<NodeJS.Timeout | null>(null);
+        const darkMode = useDarkMode();
 
-    const saveWhiteboard = async (): Promise<void> => {
-        if (props.demo) {
-            return;
-        }
-        const elements = excalidrawAPI?.getSceneElementsIncludingDeleted();
-        const data: WhiteboardData = {
-            elements: elements ?? [],
+        const saveWhiteboard = async (): Promise<void> => {
+            if (props.demo) {
+                return;
+            }
+            const elements = excalidrawAPI?.getSceneElementsIncludingDeleted();
+            const data: WhiteboardData = {
+                elements: elements ?? [],
+            };
+            const res = await commands.saveWhiteboardData(
+                props.id,
+                JSON.stringify(data),
+                props.label ?? null
+            );
+            if (res.status === "error") {
+                showToast({
+                    title: "Something went wrong",
+                    body: "Fluster encountered an error while attemting to save your whiteboard's data. If this continues, please file an issue on Github.",
+                    duration: 5000,
+                    variant: "Error",
+                });
+            }
         };
-        console.log("data: ", data);
-        const res = await commands.saveWhiteboardData(
-            props.id,
-            JSON.stringify(data),
-            props.label ?? null
-        );
-        if (res.status === "error") {
-            showToast({
-                title: "Something went wrong",
-                body: "Fluster encountered an error while attemting to save your whiteboard's data. If this continues, please file an issue on Github.",
-                duration: 5000,
-                variant: "Error",
-            });
-        }
-    };
 
-    const loadInitialData = async (): Promise<void> => {
-        if (!props.demo) {
-            const res = await commands.loadWhiteboardInitialData(props.id);
-            console.log("res: ", res);
-            if (res.status === "ok" && res.data?.state) {
-                setInitialData(JSON.parse(res.data.state));
+        const loadInitialData = async (): Promise<void> => {
+            if (!props.demo) {
+                const res = await commands.loadWhiteboardInitialData(props.id);
+                if (res.status === "ok" && res.data?.state) {
+                    setInitialData(JSON.parse(res.data.state));
+                } else {
+                    setInitialData({
+                        elements: [],
+                    });
+                }
             } else {
                 setInitialData({
                     elements: [],
                 });
             }
-        } else {
-            setInitialData({
-                elements: [],
-            });
-        }
-    };
+        };
 
-    useEffect(() => {
-        loadInitialData();
-    }, []);
+        useEffect(() => {
+            loadInitialData();
+        }, []);
 
-    const updateElements = (): void => {
-        if (timer.current) {
-            clearTimeout(timer.current);
-        }
-        timer.current = setTimeout(() => {
-            saveWhiteboard();
-        }, 3000);
-    };
+        const updateElements = (): void => {
+            if (timer.current) {
+                clearTimeout(timer.current);
+            }
+            timer.current = setTimeout(() => {
+                saveWhiteboard();
+            }, (props.whiteboardState?.whiteboardTimeout ?? 1) * 1000);
+        };
 
-    if (!props.id) {
-        return (
-            <div className="w-full flex flex-col justify-center items-center">
-                <div className="max-w-[min(90%,450px)] text-destructive">
-                    An id field must be provided to each whiteboard component so data can
-                    be saved and retrieved successfully.
+        if (!props.id) {
+            return (
+                <div className="w-full flex flex-col justify-center items-center">
+                    <div className="max-w-[min(90%,450px)] text-destructive">
+                        An id field must be provided to each whiteboard component so data
+                        can be saved and retrieved successfully.
+                    </div>
                 </div>
-            </div>
-        );
-    }
+            );
+        }
 
-    if (initialData === null) {
+        if (initialData === null) {
+            return (
+                <div className="w-full flex flex-col justify-center items-center">
+                    <LoadingComponent />
+                </div>
+            );
+        }
         return (
-            <div className="w-full flex flex-col justify-center items-center">
-                <LoadingComponent />
+            <div className="w-full h-[500px] max-h-[80vh]">
+                <div className="w-full flex flex-row justify-end items-center mb-4">
+                    <Button
+                        onClick={() => setViewMode(!viewMode)}
+                        variant={viewMode ? "outline" : undefined}
+                        size={"sm"}
+                    >
+                        View Mode
+                    </Button>
+                </div>
+                <Excalidraw
+                    gridModeEnabled={props.grid}
+                    viewModeEnabled={viewMode}
+                    initialData={{
+                        elements: initialData.elements,
+                    }}
+                    autoFocus={false}
+                    theme={darkMode ? "dark" : "light"}
+                    excalidrawAPI={(api) => setExcalidrawAPI(api)}
+                    onChange={() => updateElements()}
+                />
             </div>
         );
     }
-    console.log("initialData.elements: ", initialData.elements);
-    return (
-        <div className="w-full h-[500px] max-h-[80vh]">
-            <div className="w-full flex flex-row justify-end items-center mb-4">
-                <Button
-                    onClick={() => setViewMode(!viewMode)}
-                    variant={viewMode ? "outline" : undefined}
-                    size={"sm"}
-                >
-                    View Mode
-                </Button>
-            </div>
-            <Excalidraw
-                gridModeEnabled={props.grid}
-                viewModeEnabled={viewMode}
-                initialData={{
-                    elements: initialData.elements,
-                }}
-                autoFocus={false}
-                theme={darkMode ? "dark" : "light"}
-                excalidrawAPI={(api) => setExcalidrawAPI(api)}
-                onChange={() => updateElements()}
-            />
-        </div>
-    );
-};
+);
 
 EmbeddableWhiteboard.displayName = "EmbeddableWhiteboard";

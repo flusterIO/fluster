@@ -18,6 +18,8 @@ import { initialSearchState } from "#/search/state/initial_search_state";
 import { SearchState } from "#/search/state/search_state";
 import { CoreSettings } from "#/settings/state/core_settings";
 import { initialCoreSettings } from "#/settings/state/initial_core_settings";
+import { initialWhiteboardState } from "#/whiteboard/state/initial_whiteboard_settings";
+import { WhiteboardState } from "#/whiteboard/state/whiteboard_settings";
 import {
     initialScaffoldState,
     ScaffoldState,
@@ -35,6 +37,7 @@ export interface AppState {
     ai: AiState;
     plot: PlotState;
     search: SearchState;
+    whiteboard: WhiteboardState;
 }
 
 export const initialAppState: AppState = {
@@ -49,4 +52,5 @@ export const initialAppState: AppState = {
     ai: initialAiState,
     plot: initialPlotState,
     search: initialSearchState,
+    whiteboard: initialWhiteboardState,
 };
