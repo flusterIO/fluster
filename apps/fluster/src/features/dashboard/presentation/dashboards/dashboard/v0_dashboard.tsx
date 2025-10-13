@@ -46,33 +46,6 @@ import { onEnter } from "@/events/on_enter";
 import { useNavigate } from "react-router";
 import { parseDate } from "@/lib/date_utils";
 
-const todoItems = [
-    {
-        id: 1,
-        text: "Review literature on CRISPR applications",
-        completed: false,
-        priority: "high",
-    },
-    {
-        id: 2,
-        text: "Analyze experimental data from last week",
-        completed: true,
-        priority: "medium",
-    },
-    {
-        id: 3,
-        text: "Prepare presentation for conference",
-        completed: false,
-        priority: "high",
-    },
-    {
-        id: 4,
-        text: "Update research methodology notes",
-        completed: false,
-        priority: "low",
-    },
-];
-
 export function Dashboard() {
     const [searchQuery, setSearchQuery] = useState("");
     const nav = useNavigate();
@@ -98,6 +71,7 @@ export function Dashboard() {
                 subjects: [],
                 topics: [],
                 tags: [],
+                incomplete_tasks: [],
             });
             showToast({
                 title: "Something went wrong",
@@ -296,7 +270,47 @@ export function Dashboard() {
                                                 ))}
                                             </div>
                                         </div>
-                                        <Button variant="ghost" size="icon">
+                                        <Button
+                                            variant="ghost"
+                                            size="icon"
+                                            onClick={async (e) => {
+                                                e.stopPropagation();
+                                                if (
+                                                    data.bookmarks.some(
+                                                        (bookmark) =>
+                                                            bookmark.file_path === note.mdx.file_path
+                                                    )
+                                                ) {
+                                                    const res = await commands.removeBookmark(
+                                                        note.mdx.file_path
+                                                    );
+                                                    if (res.status === "ok") {
+                                                        await getData();
+                                                    } else {
+                                                        showToast({
+                                                            title: "Something went wrong",
+                                                            body: "An error occurred while attempting to toggle this bookmark. If this continues, please file an issue on Github.",
+                                                            duration: 5000,
+                                                            variant: "Error",
+                                                        });
+                                                    }
+                                                } else {
+                                                    const res = await commands.addBookmark(
+                                                        note.mdx.file_path
+                                                    );
+                                                    if (res.status === "ok") {
+                                                        await getData();
+                                                    } else {
+                                                        showToast({
+                                                            title: "Something went wrong",
+                                                            body: "An error occurred while attempting to toggle this bookmark. If this continues, please file an issue on Github.",
+                                                            duration: 5000,
+                                                            variant: "Error",
+                                                        });
+                                                    }
+                                                }
+                                            }}
+                                        >
                                             <Star
                                                 className={cn(
                                                     "h-4 w-4",
@@ -304,8 +318,8 @@ export function Dashboard() {
                                                         (bookmark) =>
                                                             bookmark.file_path === note.mdx.file_path
                                                     )
-                                                        ? "fill-primary"
-                                                        : "fill-none"
+                                                        ? "fill-primary stroke-primary"
+                                                        : "fill-none stroke-foreground"
                                                 )}
                                             />
                                         </Button>
