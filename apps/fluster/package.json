@@ -34,10 +34,14 @@
     "copy:pdf": {
       "command": "cp ../../node_modules/pdfjs-dist/build/pdf.worker.mjs ./public/pdf.worker.mjs"
     },
+    "copy:model_viewer": {
+      "command": "cp ../../node_modules/@google/model-viewer/dist/model-viewer.min.js ./public/model-viewer.min.js"
+    },
     "manual_postinstall": {
       "dependencies": [
         "copy:mathjax",
-        "copy:pdf"
+        "copy:pdf",
+        "copy:model_viewer"
       ]
     }
   },
