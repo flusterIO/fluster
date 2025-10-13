@@ -90,7 +90,6 @@ rand = "0.9.1"
 pyo3 = "0.25.1"
 ndarray = { version = "0.16.1", features = ["rayon", "serde"] }
 numpy = "0.25.0"
-kalosm = { version = "0.4.0", features = ["full"] }
 serde_yml = "0.0.12"
 text-splitter = { version = "0.27.0", features = ["markdown"] }
 glob-match = "0.2.1"
@@ -99,8 +98,8 @@ predicates = "3.1.3"
 assert_fs = { version = "1.1.3", features = ["color"] }
 tauri-plugin-prevent-default = "3.0.3"
 
-[target.'cfg(target_os = "macos")'.dependencies]
-kalosm = { version = "0.4.0", features = ["full", "metal"] }
+# [target.'cfg(target_os = "macos")'.dependencies]
+# kalosm = { version = "0.4.0", features = ["full", "metal"] }
 
 [target.'cfg(target_os = "windows")'.dependencies]
 tauri-plugin-prevent-default = { version = "3.0.3", features = [

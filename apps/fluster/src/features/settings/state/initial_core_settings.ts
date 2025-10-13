@@ -6,4 +6,5 @@ export const initialCoreSettings: CoreSettings = {
     hasLoadedSavedState: false,
     nThreads: 8,
     useGitIgnore: false,
+    dashboardType: "dashboard",
 };

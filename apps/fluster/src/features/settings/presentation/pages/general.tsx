@@ -1,6 +1,8 @@
 import {
     AppRoutes,
     Button,
+    CheckboxGroup,
+    CheckboxGroupItem,
     FilePathInput,
     Form,
     GeneralSlider,
@@ -15,7 +17,11 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { connect, useDispatch } from "react-redux";
 import { AppState } from "@/state/initial_state";
-import { setNotesDirectory, setRespectGitIgnore } from "#/settings/state/slice";
+import {
+    setDashboardType,
+    setNotesDirectory,
+    setRespectGitIgnore,
+} from "#/settings/state/slice";
 import { SettingPageContainer } from "../components/setting_page_container";
 import { KeymapSettingsGroup } from "#/keymap/presentation/keymap_settings_table";
 import { commands } from "@/lib/bindings";
@@ -23,6 +29,7 @@ import { useNavigate } from "react-router";
 import { useConfirmation } from "#/confirmation_modal/state/hooks/use_confirmation";
 import { AutoSettingTable } from "../components/auto_setting/auto_setting_table";
 import { setWhiteboardTimeout } from "#/whiteboard/state/whiteboard_slice";
+import { dashboardTypes } from "#/settings/state/core_settings";
 
 const connector = connect((state: AppState) => ({
     state: state.core,
@@ -33,7 +40,12 @@ const schema = z.object({
     notesDirectory: z.string(),
     useGitIgnore: z.boolean(),
     whiteboardTimeout: z.number(),
+    dashboardType: z.enum(dashboardTypes),
 });
+
+interface DashboardItem extends CheckboxGroupItem<string> {
+    value: (typeof dashboardTypes)[number];
+}
 
 export const GeneralSettingsPage = connector(
     ({
@@ -52,6 +64,7 @@ export const GeneralSettingsPage = connector(
                 notesDirectory: state?.notesDirectory ?? "",
                 useGitIgnore: state?.useGitIgnore ?? false,
                 whiteboardTimeout: whiteboardState?.whiteboardTimeout ?? 1,
+                dashboardType: state?.dashboardType ?? "dashboard",
             },
         });
 
@@ -65,7 +78,23 @@ export const GeneralSettingsPage = connector(
             if (typeof formData.whiteboardTimeout === "number") {
                 dispatch(setWhiteboardTimeout(formData.whiteboardTimeout));
             }
+            if (typeof formData.dashboardType !== "undefined") {
+                dispatch(setDashboardType(formData.dashboardType));
+            }
         });
+
+        const dashboardItems: DashboardItem[] = [
+            {
+                label: "Simple",
+                desc: "A simple dashboard with a set of quick links.",
+                value: "simple",
+            },
+            {
+                label: "Dashboard",
+                value: "dashboard",
+                desc: "A more complete dashboard with quick access to your data.",
+            },
+        ];
 
         const showFailToClearNotification = (): void => {
             showToast({
@@ -128,6 +157,12 @@ export const GeneralSettingsPage = connector(
                         name={"useGitIgnore"}
                         label="Respect .gitignore"
                         desc="If true, files ignored by a .gitignore file within your notes will be ignored by Fluster as well. Be aware that some notes may be visible under file glob based search even when ignored in this manner."
+                    />
+                    <CheckboxGroup
+                        label="Dashboard Type"
+                        form={form}
+                        name="dashboardType"
+                        items={dashboardItems}
                     />
                     <GeneralSlider
                         form={form}

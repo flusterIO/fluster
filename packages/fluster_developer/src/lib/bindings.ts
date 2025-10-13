@@ -55,8 +55,13 @@ async deleteAutoSettingById(id: string) : Promise<Result<null, FlusterError>> {
     else return { status: "error", error: e  as any };
 }
 },
-async getDashboardData() : Promise<DashboardData> {
-    return await TAURI_INVOKE("get_dashboard_data");
+async getDashboardData() : Promise<Result<DashboardData, FlusterError>> {
+    try {
+    return { status: "ok", data: await TAURI_INVOKE("get_dashboard_data") };
+} catch (e) {
+    if(e instanceof Error) throw e;
+    else return { status: "error", error: e  as any };
+}
 },
 async getQrCodeSvg(content: string) : Promise<Result<string, FlusterError>> {
     try {
@@ -902,7 +907,7 @@ export type BibEntryModel = { id: string; user_provided_id: string | null;
  */
 data: string; ctime: string; html_citation: string; pdf_path: string | null }
 export type CrossLanguageEvents = "EmbeddingModelDownloadProgress" | "LanguageModelDownloadProgress" | "AiChatMessageUpdate"
-export type DashboardData = Record<string, never>
+export type DashboardData = { topics: SharedTaggableModel[]; subjects: SharedTaggableModel[]; tags: SharedTaggableModel[]; note_count: string; bookmarks: MdxNoteModel[]; incomplete_tasks: TaskModel[] }
 export type DesktopHealthReport = { database_tables_exist: boolean; 
 /**
  * This boolean describes the overall health of the desktop app. If any inidividual field
@@ -1022,6 +1027,7 @@ last_read: string; vec: number[] }
 export type NoteSummary = { title: string; file_path: string }
 export type PaginationProps = { per_page: string; page_number: string }
 export type PlotlyTheme = "ggplot2" | "seaborn" | "simple_white" | "plotly" | "plotly_white" | "plotly_dark" | "presentation" | "xgridoff" | "ygridoff" | "gridon" | "none"
+export type RecentlyAccessedNoteData = { last_read: string; file_path: string }
 export type SearchOrder = "Created"
 export type SearchParams = { order: SearchOrder | null; per_page: number | null; page: number | null }
 export type SemanticSearchResults = { notes: MdxNoteGroup[] }
@@ -1075,7 +1081,7 @@ existing_taggables: AllTaggableData;
 /**
  * Embeddings model to be used when syncing.
  */
-ai: AiSyncSettings }
+ai: AiSyncSettings; recently_accessed_notes: RecentlyAccessedNoteData[] }
 export type TaskListData = { list: TaskListModel; items: TaskModelWithTags[] }
 export type TaskListModel = { id: string; label: string; desc: string | null; ctime: string }
 export type TaskModel = { id: string; 

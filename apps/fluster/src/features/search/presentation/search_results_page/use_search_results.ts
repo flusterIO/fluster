@@ -12,7 +12,6 @@ export const useSearchResults = (): TraditionalSearchResults | null => {
         if (res.status === "ok") {
             setData(res.data);
         } else {
-            console.error("Error: ", res.error);
             showToast({
                 title: "Something went wrong",
                 body: "We could not find that dictionary entry. Have you sync'd your database since you added that entry?",
@@ -23,9 +22,7 @@ export const useSearchResults = (): TraditionalSearchResults | null => {
     };
 
     const getByBibEntry = async (bibEntryId: string): Promise<void> => {
-        console.log("bibEntryId: ", bibEntryId);
         const res = await commands.getNotesByBibEntryId(bibEntryId);
-        console.log("res: ", res);
         if (res.status === "ok") {
             setData(res.data);
         } else {
@@ -41,7 +38,6 @@ export const useSearchResults = (): TraditionalSearchResults | null => {
 
     const getByTag = async (val: string): Promise<void> => {
         const res = await commands.getTagSearchResults([val]);
-        console.log("res: ", res);
         if (res.status === "ok") {
             setData(res.data);
         } else {
@@ -84,6 +80,18 @@ export const useSearchResults = (): TraditionalSearchResults | null => {
         }
     };
 
+    const getAllNotes = async (): Promise<void> => {
+        const res = await commands.getRecentlyAccessedNotes();
+        if (res.status === "ok") {
+            setData({
+                notes: res.data,
+                equations: [],
+                snippets: [],
+                tasks: [],
+            });
+        }
+    };
+
     useEffect(() => {
         if (searchParams.has("by_tag")) {
             getByTag(searchParams.get("by_tag")!);
@@ -97,6 +105,8 @@ export const useSearchResults = (): TraditionalSearchResults | null => {
             getByDict(searchParams.get("by_dict")!);
         } else if (searchParams.has("by_equation")) {
             getByEquation(searchParams.get("by_equation")!);
+        } else if (searchParams.has("all_notes")) {
+            getAllNotes();
         }
     }, [searchParams]);
     return data;

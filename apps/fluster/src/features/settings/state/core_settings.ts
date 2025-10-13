@@ -1,3 +1,5 @@
+export const dashboardTypes = ["simple", "dashboard"] as const;
+
 export interface CoreSettings {
     /// The root directory to use for all relative paths. This should point to the root of the user's notes.
     notesDirectory: string;
@@ -6,4 +8,5 @@ export interface CoreSettings {
     nThreads: number;
     /// Whether or not a .gitignore file should be respected when syncing files. Set to true to ignore files in the gitignore during syncing.
     useGitIgnore: boolean;
+    dashboardType: (typeof dashboardTypes)[number];
 }

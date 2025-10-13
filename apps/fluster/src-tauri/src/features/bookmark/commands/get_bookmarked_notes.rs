@@ -2,7 +2,10 @@ use serde::{Deserialize, Serialize};
 use specta::Type;
 
 use crate::{
-    core::{database::db::get_database, types::errors::errors::FlusterResult},
+    core::{
+        database::db::get_database,
+        types::{errors::errors::FlusterResult, FlusterDb},
+    },
     features::{
         mdx::data::{
             bookmark_entity::BookmarkEntity, front_matter_entity::FrontMatterEntity,
@@ -15,15 +18,13 @@ use crate::{
 
 #[derive(Serialize, Deserialize, Type)]
 pub struct MdxBookmarkData {
-    note: MdxNoteModel,
-    front_matter: FrontMatterBaseModel,
+    pub note: MdxNoteModel,
+    pub front_matter: FrontMatterBaseModel,
 }
 
-#[tauri::command]
-#[specta::specta]
-pub async fn get_bookmarked_notes() -> FlusterResult<Vec<MdxBookmarkData>> {
-    let db_res = get_database().await;
-    let db = db_res.lock().await;
+pub async fn get_bookmarked_notes_method(
+    db: &FlusterDb<'_>,
+) -> FlusterResult<Vec<MdxBookmarkData>> {
     let bookmarks = BookmarkEntity::get_many(
         &db,
         &None,
@@ -52,4 +53,12 @@ pub async fn get_bookmarked_notes() -> FlusterResult<Vec<MdxBookmarkData>> {
         }
     }
     Ok(items)
+}
+
+#[tauri::command]
+#[specta::specta]
+pub async fn get_bookmarked_notes() -> FlusterResult<Vec<MdxBookmarkData>> {
+    let db_res = get_database().await;
+    let db = db_res.lock().await;
+    get_bookmarked_notes_method(&db).await
 }

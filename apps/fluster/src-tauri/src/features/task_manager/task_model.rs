@@ -3,7 +3,7 @@ use specta::Type;
 
 use crate::core::models::taggable::shared_taggable_model::SharedTaggableModel;
 
-#[derive(Type, Deserialize, Serialize, Clone)]
+#[derive(Type, Deserialize, Serialize, Clone, Debug)]
 pub struct TaskModel {
     pub id: String,
     /// The id of the parent task list.

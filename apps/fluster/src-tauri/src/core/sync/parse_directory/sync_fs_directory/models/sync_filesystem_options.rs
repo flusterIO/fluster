@@ -26,6 +26,12 @@ impl Default for AiSyncSettings {
     }
 }
 
+#[derive(Type, Serialize, Deserialize, Debug, Clone)]
+pub struct RecentlyAccessedNoteData {
+    pub last_read: String,
+    pub file_path: String,
+}
+
 #[derive(Type, Serialize, Deserialize, Debug)]
 pub struct SyncFilesystemDirectoryOptions {
     /// The path to the user's note's directory
@@ -38,6 +44,7 @@ pub struct SyncFilesystemDirectoryOptions {
     pub existing_taggables: AllTaggableData,
     /// Embeddings model to be used when syncing.
     pub ai: AiSyncSettings,
+    pub recently_accessed_notes: Vec<RecentlyAccessedNoteData>,
 }
 
 impl Default for SyncFilesystemDirectoryOptions {
@@ -53,6 +60,7 @@ impl Default for SyncFilesystemDirectoryOptions {
                 topics: Vec::new(),
                 subjects: Vec::new(),
             },
+            recently_accessed_notes: Vec::new(),
         }
     }
 }
