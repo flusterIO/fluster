@@ -45,6 +45,7 @@ import { getMdxNoteUrl } from "#/mdx/utils/get_mdx_note_url";
 import { onEnter } from "@/events/on_enter";
 import { useNavigate } from "react-router";
 import { parseDate } from "@/lib/date_utils";
+import { DashboardNotesList } from "./notes_list";
 
 export function Dashboard() {
     const [searchQuery, setSearchQuery] = useState("");
@@ -206,125 +207,11 @@ export function Dashboard() {
                                 </div>
                             </CardHeader>
                             <CardContent className="space-y-4">
-                                {data.notes.slice(0, 10).map((note) => (
-                                    <div
-                                        key={note.mdx.file_path}
-                                        className="flex items-center space-x-4 rounded-lg border p-4 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors"
-                                    >
-                                        <div className="rounded-lg bg-slate-100 p-2 dark:bg-slate-800">
-                                            <FileText className="h-4 w-4" />
-                                        </div>
-                                        <div className="flex-1 min-w-0">
-                                            <h4 className="font-medium truncate">
-                                                <a
-                                                    onClick={(e) => {
-                                                        e.stopPropagation();
-                                                    }}
-                                                    href={getMdxNoteUrl(note.mdx.file_path)}
-                                                >
-                                                    <InlineMdxContent mdx={note.front_matter.title} />
-                                                </a>
-                                            </h4>
-                                            <div className="flex items-center space-x-2 text-sm text-muted-foreground">
-                                                <a
-                                                    onClick={(e) => {
-                                                        e.stopPropagation();
-                                                    }}
-                                                    href={
-                                                        note.front_matter?.subject?.value
-                                                            ? getSubjectUrl(note.front_matter.subject.value)
-                                                            : undefined
-                                                    }
-                                                >
-                                                    {note.front_matter?.subject?.value ?? "No Subject"}{" "}
-                                                </a>
-                                                <span>•</span>
-                                                <a
-                                                    onClick={(e) => {
-                                                        e.stopPropagation();
-                                                    }}
-                                                    href={
-                                                        note.front_matter?.topic?.value
-                                                            ? getTopicUrl(note.front_matter.topic.value)
-                                                            : undefined
-                                                    }
-                                                >
-                                                    {note.front_matter?.topic?.value ?? "No Topic"}
-                                                </a>
-                                                <span>•</span>
-                                                <span>
-                                                    {dayjs(note.mdx.last_read, {
-                                                        utc: true,
-                                                    }).format("MMM Do, YYYY [at] hh:mm a")}
-                                                </span>
-                                            </div>
-                                            <div className="flex flex-wrap gap-1 mt-2">
-                                                {note.tags.slice(0, 3).map((tag) => (
-                                                    <Badge
-                                                        key={`tag-${tag.value}`}
-                                                        variant="secondary"
-                                                        className="text-xs"
-                                                    >
-                                                        {tag.value}
-                                                    </Badge>
-                                                ))}
-                                            </div>
-                                        </div>
-                                        <Button
-                                            variant="ghost"
-                                            size="icon"
-                                            onClick={async (e) => {
-                                                e.stopPropagation();
-                                                if (
-                                                    data.bookmarks.some(
-                                                        (bookmark) =>
-                                                            bookmark.file_path === note.mdx.file_path
-                                                    )
-                                                ) {
-                                                    const res = await commands.removeBookmark(
-                                                        note.mdx.file_path
-                                                    );
-                                                    if (res.status === "ok") {
-                                                        await getData();
-                                                    } else {
-                                                        showToast({
-                                                            title: "Something went wrong",
-                                                            body: "An error occurred while attempting to toggle this bookmark. If this continues, please file an issue on Github.",
-                                                            duration: 5000,
-                                                            variant: "Error",
-                                                        });
-                                                    }
-                                                } else {
-                                                    const res = await commands.addBookmark(
-                                                        note.mdx.file_path
-                                                    );
-                                                    if (res.status === "ok") {
-                                                        await getData();
-                                                    } else {
-                                                        showToast({
-                                                            title: "Something went wrong",
-                                                            body: "An error occurred while attempting to toggle this bookmark. If this continues, please file an issue on Github.",
-                                                            duration: 5000,
-                                                            variant: "Error",
-                                                        });
-                                                    }
-                                                }
-                                            }}
-                                        >
-                                            <Star
-                                                className={cn(
-                                                    "h-4 w-4",
-                                                    data.bookmarks.some(
-                                                        (bookmark) =>
-                                                            bookmark.file_path === note.mdx.file_path
-                                                    )
-                                                        ? "fill-primary stroke-primary"
-                                                        : "fill-none stroke-foreground"
-                                                )}
-                                            />
-                                        </Button>
-                                    </div>
-                                ))}
+                                <DashboardNotesList
+                                    bookmarks={data.bookmarks}
+                                    items={data.notes}
+                                    getData={getData}
+                                />
                             </CardContent>
                         </Card>
 
