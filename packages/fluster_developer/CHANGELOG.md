@@ -1,5 +1,11 @@
 # @fluster.io/dev
 
+## 0.3.15
+
+### Patch Changes
+
+- Add gltf component and new dashboard
+
 ## 0.3.14
 
 ### Patch Changes
