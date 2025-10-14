@@ -21,7 +21,6 @@ export const ImagePageListener = (): ReactNode => {
         imgs.forEach((x) => {
             ids.push(x.id);
         });
-        console.log("ids: ", ids);
         dispatch({
             type: "setImageIdList",
             payload: ids,

@@ -31,6 +31,14 @@ async hideSplashScreen() : Promise<Result<null, FlusterError>> {
     else return { status: "error", error: e  as any };
 }
 },
+async loadBinaryFile(rootRelativePath: string, basePath: string) : Promise<Result<number[], FlusterError>> {
+    try {
+    return { status: "ok", data: await TAURI_INVOKE("load_binary_file", { rootRelativePath, basePath }) };
+} catch (e) {
+    if(e instanceof Error) throw e;
+    else return { status: "error", error: e  as any };
+}
+},
 async createAutoSetting(data: AutoSettingModel[]) : Promise<Result<null, FlusterError>> {
     try {
     return { status: "ok", data: await TAURI_INVOKE("create_auto_setting", { data }) };
@@ -957,7 +965,7 @@ ctime: string;
  * Time snippet is last updated.
  */
 utime: string }
-export type FlusterError = "FailToStreamFromRust" | "OperatingSystemNotSupported" | "FailToSendEvent" | "FailToLoadDocs" | { FailToLoadEnvironmentVariable: string } | "FailToParseDate" | "FailToWriteChatSession" | "FailToReadChatSession" | "NoAiProvidersConfigured" | "FailToGenerateChatResponse" | "FailToLoadModel" | "FailToCreateEmbeddingVector" | "FailToGetSemanticResults" | "FailToCreateQrCode" | "FailToCount" | "NotImplemented" | "FailToCopyFiles" | "FailToWriteFile" | "FailToSaveSettings" | "FailToReadSettings" | "FailToParseBibFile" | "SettingsBibPathNotFound" | "CannotParseBibfile" | "FailToFindDataDirectory" | "FailToCreateIndex" | "FailToSerialize" | "NotFoundById" | "DuplicateId" | "FailToDelete" | "FailToClean" | "FailToCreateTable" | "FailToOpenTable" | "FailToConnect" | "FailToStartDb" | "FailToStopDb" | "FailToCreateEntity" | "FailToCreateSnippet" | "FailToFind" | "FailToFindById" | "FailToCreatePath" | "FailToCreateTag" | "FailToCreateSubject" | { DataDirNotFound: [] } | { FailToClearDirectory: string } | "FailToCreateTopic" | "FailToLocateStorageDir" | { FailToReadFileSystemPath: string } | "FailToReadMathjaxFont" | { FailToSaveFile: string } | { MdxParsingError: string } | { NoTitleError: string } | "FailToGatherMdxGroups" | { AttemptedToParseFileWasntFound: string } | { FailToSaveMdxNote: string } | 
+export type FlusterError = "FailToStreamFromRust" | "OperatingSystemNotSupported" | "FailToSendEvent" | "FailToLoadDocs" | { FailToLoadEnvironmentVariable: string } | "FailToParseDate" | "FailToWriteChatSession" | "FileDoesNotExist" | "FailToReadFile" | "FailToReadChatSession" | "NoAiProvidersConfigured" | "FailToGenerateChatResponse" | "FailToLoadModel" | "FailToCreateEmbeddingVector" | "FailToGetSemanticResults" | "FailToCreateQrCode" | "FailToCount" | "NotImplemented" | "FailToCopyFiles" | "FailToWriteFile" | "FailToSaveSettings" | "FailToReadSettings" | "FailToParseBibFile" | "SettingsBibPathNotFound" | "CannotParseBibfile" | "FailToFindDataDirectory" | "FailToCreateIndex" | "FailToSerialize" | "NotFoundById" | "DuplicateId" | "FailToDelete" | "FailToClean" | "FailToCreateTable" | "FailToOpenTable" | "FailToConnect" | "FailToStartDb" | "FailToStopDb" | "FailToCreateEntity" | "FailToCreateSnippet" | "FailToFind" | "FailToFindById" | "FailToCreatePath" | "FailToCreateTag" | "FailToCreateSubject" | { DataDirNotFound: [] } | { FailToClearDirectory: string } | "FailToCreateTopic" | "FailToLocateStorageDir" | { FailToReadFileSystemPath: string } | "FailToReadMathjaxFont" | { FailToSaveFile: string } | { MdxParsingError: string } | { NoTitleError: string } | "FailToGatherMdxGroups" | { AttemptedToParseFileWasntFound: string } | { FailToSaveMdxNote: string } | 
 /**
  * Taggables
  * 

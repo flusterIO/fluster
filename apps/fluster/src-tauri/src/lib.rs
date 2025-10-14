@@ -1,6 +1,7 @@
 // Learn more about Tauri commandseat https://tauri.app/develop/calling-rust/p
 pub mod core;
 pub mod features;
+use crate::core::commands::load_binary_file::load_binary_file;
 use crate::core::events::event_keys::CrossLanguageEvents;
 use crate::core::events::event_props::AiChatMessageUpdateEventProps;
 use crate::core::sync::sync_local_database::sync_local_database;
@@ -134,6 +135,7 @@ pub fn run() {
             path_exists,
             normalize_path,
             hide_splash_screen,
+            load_binary_file,
             // -- Auto Settings --
             create_auto_setting,
             get_all_auto_settings,

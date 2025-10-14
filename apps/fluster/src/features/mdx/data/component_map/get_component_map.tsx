@@ -53,6 +53,7 @@ import { WrappedImage } from "#/mdx/presentation/wrapped_components/image";
 import { WrappedTaskList } from "#/mdx/presentation/wrapped_components/task_list";
 import { JupyterCell } from "#/jupyter/presentation/cell";
 import { EmbeddableWhiteboard } from "#/whiteboard/presentation/embeddable_whiteboard";
+import { GltfModelView } from "#/gltf/presentation/gltf_model_view";
 
 interface ComponentMapItem {
     /// A regex that will return true if this component is to be included in the component map. This will be prepended with a `<`, so the name should match the component as it will be used in the user's note.
@@ -200,6 +201,10 @@ const items: ComponentMapItem[] = [
     {
         query: ["Youtube", "YouTube"],
         component: Youtube,
+    },
+    {
+        query: ["Gltf", "Glb"],
+        component: GltfModelView
     },
     {
         query: ["Cell", "JupyterCell"],

@@ -20,6 +20,12 @@ pub enum FlusterError {
     #[error("Fluster could not write the current chat session to disk.")]
     FailToWriteChatSession,
 
+    #[error("The file you requested does not exist.")]
+    FileDoesNotExist,
+
+    #[error("The file you requested could not be loaded.")]
+    FailToReadFile,
+
     #[error("Fluster could not find a chat session on your local machine.")]
     FailToReadChatSession,
 

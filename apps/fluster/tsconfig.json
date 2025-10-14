@@ -31,7 +31,8 @@
         }
     },
     "include": [
-        "src"
+        "src",
+        "src/react.d.ts"
     ],
     "references": [
         {

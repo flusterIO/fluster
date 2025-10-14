@@ -1,19 +1,16 @@
-// import { ModelViewerElement } from "@google/model-viewer";
+import React from 'react';
 
-declare global {
+// Use 'react' for "jsx": "react" or "jsx": "preserve"
+declare module 'react' {
     namespace JSX {
         interface IntrinsicElements {
-            "model-viewer": React.DetailedHTMLProps<
-                React.HTMLAttributes<HTMLElement>,
-                HTMLElement
-            > & {
+            'model-viewer': React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement> & {
+                // Add specific model-viewer attributes here for stronger typing if you need them
                 src?: string;
                 alt?: string;
-                poster?: string;
-                "shadow-intensity"?: string; // Example prop, add others as needed
-                "camera-controls"?: boolean;
-                "auto-rotate"?: boolean;
-                // ... other model-viewer attributes
+                'ar'?: boolean;
+                'camera-controls'?: boolean;
+                // ... and so on for all your used attributes
             };
         }
     }

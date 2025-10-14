@@ -1,3 +1,4 @@
+pub mod commands;
 pub mod database;
 pub mod events;
 pub mod models;

@@ -1,6 +1,7 @@
-import React, { useState, type ReactNode } from "react";
-import { ModelViewerElement } from "@google/model-viewer";
+import React, { type ReactNode } from "react";
+import "@google/model-viewer";
 import { LoadingComponent } from "@/components/loading_screen";
+import { useBinaryFileUrl } from "@/hooks/use_binary_file_url";
 
 /* customElements.define("model-viewer", ModelViewerElement); */
 
@@ -9,8 +10,8 @@ interface GltfModelViewProps {
 }
 
 export const GltfModelView = (props: GltfModelViewProps): ReactNode => {
-    const [data, setData] = useState(null);
-    if (data === null) {
+    const objectUrl = useBinaryFileUrl(props.file);
+    if (objectUrl === null) {
         return (
             <div className="w-full flex flex-col justify-center items-center">
                 <LoadingComponent />
@@ -18,8 +19,8 @@ export const GltfModelView = (props: GltfModelViewProps): ReactNode => {
         );
     }
     return (
-        <div className="w-full h-fit flex flex-col justify-center items-center">
-            <model-viewer></model-viewer>
+        <div className="w-full h-fit min-h-[400px] flex flex-col justify-center items-center">
+            <model-viewer src={objectUrl}></model-viewer>
         </div>
     );
 };
