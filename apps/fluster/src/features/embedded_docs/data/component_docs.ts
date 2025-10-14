@@ -38,6 +38,10 @@ export const componentDocItems: ComponentDocsEntry[] = [
         fp: "component_docs/eq_ref.mdx",
     },
     {
+        label: "Gltf/Glb",
+        fp: "component_docs/gltf_glb.mdx",
+    },
+    {
         label: "Grid & Grid Item",
         fp: "component_docs/grid.mdx",
     },

@@ -1,7 +1,4 @@
-use tokio::{
-    fs::File,
-    io::{AsyncReadExt, BufReader},
-};
+use tokio::{fs::File, io::AsyncReadExt};
 
 use crate::core::types::errors::errors::{FlusterError, FlusterResult};
 

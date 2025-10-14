@@ -98,18 +98,10 @@ impl MdxNoteGroup {
         let post_note_link_parse = MdxNoteLinkEntity {}
             .parse_mdx(&post_audio_timestamp_link_parse.new_content, &file_path);
 
-        // RESUME: Come back here and figure out this issue with the equations. They should
-        // be doubled at this point... I think I traced it back this far.
-        println!(
-            "Equations length: {:?}",
-            post_equation_tag_parse.results.len()
-        );
-
         // -- Gather parser data --
         let citations = BibEntryEntity::get_by_ids(db, post_bib_parse.results).await?;
         let equations =
             EquationEntity::get_by_user_provided_ids(db, post_equation_tag_parse.results).await?;
-        println!("Equations: {:?}", equations);
         // for mut eq in equations.clone() {
         //     println!("Eq: {:?}", eq.ctime);
         //     eq.ctime = parse_date(&eq.ctime).unwrap().to_string();

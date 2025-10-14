@@ -297,16 +297,16 @@ pub fn run() {
         .plugin(tauri_plugin_single_instance::init(|_, _, _| {}))
         .plugin(tauri_plugin_opener::init())
         .plugin(tauri_plugin_network::init())
-        .plugin(
-            tauri_plugin_log::Builder::new()
-                .target(tauri_plugin_log::Target::new(
-                    tauri_plugin_log::TargetKind::LogDir {
-                        file_name: Some("logs".to_string()),
-                    },
-                ))
-                .max_file_size(50_000)
-                .build(),
-        )
+        // .plugin(
+        //     tauri_plugin_log::Builder::new()
+        //         .target(tauri_plugin_log::Target::new(
+        //             tauri_plugin_log::TargetKind::LogDir {
+        //                 file_name: Some("logs".to_string()),
+        //             },
+        //         ))
+        //         .max_file_size(50_000)
+        //         .build(),
+        // )
         .invoke_handler(cmds.invoke_handler())
         .setup(move |app| {
             cmds.mount_events(app);

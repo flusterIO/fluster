@@ -36,7 +36,7 @@ export const DashboardNotesList = (
                                 }}
                                 href={getMdxNoteUrl(note.mdx.file_path)}
                             >
-                                <InlineMdxContent mdx={note.front_matter.title} />
+                                <InlineMdxContent abortIfNoMath mdx={note.front_matter.title} />
                             </a>
                         </h4>
                         <div className="flex items-center space-x-2 text-sm text-muted-foreground">

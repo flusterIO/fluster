@@ -1,0 +1,22 @@
+---
+title: "Gltf/Glb"
+---
+
+
+# Gltf/Glb
+
+> This component is not previewed as to not unnecessarily add a large 3-d model file to the binary.
+
+The `<Gltf file="..."/>{:tsx}` or `<Glb file="..."/>{:tsx}` component is actually a single component that can be used to display `.gltf` or `.glb` files. This component requires the `file` property, which is a path relative to your note directory that contains the `gltf` or `glb` file that you're trying to render.
+
+
+
+## Props
+
+
+| key | type | desc |
+| --- | ---- | ---- |
+| file | `string` | The path relative to your note directory pointing to the `.gltf` or `.glb` file that you're trying to include in your note. | 
+| rotate | `boolean?` | If true, the model will slowly rotate without any interaction required. | 
+| height | `(number \| string)?` | The height of the model. Defaults to `min(400px, 90vh)` where `90vh` is 90% of the window's height. | 
+| alt | `string?` | The alternative text to display if rendering fails. This is mostly intended for future versions of Fluster that allow publishing to the web. |

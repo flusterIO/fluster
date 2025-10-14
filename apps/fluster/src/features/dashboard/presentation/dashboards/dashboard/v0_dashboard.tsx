@@ -1,20 +1,8 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
+import { Plus, Search, Clock, CheckSquare } from "lucide-react";
 import {
-    FileText,
-    Plus,
-    Search,
-    Filter,
-    Clock,
-    CheckSquare,
-    Brain,
-    Sparkles,
-    Star,
-} from "lucide-react";
-import {
-    Button,
-    Badge,
     Card,
     CardContent,
     CardDescription,
@@ -24,24 +12,16 @@ import {
     showToast,
     buttonVariants,
     AppRoutes,
-    cn,
     Checkbox,
 } from "@fluster.io/dev";
 import { dashboardStaticData } from "../../../data/models/dashboard_static_data";
 import QuickActionCard from "../../quick_action_card";
-import {
-    commands,
-    DashboardData,
-    MdxNoteGroup,
-    TaskModel,
-} from "@/lib/bindings";
+import { commands, DashboardData, MdxNoteGroup } from "@/lib/bindings";
 import { LoadingComponent } from "@/components/loading_screen";
 import { InlineMdxContent } from "#/mdx/presentation/inline_mdx_content";
 import { getRecentlyAccessedNotes } from "#/command_palette/data/tree/recently_accessed";
 import { getSubjectUrl, getTopicUrl } from "@/lib/url_utils";
 import { DashboardTaggableList } from "./taggable_list";
-import dayjs from "dayjs";
-import { getMdxNoteUrl } from "#/mdx/utils/get_mdx_note_url";
 import { onEnter } from "@/events/on_enter";
 import { useNavigate } from "react-router";
 import { parseDate } from "@/lib/date_utils";
@@ -128,35 +108,35 @@ export function Dashboard() {
                 </div>
 
                 {/* AI Assistant Greeting */}
-                <Card className="border-2 border-dashed border-primary/10 dark:border-border bg-primary/20 dark:bg-primary/80">
-                    <CardContent className="p-6">
-                        <div className="flex items-start space-x-4">
-                            <div className="rounded-full bg-accent p-3">
-                                <Brain className="h-6 w-6 text-accent-foreground" />
-                            </div>
-                            <div className="flex-1">
-                                <h3 className="font-semibold text-primary dark:text-primary-foreground">
-                                    Good morning, Dr. Researcher! 🧬
-                                </h3>
-                                <p className="mt-1 text-sm text-foreground dark:text-primary-foreground/90">
-                                    I've analyzed your recent notes and found 3 potential
-                                    connections between your quantum mechanics and bioinformatics
-                                    research. Would you like me to help you explore these
-                                    interdisciplinary insights?
-                                </p>
-                                <div className="mt-3 flex space-x-2">
-                                    <Button size="sm" className="bg-primary">
-                                        <Sparkles className="mr-2 h-4 w-4" />
-                                        Show Insights
-                                    </Button>
-                                    <Button size="sm" variant="outline">
-                                        Ask AI Assistant
-                                    </Button>
-                                </div>
-                            </div>
-                        </div>
-                    </CardContent>
-                </Card>
+                {/* <Card className="border-2 border-dashed border-primary/10 dark:border-border bg-primary/20 dark:bg-primary/80"> */}
+                {/*     <CardContent className="p-6"> */}
+                {/*         <div className="flex items-start space-x-4"> */}
+                {/*             <div className="rounded-full bg-accent p-3"> */}
+                {/*                 <Brain className="h-6 w-6 text-accent-foreground" /> */}
+                {/*             </div> */}
+                {/*             <div className="flex-1"> */}
+                {/*                 <h3 className="font-semibold text-primary dark:text-primary-foreground"> */}
+                {/*                     Good morning, Dr. Researcher! 🧬 */}
+                {/*                 </h3> */}
+                {/*                 <p className="mt-1 text-sm text-foreground dark:text-primary-foreground/90"> */}
+                {/*                     I've analyzed your recent notes and found 3 potential */}
+                {/*                     connections between your quantum mechanics and bioinformatics */}
+                {/*                     research. Would you like me to help you explore these */}
+                {/*                     interdisciplinary insights? */}
+                {/*                 </p> */}
+                {/*                 <div className="mt-3 flex space-x-2"> */}
+                {/*                     <Button size="sm" className="bg-primary"> */}
+                {/*                         <Sparkles className="mr-2 h-4 w-4" /> */}
+                {/*                         Show Insights */}
+                {/*                     </Button> */}
+                {/*                     <Button size="sm" variant="outline"> */}
+                {/*                         Ask AI Assistant */}
+                {/*                     </Button> */}
+                {/*                 </div> */}
+                {/*             </div> */}
+                {/*         </div> */}
+                {/*     </CardContent> */}
+                {/* </Card> */}
 
                 {/* Quick Actions */}
                 <Card>
@@ -258,12 +238,12 @@ export function Dashboard() {
                                             }}
                                         />
                                         <div className="flex-1 min-w-0">
-                                            <p
+                                            <div
                                                 className={`text-sm ${item.complete ? "line-through" : ""
                                                     }`}
                                             >
                                                 <InlineMdxContent mdx={item.label} />
-                                            </p>
+                                            </div>
                                         </div>
                                     </div>
                                 ))}
