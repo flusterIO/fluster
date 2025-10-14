@@ -22,6 +22,7 @@ export const sync = async (
         | "use_git_ignore"
         | "existing_taggables"
         | "ai"
+        | "recently_accessed_notes"
     > & {
         showSuccessToast?: boolean;
         with_ai: boolean;
