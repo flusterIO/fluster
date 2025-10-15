@@ -11,7 +11,8 @@ use crate::core::utils::commands::get_operating_system::get_operating_system;
 use crate::core::utils::commands::normalize_path::normalize_path;
 use crate::core::utils::file_system::fs_commands::path_exists;
 use crate::core::utils::file_system::fs_commands::{
-    fs_file_extension_glob, fs_glob, read_file_to_bytes, read_utf8_file, save_utf8_file,
+    fs_file_extension_glob, fs_glob, get_files_by_file_extensions, read_file_to_bytes,
+    read_utf8_file, save_utf8_file,
 };
 use crate::core::utils::initialize::initialize_database::initialize_database;
 use crate::core::utils::initialize::initialize_desktop::initialize_desktop;
@@ -86,6 +87,7 @@ use crate::features::snippets::get_snippet_by_id::get_snippet_by_id;
 use crate::features::snippets::get_snippets::get_snippets;
 use crate::features::snippets::save_snippet::save_snippet;
 use crate::features::splash_screen::hide_splash_screen::hide_splash_screen;
+use crate::features::tabular::valid_tabular_file_extensions::ValidTabularFileExtensions;
 use crate::features::taggables::commands::get_all_subjects::get_all_subjects;
 use crate::features::taggables::commands::get_all_tags::get_all_tags;
 use crate::features::taggables::commands::get_all_topics::get_all_topics;
@@ -167,6 +169,7 @@ pub fn run() {
             write_file,
             fs_glob,
             fs_file_extension_glob,
+            get_files_by_file_extensions,
             initialize_database,
             initialize_desktop,
             wipe_database,
@@ -270,6 +273,7 @@ pub fn run() {
         .typ::<DictionaryEntryModelWithoutSource>()
         .typ::<CrossLanguageEvents>()
         .typ::<AiChatMessageUpdateEventProps>()
+        .typ::<ValidTabularFileExtensions>()
         .typ::<SyncFilesystemDirectoryOptions>();
     // #[cfg(target_os = "macos")]
     // {

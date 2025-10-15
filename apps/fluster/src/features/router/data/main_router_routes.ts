@@ -29,6 +29,7 @@ import { ScaffoldWithSidePanels } from "#/scaffold/presentation/scaffold_with_pa
 import { HtmlFilePage } from "#/html/presentation/html_file_page";
 import { SplashScreen } from "#/splash_screen";
 import { CalendarPage } from "#/calendar/presentation/calendar_page/calendar_page";
+import { TabularDataTablePage } from "#/tabular/presentation/tabular_datatable_page";
 
 export const getBrowserRouter = () => {
     return createBrowserRouter([
@@ -75,6 +76,10 @@ export const getBrowserRouter = () => {
                 {
                     path: AppRoutes.htmlFile,
                     Component: HtmlFilePage,
+                },
+                {
+                    path: AppRoutes.tabular_data_table,
+                    Component: TabularDataTablePage,
                 },
                 {
                     path: AppRoutes.kanbanBoards,

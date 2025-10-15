@@ -86,6 +86,47 @@ pub async fn fs_file_extension_glob(
 
 #[tauri::command]
 #[specta::specta]
+pub async fn get_files_by_file_extensions(
+    file_extensions: Vec<String>,
+    base_path: String,
+    n_threads: String,
+) -> FlusterResult<Vec<String>> {
+    let (sender, receiver) = unbounded::<String>();
+    let threads: usize = n_threads.parse().unwrap();
+    WalkBuilder::new(base_path)
+        .threads(threads)
+        .add_custom_ignore_filename(".flusterIgnore")
+        .git_ignore(false)
+        .ignore(true)
+        .build_parallel()
+        .run(|| {
+            let _sender = sender.clone();
+            let file_extensions = file_extensions.clone();
+            Box::new(move |either_entry: Result<DirEntry, ignore::Error>| {
+                if either_entry.is_ok() {
+                    let entry = either_entry.unwrap();
+                    let path = entry.path();
+                    if path.is_file() && file_extensions.iter().any(|x| x == path.extension()) {
+                        if let Some(path_as_string) = path.to_str() {
+                            _sender.send(path_as_string.to_string()).unwrap();
+                        }
+                    }
+                }
+                WalkState::Continue
+            })
+        });
+
+    drop(sender);
+
+    let mut items: Vec<String> = Vec::new();
+    for x in receiver.iter() {
+        items.push(x)
+    }
+    Ok(items)
+}
+
+#[tauri::command]
+#[specta::specta]
 pub async fn read_file_to_bytes(fs_path: String) -> FlusterResult<Vec<u8>> {
     if let Ok(exists) = std::fs::exists(&fs_path) {
         if exists {
