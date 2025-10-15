@@ -1,5 +1,11 @@
 # @fluster.io/dev
 
+## 0.3.16
+
+### Patch Changes
+
+- Fix dashboard responsiveness.
+
 ## 0.3.15
 
 ### Patch Changes
