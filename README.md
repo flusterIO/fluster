@@ -1,6 +1,6 @@
 # Fluster
 
-![Fluster screenshot](docs/doc_assets/images/splitview_editor.png)
+![Fluster screenshot](apps/website/public/assets/logo/fluster_banner_with_name.png)
 
 Free and open source academic note taking. Rust powered interactive plotting, dynamic RAG, and everything a modern researcher needs to be productive in one place... for free.
 
