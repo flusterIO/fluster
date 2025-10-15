@@ -1,4 +1,4 @@
-import React, { useEffect, type ReactNode } from "react";
+import React, { useEffect, useMemo, type ReactNode } from "react";
 import DesktopSideNavigation from "./desktop_side_navigation";
 import { Outlet, useLocation } from "react-router";
 import ToastNotificationList from "#/toast_notification/presentation/toast_notification_list";
@@ -12,6 +12,7 @@ import { DarkModeObserver } from "../state/dark_mode_observer";
 import { EquationDetailModal } from "#/math/presentation/equation_detail_modal";
 import { BibEntryDetailSheet } from "#/bibliography/presentation/bib_entry_detail_pane";
 import { BodyPortal } from "@/components/body_portal";
+import { AppRoutes } from "@fluster.io/dev";
 
 const DesktopScaffold = (): ReactNode => {
     useDevelopmentLogger();
@@ -25,13 +26,18 @@ const DesktopScaffold = (): ReactNode => {
             })
         );
     }, [location]);
+    const applyScrollTarget = useMemo(() => {
+        return ![AppRoutes.semanticSearch].some((l) =>
+            location.pathname.startsWith(l)
+        );
+    }, [location]);
     return (
         <PageContainer>
             <MathjaxScript />
             <DarkModeObserver />
             <DesktopSideNavigation />
             <div
-                id="scroll-target"
+                id={applyScrollTarget ? "scroll-target" : "scroll-target-outer"}
                 className="@container/main-panel flex-grow h-full w-full pt-8 overflow-y-auto"
             >
                 <Outlet />
