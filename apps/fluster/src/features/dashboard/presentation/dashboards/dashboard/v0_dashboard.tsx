@@ -76,18 +76,18 @@ export function Dashboard() {
     }
 
     return (
-        <div className="min-h-screen">
-            <div className="container mx-auto p-6 space-y-6">
+        <div className="min-h-screen @container/dashboard flex flex-col justify-start items-center w-full">
+            <div className="container mx-auto p-6 space-y-6 w-full">
                 {/* Header */}
-                <div className="flex flex-col space-y-4 md:flex-row md:items-center md:justify-between md:space-y-0">
-                    <div>
+                <div className="flex flex-col gap-x-6 @[600px]/dashboard:flex-row md:items-center md:justify-between md:space-y-0">
+                    <div className="w-full @[600px]:w-auto">
                         <h1 className="text-3xl font-bold tracking-tight">Dashboard</h1>
                         <p className="text-muted-foreground">
                             Organize your knowledge and accelerate discovery
                         </p>
                     </div>
-                    <div className="flex items-center space-x-2">
-                        <div className="relative">
+                    <div className="flex items-center space-x-2 mt-4 w-full @[600px]/dashboard:w-fit @[600px]/dashboard:mt-0">
+                        <div className="relative w-full @[600px]:w-auto">
                             <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
                             <Input
                                 autoFocus
@@ -101,7 +101,7 @@ export function Dashboard() {
                                         nav(`${AppRoutes.semanticSearch}?${sp.toString()}`);
                                     })
                                 }
-                                className="pl-10 w-64"
+                                className="pl-10 @[600px]/dashboard:w-64 w-full"
                             />
                         </div>
                     </div>
@@ -139,7 +139,7 @@ export function Dashboard() {
                 {/* </Card> */}
 
                 {/* Quick Actions */}
-                <Card>
+                <Card className="w-full">
                     <CardHeader>
                         <CardTitle className="flex items-center">
                             <Plus className="mr-2 h-5 w-5" />
@@ -150,7 +150,7 @@ export function Dashboard() {
                         </CardDescription>
                     </CardHeader>
                     <CardContent>
-                        <div className="grid grid-cols-2 gap-3 md:grid-cols-4 lg:grid-cols-6">
+                        <div className="grid grid-cols-1 @[450px]/dashboard:grid-cols-2 gap-3 @[600px]/dashboard:grid-cols-4 @[900px]/dashboard:grid-cols-6">
                             {dashboardStaticData.quickCreateItems.map((item) => (
                                 <QuickActionCard key={`quick-action-${item.id}`} item={item} />
                             ))}
@@ -158,11 +158,11 @@ export function Dashboard() {
                     </CardContent>
                 </Card>
 
-                <div className="grid gap-6 lg:grid-cols-3">
-                    {/* Main Content */}
-                    <div className="lg:col-span-2 space-y-6">
+                <div className="flex @[1080px]/dashboard:flex-row flex-col justify-center items-start gap-6 w-full @[1080px]/dashboard:max-w-[1440px]">
+                    <div className="flex flex-col justify-start items-center gap-6 flex-grow w-full">
+                        {/* Main Content */}
                         {/* Recent Notes */}
-                        <Card>
+                        <Card className="w-full">
                             <CardHeader>
                                 <div className="flex items-center justify-between">
                                     <div>
@@ -196,7 +196,7 @@ export function Dashboard() {
                         </Card>
 
                         {/* Research Progress */}
-                        <Card>
+                        <Card className="w-full">
                             <CardHeader>
                                 <CardTitle className="flex items-center">
                                     <CheckSquare className="mr-2 h-5 w-5" />
@@ -250,9 +250,8 @@ export function Dashboard() {
                             </CardContent>
                         </Card>
                     </div>
-
                     {/* Sidebar */}
-                    <div className="space-y-6">
+                    <div className="flex flex-col justify-start items-center gap-6 w-full @[1080px]/dashboard:w-[min(450px,33%)]">
                         {/* Subjects */}
                         <DashboardTaggableList
                             items={data.subjects.map((t) => {
@@ -278,7 +277,7 @@ export function Dashboard() {
                         />
 
                         {/* Quick Stats */}
-                        <Card>
+                        <Card className="w-full">
                             <CardHeader>
                                 <CardTitle>Quick Stats</CardTitle>
                             </CardHeader>

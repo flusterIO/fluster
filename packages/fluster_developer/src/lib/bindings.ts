@@ -254,6 +254,14 @@ async fsFileExtensionGlob(fileExtension: string, basePath: string, nThreads: str
     else return { status: "error", error: e  as any };
 }
 },
+async getFilesByFileExtensions(fileExtensions: string[], basePath: string, nThreads: string) : Promise<Result<string[], FlusterError>> {
+    try {
+    return { status: "ok", data: await TAURI_INVOKE("get_files_by_file_extensions", { fileExtensions, basePath, nThreads }) };
+} catch (e) {
+    if(e instanceof Error) throw e;
+    else return { status: "error", error: e  as any };
+}
+},
 async initializeDatabase() : Promise<Result<null, FlusterError>> {
     try {
     return { status: "ok", data: await TAURI_INVOKE("initialize_database") };
@@ -1138,6 +1146,7 @@ export type TocEntry = { depth: number; body: string }
  * The search results returned froma  taggable input or via a traditional text based query.
  */
 export type TraditionalSearchResults = { notes: MdxNoteGroup[]; tasks: TaskModel[]; equations: EquationData[]; snippets: SnippetData[] }
+export type ValidTabularFileExtensions = "Csv"
 export type WhiteboardModel = { 
 /**
  * A user provided id given to the Whiteboard component.

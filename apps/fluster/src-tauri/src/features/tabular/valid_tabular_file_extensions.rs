@@ -1,3 +1,7 @@
+use serde::{Deserialize, Serialize};
+use specta::Type;
+
+#[derive(Type, Serialize, Deserialize)]
 pub enum ValidTabularFileExtensions {
     Csv,
 }

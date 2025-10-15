@@ -1,6 +1,5 @@
 import { CommandPaletteAnyEntry } from "../models/command_palette_any_entry";
 import { CommandPaletteCategory } from "../models/command_palette_category";
-import { fsFileExtensionGlob } from "@/lib/fs_glob";
 import { GeneralCommandPaletteItem } from "../models/command_palette_item";
 import { getPdfUrl } from "#/pdf/data/utils/get_pdf_url";
 import { NavigateFunction } from "react-router";

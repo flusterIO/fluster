@@ -29,7 +29,7 @@ export const DashboardTaggableList = (props: TaggableListProps): ReactNode => {
     const [page, setPage] = useState(0);
     const pageStart = page * PER_PAGE;
     return (
-        <Card className="max-h-[450px]">
+        <Card className="max-h-[450px] w-full">
             <CardHeader>
                 <CardTitle className="flex items-center">
                     <BookOpen className="mr-2 h-5 w-5" />

@@ -2,7 +2,6 @@
 resolver = "2"
 members = [
     "apps/fluster/src-tauri",
-    "packages/fluster_grpc",
     "packages/fluster_test_utils",
     "packages/fluster_lua",
 ]

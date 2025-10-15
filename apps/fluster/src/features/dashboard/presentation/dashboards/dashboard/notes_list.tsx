@@ -65,8 +65,8 @@ export const DashboardNotesList = (
                             >
                                 {note.front_matter?.topic?.value ?? "No Topic"}
                             </a>
-                            <span>•</span>
-                            <span>
+                            <span className="hidden @[540px]/dashboard:inline-block">•</span>
+                            <span className="hidden @[540px]/dashboard:inline-block">
                                 {dayjs(note.mdx.last_read, {
                                     utc: true,
                                 }).format("MMM Do, YYYY [at] hh:mm a")}
