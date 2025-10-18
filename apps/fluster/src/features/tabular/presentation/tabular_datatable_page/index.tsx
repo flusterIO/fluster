@@ -4,7 +4,7 @@ import { useSearchParams } from "react-router";
 
 import { AppState } from "@/state/initial_state";
 import { connect } from "react-redux";
-import { H4, showToast } from "@fluster.io/dev";
+import { H4, showToast, Button } from "@fluster.io/dev";
 import { DynamicDataTable } from "./dynamic_data_table";
 import { LoadingComponent } from "@/components/loading_screen";
 
@@ -14,20 +14,29 @@ const connector = connect((state: AppState) => ({
 
 export const TabularDataTablePage = connector(
     ({ notesDirectory }: { notesDirectory: string }): ReactNode => {
-        const [sp] = useSearchParams();
+        const [sp, setSp] = useSearchParams();
+        /* const relativeFilePath = sp.get("file"); */
         const relativeFilePath = useMemo(() => {
-            return sp.get("file");
-        }, [sp]);
-        const [data, setData] = useState<object[] | null>(null);
-        const getData = async (fp: string, bp: string): Promise<void> => {
-            const res = await commands.loadTabularFile(fp, bp, false);
+            return sp.get("file")
+        }, [sp])
+        const hasHeader = useMemo(() => {
+            const h = sp.get("hasHeader")
+            if (h) {
+                return h === "true"
+            }
+        }, [sp])
+        const [data, setData] = useState<object[] | null | "parse-fail">(null);
+        /* const */
+        const getData = async (fp: string, bp: string, hh: boolean | undefined): Promise<void> => {
+            const res = await commands.loadTabularFile(fp, bp, typeof hh === "boolean" ? hh : false);
             if (res.status === "ok") {
                 setData(res.data);
             } else {
-                const res2 = await commands.loadTabularFile(fp, bp, true);
+                const res2 = await commands.loadTabularFile(fp, bp, typeof hh === "boolean" ? !hh : true);
                 if (res2.status === "ok") {
                     setData(res2.data);
                 } else {
+                    setData("parse-fail")
                     showToast({
                         title: "Something went wrong",
                         body: `Fluster could not load the file: ${fp}`,
@@ -39,9 +48,8 @@ export const TabularDataTablePage = connector(
         };
 
         useEffect(() => {
-            console.log("relativeFilePath: ", relativeFilePath);
             if (relativeFilePath) {
-                getData(relativeFilePath, notesDirectory);
+                getData(relativeFilePath, notesDirectory, hasHeader);
             } else {
                 showToast({
                     title: "No file found",
@@ -51,12 +59,30 @@ export const TabularDataTablePage = connector(
                 });
             }
             /* eslint-disable-next-line  -- Don't want to include unecessary dependencies. I hate this fucking rule. */
-        }, [relativeFilePath]);
+        }, [relativeFilePath, hasHeader]);
 
         if (data === null) {
             return (
                 <div className="w-full h-full min-h-screen flex flex-col justify-center items-center">
                     <LoadingComponent />
+                </div>
+            );
+        }
+        if (data === "parse-fail") {
+            return (
+                <div className="w-full h-full min-h-screen flex flex-col justify-center items-center">
+                    <div className="max-w-[min(450px,90vw)] flex flex-col justify-center items-center gap-4">
+                        <H4>Something went wrong.</H4>
+                        <p>Could not successfully parse file</p>
+                        <div>
+                            <Button
+                                onClick={() => {
+                                    sp.set("hasHeader", hasHeader ? "false" : "true")
+                                    setSp(sp)
+                                }}
+                            >{`Try again ${hasHeader ? "without" : "with"} header`}</Button>
+                        </div>
+                    </div>
                 </div>
             );
         }
@@ -69,7 +95,7 @@ export const TabularDataTablePage = connector(
         }
         return (
             <div className="w-full h-fit min-h-screen flex flex-col justify-center items-center px-8">
-                <div className="max-w-[1080px] w-full my-16">
+                <div className="max-w-[1080px] w-full my-16 @container/dynamic_table">
                     <DynamicDataTable items={data} />
                     <div className="mt-2 text-sm">
                         <span>File: </span>

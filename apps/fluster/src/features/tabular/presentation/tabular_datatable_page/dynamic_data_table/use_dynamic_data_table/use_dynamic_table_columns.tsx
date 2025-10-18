@@ -9,7 +9,6 @@ export const getTableColumns = <T extends object>(item: T): ColumnDef<T>[] => {
     const columns = Object.keys(item)
         .sort((a, b) => (a < b ? -1 : 1))
         .map((itemKey): ColumnDef<T> => {
-            console.log("itemKey: ", itemKey);
             const accessorKey = itemKey.length ? itemKey : TABLE_EMPTY_STRING_KEY;
             const id = accessorKey;
             switch (typeof item[itemKey as keyof typeof item]) {

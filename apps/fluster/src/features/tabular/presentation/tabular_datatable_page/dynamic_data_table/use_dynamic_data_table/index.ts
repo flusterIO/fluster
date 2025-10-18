@@ -8,14 +8,14 @@ import {
     SortingState,
     useReactTable,
 } from "@tanstack/react-table";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDynamicTableColumns } from "./use_dynamic_table_columns";
 import { TABLE_EMPTY_STRING_KEY } from "../dynamic_data_table_constants";
 
-const getInitialColumnVisibility = <T extends Object>(
+const getInitialColumnVisibility = <T extends object>(
     item: T
 ): Record<string, boolean> => {
-    let data: Record<string, boolean> = {};
+    const data: Record<string, boolean> = {};
     Object.keys(item).forEach((k) => {
         data[k === "" ? TABLE_EMPTY_STRING_KEY : k] = true;
     });
@@ -33,6 +33,9 @@ export const useDynamicDataTable = <T extends object>(items: T[]) => {
         pageIndex: 0,
         pageSize: 10,
     });
+    useEffect(() => {
+        setFilteredEntries(items)
+    }, [items])
     const columns = useDynamicTableColumns(items);
     const table = useReactTable({
         autoResetPageIndex: true,

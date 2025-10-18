@@ -51,7 +51,7 @@ pub async fn load_tabular_file(
 
     let csv = CsvReader::new(cursor);
     let mut df = csv
-        // .with_options(CsvReadOptions::default().with_has_header(with_has_header))
+        .with_options(CsvReadOptions::default().with_has_header(with_has_header))
         .finish()
         .map_err(|_| FlusterError::FailToParseTabularFile)?;
 

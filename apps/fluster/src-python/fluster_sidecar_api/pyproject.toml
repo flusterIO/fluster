@@ -7,5 +7,7 @@ requires-python = ">=3.11"
 dependencies = [
     "fastapi>=0.119.0",
     "langchain>=1.0.0",
+    "langchain-ollama>=1.0.0",
     "langgraph>=1.0.0",
+    "python-dotenv>=1.1.1",
 ]
