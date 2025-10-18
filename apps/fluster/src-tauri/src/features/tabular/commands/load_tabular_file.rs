@@ -1,6 +1,5 @@
 use crate::core::types::errors::errors::{FlusterError, FlusterResult};
 use polars::prelude::*;
-use serde::{Deserialize, Serialize};
 use serde_json::Value;
 use specta::Type;
 use std::collections::HashMap;

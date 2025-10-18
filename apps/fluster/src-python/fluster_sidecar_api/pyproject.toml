@@ -5,12 +5,16 @@ description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.11"
 dependencies = [
+    "appdirs>=1.4.4",
     "flask>=3.1.2",
     "flask-cors>=6.0.1",
+    "flask-restful>=0.3.10",
+    "lancedb>=0.25.2",
     "langchain>=1.0.0",
     "langchain-ollama>=1.0.0",
     "langgraph>=1.0.0",
     "pyinstaller>=6.16.0",
+    "pytest>=8.4.2",
     "python-dotenv>=1.1.1",
     "uvicorn>=0.38.0",
 ]

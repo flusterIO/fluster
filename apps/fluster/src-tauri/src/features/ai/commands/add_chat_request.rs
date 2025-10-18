@@ -90,7 +90,6 @@ pub async fn add_ai_chat_request(
         );
         e.to_string().contains("does not support tools")
     }) {
-        println!("In hizere");
         let _history = Arc::new(Mutex::new(history.clone()));
         let mut stream: ChatMessageResponseStream = ollama
             .send_chat_messages_with_history_stream(

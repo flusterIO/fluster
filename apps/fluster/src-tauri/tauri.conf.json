@@ -1,96 +1,103 @@
 {
-  "productName": "Fluster",
-  "version": "0.3.17",
-  "identifier": "com.fluster.app",
-  "build": {
-    "beforeDevCommand": "pnpm dev",
-    "devUrl": "http://localhost:1420",
-    "beforeBuildCommand": "pnpm run build",
-    "frontendDist": "../dist"
-  },
-  "app": {
-    "withGlobalTauri": true,
-    "windows": [
-      {
-        "label": "main",
-        "title": "Fluster",
-        "titleBarStyle": "Overlay",
-        "maximized": true
-      }
-    ],
-    "security": {
-      "csp": {
-        "default-src": "*",
-        "connect-src": "'self' http: https: ws: wss: blob: ipc: http://ipc.localhost",
-        "style-src": "'self' 'unsafe-inline'",
-        "img-src": "*",
-        "script-src": "'self' 'unsafe-inline' 'unsafe-eval' *",
-        "frame-src": "*"
-      },
-      "assetProtocol": {
-        "enable": true,
-        "scope": ["**"]
-      },
-      "capabilities": [
-        {
-          "identifier": "draggable-window",
-          "windows": ["*"],
-          "permissions": [
-            "core:default",
-            "core:window:allow-start-dragging",
-            "log:allow-log",
-            "log:default",
-            "dialog:allow-open",
-            "dialog:allow-save",
-    {
-      "identifier": "shell:allow-spawn",
-      "allow": [
-        {
-          "name": "../src-python/fluster_sidecar_api/dist/fluster_python_sidecar",
-          "sidecar": true
-        }
-      ]
+    "productName": "Fluster",
+    "version": "0.3.17",
+    "identifier": "com.fluster.app",
+    "build": {
+        "beforeDevCommand": "pnpm dev",
+        "devUrl": "http://localhost:1420",
+        "beforeBuildCommand": "pnpm run build",
+        "frontendDist": "../dist"
     },
+    "app": {
+        "withGlobalTauri": true,
+        "windows": [
             {
-              "identifier": "opener:allow-open-url",
-              "allow": [
-                {
-                  "url": "https://*"
-                }
-              ]
-            },
-            "opener:allow-reveal-item-in-dir",
-            {
-              "identifier": "opener:allow-open-path",
-              "allow": [
-                {
-                  "path": "*"
-                }
-              ]
+                "label": "main",
+                "title": "Fluster",
+                "titleBarStyle": "Overlay",
+                "maximized": true
             }
-          ]
+        ],
+        "security": {
+            "csp": {
+                "default-src": "*",
+                "connect-src": "'self' http: https: ws: wss: blob: ipc: http://ipc.localhost",
+                "style-src": "'self' 'unsafe-inline'",
+                "img-src": "*",
+                "script-src": "'self' 'unsafe-inline' 'unsafe-eval' *",
+                "frame-src": "*"
+            },
+            "assetProtocol": {
+                "enable": true,
+                "scope": [
+                    "**"
+                ]
+            },
+            "capabilities": [
+                {
+                    "identifier": "draggable-window",
+                    "windows": [
+                        "*"
+                    ],
+                    "permissions": [
+                        "core:default",
+                        "core:window:allow-start-dragging",
+                        "log:allow-log",
+                        "log:default",
+                        "dialog:allow-open",
+                        "dialog:allow-save",
+                        {
+                            "identifier": "shell:allow-spawn",
+                            "allow": [
+                                {
+                                    "name": "../src-python/fluster_sidecar_api/dist/fluster_python_sidecar",
+                                    "sidecar": true
+                                }
+                            ]
+                        },
+                        {
+                            "identifier": "opener:allow-open-url",
+                            "allow": [
+                                {
+                                    "url": "https://*"
+                                }
+                            ]
+                        },
+                        "opener:allow-reveal-item-in-dir",
+                        {
+                            "identifier": "opener:allow-open-path",
+                            "allow": [
+                                {
+                                    "path": "*"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
         }
-      ]
-    }
-  },
-  "bundle": {
-    "active": true,
-    "targets": "all",
-    "category": "Education",
-    "createUpdaterArtifacts": false,
-    "shortDescription": "Free & open source academic note taking.",
-    "publisher": "Fluster",
-    "icon": [
-      "icons/icon_bundle/fluster_profile_photo.png",
-      "icons/icon_bundle/1024-mac.icns",
-      "icons/icon_bundle/logo.ico"
-    ],
-    "resources": ["../public/**/*", "./infoplist/*"],
-    "macOS": {
-      "signingIdentity": "-"
     },
-    "externalBin": [
-      "../src-python/fluster_sidecar_api/dist/fluster_python_sidecar"
-    ]
-  }
+    "bundle": {
+        "active": true,
+        "targets": "all",
+        "category": "Education",
+        "createUpdaterArtifacts": false,
+        "shortDescription": "Free & open source academic note taking.",
+        "publisher": "Fluster",
+        "icon": [
+            "icons/icon_bundle/fluster_profile_photo.png",
+            "icons/icon_bundle/1024-mac.icns",
+            "icons/icon_bundle/logo.ico"
+        ],
+        "resources": [
+            "../public/**/*",
+            "./infoplist/*"
+        ],
+        "macOS": {
+            "signingIdentity": "-"
+        },
+        "externalBin": [
+            "../src-python/fluster_sidecar_api/dist/fluster_python_sidecar"
+        ]
+    }
 }

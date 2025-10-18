@@ -1,8 +1,13 @@
+use py_rs::PY;
 use serde::{Deserialize, Serialize};
 use specta::Type;
 
 #[derive(
-    Debug, Clone, Serialize, Deserialize, PartialEq, Eq, specta::Type, strum_macros::Display,
+    Debug, Clone, Serialize, Deserialize, PartialEq, Eq, specta::Type, strum_macros::Display, PY,
+)]
+#[py(
+    export,
+    export_to = "../../src-python/fluster_sidecar_api/core/types/AiChatMessageRole.py"
 )]
 pub enum AiChatMessageRole {
     #[serde(rename = "User")]
@@ -15,7 +20,11 @@ pub enum AiChatMessageRole {
     Tool,
 }
 
-#[derive(Serialize, Deserialize, Type, Clone, Debug)]
+#[derive(Serialize, Deserialize, Type, Clone, Debug, PY)]
+#[py(
+    export,
+    export_to = "../../src-python/fluster_sidecar_api/core/types/AiChatMessageData.py"
+)]
 pub struct AiChatMessageModel {
     pub id: String,
     /// The id of the accompanying AiChatModel row.

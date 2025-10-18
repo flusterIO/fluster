@@ -16,6 +16,8 @@ build_developer_typescript:
 	cd ${FLUSTER_NATIVE_ROOT}/packages/fluster_developer; pnpm build
 build_python_sidecar:
 	cd ${FLUSTER_NATIVE_ROOT}/apps/fluster; pnpm build:python
+generate_python_types:
+	cd ${FLUSTER_NATIVE_ROOT}/apps/fluster/src-tauri; cargo test export_bindings
 copy_plugin_template:
 	cp -r ${FLUSTER_NATIVE_ROOT}/apps/local_plugin_template_example/ "/Users/bigsexy/Library/Application Support/Fluster/plugins"
 build_node: build_developer_typescript

@@ -74,13 +74,13 @@ export const AiChatContainer = (): ReactNode => {
 
             const streamChannel = new Channel<AiChatMessageUpdateEventProps>();
             streamChannel.onmessage = (streamData) => {
-                console.log("streamData: ", streamData);
                 window.dispatchEvent(
                     new CustomEvent("ai-chat-message-stream", {
                         detail: streamData,
                     })
                 );
             };
+            console.log("chatId: ", chatId)
             const res = await commands.addAiChatRequest(
                 chatId,
                 {
