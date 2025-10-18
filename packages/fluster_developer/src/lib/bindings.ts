@@ -39,9 +39,9 @@ async loadBinaryFile(rootRelativePath: string, basePath: string) : Promise<Resul
     else return { status: "error", error: e  as any };
 }
 },
-async loadTabularFile(relativePath: string, basePath: string) : Promise<Result<(Partial<{ [key in string]: JsonValue }>)[], FlusterError>> {
+async loadTabularFile(relativePath: string, basePath: string, withHasHeader: boolean) : Promise<Result<(Partial<{ [key in string]: JsonValue }>)[], FlusterError>> {
     try {
-    return { status: "ok", data: await TAURI_INVOKE("load_tabular_file", { relativePath, basePath }) };
+    return { status: "ok", data: await TAURI_INVOKE("load_tabular_file", { relativePath, basePath, withHasHeader }) };
 } catch (e) {
     if(e instanceof Error) throw e;
     else return { status: "error", error: e  as any };

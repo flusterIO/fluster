@@ -20,20 +20,26 @@ export const TabularDataTablePage = connector(
         }, [sp]);
         const [data, setData] = useState<object[] | null>(null);
         const getData = async (fp: string, bp: string): Promise<void> => {
-            const res = await commands.loadTabularFile(fp, bp);
+            const res = await commands.loadTabularFile(fp, bp, false);
             if (res.status === "ok") {
                 setData(res.data);
             } else {
-                showToast({
-                    title: "Something went wrong",
-                    body: `Fluster could not load the file: ${fp}`,
-                    variant: "Error",
-                    duration: 5000,
-                });
+                const res2 = await commands.loadTabularFile(fp, bp, true);
+                if (res2.status === "ok") {
+                    setData(res2.data);
+                } else {
+                    showToast({
+                        title: "Something went wrong",
+                        body: `Fluster could not load the file: ${fp}`,
+                        variant: "Error",
+                        duration: 5000,
+                    });
+                }
             }
         };
 
         useEffect(() => {
+            console.log("relativeFilePath: ", relativeFilePath);
             if (relativeFilePath) {
                 getData(relativeFilePath, notesDirectory);
             } else {
@@ -64,6 +70,10 @@ export const TabularDataTablePage = connector(
         return (
             <div className="w-full h-fit min-h-screen flex flex-col justify-center items-center px-8">
                 <div className="max-w-[1080px] w-full my-16">
+                    <div>
+                        <span>File: </span>
+                        <span className="text-muted-foreground">{relativeFilePath}</span>
+                    </div>
                     <DynamicDataTable items={data} />
                 </div>
             </div>

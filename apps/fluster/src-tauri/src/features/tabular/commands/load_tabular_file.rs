@@ -33,6 +33,7 @@ fn dataframe_to_hashmap_array(df: &mut DataFrame) -> PolarsResult<Vec<HashMap<St
 pub async fn load_tabular_file(
     relative_path: String,
     base_path: String,
+    with_has_header: bool,
 ) -> FlusterResult<Vec<HashMap<String, Value>>> {
     let path = match relative_path.contains(&base_path) {
         true => std::path::Path::new(&relative_path),
@@ -50,8 +51,19 @@ pub async fn load_tabular_file(
 
     let csv = CsvReader::new(cursor);
     let mut df = csv
+        // .with_options(CsvReadOptions::default().with_has_header(with_has_header))
         .finish()
         .map_err(|_| FlusterError::FailToParseTabularFile)?;
+
+    println!("{:?}", df);
+
+    if !with_has_header {
+        // - The first row has columns that are not strings or are empty
+        // - The first row's columns are not all unique
+        // - The first row appears to contain dates or other common data formats (eg, xx-xx-xx)
+        let row_1 = df.get_row(0);
+        println!("{:?}", row_1);
+    }
 
     // .map_err().collect().unwrap();
     let data =
