@@ -24,6 +24,7 @@ export const DynamicDataTable = <T extends object>(
             <DynamicDatatableFilterRow
                 columnVisibility={tableData.columnVisibility}
                 setColumnVisibility={tableData.setColumnVisibility}
+                setGlobalFilter={tableData.setGlobalFilter}
             />
             <Table>
                 <TableHeader>

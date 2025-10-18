@@ -18,6 +18,7 @@ import { TABLE_EMPTY_STRING_KEY } from "./dynamic_data_table_constants";
 interface DynamicDatatableFilterRowProps {
     columnVisibility: Record<string, boolean>;
     setColumnVisibility: (newVisibility: Record<string, boolean>) => void;
+    setGlobalFilter: (query: string) => void;
 }
 
 const formSchema = z.object({
@@ -32,6 +33,11 @@ export const DynamicDatatableFilterRow = (
         defaultValues: {
             query: "",
         },
+    });
+    form.watch((formData) => {
+        if (typeof formData.query === "string") {
+            props.setGlobalFilter(formData.query);
+        }
     });
     return (
         <Form {...form}>

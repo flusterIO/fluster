@@ -53,7 +53,6 @@ pub async fn load_tabular_file(
         .finish()
         .map_err(|_| FlusterError::FailToParseTabularFile)?;
 
-    println!("{:?}", df);
     // .map_err().collect().unwrap();
     let data =
         dataframe_to_hashmap_array(&mut df).map_err(|_| FlusterError::FailToParseTabularFile)?;
