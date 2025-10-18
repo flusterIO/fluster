@@ -150,7 +150,7 @@ export function Dashboard() {
                         </CardDescription>
                     </CardHeader>
                     <CardContent>
-                        <div className="grid grid-cols-1 @[450px]/dashboard:grid-cols-2 gap-3 @[600px]/dashboard:grid-cols-4 @[900px]/dashboard:grid-cols-6">
+                        <div className="grid grid-cols-1 @[450px]/dashboard:grid-cols-2 gap-3 @[600px]/dashboard:grid-cols-3 @[900px]/dashboard:grid-cols-6">
                             {dashboardStaticData.quickCreateItems.map((item) => (
                                 <QuickActionCard key={`quick-action-${item.id}`} item={item} />
                             ))}

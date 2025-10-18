@@ -24,7 +24,7 @@
         "style-src": "'self' 'unsafe-inline'",
         "img-src": "*",
         "script-src": "'self' 'unsafe-inline' 'unsafe-eval' *",
-        "connect-src": "*",
+        "connect-src": "'self' 'unsafe-inline' 'unsafe-eval' *",
         "frame-src": "*"
       },
       "assetProtocol": {

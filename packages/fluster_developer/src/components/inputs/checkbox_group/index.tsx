@@ -1,4 +1,4 @@
-import React, { type ReactNode } from "react";
+import React, { useMemo, type ReactNode } from "react";
 import { Checkbox } from "../../shad/checkbox";
 import { Label } from "../../shad/label";
 import { FormInputProps } from "../types";
@@ -18,6 +18,7 @@ interface CheckboxGroupProps<T extends FieldValues, J extends ValidValue>
     items: CheckboxGroupItem<J>[];
 }
 
+
 export const CheckboxGroup = <T extends FieldValues, J extends ValidValue>(
     props: CheckboxGroupProps<T, J>
 ): ReactNode => {
@@ -31,13 +32,8 @@ export const CheckboxGroup = <T extends FieldValues, J extends ValidValue>(
                 {props.items.map((item) => {
                     return (
                         <div
-                            className="flex items-start gap-3 cursor-pointer"
-                            onClick={() => {
-                                props.form.setValue(
-                                    props.name,
-                                    item.value as PathValue<T, typeof props.name>
-                                );
-                            }}
+                            key={`checkbox-item-${item.label}-${item.value}`}
+                            className="flex items-start gap-3"
                         >
                             <Checkbox
                                 id="terms-2"

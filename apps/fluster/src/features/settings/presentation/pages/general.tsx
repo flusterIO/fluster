@@ -10,7 +10,7 @@ import {
     showToast,
     SwitchInput,
 } from "@fluster.io/dev";
-import React, { type ReactNode } from "react";
+import React, { useEffect, type ReactNode } from "react";
 import { SettingPageTitle } from "../components/setting_page_title";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -137,6 +137,7 @@ export const GeneralSettingsPage = connector(
             }
         );
 
+        form.watch((formState) => console.log("formState: ", formState))
         return (
             <Form {...form}>
                 <SettingPageContainer>
