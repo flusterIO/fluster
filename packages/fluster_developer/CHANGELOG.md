@@ -1,5 +1,11 @@
 # @fluster.io/dev
 
+## 0.3.17
+
+### Patch Changes
+
+- Add tabular data page (WIP) and hopefully get gltf to render in production.
+
 ## 0.3.16
 
 ### Patch Changes
