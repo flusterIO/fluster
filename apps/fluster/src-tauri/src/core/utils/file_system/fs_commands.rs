@@ -106,11 +106,15 @@ pub async fn get_files_by_file_extensions(
                 if either_entry.is_ok() {
                     let entry = either_entry.unwrap();
                     let path = entry.path();
+                    let path_file_extension = path.extension();
                     if path.is_file()
+                        && path_file_extension.is_some()
                         && file_extensions
                             .iter()
                             // RESUME: Come back here and handle this type equality issue/*
-                            .any(|x| *x == path.extension().unwrap().to_str().unwrap().to_string())
+                            .any(|x| {
+                                *x == path_file_extension.unwrap().to_str().unwrap().to_string()
+                            })
                     {
                         if let Some(path_as_string) = path.to_str() {
                             _sender.send(path_as_string.to_string()).unwrap();

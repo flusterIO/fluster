@@ -7,6 +7,7 @@ pub enum ValidTabularFileExtensions {
 }
 
 impl ValidTabularFileExtensions {
+    #[allow(dead_code)]
     fn as_str(&self) -> &'static str {
         match self {
             ValidTabularFileExtensions::Csv => "csv",

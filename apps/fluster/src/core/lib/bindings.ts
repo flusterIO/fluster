@@ -39,6 +39,14 @@ async loadBinaryFile(rootRelativePath: string, basePath: string) : Promise<Resul
     else return { status: "error", error: e  as any };
 }
 },
+async loadTabularFile(relativePath: string, basePath: string) : Promise<Result<(Partial<{ [key in string]: JsonValue }>)[], FlusterError>> {
+    try {
+    return { status: "ok", data: await TAURI_INVOKE("load_tabular_file", { relativePath, basePath }) };
+} catch (e) {
+    if(e instanceof Error) throw e;
+    else return { status: "error", error: e  as any };
+}
+},
 async createAutoSetting(data: AutoSettingModel[]) : Promise<Result<null, FlusterError>> {
     try {
     return { status: "ok", data: await TAURI_INVOKE("create_auto_setting", { data }) };
@@ -973,7 +981,7 @@ ctime: string;
  * Time snippet is last updated.
  */
 utime: string }
-export type FlusterError = "FailToStreamFromRust" | "OperatingSystemNotSupported" | "FailToSendEvent" | "FailToLoadDocs" | { FailToLoadEnvironmentVariable: string } | "FailToParseDate" | "FailToWriteChatSession" | "FileDoesNotExist" | "FailToReadFile" | "FailToReadChatSession" | "NoAiProvidersConfigured" | "FailToGenerateChatResponse" | "FailToLoadModel" | "FailToCreateEmbeddingVector" | "FailToGetSemanticResults" | "FailToCreateQrCode" | "FailToCount" | "NotImplemented" | "FailToCopyFiles" | "FailToWriteFile" | "FailToSaveSettings" | "FailToReadSettings" | "FailToParseBibFile" | "SettingsBibPathNotFound" | "CannotParseBibfile" | "FailToFindDataDirectory" | "FailToCreateIndex" | "FailToSerialize" | "NotFoundById" | "DuplicateId" | "FailToDelete" | "FailToClean" | "FailToCreateTable" | "FailToOpenTable" | "FailToConnect" | "FailToStartDb" | "FailToStopDb" | "FailToCreateEntity" | "FailToCreateSnippet" | "FailToFind" | "FailToFindById" | "FailToCreatePath" | "FailToCreateTag" | "FailToCreateSubject" | { DataDirNotFound: [] } | { FailToClearDirectory: string } | "FailToCreateTopic" | "FailToLocateStorageDir" | { FailToReadFileSystemPath: string } | "FailToReadMathjaxFont" | { FailToSaveFile: string } | { MdxParsingError: string } | { NoTitleError: string } | "FailToGatherMdxGroups" | { AttemptedToParseFileWasntFound: string } | { FailToSaveMdxNote: string } | 
+export type FlusterError = "FailToStreamFromRust" | "OperatingSystemNotSupported" | "FailToSendEvent" | "FailToLoadDocs" | { FailToLoadEnvironmentVariable: string } | "FailToParseDate" | "FailToWriteChatSession" | "FileDoesNotExist" | "FailToReadFile" | "FailToReadChatSession" | "FailToParseTabularFile" | "NoAiProvidersConfigured" | "FailToGenerateChatResponse" | "FailToLoadModel" | "FailToCreateEmbeddingVector" | "FailToGetSemanticResults" | "FailToCreateQrCode" | "FailToCount" | "NotImplemented" | "FailToCopyFiles" | "FailToWriteFile" | "FailToSaveSettings" | "FailToReadSettings" | "FailToParseBibFile" | "SettingsBibPathNotFound" | "CannotParseBibfile" | "FailToFindDataDirectory" | "FailToCreateIndex" | "FailToSerialize" | "NotFoundById" | "DuplicateId" | "FailToDelete" | "FailToClean" | "FailToCreateTable" | "FailToOpenTable" | "FailToConnect" | "FailToStartDb" | "FailToStopDb" | "FailToCreateEntity" | "FailToCreateSnippet" | "FailToFind" | "FailToFindById" | "FailToCreatePath" | "FailToCreateTag" | "FailToCreateSubject" | { DataDirNotFound: [] } | { FailToClearDirectory: string } | "FailToCreateTopic" | "FailToLocateStorageDir" | { FailToReadFileSystemPath: string } | "FailToReadMathjaxFont" | { FailToSaveFile: string } | { MdxParsingError: string } | { NoTitleError: string } | "FailToGatherMdxGroups" | { AttemptedToParseFileWasntFound: string } | { FailToSaveMdxNote: string } | 
 /**
  * Taggables
  * 
@@ -1017,6 +1025,7 @@ export type InternalEmbeddedDocsId =
  * How to contribute
  */
 "HowToContribute" | "GettingStarted" | "ColorProps" | "IntroToJsx" | "JupyterSetup" | "QuickReference" | "Mermaid" | "OllamaSetup"
+export type JsonValue = null | boolean | number | string | JsonValue[] | Partial<{ [key in string]: JsonValue }>
 export type KanbanBoardData = { board: KanbanBoardModel }
 export type KanbanBoardListData = { boards: KanbanBoardModel[] }
 export type KanbanBoardModel = { id: string; label: string; desc: string | null }

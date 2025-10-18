@@ -29,6 +29,9 @@ pub enum FlusterError {
     #[error("Fluster could not find a chat session on your local machine.")]
     FailToReadChatSession,
 
+    #[error("The file you requested could not be parsed as json.")]
+    FailToParseTabularFile,
+
     #[error("Fluster could not find any configured AI providers..")]
     NoAiProvidersConfigured,
 

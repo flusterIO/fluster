@@ -52,7 +52,7 @@ export const BibliographyTable = () => {
     /* eslint-disable-next-line  --  */
     const [globalFilter, setGlobalFilter] = useState<any>("");
     const [pagination, setPagination] = useState<PaginationState>({
-        pageIndex: 1,
+        pageIndex: 0,
         pageSize: 10,
     });
     const table = useReactTable({

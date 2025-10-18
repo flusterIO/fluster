@@ -65,15 +65,17 @@ export function DataTablePagination<TData>({
                                 />
                             </SelectTrigger>
                             <SelectContent side="top">
-                                {[10, 20, 25, 30, 40, 50].map((pageSize) => (
-                                    <SelectItem
-                                        className="text-foreground"
-                                        key={pageSize}
-                                        value={`${pageSize}`}
-                                    >
-                                        {pageSize}
-                                    </SelectItem>
-                                ))}
+                                {[10, 20, 25, 30, 40, 50, Number.MAX_SAFE_INTEGER].map(
+                                    (pageSize) => (
+                                        <SelectItem
+                                            className="text-foreground"
+                                            key={pageSize}
+                                            value={`${pageSize}`}
+                                        >
+                                            {pageSize === Number.MAX_SAFE_INTEGER ? "All" : pageSize}
+                                        </SelectItem>
+                                    )
+                                )}
                             </SelectContent>
                         </Select>
                     </div>
