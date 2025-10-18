@@ -21,7 +21,7 @@
     "security": {
       "csp": {
         "default-src": "*",
-        "connect-src": "'self' http: https: ws: wss: ipc: http://ipc.localhost",
+        "connect-src": "'self' http: https: ws: wss: blob: ipc: http://ipc.localhost",
         "style-src": "'self' 'unsafe-inline'",
         "img-src": "*",
         "script-src": "'self' 'unsafe-inline' 'unsafe-eval' *",
@@ -42,6 +42,15 @@
             "log:default",
             "dialog:allow-open",
             "dialog:allow-save",
+    {
+      "identifier": "shell:allow-spawn",
+      "allow": [
+        {
+          "name": "../src-python/fluster_sidecar_api/dist/fluster_python_sidecar",
+          "sidecar": true
+        }
+      ]
+    },
             {
               "identifier": "opener:allow-open-url",
               "allow": [
@@ -79,6 +88,9 @@
     "resources": ["../public/**/*", "./infoplist/*"],
     "macOS": {
       "signingIdentity": "-"
-    }
+    },
+    "externalBin": [
+      "../src-python/fluster_sidecar_api/dist/fluster_python_sidecar"
+    ]
   }
 }

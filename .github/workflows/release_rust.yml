@@ -69,6 +69,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NODE_OPTIONS: "--max_old_space_size=8192"
+          WIREIT_PARALLEL: "1"
         with:
           projectPath: apps/fluster
           distPath: apps/fluster/dist

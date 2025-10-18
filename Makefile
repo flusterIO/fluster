@@ -14,6 +14,8 @@ syncpack_fix_mismatches:
 	npx syncpack fix-mismatches
 build_developer_typescript:
 	cd ${FLUSTER_NATIVE_ROOT}/packages/fluster_developer; pnpm build
+build_python_sidecar:
+	cd ${FLUSTER_NATIVE_ROOT}/apps/fluster; pnpm build:python
 copy_plugin_template:
 	cp -r ${FLUSTER_NATIVE_ROOT}/apps/local_plugin_template_example/ "/Users/bigsexy/Library/Application Support/Fluster/plugins"
 build_node: build_developer_typescript

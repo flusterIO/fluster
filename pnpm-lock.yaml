@@ -93,13 +93,13 @@ importers:
         version: 0.7.18(@citation-js/core@0.7.18(encoding@0.1.13))
       '@datalayer/jupyter-react':
         specifier: ^1.0.1
-        version: 1.0.1(@babel/core@7.27.3)(@rjsf/utils@5.24.12(react@19.1.0))(@types/react-dom@19.1.5(@types/react@19.1.5))(@types/react@19.1.5)(immer@10.1.1)(mapbox-gl@1.13.3)(react-is@19.1.0)(webpack@5.99.9)
+        version: 1.0.1(@babel/core@7.27.3)(@rjsf/utils@5.24.12(react@19.1.0))(@types/react-dom@19.1.5(@types/react@19.1.5))(@types/react@19.1.5)(immer@10.1.1)(mapbox-gl@1.13.3)(react-is@19.1.0)(webpack@5.99.9(esbuild@0.25.5))
       '@excalidraw/excalidraw':
         specifier: ^0.18.0
         version: 0.18.0(@types/react-dom@19.1.5(@types/react@19.1.5))(@types/react@19.1.5)(immer@10.1.1)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       '@fluster.io/dev':
         specifier: 0.3.17
-        version: 0.3.17(@babel/core@7.27.3)(@rjsf/utils@5.24.12(react@19.1.0))(@types/react-dom@19.1.5(@types/react@19.1.5))(@types/react@19.1.5)(date-fns@4.1.0)(immer@10.1.1)(mapbox-gl@1.13.3)(react-is@19.1.0)(webpack@5.99.9)
+        version: 0.3.17(@babel/core@7.27.3)(@rjsf/utils@5.24.12(react@19.1.0))(@types/react-dom@19.1.5(@types/react@19.1.5))(@types/react@19.1.5)(date-fns@4.1.0)(immer@10.1.1)(mapbox-gl@1.13.3)(react-is@19.1.0)(webpack@5.99.9(esbuild@0.25.5))
       '@google/model-viewer':
         specifier: ^4.1.0
         version: 4.1.0(three@0.178.0)
@@ -163,6 +163,9 @@ importers:
       '@tauri-apps/plugin-opener':
         specifier: ^2.2.7
         version: 2.2.7
+      '@tauri-apps/plugin-shell':
+        specifier: ~2
+        version: 2.3.1
       autoprefixer:
         specifier: 10.4.21
         version: 10.4.21(postcss@8.5.3)
@@ -222,7 +225,7 @@ importers:
         version: 1.0.6
       plotly.js:
         specifier: ^3.0.1
-        version: 3.0.1(mapbox-gl@1.13.3)(webpack@5.99.9)
+        version: 3.0.1(mapbox-gl@1.13.3)(webpack@5.99.9(esbuild@0.25.5))
       postcss:
         specifier: 8.5.3
         version: 8.5.3
@@ -252,7 +255,7 @@ importers:
         version: 9.2.1(@types/react@19.1.5)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       react-plotly.js:
         specifier: ^2.6.0
-        version: 2.6.0(plotly.js@3.0.1(mapbox-gl@1.13.3)(webpack@5.99.9))(react@19.1.0)
+        version: 2.6.0(plotly.js@3.0.1(mapbox-gl@1.13.3)(webpack@5.99.9(esbuild@0.25.5)))(react@19.1.0)
       react-redux:
         specifier: 9.2.0
         version: 9.2.0(@types/react@19.1.5)(react@19.1.0)(redux@5.0.1)
@@ -6003,6 +6006,9 @@ packages:
 
   '@tauri-apps/plugin-opener@2.2.7':
     resolution: {integrity: sha512-uduEyvOdjpPOEeDRrhwlCspG/f9EQalHumWBtLBnp3fRp++fKGLqDOyUhSIn7PzX45b/rKep//ZQSAQoIxobLA==}
+
+  '@tauri-apps/plugin-shell@2.3.1':
+    resolution: {integrity: sha512-jjs2WGDO/9z2pjNlydY/F5yYhNsscv99K5lCmU5uKjsVvQ3dRlDhhtVYoa4OLDmktLtQvgvbQjCFibMl6tgGfw==}
 
   '@testing-library/dom@10.4.0':
     resolution: {integrity: sha512-pemlzrSESWbdAloYml3bAJMEfNh1Z7EduzqPKprCH5S341frlpYnUEW0H72dLxa6IsYr+mPno20GiSm+h9dEdQ==}
@@ -15731,119 +15737,6 @@ snapshots:
       - supports-color
       - webpack
 
-  '@datalayer/jupyter-react@1.0.1(@babel/core@7.27.3)(@rjsf/utils@5.24.12(react@19.1.0))(@types/react-dom@19.1.5(@types/react@19.1.5))(@types/react@19.1.5)(immer@10.1.1)(mapbox-gl@1.13.3)(react-is@19.1.0)(webpack@5.99.9)':
-    dependencies:
-      '@codemirror/lang-python': 6.2.1
-      '@codemirror/state': 6.5.2
-      '@codemirror/view': 6.37.2
-      '@datalayer/primer-addons': 1.0.1(@babel/core@7.27.3)(@types/react-dom@19.1.5(@types/react@19.1.5))(@types/react@19.1.5)(react-is@19.1.0)
-      '@jupyter-widgets/base': 6.0.11(bufferutil@4.0.9)(react@19.1.0)(utf-8-validate@6.0.5)
-      '@jupyter-widgets/controls': 5.0.12(bufferutil@4.0.9)(react@19.1.0)(utf-8-validate@6.0.5)
-      '@jupyter-widgets/html-manager': 1.0.14(bufferutil@4.0.9)(react@19.1.0)(utf-8-validate@6.0.5)
-      '@jupyter-widgets/jupyterlab-manager': 5.0.15(bufferutil@4.0.9)(react@19.1.0)(utf-8-validate@6.0.5)
-      '@jupyter-widgets/output': 6.0.11(bufferutil@4.0.9)(react@19.1.0)(utf-8-validate@6.0.5)
-      '@jupyter/web-components': 0.17.1
-      '@jupyter/ydoc': 3.0.5
-      '@jupyterlab/application': 4.4.3(bufferutil@4.0.9)(react@19.1.0)(utf-8-validate@6.0.5)
-      '@jupyterlab/application-extension': 4.4.3(bufferutil@4.0.9)(utf-8-validate@6.0.5)
-      '@jupyterlab/apputils': 4.5.3(bufferutil@4.0.9)(utf-8-validate@6.0.5)
-      '@jupyterlab/apputils-extension': 4.4.3(bufferutil@4.0.9)(utf-8-validate@6.0.5)
-      '@jupyterlab/cell-toolbar-extension': 4.4.3(bufferutil@4.0.9)(react@19.1.0)(utf-8-validate@6.0.5)
-      '@jupyterlab/cells': 4.4.3(bufferutil@4.0.9)(utf-8-validate@6.0.5)
-      '@jupyterlab/codemirror': 4.4.3(bufferutil@4.0.9)(react@19.1.0)(utf-8-validate@6.0.5)
-      '@jupyterlab/codemirror-extension': 4.4.3(bufferutil@4.0.9)(utf-8-validate@6.0.5)
-      '@jupyterlab/completer': 4.4.3(bufferutil@4.0.9)(react@19.1.0)(utf-8-validate@6.0.5)
-      '@jupyterlab/completer-extension': 4.4.3(bufferutil@4.0.9)(utf-8-validate@6.0.5)
-      '@jupyterlab/console': 4.4.3(bufferutil@4.0.9)(react@19.1.0)(utf-8-validate@6.0.5)
-      '@jupyterlab/console-extension': 4.4.3(bufferutil@4.0.9)(react@19.1.0)(utf-8-validate@6.0.5)
-      '@jupyterlab/coreutils': 6.4.3
-      '@jupyterlab/csvviewer-extension': 4.4.3(bufferutil@4.0.9)(react@19.1.0)(utf-8-validate@6.0.5)
-      '@jupyterlab/docmanager': 4.4.3(bufferutil@4.0.9)(utf-8-validate@6.0.5)
-      '@jupyterlab/docmanager-extension': 4.4.3(bufferutil@4.0.9)(utf-8-validate@6.0.5)
-      '@jupyterlab/docregistry': 4.4.3(bufferutil@4.0.9)(utf-8-validate@6.0.5)
-      '@jupyterlab/documentsearch': 4.4.3(bufferutil@4.0.9)(utf-8-validate@6.0.5)
-      '@jupyterlab/documentsearch-extension': 4.4.3(bufferutil@4.0.9)(react@19.1.0)(utf-8-validate@6.0.5)
-      '@jupyterlab/filebrowser': 4.4.3(bufferutil@4.0.9)(utf-8-validate@6.0.5)
-      '@jupyterlab/filebrowser-extension': 4.4.3(bufferutil@4.0.9)(react@19.1.0)(utf-8-validate@6.0.5)
-      '@jupyterlab/fileeditor': 4.4.3(bufferutil@4.0.9)(utf-8-validate@6.0.5)
-      '@jupyterlab/fileeditor-extension': 4.4.3(bufferutil@4.0.9)(react@19.1.0)(utf-8-validate@6.0.5)
-      '@jupyterlab/javascript-extension': 4.4.3(bufferutil@4.0.9)(react@19.1.0)(utf-8-validate@6.0.5)
-      '@jupyterlab/json-extension': 4.4.3(@types/react@19.1.5)(bufferutil@4.0.9)(utf-8-validate@6.0.5)
-      '@jupyterlab/launcher': 4.4.3(bufferutil@4.0.9)(utf-8-validate@6.0.5)
-      '@jupyterlab/launcher-extension': 4.4.3(bufferutil@4.0.9)(react@19.1.0)(utf-8-validate@6.0.5)
-      '@jupyterlab/lsp-extension': 4.4.3(bufferutil@4.0.9)(utf-8-validate@6.0.5)
-      '@jupyterlab/mainmenu-extension': 4.4.3(bufferutil@4.0.9)(react@19.1.0)(utf-8-validate@6.0.5)
-      '@jupyterlab/markdownviewer-extension': 4.4.3(bufferutil@4.0.9)(react@19.1.0)(utf-8-validate@6.0.5)
-      '@jupyterlab/markedparser-extension': 4.4.3(bufferutil@4.0.9)(react@19.1.0)(utf-8-validate@6.0.5)
-      '@jupyterlab/mathjax-extension': 4.4.3(bufferutil@4.0.9)(react@19.1.0)(utf-8-validate@6.0.5)
-      '@jupyterlab/metadataform': 4.4.3(@rjsf/utils@5.24.12(react@19.1.0))(bufferutil@4.0.9)(utf-8-validate@6.0.5)
-      '@jupyterlab/nbconvert-css': 4.4.3(bufferutil@4.0.9)(react@19.1.0)(utf-8-validate@6.0.5)
-      '@jupyterlab/nbformat': 4.4.3
-      '@jupyterlab/notebook': 4.4.3(bufferutil@4.0.9)(utf-8-validate@6.0.5)
-      '@jupyterlab/notebook-extension': 4.4.3(bufferutil@4.0.9)(utf-8-validate@6.0.5)
-      '@jupyterlab/observables': 5.4.3
-      '@jupyterlab/outputarea': 4.4.3(bufferutil@4.0.9)(react@19.1.0)(utf-8-validate@6.0.5)
-      '@jupyterlab/property-inspector': 4.4.3(bufferutil@4.0.9)(utf-8-validate@6.0.5)
-      '@jupyterlab/rendermime': 4.4.3(bufferutil@4.0.9)(react@19.1.0)(utf-8-validate@6.0.5)
-      '@jupyterlab/rendermime-extension': 4.4.3(bufferutil@4.0.9)(react@19.1.0)(utf-8-validate@6.0.5)
-      '@jupyterlab/rendermime-interfaces': 3.12.3
-      '@jupyterlab/services': 7.4.3(bufferutil@4.0.9)(react@19.1.0)(utf-8-validate@6.0.5)
-      '@jupyterlab/settingregistry': 4.4.3(react@19.1.0)
-      '@jupyterlab/shortcuts-extension': 4.1.8(bufferutil@4.0.9)(utf-8-validate@6.0.5)
-      '@jupyterlab/statedb': 4.4.3
-      '@jupyterlab/statusbar-extension': 4.4.3(bufferutil@4.0.9)(react@19.1.0)(utf-8-validate@6.0.5)
-      '@jupyterlab/terminal': 4.4.3(bufferutil@4.0.9)(react@19.1.0)(utf-8-validate@6.0.5)
-      '@jupyterlab/theme-dark-extension': 4.4.3(bufferutil@4.0.9)(react@19.1.0)(utf-8-validate@6.0.5)
-      '@jupyterlab/theme-light-extension': 4.4.3(bufferutil@4.0.9)(react@19.1.0)(utf-8-validate@6.0.5)
-      '@jupyterlab/toc-extension': 6.4.3(bufferutil@4.0.9)(react@19.1.0)(utf-8-validate@6.0.5)
-      '@jupyterlab/translation-extension': 4.4.3(bufferutil@4.0.9)(react@19.1.0)(utf-8-validate@6.0.5)
-      '@jupyterlab/ui-components-extension': 4.4.3(bufferutil@4.0.9)(react@19.1.0)(utf-8-validate@6.0.5)
-      '@jupyterlite/licenses': 0.5.1
-      '@jupyterlite/localforage': 0.5.1
-      '@jupyterlite/pyodide-kernel': 0.5.2(bufferutil@4.0.9)(react@19.1.0)(utf-8-validate@6.0.5)
-      '@jupyterlite/pyodide-kernel-extension': 0.5.2(bufferutil@4.0.9)(react@19.1.0)(utf-8-validate@6.0.5)
-      '@jupyterlite/server': 0.5.1(bufferutil@4.0.9)(react@19.1.0)(utf-8-validate@6.0.5)
-      '@jupyterlite/server-extension': 0.5.1(bufferutil@4.0.9)(react@19.1.0)(utf-8-validate@6.0.5)
-      '@jupyterlite/session': 0.5.1(bufferutil@4.0.9)(react@19.1.0)(utf-8-validate@6.0.5)
-      '@jupyterlite/settings': 0.5.1(react@19.1.0)
-      '@jupyterlite/translation': 0.5.1
-      '@lumino/default-theme': 2.1.10
-      '@primer/react': 37.27.0(@types/react-dom@19.1.5(@types/react@19.1.5))(@types/react@19.1.5)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(styled-components@5.3.11(@babel/core@7.27.3)(react-dom@19.1.0(react@19.1.0))(react-is@19.1.0)(react@19.1.0))
-      assert: 2.1.0
-      bufferutil: 4.0.9
-      codemirror: 6.0.2
-      encoding: 0.1.13
-      lodash: 4.17.21
-      marked: 4.3.0
-      plotly.js: 2.35.3(mapbox-gl@1.13.3)(webpack@5.99.9)
-      react: 19.1.0
-      react-dom: 19.1.0(react@19.1.0)
-      react-error-boundary: 3.1.4(react@19.1.0)
-      react-inspector: 6.0.2(react@19.1.0)
-      react-sparklines: 1.7.0(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
-      rxjs: 6.6.7
-      styled-components: 5.3.11(@babel/core@7.27.3)(react-dom@19.1.0(react@19.1.0))(react-is@19.1.0)(react@19.1.0)
-      ulid: 2.4.0
-      usehooks-ts: 2.16.0(react@19.1.0)
-      utf-8-validate: 6.0.5
-      wildcard-match: 5.1.4
-      y-protocols: 1.0.6(yjs@13.6.27)
-      y-websocket: 3.0.0(yjs@13.6.27)
-      yjs: 13.6.27
-      zustand: 4.5.7(@types/react@19.1.5)(immer@10.1.1)(react@19.1.0)
-    transitivePeerDependencies:
-      - '@babel/core'
-      - '@rjsf/utils'
-      - '@rspack/core'
-      - '@types/react'
-      - '@types/react-dom'
-      - '@types/styled-components'
-      - immer
-      - mapbox-gl
-      - react-is
-      - supports-color
-      - webpack
-
   '@datalayer/primer-addons@1.0.1(@babel/core@7.27.3)(@types/react-dom@19.1.5(@types/react@19.1.5))(@types/react@19.1.5)(react-is@19.1.0)':
     dependencies:
       '@datalayer/icons-react': 1.0.4(react@19.1.0)
@@ -16190,9 +16083,9 @@ snapshots:
 
   '@floating-ui/utils@0.2.9': {}
 
-  '@fluster.io/dev@0.3.17(@babel/core@7.27.3)(@rjsf/utils@5.24.12(react@19.1.0))(@types/react-dom@19.1.5(@types/react@19.1.5))(@types/react@19.1.5)(date-fns@4.1.0)(immer@10.1.1)(mapbox-gl@1.13.3)(react-is@19.1.0)(webpack@5.99.9)':
+  '@fluster.io/dev@0.3.17(@babel/core@7.27.3)(@rjsf/utils@5.24.12(react@19.1.0))(@types/react-dom@19.1.5(@types/react@19.1.5))(@types/react@19.1.5)(date-fns@4.1.0)(immer@10.1.1)(mapbox-gl@1.13.3)(react-is@19.1.0)(webpack@5.99.9(esbuild@0.25.5))':
     dependencies:
-      '@datalayer/jupyter-react': 1.0.1(@babel/core@7.27.3)(@rjsf/utils@5.24.12(react@19.1.0))(@types/react-dom@19.1.5(@types/react@19.1.5))(@types/react@19.1.5)(immer@10.1.1)(mapbox-gl@1.13.3)(react-is@19.1.0)(webpack@5.99.9)
+      '@datalayer/jupyter-react': 1.0.1(@babel/core@7.27.3)(@rjsf/utils@5.24.12(react@19.1.0))(@types/react-dom@19.1.5(@types/react@19.1.5))(@types/react@19.1.5)(immer@10.1.1)(mapbox-gl@1.13.3)(react-is@19.1.0)(webpack@5.99.9(esbuild@0.25.5))
       '@radix-ui/react-accordion': 1.2.12(@types/react-dom@19.1.5(@types/react@19.1.5))(@types/react@19.1.5)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       '@radix-ui/react-alert-dialog': 1.1.14(@types/react-dom@19.1.5(@types/react@19.1.5))(@types/react@19.1.5)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       '@radix-ui/react-aspect-ratio': 1.1.7(@types/react-dom@19.1.5(@types/react@19.1.5))(@types/react@19.1.5)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
@@ -16229,7 +16122,7 @@ snapshots:
       cmdk: 1.1.1(@types/react-dom@19.1.5(@types/react@19.1.5))(@types/react@19.1.5)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       embla-carousel-react: 8.6.0(react@19.1.0)
       lucide-react: 0.510.0(react@19.1.0)
-      plotly.js: 3.0.1(mapbox-gl@1.13.3)(webpack@5.99.9)
+      plotly.js: 3.0.1(mapbox-gl@1.13.3)(webpack@5.99.9(esbuild@0.25.5))
       react: 19.1.0
       react-day-picker: 8.10.1(date-fns@4.1.0)(react@19.1.0)
       react-dom: 19.1.0(react@19.1.0)
@@ -16237,7 +16130,7 @@ snapshots:
       react-hook-form: 7.56.3(react@19.1.0)
       react-icons: 5.5.0(react@19.1.0)
       react-mathquill: 1.0.3(react@19.1.0)
-      react-plotly.js: 2.6.0(plotly.js@3.0.1(mapbox-gl@1.13.3)(webpack@5.99.9))(react@19.1.0)
+      react-plotly.js: 2.6.0(plotly.js@3.0.1(mapbox-gl@1.13.3)(webpack@5.99.9(esbuild@0.25.5)))(react@19.1.0)
       react-resizable-panels: 3.0.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       react-responsive: 10.0.1(react@19.1.0)
       react-router: 7.6.0(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
@@ -21096,6 +20989,10 @@ snapshots:
     dependencies:
       '@tauri-apps/api': 2.8.0
 
+  '@tauri-apps/plugin-shell@2.3.1':
+    dependencies:
+      '@tauri-apps/api': 2.8.0
+
   '@testing-library/dom@10.4.0':
     dependencies:
       '@babel/code-frame': 7.27.1
@@ -23200,19 +23097,6 @@ snapshots:
       semver: 7.7.2
     optionalDependencies:
       webpack: 5.99.9(esbuild@0.25.5)
-
-  css-loader@7.1.2(webpack@5.99.9):
-    dependencies:
-      icss-utils: 5.1.0(postcss@8.5.3)
-      postcss: 8.5.3
-      postcss-modules-extract-imports: 3.1.0(postcss@8.5.3)
-      postcss-modules-local-by-default: 4.2.0(postcss@8.5.3)
-      postcss-modules-scope: 3.2.1(postcss@8.5.3)
-      postcss-modules-values: 4.0.0(postcss@8.5.3)
-      postcss-value-parser: 4.2.0
-      semver: 7.7.2
-    optionalDependencies:
-      webpack: 5.99.9
 
   css-mediaquery@0.1.2: {}
 
@@ -27750,66 +27634,6 @@ snapshots:
       - supports-color
       - webpack
 
-  plotly.js@2.35.3(mapbox-gl@1.13.3)(webpack@5.99.9):
-    dependencies:
-      '@plotly/d3': 3.8.2
-      '@plotly/d3-sankey': 0.7.2
-      '@plotly/d3-sankey-circular': 0.33.1
-      '@plotly/mapbox-gl': 1.13.4(mapbox-gl@1.13.3)
-      '@turf/area': 7.2.0
-      '@turf/bbox': 7.2.0
-      '@turf/centroid': 7.2.0
-      base64-arraybuffer: 1.0.2
-      canvas-fit: 1.5.0
-      color-alpha: 1.0.4
-      color-normalize: 1.5.0
-      color-parse: 2.0.0
-      color-rgba: 2.1.1
-      country-regex: 1.1.0
-      css-loader: 7.1.2(webpack@5.99.9)
-      d3-force: 1.2.1
-      d3-format: 1.4.5
-      d3-geo: 1.12.1
-      d3-geo-projection: 2.9.0
-      d3-hierarchy: 1.1.9
-      d3-interpolate: 3.0.1
-      d3-time: 1.1.0
-      d3-time-format: 2.3.0
-      fast-isnumeric: 1.1.4
-      gl-mat4: 1.2.0
-      gl-text: 1.4.0
-      has-hover: 1.0.1
-      has-passive-events: 1.0.0
-      is-mobile: 4.0.0
-      maplibre-gl: 4.7.1
-      mouse-change: 1.4.0
-      mouse-event-offset: 3.0.2
-      mouse-wheel: 1.2.0
-      native-promise-only: 0.8.1
-      parse-svg-path: 0.1.2
-      point-in-polygon: 1.1.0
-      polybooljs: 1.2.2
-      probe-image-size: 7.2.3
-      regl: '@plotly/regl@2.1.2'
-      regl-error2d: 2.0.12
-      regl-line2d: 3.1.3
-      regl-scatter2d: 3.3.1
-      regl-splom: 1.0.14
-      strongly-connected-components: 1.0.1
-      style-loader: 4.0.0(webpack@5.99.9)
-      superscript-text: 1.0.0
-      svg-path-sdf: 1.1.3
-      tinycolor2: 1.6.0
-      to-px: 1.0.1
-      topojson-client: 3.1.0
-      webgl-context: 2.2.0
-      world-calendars: 1.0.3
-    transitivePeerDependencies:
-      - '@rspack/core'
-      - mapbox-gl
-      - supports-color
-      - webpack
-
   plotly.js@3.0.1(mapbox-gl@1.13.3)(webpack@5.99.9(esbuild@0.25.5)):
     dependencies:
       '@plotly/d3': 3.8.2
@@ -27858,67 +27682,6 @@ snapshots:
       regl-splom: 1.0.14
       strongly-connected-components: 1.0.1
       style-loader: 4.0.0(webpack@5.99.9(esbuild@0.25.5))
-      superscript-text: 1.0.0
-      svg-path-sdf: 1.1.3
-      tinycolor2: 1.6.0
-      to-px: 1.0.1
-      topojson-client: 3.1.0
-      webgl-context: 2.2.0
-      world-calendars: 1.0.3
-    transitivePeerDependencies:
-      - '@rspack/core'
-      - mapbox-gl
-      - supports-color
-      - webpack
-
-  plotly.js@3.0.1(mapbox-gl@1.13.3)(webpack@5.99.9):
-    dependencies:
-      '@plotly/d3': 3.8.2
-      '@plotly/d3-sankey': 0.7.2
-      '@plotly/d3-sankey-circular': 0.33.1
-      '@plotly/mapbox-gl': 1.13.4(mapbox-gl@1.13.3)
-      '@turf/area': 7.2.0
-      '@turf/bbox': 7.2.0
-      '@turf/centroid': 7.2.0
-      base64-arraybuffer: 1.0.2
-      canvas-fit: 1.5.0
-      color-alpha: 1.0.4
-      color-normalize: 1.5.0
-      color-parse: 2.0.0
-      color-rgba: 3.0.0
-      country-regex: 1.1.0
-      css-loader: 7.1.2(webpack@5.99.9)
-      d3-force: 1.2.1
-      d3-format: 1.4.5
-      d3-geo: 1.12.1
-      d3-geo-projection: 2.9.0
-      d3-hierarchy: 1.1.9
-      d3-interpolate: 3.0.1
-      d3-time: 1.1.0
-      d3-time-format: 2.3.0
-      esbuild-style-plugin: 1.6.3
-      fast-isnumeric: 1.1.4
-      gl-mat4: 1.2.0
-      gl-text: 1.4.0
-      has-hover: 1.0.1
-      has-passive-events: 1.0.0
-      is-mobile: 4.0.0
-      maplibre-gl: 4.7.1
-      mouse-change: 1.4.0
-      mouse-event-offset: 3.0.2
-      mouse-wheel: 1.2.0
-      native-promise-only: 0.8.1
-      parse-svg-path: 0.1.2
-      point-in-polygon: 1.1.0
-      polybooljs: 1.2.2
-      probe-image-size: 7.2.3
-      regl: '@plotly/regl@2.1.2'
-      regl-error2d: 2.0.12
-      regl-line2d: 3.1.3
-      regl-scatter2d: 3.3.1
-      regl-splom: 1.0.14
-      strongly-connected-components: 1.0.1
-      style-loader: 4.0.0(webpack@5.99.9)
       superscript-text: 1.0.0
       svg-path-sdf: 1.1.3
       tinycolor2: 1.6.0
@@ -28419,12 +28182,6 @@ snapshots:
   react-plotly.js@2.6.0(plotly.js@3.0.1(mapbox-gl@1.13.3)(webpack@5.99.9(esbuild@0.25.5)))(react@19.1.0):
     dependencies:
       plotly.js: 3.0.1(mapbox-gl@1.13.3)(webpack@5.99.9(esbuild@0.25.5))
-      prop-types: 15.8.1
-      react: 19.1.0
-
-  react-plotly.js@2.6.0(plotly.js@3.0.1(mapbox-gl@1.13.3)(webpack@5.99.9))(react@19.1.0):
-    dependencies:
-      plotly.js: 3.0.1(mapbox-gl@1.13.3)(webpack@5.99.9)
       prop-types: 15.8.1
       react: 19.1.0
 
@@ -29789,10 +29546,6 @@ snapshots:
     dependencies:
       webpack: 5.99.9(esbuild@0.25.5)
 
-  style-loader@4.0.0(webpack@5.99.9):
-    dependencies:
-      webpack: 5.99.9
-
   style-mod@4.1.2: {}
 
   style-to-js@1.1.16:
@@ -30039,15 +29792,6 @@ snapshots:
       webpack: 5.99.9(esbuild@0.25.5)
     optionalDependencies:
       esbuild: 0.25.5
-
-  terser-webpack-plugin@5.3.14(webpack@5.99.9):
-    dependencies:
-      '@jridgewell/trace-mapping': 0.3.31
-      jest-worker: 27.5.1
-      schema-utils: 4.3.2
-      serialize-javascript: 6.0.2
-      terser: 5.44.0
-      webpack: 5.99.9
 
   terser@5.44.0:
     dependencies:
@@ -31159,37 +30903,6 @@ snapshots:
   webpack-sources@3.3.3: {}
 
   webpack-virtual-modules@0.6.2: {}
-
-  webpack@5.99.9:
-    dependencies:
-      '@types/eslint-scope': 3.7.7
-      '@types/estree': 1.0.8
-      '@types/json-schema': 7.0.15
-      '@webassemblyjs/ast': 1.14.1
-      '@webassemblyjs/wasm-edit': 1.14.1
-      '@webassemblyjs/wasm-parser': 1.14.1
-      acorn: 8.15.0
-      browserslist: 4.24.5
-      chrome-trace-event: 1.0.4
-      enhanced-resolve: 5.18.3
-      es-module-lexer: 1.7.0
-      eslint-scope: 5.1.1
-      events: 3.3.0
-      glob-to-regexp: 0.4.1
-      graceful-fs: 4.2.11
-      json-parse-even-better-errors: 2.3.1
-      loader-runner: 4.3.0
-      mime-types: 2.1.35
-      neo-async: 2.6.2
-      schema-utils: 4.3.2
-      tapable: 2.2.3
-      terser-webpack-plugin: 5.3.14(webpack@5.99.9)
-      watchpack: 2.4.4
-      webpack-sources: 3.3.3
-    transitivePeerDependencies:
-      - '@swc/core'
-      - esbuild
-      - uglify-js
 
   webpack@5.99.9(esbuild@0.25.5):
     dependencies:

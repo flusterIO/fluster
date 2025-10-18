@@ -4,6 +4,7 @@ import { getBrowserRouter } from "#/router/data/main_router_routes";
 import { RouterProvider } from "react-router";
 import { ResourceRoutes } from "#/router/data/app_routes";
 import { useMermaidInit } from "@/state/hooks/use_mermaid_init";
+import { Command } from '@tauri-apps/plugin-shell';
 
 declare global {
     interface Window {
@@ -12,6 +13,9 @@ declare global {
 }
 
 const App = (): ReactNode => {
+
+    const command = Command.sidecar('../src-python/fluster_sidecar_api/dist/fluster_python_sidecar');
+    command.spawn();
     window.MathJax = {
         /* @ts-expect-error -- Not sure if this is working but I'm leaving it until all math is rendering properly. */
         "HTML-CSS": { linebreaks: { automatic: true } },

@@ -7,5 +7,5 @@ pub struct KanbanBoardListModel {
     pub label: String,
     pub desc: Option<String>,
     /// The id field of the KanbanBoardModel struct that contains this list.
-    pub board_id: String
+    pub board_id: String,
 }

@@ -18,7 +18,10 @@
   "type": "module",
   "private": true,
   "scripts": {
-    "build": "tsc && vite build",
+    "build": "wireit",
+    "build:python": "wireit",
+    "install:python": "wireit",
+    "apply_python_binary_path": "wireit",
     "dev": "vite",
     "lint": "npx eslint",
     "lint:watch": "nodemon --exec 'npx eslint'",
@@ -28,6 +31,31 @@
     "typecheck": "tsc --noEmit -p ./tsconfig_dev.json"
   },
   "wireit": {
+    "build": {
+      "command": "tsc && vite build",
+      "dependencies": [
+        "build:python"
+      ]
+    },
+    "compile:python": {
+      "command": "./src-python/fluster_sidecar_api/.venv/bin/pyinstaller --name fluster_python_sidecar --onefile --distpath ./src-python/fluster_sidecar_api/dist --workpath ./src-python/fluster_sidecar_api/build --specpath ./src-python/fluster_sidecar_api/ ./src-python/fluster_sidecar_api/main.py"
+    },
+    "build:python": {
+      "dependencies": [
+        "install:python",
+        "compile:python",
+        "rename_python_sidecar_binary"
+      ]
+    },
+    "install:python": {
+      "command": "uv sync --directory ./src-python/fluster_sidecar_api/"
+    },
+    "apply_python_binary_path_to_tauri_config": {
+      "command": "node ../../scripts/apply_operating_system_based_python_binary.mjs"
+    },
+    "rename_python_sidecar_binary": {
+      "command": "node ../../scripts/rename_python_binary_to_satisfy_operating_system.mjs"
+    },
     "copy:mathjax": {
       "command": "cp -r ../../node_modules/mathjax-full/es5/ ./public/mathjax"
     },
@@ -68,6 +96,7 @@
     "@tauri-apps/api": "^2.8.0",
     "@tauri-apps/plugin-dialog": "~2",
     "@tauri-apps/plugin-opener": "^2.2.7",
+    "@tauri-apps/plugin-shell": "~2",
     "autoprefixer": "10.4.21",
     "axios": "^1.11.0",
     "bibtex": "0.9.0",

@@ -1,3 +1,3 @@
 pub mod commands;
-pub mod types;
 pub mod data;
+pub mod types;

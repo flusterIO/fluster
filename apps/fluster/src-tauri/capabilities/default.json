@@ -1,26 +1,34 @@
 {
-    "$schema": "../gen/schemas/desktop-schema.json",
-    "identifier": "default",
-    "description": "Capability for the main window",
-    "windows": [
-        "main"
-    ],
-    "permissions": [
-        "core:default",
-        "core:window:allow-start-dragging",
-        "log:allow-log",
-        "log:default",
-        "dialog:allow-open",
-        "dialog:allow-save",
-        "opener:allow-open-url",
-        "opener:allow-reveal-item-in-dir",
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "identifier": "default",
+  "description": "Capability for the main window",
+  "windows": ["main"],
+  "permissions": [
+    "core:default",
+    "core:window:allow-start-dragging",
+    "log:allow-log",
+    "log:default",
+    "dialog:allow-open",
+    "dialog:allow-save",
+    "opener:allow-open-url",
+    "opener:allow-reveal-item-in-dir",
+    "shell:default",
+    {
+      "identifier": "shell:allow-spawn",
+      "allow": [
         {
-            "identifier": "opener:allow-open-path",
-            "allow": [
-                {
-                    "path": "*"
-                }
-            ]
+          "name": "../src-python/fluster_sidecar_api/dist/fluster_python_sidecar",
+          "sidecar": true
         }
-    ]
+      ]
+    },
+    {
+      "identifier": "opener:allow-open-path",
+      "allow": [
+        {
+          "path": "*"
+        }
+      ]
+    }
+  ]
 }

@@ -23,4 +23,3 @@ pub mod string {
             .map_err(de::Error::custom)
     }
 }
-

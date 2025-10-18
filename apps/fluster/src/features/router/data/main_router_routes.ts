@@ -30,6 +30,7 @@ import { HtmlFilePage } from "#/html/presentation/html_file_page";
 import { SplashScreen } from "#/splash_screen";
 import { CalendarPage } from "#/calendar/presentation/calendar_page/calendar_page";
 import { TabularDataTablePage } from "#/tabular/presentation/tabular_datatable_page";
+import { FlusterSidecarHelloWorldPage } from "#/python/presentation/hello_world_page";
 
 export const getBrowserRouter = () => {
     return createBrowserRouter([
@@ -80,6 +81,10 @@ export const getBrowserRouter = () => {
                 {
                     path: AppRoutes.tabular_data_table,
                     Component: TabularDataTablePage,
+                },
+                {
+                    path: AppRoutes.hello_world,
+                    Component: FlusterSidecarHelloWorldPage
                 },
                 {
                     path: AppRoutes.kanbanBoards,

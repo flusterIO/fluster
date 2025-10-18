@@ -23,4 +23,5 @@ export enum AppRoutes {
     splash_screen = "/splash_screen",
     calendar = "/calendar",
     tabular_data_table = "/tabular-data-table",
+    hello_world = "/hello-world"
 }

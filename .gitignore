@@ -51,6 +51,8 @@ packages/fluster_py/*.egg-info/
 .installed.cfg
 *.egg
 
+apps/fluster/src-python/fluster_sidecar_api/build/
+
 # Installer logs
 pip-log.txt
 pip-delete-this-directory.txt
