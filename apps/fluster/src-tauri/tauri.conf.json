@@ -20,7 +20,7 @@
     ],
     "security": {
       "csp": {
-        "default-src": "'self' ipc: http://ipc.localhost",
+        "default-src": "*",
         "style-src": "'self' 'unsafe-inline'",
         "img-src": "*",
         "script-src": "'self' 'unsafe-inline' 'unsafe-eval' *",

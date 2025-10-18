@@ -1,0 +1,11 @@
+[project]
+name = "fluster-sidecar-api"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "fastapi>=0.119.0",
+    "langchain>=1.0.0",
+    "langgraph>=1.0.0",
+]
