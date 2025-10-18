@@ -70,11 +70,11 @@ export const TabularDataTablePage = connector(
         return (
             <div className="w-full h-fit min-h-screen flex flex-col justify-center items-center px-8">
                 <div className="max-w-[1080px] w-full my-16">
-                    <div>
+                    <DynamicDataTable items={data} />
+                    <div className="mt-2 text-sm">
                         <span>File: </span>
                         <span className="text-muted-foreground">{relativeFilePath}</span>
                     </div>
-                    <DynamicDataTable items={data} />
                 </div>
             </div>
         );
