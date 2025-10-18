@@ -1,5 +1,11 @@
 # @fluster.io/dev
 
+## 0.3.18
+
+### Patch Changes
+
+- Add python sidecar. Pushing to work on ci/cd.
+
 ## 0.3.17
 
 ### Patch Changes
