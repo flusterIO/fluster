@@ -3,6 +3,7 @@ import PanelRightSwitch from "./panel_right_switch";
 import { Panel, PanelResizeHandle } from "react-resizable-panels";
 import { connect } from "react-redux";
 import { AppState } from "@/state/initial_state";
+import { AppRoutes, cn } from "@fluster.io/dev";
 
 const connector = connect((state: AppState) => ({
     open: state.panelRight.open,
@@ -18,6 +19,9 @@ const PanelRightDesktop = connector(
         if (!open) {
             return null;
         }
+        const noPaddingX: string[] = [
+            AppRoutes.hello_world
+        ]
         return (
             <>
                 <PanelResizeHandle />
@@ -26,7 +30,7 @@ const PanelRightDesktop = connector(
                     defaultSize={25}
                     maxSize={50}
                     order={order}
-                    className="border-l h-full pt-8 px-6 pb-2 relative origin-right !overflow-y-auto"
+                    className={cn("border-l h-full pt-8 pb-2 relative origin-right !overflow-y-auto", !noPaddingX.some((a) => window.location.pathname.startsWith(a)) && "px-6")}
                     onResize={() => {
                         window.dispatchEvent(
                             new CustomEvent("panel-resize", {

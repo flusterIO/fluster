@@ -76,8 +76,8 @@ export function Dashboard() {
     }
 
     return (
-        <div className="min-h-screen @container/dashboard flex flex-col justify-start items-center w-full">
-            <div className="container py-6 space-y-6 w-full">
+        <div className="min-h-screen @container/dashboard flex flex-col justify-start items-center w-full px-4 sm:px-0">
+            <div className="container py-6 space-y-6 w-full @[600px]/dashboard:px-8">
                 {/* Header */}
                 <div className="flex flex-col gap-x-6 @[600px]/dashboard:flex-row md:items-center md:justify-between md:space-y-0">
                     <div className="w-full @[600px]:w-auto">

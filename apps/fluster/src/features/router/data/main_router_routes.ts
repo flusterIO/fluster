@@ -83,10 +83,6 @@ export const getBrowserRouter = () => {
                     Component: TabularDataTablePage,
                 },
                 {
-                    path: AppRoutes.hello_world,
-                    Component: FlusterSidecarHelloWorldPage
-                },
-                {
                     path: AppRoutes.kanbanBoards,
                     Component: KanbanBoardListPage,
                     loader: async ({ params }) => {
@@ -173,6 +169,10 @@ export const getBrowserRouter = () => {
                         {
                             path: AppRoutes.pdf,
                             Component: PdfPage,
+                        },
+                        {
+                            path: AppRoutes.hello_world,
+                            Component: FlusterSidecarHelloWorldPage
                         },
                         {
                             path: AppRoutes.semanticSearch,

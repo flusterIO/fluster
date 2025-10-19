@@ -72,7 +72,7 @@ export const DashboardNotesList = (
                                 }).format("MMM Do, YYYY [at] hh:mm a")}
                             </span>
                         </div>
-                        <div className="flex flex-wrap flex-row gap-1 mt-2">
+                        <div className="flex flex-wrap flex-row overflow-x-auto gap-1 mt-2">
                             {note.tags.slice(0, 3).map((tag) => (
                                 <Badge
                                     key={`tag-${tag.value}`}

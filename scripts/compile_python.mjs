@@ -1,7 +1,6 @@
 #!/usr/bin/env node
 
 import fs from 'fs';
-import os from "os";
 import path from 'path';
 import { execSync } from "child_process";
 

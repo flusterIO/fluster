@@ -8,6 +8,15 @@ const baseRoute = (): string => {
 }
 
 export const pythonSidecarHelloWorld = async (): Promise<SidecarMessage> => {
-    const res = await axios.get(`${baseRoute()}/ai/chat/general`)
+    const res = await axios.post(`${baseRoute()}/ai/chat/note`)
+    return res.data as SidecarMessage
+}
+
+
+
+export const getNoteChatResponse = async (absoluteFilePath: string): Promise<SidecarMessage> => {
+    const res = await axios.post(`${baseRoute()}/ai/chat/note`, {
+        file: absoluteFilePath
+    })
     return res.data as SidecarMessage
 }
