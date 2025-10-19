@@ -99,7 +99,7 @@ export const TabularDataTablePage = connector(
                     <DynamicDataTable items={data} />
                     <div className="mt-2 text-sm">
                         <span>File: </span>
-                        <span className="text-muted-foreground">{relativeFilePath}</span>
+                        <span className="text-muted-foreground break-all">{relativeFilePath?.replace(notesDirectory, "") ?? ""}</span>
                     </div>
                 </div>
             </div>
