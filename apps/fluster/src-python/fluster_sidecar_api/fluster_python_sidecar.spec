@@ -2,7 +2,7 @@
 
 
 a = Analysis(
-    ['main.py'],
+    ['/Users/bigsexy/Desktop/fluster/apps/fluster/src-python/fluster_sidecar_api/main.py'],
     pathex=[],
     binaries=[],
     datas=[],
