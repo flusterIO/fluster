@@ -51,7 +51,15 @@ const targetTriple = /host: (\S+)/g.exec(rustInfo)[1];
 if (!targetTriple) {
     console.error("Failed to determine platform target triple");
 }
-fs.renameSync(
-    `${existingPath}${extension}`,
-    `${existingPath}-${targetTriple}${extension}`
-);
+const architecture = os.arch();
+if (process.platform === "darwin" && !(architecture === 'arm' || architecture === 'arm64')) {
+    fs.renameSync(
+        `${existingPath}${extension}`,
+        `${existingPath}-x86_64-apple-darwin${extension}`
+    )
+} else {
+    fs.renameSync(
+        `${existingPath}${extension}`,
+        `${existingPath}-${targetTriple}${extension}`
+    );
+}

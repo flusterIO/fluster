@@ -16,7 +16,13 @@ export const GltfModelView = (props: GltfModelViewProps): ReactNode => {
     const objectUrl = useBinaryFileUrl(props.file);
     if (objectUrl === null) {
         return (
-            <div className="w-full flex flex-col justify-center items-center">
+            <div
+                className="w-full flex flex-col justify-center items-center"
+                style={{
+                    height:
+                        typeof props.height === "number" ? `${props.height}px` : props.height,
+                }}
+            >
                 <LoadingComponent />
             </div>
         );
