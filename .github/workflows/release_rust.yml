@@ -71,12 +71,8 @@ jobs:
         # You can remove the one that doesn't apply to your app to speed up the workflow a bit.
       - name: install frontend dependencies
         run: pnpm install # change this to npm, pnpm or bun depending on which one you use.
-      - name: Print Folder Tree
-        uses: jaywcjlove/github-action-folder-tree@main
-        with:
-          exclude: "node_modules|.git|.husky|docs"
-          path: ./src
-          depth: 6
+      - name: XDTesting Print Directory Structure
+        uses: FiorelaCiroku/XDTesting-Print-Directory-Structure@v1.0.2
       - uses: tauri-apps/tauri-action@v0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
