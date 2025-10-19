@@ -80,7 +80,7 @@ jobs:
         working-directory: apps/fluster/src-python/fluster_sidecar_api/.venv
       - name: Print file tree on Windows2
         if: matrix.platform == 'windows-latest'
-        run: dir /S /B
+        run: tree /A
         working-directory: apps/fluster/src-python/fluster_sidecar_api/.venv
       - uses: tauri-apps/tauri-action@v0
         env:
