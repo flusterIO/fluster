@@ -77,7 +77,7 @@ jobs:
       - name: Print file tree on Windows
         if: matrix.platform == 'windows-latest'
         run: tree /F
-        working-directory: apps/fluster/src-python/fluster_sidecar_api
+        working-directory: apps/fluster/src-python/fluster_sidecar_api/.venv/bin
       - uses: tauri-apps/tauri-action@v0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
