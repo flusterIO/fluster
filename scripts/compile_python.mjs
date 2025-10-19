@@ -26,7 +26,7 @@ const res = execSync(installScript, {
 
 console.log(res)
 
-const compileScript = `${path.join(sidecarDir, ".venv", "bin", `pyInstaller${extension}`)} --name fluster_python_sidecar --onefile --distpath ${path.join(sidecarDir, "dist")} --workpath ${path.join(sidecarDir, "build")} --specpath ${sidecarDir} ${path.join(sidecarDir, "main.py")}`
+const compileScript = `${path.join(sidecarDir, ".venv", "bin", `pyinstaller${extension}`)} --name fluster_python_sidecar --onefile --distpath ${path.join(sidecarDir, "dist")} --workpath ${path.join(sidecarDir, "build")} --specpath ${sidecarDir} ${path.join(sidecarDir, "main.py")}`
 
 
 const res2 = execSync(compileScript, {
