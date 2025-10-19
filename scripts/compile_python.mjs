@@ -1,6 +1,11 @@
+#!/usr/bin/env node
+
 import fs from 'fs';
 import path from 'path';
 import { execSync } from "child_process";
+
+
+console.log("dirName: ", import.meta.dirname)
 
 const sidecarDir = path.join(
     import.meta.dirname,
@@ -11,6 +16,8 @@ const sidecarDir = path.join(
     "fluster_sidecar_api"
 )
 
+const extension = process.platform === "win32" ? ".exe" : "";
+
 const installScript = `uv sync --directory ${sidecarDir}`
 
 const res = execSync(installScript, {
@@ -19,7 +26,7 @@ const res = execSync(installScript, {
 
 console.log(res)
 
-const compileScript = `${path.join(sidecarDir, ".venv", "bin", "pyinstaller")} --name fluster_python_sidecar --onefile --distpath ${path.join(sidecarDir, "dist")} --workpath ${path.join(sidecarDir, "build")} --specpath ${sidecarDir} ${path.join(sidecarDir, "main.py")}`
+const compileScript = `${path.join(sidecarDir, ".venv", "bin", `pyInstaller${extension}`)} --name fluster_python_sidecar --onefile --distpath ${path.join(sidecarDir, "dist")} --workpath ${path.join(sidecarDir, "build")} --specpath ${sidecarDir} ${path.join(sidecarDir, "main.py")}`
 
 
 const res2 = execSync(compileScript, {
@@ -30,7 +37,6 @@ console.log(res2)
 
 
 // -- Rename Python Binary --
-const extension = process.platform === "win32" ? ".exe" : "";
 
 const existingPath = path.join(
     sidecarDir,
