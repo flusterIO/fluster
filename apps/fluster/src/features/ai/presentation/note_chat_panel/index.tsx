@@ -2,13 +2,14 @@ import React, { useEffect, useRef, useState, type ReactNode } from 'react'
 import { AppState } from "@/state/initial_state";
 import { connect } from 'react-redux';
 import { SidePanelMessageList } from './message_list';
-import { Textarea } from '@fluster.io/dev';
+import { showToast, Textarea } from '@fluster.io/dev';
 import { AiChatMessageModel, commands } from '@/lib/bindings';
+import { getNoteChatResponse } from '#/python/data/api_client';
+import { useSearchParams } from 'react-router';
 
 const connector = connect((state: AppState) => ({
     notesDirectory: state.core.notesDirectory,
-    // FIXME: Change this to panel left once it's in place.
-    open: state.panelRight.open
+    open: state.panelLeft.open
 }))
 
 interface Props {
@@ -21,18 +22,34 @@ export const NoteChatSidePanel = connector((props: Props): ReactNode => {
     const input = useRef<HTMLTextAreaElement>(null);
     const [inputValue, setInputValue] = useState("")
     const [loading, setLoading] = useState(false)
+    const [sp] = useSearchParams();
 
     const handleSubmit = async (): Promise<void> => {
         const now = new Date().toString();
         const outgoingId = await commands.getUniqueId();
-        messages.push({
+        const msg: AiChatMessageModel = {
             id: outgoingId,
             body: inputValue,
             role: "User",
             sent_at: now,
             chat_id: "--"
-        })
+        }
+        messages.push(msg)
         setInputValue("")
+        const absolutePath = sp.get("fsPath")
+        if (absolutePath === null || !absolutePath?.length) {
+            showToast({
+                title: "Oh no",
+                body: "This type of chat requires a note in focus",
+                variant: "Error",
+                duration: 5000
+            })
+            return
+        }
+        const res = await getNoteChatResponse(
+            absolutePath,
+            msg.body
+        )
     }
 
     useEffect(() => {

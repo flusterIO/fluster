@@ -1,11 +1,10 @@
-
 from dataclasses import dataclass
-import dataclasses
 
 
 @dataclass
 class MyClass:
     """Test doc string here."""
+
     idx: int
 
 

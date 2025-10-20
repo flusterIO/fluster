@@ -5,7 +5,7 @@ import AddSnippetPanel from "#/snippets/presentation/add_snippet_panel/add_snipp
 import { AddEquationPanel } from "#/math/presentation/equations_page/add_equation_panel/main";
 import { AiChatLeftPanel } from "#/ai/presentation/ai_chat_left_panel";
 import { TaskListPanelLeft } from "#/task_manager/presentation/task_list_panel_left";
-import { MdxNoteAiChatPanelLeft } from "#/mdx/presentation/panels/mdx_note_ai_chat_panel_left";
+import { NoteChatSidePanel } from "#/ai/presentation/note_chat_panel";
 
 const PanelLeftSwitch = (): ReactNode => {
     const n = useRoutes([
@@ -27,7 +27,7 @@ const PanelLeftSwitch = (): ReactNode => {
         },
         {
             path: AppRoutes.viewMdxNote,
-            Component: MdxNoteAiChatPanelLeft,
+            Component: NoteChatSidePanel,
         },
     ]);
     return n;

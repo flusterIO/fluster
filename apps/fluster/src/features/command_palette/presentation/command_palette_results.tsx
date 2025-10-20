@@ -19,7 +19,6 @@ const CommandPaletteResults = (): ReactNode => {
         cb: (loc: Location) => Promise<CommandPaletteAnyEntry[]>
     ): Promise<void> => {
         const items = await cb(location);
-        console.log("items here?: ", items);
         dispatch({
             type: CommandPaletteActionType.setCategoryItems,
             payload: items.filter((x) => x.label.length),

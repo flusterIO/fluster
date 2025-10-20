@@ -10,7 +10,7 @@ interface SidePanelIncomingMessageProps {
 
 export const SidePanelIncomingMessage = ({ msg }: SidePanelIncomingMessageProps): ReactNode => {
     return (
-        <div className="bg-secondary p-3 rounded-md">
+        <div className="bg-secondary p-3 rounded-md rounded-br-none w-full">
             <InlineMdxContent abortIfNoMath mdx={msg.body} />
         </div>
     )
