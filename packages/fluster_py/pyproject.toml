@@ -1,49 +1,20 @@
-# [build-system]
-# build-backend = "nuitka"
-# requires = ["nuitka"]
-
-
 [project]
-name = "fluster-py"
-dynamic = ["version"]
-authors = [{ name = "Andrew Mueller", email = "aiglinski414@gmail.com" }]
-description = "Provides an interface to data held by the Fluster ecosystem."
-keywords = [
-    "note taking",
-    "jupyter",
-    "mdx",
-    "STEM",
-    "physics",
-    "math",
-    "science",
-    "academic",
+name = "flusterpy"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+authors = [
+    { name = "Fluster.IO", email = "uhlittlelessdumb@gmail.com" }
 ]
-
-readme = { file = "README.md" }
-requires-python = ">=3.12"
+requires-python = ">=3.11"
 dependencies = [
-    "langchain>=0.3.25",
-    "langchain-community>=0.3.23",
-    "neo4j>=5.28.1",
-    "python-dotenv>=1.1.0",
+    "appdirs>=1.4.4",
+    "lancedb>=0.25.2",
 ]
 
-[tool.setuptools_scm]
-version_file = "pkg/_version.py"
+[project.scripts]
+flusterpy = "flusterpy:main"
 
-[project.urls]
-Homepage = "https://flusterapp.com"
-Documentation = "https://flusterapp.com"
-Repository = "https://github.com/flusterIO/fluster"
-Changelog = "https://github.com/flusterIO/fluster/blob/main/CHANGELOG.md"
-
-
-[tool.setuptools.packages.find]
-where = ["./src"]
-
-[tool.setuptools.dynamic]
-version = { attr = "fluster_py.__version__" }
-
-# [[tool.uv.index]]
-# url = "https://test.pypi.org/simple"
-# default = true
+[build-system]
+requires = ["uv_build>=0.9.3,<0.10.0"]
+build-backend = "uv_build"

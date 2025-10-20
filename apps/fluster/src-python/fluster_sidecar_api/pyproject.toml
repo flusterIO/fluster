@@ -11,6 +11,7 @@ dependencies = [
     "flask-restful>=0.3.10",
     "lancedb>=0.25.2",
     "langchain>=1.0.0",
+    "langchain-community>=0.4",
     "langchain-ollama>=1.0.0",
     "langgraph>=1.0.0",
     "pyinstaller>=6.16.0",

@@ -1,8 +1,8 @@
 import lancedb
 import appdirs
-from pathlib import Path
-
 from lancedb.db import Table
+from pathlib import Path
+from src.features.database.tables import DatabaseTable
 
 
 def get_database_dir():
@@ -14,12 +14,6 @@ def get_database() -> lancedb.DBConnection:
     return lancedb.connect(db_path)
 
 
-def get_table(table_name: str) -> Table:
+def get_table(table_name: DatabaseTable) -> Table:
     db = get_database()
     return db.open_table(table_name)
-
-
-def test_get_database():
-    res = get_database()
-    table_names = res.table_names()
-    assert list(table_names).__len__() > 0
