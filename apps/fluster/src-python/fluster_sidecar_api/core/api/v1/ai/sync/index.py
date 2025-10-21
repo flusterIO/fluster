@@ -3,6 +3,12 @@ from flask_restful import Resource, reqparse
 from flusterpy.core.static.database_tables import DatabaseTable
 from flusterpy.features.db.methods.get_table import get_database, get_database_dir
 from langchain_ollama.llms import OllamaLLM
+from langchain_ollama.embeddings import OllamaEmbeddings
+from langchain_community.vectorstores.lancedb import LanceDB
+from langchain_core.documents import Document
+import pandas as pd
+
+from core.utils.add_ai_temperature_arguments import add_ai_temperature_arguments
 
 
 class SyncAi(Resource):
@@ -16,16 +22,16 @@ class SyncAi(Resource):
     async def get(self):
         parser = reqparse.RequestParser()
         parser.add_argument(
-            "model",
-            required=True,
-            type=str,
-            help="The embedding model to use with Ollama.",
-        )
-        parser.add_argument(
             "notes_directory",
             required=True,
             type=str,
             help="The absolute path to the user's notes directory.",
+        )
+        parser.add_argument(
+            "database_directory",
+            required=True,
+            type=str,
+            help="The absolute path to the database directory.",
         )
         parser.add_argument(
             "parsable_files",
@@ -33,37 +39,14 @@ class SyncAi(Resource):
             type=List[str],
             help="A list of absolute paths to all parsable files.",
         )
-        parser.add_argument(
-            "temperature",
-            required=False,
-            type=List[str],
-            help="The temperature to use for the embedding model.",
-        )
-
-        parser.add_argument(
-            "top_k",
-            required=False,
-            type=int | None,
-            help="The top_k to use for the embedding model.",
-        )
-
-        parser.add_argument(
-            "url_override",
-            required=False,
-            type=int | None,
-            help="The ollama connection url to use.",
-        )
-        parser.add_argument(
-            "top_p",
-            required=False,
-            type=float | None,
-            help="The top_p to use for the embedding model.",
-        )
+        add_ai_temperature_arguments(parser)
         try:
             args = parser.parse_args()
         except Exception as e:
             # Handle parsing errors (e.g., missing required field or wrong type)
             return {"message": "Invalid request data.", "error": str(e)}, 400
+        await self.drop_tables()
+        embeddings = OllamaEmbeddings(model=args["model"])
         vector_store = OllamaLLM(
             model=args["model"],
             temperature=args["temperature"],

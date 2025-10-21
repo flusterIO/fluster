@@ -21,7 +21,7 @@ export const NoteChatSidePanel = connector((props: Props): ReactNode => {
     const [messages, setMessages] = useState<AiChatMessageModel[]>([]);
     const input = useRef<HTMLTextAreaElement>(null);
     const [inputValue, setInputValue] = useState("")
-    const [loading, setLoading] = useState(false)
+    /* const [loading, setLoading] = useState(false) */
     const [sp] = useSearchParams();
 
     const handleSubmit = async (): Promise<void> => {
@@ -53,6 +53,7 @@ export const NoteChatSidePanel = connector((props: Props): ReactNode => {
             absolutePath,
             msg.body
         )
+        console.log("res: ", res)
     }
 
     useEffect(() => {
