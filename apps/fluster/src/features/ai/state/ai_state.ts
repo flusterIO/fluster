@@ -1,3 +1,5 @@
+import { OllamaConnectionData } from "@/lib/bindings";
+
 export enum AiProvider {
     local,
     remote,
@@ -19,4 +21,7 @@ export interface AiState {
     defaultTopK: number;
     defaultTopP: number;
     defaultRepeatPenalty: number;
+    ollamaConnection: OllamaConnectionData & {
+        useOllamaConnectionData: boolean;
+    };
 }

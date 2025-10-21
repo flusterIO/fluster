@@ -10,10 +10,21 @@ pub struct LocalModelData {
     pub size: u64,
 }
 
+#[derive(Serialize, Deserialize, specta::Type)]
+pub struct OllamaConnectionData {
+    url: String,
+    port: u16,
+}
+
 #[tauri::command]
 #[specta::specta]
-pub async fn get_local_ollama_models() -> FlusterResult<Vec<LocalModelData>> {
-    let ollama = Ollama::default();
+pub async fn get_local_ollama_models(
+    connection_data: Option<OllamaConnectionData>,
+) -> FlusterResult<Vec<LocalModelData>> {
+    let ollama = match connection_data {
+        None => Ollama::default(),
+        Some(cd) => Ollama::new(cd.url, cd.port),
+    };
     let res = ollama
         .list_local_models()
         .await

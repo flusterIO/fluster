@@ -1,7 +1,16 @@
 import React, { type ReactNode } from "react";
-import { z } from "zod";
 import { SettingPageContainer } from "../components/setting_page_container";
-import { Form, GeneralSlider, Hint } from "@fluster.io/dev";
+import {
+    Card,
+    CardContent,
+    CardHeader,
+    CardTitle,
+    CheckboxInput,
+    Form,
+    GeneralSlider,
+    Hint,
+    TextInputGroup,
+} from "@fluster.io/dev";
 import { SettingPageTitle } from "../components/setting_page_title";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -13,14 +22,7 @@ import {
     setDefaultLanguageModel,
     setEmbeddingModel,
 } from "#/ai/state/slice";
-
-const schema = z.object({
-    defaultLanguageModel: z.string(),
-    defaultTemperature: z.number(),
-    defaultTopP: z.number(),
-    defaultTopK: z.number(),
-    defaultRepeatPenalty: z.number(),
-});
+import { aiStateSettingSchema } from "#/settings/data/schemas/ai_state_setting_schema";
 
 const connector = connect((state: AppState) => ({
     ai: state.ai,
@@ -41,7 +43,7 @@ export const AiAndMLSettingsPage = connector(
     }): ReactNode => {
         const dispatch = useDispatch();
         const form = useForm({
-            resolver: zodResolver(schema),
+            resolver: zodResolver(aiStateSettingSchema),
             defaultValues: {
                 defaultLanguageModel,
                 defaultTemperature,
@@ -100,6 +102,35 @@ export const AiAndMLSettingsPage = connector(
                         setOnClick={handleEmeddingModelRowClick}
                         perPage={5}
                     />
+                    <Card className="w-full">
+                        <CardHeader>
+                            <CardTitle>Override Ollama Connection</CardTitle>
+                        </CardHeader>
+                        <CardContent className="space-y-6">
+                            <CheckboxInput
+                                form={form}
+                                name="useOllamaConnection"
+                                label="Override ollama connection url"
+                                desc="This requires that both the ollama url and ollama port are set."
+                            />
+                            <TextInputGroup
+                                label="Ollama Url"
+                                form={form}
+                                name="ollamaConnectionUrl"
+                                inputProps={{
+                                    placeholder: "http://localhost",
+                                }}
+                            />
+                            <TextInputGroup
+                                label="Ollama Port"
+                                form={form}
+                                name="ollamaConnectionPort"
+                                inputProps={{
+                                    placeholder: "11434",
+                                }}
+                            />
+                        </CardContent>
+                    </Card>
                     <div className="text-xl font-semibold">Default Chat Settings</div>
                     <p className="text-sm text-muted-foreground !mt-2">
                         Along with the default models above, these settings will be applied

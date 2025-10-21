@@ -34,7 +34,10 @@ export const NoteChatSidePanel = connector((props: Props): ReactNode => {
             sent_at: now,
             chat_id: "--"
         }
-        messages.push(msg)
+        setMessages([
+            ...messages,
+            msg
+        ])
         setInputValue("")
         const absolutePath = sp.get("fsPath")
         if (absolutePath === null || !absolutePath?.length) {

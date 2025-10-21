@@ -5,7 +5,14 @@ description = "The python API for the Fluster note taking ecosystem."
 readme = "README.md"
 authors = [{ name = "Fluster.IO", email = "uhlittlelessdumb@gmail.com" }]
 requires-python = ">=3.11"
-dependencies = ["appdirs>=1.4.4", "lancedb>=0.25.2"]
+dependencies = [
+    "appdirs>=1.4.4",
+    "lancedb>=0.25.2",
+    "langchain-community>=0.4",
+    "langchain-text-splitters>=1.0.0",
+    "ollama>=0.6.0",
+    "pypdf>=6.1.2",
+]
 
 [project.scripts]
 flusterpy = "flusterpy:main"

@@ -1,6 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { initialAiState } from "./initial_ai_state";
-import { AiProvider, AiState, TextInputType } from "./ai_state";
+import { AiProvider, TextInputType } from "./ai_state";
+import { AiStateSettingSchema } from "#/settings/data/schemas/ai_state_setting_schema";
 
 const slice = createSlice({
     name: "ai",
@@ -31,10 +32,22 @@ const slice = createSlice({
                 defaultLanguageModel: action.payload,
             };
         },
-        setAiDefaultProperties(state, action: PayloadAction<Partial<AiState>>) {
+        setAiDefaultProperties(
+            state,
+            action: PayloadAction<Partial<AiStateSettingSchema>>
+        ) {
             return {
                 ...state,
                 ...action.payload,
+                ollamaConnection: {
+                    ...state.ollamaConnection,
+                    useOllamaConnectionData:
+                        action.payload.useOllamaConnection ??
+                        state.ollamaConnection.useOllamaConnectionData,
+                    port:
+                        action.payload.ollamaConnectionPort ?? state.ollamaConnection.port,
+                    url: action.payload.ollamaConnectionUrl ?? state.ollamaConnection.url,
+                },
             };
         },
     },

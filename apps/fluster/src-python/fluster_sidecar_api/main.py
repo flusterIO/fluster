@@ -3,8 +3,9 @@ from flask import Flask
 from flask_cors import CORS
 from flask_restful import Api
 
-from core.api.v1.ai.chat.ai_chat import AiGeneralChatRoute
-from core.api.v1.ai.chat.note_chat import SingleNoteChat
+from core.api.v1.ai.chat.general import AiGeneralChatRoute
+from core.api.v1.ai.chat.note import SingleNoteChat
+from core.api.v1.ai.sync.index import SyncAi
 
 
 app = Flask(__name__)
@@ -15,6 +16,7 @@ api = Api(app)
 
 api.add_resource(AiGeneralChatRoute, "/ai/chat/general")
 api.add_resource(SingleNoteChat, "/ai/chat/note")
+api.add_resource(SyncAi, "/ai/sync")
 
 
 @app.after_request

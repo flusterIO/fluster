@@ -81,4 +81,6 @@ pub enum DatabaseTables {
     // -- Whiteboard --
     #[strum(to_string = "whiteboard")]
     Whiteboard,
+    #[strum(to_string = "vector")]
+    Vector,
 }

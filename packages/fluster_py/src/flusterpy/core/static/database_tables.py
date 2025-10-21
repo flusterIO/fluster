@@ -36,3 +36,4 @@ class DatabaseTable(Enum):
     KanbanBoardEntry = "kanban_board_entry"
     KanbanBoardList = "kanban_board_list"
     Whiteboard = "whiteboard"
+    Vector = "vector"

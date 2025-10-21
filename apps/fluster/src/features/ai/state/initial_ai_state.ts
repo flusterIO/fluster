@@ -13,4 +13,9 @@ export const initialAiState: AiState = {
     defaultTopP: 0.25,
     defaultRepeatPenalty: 1.5,
     defaultTemperature: 0.2,
+    ollamaConnection: {
+        useOllamaConnectionData: false,
+        url: "",
+        port: 11434,
+    },
 };

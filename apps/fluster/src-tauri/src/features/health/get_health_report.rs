@@ -16,12 +16,13 @@ pub struct DesktopHealthReport {
 }
 
 pub async fn database_tables_exist(db: &FlusterDb<'_>) -> bool {
-    let table_names = db.table_names().execute().await;
-    if table_names.is_err() {
-        false
+    if let Ok(table_names) = db.table_names().execute().await {
+        let vec_string = DatabaseTables::Vector.to_string();
+        DatabaseTables::iter()
+            .filter(|x| x.to_string() != vec_string)
+            .all(|x| table_names.contains(&x.to_string()))
     } else {
-        let d = table_names.unwrap();
-        DatabaseTables::iter().all(|x| d.contains(&x.to_string()))
+        false
     }
 }
 

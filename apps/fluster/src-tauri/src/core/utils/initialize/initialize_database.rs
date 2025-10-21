@@ -257,6 +257,13 @@ pub async fn initialize_database() -> FlusterResult<()> {
             entity: WhiteboardEntity::arrow_schema(None),
             set_indices: None,
         },
+        // -- Vector Store --
+        TableInitData {
+            table: DatabaseTables::Vector,
+            // Use any schema here since it will just be overwritten.
+            entity: WhiteboardEntity::arrow_schema(None),
+            set_indices: None,
+        },
     ];
     if let Ok(db_path) = get_database_path() {
         let db = connect(db_path.to_str().unwrap())

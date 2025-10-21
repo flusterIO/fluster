@@ -660,9 +660,9 @@ async addAiChatRequest(chatId: string, ai: AiSyncSettings, chatInput: AiChatMess
     else return { status: "error", error: e  as any };
 }
 },
-async getLocalOllamaModels() : Promise<Result<LocalModelData[], FlusterError>> {
+async getLocalOllamaModels(connectionData: OllamaConnectionData | null) : Promise<Result<LocalModelData[], FlusterError>> {
     try {
-    return { status: "ok", data: await TAURI_INVOKE("get_local_ollama_models") };
+    return { status: "ok", data: await TAURI_INVOKE("get_local_ollama_models", { connectionData }) };
 } catch (e) {
     if(e instanceof Error) throw e;
     else return { status: "error", error: e  as any };
@@ -1050,6 +1050,7 @@ file_path: string; raw_body: string; ctime: string;
  */
 last_read: string; vec: number[] }
 export type NoteSummary = { title: string; file_path: string }
+export type OllamaConnectionData = { url: string; port: number }
 export type PaginationProps = { per_page: string; page_number: string }
 export type PlotlyTheme = "ggplot2" | "seaborn" | "simple_white" | "plotly" | "plotly_white" | "plotly_dark" | "presentation" | "xgridoff" | "ygridoff" | "gridon" | "none"
 export type RecentlyAccessedNoteData = { last_read: string; file_path: string }
