@@ -1,16 +1,11 @@
 [project]
 name = "flusterpy"
 version = "0.1.0"
-description = "Add your description here"
+description = "The python API for the Fluster note taking ecosystem."
 readme = "README.md"
-authors = [
-    { name = "Fluster.IO", email = "uhlittlelessdumb@gmail.com" }
-]
+authors = [{ name = "Fluster.IO", email = "uhlittlelessdumb@gmail.com" }]
 requires-python = ">=3.11"
-dependencies = [
-    "appdirs>=1.4.4",
-    "lancedb>=0.25.2",
-]
+dependencies = ["appdirs>=1.4.4", "lancedb>=0.25.2"]
 
 [project.scripts]
 flusterpy = "flusterpy:main"
