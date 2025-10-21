@@ -1,5 +1,13 @@
 # fluster
 
+## 0.3.19
+
+### Patch Changes
+
+- Move to placeholder for note panel left and adjust health check.
+- Updated dependencies
+  - @fluster.io/dev@0.3.19
+
 ## 0.3.18
 
 ### Patch Changes
