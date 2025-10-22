@@ -151,7 +151,7 @@ impl MdxNoteEquationEntity {
         if filtered_equations.is_empty() {
             return Ok(());
         }
-        let schema = MdxNoteEquationEntity::arrow_schema(None);
+        let schema = MdxNoteEquationEntity::arrow_schema();
         let tbl = get_table(db, DatabaseTables::MdxNoteEquation).await?;
         let batches: Vec<Result<RecordBatch, ArrowError>> = filtered_equations
             .iter()
@@ -170,7 +170,7 @@ impl MdxNoteEquationEntity {
 }
 
 impl DbEntity<MdxNoteEquationModel> for MdxNoteEquationEntity {
-    fn arrow_schema(_: Option<i32>) -> std::sync::Arc<arrow_schema::Schema> {
+    fn arrow_schema() -> std::sync::Arc<arrow_schema::Schema> {
         Arc::new(Schema::new(vec![
             Field::new("mdx_note_file_path", DataType::Utf8, false),
             Field::new("equation_id", DataType::Utf8, false),

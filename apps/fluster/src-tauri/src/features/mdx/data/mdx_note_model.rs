@@ -10,5 +10,4 @@ pub struct MdxNoteModel {
     pub ctime: String,
     /// This field is updated each time a note is accessed in milliseconds.
     pub last_read: String,
-    pub vec: Vec<f32>,
 }

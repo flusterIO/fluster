@@ -10,6 +10,7 @@ import {
 } from "#/ai/state/initial_ai_state.ts";
 import { getRecentlyAccessedNotes } from "#/command_palette/data/tree/recently_accessed.ts";
 import { parseDate } from "@fluster.io/dev";
+import { syncAi } from "#/python/data/api_client/sync_ai.ts";
 
 // TODO: Move this to a Promises.all
 
@@ -58,8 +59,8 @@ export const sync = async (
     });
     if (state.bib.bibPath) {
         try {
-            const res = await syncBib(state.bib.bibPath, state.bib.cslPath);
-            if (res.status === "error") {
+            const bibRes = await syncBib(state.bib.bibPath, state.bib.cslPath);
+            if (bibRes.status === "error") {
                 showToast({
                     title: "Error",
                     body: "Something went wrong while synchronizing your bibliography.",
@@ -94,16 +95,21 @@ export const sync = async (
             }),
             ...opts,
         });
+        console.log("res: ", res)
         if (res.status === "ok") {
-            if (opts.showSuccessToast) {
-                showToast({
-                    title: "Success",
-                    body: "Your notes were successfully synced with your database",
-                    duration: 3000,
-                    variant: "Success",
-                });
+            const aiRes = opts.with_ai ? await syncAi() : true;
+            console.log("aiRes: ", aiRes)
+            if (aiRes) {
+                if (opts.showSuccessToast) {
+                    showToast({
+                        title: "Success",
+                        body: "Your notes were successfully synced with your database",
+                        duration: 3000,
+                        variant: "Success",
+                    });
+                }
+                window.dispatchEvent(new CustomEvent("database-sync-success", {}));
             }
-            window.dispatchEvent(new CustomEvent("database-sync-success", {}));
             return true;
         } else {
             console.error(`An error occured while syncing your notes: `, res.error);

@@ -10,7 +10,7 @@ pub struct DbRecord {
 }
 
 pub trait DbEntity<T> {
-    fn arrow_schema(vector_dimensions: Option<i32>) -> Arc<Schema>;
+    fn arrow_schema() -> Arc<Schema>;
     fn to_record_batch(item: &T, schema: Arc<Schema>) -> RecordBatch;
 }
 

@@ -1,4 +1,4 @@
-from flask_restful import Resource, reqparse
+from flask_restx import Resource
 from langchain_community.document_loaders import UnstructuredMarkdownLoader
 
 
@@ -32,4 +32,4 @@ class SingleNoteChat(Resource):
         async for doc in loader.alazy_load():
             print("Doc: ", doc)
             docs.append(doc)
-        return "Here", 200
+        return "Hello World", 200

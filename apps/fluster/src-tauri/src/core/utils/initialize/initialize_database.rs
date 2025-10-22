@@ -75,193 +75,193 @@ pub async fn initialize_database() -> FlusterResult<()> {
     let table_data: Vec<TableInitData> = vec![
         TableInitData {
             table: DatabaseTables::Settings,
-            entity: SettingsEntity::arrow_schema(None),
+            entity: SettingsEntity::arrow_schema(),
             set_indices: None,
         },
         TableInitData {
             table: DatabaseTables::AutoSetting,
-            entity: AutoSettingEntity::arrow_schema(None),
+            entity: AutoSettingEntity::arrow_schema(),
             set_indices: None,
         },
         TableInitData {
             table: DatabaseTables::Tag,
-            entity: TagEntity::arrow_schema(None),
+            entity: TagEntity::arrow_schema(),
             set_indices: None,
         },
         TableInitData {
             table: DatabaseTables::Subject,
-            entity: SubjectEntity::arrow_schema(None),
+            entity: SubjectEntity::arrow_schema(),
             set_indices: None,
         },
         TableInitData {
             table: DatabaseTables::Topic,
-            entity: TopicEntity::arrow_schema(None),
+            entity: TopicEntity::arrow_schema(),
             set_indices: None,
         },
         // -- Mdx Note --
         TableInitData {
-            entity: MdxNoteEntity::arrow_schema(None),
+            entity: MdxNoteEntity::arrow_schema(),
             table: DatabaseTables::MdxNote,
             set_indices: None,
         },
         TableInitData {
             table: DatabaseTables::FrontMatter,
-            entity: FrontMatterEntity::arrow_schema(None),
+            entity: FrontMatterEntity::arrow_schema(),
             set_indices: None,
         },
         TableInitData {
             table: DatabaseTables::FrontMatterTag,
-            entity: FrontMatterTagEntity::arrow_schema(None),
+            entity: FrontMatterTagEntity::arrow_schema(),
             set_indices: None,
         },
         TableInitData {
             table: DatabaseTables::Bookmark,
-            entity: BookmarkEntity::arrow_schema(None),
+            entity: BookmarkEntity::arrow_schema(),
             set_indices: None,
         },
         TableInitData {
             table: DatabaseTables::MdxNoteTag,
-            entity: MdxNoteTagEntity::arrow_schema(None),
+            entity: MdxNoteTagEntity::arrow_schema(),
             set_indices: None,
         },
         TableInitData {
             table: DatabaseTables::MdxNoteTopic,
-            entity: MdxNoteTopicEntity::arrow_schema(None),
+            entity: MdxNoteTopicEntity::arrow_schema(),
             set_indices: None,
         },
         TableInitData {
             table: DatabaseTables::MdxNoteSubject,
-            entity: MdxNoteSubjectEntity::arrow_schema(None),
+            entity: MdxNoteSubjectEntity::arrow_schema(),
             set_indices: None,
         },
         TableInitData {
             table: DatabaseTables::MdxNoteDictionaryEntry,
-            entity: MdxNoteDictionaryEntryEntity::arrow_schema(None),
+            entity: MdxNoteDictionaryEntryEntity::arrow_schema(),
             set_indices: None,
         },
         TableInitData {
             table: DatabaseTables::MdxNoteLink,
-            entity: MdxNoteLinkEntity::arrow_schema(None),
+            entity: MdxNoteLinkEntity::arrow_schema(),
             set_indices: None,
         },
         // -- Snippets --
         TableInitData {
             table: DatabaseTables::Snippet,
-            entity: SnippetEntity::arrow_schema(None),
+            entity: SnippetEntity::arrow_schema(),
             set_indices: None,
         },
         TableInitData {
             table: DatabaseTables::SnippetTag,
-            entity: SnippetTagEntity::arrow_schema(None),
+            entity: SnippetTagEntity::arrow_schema(),
             set_indices: None,
         },
         TableInitData {
             table: DatabaseTables::EquationSnippets,
-            entity: EquationSnippetEntity::arrow_schema(None),
+            entity: EquationSnippetEntity::arrow_schema(),
             set_indices: None,
         },
         TableInitData {
             table: DatabaseTables::MdxNoteSnippet,
-            entity: MdxNoteSnippetEntity::arrow_schema(None),
+            entity: MdxNoteSnippetEntity::arrow_schema(),
             set_indices: None,
         },
         // -- Equations --
         TableInitData {
             table: DatabaseTables::Equation,
-            entity: EquationEntity::arrow_schema(None),
+            entity: EquationEntity::arrow_schema(),
             set_indices: None,
         },
         TableInitData {
             table: DatabaseTables::EquationTag,
-            entity: EquationTagEntity::arrow_schema(None),
+            entity: EquationTagEntity::arrow_schema(),
             set_indices: None,
         },
         TableInitData {
             table: DatabaseTables::MdxNoteEquation,
-            entity: MdxNoteEquationEntity::arrow_schema(None),
+            entity: MdxNoteEquationEntity::arrow_schema(),
             set_indices: None,
         },
         // -- Bib --
         TableInitData {
             table: DatabaseTables::BibEntry,
-            entity: BibEntryEntity::arrow_schema(None),
+            entity: BibEntryEntity::arrow_schema(),
             set_indices: None,
         },
         TableInitData {
             table: DatabaseTables::MdxNoteBibEntry,
-            entity: MdxNoteBibEntryEntity::arrow_schema(None),
+            entity: MdxNoteBibEntryEntity::arrow_schema(),
             set_indices: None,
         },
         TableInitData {
             table: DatabaseTables::BibEntry,
-            entity: BibEntryEntity::arrow_schema(None),
+            entity: BibEntryEntity::arrow_schema(),
             set_indices: None,
         },
         // -- Dictionary --
         TableInitData {
             table: DatabaseTables::DictionaryEntry,
-            entity: DictionaryEntryEntity::arrow_schema(None),
+            entity: DictionaryEntryEntity::arrow_schema(),
             set_indices: None,
         },
         // -- Task Manager --
         TableInitData {
             table: DatabaseTables::TaskList,
-            entity: TaskListEntity::arrow_schema(None),
+            entity: TaskListEntity::arrow_schema(),
             set_indices: None,
         },
         TableInitData {
             table: DatabaseTables::Task,
-            entity: TaskEntity::arrow_schema(None),
+            entity: TaskEntity::arrow_schema(),
             set_indices: None,
         },
         TableInitData {
             table: DatabaseTables::TaskTag,
-            entity: TaskTagEntity::arrow_schema(None),
+            entity: TaskTagEntity::arrow_schema(),
             set_indices: None,
         },
         // -- Ai --
         TableInitData {
             table: DatabaseTables::AiChat,
-            entity: AiChatEntity::arrow_schema(None),
+            entity: AiChatEntity::arrow_schema(),
             set_indices: None,
         },
         TableInitData {
             table: DatabaseTables::AiChatMessage,
-            entity: AiChatMessageEntity::arrow_schema(None),
+            entity: AiChatMessageEntity::arrow_schema(),
             set_indices: None,
         },
         // -- Kanban Boards --
         TableInitData {
             table: DatabaseTables::KanbanBoard,
-            entity: KanbanBoardEntity::arrow_schema(None),
+            entity: KanbanBoardEntity::arrow_schema(),
             set_indices: None,
         },
         TableInitData {
             table: DatabaseTables::KanbanBoardTaskList,
-            entity: KanbanBoardTaskListEntity::arrow_schema(None),
+            entity: KanbanBoardTaskListEntity::arrow_schema(),
             set_indices: None,
         },
         TableInitData {
             table: DatabaseTables::KanbanBoardEntry,
-            entity: KanbanBoardEntryEntity::arrow_schema(None),
+            entity: KanbanBoardEntryEntity::arrow_schema(),
             set_indices: None,
         },
         TableInitData {
             table: DatabaseTables::KanbanBoardList,
-            entity: KanbanBoardListEntity::arrow_schema(None),
+            entity: KanbanBoardListEntity::arrow_schema(),
             set_indices: None,
         },
         // -- Whiteboard --
         TableInitData {
             table: DatabaseTables::Whiteboard,
-            entity: WhiteboardEntity::arrow_schema(None),
+            entity: WhiteboardEntity::arrow_schema(),
             set_indices: None,
         },
         // -- Vector Store --
         TableInitData {
             table: DatabaseTables::Vector,
             // Use any schema here since it will just be overwritten.
-            entity: WhiteboardEntity::arrow_schema(None),
+            entity: WhiteboardEntity::arrow_schema(),
             set_indices: None,
         },
     ];

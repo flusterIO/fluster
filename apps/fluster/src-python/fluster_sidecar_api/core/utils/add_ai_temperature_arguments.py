@@ -12,7 +12,7 @@ def add_ai_temperature_arguments(parser: RequestParser):
     parser.add_argument(
         "temperature",
         required=False,
-        type=List[str],
+        type=float,
         help="The temperature to use for the embedding model.",
     )
     parser.add_argument(

@@ -79,7 +79,7 @@ impl KanbanBoardListEntity {
         db: &FlusterDb<'_>,
         entries: &[KanbanBoardListModel],
     ) -> FlusterResult<()> {
-        let schema = KanbanBoardListEntity::arrow_schema(None);
+        let schema = KanbanBoardListEntity::arrow_schema();
         let tbl = get_table(db, DatabaseTables::KanbanBoardList).await?;
         let batches: Vec<Result<RecordBatch, ArrowError>> = entries
             .iter()
@@ -105,7 +105,7 @@ impl KanbanBoardListEntity {
 }
 
 impl DbEntity<KanbanBoardListModel> for KanbanBoardListEntity {
-    fn arrow_schema(_: Option<i32>) -> std::sync::Arc<arrow_schema::Schema> {
+    fn arrow_schema() -> std::sync::Arc<arrow_schema::Schema> {
         Arc::new(Schema::new(vec![
             Field::new("id", DataType::Utf8, false),
             Field::new("label", DataType::Utf8, false),

@@ -1,34 +1,37 @@
 import os
-from flask import Flask
-from flask_cors import CORS
-from flask_restful import Api
+import uvicorn
+from fastapi.middleware.cors import CORSMiddleware
+from fastapi import FastAPI
 
-from core.api.v1.ai.chat.general import AiGeneralChatRoute
-from core.api.v1.ai.chat.note import SingleNoteChat
-from core.api.v1.ai.sync.index import SyncAi
-
-
-app = Flask(__name__)
-CORS(app, resources={r"/*": {"origins": "*"}})
-app.config["CORS_HEADERS"] = "Content-Type"
-app.config["CORS_SUPPORTS_CREDENTIALS"] = True
-api = Api(app)
-
-api.add_resource(AiGeneralChatRoute, "/ai/chat/general")
-api.add_resource(SingleNoteChat, "/ai/chat/note")
-api.add_resource(SyncAi, "/ai/sync")
+# from core.api.v1.ai.chat.general import AiGeneralChatRoute
+# from core.api.v1.ai.chat.note import SingleNoteChat
+# from core.api.v1.ai.sync.index import SyncAi
 
 
-@app.after_request
-def after_request(response):
-    response.headers.add("Access-Control-Allow-Origin", "*")
-    response.headers.add("Access-Control-Allow-Headers", "Content-Type,Authorization")
-    response.headers.add("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE,OPTIONS")
-    response.headers.add("Access-Control-Allow-Credentials", "true")
-    return response
+app = FastAPI()
+CORSMiddleware(
+    app,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 
-os.chdir(app.root_path)
+@app.post("/ai/sync")
+def sync():
+    return {"success": True}
+
+
+# api.add_resource(AiGeneralChatRoute, "/ai/chat/general")
+# api.add_resource(SingleNoteChat, "/ai/chat/note")
+# api.add_resource(SyncAi, "/ai/sync")
+
+
+# os.chdir(app.root_path)
+
+# if __name__ == "__main__":
+# app.run(host="0.0.0.0", port=int(os.environ.get("FLUSTER_API_PORT", "8082")))
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=int(os.environ.get("FLUSTER_API_PORT", "8082")))
+    uvicorn.run(app, host="0.0.0.0", port=8082)

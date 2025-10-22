@@ -1,6 +1,8 @@
 // Learn more about Tauri commandseat https://tauri.app/develop/calling-rust/p
 pub mod core;
 pub mod features;
+use crate::core::commands::get_env_var::get_env_var;
+use crate::core::commands::get_parsable_files::get_parsable_files;
 use crate::core::commands::load_binary_file::load_binary_file;
 use crate::core::events::event_keys::CrossLanguageEvents;
 use crate::core::events::event_props::AiChatMessageUpdateEventProps;
@@ -43,6 +45,7 @@ use crate::features::dictionary::dictionary_entry_model::{
     DictionaryEntryModel, DictionaryEntryModelWithoutSource,
 };
 use crate::features::editor::write_file::write_file;
+use crate::features::embedded_docs::get_all_embedded_docs::get_all_embedded_docs;
 use crate::features::embedded_docs::get_embedded_doc_by_id::get_embedded_doc;
 use crate::features::embedded_docs::get_embedded_doc_by_id::get_embedded_doc_by_relative_path;
 use crate::features::jupyter::commands::generate_new_jupyter_token::generate_new_token;
@@ -110,6 +113,7 @@ use crate::features::task_manager::commands::get_task_list_tasks::get_task_list_
 use crate::features::task_manager::commands::get_tasks_with_due_date::get_incomplete_tasks_with_due_date;
 use crate::features::whiteboard::commands::load_whiteboard_initial_data::load_whiteboard_initial_data;
 use crate::features::whiteboard::commands::save_whiteboard_data::save_whiteboard_data;
+use core::database::db::get_database_path;
 use core::sync::parse_directory::sync_fs_directory::models::sync_filesystem_options::SyncFilesystemDirectoryOptions;
 use core::{
     events::{set_db_connection_uri::SetDbConnectionUri, show_toast::ToastConfig},
@@ -140,6 +144,9 @@ pub fn run() {
             hide_splash_screen,
             load_binary_file,
             load_tabular_file,
+            get_database_path,
+            get_parsable_files,
+            get_env_var,
             // -- Auto Settings --
             create_auto_setting,
             get_all_auto_settings,
@@ -179,6 +186,7 @@ pub fn run() {
             get_embedded_doc,
             get_desktop_health_report,
             get_embedded_doc_by_relative_path,
+            get_all_embedded_docs,
             // -- Bookmark --
             add_bookmark,
             remove_bookmark,

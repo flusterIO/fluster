@@ -200,7 +200,7 @@ impl TaskTagEntity {
                     .any(|y| (x.task_id == y.task_id) && (x.tag_value == y.tag_value))
             })
             .collect();
-        let schema = TaskTagEntity::arrow_schema(None);
+        let schema = TaskTagEntity::arrow_schema();
         let tbl = get_table(db, TaskTagEntity::table()).await?;
         let batches: Vec<Result<RecordBatch, ArrowError>> = filtered_tags
             .iter()
@@ -219,7 +219,7 @@ impl TaskTagEntity {
 }
 
 impl DbEntity<TaskTagModel> for TaskTagEntity {
-    fn arrow_schema(_: Option<i32>) -> std::sync::Arc<arrow_schema::Schema> {
+    fn arrow_schema() -> std::sync::Arc<arrow_schema::Schema> {
         Arc::new(Schema::new(vec![
             Field::new("task_id", DataType::Utf8, false),
             Field::new("tag_value", DataType::Utf8, false),

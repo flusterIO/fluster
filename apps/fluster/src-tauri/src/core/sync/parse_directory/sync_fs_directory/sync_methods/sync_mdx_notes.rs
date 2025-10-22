@@ -4,7 +4,6 @@ use crate::core::database::db::get_database;
 use crate::core::models::taggable::shared_taggable_model::SharedTaggableModel;
 use crate::core::sync::parse_directory::sync_fs_directory::models::sync_filesystem_options::SyncFilesystemDirectoryOptions;
 use crate::core::types::errors::errors::FlusterResult;
-use crate::features::ai::data::ai_providers::local_ai_provider::LocalAiClient;
 use crate::features::mdx::actions::save_mdx_note_groups::save_mdx_note_groups;
 use crate::features::mdx::data::mdx_note_entity::MdxNoteEntity;
 use crate::features::mdx::data::mdx_note_group::MdxNoteGroup;
@@ -120,9 +119,6 @@ pub async fn sync_mdx_filesystem_notes(opts: &SyncFilesystemDirectoryOptions) ->
         items.push(note_group);
     }
 
-    LocalAiClient {}
-        .get_text_embeddings(&mut items, opts)
-        .await?;
     save_mdx_note_groups(&db, items, opts.existing_taggables.clone()).await?;
     Ok(())
 }

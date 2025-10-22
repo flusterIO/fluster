@@ -101,7 +101,7 @@ impl TagEntity {
         db: &FlusterDb<'_>,
         items: Vec<SharedTaggableModel>,
     ) -> FlusterResult<()> {
-        let schema = TagEntity::arrow_schema(None);
+        let schema = TagEntity::arrow_schema();
         let tbl = get_table(db, DatabaseTables::Tag).await?;
         let batches: Vec<Result<RecordBatch, ArrowError>> = items
             .iter()
@@ -189,7 +189,7 @@ impl DbEntity<SharedTaggableModel> for TagEntity {
         // Create the vector array
         RecordBatch::try_new(schema, vec![Arc::new(text_array), Arc::new(ctime)]).unwrap()
     }
-    fn arrow_schema(_: Option<i32>) -> Arc<Schema> {
+    fn arrow_schema() -> Arc<Schema> {
         Arc::new(Schema::new(vec![
             Field::new("value", DataType::Utf8, false),
             Field::new(

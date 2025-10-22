@@ -114,7 +114,7 @@ impl MdxNoteLinkEntity {
 }
 
 impl DbEntity<MdxNoteLinkModel> for MdxNoteLinkEntity {
-    fn arrow_schema(_: Option<i32>) -> std::sync::Arc<arrow_schema::Schema> {
+    fn arrow_schema() -> std::sync::Arc<arrow_schema::Schema> {
         Arc::new(Schema::new(vec![
             Field::new("mdx_note_file_path_from", DataType::Utf8, false),
             Field::new("mdx_user_provided_id_to", DataType::Utf8, false),
@@ -208,7 +208,7 @@ impl MdxNoteLinkEntity {
                 })
             })
             .collect();
-        let schema = MdxNoteLinkEntity::arrow_schema(None);
+        let schema = MdxNoteLinkEntity::arrow_schema();
         let tbl = get_table(db, MdxNoteLinkEntity::table()).await?;
         let batches: Vec<Result<RecordBatch, ArrowError>> = filtered_items
             .iter()

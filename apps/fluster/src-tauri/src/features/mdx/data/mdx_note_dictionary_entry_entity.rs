@@ -183,7 +183,7 @@ impl MdxNoteDictionaryEntryEntity {
     }
 
     pub async fn create_many(db: &FlusterDb<'_>, items: Vec<T>) -> FlusterResult<()> {
-        let schema = MdxNoteDictionaryEntryEntity::arrow_schema(None);
+        let schema = MdxNoteDictionaryEntryEntity::arrow_schema();
         let tbl = get_table(db, MdxNoteDictionaryEntryEntity::table()).await?;
         let batches: Vec<Result<RecordBatch, ArrowError>> = items
             .iter()
@@ -207,7 +207,7 @@ impl MdxNoteDictionaryEntryEntity {
 }
 
 impl DbEntity<T> for MdxNoteDictionaryEntryEntity {
-    fn arrow_schema(_: Option<i32>) -> std::sync::Arc<arrow_schema::Schema> {
+    fn arrow_schema() -> std::sync::Arc<arrow_schema::Schema> {
         Arc::new(Schema::new(vec![
             Field::new("mdx_note_file_path", DataType::Utf8, false),
             Field::new("dictionary_entry_label", DataType::Utf8, false),

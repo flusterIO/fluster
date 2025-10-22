@@ -59,7 +59,7 @@ impl SubjectEntity {
             .iter()
             .filter(|x| !existing_topics.iter().any(|y| x.value == y.value))
             .collect::<Vec<&SharedTaggableModel>>();
-        let schema = SubjectEntity::arrow_schema(None);
+        let schema = SubjectEntity::arrow_schema();
         let tbl = get_table(db, DatabaseTables::Subject).await?;
         let batches: Vec<Result<RecordBatch, ArrowError>> = filtered_topics
             .iter()
@@ -131,7 +131,7 @@ impl DbEntity<SharedTaggableModel> for SubjectEntity {
         let text_array = arrow_array::StringArray::from(vec![item.value.clone()]);
         RecordBatch::try_new(schema, vec![Arc::new(text_array), Arc::new(ctime)]).unwrap()
     }
-    fn arrow_schema(_: Option<i32>) -> Arc<Schema> {
+    fn arrow_schema() -> Arc<Schema> {
         Arc::new(Schema::new(vec![
             Field::new("value", DataType::Utf8, false),
             Field::new(

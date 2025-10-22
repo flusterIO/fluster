@@ -32,7 +32,7 @@ impl WhiteboardEntity {
         Ok(())
     }
     pub async fn save_many(db: &FlusterDb<'_>, items: Vec<WhiteboardModel>) -> FlusterResult<()> {
-        let schema = WhiteboardEntity::arrow_schema(None);
+        let schema = WhiteboardEntity::arrow_schema();
         let tbl = get_table(db, WhiteboardEntity::table()).await?;
         let batches: Vec<Result<RecordBatch, ArrowError>> = items
             .iter()
@@ -96,7 +96,7 @@ impl WhiteboardEntity {
 }
 
 impl DbEntity<WhiteboardModel> for WhiteboardEntity {
-    fn arrow_schema(_: Option<i32>) -> std::sync::Arc<arrow_schema::Schema> {
+    fn arrow_schema() -> std::sync::Arc<arrow_schema::Schema> {
         Arc::new(Schema::new(vec![
             Field::new("id", DataType::Utf8, false),
             Field::new("state", DataType::Utf8, false),

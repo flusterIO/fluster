@@ -181,7 +181,7 @@ impl MdxNoteTopicEntity {
                 })
             })
             .collect();
-        let schema = MdxNoteTopicEntity::arrow_schema(None);
+        let schema = MdxNoteTopicEntity::arrow_schema();
         let tbl = get_table(db, MdxNoteTopicEntity::table()).await?;
         let batches: Vec<Result<RecordBatch, ArrowError>> = filtered_tags
             .iter()
@@ -200,7 +200,7 @@ impl MdxNoteTopicEntity {
 }
 
 impl DbEntity<T> for MdxNoteTopicEntity {
-    fn arrow_schema(_: Option<i32>) -> std::sync::Arc<arrow_schema::Schema> {
+    fn arrow_schema() -> std::sync::Arc<arrow_schema::Schema> {
         Arc::new(Schema::new(vec![
             Field::new("mdx_note_file_path", DataType::Utf8, false),
             Field::new("topic_value", DataType::Utf8, false),

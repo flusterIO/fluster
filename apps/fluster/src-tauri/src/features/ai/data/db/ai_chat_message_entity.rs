@@ -39,7 +39,7 @@ impl AiChatMessageEntity {
         req: AiChatMessageModel,
     ) -> FlusterResult<()> {
         let tbl = get_table(db, DatabaseTables::AiChatMessage).await?;
-        let schema = AiChatMessageEntity::arrow_schema(None);
+        let schema = AiChatMessageEntity::arrow_schema();
         let batch = Ok(AiChatMessageEntity::to_record_batch(&req, schema.clone()));
         let stream = Box::new(RecordBatchIterator::new(
             vec![batch].into_iter(),
@@ -90,7 +90,7 @@ impl AiChatMessageEntity {
 }
 
 impl DbEntity<AiChatMessageModel> for AiChatMessageEntity {
-    fn arrow_schema(_: Option<i32>) -> std::sync::Arc<arrow_schema::Schema> {
+    fn arrow_schema() -> std::sync::Arc<arrow_schema::Schema> {
         Arc::new(Schema::new(vec![
             Field::new("id", DataType::Utf8, false),
             Field::new("chat_id", DataType::Utf8, false),

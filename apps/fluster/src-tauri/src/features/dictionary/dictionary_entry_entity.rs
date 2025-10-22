@@ -24,7 +24,7 @@ impl DictionaryEntryEntity {
         db: &FlusterDb<'_>,
         items: Vec<DictionaryEntryModel>,
     ) -> FlusterResult<()> {
-        let schema = DictionaryEntryEntity::arrow_schema(None);
+        let schema = DictionaryEntryEntity::arrow_schema();
         let tbl = get_table(db, DatabaseTables::DictionaryEntry).await?;
         let batches: Vec<Result<RecordBatch, ArrowError>> = items
             .iter()
@@ -108,7 +108,7 @@ impl DictionaryEntryEntity {
 }
 
 impl DbEntity<DictionaryEntryModel> for DictionaryEntryEntity {
-    fn arrow_schema(_: Option<i32>) -> std::sync::Arc<arrow_schema::Schema> {
+    fn arrow_schema() -> std::sync::Arc<arrow_schema::Schema> {
         Arc::new(Schema::new(vec![
             Field::new("label", DataType::Utf8, false),
             Field::new("body", DataType::Utf8, false),

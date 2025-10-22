@@ -74,7 +74,7 @@ impl KanbanBoardEntryEntity {
         Ok(items)
     }
     pub async fn save_many(db: &FlusterDb<'_>, entries: &[KanbanCardModel]) -> FlusterResult<()> {
-        let schema = KanbanBoardEntryEntity::arrow_schema(None);
+        let schema = KanbanBoardEntryEntity::arrow_schema();
         let tbl = get_table(db, DatabaseTables::KanbanBoardEntry).await?;
         let batches: Vec<Result<RecordBatch, ArrowError>> = entries
             .iter()
@@ -100,7 +100,7 @@ impl KanbanBoardEntryEntity {
 }
 
 impl DbEntity<KanbanCardModel> for KanbanBoardEntryEntity {
-    fn arrow_schema(_: Option<i32>) -> std::sync::Arc<arrow_schema::Schema> {
+    fn arrow_schema() -> std::sync::Arc<arrow_schema::Schema> {
         Arc::new(Schema::new(vec![
             Field::new("id", DataType::Utf8, false),
             Field::new("label", DataType::Utf8, false),

@@ -1,14 +1,17 @@
 import axios from "axios";
 import { SidecarMessage } from "../types";
+import { commands } from "@/lib/bindings";
 
 export const SIDECAR_PORT = 8082
 
-const baseRoute = (): string => {
-    return `http://localhost:${SIDECAR_PORT}`
+export const getSidecarBaseRoute = async (): Promise<string> => {
+    const envVar = await commands.getEnvVar("FLUSTER_API_PORT");
+    console.log("envVar: ", envVar)
+    return `http://localhost:${envVar ?? SIDECAR_PORT}`
 }
 
 export const pythonSidecarHelloWorld = async (): Promise<SidecarMessage> => {
-    const res = await axios.post(`${baseRoute()}/ai/chat/note`)
+    const res = await axios.post(`${await getSidecarBaseRoute()}/ai/chat/note`)
     return res.data as SidecarMessage
 }
 
@@ -28,7 +31,7 @@ export const getNoteChatResponse = async (
     /*         "Content-Type": "application/json" */
     /*     } */
     /* }) */
-    const res = await axios.post(`${baseRoute()}/ai/chat/note`, {
+    const res = await axios.post(`${await getSidecarBaseRoute()}/ai/chat/note`, {
         file: absoluteFilePath,
         msg: userMessage
     }, {
@@ -39,3 +42,5 @@ export const getNoteChatResponse = async (
     console.log("res.data: ", res.data)
     return res.data as SidecarMessage
 }
+
+

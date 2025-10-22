@@ -121,7 +121,7 @@ impl FrontMatterEntity {
     }
     pub async fn save_many(db: &FlusterDb<'_>, items: Vec<FrontMatterModel>) -> FlusterResult<()> {
         // RESUME: Come back here to take care of the sync method.
-        let schema = FrontMatterEntity::arrow_schema(None);
+        let schema = FrontMatterEntity::arrow_schema();
         let tbl = get_table(db, DatabaseTables::FrontMatter).await?;
         let batches: Vec<Result<RecordBatch, ArrowError>> = items
             .iter()
@@ -184,7 +184,7 @@ impl FrontMatterEntity {
 }
 
 impl DbEntity<FrontMatterModel> for FrontMatterEntity {
-    fn arrow_schema(_: Option<i32>) -> std::sync::Arc<arrow_schema::Schema> {
+    fn arrow_schema() -> std::sync::Arc<arrow_schema::Schema> {
         Arc::new(Schema::new(vec![
             Field::new("id", DataType::Utf8, false),
             Field::new("mdx_note_file_path", DataType::Utf8, false),

@@ -133,7 +133,6 @@ impl MdxNoteGroup {
                 file_path,
                 ctime: now,
                 last_read: "0".to_string(),
-                vec: Vec::new(),
             },
             //RESUME: The equation tags are not yet being parsed.
             equations,

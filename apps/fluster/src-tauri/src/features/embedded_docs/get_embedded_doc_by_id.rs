@@ -1,10 +1,9 @@
-use include_dir::{include_dir, Dir};
-
-use crate::core::types::errors::errors::{FlusterError, FlusterResult};
+use crate::{
+    core::types::errors::errors::{FlusterError, FlusterResult},
+    features::embedded_docs::docs::DOCS,
+};
 
 use super::data::internal_embedded_docs_id::InternalEmbeddedDocsId;
-
-static DOCS: Dir = include_dir!("$CARGO_MANIFEST_DIR/src/features/embedded_docs/embedded_docs");
 
 #[tauri::command]
 #[specta::specta]

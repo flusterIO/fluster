@@ -36,6 +36,8 @@ pub async fn get_table(conn: &FlusterDb<'_>, tbl: DatabaseTables) -> FlusterResu
         })
 }
 
+#[tauri::command]
+#[specta::specta]
 pub fn get_database_path() -> FlusterResult<PathBuf> {
     let d = get_data_dir()?;
     Ok(d.join("database"))

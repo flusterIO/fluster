@@ -1,7 +1,4 @@
-use arrow_array::{
-    types::Float32Type, FixedSizeListArray, RecordBatch, RecordBatchIterator, StringArray,
-    TimestampMillisecondArray,
-};
+use arrow_array::{RecordBatch, RecordBatchIterator, StringArray, TimestampMillisecondArray};
 use arrow_schema::{ArrowError, DataType, Field, Schema};
 use futures::TryStreamExt;
 use lancedb::{
@@ -23,7 +20,7 @@ use crate::{
             FlusterDb,
         },
     },
-    features::{ai::data::constants::VECTOR_DIMENSIONS, search::types::PaginationProps},
+    features::search::types::PaginationProps,
 };
 
 use super::mdx_note_model::MdxNoteModel;
@@ -185,7 +182,7 @@ impl MdxNoteEntity {
         clean_table(db, DatabaseTables::MdxNote).await
     }
     pub async fn save_many(db: &FlusterDb<'_>, items: Vec<MdxNoteModel>) -> FlusterResult<()> {
-        let schema = MdxNoteEntity::arrow_schema(None);
+        let schema = MdxNoteEntity::arrow_schema();
         let tbl = get_table(db, DatabaseTables::MdxNote).await?;
         let batches: Vec<Result<RecordBatch, ArrowError>> = items
             .iter()
@@ -212,7 +209,7 @@ impl MdxNoteEntity {
 }
 
 impl DbEntity<MdxNoteModel> for MdxNoteEntity {
-    fn arrow_schema(vector_dimensions: Option<i32>) -> std::sync::Arc<arrow_schema::Schema> {
+    fn arrow_schema() -> std::sync::Arc<arrow_schema::Schema> {
         Arc::new(Schema::new(vec![
             Field::new("file_path", DataType::Utf8, true),
             Field::new("raw_body", DataType::Utf8, false),
@@ -226,14 +223,6 @@ impl DbEntity<MdxNoteModel> for MdxNoteEntity {
                 "last_read",
                 DataType::Timestamp(arrow_schema::TimeUnit::Millisecond, None),
                 false,
-            ),
-            Field::new(
-                "vec",
-                DataType::FixedSizeList(
-                    Field::new("item", DataType::Float32, true).into(),
-                    vector_dimensions.unwrap_or(VECTOR_DIMENSIONS),
-                ),
-                true,
             ),
         ]))
     }
@@ -252,10 +241,6 @@ impl DbEntity<MdxNoteModel> for MdxNoteEntity {
         // let vec = ListArray::from_iter_primitive::<Float32Type, _, _>(vec![Some(
         //     item.vec.iter().map(|x| Some(*x)),
         // )]);
-        let vec = FixedSizeListArray::from_iter_primitive::<Float32Type, _, _>(
-            vec![Some(item.vec.iter().map(|x| Some(*x)))],
-            item.vec.len() as i32,
-        );
         RecordBatch::try_new(
             schema,
             vec![
@@ -264,7 +249,6 @@ impl DbEntity<MdxNoteModel> for MdxNoteEntity {
                 Arc::new(front_matter_id),
                 Arc::new(ctime),
                 Arc::new(last_read),
-                Arc::new(vec),
             ],
         )
         .unwrap()

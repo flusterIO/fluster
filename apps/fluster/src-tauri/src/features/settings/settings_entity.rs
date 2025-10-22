@@ -35,7 +35,7 @@ impl SettingsEntity {
             .execute()
             .await
             .map_err(|_| FlusterError::FailToSaveSettings)?;
-        let schema = SettingsEntity::arrow_schema(None);
+        let schema = SettingsEntity::arrow_schema();
         let batches: Vec<Result<RecordBatch, ArrowError>> =
             vec![Ok(SettingsEntity::to_record_batch(&data, schema.clone()))];
         let stream = Box::new(RecordBatchIterator::new(
@@ -105,7 +105,7 @@ impl DbEntity<SettingsModel> for SettingsEntity {
         let body = StringArray::from(vec![item.body.clone()]);
         RecordBatch::try_new(schema, vec![Arc::new(id), Arc::new(body)]).unwrap()
     }
-    fn arrow_schema(_: Option<i32>) -> Arc<Schema> {
+    fn arrow_schema() -> Arc<Schema> {
         Arc::new(Schema::new(vec![
             Field::new("id", DataType::Utf8, false),
             Field::new("body", DataType::Utf8, false),

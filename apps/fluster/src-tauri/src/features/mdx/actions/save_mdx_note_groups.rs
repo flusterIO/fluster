@@ -1,4 +1,4 @@
-use std::{ops::Index, str::FromStr};
+use std::str::FromStr;
 
 use arrow_schema::SchemaRef;
 use chrono::{DateTime, FixedOffset, Utc};
@@ -20,7 +20,6 @@ use crate::{
         },
     },
     features::{
-        ai::data::constants::VECTOR_DIMENSIONS,
         dictionary::{
             dictionary_entry_entity::DictionaryEntryEntity,
             dictionary_entry_model::DictionaryEntryModel,
@@ -91,20 +90,11 @@ pub async fn save_mdx_note_groups(
     groups: Vec<MdxNoteGroup>,
     existing_taggables: AllTaggableData,
 ) -> FlusterResult<()> {
-    let mut vector_dimensions = VECTOR_DIMENSIONS as usize;
-    if !groups.is_empty() {
-        vector_dimensions = groups.index(0).mdx.vec.len();
-    }
     // Clean all tables that can be regenerated from the file system.
     clean_database(db).await?;
     // Drop all tables with vectors so they can be re-established with the vector dimensions for
     // the currently selected model.
-    re_establish_table(
-        db,
-        MdxNoteEntity::arrow_schema(Some(vector_dimensions.try_into().unwrap())),
-        DatabaseTables::MdxNote,
-    )
-    .await?;
+    re_establish_table(db, MdxNoteEntity::arrow_schema(), DatabaseTables::MdxNote).await?;
     // Loop over each item and generate the proper joining tables.
     let mut equations: Vec<EquationModel> = Vec::new();
     let mut tags: Vec<SharedTaggableModelWithExists> = existing_taggables
@@ -163,7 +153,6 @@ pub async fn save_mdx_note_groups(
         for note_link in item.note_links.clone() {
             note_links.push(note_link.clone());
         }
-        println!("Item length: {:?}", item.equations.clone());
         for eq in item.equations.clone() {
             equations.push(eq.clone());
             if let Some(item_equation_id) = eq.equation_id {
