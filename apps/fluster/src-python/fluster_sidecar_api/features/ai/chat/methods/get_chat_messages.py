@@ -1,5 +1,5 @@
-from flusterpy.core.static.database_tables import DatabaseTable
-from flusterpy.features.db.methods.get_table import get_table
+from fluster_py.core.static.database_tables import DatabaseTable
+from fluster_py.features.db.methods.get_table import get_table
 
 
 def get_chat_messages(chat_id: str):

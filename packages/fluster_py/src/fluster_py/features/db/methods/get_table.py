@@ -2,7 +2,7 @@ import lancedb
 import appdirs
 from lancedb.db import Table
 from pathlib import Path
-from src.features.database.tables import DatabaseTable
+from fluster_py.core.static.database_tables import DatabaseTable
 
 
 def get_database_dir():
@@ -16,4 +16,4 @@ def get_database() -> lancedb.DBConnection:
 
 def get_table(table_name: DatabaseTable) -> Table:
     db = get_database()
-    return db.open_table(table_name)
+    return db.open_table(str(table_name))

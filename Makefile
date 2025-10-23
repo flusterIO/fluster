@@ -18,10 +18,16 @@ build_python_sidecar:
 	cd ${FLUSTER_NATIVE_ROOT}/apps/fluster; pnpm build:python
 generate_python_types:
 	cd ${FLUSTER_NATIVE_ROOT}/apps/fluster/src-tauri; cargo test export_bindings
-build_flusterpy:
+build_flusterpy: 
 	cd ${FLUSTER_NATIVE_ROOT}/packages/fluster_py; uv build 
-publish_flusterpy: build_flusterpy
+update_flusterpy:
+	cd ${FLUSTER_NATIVE_ROOT}/apps/fluster/src-python/fluster_sidecar_api; uv sync --upgrade-package fluster_py
+publish_flusterpy: 
+	trash ${FLUSTER_NATIVE_ROOT}/packages/fluster_py/dist/
+	cd ${FLUSTER_NATIVE_ROOT}/packages/fluster_py; uv version --bump patch
+	cd ${FLUSTER_NATIVE_ROOT}/packages/fluster_py; uv build 
 	cd ${FLUSTER_NATIVE_ROOT}/packages/fluster_py; uv publish
+	echo "Don't forget to update flusterpy."
 copy_plugin_template:
 	cp -r ${FLUSTER_NATIVE_ROOT}/apps/local_plugin_template_example/ "/Users/bigsexy/Library/Application Support/Fluster/plugins"
 build_node: build_developer_typescript

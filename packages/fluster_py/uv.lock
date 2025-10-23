@@ -289,8 +289,8 @@ wheels = [
 ]
 
 [[package]]
-name = "flusterpy"
-version = "0.1.0"
+name = "fluster-py"
+version = "0.1.5"
 source = { editable = "." }
 dependencies = [
     { name = "appdirs" },

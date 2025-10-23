@@ -1,6 +1,6 @@
 [project]
-name = "flusterpy"
-version = "0.1.0"
+name = "fluster_py"
+version = "0.1.5"
 description = "The python API for the Fluster note taking ecosystem."
 readme = "README.md"
 authors = [{ name = "Fluster.IO", email = "uhlittlelessdumb@gmail.com" }]
@@ -14,8 +14,8 @@ dependencies = [
     "pypdf>=6.1.2",
 ]
 
-[project.scripts]
-flusterpy = "flusterpy:main"
+# [project.scripts]
+# flusterpy = "flusterpy:main"
 
 [build-system]
 requires = ["uv_build>=0.9.3,<0.10.0"]

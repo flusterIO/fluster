@@ -32,7 +32,8 @@ const uvPath = path.join(
     `pyinstaller${extension}`
 );
 
-const compileScript = `${uvPath} --name fluster_python_sidecar --onefile --distpath ${path.join(
+
+const compileScript = `${uvPath} --name fluster_python_sidecar --onefile  --distpath ${path.join(
     sidecarDir,
     "dist"
 )} --workpath ${path.join(
@@ -58,14 +59,15 @@ if (!targetTriple) {
 
 console.log("process.architecture: ", process.architecture);
 console.log("process.platform: ", process.platform);
-if (process.platform === "darwin" && process.architecture === "x64") {
+
+if (process.platform === "darwin") {
     fs.copyFileSync(
         `${existingPath}${extension}`,
         `${existingPath}-x86_64-apple-darwin${extension}`
     );
-} else {
-    fs.copyFileSync(
-        `${existingPath}${extension}`,
-        `${existingPath}-${targetTriple}${extension}`
-    );
 }
+
+fs.copyFileSync(
+    `${existingPath}${extension}`,
+    `${existingPath}-${targetTriple}${extension}`
+);

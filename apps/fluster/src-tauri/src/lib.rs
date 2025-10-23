@@ -306,6 +306,7 @@ pub fn run() {
     // Export to developer package as well, since all components will be running in a Fluster
     // environment.
     tauri::Builder::default()
+        .plugin(tauri_plugin_clipboard_manager::init())
         .plugin(tauri_plugin_shell::init())
         .plugin(tauri_plugin_dialog::init())
         .plugin(prevent)

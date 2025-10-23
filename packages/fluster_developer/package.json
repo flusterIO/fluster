@@ -98,6 +98,7 @@
     "@tailwindcss/postcss": "^4.1.10",
     "@tanstack/react-table": "^8.21.3",
     "@tauri-apps/api": "2",
+    "@tauri-apps/plugin-clipboard-manager": "~2",
     "@tauri-apps/plugin-dialog": "~2",
     "@tauri-apps/plugin-opener": "^2.2.7",
     "class-variance-authority": "^0.7.1",

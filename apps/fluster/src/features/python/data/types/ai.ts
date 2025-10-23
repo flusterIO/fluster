@@ -16,9 +16,9 @@ export interface OllamaTemperatureArgs extends ModelTemperatureArgs {
 
 
 export interface SyncAiArgs extends OllamaTemperatureArgs {
-    override_default_sync_settings: boolean
     notes_directory: string,
+    embedded_docs: EmbeddedDocFile[]
     database_directory: string,
     mdx_files: string[]
-    embedded_docs: EmbeddedDocFile[]
+    override_default_sync_settings: boolean
 }
