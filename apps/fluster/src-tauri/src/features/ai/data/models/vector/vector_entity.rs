@@ -1,11 +1,7 @@
 use arrow_array::{
     types::Float32Type, FixedSizeListArray, RecordBatch, RecordBatchIterator, StringArray,
-    TimestampMillisecondArray,
 };
 use arrow_schema::{ArrowError, DataType, Field, Schema};
-use futures::TryStreamExt;
-use lancedb::query::{ExecutableQuery, QueryBase};
-use serde_arrow::from_record_batch;
 use std::{ops::Index, sync::Arc};
 
 use crate::{
@@ -13,13 +9,11 @@ use crate::{
         database::{db::get_table, tables::table_paths::DatabaseTables},
         types::{
             errors::errors::{FlusterError, FlusterResult},
-            traits::db_entity::{DbEntity, VectorDbEntity},
+            traits::db_entity::VectorDbEntity,
             FlusterDb,
         },
     },
-    features::{
-        ai::data::models::vector::vector_model::VectorModel, search::types::PaginationProps,
-    },
+    features::ai::data::models::vector::vector_model::VectorModel,
 };
 
 pub struct VectorEntity {}
@@ -90,6 +84,7 @@ impl VectorDbEntity<VectorModel> for VectorEntity {
                 Arc::new(source),
                 Arc::new(content),
                 Arc::new(data),
+                Arc::new(vec),
             ],
         )
         .unwrap()

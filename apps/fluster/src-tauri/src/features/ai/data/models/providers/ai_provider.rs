@@ -7,7 +7,7 @@ use crate::{
 };
 
 pub trait AiProvider {
-    fn get_note_vectors(
+    async fn save_note_vectors(
         &self,
         db: &FlusterDb<'_>,
         opts: &SyncFilesystemDirectoryOptions,

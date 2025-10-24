@@ -1,9 +1,12 @@
 use std::ffi::OsStr;
 
 use crate::core::database::db::get_database;
+use crate::core::database::tables::table_paths::DatabaseTables;
 use crate::core::models::taggable::shared_taggable_model::SharedTaggableModel;
 use crate::core::sync::parse_directory::sync_fs_directory::models::sync_filesystem_options::SyncFilesystemDirectoryOptions;
-use crate::core::types::errors::errors::FlusterResult;
+use crate::core::types::errors::errors::{FlusterError, FlusterResult};
+use crate::features::ai::data::models::providers::ai_provider::AiProvider;
+use crate::features::ai::data::models::providers::ollama::OllamaProvider;
 use crate::features::mdx::actions::save_mdx_note_groups::save_mdx_note_groups;
 use crate::features::mdx::data::mdx_note_entity::MdxNoteEntity;
 use crate::features::mdx::data::mdx_note_group::MdxNoteGroup;
@@ -118,6 +121,17 @@ pub async fn sync_mdx_filesystem_notes(opts: &SyncFilesystemDirectoryOptions) ->
         items.push(note_group);
     }
 
-    save_mdx_note_groups(&db, items, opts.existing_taggables.clone()).await?;
+    save_mdx_note_groups(&db, items.clone(), opts.existing_taggables.clone()).await?;
+
+    if opts.ai.with_ai {
+        db.drop_table(DatabaseTables::Vector.to_string())
+            .await
+            .map_err(|_| FlusterError::FailToDropTable)?;
+        OllamaProvider {}
+            .save_note_vectors(&db, opts, items)
+            .await
+            .map_err(|_| FlusterError::DatabaseError)?;
+    }
+
     Ok(())
 }

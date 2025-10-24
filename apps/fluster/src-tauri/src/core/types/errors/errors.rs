@@ -69,6 +69,10 @@ pub enum FlusterError {
 
     #[error("Fail to read settings from database.")]
     FailToReadSettings,
+
+    #[error("General database error.")]
+    DatabaseError,
+
     // Bibliography Errors
     #[error("Fluster could not parse your bibliography file.")]
     FailToParseBibFile,
@@ -112,6 +116,9 @@ pub enum FlusterError {
 
     #[error("Fluster failed to start the database server. This error may be harmless.")]
     FailToStartDb,
+
+    #[error("Fail to drop table.")]
+    FailToDropTable,
 
     #[error("Fluster failed to stop the database server as intended.")]
     FailToStopDb,

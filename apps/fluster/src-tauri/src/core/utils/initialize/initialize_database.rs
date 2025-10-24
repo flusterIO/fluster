@@ -8,7 +8,10 @@ use crate::{
         },
         types::{
             errors::errors::{FlusterError, FlusterResult},
-            traits::{db_entity::DbEntity, index_function::DatabaseIndexSetupFunction},
+            traits::{
+                db_entity::{DbEntity, VectorDbEntity},
+                index_function::DatabaseIndexSetupFunction,
+            },
         },
     },
     features::{
