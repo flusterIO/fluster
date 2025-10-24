@@ -12,7 +12,10 @@ use crate::{
         },
     },
     features::{
-        ai::data::db::{ai_chat_entity::AiChatEntity, ai_chat_message_entity::AiChatMessageEntity},
+        ai::data::{
+            db::{ai_chat_entity::AiChatEntity, ai_chat_message_entity::AiChatMessageEntity},
+            models::vector::vector_entity::VectorEntity,
+        },
         bibliography::data::bib_entry_entity::BibEntryEntity,
         dictionary::dictionary_entry_entity::DictionaryEntryEntity,
         kanban::data::{
@@ -261,7 +264,7 @@ pub async fn initialize_database() -> FlusterResult<()> {
         TableInitData {
             table: DatabaseTables::Vector,
             // Use any schema here since it will just be overwritten.
-            entity: WhiteboardEntity::arrow_schema(),
+            entity: VectorEntity::arrow_schema(0),
             set_indices: None,
         },
     ];
@@ -278,14 +281,16 @@ pub async fn initialize_database() -> FlusterResult<()> {
             // that the table already exists. Add some more robust error handling here once
             // the rest of the functionality is in working order. This additional functionality
             // is likely a necessity to allow for migrations in future versions.
-            let res = create_table(&db, &td.entity, &td.table).await;
-            if res.is_ok() {
-                if td.set_indices.is_some() {
-                    // td.set_indices(&db).await
+            if td.table != DatabaseTables::Vector {
+                let res = create_table(&db, &td.entity, &td.table).await;
+                if res.is_ok() {
+                    if td.set_indices.is_some() {
+                        // td.set_indices(&db).await
+                    }
+                } else {
+                    let s = td.table.to_string();
+                    warn!("Fluster failed while attempting to generate a database table for {s}",);
                 }
-            } else {
-                let s = td.table.to_string();
-                warn!("Fluster failed while attempting to generate a database table for {s}",);
             }
         }
         // TODO: Move these index functions to the loop when on WIFI and able to look at the docs for this fucking type issue.

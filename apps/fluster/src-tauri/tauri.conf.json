@@ -98,9 +98,6 @@
         ],
         "macOS": {
             "signingIdentity": "-"
-        },
-        "externalBin": [
-            "../src-python/fluster_sidecar_api/dist/fluster_python_sidecar"
-        ]
+        }
     }
 }

@@ -69,13 +69,12 @@ pub async fn sync_mdx_filesystem_notes(opts: &SyncFilesystemDirectoryOptions) ->
             MdxNoteGroup::from_file_system_path(&db, file_path, existing_note).await?;
         // -- Apply auto-settings before inserting into array.
         if !note_group.mdx.file_path.is_empty() {
-            let recently_accessed_item = opts
+            if let Some(recently_accessed_item) = opts
                 .recently_accessed_notes
                 .iter()
-                .find(|x| x.file_path == note_group.mdx.file_path);
-            if recently_accessed_item.is_some() {
-                // RESUME: Fix this fucking issue so you can persist the last_read field between syncs. Then finish the dashboard.
-                note_group.mdx.last_read = recently_accessed_item.unwrap().last_read.clone();
+                .find(|x| x.file_path == note_group.mdx.file_path)
+            {
+                note_group.mdx.last_read = recently_accessed_item.last_read.clone();
             }
             for auto_setting in &auto_settings {
                 if let Some(glob_path) = notes_dir_path.join(auto_setting.glob.clone()).to_str() {

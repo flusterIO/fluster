@@ -102,6 +102,9 @@ polars = { version = "0.51.0", features = ["json", "lazy"] }
 tauri-plugin-shell = "2"
 py-rs = "0.1.1"
 tauri-plugin-clipboard-manager = "2"
+rig-core = { version = "0.21.0", features = ["derive", "pdf", "rayon"] }
+reqwest = "0.12.24"
+rig-lancedb = "0.1.0"
 
 # [target.'cfg(target_os = "macos")'.dependencies]
 # kalosm = { version = "0.4.0", features = ["full", "metal"] }

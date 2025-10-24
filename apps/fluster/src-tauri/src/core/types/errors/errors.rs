@@ -6,6 +6,8 @@ use thiserror::Error;
 pub enum FlusterError {
     #[error("Fluster failed to stream data from rust to typescript.")]
     FailToStreamFromRust,
+    #[error("Fluster failed to generate vectors.")]
+    FailToGenerateVectors,
     #[error("Your operating system is not supported.")]
     OperatingSystemNotSupported,
     #[error("Fluster failed to send a cross-language event.")]

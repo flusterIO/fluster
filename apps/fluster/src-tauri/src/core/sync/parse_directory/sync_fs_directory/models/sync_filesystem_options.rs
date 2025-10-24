@@ -45,6 +45,8 @@ pub struct SyncFilesystemDirectoryOptions {
     /// Embeddings model to be used when syncing.
     pub ai: AiSyncSettings,
     pub recently_accessed_notes: Vec<RecentlyAccessedNoteData>,
+    pub ollama_url: String,
+    pub ollama_port: u16,
 }
 
 impl Default for SyncFilesystemDirectoryOptions {
@@ -61,6 +63,8 @@ impl Default for SyncFilesystemDirectoryOptions {
                 subjects: Vec::new(),
             },
             recently_accessed_notes: Vec::new(),
+            ollama_url: "http://localhost".to_string(),
+            ollama_port: 11434,
         }
     }
 }
