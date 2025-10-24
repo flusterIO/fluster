@@ -1,6 +1,7 @@
 use std::ffi::OsStr;
 
 use crate::core::database::db::get_database;
+use crate::core::database::db_utils::{drop_table_if_exist, table_exists};
 use crate::core::database::tables::table_paths::DatabaseTables;
 use crate::core::models::taggable::shared_taggable_model::SharedTaggableModel;
 use crate::core::sync::parse_directory::sync_fs_directory::models::sync_filesystem_options::SyncFilesystemDirectoryOptions;
@@ -124,13 +125,13 @@ pub async fn sync_mdx_filesystem_notes(opts: &SyncFilesystemDirectoryOptions) ->
     save_mdx_note_groups(&db, items.clone(), opts.existing_taggables.clone()).await?;
 
     if opts.ai.with_ai {
-        db.drop_table(DatabaseTables::Vector.to_string())
-            .await
-            .map_err(|_| FlusterError::FailToDropTable)?;
+        println!("Generating vectors...");
+        // -- Clear vector table --
+        drop_table_if_exist(&db, DatabaseTables::Vector).await?;
+        // -- Begin Vector Generation --
         OllamaProvider {}
             .save_note_vectors(&db, opts, items)
-            .await
-            .map_err(|_| FlusterError::DatabaseError)?;
+            .await?;
     }
 
     Ok(())

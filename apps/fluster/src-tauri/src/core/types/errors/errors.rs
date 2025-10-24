@@ -4,6 +4,8 @@ use thiserror::Error;
 
 #[derive(Debug, Error, Serialize, Deserialize, Type)]
 pub enum FlusterError {
+    #[error("A utility error to be used temporarily for debugging.")]
+    CanaryError,
     #[error("Fluster failed to stream data from rust to typescript.")]
     FailToStreamFromRust,
     #[error("Fluster failed to generate vectors.")]

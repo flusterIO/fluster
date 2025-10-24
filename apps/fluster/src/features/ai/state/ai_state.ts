@@ -21,8 +21,6 @@ export interface AiState {
     defaultTopK: number;
     defaultTopP: number;
     defaultRepeatPenalty: number;
-    /** If true, apply default settings during AI sync. */
-    overrideDefaultSyncSettings: boolean;
     ollamaConnection: OllamaConnectionData & {
         useOllamaConnectionData: boolean;
     };

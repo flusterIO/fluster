@@ -4,16 +4,6 @@ use chrono::{DateTime, FixedOffset, Utc};
 
 use crate::core::types::errors::errors::{FlusterError, FlusterResult};
 
-pub fn date_string_to_int(d: &str) -> FlusterResult<i64> {
-    let format = "%Y-%m-%dT%T%.f";
-    let date_time = chrono::DateTime::parse_from_str(d, format).map_err(|e| {
-        println!("Date Error: {:?}", e);
-        FlusterError::FailToParseDate
-    })?;
-    println!("Datetime: {:?}", date_time);
-    Ok(0)
-}
-
 pub fn parse_date(d: &str) -> FlusterResult<i64> {
     let i: FlusterResult<i64> = d.parse().map_err(|_| FlusterError::FailToParseDate);
     if let Ok(_date) = i {
@@ -32,7 +22,6 @@ pub fn reformat_date(d: &str) -> String {
     let format = "%Y-%m-%dT%H:%M:%S";
     let datetime: Result<DateTime<FixedOffset>, chrono::ParseError> =
         chrono::DateTime::parse_from_str(d, format);
-    println!("Datetime: {:?}", datetime);
     if let Ok(res) = chrono::DateTime::<Utc>::from_str(d) {
         return res.timestamp_millis().to_string();
     }

@@ -232,7 +232,6 @@ pub async fn save_mdx_note_groups(
     // inserted by the user anyways. This was ust updating something that wasn't changing like
     // an idiot.
     // EquationEntity::save_many(db, equations).await?;
-    println!("mdx_note_equations length: {:?}", mdx_note_equations.len());
     TagEntity::save_many(
         db,
         tags.iter()

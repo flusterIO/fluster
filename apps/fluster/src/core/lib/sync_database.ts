@@ -24,6 +24,8 @@ export const sync = async (
         | "existing_taggables"
         | "ai"
         | "recently_accessed_notes"
+        | "ollama_url"
+        | "ollama_port"
     > & {
         showSuccessToast?: boolean;
         with_ai: boolean;
@@ -93,23 +95,23 @@ export const sync = async (
                     file_path: recentNote.mdx.file_path,
                 };
             }),
+            ollama_port: state.ai.ollamaConnection.port ?? 11434,
+            ollama_url: state.ai.ollamaConnection.url.length
+                ? state.ai.ollamaConnection.url
+                : "http://localhost",
             ...opts,
         });
-        console.log("res: ", res)
+        console.log("res: ", res);
         if (res.status === "ok") {
-            const aiRes = opts.with_ai ? await syncAi() : true;
-            console.log("aiRes: ", aiRes)
-            if (aiRes) {
-                if (opts.showSuccessToast) {
-                    showToast({
-                        title: "Success",
-                        body: "Your notes were successfully synced with your database",
-                        duration: 3000,
-                        variant: "Success",
-                    });
-                }
-                window.dispatchEvent(new CustomEvent("database-sync-success", {}));
+            if (opts.showSuccessToast) {
+                showToast({
+                    title: "Success",
+                    body: "Your notes were successfully synced with your database",
+                    duration: 3000,
+                    variant: "Success",
+                });
             }
+            window.dispatchEvent(new CustomEvent("database-sync-success", {}));
             return true;
         } else {
             console.error(`An error occured while syncing your notes: `, res.error);

@@ -20,6 +20,7 @@ pub struct VectorEntity {}
 
 impl VectorEntity {
     pub async fn save_many(db: &FlusterDb<'_>, entries: &[VectorModel]) -> FlusterResult<()> {
+        println!("Saving...");
         let schema = VectorEntity::arrow_schema(entries.index(0).vec.len() as i32);
         let tbl = get_table(db, DatabaseTables::Vector).await?;
         let batches: Vec<Result<RecordBatch, ArrowError>> = entries

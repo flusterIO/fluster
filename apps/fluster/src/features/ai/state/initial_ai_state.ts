@@ -15,7 +15,7 @@ export const initialAiState: AiState = {
     defaultTemperature: 0.2,
     ollamaConnection: {
         useOllamaConnectionData: false,
-        url: "",
+        url: "http://localhost",
         port: 11434,
     },
 };

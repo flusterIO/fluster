@@ -13,6 +13,7 @@ import {
     buttonVariants,
     AppRoutes,
     Checkbox,
+    useEventListener,
 } from "@fluster.io/dev";
 import { dashboardStaticData } from "../../../data/models/dashboard_static_data";
 import QuickActionCard from "../../quick_action_card";
@@ -66,6 +67,8 @@ export function Dashboard() {
     useEffect(() => {
         getData();
     }, []);
+
+    useEventListener("database-sync-success", getData);
 
     if (data === null) {
         return (

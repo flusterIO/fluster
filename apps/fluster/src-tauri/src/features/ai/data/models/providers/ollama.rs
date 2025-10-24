@@ -1,7 +1,10 @@
 use std::ops::Index;
 
 use crate::{
-    core::types::errors::errors::FlusterError,
+    core::{
+        database::{db_utils::create_table_if_not_exist, tables::table_paths::DatabaseTables},
+        types::{errors::errors::FlusterError, traits::db_entity::VectorDbEntity},
+    },
     features::ai::data::models::{
         providers::ai_provider::AiProvider,
         vector::{
@@ -27,7 +30,8 @@ impl AiProvider for OllamaProvider {
         opts: &crate::core::sync::parse_directory::sync_fs_directory::models::sync_filesystem_options::SyncFilesystemDirectoryOptions,
         notes: Vec<crate::features::mdx::data::mdx_note_group::MdxNoteGroup>,
     ) -> crate::core::types::errors::errors::FlusterResult<bool> {
-        let ollama = Ollama::new(opts.ollama_url.clone(), opts.ollama_port.clone());
+        println!("Ollama Port: {}", opts.ollama_port.clone());
+        let ollama = Ollama::new(opts.ollama_url.clone(), opts.ollama_port);
 
         let threads: usize = opts.n_threads.parse().unwrap();
         let thread_pool = ThreadPoolBuilder::new()
@@ -35,7 +39,7 @@ impl AiProvider for OllamaProvider {
             .build()
             .map_err(|_| FlusterError::FailToGenerateVectors)?;
 
-        let markdown_splitter = MarkdownSplitter::new(200..1000);
+        let markdown_splitter = MarkdownSplitter::new(200..500);
         let mut docs = thread_pool.install(move || {
             notes
                 .par_iter()
@@ -61,20 +65,40 @@ impl AiProvider for OllamaProvider {
                 .collect::<Vec<Vec<VectorModel>>>()
         });
 
-        let mut vectors = Vec::new();
+        let mut vectors: Vec<VectorModel> = Vec::new();
+
+        let flat_docs = docs
+            .iter()
+            .flatten()
+            .map(|x| x.content.clone())
+            .collect::<Vec<String>>();
+
+        println!("Docs Length: {}", flat_docs.clone().len());
 
         for doc_vec in &mut docs {
             for doc in doc_vec {
+                println!("--- Doc ---");
+                println!("{}", doc.content.clone());
                 let request = GenerateEmbeddingsRequest::new(
                     opts.ai.embedding_model.clone(),
-                    vec![doc.content.clone()].into(),
+                    doc.content.clone().into(),
                 );
-                let res = ollama.generate_embeddings(request).await.unwrap();
+                let res = ollama.generate_embeddings(request).await.map_err(|e| {
+                    println!("Error: {}", e);
+                    FlusterError::CanaryError
+                })?;
                 println!("Vector Length: {}", res.embeddings.len());
                 doc.vec = res.embeddings.index(0).clone();
                 vectors.push(doc.clone())
             }
         }
+
+        create_table_if_not_exist(
+            db,
+            DatabaseTables::Vector,
+            &VectorEntity::arrow_schema(vectors.index(0).vec.len() as i32),
+        )
+        .await?;
 
         VectorEntity::save_many(db, &vectors)
             .await
