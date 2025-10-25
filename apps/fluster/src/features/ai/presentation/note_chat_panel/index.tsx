@@ -1,26 +1,26 @@
-import React, { useEffect, useRef, useState, type ReactNode } from 'react'
+import React, { useEffect, useRef, useState, type ReactNode } from "react";
 import { AppState } from "@/state/initial_state";
-import { connect } from 'react-redux';
-import { SidePanelMessageList } from './message_list';
-import { showToast, Textarea } from '@fluster.io/dev';
-import { AiChatMessageModel, commands } from '@/lib/bindings';
-import { getNoteChatResponse } from '#/python/data/api_client';
-import { useSearchParams } from 'react-router';
+import { connect } from "react-redux";
+import { SidePanelMessageList } from "./message_list";
+import { showToast, Textarea } from "@fluster.io/dev";
+import { AiChatMessageModel, commands } from "@/lib/bindings";
+import { getNoteChatResponse } from "#/python/data/api_client";
+import { useSearchParams } from "react-router";
 
 const connector = connect((state: AppState) => ({
     notesDirectory: state.core.notesDirectory,
-    open: state.panelLeft.open
-}))
+    open: state.panelLeft.open,
+}));
 
 interface Props {
-    notesDirectory: AppState["core"]["notesDirectory"]
-    open: boolean
+    notesDirectory: AppState["core"]["notesDirectory"];
+    open: boolean;
 }
 
 export const NoteChatSidePanel = connector((props: Props): ReactNode => {
     const [messages, setMessages] = useState<AiChatMessageModel[]>([]);
     const input = useRef<HTMLTextAreaElement>(null);
-    const [inputValue, setInputValue] = useState("")
+    const [inputValue, setInputValue] = useState("");
     /* const [loading, setLoading] = useState(false) */
     const [sp] = useSearchParams();
 
@@ -32,35 +32,29 @@ export const NoteChatSidePanel = connector((props: Props): ReactNode => {
             body: inputValue,
             role: "User",
             sent_at: now,
-            chat_id: "--"
-        }
-        setMessages([
-            ...messages,
-            msg
-        ])
-        setInputValue("")
-        const absolutePath = sp.get("fsPath")
+            chat_id: "--",
+        };
+        setMessages([...messages, msg]);
+        setInputValue("");
+        const absolutePath = sp.get("fsPath");
         if (absolutePath === null || !absolutePath?.length) {
             showToast({
                 title: "Oh no",
                 body: "This type of chat requires a note in focus",
                 variant: "Error",
-                duration: 5000
-            })
-            return
+                duration: 5000,
+            });
+            return;
         }
-        const res = await getNoteChatResponse(
-            absolutePath,
-            msg.body
-        )
-        console.log("res: ", res)
-    }
+        const res = await getNoteChatResponse(absolutePath, msg.body);
+        console.log("res: ", res);
+    };
 
     useEffect(() => {
         if (props.open) {
-            input.current?.focus()
+            input.current?.focus();
         }
-    }, [props.open])
+    }, [props.open]);
 
     return (
         <div className="w-full h-full max-h-full flex flex-col justify-center items-center gap-4">
@@ -69,6 +63,9 @@ export const NoteChatSidePanel = connector((props: Props): ReactNode => {
                 className="flex-grow overflow-y-auto px-4"
             />
             <div className="w-full px-3 pt-3 bg-secondary">
+                <div className="text-sm mb-3">
+                    This component is in beta and may not work as expected.
+                </div>
                 <Textarea
                     value={inputValue}
                     ref={input}
@@ -77,17 +74,18 @@ export const NoteChatSidePanel = connector((props: Props): ReactNode => {
                     rows={5}
                     onKeyDown={(e) => {
                         if (e.key === "Enter" && e.metaKey) {
-                            e.stopPropagation()
-                            e.preventDefault()
-                            handleSubmit()
+                            e.stopPropagation();
+                            e.preventDefault();
+                            handleSubmit();
                         }
                     }}
                 />
-                <div className="text-[12px] text-muted-foreground">cmd+Enter to submit</div>
+                <div className="text-[12px] text-muted-foreground">
+                    cmd+Enter to submit
+                </div>
             </div>
         </div>
-    )
-})
+    );
+});
 
-
-NoteChatSidePanel.displayName = "NoteChatSidePanel"
+NoteChatSidePanel.displayName = "NoteChatSidePanel";
