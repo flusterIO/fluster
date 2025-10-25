@@ -13,6 +13,8 @@ export const initialAiState: AiState = {
     defaultTopP: 0.25,
     defaultRepeatPenalty: 1.5,
     defaultTemperature: 0.2,
+    minChunkLength: 200,
+    maxChunkLength: 500,
     ollamaConnection: {
         useOllamaConnectionData: false,
         url: "http://localhost",

@@ -2,6 +2,7 @@ use arrow_array::{
     types::Float32Type, FixedSizeListArray, RecordBatch, RecordBatchIterator, StringArray,
 };
 use arrow_schema::{ArrowError, DataType, Field, Schema};
+use serde_arrow::from_record_batch;
 use std::{ops::Index, sync::Arc};
 
 use crate::{
@@ -13,12 +14,56 @@ use crate::{
             FlusterDb,
         },
     },
-    features::ai::data::models::vector::vector_model::VectorModel,
+    features::{
+        ai::data::models::vector::vector_model::VectorModel, search::types::PaginationProps,
+    },
 };
 
 pub struct VectorEntity {}
 
 impl VectorEntity {
+    // pub async fn semantic_search(
+    //     db: &FlusterDb<'_>,
+    //     query_vector: &[f32],
+    //     pagination: &PaginationProps,
+    // ) -> FlusterResult<Vec<VectorModel>> {
+    //     let tbl = get_table(db, DatabaseTables::Vector).await?;
+    //     let offset = pagination.per_page * (pagination.page_number - 1);
+    //     let items_batch = tbl
+    //         .vector_search(query_vector)
+    //         .map_err(|e| {
+    //             println!("Error: {:?}", e);
+    //             FlusterError::FailToGetSemanticResults
+    //         })?
+    //         .limit(pagination.per_page)
+    //         .offset(offset)
+    //         .execute()
+    //         .await
+    //         .map_err(|e| {
+    //             println!("Error: {:?}", e);
+    //             FlusterError::FailToGetSemanticResults
+    //         })?
+    //         .try_collect::<Vec<_>>()
+    //         .await
+    //         .map_err(|e| {
+    //             println!("Error: {:?}", e);
+    //             FlusterError::FailToGetSemanticResults
+    //         })?;
+
+    //     if items_batch.is_empty() {
+    //         return Ok(Vec::new());
+    //     }
+
+    //     let mut items: Vec<VectorModel> = Vec::new();
+
+    //     for batch in items_batch.iter() {
+    //         let data: Vec<VectorModel> =
+    //             from_record_batch(batch).map_err(|_| FlusterError::FailToSerialize)?;
+    //         items.extend(data);
+    //     }
+
+    //     Ok(items)
+    // }
     pub async fn save_many(db: &FlusterDb<'_>, entries: &[VectorModel]) -> FlusterResult<()> {
         println!("Saving...");
         let schema = VectorEntity::arrow_schema(entries.index(0).vec.len() as i32);

@@ -125,7 +125,6 @@ pub async fn sync_mdx_filesystem_notes(opts: &SyncFilesystemDirectoryOptions) ->
     save_mdx_note_groups(&db, items.clone(), opts.existing_taggables.clone()).await?;
 
     if opts.ai.with_ai {
-        println!("Generating vectors...");
         // -- Clear vector table --
         drop_table_if_exist(&db, DatabaseTables::Vector).await?;
         // -- Begin Vector Generation --

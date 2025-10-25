@@ -6,6 +6,7 @@ import {
     FormItem,
     FormLabel,
     FormMessage,
+    parseDate,
     TagInput,
 } from "@fluster.io/dev";
 import { Input } from "@fluster.io/dev";
@@ -110,15 +111,16 @@ const AddSnippetPanel = connector(
         const handleSubmit = async (
             data: z.infer<typeof snippetSchema>
         ): Promise<void> => {
+            console.log(`Submitting...`);
             const snippetModel: SnippetModel = {
                 id: data.id === "" ? await commands.getUniqueId() : data.id,
                 label: data.label,
                 body: data.body,
                 desc: data.desc,
                 lang: data.lang,
-                ctime: new Date(data.ctime).valueOf().toString(),
+                ctime: parseDate(data.ctime).valueOf().toString(),
                 utime: data.utime
-                    ? new Date(data.utime).valueOf().toString()
+                    ? parseDate(data.utime).valueOf().toString()
                     : new Date().valueOf().toString(),
             };
             const res = await commands.saveSnippet({

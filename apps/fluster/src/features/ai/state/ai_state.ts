@@ -21,6 +21,8 @@ export interface AiState {
     defaultTopK: number;
     defaultTopP: number;
     defaultRepeatPenalty: number;
+    minChunkLength: number;
+    maxChunkLength: number;
     ollamaConnection: OllamaConnectionData & {
         useOllamaConnectionData: boolean;
     };

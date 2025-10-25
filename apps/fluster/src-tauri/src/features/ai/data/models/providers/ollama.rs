@@ -30,7 +30,6 @@ impl AiProvider for OllamaProvider {
         opts: &crate::core::sync::parse_directory::sync_fs_directory::models::sync_filesystem_options::SyncFilesystemDirectoryOptions,
         notes: Vec<crate::features::mdx::data::mdx_note_group::MdxNoteGroup>,
     ) -> crate::core::types::errors::errors::FlusterResult<bool> {
-        println!("Ollama Port: {}", opts.ollama_port.clone());
         let ollama = Ollama::new(opts.ollama_url.clone(), opts.ollama_port);
 
         let threads: usize = opts.n_threads.parse().unwrap();
@@ -39,7 +38,7 @@ impl AiProvider for OllamaProvider {
             .build()
             .map_err(|_| FlusterError::FailToGenerateVectors)?;
 
-        let markdown_splitter = MarkdownSplitter::new(200..500);
+        let markdown_splitter = MarkdownSplitter::new(opts.min_chunk_length..opts.max_chunk_length);
         let mut docs = thread_pool.install(move || {
             notes
                 .par_iter()
@@ -73,21 +72,16 @@ impl AiProvider for OllamaProvider {
             .map(|x| x.content.clone())
             .collect::<Vec<String>>();
 
-        println!("Docs Length: {}", flat_docs.clone().len());
-
         for doc_vec in &mut docs {
             for doc in doc_vec {
-                println!("--- Doc ---");
-                println!("{}", doc.content.clone());
                 let request = GenerateEmbeddingsRequest::new(
                     opts.ai.embedding_model.clone(),
                     doc.content.clone().into(),
                 );
                 let res = ollama.generate_embeddings(request).await.map_err(|e| {
                     println!("Error: {}", e);
-                    FlusterError::CanaryError
+                    FlusterError::FailToGenerateVectors
                 })?;
-                println!("Vector Length: {}", res.embeddings.len());
                 doc.vec = res.embeddings.index(0).clone();
                 vectors.push(doc.clone())
             }

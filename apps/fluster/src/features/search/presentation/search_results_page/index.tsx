@@ -20,7 +20,7 @@ const SearchResultsPage = (): ReactNode => {
 
     return (
         <div className="w-full h-full flex flex-col justify-start items-center gap-4 py-16">
-            <div className="w-[min(768px,90%)]">
+            <div className="w-[min(1080px,90%)]">
                 {results.tasks.length > 0 ? (
                     <div className="w-full flex flex-col justify-start items-center">
                         <TaskItemSearchResultsTable tasks={results.tasks} />

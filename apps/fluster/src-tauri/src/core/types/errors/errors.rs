@@ -8,6 +8,8 @@ pub enum FlusterError {
     CanaryError,
     #[error("Fluster failed to stream data from rust to typescript.")]
     FailToStreamFromRust,
+    #[error("Failed to perform semantic search")]
+    FailToPerformSemanticSearch,
     #[error("Fluster failed to generate vectors.")]
     FailToGenerateVectors,
     #[error("Your operating system is not supported.")]
@@ -32,6 +34,9 @@ pub enum FlusterError {
 
     #[error("Fluster could not find a chat session on your local machine.")]
     FailToReadChatSession,
+
+    #[error("The json string provided is not valid json.")]
+    FailToParseJsonString,
 
     #[error("The file you requested could not be parsed as json.")]
     FailToParseTabularFile,

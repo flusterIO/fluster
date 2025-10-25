@@ -47,6 +47,8 @@ pub struct SyncFilesystemDirectoryOptions {
     pub recently_accessed_notes: Vec<RecentlyAccessedNoteData>,
     pub ollama_url: String,
     pub ollama_port: u16,
+    pub min_chunk_length: usize,
+    pub max_chunk_length: usize,
 }
 
 impl Default for SyncFilesystemDirectoryOptions {
@@ -65,6 +67,8 @@ impl Default for SyncFilesystemDirectoryOptions {
             recently_accessed_notes: Vec::new(),
             ollama_url: "http://localhost".to_string(),
             ollama_port: 11434,
+            min_chunk_length: 200,
+            max_chunk_length: 500,
         }
     }
 }

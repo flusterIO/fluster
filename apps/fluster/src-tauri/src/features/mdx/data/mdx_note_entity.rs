@@ -57,48 +57,6 @@ impl MdxNoteEntity {
 
         Ok(items)
     }
-    pub async fn semantic_search(
-        db: &FlusterDb<'_>,
-        query_vector: &[f32],
-        pagination: &PaginationProps,
-    ) -> FlusterResult<Vec<MdxNoteModel>> {
-        let tbl = get_table(db, DatabaseTables::MdxNote).await?;
-        let offset = pagination.per_page * (pagination.page_number - 1);
-        let items_batch = tbl
-            .vector_search(query_vector)
-            .map_err(|e| {
-                println!("Error: {:?}", e);
-                FlusterError::FailToGetSemanticResults
-            })?
-            .limit(pagination.per_page)
-            .offset(offset)
-            .execute()
-            .await
-            .map_err(|e| {
-                println!("Error: {:?}", e);
-                FlusterError::FailToGetSemanticResults
-            })?
-            .try_collect::<Vec<_>>()
-            .await
-            .map_err(|e| {
-                println!("Error: {:?}", e);
-                FlusterError::FailToGetSemanticResults
-            })?;
-
-        if items_batch.is_empty() {
-            return Ok(Vec::new());
-        }
-
-        let mut items: Vec<MdxNoteModel> = Vec::new();
-
-        for batch in items_batch.iter() {
-            let data: Vec<MdxNoteModel> =
-                from_record_batch(batch).map_err(|_| FlusterError::FailToSerialize)?;
-            items.extend(data);
-        }
-
-        Ok(items)
-    }
     pub async fn full_text_search(
         db: &FlusterDb<'_>,
         query: &String,

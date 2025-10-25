@@ -1,5 +1,5 @@
 import store from "@/state/store.ts";
-import { commands, SyncFilesystemDirectoryOptions } from "./bindings.ts";
+import { commands } from "./bindings.ts";
 import { showToast } from "#/toast_notification/data/events/show_toast.ts";
 import { syncBib } from "#/bibliography/data/methods/sync_bib.ts";
 import { AppState } from "@/state/initial_state.ts";
@@ -10,27 +10,13 @@ import {
 } from "#/ai/state/initial_ai_state.ts";
 import { getRecentlyAccessedNotes } from "#/command_palette/data/tree/recently_accessed.ts";
 import { parseDate } from "@fluster.io/dev";
-import { syncAi } from "#/python/data/api_client/sync_ai.ts";
 
 // TODO: Move this to a Promises.all
 
-export const sync = async (
-    opts: Omit<
-        SyncFilesystemDirectoryOptions,
-        | "dir_path"
-        | "bib_path"
-        | "n_threads"
-        | "use_git_ignore"
-        | "existing_taggables"
-        | "ai"
-        | "recently_accessed_notes"
-        | "ollama_url"
-        | "ollama_port"
-    > & {
-        showSuccessToast?: boolean;
-        with_ai: boolean;
-    }
-): Promise<boolean> => {
+export const sync = async (opts: {
+    showSuccessToast?: boolean;
+    with_ai: boolean;
+}): Promise<boolean> => {
     const state: AppState = store.getState();
     if (!state.core.notesDirectory.trim().length) {
         showToast({
@@ -40,6 +26,15 @@ export const sync = async (
             variant: "Error",
         });
         return false;
+    }
+    if (state.ai.maxChunkLength <= state.ai.minChunkLength) {
+        showToast({
+            title: "Setting error",
+            body: "Your max chunk size setting is less than your min chunk size setting. Cannot continue with syncing with AI. Continuing without AI",
+            duration: 5000,
+            variant: "Error",
+        });
+        opts.with_ai = false;
     }
     const dirExists = await commands.pathExists(state.core.notesDirectory);
     if (!dirExists) {
@@ -99,6 +94,8 @@ export const sync = async (
             ollama_url: state.ai.ollamaConnection.url.length
                 ? state.ai.ollamaConnection.url
                 : "http://localhost",
+            max_chunk_length: state.ai.maxChunkLength ?? 500,
+            min_chunk_length: state.ai.minChunkLength ?? 200,
             ...opts,
         });
         console.log("res: ", res);
