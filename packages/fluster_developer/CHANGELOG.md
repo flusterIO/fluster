@@ -1,5 +1,11 @@
 # @fluster.io/dev
 
+## 0.3.20
+
+### Patch Changes
+
+- Move semantic search back to Rust.
+
 ## 0.3.19
 
 ### Patch Changes
