@@ -10,14 +10,11 @@ use crate::{
         types::errors::errors::{FlusterError, FlusterResult},
     },
     features::{
-        ai::data::models::vector::vector_model::{
-            MdxNoteVectorData, VectorModel, VectorModelWithDistance,
-        },
+        ai::data::models::vector::vector_model::{MdxNoteVectorData, VectorModelWithDistance},
         mdx::{
-            data::{mdx_note_entity::MdxNoteEntity, mdx_note_model::MdxNoteModel},
+            data::mdx_note_entity::MdxNoteEntity,
             methods::mdx_note_models_to_mdx_note_groups::mdx_note_models_to_mdx_note_groups,
         },
-        search::types::PaginationProps,
     },
 };
 use futures::TryStreamExt;
@@ -32,7 +29,6 @@ use super::semantic_search_results::SemanticSearchResults;
 pub async fn semantic_search(
     query: String,
     ai: AiSyncSettings,
-    pagination: PaginationProps,
 ) -> FlusterResult<SemanticSearchResults> {
     let db_res = get_database().await;
     let db = db_res.lock().await;
@@ -78,8 +74,6 @@ pub async fn semantic_search(
         let mut file_paths: Vec<String> = Vec::new();
         for batch in search_results.iter() {
             let batch_schema = batch.schema();
-            println!("Batch Schema: {:?}", batch_schema);
-            println!("Batch: {:?}", batch);
             // println!("Distance: {:?}", batch.column("distance").to_data());
             let data: Vec<VectorModelWithDistance> = from_record_batch(batch).map_err(|e| {
                 println!("Error in from_record_batch: {}", e);
@@ -95,10 +89,6 @@ pub async fn semantic_search(
         }
 
         let mdx_notes = MdxNoteEntity::get_by_file_paths(&db, file_paths).await?;
-
-        let sorted_file_paths: Vec<String> = Vec::new();
-
-        let sorted_notes: Vec<MdxNoteModel> = Vec::new();
 
         let mdx_note_groups = mdx_note_models_to_mdx_note_groups(&db, mdx_notes).await?;
 
@@ -125,14 +115,8 @@ mod tests {
                 with_ai: true,
                 max_text_split_tokens: 500,
             },
-            PaginationProps {
-                per_page: 10,
-                page_number: 1,
-            },
         )
         .await;
-
-        println!("Response: {:?}", res);
 
         assert!(
             res.is_ok(),

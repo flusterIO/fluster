@@ -144,9 +144,9 @@ async getSubjectSearchResults(tagValues: string[]) : Promise<Result<TraditionalS
     else return { status: "error", error: e  as any };
 }
 },
-async semanticSearch(query: string, ai: AiSyncSettings, pagination: PaginationProps) : Promise<Result<SemanticSearchResults, FlusterError>> {
+async semanticSearch(query: string, ai: AiSyncSettings) : Promise<Result<SemanticSearchResults, FlusterError>> {
     try {
-    return { status: "ok", data: await TAURI_INVOKE("semantic_search", { query, ai, pagination }) };
+    return { status: "ok", data: await TAURI_INVOKE("semantic_search", { query, ai }) };
 } catch (e) {
     if(e instanceof Error) throw e;
     else return { status: "error", error: e  as any };

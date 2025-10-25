@@ -1,16 +1,11 @@
-import {
-    commands,
-    PaginationProps,
-    SemanticSearchResults,
-} from "@/lib/bindings";
+import { commands, SemanticSearchResults } from "@/lib/bindings";
 import React, { useEffect, useState, type ReactNode } from "react";
 import { useSearchParams } from "react-router";
 import { MdxNoteSearchResult } from "../search_result_items/mdx_note";
 import { SemanticSearchInputRow } from "./input_row";
 import { SearchResultsQuantityCard } from "./quantity_card";
 import { LoadingComponent } from "@/components/loading_screen";
-import { AppRoutes } from "@fluster.io/dev";
-import { PaginationPropsAsNumber } from "@/types/general";
+import { AppRoutes, useEventListener } from "@fluster.io/dev";
 
 import { AppState } from "@/state/initial_state";
 import { connect } from "react-redux";
@@ -27,14 +22,14 @@ interface CountData {
     bibEntries: number | string;
 }
 
-const getPagination = (sp: URLSearchParams): PaginationPropsAsNumber => {
-    const _page = sp.get("page");
-    const _per_page = sp.get("per_page");
-    return {
-        page_number: _page ? parseInt(_page) : 1,
-        per_page: _per_page ? parseInt(_per_page) : 50,
-    };
-};
+/* const getPagination = (sp: URLSearchParams): PaginationPropsAsNumber => { */
+/*     const _page = sp.get("page"); */
+/*     const _per_page = sp.get("per_page"); */
+/*     return { */
+/*         page_number: _page ? parseInt(_page) : 1, */
+/*         per_page: _per_page ? parseInt(_per_page) : 50, */
+/*     }; */
+/* }; */
 
 export const SemanticSearchResultsPage = connector(
     ({
@@ -51,11 +46,12 @@ export const SemanticSearchResultsPage = connector(
         const [count, setCount] = useState<CountData | null>();
         const query = searchParams.get("query");
 
-        const getData = async (
-            query: string,
-            sp: URLSearchParams
-        ): Promise<void> => {
-            const pagination = getPagination(sp);
+        const getData = async (): Promise<void> => {
+            const query = searchParams.get("query");
+            /* const pagination = getPagination(sp); */
+            if (!query) {
+                return;
+            }
             const res = await commands.semanticSearch(
                 query,
                 {
@@ -63,8 +59,8 @@ export const SemanticSearchResultsPage = connector(
                     language_model: defaultLanguageModel,
                     max_text_split_tokens: maxTextSplitTokens as unknown as string,
                     with_ai: false,
-                },
-                pagination as unknown as PaginationProps
+                }
+                /* pagination as unknown as PaginationProps */
             );
             if (res.status === "ok") {
                 setData(res.data);
@@ -90,8 +86,8 @@ export const SemanticSearchResultsPage = connector(
         };
 
         useEffect(() => {
-            if (query) {
-                getData(query, searchParams);
+            if (searchParams.has("query")) {
+                getData();
             } else {
                 setData({
                     notes: [],
@@ -99,6 +95,8 @@ export const SemanticSearchResultsPage = connector(
             }
             /* eslint-disable-next-line  -- I hate this fucing rule. */
         }, [query, searchParams]);
+
+        useEventListener("database-sync-success", getData);
 
         if (count === null || data === null) {
             return (
