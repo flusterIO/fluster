@@ -94,11 +94,10 @@ export const sync = async (opts: {
             ollama_url: state.ai.ollamaConnection.url.length
                 ? state.ai.ollamaConnection.url
                 : "http://localhost",
-            max_chunk_length: state.ai.maxChunkLength ?? 500,
-            min_chunk_length: state.ai.minChunkLength ?? 200,
+            max_chunk_length: (state.ai.maxChunkLength ?? 500) as unknown as string, // Stupid hack to get around specta type conversion error.
+            min_chunk_length: (state.ai.minChunkLength ?? 200) as unknown as string,
             ...opts,
         });
-        console.log("res: ", res);
         if (res.status === "ok") {
             if (opts.showSuccessToast) {
                 showToast({
