@@ -5,6 +5,7 @@ pub mod dashboard;
 pub mod dictionary;
 pub mod editor;
 pub mod embedded_docs;
+pub mod flashcard;
 pub mod health;
 pub mod jupyter;
 pub mod kanban;

@@ -35,7 +35,7 @@ const OnboardingSetupCompleteScreen = (): ReactNode => {
                 <p className="indent-4">
                     If you're a student or an academic, please consider sharing this model
                     with others, along with where you found it. I've been homeless for
-                    more than 3 years after I gave up my career to work on this model upon
+                    almost 4 years after I gave up my career to work on this model upon
                     realizing the potential this model has to supersede general
                     relativity.
                 </p>

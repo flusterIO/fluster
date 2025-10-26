@@ -509,9 +509,9 @@ async getEquations() : Promise<Result<EquationData[], FlusterError>> {
     else return { status: "error", error: e  as any };
 }
 },
-async saveEquation(item: EquationData, toastChannel: TAURI_CHANNEL<ToastConfig>) : Promise<Result<null, FlusterError>> {
+async saveEquation(item: EquationData) : Promise<Result<null, FlusterError>> {
     try {
-    return { status: "ok", data: await TAURI_INVOKE("save_equation", { item, toastChannel }) };
+    return { status: "ok", data: await TAURI_INVOKE("save_equation", { item }) };
 } catch (e) {
     if(e instanceof Error) throw e;
     else return { status: "error", error: e  as any };
@@ -1096,7 +1096,7 @@ export type SearchOrder = "Created"
 export type SearchParams = { order: SearchOrder | null; per_page: number | null; page: number | null }
 export type SemanticSearchResults = { notes: MdxNoteGroup[] }
 export type SetDbConnectionUri = { uri: string }
-export type SharedTaggableModel = { value: string; ctime: string }
+export type SharedTaggableModel = { value: string; utime: string }
 export type SnippetData = { snippet: SnippetModel; tags: SnippetTagModel[] }
 /**
  * The SnippetModel is the snippet representation that is passed back and forth across language

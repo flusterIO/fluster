@@ -102,7 +102,7 @@ pub async fn save_mdx_note_groups(
         .iter()
         .map(|x| SharedTaggableModelWithExists {
             value: x.value.clone(),
-            ctime: reformat_date(&x.ctime),
+            utime: reformat_date(&x.utime),
             exists: true,
         })
         .collect();
@@ -111,7 +111,7 @@ pub async fn save_mdx_note_groups(
         .iter()
         .map(|x| SharedTaggableModelWithExists {
             value: x.value.clone(),
-            ctime: reformat_date(&x.ctime),
+            utime: reformat_date(&x.utime),
             exists: true,
         })
         .collect();
@@ -120,7 +120,7 @@ pub async fn save_mdx_note_groups(
         .iter()
         .map(|x| SharedTaggableModelWithExists {
             value: x.value.clone(),
-            ctime: reformat_date(&x.ctime),
+            utime: reformat_date(&x.utime),
             exists: true,
         })
         .collect();
@@ -173,7 +173,7 @@ pub async fn save_mdx_note_groups(
             if !taggable_vec_exists(&tags, &t) {
                 tags.push(SharedTaggableModelWithExists {
                     value: t.value.clone(),
-                    ctime: t.ctime.clone(),
+                    utime: t.utime.clone(),
                     exists: false,
                 });
             }
@@ -192,7 +192,7 @@ pub async fn save_mdx_note_groups(
             if !taggable_vec_exists(&subjects, s) {
                 subjects.push(SharedTaggableModelWithExists {
                     value: s.value.clone(),
-                    ctime: s.ctime.clone(),
+                    utime: s.utime.clone(),
                     exists: false,
                 });
             }
@@ -212,7 +212,7 @@ pub async fn save_mdx_note_groups(
             if !taggable_vec_exists(&topics, t) {
                 topics.push(SharedTaggableModelWithExists {
                     value: t.value.clone(),
-                    ctime: t.ctime.clone(),
+                    utime: t.utime.clone(),
                     exists: false,
                 });
             }
@@ -241,7 +241,7 @@ pub async fn save_mdx_note_groups(
                 } else {
                     Some(SharedTaggableModel {
                         value: t.value.clone(),
-                        ctime: t.ctime.clone(),
+                        utime: t.utime.clone(),
                     })
                 }
             })
@@ -258,7 +258,7 @@ pub async fn save_mdx_note_groups(
                 } else {
                     Some(SharedTaggableModel {
                         value: t.value.clone(),
-                        ctime: t.ctime.clone(),
+                        utime: t.utime.clone(),
                     })
                 }
             })
@@ -275,7 +275,7 @@ pub async fn save_mdx_note_groups(
                 } else {
                     Some(SharedTaggableModel {
                         value: t.value.clone(),
-                        ctime: t.ctime.clone(),
+                        utime: t.utime.clone(),
                     })
                 }
             })
@@ -310,8 +310,8 @@ mod tests {
         let tags = TagEntity::get_many(&db)
             .await
             .expect("Gets tags without throwing an error.");
-        println!("Ctime: {}", tags.index(0).ctime);
-        let d = reformat_date(&tags.index(0).ctime);
+        println!("utime: {}", tags.index(0).utime);
+        let d = reformat_date(&tags.index(0).utime);
         println!("Data: {}", d);
         assert!(d != "0", "Returns a non-empty date")
     }

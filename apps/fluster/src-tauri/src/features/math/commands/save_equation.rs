@@ -3,10 +3,8 @@ use chrono::Utc;
 use crate::{
     core::{
         database::db::get_database,
-        events::show_toast::{ToastConfig, ToastVariant},
         models::taggable::{shared_taggable_model::SharedTaggableModel, tag_entity::TagEntity},
-        types::errors::errors::{FlusterError, FlusterResult},
-        utils::{random_utils::get_unique_id, type_aliases::ToastChannel},
+        types::errors::errors::FlusterResult,
     },
     features::math::data::{
         equation_entity::EquationEntity, equation_model::EquationData,
@@ -16,29 +14,29 @@ use crate::{
 
 #[tauri::command]
 #[specta::specta]
-pub async fn save_equation(item: EquationData, toast_channel: ToastChannel) -> FlusterResult<()> {
+pub async fn save_equation(item: EquationData) -> FlusterResult<()> {
     let db_res = get_database().await;
     let db = db_res.lock().await;
-    if item.equation.equation_id.is_some() {
-        let equation_id_exists =
-            EquationEntity::equation_id_exists(&db, item.equation.equation_id.as_ref().unwrap())
-                .await?;
-        if equation_id_exists {
-            let res = toast_channel.send(ToastConfig {
-                title: String::from("Duplicate id's."),
-                variant: ToastVariant::Error,
-                duration: 5000,
-                body: String::from(
-                    "The id field you provided is already applied to another equation",
-                ),
-                id: get_unique_id().await,
-            });
-            if res.is_err() {
-                println!("Error in save equation: {:?}", res.err());
-            }
-            return Err(FlusterError::DuplicateId);
-        }
-    }
+    // if item.equation.equation_id.is_some() {
+    //     let equation_id_exists =
+    //         EquationEntity::equation_id_exists(&db, item.equation.equation_id.as_ref().unwrap())
+    //             .await?;
+    //     if equation_id_exists {
+    //         let res = toast_channel.send(ToastConfig {
+    //             title: String::from("Duplicate id's."),
+    //             variant: ToastVariant::Error,
+    //             duration: 5000,
+    //             body: String::from(
+    //                 "The id field you provided is already applied to another equation",
+    //             ),
+    //             id: get_unique_id().await,
+    //         });
+    //         if res.is_err() {
+    //             println!("Error in save equation: {:?}", res.err());
+    //         }
+    //         return Err(FlusterError::DuplicateId);
+    //     }
+    // }
     EquationEntity::save_many(&db, vec![item.equation.clone()]).await?;
     // let equation_tag_to_delete: Vec<SharedTaggableModel> = Vec::new();
     // -- Get existing tags
@@ -102,7 +100,7 @@ pub async fn save_equation(item: EquationData, toast_channel: ToastChannel) -> F
                 .iter()
                 .map(|x| SharedTaggableModel {
                     value: x.to_string(),
-                    ctime: now.clone(),
+                    utime: now.clone(),
                 })
                 .collect(),
         )
@@ -144,11 +142,7 @@ mod tests {
                 equation_id: Some(String::from("my_equation_id")),
             },
         };
-        let toast_channel: Channel<ToastConfig> = Channel::new(|_| {
-            println!("Toast received");
-            Ok(())
-        });
-        let res = save_equation(data, toast_channel).await;
+        let res = save_equation(data).await;
         assert!(res.is_ok(), "Saves equation without throwing an id");
         // assert_eq!(result, 4);
     }

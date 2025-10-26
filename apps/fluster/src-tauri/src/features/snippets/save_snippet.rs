@@ -83,7 +83,7 @@ pub async fn save_snippet(item: SnippetData) -> FlusterResult<()> {
                 .iter()
                 .map(|x| SharedTaggableModel {
                     value: x.to_string(),
-                    ctime: now.clone(),
+                    utime: now.clone(),
                 })
                 .collect(),
         )

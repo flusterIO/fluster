@@ -56,6 +56,7 @@ export * from "./components/inputs/switch_input/index";
 export * from "./components/inputs/slider/general/index";
 export * from "./components/inputs/checkbox_group/index";
 export * from "./components/inputs/checkbox_input/index";
+export * from "./components/inputs/auto_complete/index";
 // -- Utils --
 export * from "./utils/get_color_prop";
 export * from "./utils/bundled_languages";

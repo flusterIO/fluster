@@ -1,6 +1,6 @@
 use std::str::FromStr;
 
-use chrono::{DateTime, FixedOffset, Utc};
+use chrono::Utc;
 
 use crate::core::types::errors::errors::{FlusterError, FlusterResult};
 
@@ -20,8 +20,9 @@ pub fn new_date_now() -> i64 {
 
 pub fn reformat_date(d: &str) -> String {
     let format = "%Y-%m-%dT%H:%M:%S";
-    let datetime: Result<DateTime<FixedOffset>, chrono::ParseError> =
-        chrono::DateTime::parse_from_str(d, format);
+    if let Ok(datetime) = chrono::DateTime::parse_from_str(d, format) {
+        return datetime.timestamp_millis().to_string();
+    }
     if let Ok(res) = chrono::DateTime::<Utc>::from_str(d) {
         return res.timestamp_millis().to_string();
     }

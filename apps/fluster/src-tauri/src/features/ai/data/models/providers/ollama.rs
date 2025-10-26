@@ -66,12 +66,6 @@ impl AiProvider for OllamaProvider {
 
         let mut vectors: Vec<VectorModel> = Vec::new();
 
-        let flat_docs = docs
-            .iter()
-            .flatten()
-            .map(|x| x.content.clone())
-            .collect::<Vec<String>>();
-
         for doc_vec in &mut docs {
             for doc in doc_vec {
                 let request = GenerateEmbeddingsRequest::new(

@@ -9,6 +9,7 @@ import { EquationSearchPanelRight } from "#/math/presentation/equation_search_pa
 import { AiChatSettingsPanelRight } from "#/ai/presentation/ai_chat_settings_panel_right";
 import { CalendarPanelRight } from "#/calendar/presentation/calendar_page/calendar_panel_right";
 import { NoteChatSidePanel } from "#/ai/presentation/note_chat_panel";
+import { FlashcardPanelRightPlaceholder } from "#/flashcard/presentation/flashcard_panel_right/placeholder";
 
 const PanelRightSwitch = (): ReactNode => {
     const n = useRoutes([
@@ -43,6 +44,10 @@ const PanelRightSwitch = (): ReactNode => {
         {
             path: AppRoutes.hello_world,
             Component: NoteChatSidePanel,
+        },
+        {
+            path: AppRoutes.flashcard,
+            Component: FlashcardPanelRightPlaceholder,
         },
     ]);
     return n;

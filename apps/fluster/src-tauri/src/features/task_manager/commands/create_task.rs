@@ -74,7 +74,7 @@ pub async fn create_task(task: TaskModel, tags: Vec<TaskTagModel>) -> FlusterRes
                 .iter()
                 .map(|x| SharedTaggableModel {
                     value: x.to_string(),
-                    ctime: now.clone(),
+                    utime: now.clone(),
                 })
                 .collect(),
         )

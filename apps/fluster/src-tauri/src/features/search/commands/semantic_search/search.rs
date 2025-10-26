@@ -73,7 +73,6 @@ pub async fn semantic_search(
 
         let mut file_paths: Vec<String> = Vec::new();
         for batch in search_results.iter() {
-            let batch_schema = batch.schema();
             // println!("Distance: {:?}", batch.column("distance").to_data());
             let data: Vec<VectorModelWithDistance> = from_record_batch(batch).map_err(|e| {
                 println!("Error in from_record_batch: {}", e);

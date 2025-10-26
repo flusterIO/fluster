@@ -23,7 +23,7 @@ export const onBoardingPageData: OnBoardingPageData[] = [
     {
         sidebar: {
             title: "Wait... this important",
-            body: "We need to download some large files before your dadtabase can be synchronized.",
+            body: "Just a little information about how you can get Fluster to take advantage of 100% local AI.",
         },
     },
     {

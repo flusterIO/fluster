@@ -21,6 +21,10 @@ use crate::{
         },
         bibliography::data::bib_entry_entity::BibEntryEntity,
         dictionary::dictionary_entry_entity::DictionaryEntryEntity,
+        flashcard::data::models::{
+            flashcard_entity::FlashcardEntity, flashcard_subject_entity::FlashcardSubjectEntity,
+            flashcard_tag_entity::FlashcardTagEntity, flashcard_topic_entity::FlashcardTopicEntity,
+        },
         kanban::data::{
             kanban_board_entity::KanbanBoardEntity,
             kanban_board_entry_entity::KanbanBoardEntryEntity,
@@ -255,6 +259,27 @@ pub async fn initialize_database() -> FlusterResult<()> {
         TableInitData {
             table: DatabaseTables::KanbanBoardList,
             entity: KanbanBoardListEntity::arrow_schema(),
+            set_indices: None,
+        },
+        // -- Flashcard --
+        TableInitData {
+            table: DatabaseTables::Flashcard,
+            entity: FlashcardEntity::arrow_schema(),
+            set_indices: None,
+        },
+        TableInitData {
+            table: DatabaseTables::FlashcardSubject,
+            entity: FlashcardSubjectEntity::arrow_schema(),
+            set_indices: None,
+        },
+        TableInitData {
+            table: DatabaseTables::FlashcardTopic,
+            entity: FlashcardTopicEntity::arrow_schema(),
+            set_indices: None,
+        },
+        TableInitData {
+            table: DatabaseTables::FlashcardTag,
+            entity: FlashcardTagEntity::arrow_schema(),
             set_indices: None,
         },
         // -- Whiteboard --

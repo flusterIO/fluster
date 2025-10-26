@@ -110,20 +110,15 @@ export const AddEquationPanel = connector(
                 utime: now,
                 equation_id: data.user_provided_id,
             };
-            const toastChannel = new Channel<ToastConfig>();
-            toastChannel.onmessage = (toastConfig) => showToast(toastConfig);
-            const res = await commands.saveEquation(
-                {
-                    equation: model,
-                    tags: data.tags.map((t) => {
-                        return {
-                            value: t,
-                            ctime: now,
-                        };
-                    }),
-                },
-                toastChannel
-            );
+            const res = await commands.saveEquation({
+                equation: model,
+                tags: data.tags.map((t) => {
+                    return {
+                        value: t,
+                        ctime: now,
+                    };
+                }),
+            });
             if (res.status === "ok") {
                 form.reset();
                 requestEquationListRefresh();

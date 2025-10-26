@@ -123,17 +123,17 @@ impl TopicEntity {
 
 impl DbEntity<SharedTaggableModel> for TopicEntity {
     fn to_record_batch(item: &SharedTaggableModel, schema: Arc<Schema>) -> RecordBatch {
-        let ctime_value: i64 = item.ctime.parse().unwrap();
-        let ctime = TimestampMillisecondArray::from(vec![ctime_value]);
+        let utime_value: i64 = item.utime.parse().unwrap();
+        let utime = TimestampMillisecondArray::from(vec![utime_value]);
         let text_array = arrow_array::StringArray::from(vec![item.value.clone()]);
         // Create the vector array
-        RecordBatch::try_new(schema, vec![Arc::new(text_array), Arc::new(ctime)]).unwrap()
+        RecordBatch::try_new(schema, vec![Arc::new(text_array), Arc::new(utime)]).unwrap()
     }
     fn arrow_schema() -> Arc<Schema> {
         Arc::new(Schema::new(vec![
             Field::new("value", DataType::Utf8, false),
             Field::new(
-                "ctime",
+                "utime",
                 DataType::Timestamp(arrow_schema::TimeUnit::Millisecond, None),
                 false,
             ),

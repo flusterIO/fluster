@@ -7,13 +7,13 @@ use crate::core::types::traits::db_entity::FlusterDateTime;
 #[derive(Type, Serialize, Deserialize, Debug, Clone)]
 pub struct SharedTaggableModel {
     pub value: String,
-    pub ctime: String,
+    pub utime: String,
 }
 
 #[derive(Type, Serialize, Deserialize, Debug, Clone)]
 pub struct SharedTaggableModelWithExists {
     pub value: String,
-    pub ctime: String,
+    pub utime: String,
     pub exists: bool,
 }
 
@@ -25,7 +25,7 @@ impl SharedTaggableModel {
         };
         SharedTaggableModel {
             value: val,
-            ctime: _ctime.timestamp_millis().to_string(),
+            utime: _ctime.timestamp_millis().to_string(),
         }
     }
 }

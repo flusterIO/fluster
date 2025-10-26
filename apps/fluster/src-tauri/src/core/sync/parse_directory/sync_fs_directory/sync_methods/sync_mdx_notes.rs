@@ -1,11 +1,11 @@
 use std::ffi::OsStr;
 
 use crate::core::database::db::get_database;
-use crate::core::database::db_utils::{drop_table_if_exist, table_exists};
+use crate::core::database::db_utils::drop_table_if_exist;
 use crate::core::database::tables::table_paths::DatabaseTables;
 use crate::core::models::taggable::shared_taggable_model::SharedTaggableModel;
 use crate::core::sync::parse_directory::sync_fs_directory::models::sync_filesystem_options::SyncFilesystemDirectoryOptions;
-use crate::core::types::errors::errors::{FlusterError, FlusterResult};
+use crate::core::types::errors::errors::FlusterResult;
 use crate::features::ai::data::models::providers::ai_provider::AiProvider;
 use crate::features::ai::data::models::providers::ollama::OllamaProvider;
 use crate::features::mdx::actions::save_mdx_note_groups::save_mdx_note_groups;
@@ -94,7 +94,7 @@ pub async fn sync_mdx_filesystem_notes(opts: &SyncFilesystemDirectoryOptions) ->
                                 if !exists {
                                     note_group.tags.push(SharedTaggableModel {
                                         value: auto_setting.value.clone(),
-                                        ctime: Utc::now().timestamp_millis().to_string(),
+                                        utime: Utc::now().timestamp_millis().to_string(),
                                     })
                                 }
                             }
@@ -102,7 +102,7 @@ pub async fn sync_mdx_filesystem_notes(opts: &SyncFilesystemDirectoryOptions) ->
                                 if note_group.front_matter.topic.is_none() {
                                     note_group.front_matter.topic = Some(SharedTaggableModel {
                                         value: auto_setting.value.clone(),
-                                        ctime: Utc::now().timestamp_millis().to_string(),
+                                        utime: Utc::now().timestamp_millis().to_string(),
                                     });
                                 }
                             }
@@ -110,7 +110,7 @@ pub async fn sync_mdx_filesystem_notes(opts: &SyncFilesystemDirectoryOptions) ->
                                 if note_group.front_matter.subject.is_none() {
                                     note_group.front_matter.subject = Some(SharedTaggableModel {
                                         value: auto_setting.value.clone(),
-                                        ctime: Utc::now().timestamp_millis().to_string(),
+                                        utime: Utc::now().timestamp_millis().to_string(),
                                     });
                                 }
                             }

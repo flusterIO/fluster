@@ -31,6 +31,7 @@ import { SplashScreen } from "#/splash_screen";
 import { CalendarPage } from "#/calendar/presentation/calendar_page/calendar_page";
 import { TabularDataTablePage } from "#/tabular/presentation/tabular_datatable_page";
 import { FlusterSidecarHelloWorldPage } from "#/python/presentation/hello_world_page";
+import { FlashcardPage } from "#/flashcard/presentation/flashcard_page";
 
 export const getBrowserRouter = () => {
     return createBrowserRouter([
@@ -172,7 +173,7 @@ export const getBrowserRouter = () => {
                         },
                         {
                             path: AppRoutes.hello_world,
-                            Component: FlusterSidecarHelloWorldPage
+                            Component: FlusterSidecarHelloWorldPage,
                         },
                         {
                             path: AppRoutes.semanticSearch,
@@ -190,6 +191,10 @@ export const getBrowserRouter = () => {
                         {
                             path: AppRoutes.viewMdxNote,
                             Component: MdxNoteByFilePathPage,
+                        },
+                        {
+                            path: AppRoutes.flashcard,
+                            Component: FlashcardPage,
                         },
                         {
                             path: AppRoutes.aiMainChat,
