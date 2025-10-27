@@ -1,5 +1,12 @@
 # @fluster/plugin_template
 
+## 0.0.45
+
+### Patch Changes
+
+- Updated dependencies
+  - @fluster.io/dev@0.3.21
+
 ## 0.0.44
 
 ### Patch Changes

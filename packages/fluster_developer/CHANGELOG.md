@@ -1,5 +1,11 @@
 # @fluster.io/dev
 
+## 0.3.21
+
+### Patch Changes
+
+- Add flashcards and interactive quizzes.
+
 ## 0.3.20
 
 ### Patch Changes
