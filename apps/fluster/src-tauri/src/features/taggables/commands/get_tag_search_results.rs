@@ -5,6 +5,9 @@ use crate::{
         types::errors::errors::FlusterResult,
     },
     features::{
+        flashcard::data::models::{
+            flashcard_entity::FlashcardEntity, flashcard_tag_entity::FlashcardTagEntity,
+        },
         math::data::{
             equation_entity::EquationEntity, equation_model::EquationData,
             equation_tag_entity::EquationTagEntity, equation_tag_model::EquationTagModel,
@@ -95,7 +98,7 @@ pub async fn get_tag_search_results(
         });
     }
 
-    let snippet_tags = SnippetTagEntity::get_by_values(&db, tag_values).await?;
+    let snippet_tags = SnippetTagEntity::get_by_values(&db, tag_values.clone()).await?;
 
     let snippets = SnippetEntity::get_by_ids(
         &db,
@@ -122,8 +125,24 @@ pub async fn get_tag_search_results(
         })
     }
 
+    let flashcard_tags = FlashcardTagEntity::get_by_tag_values(&db, &tag_values).await?;
+
+    let mut flashcards = Vec::new();
+
+    if !flashcard_tags.is_empty() {
+        flashcards = FlashcardEntity::get_by_ids(
+            &db,
+            flashcard_tags
+                .iter()
+                .map(|flashcard_tag| flashcard_tag.flashcard_id.clone())
+                .collect(),
+        )
+        .await?;
+    }
+
     Ok(TraditionalSearchResults {
         notes,
+        flashcards,
         tasks,
         equations: equation_data_items,
         snippets: snippet_data_items,

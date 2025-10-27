@@ -4,6 +4,7 @@ import { useNavigate } from "react-router";
 
 interface TagBadgeProps {
     tagValue: string;
+    onClick?: () => void;
 }
 
 export const TagBadge = (props: TagBadgeProps): ReactNode => {
@@ -15,6 +16,9 @@ export const TagBadge = (props: TagBadgeProps): ReactNode => {
                 const sp = new URLSearchParams();
                 sp.set("by_tag", props.tagValue);
                 nav(`${AppRoutes.search}?${sp.toString()}`);
+                if (props.onClick) {
+                    props.onClick();
+                }
             }}
         >
             {props.tagValue}

@@ -49,6 +49,7 @@ use crate::features::embedded_docs::get_all_embedded_docs::get_all_embedded_docs
 use crate::features::embedded_docs::get_embedded_doc_by_id::get_embedded_doc;
 use crate::features::embedded_docs::get_embedded_doc_by_id::get_embedded_doc_by_relative_path;
 use crate::features::flashcard::commands::{
+    add_flashcard_correct_status::set_flashcard_complete_status,
     delete_flashcard_by_id::delete_flashcard_by_id, get_flashcard_data::get_flashcard_data,
     get_flashcard_summaries::get_flashcard_summaries,
     get_flashcard_topics_and_subjects::get_flashcard_topics_and_subjects,
@@ -277,6 +278,7 @@ pub fn run() {
             get_flashcard_topics_and_subjects,
             delete_flashcard_by_id,
             get_flashcard_summaries,
+            set_flashcard_complete_status,
             // -- Jupyter --
             generate_new_token,
             // -- Plotting --

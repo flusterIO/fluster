@@ -7,6 +7,7 @@ import { TaskItemSearchResultsTable } from "#/task_manager/presentation/task_ite
 import { EquationSearchResults } from "../search_result_items/equation_search_results/equation_search_result_list";
 import { SearchResultCategoryContainer } from "./search_result_category_container";
 import { SnippetSearchResults } from "../search_result_items/snippet_search_results";
+import { FlashcardSearchResults } from "../search_result_items/flashcard_search_results";
 
 const SearchResultsPage = (): ReactNode => {
     const results = useSearchResults();
@@ -58,6 +59,19 @@ const SearchResultsPage = (): ReactNode => {
                         )}
                     </SearchResultCategoryContainer>
                 ) : null}
+                <SearchResultCategoryContainer
+                    categoryId="flashcards"
+                    title="Flashcards"
+                    count={results.flashcards.length}
+                >
+                    {results?.flashcards.length ? (
+                        <FlashcardSearchResults items={results.flashcards} />
+                    ) : (
+                        <div className="w-full h-full flex flex-col justify-center items-center">
+                            <H4 className="text-muted-foreground">No notes found</H4>
+                        </div>
+                    )}
+                </SearchResultCategoryContainer>
                 <SearchResultCategoryContainer
                     categoryId="notes"
                     title="Notes"

@@ -22,15 +22,6 @@ interface CountData {
     bibEntries: number | string;
 }
 
-/* const getPagination = (sp: URLSearchParams): PaginationPropsAsNumber => { */
-/*     const _page = sp.get("page"); */
-/*     const _per_page = sp.get("per_page"); */
-/*     return { */
-/*         page_number: _page ? parseInt(_page) : 1, */
-/*         per_page: _per_page ? parseInt(_per_page) : 50, */
-/*     }; */
-/* }; */
-
 export const SemanticSearchResultsPage = connector(
     ({
         embeddingModel,

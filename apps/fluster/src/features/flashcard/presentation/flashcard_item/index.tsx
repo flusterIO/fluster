@@ -10,34 +10,57 @@ interface FlashcardItemProps {
     item: FlashcardDataSchema;
     mode: FlashcardMode;
     setMode: (mode: FlashcardMode) => void;
+    classes?: {
+        container?: string;
+    };
+    onSkipClick?: () => void;
+    onMarkCorrect?: () => void;
+    onMarkIncorrect?: () => void;
 }
 
 export const FlashcardItem = ({
     item,
     isPreview,
     mode,
+    classes = {},
+    setMode,
+    onSkipClick,
+    onMarkIncorrect,
+    onMarkCorrect,
 }: FlashcardItemProps): ReactNode => {
     return (
-        <div className="relative w-full h-full min-h-[calc(100vh-2rem)] flex flex-col justify-center items-center overflow-hidden">
+        <div
+            className={cn(
+                "relative w-full h-full flex flex-col justify-center items-center overflow-hidden",
+                classes.container
+            )}
+        >
             <AnswerCard
                 item={item}
                 isPreview={isPreview}
+                setMode={setMode}
+                onCorrectClick={onMarkCorrect}
+                onIncorrectClick={onMarkIncorrect}
                 classes={{
                     card: cn(
-                        "transition-transform duration-300 absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%]",
-                        mode === "answer" ? "translate-x-[-50%]" : "translate-x-[100vw]"
+                        "transition-all duration-300 absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%]",
+                        mode === "answer"
+                            ? "translate-x-[-50%] opacity-1"
+                            : "translate-x-[100vw] opacity-0"
                     ),
                 }}
             />
             <QuestionCard
                 item={item}
                 isPreview={isPreview}
+                setMode={setMode}
+                onSkipClick={onSkipClick}
                 classes={{
                     card: cn(
-                        "transition-transform duration-300 absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%]",
+                        "transition-all duration-300 absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%]",
                         mode === "question"
-                            ? "translate-x-[-50%]"
-                            : "translate-x-[calc(-100vw-100%)]"
+                            ? "translate-x-[-50%] opacity-1"
+                            : "translate-x-[calc(-100vw-100%)] opacity-0"
                     ),
                 }}
             />

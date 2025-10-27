@@ -30,7 +30,15 @@ export const FlashcardPreview = (): ReactNode => {
     useEventListener("set-flashcard-preview-mode", (e) => {
         setMode(e.detail);
     });
-    return <FlashcardItem isPreview setMode={setMode} item={data} mode={mode} />;
+    return (
+        <FlashcardItem
+            classes={{ container: "min-h-[calc(100vh-2rem)]" }}
+            isPreview
+            setMode={setMode}
+            item={data}
+            mode={mode}
+        />
+    );
 };
 
 FlashcardPreview.displayName = "FlashcardPreview";

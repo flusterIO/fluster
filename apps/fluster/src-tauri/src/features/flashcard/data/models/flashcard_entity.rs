@@ -31,6 +31,7 @@ impl FlashcardEntity {
         })?;
         Ok(())
     }
+
     pub async fn get_by_ids(
         db: &FlusterDb<'_>,
         ids: Vec<String>,

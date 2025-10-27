@@ -30,6 +30,50 @@ impl FlashcardTagEntity {
         DatabaseTables::FlashcardTag
     }
 
+    pub async fn get_by_tag_values(
+        db: &FlusterDb<'_>,
+        tag_values: &[String],
+    ) -> FlusterResult<Vec<T>> {
+        if tag_values.is_empty() {
+            return Ok(Vec::new());
+        }
+        let tbl = get_table(db, FlashcardTagEntity::table()).await?;
+        let file_paths_string = tag_values
+            .iter()
+            .map(|x| format!("\"{}\"", x))
+            .collect::<Vec<String>>()
+            .join(", ");
+        let items_batch = tbl
+            .query()
+            .only_if(format!("tag_value in ({})", file_paths_string))
+            .execute()
+            .await
+            .map_err(|e| {
+                println!("Error in FlashcardTagEntity.get_by_tag_values: {:?}", e);
+                FlusterError::FailToConnect
+            })?
+            .try_collect::<Vec<_>>()
+            .await
+            .map_err(|e| {
+                println!("Error in FlashcardTagEntity.get_by_tag_values: {:?}", e);
+                FlusterError::FailToFind
+            })?;
+        // let batches = &items_batch;
+        if items_batch.is_empty() {
+            return Ok(Vec::new());
+        }
+        let mut items: Vec<T> = Vec::new();
+
+        for batch in items_batch.iter() {
+            let data: Vec<T> = from_record_batch(batch).map_err(|e| {
+                println!("Error in FlashcardTagEntity.get_by_tag_values: {:?}", e);
+                FlusterError::FailToSerialize
+            })?;
+            items.extend(data);
+        }
+        Ok(items)
+    }
+
     pub async fn get_by_flashcard_ids(db: &FlusterDb<'_>, ids: &[String]) -> FlusterResult<Vec<T>> {
         if ids.is_empty() {
             return Ok(Vec::new());

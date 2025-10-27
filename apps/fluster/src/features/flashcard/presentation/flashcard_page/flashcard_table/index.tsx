@@ -26,9 +26,9 @@ import {
 import { ChevronDown } from "lucide-react";
 import React, { useState, type ReactNode } from "react";
 import { flashcardTableColumns } from "./flashcard_table_columns";
-import { string } from "zod";
 import { FlashcardDetailPane } from "./flashcard_detail_pane";
 import { FlashcardModel } from "@/lib/bindings";
+import { FlashcardTableStartQuizBanner } from "../flashcard_table_start_quiz_banner";
 
 export const FlashcardTable = ({
     flashcards,
@@ -61,6 +61,11 @@ export const FlashcardTable = ({
     });
     return (
         <div className="w-full px-8 max-w-[1440px]">
+            <FlashcardTableStartQuizBanner
+                selectedIds={table
+                    .getFilteredSelectedRowModel()
+                    .rows.map((r) => r.getValue("id"))}
+            />
             <FlashcardDetailPane />
             <div className="flex items-center py-4">
                 <Input

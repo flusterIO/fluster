@@ -20,12 +20,16 @@ interface QuestionCardProps {
     classes?: {
         card?: string;
     };
+    setMode?: (mode: FlashcardMode) => void;
+    onSkipClick?: () => void;
 }
 
 export const QuestionCard = ({
     item,
     isPreview,
     classes = {},
+    setMode,
+    onSkipClick,
 }: QuestionCardProps): ReactNode => {
     const handleViewAnswer = (): void => {
         window.dispatchEvent(
@@ -33,6 +37,9 @@ export const QuestionCard = ({
                 detail: "answer" satisfies FlashcardMode,
             })
         );
+        if (setMode) {
+            setMode("answer");
+        }
     };
     return (
         <Card
@@ -62,7 +69,11 @@ export const QuestionCard = ({
                 </CardContent>
             </CardHeader>
             <CardFooter className="flex flex-row justify-end items-center gap-x-4">
-                {isPreview ? null : <Button variant={"secondary"}>Next</Button>}
+                {isPreview ? null : (
+                    <Button onClick={onSkipClick} variant={"secondary"}>
+                        Skip
+                    </Button>
+                )}
                 <Button onClick={handleViewAnswer}>View Answer</Button>
             </CardFooter>
         </Card>

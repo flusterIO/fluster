@@ -1,6 +1,9 @@
 use crate::{
     core::{database::db::get_database, types::errors::errors::FlusterResult},
     features::{
+        flashcard::data::models::{
+            flashcard_entity::FlashcardEntity, flashcard_topic_entity::FlashcardTopicEntity,
+        },
         mdx::{
             data::{mdx_note_entity::MdxNoteEntity, mdx_note_topic_entity::MdxNoteTopicEntity},
             methods::mdx_note_models_to_mdx_note_groups::mdx_note_models_to_mdx_note_groups,
@@ -17,26 +20,38 @@ pub async fn get_topic_search_results(
     let db_res = get_database().await;
     let db = db_res.lock().await;
     let mdx_note_tags = MdxNoteTopicEntity::get_by_values(&db, &tag_values).await?;
-    if mdx_note_tags.is_empty() {
-        return Ok(TraditionalSearchResults {
-            notes: Vec::new(),
-            tasks: Vec::new(),
-            equations: Vec::new(),
-            snippets: Vec::new(),
-        });
+
+    let mut notes = Vec::new();
+    if !mdx_note_tags.is_empty() {
+        let mdx_notes = MdxNoteEntity::get_by_file_paths(
+            &db,
+            mdx_note_tags
+                .iter()
+                .map(|x| x.mdx_note_file_path.clone())
+                .collect(),
+        )
+        .await?;
+        notes = mdx_note_models_to_mdx_note_groups(&db, mdx_notes).await?;
     }
-    let mdx_notes = MdxNoteEntity::get_by_file_paths(
-        &db,
-        mdx_note_tags
-            .iter()
-            .map(|x| x.mdx_note_file_path.clone())
-            .collect(),
-    )
-    .await?;
-    let notes = mdx_note_models_to_mdx_note_groups(&db, mdx_notes).await?;
+
+    let flashcard_topics = FlashcardTopicEntity::get_by_values(&db, &tag_values).await?;
+
+    let mut flashcards = Vec::new();
+
+    if !flashcard_topics.is_empty() {
+        flashcards = FlashcardEntity::get_by_ids(
+            &db,
+            flashcard_topics
+                .iter()
+                .map(|flashcard_topic| flashcard_topic.flashcard_id.clone())
+                .collect(),
+        )
+        .await?;
+    }
 
     Ok(TraditionalSearchResults {
         notes,
+        flashcards,
         tasks: Vec::new(),
         equations: Vec::new(),
         snippets: Vec::new(),

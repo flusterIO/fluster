@@ -47,6 +47,7 @@ pub async fn get_notes_by_equation_id(
 
     Ok(TraditionalSearchResults {
         notes,
+        flashcards: Vec::new(),
         tasks: Vec::new(),
         equations: equation_data,
         snippets: Vec::new(),

@@ -32,6 +32,7 @@ import { CalendarPage } from "#/calendar/presentation/calendar_page/calendar_pag
 import { TabularDataTablePage } from "#/tabular/presentation/tabular_datatable_page";
 import { FlusterSidecarHelloWorldPage } from "#/python/presentation/hello_world_page";
 import { FlashcardPage } from "#/flashcard/presentation/flashcard_page";
+import { FlashcardQuizPage } from "#/flashcard/presentation/flashcard_quiz_page";
 
 export const getBrowserRouter = () => {
     return createBrowserRouter([
@@ -170,6 +171,10 @@ export const getBrowserRouter = () => {
                         {
                             path: AppRoutes.pdf,
                             Component: PdfPage,
+                        },
+                        {
+                            path: AppRoutes.flashcard_quiz,
+                            Component: FlashcardQuizPage,
                         },
                         {
                             path: AppRoutes.hello_world,

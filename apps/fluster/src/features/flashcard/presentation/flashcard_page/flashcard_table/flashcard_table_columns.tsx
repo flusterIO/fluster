@@ -70,6 +70,35 @@ export const flashcardTableColumns: ColumnDef<FlashcardModel>[] = [
         ),
     },
     {
+        accessorFn: (flashcard) =>
+            Math.round(
+                (flashcard.correct_count /
+                    (flashcard.correct_count + flashcard.incorrect_count)) *
+                100
+            ),
+        id: "accuracy",
+        size: 180,
+        header: ({ column }) => (
+            <DataTableSortHeader title="Accuracy" column={column} />
+        ),
+        cell: ({ row }) => (
+            <div
+                onClick={() => {
+                    window.dispatchEvent(
+                        new CustomEvent("show-flashcard-detail", {
+                            detail: {
+                                flashcard_id: row.getValue("id"),
+                            },
+                        })
+                    );
+                }}
+                className="cursor-pointer"
+            >
+                {`${row.getValue("accuracy")}%`}
+            </div>
+        ),
+    },
+    {
         id: "actions",
         enableHiding: false,
         maxSize: 100,

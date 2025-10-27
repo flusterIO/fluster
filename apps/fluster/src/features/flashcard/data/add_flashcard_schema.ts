@@ -15,3 +15,4 @@ export const flashcardDataSchema = z.object({
 });
 
 export type FlashcardDataSchema = z.infer<typeof flashcardDataSchema>;
+export type FlashcardDataSchemaWithId = FlashcardDataSchema & { id: string };

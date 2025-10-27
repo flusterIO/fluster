@@ -2,6 +2,7 @@ use serde::{Deserialize, Serialize};
 use specta::Type;
 
 use crate::features::{
+    flashcard::data::models::flashcard_model::FlashcardModel,
     math::data::equation_model::EquationData, mdx::data::mdx_note_group::MdxNoteGroup,
     snippets::data::snippet_model::SnippetData, task_manager::task_model::TaskModel,
 };
@@ -13,4 +14,5 @@ pub struct TraditionalSearchResults {
     pub tasks: Vec<TaskModel>,
     pub equations: Vec<EquationData>,
     pub snippets: Vec<SnippetData>,
+    pub flashcards: Vec<FlashcardModel>,
 }

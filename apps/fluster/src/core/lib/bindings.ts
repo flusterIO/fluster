@@ -910,6 +910,14 @@ async getFlashcardSummaries(pagination: PaginationProps) : Promise<Result<Flashc
     else return { status: "error", error: e  as any };
 }
 },
+async setFlashcardCompleteStatus(flashcardId: string, correct: boolean) : Promise<Result<null, FlusterError>> {
+    try {
+    return { status: "ok", data: await TAURI_INVOKE("set_flashcard_complete_status", { flashcardId, correct }) };
+} catch (e) {
+    if(e instanceof Error) throw e;
+    else return { status: "error", error: e  as any };
+}
+},
 async generateNewToken(length: string) : Promise<string> {
     return await TAURI_INVOKE("generate_new_token", { length });
 },
@@ -1239,7 +1247,7 @@ export type TocEntry = { depth: number; body: string }
 /**
  * The search results returned froma  taggable input or via a traditional text based query.
  */
-export type TraditionalSearchResults = { notes: MdxNoteGroup[]; tasks: TaskModel[]; equations: EquationData[]; snippets: SnippetData[] }
+export type TraditionalSearchResults = { notes: MdxNoteGroup[]; tasks: TaskModel[]; equations: EquationData[]; snippets: SnippetData[]; flashcards: FlashcardModel[] }
 export type ValidTabularFileExtensions = "Csv"
 export type WhiteboardModel = { 
 /**

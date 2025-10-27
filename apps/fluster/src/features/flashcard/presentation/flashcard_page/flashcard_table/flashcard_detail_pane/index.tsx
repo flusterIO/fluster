@@ -97,6 +97,7 @@ const FlashcardDetailPaneInner = ({
                                 <TagBadge
                                     tagValue={t.tag_value}
                                     key={`${data.id}-${t.tag_value}`}
+                                    onClick={() => setShow(false)}
                                 />
                             ))}
                         </div>
@@ -109,7 +110,10 @@ const FlashcardDetailPaneInner = ({
                             }
                             onClick={
                                 data.topic
-                                    ? () => nav(getTopicUrl(data.topic!.topic_value))
+                                    ? () => {
+                                        nav(getTopicUrl(data.topic!.topic_value));
+                                        setShow(false);
+                                    }
                                     : undefined
                             }
                             aria-disabled={!data.topic?.topic_value.length}
@@ -127,7 +131,10 @@ const FlashcardDetailPaneInner = ({
                             }
                             onClick={
                                 data.subject
-                                    ? () => nav(getSubjectUrl(data.subject!.subject_value))
+                                    ? () => {
+                                        nav(getSubjectUrl(data.subject!.subject_value));
+                                        setShow(false);
+                                    }
                                     : undefined
                             }
                             aria-disabled={!data.subject?.subject_value.length}
