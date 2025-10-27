@@ -88,6 +88,7 @@ export const useSearchResults = (): TraditionalSearchResults | null => {
                 equations: [],
                 snippets: [],
                 tasks: [],
+                flashcards: [],
             });
         }
     };

@@ -3,7 +3,6 @@ import React, { useEffect, useState, type ReactNode } from "react";
 import {
     Form,
     MathTextInput,
-    showToast,
     TagInput,
     TextAreaInput,
     TextInputGroup,
@@ -14,12 +13,11 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { useMatch, useNavigate, useSearchParams } from "react-router";
 import { AppRoutes } from "#/router/data/app_routes";
-import { commands, EquationModel, ToastConfig } from "@/lib/bindings";
+import { commands, EquationModel } from "@/lib/bindings";
 import { requestEquationListRefresh } from "../../equations_list/equation_list_utils";
 import { connect } from "react-redux";
 import { AppState } from "@/state/initial_state";
 import { addEquationSchema } from "../types";
-import { Channel } from "@tauri-apps/api/core";
 
 const connector = connect((state: AppState) => ({
     panelOpen: state.panelLeft.open,
@@ -115,7 +113,7 @@ export const AddEquationPanel = connector(
                 tags: data.tags.map((t) => {
                     return {
                         value: t,
-                        ctime: now,
+                        utime: now,
                     };
                 }),
             });

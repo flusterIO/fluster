@@ -43,7 +43,7 @@ const EquationPreview = (): ReactNode => {
                 tags: data.tags.map((t) => {
                     return {
                         value: t,
-                        ctime: now,
+                        utime: now,
                     };
                 }),
             }}

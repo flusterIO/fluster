@@ -133,7 +133,7 @@ const EquationListItem = ({
                         {item.tags.map((t) => (
                             <TagBadge
                                 tagValue={t.value}
-                                key={`eq-tag-${t.value}-${t.ctime}`}
+                                key={`eq-tag-${t.value}-${t.utime}`}
                             />
                         ))}
                     </div>

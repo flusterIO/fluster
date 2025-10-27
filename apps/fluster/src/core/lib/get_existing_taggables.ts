@@ -1,3 +1,4 @@
+import { parseDate } from "@fluster.io/dev";
 import { commands, SharedTaggableModel, AllTaggableData } from "./bindings";
 
 export const getExistingTaggables = async (): Promise<AllTaggableData> => {
@@ -5,20 +6,20 @@ export const getExistingTaggables = async (): Promise<AllTaggableData> => {
     return {
         tags: existingTaggables.tags.map((t: SharedTaggableModel) => {
             return {
+                utime: parseDate(t.utime).valueOf().toString(),
                 value: t.value,
-                ctime: new Date(t.ctime).valueOf().toString(),
             };
         }),
-        topics: existingTaggables.tags.map((t: SharedTaggableModel) => {
+        topics: existingTaggables.topics.map((t: SharedTaggableModel) => {
             return {
+                utime: parseDate(t.utime).valueOf().toString(),
                 value: t.value,
-                ctime: new Date(t.ctime).valueOf().toString(),
             };
         }),
-        subjects: existingTaggables.tags.map((t: SharedTaggableModel) => {
+        subjects: existingTaggables.subjects.map((t: SharedTaggableModel) => {
             return {
+                utime: parseDate(t.utime).valueOf().toString(),
                 value: t.value,
-                ctime: new Date(t.ctime).valueOf().toString(),
             };
         }),
     };

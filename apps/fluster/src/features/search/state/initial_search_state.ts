@@ -7,6 +7,7 @@ export const initialSearchState: SearchState = {
             snippets: true,
             equations: true,
             tasks: true,
+            flashcards: true,
         },
     },
 };
