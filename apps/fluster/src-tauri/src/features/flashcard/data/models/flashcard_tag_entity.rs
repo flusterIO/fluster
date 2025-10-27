@@ -30,15 +30,12 @@ impl FlashcardTagEntity {
         DatabaseTables::FlashcardTag
     }
 
-    pub async fn get_by_flashcard_ids(
-        db: &FlusterDb<'_>,
-        file_paths: &[String],
-    ) -> FlusterResult<Vec<T>> {
-        if file_paths.is_empty() {
+    pub async fn get_by_flashcard_ids(db: &FlusterDb<'_>, ids: &[String]) -> FlusterResult<Vec<T>> {
+        if ids.is_empty() {
             return Ok(Vec::new());
         }
         let tbl = get_table(db, FlashcardTagEntity::table()).await?;
-        let file_paths_string = file_paths
+        let file_paths_string = ids
             .iter()
             .map(|x| format!("\"{}\"", x))
             .collect::<Vec<String>>()
@@ -81,8 +78,8 @@ impl FlashcardTagEntity {
         let tbl = get_table(db, FlashcardTagEntity::table()).await?;
         let offset = pagination.per_page * (pagination.page_number - 1);
         let mut q = tbl.query();
-        if predicate.is_some() {
-            q = q.only_if(predicate.unwrap());
+        if let Some(_predicate) = predicate {
+            q = q.only_if(_predicate);
         }
         let items_batch = q
             .offset(offset)

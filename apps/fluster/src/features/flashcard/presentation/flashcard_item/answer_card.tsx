@@ -35,12 +35,17 @@ export const AnswerCard = ({
         );
     };
     return (
-        <Card className={cn("w-full max-w-[min(768px,90%)]", classes.card)}>
+        <Card
+            className={cn(
+                "w-full max-w-[min(768px,90%)] max-h-[min(80vh,768px)]",
+                classes.card
+            )}
+        >
             <CardHeader>
                 <CardTitle>
                     <InlineMdxContent abortIfNoMath mdx={item.label} />
                     {item.answer_description.length ? (
-                        <CardDescription>
+                        <CardDescription className="mt-1">
                             <InlineMdxContent abortIfNoMath mdx={item.answer_description} />
                         </CardDescription>
                     ) : null}
@@ -52,7 +57,7 @@ export const AnswerCard = ({
                         </div>
                     ) : null}
                 </CardTitle>
-                <CardContent>
+                <CardContent className="overflow-y-auto overflow-x-hidden">
                     <InlineMdxContent mdx={item.answer} />
                 </CardContent>
             </CardHeader>

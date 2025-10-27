@@ -870,6 +870,46 @@ async getKanbanBoardList(predicate: string | null, pagination: PaginationProps |
     else return { status: "error", error: e  as any };
 }
 },
+async saveFlashcard(item: FlashcardModel, tags: string[], topic: string | null, subject: string | null) : Promise<Result<null, FlusterError>> {
+    try {
+    return { status: "ok", data: await TAURI_INVOKE("save_flashcard", { item, tags, topic, subject }) };
+} catch (e) {
+    if(e instanceof Error) throw e;
+    else return { status: "error", error: e  as any };
+}
+},
+async getFlashcardData(id: string) : Promise<Result<FlashcardGroup, FlusterError>> {
+    try {
+    return { status: "ok", data: await TAURI_INVOKE("get_flashcard_data", { id }) };
+} catch (e) {
+    if(e instanceof Error) throw e;
+    else return { status: "error", error: e  as any };
+}
+},
+async getFlashcardTopicsAndSubjects() : Promise<Result<FlashcardTopicSubjectData, FlusterError>> {
+    try {
+    return { status: "ok", data: await TAURI_INVOKE("get_flashcard_topics_and_subjects") };
+} catch (e) {
+    if(e instanceof Error) throw e;
+    else return { status: "error", error: e  as any };
+}
+},
+async deleteFlashcardById(id: string) : Promise<Result<null, FlusterError>> {
+    try {
+    return { status: "ok", data: await TAURI_INVOKE("delete_flashcard_by_id", { id }) };
+} catch (e) {
+    if(e instanceof Error) throw e;
+    else return { status: "error", error: e  as any };
+}
+},
+async getFlashcardSummaries(pagination: PaginationProps) : Promise<Result<FlashcardModel[], FlusterError>> {
+    try {
+    return { status: "ok", data: await TAURI_INVOKE("get_flashcard_summaries", { pagination }) };
+} catch (e) {
+    if(e instanceof Error) throw e;
+    else return { status: "error", error: e  as any };
+}
+},
 async generateNewToken(length: string) : Promise<string> {
     return await TAURI_INVOKE("generate_new_token", { length });
 },
@@ -1009,6 +1049,12 @@ ctime: string;
  * Time snippet is last updated.
  */
 utime: string }
+export type FlashcardGroup = { id: string; label: string; answer: string; answer_description: string; question: string; question_description: string; correct_count: number; incorrect_count: number; tags: FlashcardTagModel[]; topic: FlashcardTopicModel | null; subject: FlashcardSubjectModel | null }
+export type FlashcardModel = { id: string; label: string; answer: string; answer_description: string; question: string; question_description: string; correct_count: number; incorrect_count: number }
+export type FlashcardSubjectModel = { flashcard_id: string; subject_value: string }
+export type FlashcardTagModel = { flashcard_id: string; tag_value: string }
+export type FlashcardTopicModel = { flashcard_id: string; topic_value: string }
+export type FlashcardTopicSubjectData = { subjects: SharedTaggableModel[]; topics: SharedTaggableModel[] }
 export type FlusterError = "CanaryError" | "FailToStreamFromRust" | "FailToPerformSemanticSearch" | "FailToGenerateVectors" | "OperatingSystemNotSupported" | "FailToSendEvent" | "FailToLoadDocs" | { FailToLoadEnvironmentVariable: string } | "FailToParseDate" | "FailToWriteChatSession" | "FileDoesNotExist" | "FailToReadFile" | "FailToReadChatSession" | "FailToParseJsonString" | "FailToParseTabularFile" | "NoAiProvidersConfigured" | "FailToGenerateChatResponse" | "FailToLoadModel" | "FailToCreateEmbeddingVector" | "FailToGetSemanticResults" | "FailToCreateQrCode" | "FailToCount" | "NotImplemented" | "FailToCopyFiles" | "FailToWriteFile" | "FailToSaveSettings" | "FailToReadSettings" | "DatabaseError" | "FailToParseBibFile" | "SettingsBibPathNotFound" | "CannotParseBibfile" | "FailToFindDataDirectory" | "FailToCreateIndex" | "FailToSerialize" | "NotFoundById" | "DuplicateId" | "FailToDelete" | "FailToClean" | "FailToCreateTable" | "FailToOpenTable" | "FailToConnect" | "FailToStartDb" | "FailToDropTable" | "FailToStopDb" | "FailToCreateEntity" | "FailToCreateSnippet" | "FailToFind" | "FailToFindById" | "FailToCreatePath" | "FailToCreateTag" | "FailToCreateSubject" | { DataDirNotFound: [] } | { FailToClearDirectory: string } | "FailToCreateTopic" | "FailToLocateStorageDir" | { FailToReadFileSystemPath: string } | "FailToReadMathjaxFont" | { FailToSaveFile: string } | { MdxParsingError: string } | { NoTitleError: string } | "FailToGatherMdxGroups" | { AttemptedToParseFileWasntFound: string } | { FailToSaveMdxNote: string } | 
 /**
  * Taggables

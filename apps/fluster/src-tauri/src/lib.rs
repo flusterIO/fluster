@@ -48,6 +48,12 @@ use crate::features::editor::write_file::write_file;
 use crate::features::embedded_docs::get_all_embedded_docs::get_all_embedded_docs;
 use crate::features::embedded_docs::get_embedded_doc_by_id::get_embedded_doc;
 use crate::features::embedded_docs::get_embedded_doc_by_id::get_embedded_doc_by_relative_path;
+use crate::features::flashcard::commands::{
+    delete_flashcard_by_id::delete_flashcard_by_id, get_flashcard_data::get_flashcard_data,
+    get_flashcard_summaries::get_flashcard_summaries,
+    get_flashcard_topics_and_subjects::get_flashcard_topics_and_subjects,
+    save_flashcard::save_flashcard,
+};
 use crate::features::jupyter::commands::generate_new_jupyter_token::generate_new_token;
 use crate::features::kanban::commands::create_kanban_board_card::create_new_kanban_board_card;
 use crate::features::kanban::commands::create_new_kanban_board::create_new_kanban_board;
@@ -265,6 +271,12 @@ pub fn run() {
             create_new_kanban_board_card,
             get_kanban_board_by_id,
             get_kanban_board_list,
+            // -- Flashcard --
+            save_flashcard,
+            get_flashcard_data,
+            get_flashcard_topics_and_subjects,
+            delete_flashcard_by_id,
+            get_flashcard_summaries,
             // -- Jupyter --
             generate_new_token,
             // -- Plotting --

@@ -31,6 +31,49 @@ impl FlashcardEntity {
         })?;
         Ok(())
     }
+    pub async fn get_by_ids(
+        db: &FlusterDb<'_>,
+        ids: Vec<String>,
+    ) -> FlusterResult<Vec<FlashcardModel>> {
+        if ids.is_empty() {
+            return Ok(Vec::new());
+        }
+        let tbl = get_table(db, DatabaseTables::Flashcard).await?;
+        let ids_string = ids
+            .iter()
+            .map(|x| format!("\"{}\"", x.to_lowercase()))
+            .collect::<Vec<String>>()
+            .join(", ");
+        let items_batch = tbl
+            .query()
+            .only_if(format!("id in ({})", ids_string))
+            .execute()
+            .await
+            .map_err(|e| {
+                println!("Error in FlashcardEntity.get_by_ids: {:?}", e);
+                FlusterError::FailToConnect
+            })?
+            .try_collect::<Vec<_>>()
+            .await
+            .map_err(|e| {
+                println!("Error in FlashcardEntity.get_by_ids: {:?}", e);
+                FlusterError::FailToFind
+            })?;
+        // let batches = &items_batch;
+        if items_batch.is_empty() {
+            return Ok(Vec::new());
+        }
+        let mut items: Vec<FlashcardModel> = Vec::new();
+
+        for batch in items_batch.iter() {
+            let data: Vec<FlashcardModel> = from_record_batch(batch).map_err(|e| {
+                println!("Error in FlashcardEntity.get_by_ids: {:?}", e);
+                FlusterError::FailToSerialize
+            })?;
+            items.extend(data);
+        }
+        Ok(items)
+    }
     pub async fn get_many(
         db: &FlusterDb<'_>,
         predicate: &Option<String>,

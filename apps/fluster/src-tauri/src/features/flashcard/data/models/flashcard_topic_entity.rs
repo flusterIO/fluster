@@ -122,8 +122,8 @@ impl FlashcardTopicEntity {
         let tbl = get_table(db, FlashcardTopicEntity::table()).await?;
         let offset = pagination.per_page * (pagination.page_number - 1);
         let mut q = tbl.query();
-        if predicate.is_some() {
-            q = q.only_if(predicate.unwrap());
+        if let Some(_predicate) = predicate {
+            q = q.only_if(_predicate);
         }
         let items_batch = q
             .offset(offset)
@@ -173,7 +173,6 @@ impl FlashcardTopicEntity {
             None,
         )
         .await?;
-        // TODO:  This can be collapsed into one loop.
         let filtered_tags: Vec<&T> = items
             .iter()
             .filter(|x| {
@@ -182,6 +181,9 @@ impl FlashcardTopicEntity {
                     .any(|y| (x.flashcard_id == y.flashcard_id) && (x.topic_value == y.topic_value))
             })
             .collect();
+        if filtered_tags.is_empty() {
+            return Ok(());
+        }
         let schema = FlashcardTopicEntity::arrow_schema();
         let tbl = get_table(db, FlashcardTopicEntity::table()).await?;
         let batches: Vec<Result<RecordBatch, ArrowError>> = filtered_tags

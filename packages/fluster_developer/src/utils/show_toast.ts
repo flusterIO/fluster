@@ -12,3 +12,11 @@ export const showToast = (data: Omit<ToastConfig, "id">) => {
     );
     // return ;
 };
+
+export const showErrorToast = (body: string, title = "Something went wrong") =>
+    showToast({
+        body,
+        title,
+        variant: "Error",
+        duration: 5000,
+    });

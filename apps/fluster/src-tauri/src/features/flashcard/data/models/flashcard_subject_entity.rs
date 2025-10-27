@@ -122,8 +122,8 @@ impl FlashcardSubjectEntity {
         let tbl = get_table(db, FlashcardSubjectEntity::table()).await?;
         let offset = pagination.per_page * (pagination.page_number - 1);
         let mut q = tbl.query();
-        if predicate.is_some() {
-            q = q.only_if(predicate.unwrap());
+        if let Some(_predicate) = predicate {
+            q = q.only_if(_predicate);
         }
         let items_batch = q
             .offset(offset)

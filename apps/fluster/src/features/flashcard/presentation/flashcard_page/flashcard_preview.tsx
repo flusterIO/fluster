@@ -22,6 +22,8 @@ export const FlashcardPreview = (): ReactNode => {
         topic: "",
         tags: [],
         id: null,
+        incorrect_count: 0,
+        correct_count: 0,
     });
     const [mode, setMode] = useState<FlashcardMode>("question");
     useEventListener("add-flashcard-preview-update", (e) => setData(e.detail));

@@ -54,11 +54,13 @@ impl TopicEntity {
         items: Vec<SharedTaggableModel>,
     ) -> FlusterResult<()> {
         let existing_topics = TopicEntity::get_all(db).await?;
-        // TODO:  This can be collapsed into one loop.
         let filtered_topics: Vec<&SharedTaggableModel> = items
             .iter()
             .filter(|x| !existing_topics.iter().any(|y| x.value == y.value))
             .collect::<Vec<&SharedTaggableModel>>();
+        if filtered_topics.is_empty() {
+            return Ok(());
+        }
         let schema = TopicEntity::arrow_schema();
         let tbl = get_table(db, DatabaseTables::Topic).await?;
         let batches: Vec<Result<RecordBatch, ArrowError>> = filtered_topics

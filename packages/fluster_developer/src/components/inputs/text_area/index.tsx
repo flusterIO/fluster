@@ -18,6 +18,7 @@ interface TextAreaInputProps<T extends FieldValues> extends FormInputProps<T> {
         textArea?: string;
         container?: string;
         label?: string;
+        desc?: string;
     };
     rows?: number;
     placeholder?: string;
@@ -55,7 +56,9 @@ export const TextAreaInput = <T extends FieldValues>({
                                     className={classes.textArea}
                                 />
                                 {desc?.length ? (
-                                    <FormDescription>{desc}</FormDescription>
+                                    <FormDescription className={cn("mt-2", classes.desc)}>
+                                        {desc}
+                                    </FormDescription>
                                 ) : null}
                                 <FormMessage />
                             </div>

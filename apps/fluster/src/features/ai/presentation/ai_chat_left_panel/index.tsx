@@ -80,7 +80,6 @@ export const AiChatLeftPanel = connector(
         };
         const submitNewChat = async (): Promise<void> => {
             const value = form.getValues().inputValue;
-            console.log("value: ", value, isValidInput(value));
             if (isValidInput(value)) {
                 const res = await commands.createNewAiChat(value, defaultLanguageModel);
                 console.log("res: ", res);

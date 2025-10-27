@@ -35,7 +35,9 @@ export const FlashcardItem = ({
                 classes={{
                     card: cn(
                         "transition-transform duration-300 absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%]",
-                        mode === "question" ? "translate-x-[-50%]" : "translate-x-[-100vw]"
+                        mode === "question"
+                            ? "translate-x-[-50%]"
+                            : "translate-x-[calc(-100vw-100%)]"
                     ),
                 }}
             />

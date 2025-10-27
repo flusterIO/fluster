@@ -16,16 +16,14 @@ import { cn } from "../../../utils/cn";
 import { useEventListener } from "../../../hooks/use_event_listener";
 import { FormDescription, FormItem, FormLabel } from "../../shad/form";
 
-type ValidValue = string | number;
-
-export interface AutoCompleteOption<J extends ValidValue> {
-    value: J;
+export interface AutoCompleteOption {
+    value: string;
     label: string;
 }
 
-interface AutoCompleteInputProps<T extends FieldValues, J extends ValidValue>
+interface AutoCompleteInputProps<T extends FieldValues>
     extends FormInputProps<T> {
-    options: AutoCompleteOption<J>[];
+    options: AutoCompleteOption[];
     classes?: {
         input?: string;
         container?: string;
@@ -39,9 +37,10 @@ interface AutoCompleteInputProps<T extends FieldValues, J extends ValidValue>
     emptyValue?: string;
     defaultDisplayValue?: string;
     searchText?: string;
+    onCreateItem: (value: string) => void;
 }
 
-export const AutoCompleteInput = <T extends FieldValues, J extends ValidValue>({
+export const AutoCompleteInput = <T extends FieldValues>({
     classes = {},
     label,
     desc,
@@ -51,10 +50,12 @@ export const AutoCompleteInput = <T extends FieldValues, J extends ValidValue>({
     defaultDisplayValue = "Select item...",
     emptyValue = "None found",
     searchText = "Search items...",
-}: AutoCompleteInputProps<T, J>): ReactNode => {
+    onCreateItem,
+}: AutoCompleteInputProps<T>): ReactNode => {
     const value = form.watch(name);
     const [open, setOpen] = useState(false);
     const [width, setWidth] = useState(0);
+    const [inputValue, setInputValue] = useState("");
     const button = useRef<HTMLButtonElement>(null);
     const handleWidth = (): void => {
         setWidth(button.current?.getBoundingClientRect().width ?? 0);
@@ -84,12 +85,17 @@ export const AutoCompleteInput = <T extends FieldValues, J extends ValidValue>({
                         variant="outline"
                         role="combobox"
                         aria-expanded={open}
-                        className={cn("w-[200px] justify-between", classes?.button)}
+                        className={cn(
+                            "w-[200px] justify-between flex flex-row",
+                            classes?.button
+                        )}
                         ref={button}
                     >
-                        {value
-                            ? options.find((opt) => opt.value === value)?.label
-                            : defaultDisplayValue}
+                        <span className="flex-grow text-left">
+                            {options.find((opt) => opt.value === value)?.label ?? value.length
+                                ? value
+                                : defaultDisplayValue}
+                        </span>
                         <ChevronsUpDown className="opacity-50" />
                     </Button>
                 </PopoverTrigger>
@@ -104,10 +110,24 @@ export const AutoCompleteInput = <T extends FieldValues, J extends ValidValue>({
                             placeholder={searchText}
                             className={cn("h-9 text-foreground outline-none", classes.input)}
                             iconClassName="text-foreground"
+                            value={inputValue}
+                            onValueChange={setInputValue}
+                            onKeyDown={(e) => {
+                                if (e.key === "Enter") {
+                                    e.preventDefault();
+                                    e.stopPropagation();
+                                    onCreateItem((e.target as HTMLInputElement).value);
+                                    setOpen(false);
+                                }
+                            }}
                         />
                         <CommandList className={classes.commandList}>
                             <CommandEmpty
-                                className={cn("text-muted-foreground", classes.emptyItem)}
+                                className={cn(
+                                    "text-muted-foreground",
+                                    classes.emptyItem,
+                                    options.length === 0 && "hidden"
+                                )}
                             >
                                 {emptyValue}
                             </CommandEmpty>
@@ -116,11 +136,7 @@ export const AutoCompleteInput = <T extends FieldValues, J extends ValidValue>({
                                     <CommandItem
                                         className={classes.item}
                                         key={opt.value}
-                                        value={
-                                            typeof opt.value === "string"
-                                                ? opt.value
-                                                : opt.value.toString()
-                                        }
+                                        value={opt.value}
                                         onSelect={(currentValue) => {
                                             form.setValue(
                                                 name,
