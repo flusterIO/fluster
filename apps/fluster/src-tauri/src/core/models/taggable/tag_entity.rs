@@ -103,7 +103,11 @@ impl TagEntity {
     ) -> FlusterResult<()> {
         let schema = TagEntity::arrow_schema();
         let tbl = get_table(db, DatabaseTables::Tag).await?;
-        let batches: Vec<Result<RecordBatch, ArrowError>> = items
+        let filtered_items = items
+            .iter()
+            .filter(|tag| !tag.value.is_empty())
+            .collect::<Vec<&SharedTaggableModel>>();
+        let batches: Vec<Result<RecordBatch, ArrowError>> = filtered_items
             .iter()
             .map(|x| Ok(TagEntity::to_record_batch(x, schema.clone())))
             .collect();

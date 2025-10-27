@@ -56,7 +56,7 @@ impl TopicEntity {
         let existing_topics = TopicEntity::get_all(db).await?;
         let filtered_topics: Vec<&SharedTaggableModel> = items
             .iter()
-            .filter(|x| !existing_topics.iter().any(|y| x.value == y.value))
+            .filter(|x| !existing_topics.iter().any(|y| x.value == y.value) && !x.value.is_empty())
             .collect::<Vec<&SharedTaggableModel>>();
         if filtered_topics.is_empty() {
             return Ok(());

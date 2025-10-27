@@ -88,6 +88,10 @@ export const EmbeddableWhiteboard = connector(
             loadInitialData();
         }, []);
 
+        useEffect(() => {
+            window.dispatchEvent(new Event("resize"));
+        }, []);
+
         const updateElements = (): void => {
             if (timer.current) {
                 clearTimeout(timer.current);
@@ -116,7 +120,7 @@ export const EmbeddableWhiteboard = connector(
             );
         }
         return (
-            <div className="w-full h-[500px] max-h-[80vh] excalidraw-outer-container">
+            <div className="w-full max-h-[80vh] excalidraw-outer-container flex flex-col justify-center items-center">
                 <div
                     className={cn(
                         "w-full flex flex-row items-center mb-4",
@@ -132,17 +136,19 @@ export const EmbeddableWhiteboard = connector(
                         View Mode
                     </Button>
                 </div>
-                <Excalidraw
-                    gridModeEnabled={props.grid}
-                    viewModeEnabled={viewMode}
-                    initialData={{
-                        elements: initialData.elements,
-                    }}
-                    autoFocus={false}
-                    theme={darkMode ? "dark" : "light"}
-                    excalidrawAPI={(api) => setExcalidrawAPI(api)}
-                    onChange={() => updateElements()}
-                />
+                <div className="h-[min(500px,80vh)] w-full">
+                    <Excalidraw
+                        gridModeEnabled={props.grid}
+                        viewModeEnabled={viewMode}
+                        initialData={{
+                            elements: initialData.elements,
+                        }}
+                        autoFocus={false}
+                        theme={darkMode ? "dark" : "light"}
+                        excalidrawAPI={(api) => setExcalidrawAPI(api)}
+                        onChange={() => updateElements()}
+                    />
+                </div>
             </div>
         );
     }
