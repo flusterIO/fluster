@@ -29,6 +29,7 @@ use crate::features::ai::commands::get_local_ollama_models::get_local_ollama_mod
 use crate::features::ai::commands::get_ollama_model_info::get_ollama_model_info;
 use crate::features::ai::commands::ollama_model_exists_locally::ollama_model_exists_locally;
 use crate::features::ai::commands::save_chat_model::save_chat_model;
+use crate::features::backup::commands::backup::backup_database_objects;
 use crate::features::bibliography::commands::bib_entry_full_text_search::bib_entries_full_text_search;
 use crate::features::bibliography::commands::get_bib_entries::get_bib_entries;
 use crate::features::bibliography::commands::get_bib_entry_by_id::get_bib_entry_by_id;
@@ -154,6 +155,8 @@ pub fn run() {
             get_database_path,
             get_parsable_files,
             get_env_var,
+            // -- Backup --
+            backup_database_objects,
             // -- Auto Settings --
             create_auto_setting,
             get_all_auto_settings,

@@ -1,7 +1,7 @@
 use serde::{Deserialize, Serialize};
 use specta::Type;
 
-#[derive(Type, Deserialize, Serialize, Clone)]
+#[derive(Type, Deserialize, Serialize, Clone, Debug)]
 pub struct WhiteboardModel {
     /// A user provided id given to the Whiteboard component.
     pub id: String,

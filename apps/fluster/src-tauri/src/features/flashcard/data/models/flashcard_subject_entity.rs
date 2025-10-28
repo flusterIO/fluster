@@ -178,7 +178,9 @@ impl FlashcardSubjectEntity {
             .iter()
             .filter(|x| {
                 !all_note_tags.iter().any(|y| {
-                    (x.flashcard_id == y.flashcard_id) && (x.subject_value == y.subject_value)
+                    (x.flashcard_id == y.flashcard_id)
+                        && (x.subject_value == y.subject_value)
+                        && !y.subject_value.is_empty()
                 })
             })
             .collect();

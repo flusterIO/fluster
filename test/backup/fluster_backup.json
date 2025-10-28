@@ -1,0 +1,56 @@
+{
+  "version": 1,
+  "ai_chat": [],
+  "ai_chat_message": [],
+  "flashcards": [
+    {
+      "id": "26407b22-9bd7-4c7a-9b03-e09894984062",
+      "label": "Find the derivative",
+      "answer": "There is no derivative.",
+      "answer_description": "Because there is no differential.",
+      "question": "$$\ne=mc^2\n$$",
+      "question_description": "What is the derivative of this equation?",
+      "correct_count": 0,
+      "incorrect_count": 0
+    }
+  ],
+  "flashcard_subjects": [
+    {
+      "flashcard_id": "26407b22-9bd7-4c7a-9b03-e09894984062",
+      "subject_value": ""
+    }
+  ],
+  "flashcard_tags": [],
+  "flashcard_topics": [
+    {
+      "flashcard_id": "26407b22-9bd7-4c7a-9b03-e09894984062",
+      "topic_value": "calc1"
+    }
+  ],
+  "kanban_board_lists": [],
+  "kanban_boards": [],
+  "kanban_board_task_lists": [],
+  "equations": [],
+  "equation_snippets": [],
+  "equation_tags": [],
+  "bookmarks": [],
+  "auto_settings": [],
+  "settings": {
+    "id": "persist:root",
+    "body": "{\"ai\":\"{\\\"provider\\\":0,\\\"aiChatInput\\\":\\\"Multi-line Text\\\",\\\"defaultLanguageModel\\\":\\\"phi3:3.8b-instruct\\\",\\\"embeddingModel\\\":\\\"nomic-embed-text:latest\\\",\\\"maxTextSplitTokens\\\":1000,\\\"defaultTopK\\\":25,\\\"defaultTopP\\\":0.25,\\\"defaultRepeatPenalty\\\":1.5,\\\"defaultTemperature\\\":0.2,\\\"minChunkLength\\\":200,\\\"maxChunkLength\\\":500,\\\"ollamaConnection\\\":{\\\"useOllamaConnectionData\\\":false,\\\"url\\\":\\\"http://localhost\\\",\\\"port\\\":11434}}\",\"scaffold\":\"{\\\"themeMode\\\":2,\\\"theme\\\":\\\"fluster\\\"}\",\"keymap\":\"{\\\"syncDirectory\\\":\\\"b-false-false-true-false-Sync directory without AI\\\",\\\"showCommandPalette\\\":\\\"p-false-false-true-false-Show command palette\\\",\\\"togglePanelLeft\\\":\\\"l-false-true-true-false-Toggle left panel\\\",\\\"togglePanelRight\\\":\\\"r-false-true-true-false-Toggle right panel\\\",\\\"togglePanelBottom\\\":\\\"t-false-true-true-false-Toggle panel bottom (beta)\\\",\\\"editorCommandPalette\\\":\\\"p-false-true-true-false-Show editor command palette\\\",\\\"scrollDown\\\":\\\"j-false-false-false-false-Scroll down\\\",\\\"scrollUp\\\":\\\"k-false-false-false-false-Scroll up\\\",\\\"selectLeft\\\":\\\"h-true-false-false-false-Select left\\\",\\\"selectRight\\\":\\\"l-true-false-false-false-Select Right\\\",\\\"refresh\\\":\\\"r-false-false-true-false-Refresh\\\"}\",\"panelLeft\":\"{\\\"open\\\":false}\",\"panelRight\":\"{\\\"open\\\":false}\",\"panelBottom\":\"{\\\"open\\\":false}\",\"code\":\"{\\\"keymap\\\":\\\"standard\\\",\\\"defaultLanguage\\\":\\\"python\\\",\\\"theme\\\":{\\\"dark\\\":\\\"dracula\\\",\\\"light\\\":\\\"github-light\\\"},\\\"jupyter\\\":{\\\"port\\\":21521,\\\"token\\\":\\\"\\\",\\\"defaultKernelName\\\":\\\"python\\\"},\\\"previewDebounce\\\":0.5}\",\"core\":\"{\\\"notesDirectory\\\":\\\"/Users/bigsexy/Desktop/notes/content\\\",\\\"hasLoadedSavedState\\\":true,\\\"nThreads\\\":8,\\\"useGitIgnore\\\":false,\\\"dashboardType\\\":\\\"dashboard\\\"}\",\"bib\":\"{\\\"bibPath\\\":\\\"/Users/bigsexy/Desktop/notes/content/bib/citations.bib\\\",\\\"cslPath\\\":\\\"/Users/bigsexy/Desktop/notes/content/bib/aip.csl\\\"}\",\"plot\":\"{\\\"themes\\\":{\\\"dark\\\":\\\"plotly_dark\\\",\\\"light\\\":\\\"seaborn\\\"}}\",\"search\":\"{\\\"traditionalSearchResults\\\":{\\\"categoryOpenState\\\":{\\\"notes\\\":true,\\\"snippets\\\":true,\\\"equations\\\":true,\\\"tasks\\\":true,\\\"flashcards\\\":true}}}\",\"whiteboard\":\"{\\\"whiteboardTimeout\\\":1}\",\"_persist\":\"{\\\"version\\\":-1,\\\"rehydrated\\\":true}\"}"
+  },
+  "snippets": [],
+  "snippet_tags": [],
+  "task_lists": [],
+  "tasks": [],
+  "task_tags": [],
+  "whiteboards": [
+    {
+      "id": "derivative_of_a_constant",
+      "state": "{\"elements\":[{\"id\":\"a7zPe3XFlKdRr7zNQFaWC\",\"type\":\"line\",\"x\":500,\"y\":220,\"width\":20,\"height\":460,\"angle\":0,\"strokeColor\":\"#1e1e1e\",\"backgroundColor\":\"transparent\",\"fillStyle\":\"solid\",\"strokeWidth\":2,\"strokeStyle\":\"solid\",\"roughness\":1,\"opacity\":100,\"groupIds\":[],\"frameId\":null,\"index\":\"a0\",\"roundness\":{\"type\":2},\"seed\":1355244999,\"version\":10,\"versionNonce\":177160951,\"isDeleted\":true,\"boundElements\":[],\"updated\":1761611116017,\"link\":null,\"locked\":false,\"points\":[[0,0],[-20,460]],\"lastCommittedPoint\":null,\"startBinding\":null,\"endBinding\":null,\"startArrowhead\":null,\"endArrowhead\":null},{\"id\":\"b8VfPuooLH2neWCNZXpjA\",\"type\":\"freedraw\",\"x\":401,\"y\":380,\"width\":432,\"height\":395,\"angle\":0,\"strokeColor\":\"#1e1e1e\",\"backgroundColor\":\"transparent\",\"fillStyle\":\"solid\",\"strokeWidth\":2,\"strokeStyle\":\"solid\",\"roughness\":1,\"opacity\":100,\"groupIds\":[],\"frameId\":null,\"index\":\"a1\",\"roundness\":null,\"seed\":101745961,\"version\":34,\"versionNonce\":1765065255,\"isDeleted\":true,\"boundElements\":[],\"updated\":1761610727159,\"link\":null,\"locked\":false,\"points\":[[0,0],[1,0],[15,-1],[33,-6],[159,-45],[232,-51],[211,21],[66,172],[-48,212],[-72,161],[34,-10],[124,-63],[149,-65],[145,-59],[141,-56],[141,-55],[141,-56],[141,-58],[155,-94],[168,-115],[262,-183],[303,-134],[165,38],[-79,96],[-129,40],[9,-128],[118,-145],[136,-117],[137,-92],[136,-91],[135,-92],[135,-92]],\"pressures\":[],\"simulatePressure\":true,\"lastCommittedPoint\":null},{\"id\":\"1FdHBiIWqEJPQIeF0vr0r\",\"type\":\"freedraw\",\"x\":308,\"y\":396,\"width\":450,\"height\":480,\"angle\":0,\"strokeColor\":\"#1e1e1e\",\"backgroundColor\":\"transparent\",\"fillStyle\":\"solid\",\"strokeWidth\":2,\"strokeStyle\":\"solid\",\"roughness\":1,\"opacity\":100,\"groupIds\":[],\"frameId\":null,\"index\":\"a2\",\"roundness\":null,\"seed\":1372054855,\"version\":60,\"versionNonce\":1434588631,\"isDeleted\":true,\"boundElements\":[],\"updated\":1761611115335,\"link\":null,\"locked\":false,\"points\":[[0,0],[0,-1],[57,-21],[82,-29],[204,-72],[266,-40],[117,173],[-29,267],[-60,150],[169,-119],[279,-149],[292,-130],[293,-124],[292,-124],[290,-123],[287,-119],[248,-61],[158,60],[124,82],[151,51],[252,21],[342,27],[366,11],[357,-69],[219,-96],[75,-104],[53,-77],[105,-16],[205,-16],[258,-98],[262,-187],[118,-213],[69,-149],[131,-90],[241,-79],[296,-157],[231,-195],[129,-178],[99,-120],[183,-60],[253,-70],[277,-152],[212,-183],[153,-143],[169,-54],[237,-24],[304,-21],[323,-36],[298,-21],[143,135],[-18,214],[-84,159],[19,5],[200,-84],[329,-97],[354,-82],[355,-68],[354,-65]],\"pressures\":[],\"simulatePressure\":true,\"lastCommittedPoint\":null},{\"id\":\"1u24KK6LDNIuur96CzHAv\",\"type\":\"freedraw\",\"x\":832,\"y\":412,\"width\":0.0001,\"height\":0.0001,\"angle\":0,\"strokeColor\":\"#1e1e1e\",\"backgroundColor\":\"transparent\",\"fillStyle\":\"solid\",\"strokeWidth\":2,\"strokeStyle\":\"solid\",\"roughness\":1,\"opacity\":100,\"groupIds\":[],\"frameId\":null,\"index\":\"a3\",\"roundness\":null,\"seed\":1486317095,\"version\":4,\"versionNonce\":1874568071,\"isDeleted\":true,\"boundElements\":[],\"updated\":1761610747792,\"link\":null,\"locked\":false,\"points\":[[0,0],[0.0001,0.0001]],\"pressures\":[],\"simulatePressure\":true,\"lastCommittedPoint\":null},{\"id\":\"ycRmyGqbgGEBKVNvSvxcH\",\"type\":\"line\",\"x\":500,\"y\":160,\"width\":0,\"height\":320,\"angle\":0,\"strokeColor\":\"#1e1e1e\",\"backgroundColor\":\"transparent\",\"fillStyle\":\"solid\",\"strokeWidth\":2,\"strokeStyle\":\"solid\",\"roughness\":1,\"opacity\":100,\"groupIds\":[],\"frameId\":null,\"index\":\"a4\",\"roundness\":{\"type\":2},\"seed\":1002032151,\"version\":17,\"versionNonce\":1984216025,\"isDeleted\":false,\"boundElements\":[],\"updated\":1761611124004,\"link\":null,\"locked\":false,\"points\":[[0,0],[0,320]],\"lastCommittedPoint\":null,\"startBinding\":null,\"endBinding\":null,\"startArrowhead\":null,\"endArrowhead\":null},{\"id\":\"9i-hZ1cBUOMebOtE2zj7C\",\"type\":\"line\",\"x\":400,\"y\":300,\"width\":340,\"height\":0,\"angle\":0,\"strokeColor\":\"#1e1e1e\",\"backgroundColor\":\"transparent\",\"fillStyle\":\"solid\",\"strokeWidth\":2,\"strokeStyle\":\"solid\",\"roughness\":1,\"opacity\":100,\"groupIds\":[],\"frameId\":null,\"index\":\"a5\",\"roundness\":{\"type\":2},\"seed\":590350295,\"version\":15,\"versionNonce\":436513593,\"isDeleted\":false,\"boundElements\":[],\"updated\":1761611133223,\"link\":null,\"locked\":false,\"points\":[[0,0],[340,0]],\"lastCommittedPoint\":null,\"startBinding\":null,\"endBinding\":null,\"startArrowhead\":null,\"endArrowhead\":null},{\"id\":\"I2rLeNhLy96AJlE0p-Hbj\",\"type\":\"line\",\"x\":440,\"y\":240,\"width\":200,\"height\":0,\"angle\":0,\"strokeColor\":\"#e03131\",\"backgroundColor\":\"#ffc9c9\",\"fillStyle\":\"solid\",\"strokeWidth\":2,\"strokeStyle\":\"solid\",\"roughness\":1,\"opacity\":100,\"groupIds\":[],\"frameId\":null,\"index\":\"a6\",\"roundness\":{\"type\":2},\"seed\":323046903,\"version\":15,\"versionNonce\":803946713,\"isDeleted\":false,\"boundElements\":[],\"updated\":1761611147417,\"link\":null,\"locked\":false,\"points\":[[0,0],[200,0]],\"lastCommittedPoint\":null,\"startBinding\":null,\"endBinding\":null,\"startArrowhead\":null,\"endArrowhead\":null},{\"id\":\"syQg1VP1eAJMSvomRN4V7\",\"type\":\"text\",\"x\":653,\"y\":225,\"width\":13.5,\"height\":27,\"angle\":0,\"strokeColor\":\"#e03131\",\"backgroundColor\":\"#ffc9c9\",\"fillStyle\":\"solid\",\"strokeWidth\":2,\"strokeStyle\":\"solid\",\"roughness\":1,\"opacity\":100,\"groupIds\":[],\"frameId\":null,\"index\":\"a7\",\"roundness\":null,\"seed\":1523504727,\"version\":14,\"versionNonce\":674126519,\"isDeleted\":false,\"boundElements\":[],\"updated\":1761611165918,\"link\":null,\"locked\":false,\"text\":\"C\",\"fontSize\":20,\"fontFamily\":6,\"textAlign\":\"left\",\"verticalAlign\":\"top\",\"containerId\":null,\"originalText\":\"C\",\"autoResize\":true,\"lineHeight\":1.35}]}",
+      "label": "--whiteboard--",
+      "ctime": "2025-10-28T01:08:30.107",
+      "utime": "2025-10-28T01:08:30.107"
+    }
+  ]
+}

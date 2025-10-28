@@ -1,5 +1,4 @@
 use chrono::Utc;
-use py_rs::PY;
 use serde::{Deserialize, Serialize};
 use specta::Type;
 // pub struct DefaultAISettings {
@@ -7,11 +6,7 @@ use specta::Type;
 // }
 
 /// The database entity representing a specific chat historys
-#[derive(Serialize, Deserialize, Type, Clone, PY)]
-#[py(
-    export,
-    export_to = "../../src-python/fluster_sidecar_api/core/types/AiChatMessageData.py"
-)]
+#[derive(Serialize, Deserialize, Type, Clone, Debug)]
 pub struct AiChatModel {
     pub id: String,
     pub label: String,

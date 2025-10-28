@@ -3,6 +3,8 @@ export const dashboardTypes = ["simple", "dashboard"] as const;
 export interface CoreSettings {
     /// The root directory to use for all relative paths. This should point to the root of the user's notes.
     notesDirectory: string;
+    /** An optional location to output database backup to. */
+    backupDirectory: string;
     hasLoadedSavedState: boolean;
     /// The default number of threads to be used when running computationally intensive tasks.
     nThreads: number;

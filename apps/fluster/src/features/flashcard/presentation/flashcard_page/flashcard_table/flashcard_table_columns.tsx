@@ -70,12 +70,18 @@ export const flashcardTableColumns: ColumnDef<FlashcardModel>[] = [
         ),
     },
     {
-        accessorFn: (flashcard) =>
-            Math.round(
+        accessorFn: (flashcard) => {
+            const n = Math.round(
                 (flashcard.correct_count /
                     (flashcard.correct_count + flashcard.incorrect_count)) *
                 100
-            ),
+            );
+            if (Number.isNaN(n)) {
+                return 0;
+            } else {
+                return n;
+            }
+        },
         id: "accuracy",
         size: 180,
         header: ({ column }) => (

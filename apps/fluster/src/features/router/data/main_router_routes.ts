@@ -33,12 +33,17 @@ import { TabularDataTablePage } from "#/tabular/presentation/tabular_datatable_p
 import { FlusterSidecarHelloWorldPage } from "#/python/presentation/hello_world_page";
 import { FlashcardPage } from "#/flashcard/presentation/flashcard_page";
 import { FlashcardQuizPage } from "#/flashcard/presentation/flashcard_quiz_page";
+import { WhiteboardPage } from "#/whiteboard/presentation/whiteboard_page/whiteboard_page";
 
 export const getBrowserRouter = () => {
     return createBrowserRouter([
         {
             path: AppRoutes.onboarding,
             Component: OnboardingPage,
+        },
+        {
+            path: AppRoutes.whiteboard,
+            Component: WhiteboardPage,
         },
         {
             path: AppRoutes.splash_screen,

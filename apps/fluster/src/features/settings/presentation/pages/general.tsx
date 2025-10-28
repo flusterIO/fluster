@@ -41,6 +41,7 @@ const schema = z.object({
     useGitIgnore: z.boolean(),
     whiteboardTimeout: z.number(),
     dashboardType: z.enum(dashboardTypes),
+    backupDirectory: z.string(),
 });
 
 interface DashboardItem extends CheckboxGroupItem<string> {
@@ -65,6 +66,7 @@ export const GeneralSettingsPage = connector(
                 useGitIgnore: state?.useGitIgnore ?? false,
                 whiteboardTimeout: whiteboardState?.whiteboardTimeout ?? 1,
                 dashboardType: state?.dashboardType ?? "dashboard",
+                backupDirectory: state?.backupDirectory ?? "",
             },
         });
 
@@ -137,7 +139,7 @@ export const GeneralSettingsPage = connector(
             }
         );
 
-        form.watch((formState) => console.log("formState: ", formState))
+        form.watch((formState) => console.log("formState: ", formState));
         return (
             <Form {...form}>
                 <SettingPageContainer>
@@ -148,6 +150,17 @@ export const GeneralSettingsPage = connector(
                         name="notesDirectory"
                         directory
                         desc="This is the primary directory that contains all of your notes. You can nest content in this directory as deeply as you wish."
+                        classes={{
+                            formItem: "w-full max-w-full",
+                            container: "w-full max-w-full",
+                        }}
+                    />
+                    <FilePathInput
+                        label="Backup Directory"
+                        form={form}
+                        name="backupDirectory"
+                        directory
+                        desc="When backing up your data, Fluster will output a single json file to this folder, making your data completely restorable."
                         classes={{
                             formItem: "w-full max-w-full",
                             container: "w-full max-w-full",

@@ -6,6 +6,8 @@ use thiserror::Error;
 pub enum FlusterError {
     #[error("A utility error to be used temporarily for debugging.")]
     CanaryError,
+    #[error("Could not find proper backup data version.")]
+    FailToFindBackupDataVersion,
     #[error("Fluster failed to stream data from rust to typescript.")]
     FailToStreamFromRust,
     #[error("Failed to perform semantic search")]
@@ -32,11 +34,17 @@ pub enum FlusterError {
     #[error("The file you requested could not be loaded.")]
     FailToReadFile,
 
+    #[error("Fluster could not create necessary files.")]
+    FailToCreateFile,
+
     #[error("Fluster could not find a chat session on your local machine.")]
     FailToReadChatSession,
 
     #[error("The json string provided is not valid json.")]
     FailToParseJsonString,
+
+    #[error("Fail to serialize json string.")]
+    FailToSerializeJson,
 
     #[error("The file you requested could not be parsed as json.")]
     FailToParseTabularFile,

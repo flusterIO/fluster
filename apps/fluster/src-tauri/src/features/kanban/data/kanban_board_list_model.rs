@@ -1,7 +1,7 @@
 use serde::{Deserialize, Serialize};
 use specta::Type;
 
-#[derive(Serialize, Deserialize, Type)]
+#[derive(Serialize, Deserialize, Type, Clone, Debug)]
 pub struct KanbanBoardListModel {
     pub id: String,
     pub label: String,

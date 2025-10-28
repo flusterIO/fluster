@@ -1,4 +1,5 @@
 pub mod ai;
+pub mod backup;
 pub mod bibliography;
 pub mod bookmark;
 pub mod dashboard;

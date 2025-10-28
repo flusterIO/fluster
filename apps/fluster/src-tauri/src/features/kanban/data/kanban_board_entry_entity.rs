@@ -24,7 +24,7 @@ pub struct KanbanBoardEntryEntity {}
 
 impl KanbanBoardEntryEntity {
     pub async fn delete_by_id(db: &FlusterDb<'_>, id: &str) -> FlusterResult<()> {
-        let tbl = get_table(db, DatabaseTables::KanbanBoardEntry).await?;
+        let tbl = get_table(db, DatabaseTables::KanbanCard).await?;
         tbl.delete(&format!("id = \"{}\"", id)).await.map_err(|e| {
             println!("Error: {:?}", e);
             FlusterError::FailToDelete
@@ -36,7 +36,7 @@ impl KanbanBoardEntryEntity {
         predicate: &Option<String>,
         pagination: &PaginationProps,
     ) -> FlusterResult<Vec<KanbanCardModel>> {
-        let tbl = get_table(db, DatabaseTables::KanbanBoardEntry).await?;
+        let tbl = get_table(db, DatabaseTables::KanbanCard).await?;
 
         let query = match predicate {
             None => tbl.query(),
@@ -75,7 +75,7 @@ impl KanbanBoardEntryEntity {
     }
     pub async fn save_many(db: &FlusterDb<'_>, entries: &[KanbanCardModel]) -> FlusterResult<()> {
         let schema = KanbanBoardEntryEntity::arrow_schema();
-        let tbl = get_table(db, DatabaseTables::KanbanBoardEntry).await?;
+        let tbl = get_table(db, DatabaseTables::KanbanCard).await?;
         let batches: Vec<Result<RecordBatch, ArrowError>> = entries
             .iter()
             .map(|x| Ok(KanbanBoardEntryEntity::to_record_batch(x, schema.clone())))

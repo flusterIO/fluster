@@ -6,13 +6,16 @@ use futures::TryStreamExt;
 use lancedb::query::{ExecutableQuery, QueryBase};
 use serde_arrow::from_record_batch;
 
-use crate::core::{
-    database::{db::get_table, tables::table_paths::DatabaseTables},
-    types::{
-        errors::errors::{FlusterError, FlusterResult},
-        traits::db_entity::DbEntity,
-        FlusterDb,
+use crate::{
+    core::{
+        database::{db::get_table, tables::table_paths::DatabaseTables},
+        types::{
+            errors::errors::{FlusterError, FlusterResult},
+            traits::db_entity::DbEntity,
+            FlusterDb,
+        },
     },
+    features::search::types::PaginationProps,
 };
 
 use super::whiteboard_model::WhiteboardModel;
@@ -30,6 +33,47 @@ impl WhiteboardEntity {
             FlusterError::FailToDelete
         })?;
         Ok(())
+    }
+
+    pub async fn get_all(
+        db: &FlusterDb<'_>,
+        pagination: PaginationProps,
+        predicate: Option<String>,
+    ) -> FlusterResult<Vec<WhiteboardModel>> {
+        let tbl = get_table(db, DatabaseTables::Whiteboard).await?;
+        let offset = pagination.per_page * (pagination.page_number - 1);
+        let mut q = tbl.query();
+        if predicate.is_some() {
+            q = q.only_if(predicate.unwrap());
+        }
+        let items_batch = q
+            .offset(offset)
+            .limit(pagination.per_page)
+            .execute()
+            .await
+            .map_err(|e| {
+                println!("Error: {:?}", e);
+                FlusterError::FailToFind
+            })?
+            .try_collect::<Vec<_>>()
+            .await
+            .map_err(|e| {
+                println!("Error: {:?}", e);
+                FlusterError::FailToFind
+            })?;
+
+        if items_batch.is_empty() {
+            return Ok(Vec::new());
+        }
+        let mut items: Vec<WhiteboardModel> = Vec::new();
+        for batch in items_batch.iter() {
+            let data: Vec<WhiteboardModel> = from_record_batch(batch).map_err(|e| {
+                eprintln!("Error: {:?}", e);
+                FlusterError::FailToSerialize
+            })?;
+            items.extend(data);
+        }
+        Ok(items)
     }
     pub async fn save_many(db: &FlusterDb<'_>, items: Vec<WhiteboardModel>) -> FlusterResult<()> {
         let schema = WhiteboardEntity::arrow_schema();

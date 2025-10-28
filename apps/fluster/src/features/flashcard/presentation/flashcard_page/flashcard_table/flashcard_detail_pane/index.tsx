@@ -109,7 +109,7 @@ const FlashcardDetailPaneInner = ({
                                 data.topic?.topic_value.length ? "cursor-pointer" : undefined
                             }
                             onClick={
-                                data.topic
+                                data.topic?.topic_value.length
                                     ? () => {
                                         nav(getTopicUrl(data.topic!.topic_value));
                                         setShow(false);
@@ -117,8 +117,11 @@ const FlashcardDetailPaneInner = ({
                                     : undefined
                             }
                             aria-disabled={!data.topic?.topic_value.length}
+                            variant={
+                                !data.topic?.topic_value.length ? "secondary" : undefined
+                            }
                         >
-                            {data.topic?.topic_value ?? "--"}
+                            {data.topic?.topic_value.length ? data.topic.topic_value : "--"}
                         </Badge>
                     </div>
                     <div className="w-full mt-8">
@@ -130,7 +133,7 @@ const FlashcardDetailPaneInner = ({
                                     : undefined
                             }
                             onClick={
-                                data.subject
+                                data.subject?.subject_value.length
                                     ? () => {
                                         nav(getSubjectUrl(data.subject!.subject_value));
                                         setShow(false);
@@ -138,8 +141,13 @@ const FlashcardDetailPaneInner = ({
                                     : undefined
                             }
                             aria-disabled={!data.subject?.subject_value.length}
+                            variant={
+                                !data.subject?.subject_value.length ? "secondary" : undefined
+                            }
                         >
-                            {data.subject?.subject_value ?? "--"}
+                            {data.subject?.subject_value.length
+                                ? data.subject.subject_value
+                                : "--"}
                         </Badge>
                     </div>
                 </div>

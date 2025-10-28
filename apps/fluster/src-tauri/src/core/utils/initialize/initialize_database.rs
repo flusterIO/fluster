@@ -252,7 +252,7 @@ pub async fn initialize_database() -> FlusterResult<()> {
             set_indices: None,
         },
         TableInitData {
-            table: DatabaseTables::KanbanBoardEntry,
+            table: DatabaseTables::KanbanCard,
             entity: KanbanBoardEntryEntity::arrow_schema(),
             set_indices: None,
         },

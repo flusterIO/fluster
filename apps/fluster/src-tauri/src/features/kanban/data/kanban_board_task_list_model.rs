@@ -1,7 +1,7 @@
 use serde::{Deserialize, Serialize};
 use specta::Type;
 
-#[derive(Serialize, Deserialize, Type)]
+#[derive(Serialize, Deserialize, Type, Debug, Clone)]
 pub struct KanbanBoardTaskListModel {
     /// The id field of the KanbanCardModel.
     pub kanban_board_entry_id: String,

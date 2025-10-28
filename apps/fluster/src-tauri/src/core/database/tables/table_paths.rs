@@ -1,7 +1,7 @@
 use serde::{Deserialize, Serialize};
 use strum_macros::{Display, EnumIter};
 
-#[derive(Serialize, Deserialize, Display, EnumIter, PartialEq)]
+#[derive(Serialize, Deserialize, Display, EnumIter, PartialEq, Clone)]
 pub enum DatabaseTables {
     // -- Taggables --
     #[strum(to_string = "tag")]
@@ -75,7 +75,7 @@ pub enum DatabaseTables {
     #[strum(to_string = "kanban_board_task_list")]
     KanbanBoardTaskList,
     #[strum(to_string = "kanban_board_entry")]
-    KanbanBoardEntry,
+    KanbanCard,
     #[strum(to_string = "kanban_board_list")]
     KanbanBoardList,
     // -- Flashcard --

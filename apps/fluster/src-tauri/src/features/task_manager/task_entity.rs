@@ -24,6 +24,35 @@ type T = TaskModel;
 pub struct TaskEntity {}
 
 impl TaskEntity {
+    pub async fn get_all(db: &FlusterDb<'_>) -> FlusterResult<Vec<TaskModel>> {
+        let tbl = get_table(db, DatabaseTables::Task).await?;
+        let items_batch = tbl
+            .query()
+            .execute()
+            .await
+            .map_err(|e| {
+                println!("Error in TaskEntity.get_all: {:?}", e);
+                FlusterError::FailToConnect
+            })?
+            .try_collect::<Vec<_>>()
+            .await
+            .map_err(|e| {
+                println!("Error in TaskEntity.get_all: {:?}", e);
+                FlusterError::FailToCreateEntity
+            })?;
+        if items_batch.is_empty() {
+            return Ok(Vec::new());
+        }
+        let mut items: Vec<TaskModel> = Vec::new();
+        for batch in items_batch.iter() {
+            let data: Vec<TaskModel> = from_record_batch(batch).map_err(|e| {
+                println!("Error in TaskEntity.get_all: {:?}", e);
+                FlusterError::FailToSerialize
+            })?;
+            items.extend(data);
+        }
+        Ok(items)
+    }
     pub async fn get_by_ids(db: &FlusterDb<'_>, ids: Vec<String>) -> FlusterResult<Vec<T>> {
         if ids.is_empty() {
             return Ok(Vec::new());

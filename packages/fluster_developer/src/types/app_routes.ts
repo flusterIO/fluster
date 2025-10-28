@@ -26,4 +26,5 @@ export enum AppRoutes {
     hello_world = "/hello-world",
     flashcard = "/flash-card",
     flashcard_quiz = "/flash-card-quiz",
+    whiteboard = "/whiteboard",
 }

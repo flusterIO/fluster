@@ -5,13 +5,14 @@ import { Excalidraw } from "@excalidraw/excalidraw";
 import { ExcalidrawImperativeAPI } from "@excalidraw/excalidraw/types";
 import { OrderedExcalidrawElement } from "@excalidraw/excalidraw/element/types";
 import { useDarkMode } from "@/hooks/use_dark_mode";
-import { Button, cn, H4, showToast } from "@fluster.io/dev";
+import { AppRoutes, Button, cn, H4, showToast } from "@fluster.io/dev";
 import { commands } from "@/lib/bindings";
 import { LoadingComponent } from "@/components/loading_screen";
 
 import { AppState } from "@/state/initial_state";
 import { connect } from "react-redux";
 import { WhiteboardState } from "#/whiteboard/state/whiteboard_settings";
+import { useNavigate } from "react-router";
 
 const connector = connect((state: AppState) => ({
     whiteboardState: state.whiteboard,
@@ -35,37 +36,10 @@ export interface WhiteboardData {
 
 export const EmbeddableWhiteboard = connector(
     (props: EmbeddableWhiteboardProps): ReactNode => {
-        console.log("props: ", props);
-        const [excalidrawAPI, setExcalidrawAPI] =
-            useState<ExcalidrawImperativeAPI | null>(null);
-        const [viewMode, setViewMode] = useState(true);
         const [initialData, setInitialData] =
             useState<Partial<WhiteboardData> | null>(null);
-        const timer = useRef<NodeJS.Timeout | null>(null);
         const darkMode = useDarkMode();
-
-        const saveWhiteboard = async (): Promise<void> => {
-            if (props.demo) {
-                return;
-            }
-            const elements = excalidrawAPI?.getSceneElementsIncludingDeleted();
-            const data: WhiteboardData = {
-                elements: elements ?? [],
-            };
-            const res = await commands.saveWhiteboardData(
-                props.id,
-                JSON.stringify(data),
-                props.title ?? null
-            );
-            if (res.status === "error") {
-                showToast({
-                    title: "Something went wrong",
-                    body: "Fluster encountered an error while attemting to save your whiteboard's data. If this continues, please file an issue on Github.",
-                    duration: 5000,
-                    variant: "Error",
-                });
-            }
-        };
+        const nav = useNavigate();
 
         const loadInitialData = async (): Promise<void> => {
             if (!props.demo) {
@@ -86,20 +60,8 @@ export const EmbeddableWhiteboard = connector(
 
         useEffect(() => {
             loadInitialData();
+            /* eslint-disable-next-line */
         }, []);
-
-        useEffect(() => {
-            window.dispatchEvent(new Event("resize"));
-        }, []);
-
-        const updateElements = (): void => {
-            if (timer.current) {
-                clearTimeout(timer.current);
-            }
-            timer.current = setTimeout(() => {
-                saveWhiteboard();
-            }, (props.whiteboardState?.whiteboardTimeout ?? 1) * 1000);
-        };
 
         if (!props.id) {
             return (
@@ -129,24 +91,38 @@ export const EmbeddableWhiteboard = connector(
                 >
                     {props.title ? <H4>{props.title}</H4> : null}
                     <Button
-                        onClick={() => setViewMode(!viewMode)}
-                        variant={viewMode ? "outline" : undefined}
+                        onClick={() => {
+                            const sp = new URLSearchParams();
+                            sp.set("editing", props.id);
+                            if (props.grid) {
+                                sp.set("grid", "true");
+                            }
+                            if (props.title) {
+                                sp.set("title", props.title);
+                            }
+                            nav(`${AppRoutes.whiteboard}?${sp.toString()}`);
+                        }}
+                        variant={"outline"}
                         size={"sm"}
                     >
-                        View Mode
+                        Edit
                     </Button>
                 </div>
-                <div className="h-[min(500px,80vh)] w-full">
+                <div
+                    className="w-full h-[500px] relative"
+                /* style={{ */
+                /*     height: `${height}px`, */
+                /* }} */
+                >
                     <Excalidraw
                         gridModeEnabled={props.grid}
-                        viewModeEnabled={viewMode}
+                        viewModeEnabled={true}
                         initialData={{
                             elements: initialData.elements,
                         }}
                         autoFocus={false}
                         theme={darkMode ? "dark" : "light"}
-                        excalidrawAPI={(api) => setExcalidrawAPI(api)}
-                        onChange={() => updateElements()}
+                    /* onChange={() => updateElements()} */
                     />
                 </div>
             </div>

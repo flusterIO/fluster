@@ -176,9 +176,11 @@ impl FlashcardTopicEntity {
         let filtered_tags: Vec<&T> = items
             .iter()
             .filter(|x| {
-                !all_note_tags
-                    .iter()
-                    .any(|y| (x.flashcard_id == y.flashcard_id) && (x.topic_value == y.topic_value))
+                !all_note_tags.iter().any(|y| {
+                    (x.flashcard_id == y.flashcard_id)
+                        && (x.topic_value == y.topic_value)
+                        && !y.topic_value.is_empty()
+                })
             })
             .collect();
         if filtered_tags.is_empty() {

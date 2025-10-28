@@ -99,9 +99,6 @@ jobs:
             | Mac (Intel chip) | Fluster_x64.app.tar.gz |
             | Windows | .msi or .exe |
             | Linux | .deb or .AppImage |
-
-            # Updates
-            - Added flashcard page with interactive quizzes.
           releaseDraft: false
           prerelease: false
           tauriScript: pnpm tauri

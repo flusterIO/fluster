@@ -65,7 +65,7 @@ impl SettingsEntity {
         Ok(())
     }
 
-    pub async fn get_settings(db: &FlusterDb<'_>) -> FlusterResult<String> {
+    pub async fn get_setting_model(db: &FlusterDb<'_>) -> FlusterResult<SettingsModel> {
         let tbl = get_table(db, DatabaseTables::Settings).await?;
         let res = tbl
             .query()
@@ -92,10 +92,15 @@ impl SettingsEntity {
                 FlusterError::FailToSerialize
             })?;
             if !items.is_empty() {
-                return Ok(items.index(0).body.clone());
+                return Ok(items.index(0).clone());
             }
         }
         Err(FlusterError::FailToReadSettings)
+    }
+
+    pub async fn get_settings(db: &FlusterDb<'_>) -> FlusterResult<String> {
+        let settings = SettingsEntity::get_setting_model(db).await?;
+        Ok(settings.body.clone())
     }
 }
 
