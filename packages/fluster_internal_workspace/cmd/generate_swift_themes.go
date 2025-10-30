@@ -1,5 +1,5 @@
 /*
-Copyright © 2025 Andrew Mueller <fluster.eyeoh@gmail.com>
+Copyright © 2025 Andrew Mueller <aiglinski414@gmail.com>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -22,36 +22,22 @@ THE SOFTWARE.
 package cmd
 
 import (
-	"os"
-
+	"github.com/flusterIo/fluster_internal_workspace/internal/actions/generate_swift_colors"
 	"github.com/spf13/cobra"
 )
 
 // rootCmd represents the base command when called without any subcommands
-var rootCmd = &cobra.Command{
-	Use:   "fluster_internal_workspace",
-	Short: "Utility build scripts for Fluster.",
-	Long:  "This is pretty much useless outside of Fluster development.",
+var generateSwiftColorsCommand = &cobra.Command{
+	Use:   "generate_swift_colors",
+	Short: "A one time command to generate themes in swift from the existing scss colors saved to json.",
+	Long:  `A one time command to generate themes in swift from the existing scss colors saved to json.`,
 	// Uncomment the following line if your bare application
 	// has an action associated with it:
-	// Run: func(cmd *cobra.Command, args []string) { },
-}
-
-func init() {
-	rootCmd.AddCommand(generateGrpcBuildScriptCmd)
-	rootCmd.AddCommand(setDistributedVersionCmd)
-	rootCmd.AddCommand(createCleanFeatureCmd)
-	rootCmd.AddCommand(noCheckBindingsFileCmd)
-	rootCmd.AddCommand(applyVersionToTauriCommand)
-	rootCmd.AddCommand(setLocalDependencySourceCommand)
-	rootCmd.AddCommand(generateSwiftColorsCommand)
-}
-
-// Execute adds all child commands to the root command and sets flags appropriately.
-// This is called by main.main(). It only needs to happen once to the rootCmd.
-func Execute() {
-	err := rootCmd.Execute()
-	if err != nil {
-		os.Exit(1)
-	}
+	Run: func(cmd *cobra.Command, args []string) {
+		if len(args) != 1 {
+			println("Cannot continue without a file path used to determine where to write the output.")
+			return
+		}
+		generate_swift_colors.GenerateSwiftColors(args[0])
+	},
 }

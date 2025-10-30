@@ -66,6 +66,14 @@ async getParsableFiles(opts: GetParsableFilesOptions) : Promise<Result<ParsableF
 async getEnvVar(envVar: string) : Promise<string | null> {
     return await TAURI_INVOKE("get_env_var", { envVar });
 },
+async backupDatabaseObjects(outputDir: string) : Promise<Result<null, FlusterError>> {
+    try {
+    return { status: "ok", data: await TAURI_INVOKE("backup_database_objects", { outputDir }) };
+} catch (e) {
+    if(e instanceof Error) throw e;
+    else return { status: "error", error: e  as any };
+}
+},
 async createAutoSetting(data: AutoSettingModel[]) : Promise<Result<null, FlusterError>> {
     try {
     return { status: "ok", data: await TAURI_INVOKE("create_auto_setting", { data }) };
@@ -1063,7 +1071,7 @@ export type FlashcardSubjectModel = { flashcard_id: string; subject_value: strin
 export type FlashcardTagModel = { flashcard_id: string; tag_value: string }
 export type FlashcardTopicModel = { flashcard_id: string; topic_value: string }
 export type FlashcardTopicSubjectData = { subjects: SharedTaggableModel[]; topics: SharedTaggableModel[] }
-export type FlusterError = "CanaryError" | "FailToStreamFromRust" | "FailToPerformSemanticSearch" | "FailToGenerateVectors" | "OperatingSystemNotSupported" | "FailToSendEvent" | "FailToLoadDocs" | { FailToLoadEnvironmentVariable: string } | "FailToParseDate" | "FailToWriteChatSession" | "FileDoesNotExist" | "FailToReadFile" | "FailToReadChatSession" | "FailToParseJsonString" | "FailToParseTabularFile" | "NoAiProvidersConfigured" | "FailToGenerateChatResponse" | "FailToLoadModel" | "FailToCreateEmbeddingVector" | "FailToGetSemanticResults" | "FailToCreateQrCode" | "FailToCount" | "NotImplemented" | "FailToCopyFiles" | "FailToWriteFile" | "FailToSaveSettings" | "FailToReadSettings" | "DatabaseError" | "FailToParseBibFile" | "SettingsBibPathNotFound" | "CannotParseBibfile" | "FailToFindDataDirectory" | "FailToCreateIndex" | "FailToSerialize" | "NotFoundById" | "DuplicateId" | "FailToDelete" | "FailToClean" | "FailToCreateTable" | "FailToOpenTable" | "FailToConnect" | "FailToStartDb" | "FailToDropTable" | "FailToStopDb" | "FailToCreateEntity" | "FailToCreateSnippet" | "FailToFind" | "FailToFindById" | "FailToCreatePath" | "FailToCreateTag" | "FailToCreateSubject" | { DataDirNotFound: [] } | { FailToClearDirectory: string } | "FailToCreateTopic" | "FailToLocateStorageDir" | { FailToReadFileSystemPath: string } | "FailToReadMathjaxFont" | { FailToSaveFile: string } | { MdxParsingError: string } | { NoTitleError: string } | "FailToGatherMdxGroups" | { AttemptedToParseFileWasntFound: string } | { FailToSaveMdxNote: string } | 
+export type FlusterError = "CanaryError" | "FailToFindBackupDataVersion" | "FailToStreamFromRust" | "FailToPerformSemanticSearch" | "FailToGenerateVectors" | "OperatingSystemNotSupported" | "FailToSendEvent" | "FailToLoadDocs" | { FailToLoadEnvironmentVariable: string } | "FailToParseDate" | "FailToWriteChatSession" | "FileDoesNotExist" | "FailToReadFile" | "FailToCreateFile" | "FailToReadChatSession" | "FailToParseJsonString" | "FailToSerializeJson" | "FailToParseTabularFile" | "NoAiProvidersConfigured" | "FailToGenerateChatResponse" | "FailToLoadModel" | "FailToCreateEmbeddingVector" | "FailToGetSemanticResults" | "FailToCreateQrCode" | "FailToCount" | "NotImplemented" | "FailToCopyFiles" | "FailToWriteFile" | "FailToSaveSettings" | "FailToReadSettings" | "DatabaseError" | "FailToParseBibFile" | "SettingsBibPathNotFound" | "CannotParseBibfile" | "FailToFindDataDirectory" | "FailToCreateIndex" | "FailToSerialize" | "NotFoundById" | "DuplicateId" | "FailToDelete" | "FailToClean" | "FailToCreateTable" | "FailToOpenTable" | "FailToConnect" | "FailToStartDb" | "FailToDropTable" | "FailToStopDb" | "FailToCreateEntity" | "FailToCreateSnippet" | "FailToFind" | "FailToFindById" | "FailToCreatePath" | "FailToCreateTag" | "FailToCreateSubject" | { DataDirNotFound: [] } | { FailToClearDirectory: string } | "FailToCreateTopic" | "FailToLocateStorageDir" | { FailToReadFileSystemPath: string } | "FailToReadMathjaxFont" | { FailToSaveFile: string } | { MdxParsingError: string } | { NoTitleError: string } | "FailToGatherMdxGroups" | { AttemptedToParseFileWasntFound: string } | { FailToSaveMdxNote: string } | 
 /**
  * Taggables
  * 

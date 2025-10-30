@@ -4,7 +4,6 @@ import HeroSection from "./hero/hero";
 import { HighlightedFeaturesSection } from "./sections/feature_section";
 import EverythingYouNeedSection from "./sections/everything_you_need_section";
 import { MainSponsorSection } from "./sections/sponsors_section";
-import { StoryOfFlusterSection } from "./sections/story_of_ulld_section/index";
 
 const LandingPage = (): ReactNode => {
     return (
@@ -13,7 +12,6 @@ const LandingPage = (): ReactNode => {
             <EverythingYouNeedSection />
             <HighlightedFeaturesSection />
             <MainSponsorSection />
-            <StoryOfFlusterSection />
         </div>
     );
 };
