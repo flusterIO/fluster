@@ -1,5 +1,11 @@
 # @fluster.io/dev
 
+## 0.3.22
+
+### Patch Changes
+
+- Add script to generate swift themes from scss
+
 ## 0.3.21
 
 ### Patch Changes
