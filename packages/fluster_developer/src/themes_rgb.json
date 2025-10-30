@@ -1,0 +1,2745 @@
+{
+    "zinc": {
+        "light": {
+            "background": {
+                "red": 1.0,
+                "green": 1.0,
+                "blue": 1.0
+            },
+            "foreground": {
+                "red": 0.051,
+                "green": 0.051,
+                "blue": 0.059
+            },
+            "card": {
+                "red": 1.0,
+                "green": 1.0,
+                "blue": 1.0
+            },
+            "card-foreground": {
+                "red": 0.051,
+                "green": 0.051,
+                "blue": 0.059
+            },
+            "popover": {
+                "red": 1.0,
+                "green": 1.0,
+                "blue": 1.0
+            },
+            "popover-foreground": {
+                "red": 0.051,
+                "green": 0.051,
+                "blue": 0.059
+            },
+            "primary": {
+                "red": 0.094,
+                "green": 0.094,
+                "blue": 0.098
+            },
+            "primary-foreground": {
+                "red": 0.98,
+                "green": 0.98,
+                "blue": 0.98
+            },
+            "secondary": {
+                "red": 0.957,
+                "green": 0.957,
+                "blue": 0.961
+            },
+            "secondary-foreground": {
+                "red": 0.094,
+                "green": 0.094,
+                "blue": 0.098
+            },
+            "muted": {
+                "red": 0.957,
+                "green": 0.957,
+                "blue": 0.961
+            },
+            "muted-foreground": {
+                "red": 0.443,
+                "green": 0.443,
+                "blue": 0.482
+            },
+            "accent": {
+                "red": 0.957,
+                "green": 0.957,
+                "blue": 0.961
+            },
+            "accent-foreground": {
+                "red": 0.094,
+                "green": 0.094,
+                "blue": 0.098
+            },
+            "destructive": {
+                "red": 0.937,
+                "green": 0.267,
+                "blue": 0.267
+            },
+            "destructive-foreground": {
+                "red": 0.98,
+                "green": 0.98,
+                "blue": 0.98
+            },
+            "border": {
+                "red": 0.894,
+                "green": 0.894,
+                "blue": 0.906
+            },
+            "input": {
+                "red": 0.894,
+                "green": 0.894,
+                "blue": 0.906
+            },
+            "ring": {
+                "red": 0.094,
+                "green": 0.094,
+                "blue": 0.098
+            },
+            "brand": {
+                "red": 0.043,
+                "green": 0.647,
+                "blue": 0.914
+            },
+            "general-link-color": {
+                "red": 0.145,
+                "green": 0.39,
+                "blue": 0.922
+            }
+        },
+        "dark": {
+            "background": {
+                "red": 0.051,
+                "green": 0.051,
+                "blue": 0.059
+            },
+            "foreground": {
+                "red": 0.98,
+                "green": 0.98,
+                "blue": 0.98
+            },
+            "card": {
+                "red": 0.051,
+                "green": 0.051,
+                "blue": 0.059
+            },
+            "card-foreground": {
+                "red": 0.98,
+                "green": 0.98,
+                "blue": 0.98
+            },
+            "popover": {
+                "red": 0.051,
+                "green": 0.051,
+                "blue": 0.059
+            },
+            "popover-foreground": {
+                "red": 0.98,
+                "green": 0.98,
+                "blue": 0.98
+            },
+            "primary": {
+                "red": 0.98,
+                "green": 0.98,
+                "blue": 0.98
+            },
+            "primary-foreground": {
+                "red": 0.094,
+                "green": 0.094,
+                "blue": 0.098
+            },
+            "secondary": {
+                "red": 0.153,
+                "green": 0.153,
+                "blue": 0.165
+            },
+            "secondary-foreground": {
+                "red": 0.98,
+                "green": 0.98,
+                "blue": 0.98
+            },
+            "muted": {
+                "red": 0.153,
+                "green": 0.153,
+                "blue": 0.165
+            },
+            "muted-foreground": {
+                "red": 0.631,
+                "green": 0.631,
+                "blue": 0.667
+            },
+            "accent": {
+                "red": 0.153,
+                "green": 0.153,
+                "blue": 0.165
+            },
+            "accent-foreground": {
+                "red": 0.98,
+                "green": 0.98,
+                "blue": 0.98
+            },
+            "destructive": {
+                "red": 0.498,
+                "green": 0.114,
+                "blue": 0.114
+            },
+            "destructive-foreground": {
+                "red": 0.98,
+                "green": 0.98,
+                "blue": 0.98
+            },
+            "border": {
+                "red": 0.153,
+                "green": 0.153,
+                "blue": 0.165
+            },
+            "input": {
+                "red": 0.153,
+                "green": 0.153,
+                "blue": 0.165
+            },
+            "ring": {
+                "red": 0.831,
+                "green": 0.831,
+                "blue": 0.847
+            },
+            "general-link-color": {
+                "red": 0.118,
+                "green": 0.565,
+                "blue": 1.0
+            }
+        }
+    },
+    "yellow": {
+        "light": {
+            "background": {
+                "red": 1.0,
+                "green": 1.0,
+                "blue": 1.0
+            },
+            "foreground": {
+                "red": 0.102,
+                "green": 0.086,
+                "blue": 0.059
+            },
+            "card": {
+                "red": 1.0,
+                "green": 1.0,
+                "blue": 1.0
+            },
+            "card-foreground": {
+                "red": 0.102,
+                "green": 0.086,
+                "blue": 0.059
+            },
+            "popover": {
+                "red": 1.0,
+                "green": 1.0,
+                "blue": 1.0
+            },
+            "popover-foreground": {
+                "red": 0.102,
+                "green": 0.086,
+                "blue": 0.059
+            },
+            "primary": {
+                "red": 0.98,
+                "green": 0.8,
+                "blue": 0.078
+            },
+            "primary-foreground": {
+                "red": 0.2,
+                "green": 0.137,
+                "blue": 0.02
+            },
+            "secondary": {
+                "red": 0.957,
+                "green": 0.957,
+                "blue": 0.961
+            },
+            "secondary-foreground": {
+                "red": 0.106,
+                "green": 0.098,
+                "blue": 0.09
+            },
+            "muted": {
+                "red": 0.957,
+                "green": 0.957,
+                "blue": 0.961
+            },
+            "muted-foreground": {
+                "red": 0.455,
+                "green": 0.431,
+                "blue": 0.384
+            },
+            "accent": {
+                "red": 0.957,
+                "green": 0.957,
+                "blue": 0.961
+            },
+            "accent-foreground": {
+                "red": 0.106,
+                "green": 0.098,
+                "blue": 0.09
+            },
+            "destructive": {
+                "red": 0.937,
+                "green": 0.267,
+                "blue": 0.267
+            },
+            "destructive-foreground": {
+                "red": 0.98,
+                "green": 0.98,
+                "blue": 0.976
+            },
+            "border": {
+                "red": 0.902,
+                "green": 0.898,
+                "blue": 0.89
+            },
+            "input": {
+                "red": 0.902,
+                "green": 0.898,
+                "blue": 0.89
+            },
+            "ring": {
+                "red": 0.102,
+                "green": 0.086,
+                "blue": 0.059
+            },
+            "brand": {
+                "red": 0.043,
+                "green": 0.647,
+                "blue": 0.914
+            },
+            "general-link-color": {
+                "red": 0.145,
+                "green": 0.39,
+                "blue": 0.922
+            }
+        },
+        "dark": {
+            "background": {
+                "red": 0.102,
+                "green": 0.086,
+                "blue": 0.059
+            },
+            "foreground": {
+                "red": 0.98,
+                "green": 0.98,
+                "blue": 0.976
+            },
+            "card": {
+                "red": 0.102,
+                "green": 0.086,
+                "blue": 0.059
+            },
+            "card-foreground": {
+                "red": 0.98,
+                "green": 0.98,
+                "blue": 0.976
+            },
+            "popover": {
+                "red": 0.102,
+                "green": 0.086,
+                "blue": 0.059
+            },
+            "popover-foreground": {
+                "red": 0.98,
+                "green": 0.98,
+                "blue": 0.976
+            },
+            "primary": {
+                "red": 0.98,
+                "green": 0.8,
+                "blue": 0.078
+            },
+            "primary-foreground": {
+                "red": 0.2,
+                "green": 0.137,
+                "blue": 0.02
+            },
+            "secondary": {
+                "red": 0.145,
+                "green": 0.122,
+                "blue": 0.098
+            },
+            "secondary-foreground": {
+                "red": 0.98,
+                "green": 0.98,
+                "blue": 0.976
+            },
+            "muted": {
+                "red": 0.145,
+                "green": 0.122,
+                "blue": 0.098
+            },
+            "muted-foreground": {
+                "red": 0.647,
+                "green": 0.62,
+                "blue": 0.573
+            },
+            "accent": {
+                "red": 0.145,
+                "green": 0.122,
+                "blue": 0.098
+            },
+            "accent-foreground": {
+                "red": 0.98,
+                "green": 0.98,
+                "blue": 0.976
+            },
+            "destructive": {
+                "red": 0.498,
+                "green": 0.114,
+                "blue": 0.114
+            },
+            "destructive-foreground": {
+                "red": 0.98,
+                "green": 0.98,
+                "blue": 0.976
+            },
+            "border": {
+                "red": 0.145,
+                "green": 0.122,
+                "blue": 0.098
+            },
+            "input": {
+                "red": 0.145,
+                "green": 0.122,
+                "blue": 0.098
+            },
+            "ring": {
+                "red": 0.898,
+                "green": 0.678,
+                "blue": 0.169
+            },
+            "general-link-color": {
+                "red": 0.118,
+                "green": 0.565,
+                "blue": 1.0
+            }
+        }
+    },
+    "violet": {
+        "light": {
+            "background": {
+                "red": 1.0,
+                "green": 1.0,
+                "blue": 1.0
+            },
+            "foreground": {
+                "red": 0.082,
+                "green": 0.016,
+                "blue": 0.18
+            },
+            "card": {
+                "red": 1.0,
+                "green": 1.0,
+                "blue": 1.0
+            },
+            "card-foreground": {
+                "red": 0.082,
+                "green": 0.016,
+                "blue": 0.18
+            },
+            "popover": {
+                "red": 1.0,
+                "green": 1.0,
+                "blue": 1.0
+            },
+            "popover-foreground": {
+                "red": 0.082,
+                "green": 0.016,
+                "blue": 0.18
+            },
+            "primary": {
+                "red": 0.482,
+                "green": 0.224,
+                "blue": 0.929
+            },
+            "primary-foreground": {
+                "red": 0.969,
+                "green": 0.961,
+                "blue": 0.988
+            },
+            "secondary": {
+                "red": 0.945,
+                "green": 0.949,
+                "blue": 0.973
+            },
+            "secondary-foreground": {
+                "red": 0.118,
+                "green": 0.059,
+                "blue": 0.271
+            },
+            "muted": {
+                "red": 0.945,
+                "green": 0.949,
+                "blue": 0.973
+            },
+            "muted-foreground": {
+                "red": 0.471,
+                "green": 0.463,
+                "blue": 0.529
+            },
+            "accent": {
+                "red": 0.945,
+                "green": 0.949,
+                "blue": 0.973
+            },
+            "accent-foreground": {
+                "red": 0.118,
+                "green": 0.059,
+                "blue": 0.271
+            },
+            "destructive": {
+                "red": 0.937,
+                "green": 0.267,
+                "blue": 0.267
+            },
+            "destructive-foreground": {
+                "red": 0.969,
+                "green": 0.961,
+                "blue": 0.988
+            },
+            "border": {
+                "red": 0.898,
+                "green": 0.902,
+                "blue": 0.922
+            },
+            "input": {
+                "red": 0.898,
+                "green": 0.902,
+                "blue": 0.922
+            },
+            "ring": {
+                "red": 0.482,
+                "green": 0.224,
+                "blue": 0.929
+            },
+            "brand": {
+                "red": 0.043,
+                "green": 0.647,
+                "blue": 0.914
+            },
+            "general-link-color": {
+                "red": 0.145,
+                "green": 0.39,
+                "blue": 0.922
+            }
+        },
+        "dark": {
+            "background": {
+                "red": 0.082,
+                "green": 0.016,
+                "blue": 0.18
+            },
+            "foreground": {
+                "red": 0.969,
+                "green": 0.961,
+                "blue": 0.988
+            },
+            "card": {
+                "red": 0.082,
+                "green": 0.016,
+                "blue": 0.18
+            },
+            "card-foreground": {
+                "red": 0.969,
+                "green": 0.961,
+                "blue": 0.988
+            },
+            "popover": {
+                "red": 0.082,
+                "green": 0.016,
+                "blue": 0.18
+            },
+            "popover-foreground": {
+                "red": 0.969,
+                "green": 0.961,
+                "blue": 0.988
+            },
+            "primary": {
+                "red": 0.427,
+                "green": 0.153,
+                "blue": 0.851
+            },
+            "primary-foreground": {
+                "red": 0.969,
+                "green": 0.961,
+                "blue": 0.988
+            },
+            "secondary": {
+                "red": 0.157,
+                "green": 0.098,
+                "blue": 0.267
+            },
+            "secondary-foreground": {
+                "red": 0.969,
+                "green": 0.961,
+                "blue": 0.988
+            },
+            "muted": {
+                "red": 0.157,
+                "green": 0.098,
+                "blue": 0.267
+            },
+            "muted-foreground": {
+                "red": 0.631,
+                "green": 0.619,
+                "blue": 0.682
+            },
+            "accent": {
+                "red": 0.157,
+                "green": 0.098,
+                "blue": 0.267
+            },
+            "accent-foreground": {
+                "red": 0.969,
+                "green": 0.961,
+                "blue": 0.988
+            },
+            "destructive": {
+                "red": 0.498,
+                "green": 0.114,
+                "blue": 0.114
+            },
+            "destructive-foreground": {
+                "red": 0.969,
+                "green": 0.961,
+                "blue": 0.988
+            },
+            "border": {
+                "red": 0.157,
+                "green": 0.098,
+                "blue": 0.267
+            },
+            "input": {
+                "red": 0.157,
+                "green": 0.098,
+                "blue": 0.267
+            },
+            "ring": {
+                "red": 0.427,
+                "green": 0.153,
+                "blue": 0.851
+            },
+            "general-link-color": {
+                "red": 0.118,
+                "green": 0.565,
+                "blue": 1.0
+            }
+        }
+    },
+    "fluster": {
+        "light": {
+            "background": {
+                "red": 1.0,
+                "green": 1.0,
+                "blue": 1.0
+            },
+            "foreground": {
+                "red": 0.043,
+                "green": 0.082,
+                "blue": 0.153
+            },
+            "card": {
+                "red": 1.0,
+                "green": 1.0,
+                "blue": 1.0
+            },
+            "card-foreground": {
+                "red": 0.043,
+                "green": 0.082,
+                "blue": 0.153
+            },
+            "popover": {
+                "red": 1.0,
+                "green": 1.0,
+                "blue": 1.0
+            },
+            "popover-foreground": {
+                "red": 0.043,
+                "green": 0.082,
+                "blue": 0.153
+            },
+            "primary": {
+                "red": 0.043,
+                "green": 0.647,
+                "blue": 0.914
+            },
+            "primary-foreground": {
+                "red": 0.969,
+                "green": 0.98,
+                "blue": 0.988
+            },
+            "secondary": {
+                "red": 0.941,
+                "green": 0.961,
+                "blue": 0.976
+            },
+            "secondary-foreground": {
+                "red": 0.063,
+                "green": 0.09,
+                "blue": 0.165
+            },
+            "muted": {
+                "red": 0.941,
+                "green": 0.961,
+                "blue": 0.976
+            },
+            "muted-foreground": {
+                "red": 0.471,
+                "green": 0.53,
+                "blue": 0.608
+            },
+            "accent": {
+                "red": 0.941,
+                "green": 0.961,
+                "blue": 0.976
+            },
+            "accent-foreground": {
+                "red": 0.063,
+                "green": 0.09,
+                "blue": 0.165
+            },
+            "destructive": {
+                "red": 0.937,
+                "green": 0.267,
+                "blue": 0.267
+            },
+            "destructive-foreground": {
+                "red": 0.969,
+                "green": 0.98,
+                "blue": 0.988
+            },
+            "border": {
+                "red": 0.902,
+                "green": 0.922,
+                "blue": 0.941
+            },
+            "input": {
+                "red": 0.902,
+                "green": 0.922,
+                "blue": 0.941
+            },
+            "ring": {
+                "red": 0.22,
+                "green": 0.749,
+                "blue": 0.506
+            },
+            "brand": {
+                "red": 0.043,
+                "green": 0.647,
+                "blue": 0.914
+            },
+            "general-link-color": {
+                "red": 0.145,
+                "green": 0.39,
+                "blue": 0.922
+            }
+        },
+        "dark": {
+            "background": {
+                "red": 0.043,
+                "green": 0.082,
+                "blue": 0.153
+            },
+            "foreground": {
+                "red": 0.969,
+                "green": 0.98,
+                "blue": 0.988
+            },
+            "card": {
+                "red": 0.043,
+                "green": 0.082,
+                "blue": 0.153
+            },
+            "card-foreground": {
+                "red": 0.969,
+                "green": 0.98,
+                "blue": 0.988
+            },
+            "popover": {
+                "red": 0.043,
+                "green": 0.082,
+                "blue": 0.153
+            },
+            "popover-foreground": {
+                "red": 0.969,
+                "green": 0.98,
+                "blue": 0.988
+            },
+            "primary": {
+                "red": 0.231,
+                "green": 0.506,
+                "blue": 0.965
+            },
+            "primary-foreground": {
+                "red": 0.969,
+                "green": 0.98,
+                "blue": 0.988
+            },
+            "secondary": {
+                "red": 0.153,
+                "green": 0.22,
+                "blue": 0.286
+            },
+            "secondary-foreground": {
+                "red": 0.969,
+                "green": 0.98,
+                "blue": 0.988
+            },
+            "muted": {
+                "red": 0.153,
+                "green": 0.22,
+                "blue": 0.286
+            },
+            "muted-foreground": {
+                "red": 0.616,
+                "green": 0.655,
+                "blue": 0.698
+            },
+            "accent": {
+                "red": 0.153,
+                "green": 0.22,
+                "blue": 0.286
+            },
+            "accent-foreground": {
+                "red": 0.969,
+                "green": 0.98,
+                "blue": 0.988
+            },
+            "destructive": {
+                "red": 1.0,
+                "green": 0.0,
+                "blue": 0.0
+            },
+            "destructive-foreground": {
+                "red": 0.969,
+                "green": 0.98,
+                "blue": 0.988
+            },
+            "border": {
+                "red": 0.153,
+                "green": 0.22,
+                "blue": 0.286
+            },
+            "input": {
+                "red": 0.153,
+                "green": 0.22,
+                "blue": 0.286
+            },
+            "ring": {
+                "red": 0.125,
+                "green": 0.424,
+                "blue": 0.922
+            },
+            "general-link-color": {
+                "red": 0.118,
+                "green": 0.565,
+                "blue": 1.0
+            }
+        }
+    },
+    "stone": {
+        "light": {
+            "background": {
+                "red": 1.0,
+                "green": 1.0,
+                "blue": 1.0
+            },
+            "foreground": {
+                "red": 0.102,
+                "green": 0.086,
+                "blue": 0.059
+            },
+            "card": {
+                "red": 1.0,
+                "green": 1.0,
+                "blue": 1.0
+            },
+            "card-foreground": {
+                "red": 0.102,
+                "green": 0.086,
+                "blue": 0.059
+            },
+            "popover": {
+                "red": 1.0,
+                "green": 1.0,
+                "blue": 1.0
+            },
+            "popover-foreground": {
+                "red": 0.102,
+                "green": 0.086,
+                "blue": 0.059
+            },
+            "primary": {
+                "red": 0.106,
+                "green": 0.098,
+                "blue": 0.09
+            },
+            "primary-foreground": {
+                "red": 0.98,
+                "green": 0.98,
+                "blue": 0.976
+            },
+            "secondary": {
+                "red": 0.957,
+                "green": 0.957,
+                "blue": 0.961
+            },
+            "secondary-foreground": {
+                "red": 0.106,
+                "green": 0.098,
+                "blue": 0.09
+            },
+            "muted": {
+                "red": 0.957,
+                "green": 0.957,
+                "blue": 0.961
+            },
+            "muted-foreground": {
+                "red": 0.455,
+                "green": 0.431,
+                "blue": 0.384
+            },
+            "accent": {
+                "red": 0.957,
+                "green": 0.957,
+                "blue": 0.961
+            },
+            "accent-foreground": {
+                "red": 0.106,
+                "green": 0.098,
+                "blue": 0.09
+            },
+            "destructive": {
+                "red": 0.937,
+                "green": 0.267,
+                "blue": 0.267
+            },
+            "destructive-foreground": {
+                "red": 0.98,
+                "green": 0.98,
+                "blue": 0.976
+            },
+            "border": {
+                "red": 0.902,
+                "green": 0.898,
+                "blue": 0.89
+            },
+            "input": {
+                "red": 0.902,
+                "green": 0.898,
+                "blue": 0.89
+            },
+            "ring": {
+                "red": 0.102,
+                "green": 0.086,
+                "blue": 0.059
+            },
+            "brand": {
+                "red": 0.043,
+                "green": 0.647,
+                "blue": 0.914
+            },
+            "general-link-color": {
+                "red": 0.145,
+                "green": 0.39,
+                "blue": 0.922
+            }
+        },
+        "dark": {
+            "background": {
+                "red": 0.102,
+                "green": 0.086,
+                "blue": 0.059
+            },
+            "foreground": {
+                "red": 0.98,
+                "green": 0.98,
+                "blue": 0.976
+            },
+            "card": {
+                "red": 0.102,
+                "green": 0.086,
+                "blue": 0.059
+            },
+            "card-foreground": {
+                "red": 0.98,
+                "green": 0.98,
+                "blue": 0.976
+            },
+            "popover": {
+                "red": 0.102,
+                "green": 0.086,
+                "blue": 0.059
+            },
+            "popover-foreground": {
+                "red": 0.98,
+                "green": 0.98,
+                "blue": 0.976
+            },
+            "primary": {
+                "red": 0.98,
+                "green": 0.98,
+                "blue": 0.976
+            },
+            "primary-foreground": {
+                "red": 0.106,
+                "green": 0.098,
+                "blue": 0.09
+            },
+            "secondary": {
+                "red": 0.145,
+                "green": 0.122,
+                "blue": 0.098
+            },
+            "secondary-foreground": {
+                "red": 0.98,
+                "green": 0.98,
+                "blue": 0.976
+            },
+            "muted": {
+                "red": 0.145,
+                "green": 0.122,
+                "blue": 0.098
+            },
+            "muted-foreground": {
+                "red": 0.647,
+                "green": 0.62,
+                "blue": 0.573
+            },
+            "accent": {
+                "red": 0.145,
+                "green": 0.122,
+                "blue": 0.098
+            },
+            "accent-foreground": {
+                "red": 0.98,
+                "green": 0.98,
+                "blue": 0.976
+            },
+            "destructive": {
+                "red": 0.498,
+                "green": 0.114,
+                "blue": 0.114
+            },
+            "destructive-foreground": {
+                "red": 0.98,
+                "green": 0.98,
+                "blue": 0.976
+            },
+            "border": {
+                "red": 0.145,
+                "green": 0.122,
+                "blue": 0.098
+            },
+            "input": {
+                "red": 0.145,
+                "green": 0.122,
+                "blue": 0.098
+            },
+            "ring": {
+                "red": 0.851,
+                "green": 0.835,
+                "blue": 0.816
+            },
+            "general-link-color": {
+                "red": 0.118,
+                "green": 0.565,
+                "blue": 1.0
+            }
+        }
+    },
+    "slate": {
+        "light": {
+            "background": {
+                "red": 1.0,
+                "green": 1.0,
+                "blue": 1.0
+            },
+            "foreground": {
+                "red": 0.043,
+                "green": 0.082,
+                "blue": 0.153
+            },
+            "card": {
+                "red": 1.0,
+                "green": 1.0,
+                "blue": 1.0
+            },
+            "card-foreground": {
+                "red": 0.043,
+                "green": 0.082,
+                "blue": 0.153
+            },
+            "popover": {
+                "red": 1.0,
+                "green": 1.0,
+                "blue": 1.0
+            },
+            "popover-foreground": {
+                "red": 0.043,
+                "green": 0.082,
+                "blue": 0.153
+            },
+            "primary": {
+                "red": 0.063,
+                "green": 0.09,
+                "blue": 0.165
+            },
+            "primary-foreground": {
+                "red": 0.969,
+                "green": 0.98,
+                "blue": 0.988
+            },
+            "secondary": {
+                "red": 0.941,
+                "green": 0.961,
+                "blue": 0.976
+            },
+            "secondary-foreground": {
+                "red": 0.063,
+                "green": 0.09,
+                "blue": 0.165
+            },
+            "muted": {
+                "red": 0.941,
+                "green": 0.961,
+                "blue": 0.976
+            },
+            "muted-foreground": {
+                "red": 0.471,
+                "green": 0.53,
+                "blue": 0.608
+            },
+            "accent": {
+                "red": 0.941,
+                "green": 0.961,
+                "blue": 0.976
+            },
+            "accent-foreground": {
+                "red": 0.063,
+                "green": 0.09,
+                "blue": 0.165
+            },
+            "destructive": {
+                "red": 0.937,
+                "green": 0.267,
+                "blue": 0.267
+            },
+            "destructive-foreground": {
+                "red": 0.969,
+                "green": 0.98,
+                "blue": 0.988
+            },
+            "border": {
+                "red": 0.902,
+                "green": 0.922,
+                "blue": 0.941
+            },
+            "input": {
+                "red": 0.902,
+                "green": 0.922,
+                "blue": 0.941
+            },
+            "ring": {
+                "red": 0.043,
+                "green": 0.082,
+                "blue": 0.153
+            },
+            "brand": {
+                "red": 0.043,
+                "green": 0.647,
+                "blue": 0.914
+            },
+            "general-link-color": {
+                "red": 0.145,
+                "green": 0.39,
+                "blue": 0.922
+            }
+        },
+        "dark": {
+            "background": {
+                "red": 0.043,
+                "green": 0.082,
+                "blue": 0.153
+            },
+            "foreground": {
+                "red": 0.969,
+                "green": 0.98,
+                "blue": 0.988
+            },
+            "card": {
+                "red": 0.043,
+                "green": 0.082,
+                "blue": 0.153
+            },
+            "card-foreground": {
+                "red": 0.969,
+                "green": 0.98,
+                "blue": 0.988
+            },
+            "popover": {
+                "red": 0.043,
+                "green": 0.082,
+                "blue": 0.153
+            },
+            "popover-foreground": {
+                "red": 0.969,
+                "green": 0.98,
+                "blue": 0.988
+            },
+            "primary": {
+                "red": 0.969,
+                "green": 0.98,
+                "blue": 0.988
+            },
+            "primary-foreground": {
+                "red": 0.063,
+                "green": 0.09,
+                "blue": 0.165
+            },
+            "secondary": {
+                "red": 0.153,
+                "green": 0.22,
+                "blue": 0.286
+            },
+            "secondary-foreground": {
+                "red": 0.969,
+                "green": 0.98,
+                "blue": 0.988
+            },
+            "muted": {
+                "red": 0.153,
+                "green": 0.22,
+                "blue": 0.286
+            },
+            "muted-foreground": {
+                "red": 0.616,
+                "green": 0.655,
+                "blue": 0.698
+            },
+            "accent": {
+                "red": 0.153,
+                "green": 0.22,
+                "blue": 0.286
+            },
+            "accent-foreground": {
+                "red": 0.969,
+                "green": 0.98,
+                "blue": 0.988
+            },
+            "destructive": {
+                "red": 0.498,
+                "green": 0.114,
+                "blue": 0.114
+            },
+            "destructive-foreground": {
+                "red": 0.969,
+                "green": 0.98,
+                "blue": 0.988
+            },
+            "border": {
+                "red": 0.153,
+                "green": 0.22,
+                "blue": 0.286
+            },
+            "input": {
+                "red": 0.153,
+                "green": 0.22,
+                "blue": 0.286
+            },
+            "ring": {
+                "red": 0.816,
+                "green": 0.855,
+                "blue": 0.898
+            },
+            "general-link-color": {
+                "red": 0.118,
+                "green": 0.565,
+                "blue": 1.0
+            }
+        }
+    },
+    "rose": {
+        "light": {
+            "background": {
+                "red": 1.0,
+                "green": 1.0,
+                "blue": 1.0
+            },
+            "foreground": {
+                "red": 0.051,
+                "green": 0.051,
+                "blue": 0.059
+            },
+            "card": {
+                "red": 1.0,
+                "green": 1.0,
+                "blue": 1.0
+            },
+            "card-foreground": {
+                "red": 0.051,
+                "green": 0.051,
+                "blue": 0.059
+            },
+            "popover": {
+                "red": 1.0,
+                "green": 1.0,
+                "blue": 1.0
+            },
+            "popover-foreground": {
+                "red": 0.051,
+                "green": 0.051,
+                "blue": 0.059
+            },
+            "primary": {
+                "red": 0.882,
+                "green": 0.114,
+                "blue": 0.278
+            },
+            "primary-foreground": {
+                "red": 0.996,
+                "green": 0.953,
+                "blue": 0.961
+            },
+            "secondary": {
+                "red": 0.957,
+                "green": 0.957,
+                "blue": 0.961
+            },
+            "secondary-foreground": {
+                "red": 0.094,
+                "green": 0.094,
+                "blue": 0.098
+            },
+            "muted": {
+                "red": 0.957,
+                "green": 0.957,
+                "blue": 0.961
+            },
+            "muted-foreground": {
+                "red": 0.443,
+                "green": 0.443,
+                "blue": 0.482
+            },
+            "accent": {
+                "red": 0.957,
+                "green": 0.957,
+                "blue": 0.961
+            },
+            "accent-foreground": {
+                "red": 0.094,
+                "green": 0.094,
+                "blue": 0.098
+            },
+            "destructive": {
+                "red": 0.937,
+                "green": 0.267,
+                "blue": 0.267
+            },
+            "destructive-foreground": {
+                "red": 0.98,
+                "green": 0.98,
+                "blue": 0.98
+            },
+            "border": {
+                "red": 0.894,
+                "green": 0.894,
+                "blue": 0.906
+            },
+            "input": {
+                "red": 0.894,
+                "green": 0.894,
+                "blue": 0.906
+            },
+            "ring": {
+                "red": 0.882,
+                "green": 0.114,
+                "blue": 0.278
+            },
+            "brand": {
+                "red": 0.043,
+                "green": 0.647,
+                "blue": 0.914
+            },
+            "general-link-color": {
+                "red": 0.145,
+                "green": 0.39,
+                "blue": 0.922
+            }
+        },
+        "dark": {
+            "background": {
+                "red": 0.102,
+                "green": 0.086,
+                "blue": 0.059
+            },
+            "foreground": {
+                "red": 0.949,
+                "green": 0.949,
+                "blue": 0.949
+            },
+            "card": {
+                "red": 0.106,
+                "green": 0.098,
+                "blue": 0.09
+            },
+            "card-foreground": {
+                "red": 0.949,
+                "green": 0.949,
+                "blue": 0.949
+            },
+            "popover": {
+                "red": 0.09,
+                "green": 0.09,
+                "blue": 0.09
+            },
+            "popover-foreground": {
+                "red": 0.949,
+                "green": 0.949,
+                "blue": 0.949
+            },
+            "primary": {
+                "red": 0.882,
+                "green": 0.114,
+                "blue": 0.278
+            },
+            "primary-foreground": {
+                "red": 0.996,
+                "green": 0.953,
+                "blue": 0.961
+            },
+            "secondary": {
+                "red": 0.153,
+                "green": 0.153,
+                "blue": 0.165
+            },
+            "secondary-foreground": {
+                "red": 0.98,
+                "green": 0.98,
+                "blue": 0.98
+            },
+            "muted": {
+                "red": 0.149,
+                "green": 0.149,
+                "blue": 0.149
+            },
+            "muted-foreground": {
+                "red": 0.631,
+                "green": 0.631,
+                "blue": 0.667
+            },
+            "accent": {
+                "red": 0.145,
+                "green": 0.122,
+                "blue": 0.098
+            },
+            "accent-foreground": {
+                "red": 0.98,
+                "green": 0.98,
+                "blue": 0.98
+            },
+            "destructive": {
+                "red": 0.498,
+                "green": 0.114,
+                "blue": 0.114
+            },
+            "destructive-foreground": {
+                "red": 0.996,
+                "green": 0.953,
+                "blue": 0.961
+            },
+            "border": {
+                "red": 0.153,
+                "green": 0.153,
+                "blue": 0.165
+            },
+            "input": {
+                "red": 0.153,
+                "green": 0.153,
+                "blue": 0.165
+            },
+            "ring": {
+                "red": 0.882,
+                "green": 0.114,
+                "blue": 0.278
+            },
+            "general-link-color": {
+                "red": 0.118,
+                "green": 0.565,
+                "blue": 1.0
+            }
+        }
+    },
+    "red": {
+        "light": {
+            "background": {
+                "red": 1.0,
+                "green": 1.0,
+                "blue": 1.0
+            },
+            "foreground": {
+                "red": 0.039,
+                "green": 0.039,
+                "blue": 0.039
+            },
+            "card": {
+                "red": 1.0,
+                "green": 1.0,
+                "blue": 1.0
+            },
+            "card-foreground": {
+                "red": 0.039,
+                "green": 0.039,
+                "blue": 0.039
+            },
+            "popover": {
+                "red": 1.0,
+                "green": 1.0,
+                "blue": 1.0
+            },
+            "popover-foreground": {
+                "red": 0.039,
+                "green": 0.039,
+                "blue": 0.039
+            },
+            "primary": {
+                "red": 0.863,
+                "green": 0.149,
+                "blue": 0.153
+            },
+            "primary-foreground": {
+                "red": 0.996,
+                "green": 0.953,
+                "blue": 0.961
+            },
+            "secondary": {
+                "red": 0.961,
+                "green": 0.961,
+                "blue": 0.961
+            },
+            "secondary-foreground": {
+                "red": 0.09,
+                "green": 0.09,
+                "blue": 0.09
+            },
+            "muted": {
+                "red": 0.961,
+                "green": 0.961,
+                "blue": 0.961
+            },
+            "muted-foreground": {
+                "red": 0.451,
+                "green": 0.451,
+                "blue": 0.451
+            },
+            "accent": {
+                "red": 0.961,
+                "green": 0.961,
+                "blue": 0.961
+            },
+            "accent-foreground": {
+                "red": 0.09,
+                "green": 0.09,
+                "blue": 0.09
+            },
+            "destructive": {
+                "red": 0.937,
+                "green": 0.267,
+                "blue": 0.267
+            },
+            "destructive-foreground": {
+                "red": 0.98,
+                "green": 0.98,
+                "blue": 0.98
+            },
+            "border": {
+                "red": 0.898,
+                "green": 0.898,
+                "blue": 0.898
+            },
+            "input": {
+                "red": 0.898,
+                "green": 0.898,
+                "blue": 0.898
+            },
+            "ring": {
+                "red": 0.863,
+                "green": 0.149,
+                "blue": 0.153
+            },
+            "brand": {
+                "red": 0.043,
+                "green": 0.647,
+                "blue": 0.914
+            },
+            "general-link-color": {
+                "red": 0.145,
+                "green": 0.39,
+                "blue": 0.922
+            }
+        },
+        "dark": {
+            "background": {
+                "red": 0.039,
+                "green": 0.039,
+                "blue": 0.039
+            },
+            "foreground": {
+                "red": 0.98,
+                "green": 0.98,
+                "blue": 0.98
+            },
+            "card": {
+                "red": 0.039,
+                "green": 0.039,
+                "blue": 0.039
+            },
+            "card-foreground": {
+                "red": 0.98,
+                "green": 0.98,
+                "blue": 0.98
+            },
+            "popover": {
+                "red": 0.039,
+                "green": 0.039,
+                "blue": 0.039
+            },
+            "popover-foreground": {
+                "red": 0.98,
+                "green": 0.98,
+                "blue": 0.98
+            },
+            "primary": {
+                "red": 0.863,
+                "green": 0.149,
+                "blue": 0.153
+            },
+            "primary-foreground": {
+                "red": 0.996,
+                "green": 0.953,
+                "blue": 0.961
+            },
+            "secondary": {
+                "red": 0.149,
+                "green": 0.149,
+                "blue": 0.149
+            },
+            "secondary-foreground": {
+                "red": 0.98,
+                "green": 0.98,
+                "blue": 0.98
+            },
+            "muted": {
+                "red": 0.149,
+                "green": 0.149,
+                "blue": 0.149
+            },
+            "muted-foreground": {
+                "red": 0.64,
+                "green": 0.64,
+                "blue": 0.64
+            },
+            "accent": {
+                "red": 0.149,
+                "green": 0.149,
+                "blue": 0.149
+            },
+            "accent-foreground": {
+                "red": 0.98,
+                "green": 0.98,
+                "blue": 0.98
+            },
+            "destructive": {
+                "red": 0.498,
+                "green": 0.114,
+                "blue": 0.114
+            },
+            "destructive-foreground": {
+                "red": 0.98,
+                "green": 0.98,
+                "blue": 0.98
+            },
+            "border": {
+                "red": 0.149,
+                "green": 0.149,
+                "blue": 0.149
+            },
+            "input": {
+                "red": 0.149,
+                "green": 0.149,
+                "blue": 0.149
+            },
+            "ring": {
+                "red": 0.863,
+                "green": 0.149,
+                "blue": 0.153
+            },
+            "general-link-color": {
+                "red": 0.118,
+                "green": 0.565,
+                "blue": 1.0
+            }
+        }
+    },
+    "orange": {
+        "light": {
+            "background": {
+                "red": 1.0,
+                "green": 1.0,
+                "blue": 1.0
+            },
+            "foreground": {
+                "red": 0.102,
+                "green": 0.086,
+                "blue": 0.059
+            },
+            "card": {
+                "red": 1.0,
+                "green": 1.0,
+                "blue": 1.0
+            },
+            "card-foreground": {
+                "red": 0.102,
+                "green": 0.086,
+                "blue": 0.059
+            },
+            "popover": {
+                "red": 1.0,
+                "green": 1.0,
+                "blue": 1.0
+            },
+            "popover-foreground": {
+                "red": 0.102,
+                "green": 0.086,
+                "blue": 0.059
+            },
+            "primary": {
+                "red": 0.973,
+                "green": 0.451,
+                "blue": 0.082
+            },
+            "primary-foreground": {
+                "red": 0.98,
+                "green": 0.98,
+                "blue": 0.976
+            },
+            "secondary": {
+                "red": 0.957,
+                "green": 0.957,
+                "blue": 0.961
+            },
+            "secondary-foreground": {
+                "red": 0.106,
+                "green": 0.098,
+                "blue": 0.09
+            },
+            "muted": {
+                "red": 0.957,
+                "green": 0.957,
+                "blue": 0.961
+            },
+            "muted-foreground": {
+                "red": 0.455,
+                "green": 0.431,
+                "blue": 0.384
+            },
+            "accent": {
+                "red": 0.957,
+                "green": 0.957,
+                "blue": 0.961
+            },
+            "accent-foreground": {
+                "red": 0.106,
+                "green": 0.098,
+                "blue": 0.09
+            },
+            "destructive": {
+                "red": 0.937,
+                "green": 0.267,
+                "blue": 0.267
+            },
+            "destructive-foreground": {
+                "red": 0.98,
+                "green": 0.98,
+                "blue": 0.976
+            },
+            "border": {
+                "red": 0.902,
+                "green": 0.898,
+                "blue": 0.89
+            },
+            "input": {
+                "red": 0.902,
+                "green": 0.898,
+                "blue": 0.89
+            },
+            "ring": {
+                "red": 0.973,
+                "green": 0.451,
+                "blue": 0.082
+            },
+            "brand": {
+                "red": 0.043,
+                "green": 0.647,
+                "blue": 0.914
+            },
+            "general-link-color": {
+                "red": 0.145,
+                "green": 0.39,
+                "blue": 0.922
+            }
+        },
+        "dark": {
+            "background": {
+                "red": 0.102,
+                "green": 0.086,
+                "blue": 0.059
+            },
+            "foreground": {
+                "red": 0.98,
+                "green": 0.98,
+                "blue": 0.976
+            },
+            "card": {
+                "red": 0.102,
+                "green": 0.086,
+                "blue": 0.059
+            },
+            "card-foreground": {
+                "red": 0.98,
+                "green": 0.98,
+                "blue": 0.976
+            },
+            "popover": {
+                "red": 0.102,
+                "green": 0.086,
+                "blue": 0.059
+            },
+            "popover-foreground": {
+                "red": 0.98,
+                "green": 0.98,
+                "blue": 0.976
+            },
+            "primary": {
+                "red": 0.918,
+                "green": 0.345,
+                "blue": 0.043
+            },
+            "primary-foreground": {
+                "red": 0.98,
+                "green": 0.98,
+                "blue": 0.976
+            },
+            "secondary": {
+                "red": 0.145,
+                "green": 0.122,
+                "blue": 0.098
+            },
+            "secondary-foreground": {
+                "red": 0.98,
+                "green": 0.98,
+                "blue": 0.976
+            },
+            "muted": {
+                "red": 0.145,
+                "green": 0.122,
+                "blue": 0.098
+            },
+            "muted-foreground": {
+                "red": 0.647,
+                "green": 0.62,
+                "blue": 0.573
+            },
+            "accent": {
+                "red": 0.145,
+                "green": 0.122,
+                "blue": 0.098
+            },
+            "accent-foreground": {
+                "red": 0.98,
+                "green": 0.98,
+                "blue": 0.976
+            },
+            "destructive": {
+                "red": 0.863,
+                "green": 0.149,
+                "blue": 0.153
+            },
+            "destructive-foreground": {
+                "red": 0.98,
+                "green": 0.98,
+                "blue": 0.976
+            },
+            "border": {
+                "red": 0.145,
+                "green": 0.122,
+                "blue": 0.098
+            },
+            "input": {
+                "red": 0.145,
+                "green": 0.122,
+                "blue": 0.098
+            },
+            "ring": {
+                "red": 0.918,
+                "green": 0.345,
+                "blue": 0.043
+            },
+            "general-link-color": {
+                "red": 0.118,
+                "green": 0.565,
+                "blue": 1.0
+            }
+        }
+    },
+    "neutral": {
+        "light": {
+            "background": {
+                "red": 1.0,
+                "green": 1.0,
+                "blue": 1.0
+            },
+            "foreground": {
+                "red": 0.039,
+                "green": 0.039,
+                "blue": 0.039
+            },
+            "card": {
+                "red": 1.0,
+                "green": 1.0,
+                "blue": 1.0
+            },
+            "card-foreground": {
+                "red": 0.039,
+                "green": 0.039,
+                "blue": 0.039
+            },
+            "popover": {
+                "red": 1.0,
+                "green": 1.0,
+                "blue": 1.0
+            },
+            "popover-foreground": {
+                "red": 0.039,
+                "green": 0.039,
+                "blue": 0.039
+            },
+            "primary": {
+                "red": 0.09,
+                "green": 0.09,
+                "blue": 0.09
+            },
+            "primary-foreground": {
+                "red": 0.98,
+                "green": 0.98,
+                "blue": 0.98
+            },
+            "secondary": {
+                "red": 0.961,
+                "green": 0.961,
+                "blue": 0.961
+            },
+            "secondary-foreground": {
+                "red": 0.09,
+                "green": 0.09,
+                "blue": 0.09
+            },
+            "muted": {
+                "red": 0.961,
+                "green": 0.961,
+                "blue": 0.961
+            },
+            "muted-foreground": {
+                "red": 0.451,
+                "green": 0.451,
+                "blue": 0.451
+            },
+            "accent": {
+                "red": 0.961,
+                "green": 0.961,
+                "blue": 0.961
+            },
+            "accent-foreground": {
+                "red": 0.09,
+                "green": 0.09,
+                "blue": 0.09
+            },
+            "destructive": {
+                "red": 0.937,
+                "green": 0.267,
+                "blue": 0.267
+            },
+            "destructive-foreground": {
+                "red": 0.98,
+                "green": 0.98,
+                "blue": 0.98
+            },
+            "border": {
+                "red": 0.898,
+                "green": 0.898,
+                "blue": 0.898
+            },
+            "input": {
+                "red": 0.898,
+                "green": 0.898,
+                "blue": 0.898
+            },
+            "ring": {
+                "red": 0.039,
+                "green": 0.039,
+                "blue": 0.039
+            },
+            "brand": {
+                "red": 0.043,
+                "green": 0.647,
+                "blue": 0.914
+            },
+            "general-link-color": {
+                "red": 0.145,
+                "green": 0.39,
+                "blue": 0.922
+            }
+        },
+        "dark": {
+            "background": {
+                "red": 0.039,
+                "green": 0.039,
+                "blue": 0.039
+            },
+            "foreground": {
+                "red": 0.98,
+                "green": 0.98,
+                "blue": 0.98
+            },
+            "card": {
+                "red": 0.039,
+                "green": 0.039,
+                "blue": 0.039
+            },
+            "card-foreground": {
+                "red": 0.98,
+                "green": 0.98,
+                "blue": 0.98
+            },
+            "popover": {
+                "red": 0.039,
+                "green": 0.039,
+                "blue": 0.039
+            },
+            "popover-foreground": {
+                "red": 0.98,
+                "green": 0.98,
+                "blue": 0.98
+            },
+            "primary": {
+                "red": 0.98,
+                "green": 0.98,
+                "blue": 0.98
+            },
+            "primary-foreground": {
+                "red": 0.09,
+                "green": 0.09,
+                "blue": 0.09
+            },
+            "secondary": {
+                "red": 0.149,
+                "green": 0.149,
+                "blue": 0.149
+            },
+            "secondary-foreground": {
+                "red": 0.98,
+                "green": 0.98,
+                "blue": 0.98
+            },
+            "muted": {
+                "red": 0.149,
+                "green": 0.149,
+                "blue": 0.149
+            },
+            "muted-foreground": {
+                "red": 0.64,
+                "green": 0.64,
+                "blue": 0.64
+            },
+            "accent": {
+                "red": 0.149,
+                "green": 0.149,
+                "blue": 0.149
+            },
+            "accent-foreground": {
+                "red": 0.98,
+                "green": 0.98,
+                "blue": 0.98
+            },
+            "destructive": {
+                "red": 0.498,
+                "green": 0.114,
+                "blue": 0.114
+            },
+            "destructive-foreground": {
+                "red": 0.98,
+                "green": 0.98,
+                "blue": 0.98
+            },
+            "border": {
+                "red": 0.149,
+                "green": 0.149,
+                "blue": 0.149
+            },
+            "input": {
+                "red": 0.149,
+                "green": 0.149,
+                "blue": 0.149
+            },
+            "ring": {
+                "red": 0.831,
+                "green": 0.831,
+                "blue": 0.831
+            },
+            "general-link-color": {
+                "red": 0.118,
+                "green": 0.565,
+                "blue": 1.0
+            }
+        }
+    },
+    "green": {
+        "light": {
+            "background": {
+                "red": 1.0,
+                "green": 1.0,
+                "blue": 1.0
+            },
+            "foreground": {
+                "red": 0.051,
+                "green": 0.051,
+                "blue": 0.059
+            },
+            "card": {
+                "red": 1.0,
+                "green": 1.0,
+                "blue": 1.0
+            },
+            "card-foreground": {
+                "red": 0.051,
+                "green": 0.051,
+                "blue": 0.059
+            },
+            "popover": {
+                "red": 1.0,
+                "green": 1.0,
+                "blue": 1.0
+            },
+            "popover-foreground": {
+                "red": 0.051,
+                "green": 0.051,
+                "blue": 0.059
+            },
+            "primary": {
+                "red": 0.086,
+                "green": 0.64,
+                "blue": 0.286
+            },
+            "primary-foreground": {
+                "red": 0.996,
+                "green": 0.953,
+                "blue": 0.961
+            },
+            "secondary": {
+                "red": 0.957,
+                "green": 0.957,
+                "blue": 0.961
+            },
+            "secondary-foreground": {
+                "red": 0.094,
+                "green": 0.094,
+                "blue": 0.098
+            },
+            "muted": {
+                "red": 0.957,
+                "green": 0.957,
+                "blue": 0.961
+            },
+            "muted-foreground": {
+                "red": 0.443,
+                "green": 0.443,
+                "blue": 0.482
+            },
+            "accent": {
+                "red": 0.957,
+                "green": 0.957,
+                "blue": 0.961
+            },
+            "accent-foreground": {
+                "red": 0.094,
+                "green": 0.094,
+                "blue": 0.098
+            },
+            "destructive": {
+                "red": 0.937,
+                "green": 0.267,
+                "blue": 0.267
+            },
+            "destructive-foreground": {
+                "red": 0.98,
+                "green": 0.98,
+                "blue": 0.98
+            },
+            "border": {
+                "red": 0.894,
+                "green": 0.894,
+                "blue": 0.906
+            },
+            "input": {
+                "red": 0.894,
+                "green": 0.894,
+                "blue": 0.906
+            },
+            "ring": {
+                "red": 0.086,
+                "green": 0.64,
+                "blue": 0.286
+            },
+            "brand": {
+                "red": 0.043,
+                "green": 0.647,
+                "blue": 0.914
+            },
+            "general-link-color": {
+                "red": 0.145,
+                "green": 0.39,
+                "blue": 0.922
+            }
+        },
+        "dark": {
+            "background": {
+                "red": 0.102,
+                "green": 0.086,
+                "blue": 0.059
+            },
+            "foreground": {
+                "red": 0.949,
+                "green": 0.949,
+                "blue": 0.949
+            },
+            "card": {
+                "red": 0.106,
+                "green": 0.098,
+                "blue": 0.09
+            },
+            "card-foreground": {
+                "red": 0.949,
+                "green": 0.949,
+                "blue": 0.949
+            },
+            "popover": {
+                "red": 0.09,
+                "green": 0.09,
+                "blue": 0.09
+            },
+            "popover-foreground": {
+                "red": 0.949,
+                "green": 0.949,
+                "blue": 0.949
+            },
+            "primary": {
+                "red": 0.13,
+                "green": 0.773,
+                "blue": 0.369
+            },
+            "primary-foreground": {
+                "red": 0.102,
+                "green": 0.196,
+                "blue": 0.102
+            },
+            "secondary": {
+                "red": 0.153,
+                "green": 0.153,
+                "blue": 0.165
+            },
+            "secondary-foreground": {
+                "red": 0.98,
+                "green": 0.98,
+                "blue": 0.98
+            },
+            "muted": {
+                "red": 0.149,
+                "green": 0.149,
+                "blue": 0.149
+            },
+            "muted-foreground": {
+                "red": 0.631,
+                "green": 0.631,
+                "blue": 0.667
+            },
+            "accent": {
+                "red": 0.145,
+                "green": 0.122,
+                "blue": 0.098
+            },
+            "accent-foreground": {
+                "red": 0.98,
+                "green": 0.98,
+                "blue": 0.98
+            },
+            "destructive": {
+                "red": 0.498,
+                "green": 0.114,
+                "blue": 0.114
+            },
+            "destructive-foreground": {
+                "red": 0.996,
+                "green": 0.953,
+                "blue": 0.961
+            },
+            "border": {
+                "red": 0.153,
+                "green": 0.153,
+                "blue": 0.165
+            },
+            "input": {
+                "red": 0.153,
+                "green": 0.153,
+                "blue": 0.165
+            },
+            "ring": {
+                "red": 0.094,
+                "green": 0.53,
+                "blue": 0.231
+            },
+            "general-link-color": {
+                "red": 0.118,
+                "green": 0.565,
+                "blue": 1.0
+            }
+        }
+    },
+    "gray": {
+        "light": {
+            "background": {
+                "red": 1.0,
+                "green": 1.0,
+                "blue": 1.0
+            },
+            "foreground": {
+                "red": 0.082,
+                "green": 0.016,
+                "blue": 0.18
+            },
+            "card": {
+                "red": 1.0,
+                "green": 1.0,
+                "blue": 1.0
+            },
+            "card-foreground": {
+                "red": 0.082,
+                "green": 0.016,
+                "blue": 0.18
+            },
+            "popover": {
+                "red": 1.0,
+                "green": 1.0,
+                "blue": 1.0
+            },
+            "popover-foreground": {
+                "red": 0.082,
+                "green": 0.016,
+                "blue": 0.18
+            },
+            "primary": {
+                "red": 0.118,
+                "green": 0.059,
+                "blue": 0.271
+            },
+            "primary-foreground": {
+                "red": 0.969,
+                "green": 0.961,
+                "blue": 0.988
+            },
+            "secondary": {
+                "red": 0.945,
+                "green": 0.949,
+                "blue": 0.973
+            },
+            "secondary-foreground": {
+                "red": 0.118,
+                "green": 0.059,
+                "blue": 0.271
+            },
+            "muted": {
+                "red": 0.945,
+                "green": 0.949,
+                "blue": 0.973
+            },
+            "muted-foreground": {
+                "red": 0.471,
+                "green": 0.463,
+                "blue": 0.529
+            },
+            "accent": {
+                "red": 0.945,
+                "green": 0.949,
+                "blue": 0.973
+            },
+            "accent-foreground": {
+                "red": 0.118,
+                "green": 0.059,
+                "blue": 0.271
+            },
+            "destructive": {
+                "red": 0.937,
+                "green": 0.267,
+                "blue": 0.267
+            },
+            "destructive-foreground": {
+                "red": 0.969,
+                "green": 0.961,
+                "blue": 0.988
+            },
+            "border": {
+                "red": 0.898,
+                "green": 0.902,
+                "blue": 0.922
+            },
+            "input": {
+                "red": 0.898,
+                "green": 0.902,
+                "blue": 0.922
+            },
+            "ring": {
+                "red": 0.082,
+                "green": 0.016,
+                "blue": 0.18
+            },
+            "brand": {
+                "red": 0.043,
+                "green": 0.647,
+                "blue": 0.914
+            },
+            "general-link-color": {
+                "red": 0.145,
+                "green": 0.39,
+                "blue": 0.922
+            }
+        },
+        "dark": {
+            "background": {
+                "red": 0.082,
+                "green": 0.016,
+                "blue": 0.18
+            },
+            "foreground": {
+                "red": 0.969,
+                "green": 0.961,
+                "blue": 0.988
+            },
+            "card": {
+                "red": 0.082,
+                "green": 0.016,
+                "blue": 0.18
+            },
+            "card-foreground": {
+                "red": 0.969,
+                "green": 0.961,
+                "blue": 0.988
+            },
+            "popover": {
+                "red": 0.082,
+                "green": 0.016,
+                "blue": 0.18
+            },
+            "popover-foreground": {
+                "red": 0.969,
+                "green": 0.961,
+                "blue": 0.988
+            },
+            "primary": {
+                "red": 0.969,
+                "green": 0.961,
+                "blue": 0.988
+            },
+            "primary-foreground": {
+                "red": 0.118,
+                "green": 0.059,
+                "blue": 0.271
+            },
+            "secondary": {
+                "red": 0.157,
+                "green": 0.098,
+                "blue": 0.267
+            },
+            "secondary-foreground": {
+                "red": 0.969,
+                "green": 0.961,
+                "blue": 0.988
+            },
+            "muted": {
+                "red": 0.157,
+                "green": 0.098,
+                "blue": 0.267
+            },
+            "muted-foreground": {
+                "red": 0.631,
+                "green": 0.619,
+                "blue": 0.682
+            },
+            "accent": {
+                "red": 0.157,
+                "green": 0.098,
+                "blue": 0.267
+            },
+            "accent-foreground": {
+                "red": 0.969,
+                "green": 0.961,
+                "blue": 0.988
+            },
+            "destructive": {
+                "red": 0.498,
+                "green": 0.114,
+                "blue": 0.114
+            },
+            "destructive-foreground": {
+                "red": 0.969,
+                "green": 0.961,
+                "blue": 0.988
+            },
+            "border": {
+                "red": 0.157,
+                "green": 0.098,
+                "blue": 0.267
+            },
+            "input": {
+                "red": 0.157,
+                "green": 0.098,
+                "blue": 0.267
+            },
+            "ring": {
+                "red": 0.839,
+                "green": 0.847,
+                "blue": 0.867
+            },
+            "general-link-color": {
+                "red": 0.118,
+                "green": 0.565,
+                "blue": 1.0
+            }
+        }
+    },
+    "blue": {
+        "light": {
+            "background": {
+                "red": 1.0,
+                "green": 1.0,
+                "blue": 1.0
+            },
+            "foreground": {
+                "red": 0.043,
+                "green": 0.082,
+                "blue": 0.153
+            },
+            "card": {
+                "red": 1.0,
+                "green": 1.0,
+                "blue": 1.0
+            },
+            "card-foreground": {
+                "red": 0.043,
+                "green": 0.082,
+                "blue": 0.153
+            },
+            "popover": {
+                "red": 1.0,
+                "green": 1.0,
+                "blue": 1.0
+            },
+            "popover-foreground": {
+                "red": 0.043,
+                "green": 0.082,
+                "blue": 0.153
+            },
+            "primary": {
+                "red": 0.141,
+                "green": 0.388,
+                "blue": 0.922
+            },
+            "primary-foreground": {
+                "red": 0.969,
+                "green": 0.98,
+                "blue": 0.988
+            },
+            "secondary": {
+                "red": 0.941,
+                "green": 0.961,
+                "blue": 0.976
+            },
+            "secondary-foreground": {
+                "red": 0.063,
+                "green": 0.09,
+                "blue": 0.165
+            },
+            "muted": {
+                "red": 0.941,
+                "green": 0.961,
+                "blue": 0.976
+            },
+            "muted-foreground": {
+                "red": 0.471,
+                "green": 0.53,
+                "blue": 0.608
+            },
+            "accent": {
+                "red": 0.941,
+                "green": 0.961,
+                "blue": 0.976
+            },
+            "accent-foreground": {
+                "red": 0.063,
+                "green": 0.09,
+                "blue": 0.165
+            },
+            "destructive": {
+                "red": 0.937,
+                "green": 0.267,
+                "blue": 0.267
+            },
+            "destructive-foreground": {
+                "red": 0.969,
+                "green": 0.98,
+                "blue": 0.988
+            },
+            "border": {
+                "red": 0.902,
+                "green": 0.922,
+                "blue": 0.941
+            },
+            "input": {
+                "red": 0.902,
+                "green": 0.922,
+                "blue": 0.941
+            },
+            "ring": {
+                "red": 0.141,
+                "green": 0.388,
+                "blue": 0.922
+            },
+            "brand": {
+                "red": 0.043,
+                "green": 0.647,
+                "blue": 0.914
+            },
+            "general-link-color": {
+                "red": 0.145,
+                "green": 0.39,
+                "blue": 0.922
+            }
+        },
+        "dark": {
+            "background": {
+                "red": 0.043,
+                "green": 0.082,
+                "blue": 0.153
+            },
+            "foreground": {
+                "red": 0.969,
+                "green": 0.98,
+                "blue": 0.988
+            },
+            "card": {
+                "red": 0.043,
+                "green": 0.082,
+                "blue": 0.153
+            },
+            "card-foreground": {
+                "red": 0.969,
+                "green": 0.98,
+                "blue": 0.988
+            },
+            "popover": {
+                "red": 0.043,
+                "green": 0.082,
+                "blue": 0.153
+            },
+            "popover-foreground": {
+                "red": 0.969,
+                "green": 0.98,
+                "blue": 0.988
+            },
+            "primary": {
+                "red": 0.231,
+                "green": 0.506,
+                "blue": 0.965
+            },
+            "primary-foreground": {
+                "red": 0.063,
+                "green": 0.09,
+                "blue": 0.165
+            },
+            "secondary": {
+                "red": 0.153,
+                "green": 0.22,
+                "blue": 0.286
+            },
+            "secondary-foreground": {
+                "red": 0.969,
+                "green": 0.98,
+                "blue": 0.988
+            },
+            "muted": {
+                "red": 0.153,
+                "green": 0.22,
+                "blue": 0.286
+            },
+            "muted-foreground": {
+                "red": 0.616,
+                "green": 0.655,
+                "blue": 0.698
+            },
+            "accent": {
+                "red": 0.153,
+                "green": 0.22,
+                "blue": 0.286
+            },
+            "accent-foreground": {
+                "red": 0.969,
+                "green": 0.98,
+                "blue": 0.988
+            },
+            "destructive": {
+                "red": 0.498,
+                "green": 0.114,
+                "blue": 0.114
+            },
+            "destructive-foreground": {
+                "red": 0.969,
+                "green": 0.98,
+                "blue": 0.988
+            },
+            "border": {
+                "red": 0.153,
+                "green": 0.22,
+                "blue": 0.286
+            },
+            "input": {
+                "red": 0.153,
+                "green": 0.22,
+                "blue": 0.286
+            },
+            "ring": {
+                "red": 0.125,
+                "green": 0.424,
+                "blue": 0.922
+            },
+            "general-link-color": {
+                "red": 0.118,
+                "green": 0.565,
+                "blue": 1.0
+            }
+        }
+    }
+}

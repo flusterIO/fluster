@@ -1,0 +1,38 @@
+import SwiftUI 
+
+// -- Dark Themes --
+
+{{range .}}
+struct {{.Name}}Dark: ThemeProtocol {
+{{range .DarkColors}}    var {{.Name}}: Color { return Color(red: {{.Red}}, green: {{.Green}}, blue: {{.Blue}}) }
+{{end}}
+} 
+{{end}}
+
+
+// -- Light Themes --
+
+{{range .}}
+struct {{.Name}}Light: ThemeProtocol {
+{{range .LightColors}}    var {{.Name}}: Color { return Color(red: {{.Red}}, green: {{.Green}}, blue: {{.Blue}}) }
+{{end}}
+} 
+{{end}}
+
+
+enum ThemeNames {
+{{range .}}    case {{.Name}}
+{{end}}
+}
+
+func getTheme(themeName: ThemeNames, darkMode: Bool) -> ThemeProtocol {
+    switch themeName {
+    {{range .}}case .{{.Name}}:
+        if darkMode {
+            return {{.Name}}Dark()
+        } else {
+            return {{.Name}}Light()
+        }
+    {{end}}
+    }
+}

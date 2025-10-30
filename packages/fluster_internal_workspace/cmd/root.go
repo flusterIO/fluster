@@ -38,7 +38,6 @@ var rootCmd = &cobra.Command{
 }
 
 func init() {
-	rootCmd.AddCommand(generateGrpcBuildScriptCmd)
 	rootCmd.AddCommand(setDistributedVersionCmd)
 	rootCmd.AddCommand(createCleanFeatureCmd)
 	rootCmd.AddCommand(noCheckBindingsFileCmd)
