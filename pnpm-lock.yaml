@@ -714,6 +714,9 @@ importers:
       react-hook-form:
         specifier: ^7.56.3
         version: 7.56.3(react@19.1.0)
+      react-pdf:
+        specifier: ^9.2.1
+        version: 9.2.1(@types/react@19.1.5)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       react-redux:
         specifier: 9.2.0
         version: 9.2.0(@types/react@19.1.5)(react@19.1.0)(redux@5.0.1)
@@ -26034,7 +26037,7 @@ snapshots:
       lodash.isstring: 4.0.1
       lodash.once: 4.1.1
       ms: 2.1.3
-      semver: 7.7.2
+      semver: 7.7.3
 
   jsx-ast-utils@3.3.5:
     dependencies:
@@ -29495,8 +29498,7 @@ snapshots:
 
   semver@7.7.2: {}
 
-  semver@7.7.3:
-    optional: true
+  semver@7.7.3: {}
 
   serialize-error@8.1.0:
     dependencies:
