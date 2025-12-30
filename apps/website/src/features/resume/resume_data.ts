@@ -50,7 +50,7 @@ export type ResumeDataInput = z.input<typeof resumeDataSchema>;
 
 const resumeData: ResumeDataInput = {
     intro:
-        "I've worked with typescript, React and Node for more than a decade, and have experience with Python, Go and Rust as well. I feel like I perform best when I’m challenged, and I hope to find that in my next job. I majored in Physics at the University of Wisconsin-Milwaukee, and in February of 2022 I decided to take time away from my freelance work to write a paper regarding relativity and gravity. The results of the paper that I've spent the past 3+ years working on has turned out to be more physically consistent than I had even hoped, producing at least 2 distinct, observable quantities that are unaccounted for by existing models of relativity. With this chapter now behind me, I'm looking forward to returning to full time work.",
+        "I've worked with typescript, React and Node for more than a decade, and have experience with Python, Go and Rust as well. I feel like I perform best when I’m challenged, and I hope to find that in my next job. I majored in Physics at the University of Wisconsin-Milwaukee, and in February of 2022 I decided to take time away from my freelance work to write a paper regarding relativity and gravity. The results of the paper that I've spent the past 3+ years working on has turned out to be more physically consistent than I had even hoped, producing multiple distinct, observable quantities that are unaccounted for by existing models of relativity. With this chapter now behind me, I'm looking forward to returning to full time work.",
     skills: {
         "Frameworks, APIs and Libraries": {
             React: 10,
@@ -68,13 +68,14 @@ const resumeData: ResumeDataInput = {
         },
         Languages: {
             Typescript: 10,
-            Python: 9.5,
-            "Bash/Zsh": 8,
             "Css & Sass": 10,
+            Python: 9.5,
+            Rust: 9,
             Golang: 8,
-            Swift: 6,
+            Swift: 8,
             Lua: 8,
-            Rust: 8,
+            "Bash/Zsh": 8,
+            Dart: 6.5,
         },
         "Other Tools": [
             "Git",
@@ -108,11 +109,10 @@ const resumeData: ResumeDataInput = {
     ],
     workHistory: [
         {
-            title: "Full-time freelance developer",
-            desc: "After building a strong enough reputation, and feeling confident enough in my own abilities I took the leap and decided to work as a full-time freelance developer.",
-            location: "Milwaukee & Remote",
-            start: new Date("07/1/2015"),
-            end: new Date("01/01/2019"),
+            title: "Aspiring astrophysicist",
+            desc: "While working as a freelancer, I would spend most of my free time between projects reading the latest cosmology research. Having previously studied physics, not computer science, I was drawn towards these deep questions regarding the way the Universe truly works. After coming across an assumption that was made in the early days of relativity that I felt I might be able to demonstrate as false, I left paid software work and began to focus solely on formalizing this new relativistic geometry.",
+            location: "Remote",
+            start: new Date("03/01/2022"),
         },
         {
             title: "Direct Mail Inc.",
@@ -122,10 +122,11 @@ const resumeData: ResumeDataInput = {
             end: new Date("03/01/2022"),
         },
         {
-            title: "Aspiring astrophysicist",
-            desc: "While working as a freelancer, I would spend most of my free time between projects reading the latest cosmology research. Having previously studied physics, not computer science, I was drawn towards these deep questions regarding the way the Universe truly works. After coming across an assumption that was made in the early days of relativity that I felt I might be able to demonstrate as false, I left paid software work and began to focus solely on formalizing this new relativistic geometry.",
-            location: "Remote",
-            start: new Date("02/01/2022"),
+            title: "Full-time freelance developer",
+            desc: "After building a strong enough reputation, and feeling confident enough in my own abilities I took the leap and decided to work as a full-time freelance developer.",
+            location: "Milwaukee & Remote",
+            start: new Date("07/1/2015"),
+            end: new Date("01/01/2019"),
         },
     ],
 };
