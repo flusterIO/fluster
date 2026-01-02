@@ -39,6 +39,7 @@ export const PdfComponentWrapped = (
     if (width < 0) {
         return;
     }
+
     return (
         <Document
             /* className="w-[calc(100%-4rem)]" */
