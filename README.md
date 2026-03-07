@@ -11,7 +11,7 @@ Checkout our website [here](https://flusterapp.com).
 Or check out the current feature list [here](https://github.com/flusterIO)
 
 #### I'm Sorry
-If you're interested in an unfortunately paid mdx application for Mac and Apple, follow the other [repository](https://github.com/flusterIO/fluster-ipad). I'm sorry for giving up on open source software, but I'm still in a homeless shelter, and the donation route isn't even paying enough to get an Apple developer license at $100/year.
+If you're interested in an unfortunately paid mdx application for Mac and Apple, follow the other [repository](https://github.com/flusterIO/fluster-ipad). The app is far, far more capable than the current state of Fluster, with complete intellisense, autocomplete, in-content docs similar to Jupyter, and a whole lot more. I'm sorry for giving up on open source software, but I'm still in a homeless shelter, and the donation route isn't even paying enough to get an Apple developer license at $100/year.
 
 ## For Linux Users
 
