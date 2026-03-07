@@ -1,6 +1,6 @@
 # Fluster
 
-> This project is currently undergoing a rewrite in Swift for all of the MacOS and iOS applications. As soon as I get a job and can afford an Apple developer license I'll be able to release an application for both platforms with support for first-party Apple features like that sweet, sweet Apple pencil and PencilKit.
+> This project is currently undergoing a rewrite in Swift for all of the MacOS and iOS applications. As soon as I get a job and can afford an Apple developer license I'll be able to release an application for both platforms with support for first-party Apple features like that sweet, sweet Apple pencil and PencilKit. If you're interested in an unfortunately paid mdx application for Mac and Apple, follow the other [repository](https://github.com/flusterIO/fluster-ipad). I'm sorry for giving up on open source software, but I'm still in a homeless shelter, and the donation route isn't even paying enough to get an Apple developer license at $100/year.
 
 ![Fluster screenshot](apps/website/public/assets/logo/fluster_banner_with_name.png)
 
